@@ -1,0 +1,34 @@
+import { Model } from 'sequelize-typescript';
+import { Cart } from '../cart/models/cart.model';
+import { Order } from '../orders/models/order.model';
+import { Category } from '../categories/models/category.model';
+import { ProductCreationAttrs } from '../core/interfaces/product.interfaces';
+import { Owner } from '../owner/models/owner.model';
+import { Admin } from 'src/admin/models/admin.model';
+export declare class Product extends Model<Product, ProductCreationAttrs> {
+    id: number;
+    title: string;
+    description: string;
+    price: number;
+    images: string[];
+    sizeChartImage: string;
+    sizes: string[];
+    colours: string[];
+    quantity: number;
+    private adminId;
+    private ownerId;
+    owner: Owner;
+    admin: Admin;
+    categories: Category[];
+    private carts;
+    private orders;
+    getCategories(): Category[];
+    setCategories(categories: Category[]): Category[];
+    getCarts(): Cart[];
+    getAuthor(): Owner;
+    getOwnerId(): number;
+    setOwnerId(ownerId: number): number;
+    getAdminId(): number;
+    setAdminId(adminId: number): number;
+    getOrders(): Order[];
+}

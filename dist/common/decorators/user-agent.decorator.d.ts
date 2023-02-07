@@ -1,0 +1,1 @@
+export declare const UserAgent: (...dataOrPipes: (import("@nestjs/common").PipeTransform<any, any> | import("@nestjs/common").Type<import("@nestjs/common").PipeTransform<any, any>> | "USER-AGENT")[]) => ParameterDecorator;
