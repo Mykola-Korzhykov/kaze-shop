@@ -31,7 +31,6 @@ async function startServer(): Promise<INestApplication> {
     new ApiErrorExceptionFilter(),
     new ApiExceptionFilter(),
   );
-  app.setGlobalPrefix('kaze_shop');
   app.set('trust proxy', true);
   app.use(helmet());
   app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
