@@ -1,2 +1,2 @@
-# Kaze Shop | Front-End (Next JS)
-Front-End part of web app Kaze Shop.
+# Kaze Shop | Back-End (Nest JS)
+Back-End part of web app Kaze Shop.
