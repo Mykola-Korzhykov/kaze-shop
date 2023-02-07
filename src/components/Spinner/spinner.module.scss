@@ -1,0 +1,58 @@
+.body {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  background-color: #151719;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  z-index: 1000000000;
+  position: fixed;
+  overflow: hidden;
+  width: 100vw;
+}
+.waviy {
+  position: relative;
+  -webkit-box-reflect: below -20px linear-gradient(transparent, rgba(0, 0, 0, 0.2));
+  font-size: 60px;
+  text-align: center;
+  @media (max-width: 450px) {
+    font-size: 30px;
+  }
+}
+.waviy span {
+  font-family: "Russo One", sans-serif;
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  margin-right: 10px;
+  text-transform: uppercase;
+  animation: waviy 1s infinite;
+  &:nth-of-type(4) {
+    padding-right: 15px;
+  }
+  @for $i from 1 through 8 {
+    &:nth-child(#{$i}n) {
+      animation-delay: calc(0.1s * #{$i});
+    }
+  }
+}
+@keyframes waviy {
+  0%,
+  40%,
+  100% {
+    transform: translateY(0);
+  }
+  20% {
+    transform: translateY(-20px);
+  }
+}
+
+.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: visible;
+  transition: all 0.2s ease;
+}

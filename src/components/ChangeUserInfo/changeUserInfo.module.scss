@@ -1,0 +1,32 @@
+.changeInfo {
+	&_body {
+		display: flex;
+		flex-direction: column;
+	}
+	&_form {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 20px;
+	}
+	&_btn {
+		padding: 16px 24px;
+		width: 390px;
+		height: 56px;
+		font-family: 'Georama', sans-serif;
+		font-style: normal;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 24px;
+		color: #ffffff;
+		background: #0b0b0b;
+	}
+	&_field {
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 33.3%;
+		gap: 10px;
+		&:nth-child(5) {
+			flex-basis: 50%;
+		}
+	}
+}
