@@ -1,0 +1,110 @@
+server {
+    listen ${NGINX_PORT};
+    server_name _;
+    charset utf-8;
+    client_max_body_size 50M;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Host $server_name;
+    server_tokens off;
+    proxy_hide_header X-powered-by;
+    proxy_hide_header X-Runtime;
+    add_header X-XSS-Protection "1; mode=block";
+    add_header X-Frame-Options "deny";
+    add_header X-Content-Type-Options "nosniff";
+    location /pgadmin {
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Script-Name /pgadmin;
+        proxy_redirect off;
+        proxy_read_timeout 500;
+        proxy_connect_timeout 500;
+        proxy_send_timeout 500; 
+        # proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://pgadmin;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_next_upstream error timeout http_502 http_503 http_504;
+        add_header Strict-Transport-Security "max-age=15768000; includeSubDomains; preload" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header X-XSS-Protection "1; mode=block" always;
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Download-Options "noopen" always;
+        add_header X-Permitted-Cross-Domain-Policies "none" always;
+        
+        gzip on;
+        gzip_vary on;
+        gzip_proxied any;
+        gzip_comp_level 6;
+        gzip_types text/css text/javascript text/xml text/plain text/x-component application/javascript application/json application/xml application/rss+xml font/truetype font/opentype application/vnd.ms-fontobject image/svg+xml;
+
+        expires 1209600s;
+        if ($request_method !~ ^(GET|HEAD|POST)$ ) {
+            return 444;
+        }
+        if ($http_user_agent ~* LWP::Simple|BBBike|wget) {
+            return 403;
+        }
+        if ($http_user_agent ~* msnbot|scrapbot) {
+            return 403;
+        }
+        if ( $http_referer ~* (babes|forsale|girl|jewelry|love|nudit|organic|poker|porn|sex|teen) ){
+            return 403;
+        }
+    }
+    location / {
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Scheme $scheme;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://server:${PORT};
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_next_upstream error timeout http_502 http_503 http_504;
+        add_header Strict-Transport-Security "max-age=15768000; includeSubDomains; preload" always;
+        add_header X-Content-Type-Options "nosniff" always;
+        add_header X-XSS-Protection "1; mode=block" always;
+        add_header X-Frame-Options "SAMEORIGIN" always;
+        add_header X-Download-Options "noopen" always;
+        add_header X-Permitted-Cross-Domain-Policies "none" always;
+        add_header Content-Security-Policy "default-src https: data: wss: 'unsafe-inline' 'unsafe-eval'; base-uri 'self';" always;
+        proxy_read_timeout 500;
+        proxy_connect_timeout 500;
+        proxy_send_timeout 500; 
+        gzip on;
+        gzip_vary on;
+        gzip_proxied any;
+        gzip_comp_level 6;
+        gzip_types text/css text/javascript text/xml text/plain text/x-component application/javascript application/json application/xml application/rss+xml font/truetype font/opentype application/vnd.ms-fontobject image/svg+xml;
+
+        expires 1209600s;
+        if ($request_method !~ ^(GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS)$ ) {
+            return 444;
+        }
+        if ($http_user_agent ~* LWP::Simple|BBBike|wget) {
+            return 403;
+        }
+        if ($http_user_agent ~* msnbot|scrapbot) {
+            return 403;
+        }
+    }
+    #location /static/ {
+         #valid_referers none blocked www.example.com example.com;
+        #if ($invalid_referer) {
+        #    return   403;
+       # }
+    #}
+    location ~ /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+}
