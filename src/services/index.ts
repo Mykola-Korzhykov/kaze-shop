@@ -7,7 +7,7 @@ import { setCookie } from 'nookies'
 export type ApiReturnType = {
 	user: ReturnType<typeof UserApi>
 }
-export const API_URL = 'https://kaze-shop-production.up.railway.app'
+export const API_URL = 'https://api.kaze-shop.online'
 
 export const Api = (
 	ctx?: NextPageContext | GetServerSidePropsContext
