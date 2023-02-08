@@ -84,7 +84,7 @@ export class AuthService {
       await this.activateUser(user, response);
       response.cookie('refreshToken', tokens.refreshToken, {
         maxAge: Number(tokens.expireDate),
-        path: '/',,
+        path: '/',
         httpOnly: true,
         expires: tokens.expireDate,
         domain: process.env.CLIENT_DOMAIN.toString().trim(),
