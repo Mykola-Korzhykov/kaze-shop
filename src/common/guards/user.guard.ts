@@ -38,6 +38,7 @@ export class UserGuard implements CanActivate {
         const req = context.switchToHttp().getRequest();
         const accessToken = req?.cookies['accessToken'];
         const refreshToken = req?.cookies['refreshToken'];
+        console.log(accessToken, refreshToken);
         if (!refreshToken) {
           throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request!', REFRESH_TOKEN_NOT_PROVIDED);
         }
