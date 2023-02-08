@@ -31,9 +31,9 @@ export class RolesGuard implements CanActivate {
           return true;
         }
         const req = context.switchToHttp().getRequest();
-        const authHeader = req.headers.authorization;
-        const bearer = authHeader.split(' ')[0];
-        const token = authHeader.split(' ')[1];
+        const authHeader = req.headers.authorization.toString();
+        const bearer = authHeader.split(' ')[0].trim();
+        const token = authHeader.split(' ')[1].trim();
         if (bearer !== 'Bearer' || !token) {
           throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
         }
