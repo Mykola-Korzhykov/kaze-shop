@@ -121,6 +121,7 @@ export class AuthService {
         domain: process.env.CLIENT_DOMAIN.toString().trim(),
         secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'lax',
+        
       });
       return response.json({ ...this.setResponse(tokens, user) });
     } catch (error: unknown) {
