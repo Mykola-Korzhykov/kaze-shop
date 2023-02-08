@@ -89,7 +89,7 @@ export class AuthService {
         expires: tokens.expireDate,
         domain: process.env.CLIENT_DOMAIN.toString().trim(),
         secure: process.env.NODE_ENV === 'production' ? true : false,
-        sameSite: 'none',
+        sameSite: 'lax',
       });
       return response.json({ ...this.setResponse(tokens, user) });
     } catch (error: unknown) {
@@ -120,7 +120,7 @@ export class AuthService {
         expires: tokens.expireDate,
         domain: process.env.CLIENT_DOMAIN.toString().trim(),
         secure: process.env.NODE_ENV === 'production' ? true : false,
-        sameSite: 'none',
+        sameSite: 'lax',
       });
       return response.json({ ...this.setResponse(tokens, user) });
     } catch (error: unknown) {
@@ -192,7 +192,7 @@ export class AuthService {
         expires: tokens.expireDate,
         domain: process.env.CLIENT_DOMAIN.toString().trim(),
         secure: process.env.NODE_ENV === 'production' ? true : false,
-        sameSite: 'none',
+        sameSite: 'lax',
       });
       return response.json({ ...this.setResponse(tokens, user) });
     } catch (error: unknown) {
@@ -229,7 +229,7 @@ export class AuthService {
         httpOnly: true,
         domain: process.env.CLIENT_DOMAIN.toString().trim(),
         secure: process.env.NODE_ENV === 'production' ? true : false,
-        sameSite: 'none',
+        sameSite: 'lax',
       });
       return response.json({ ...this.setResponse(tokens, user) });
     } catch (error: unknown) {
@@ -566,7 +566,7 @@ export class AuthService {
         httpOnly: true,
         domain: process.env.CLIENT_DOMAIN.toString().trim(),
         secure: process.env.NODE_ENV === 'production' ? true : false,
-        sameSite: 'none',
+        sameSite: 'lax',
       });
     }
     if (user instanceof Admin) {
@@ -578,7 +578,7 @@ export class AuthService {
         httpOnly: true,
         domain: process.env.CLIENT_DOMAIN.toString().trim(),
         secure: process.env.NODE_ENV === 'production' ? true : false,
-        sameSite: 'none',
+        sameSite: 'lax',
       });
     }
     if (user instanceof Owner && !user.getIsActivated()) {
