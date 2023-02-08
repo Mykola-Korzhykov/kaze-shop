@@ -84,12 +84,12 @@ export class AuthService {
       await this.activateUser(user, response);
       response.cookie('refreshToken', tokens.refreshToken, {
         maxAge: Number(tokens.expireDate),
-        path: request.path,
+        path: '/',,
         httpOnly: true,
         expires: tokens.expireDate,
         domain: process.env.CLIENT_DOMAIN.toString().trim(),
         secure: process.env.NODE_ENV === 'production' ? true : false,
-        sameSite: 'lax',
+        sameSite: 'strict',
       });
       return response.json({ ...this.setResponse(tokens, user) });
     } catch (error: unknown) {
@@ -115,13 +115,12 @@ export class AuthService {
       await this.activateUser(user, response);
       response.cookie('refreshToken', tokens.refreshToken, {
         maxAge: Number(tokens.expireDate),
-        path: request.path,
+        path: '/',
         httpOnly: true,
         expires: tokens.expireDate,
         domain: process.env.CLIENT_DOMAIN.toString().trim(),
         secure: process.env.NODE_ENV === 'production' ? true : false,
-        sameSite: 'lax',
-        
+        sameSite: 'strict',
       });
       return response.json({ ...this.setResponse(tokens, user) });
     } catch (error: unknown) {
@@ -188,12 +187,12 @@ export class AuthService {
       const tokens = await this.generateTokens(user, userAgent, false);
       response.cookie('refreshToken', tokens.refreshToken, {
         maxAge: Number(tokens.expireDate),
-        path: request.path,
+        path: '/',
         httpOnly: true,
         expires: tokens.expireDate,
         domain: process.env.CLIENT_DOMAIN.toString().trim(),
         secure: process.env.NODE_ENV === 'production' ? true : false,
-        sameSite: 'lax',
+        sameSite: 'strict',
       });
       return response.json({ ...this.setResponse(tokens, user) });
     } catch (error: unknown) {
@@ -228,9 +227,10 @@ export class AuthService {
         maxAge: Number(tokens.expireDate),
         expires: tokens.expireDate,
         httpOnly: true,
+        path: '/',
         domain: process.env.CLIENT_DOMAIN.toString().trim(),
         secure: process.env.NODE_ENV === 'production' ? true : false,
-        sameSite: 'lax',
+        sameSite: 'strict',
       });
       return response.json({ ...this.setResponse(tokens, user) });
     } catch (error: unknown) {
@@ -565,6 +565,7 @@ export class AuthService {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         signed: true,
         httpOnly: true,
+        path: '/',
         domain: process.env.CLIENT_DOMAIN.toString().trim(),
         secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'lax',
@@ -577,6 +578,7 @@ export class AuthService {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         signed: true,
         httpOnly: true,
+        path: '/',
         domain: process.env.CLIENT_DOMAIN.toString().trim(),
         secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'lax',
