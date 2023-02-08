@@ -45,20 +45,20 @@ export class UserGuard implements CanActivate {
         const decodedRefreshToken = Buffer.from(refreshToken, 'base64').toString(
           'ascii',
         );
-        if (process.env.NODE_ENV === 'production') {
-          const decodedAccessToken = Buffer.from(accessToken, 'base64').toString('ascii');
-          const accessPayload = await this.authService.validateAccessToken(
-            decodedAccessToken,
-          );
-          if (
-            !accessPayload.roles.some(
-              (role: { value: string; description: string }) =>
-                requiredRoles.includes(role.value),
-            )
-          ) {
-            throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
-          }
-        }
+//         if (process.env.NODE_ENV === 'production') {
+//           const decodedAccessToken = Buffer.from(accessToken, 'base64').toString('ascii');
+//           const accessPayload = await this.authService.validateAccessToken(
+//             decodedAccessToken,
+//           );
+//           if (
+//             !accessPayload.roles.some(
+//               (role: { value: string; description: string }) =>
+//                 requiredRoles.includes(role.value),
+//             )
+//           ) {
+//             throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
+//           }
+//         }
         const userRefreshToken = await this.userJwtRefreshTokenService.findToken(
           decodedRefreshToken,
       );
