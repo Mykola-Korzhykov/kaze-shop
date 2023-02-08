@@ -8,35 +8,40 @@
 		// 	width: 100%;
 		// }
 	}
+
 	&_borderBottom {
 		@media (max-width: 900px) {
 			border-bottom: 1.5px solid #9d9d9d !important;
 		}
 	}
+
 	&_borderBottom2 {
 		border-bottom: 1.5px solid #9d9d9d !important;
 	}
+
 	&_tab {
 		display: flex;
 		position: relative;
 	}
+
 	&_tab_active {
 		// position: relative;
 		flex-direction: column;
 	}
+
 	&_tabcontent {
 		position: absolute;
-		left: 105%;
+		left: calc(105% + 25px);
 		top: 0;
 		flex-wrap: wrap;
 		display: flex;
-		width: 48vw;
-		gap: 20px;
-		@media (max-width: 1650px) {
-			width: 60vw;
-		}
-		@media (max-width: 1100px) {
-			width: 62vw;
+		width: 765px;
+		row-gap: 10px;
+		/* gap: 20px; */
+		column-gap: 30px;
+
+		@media (max-width: 1200px) {
+			width: 400px;
 		}
 
 		@media (max-width: 900px) {
@@ -45,6 +50,7 @@
 			margin-top: 20px;
 		}
 	}
+
 	&_tablink {
 		position: relative;
 		color: #9d9d9d;
@@ -63,6 +69,7 @@
 		transition: 0.4s linear background-color;
 		cursor: pointer;
 		width: 100%;
+
 		&:hover {
 			background: #0b0b0b;
 			color: #fff;
@@ -85,6 +92,7 @@
 		background: #0b0b0b;
 		color: #fff;
 	}
+
 	&_btn {
 		display: inline-block;
 		background: #0b0b0b;
@@ -106,22 +114,27 @@
 			max-width: 100%;
 		}
 	}
+
 	&_field {
 		display: flex;
 		flex-direction: column;
 		width: 100%;
 		gap: 10px;
 		flex: 1 1 33.3%;
+
 		&:nth-child(5) {
 			flex: 1 1 100%;
 		}
+
 		@media (max-width: 900px) {
 			flex: 1 1 70%;
+
 			&:nth-child(5) {
 				flex: 1 1 70%;
 			}
 		}
 	}
+
 	&_icon {
 		display: inline-block;
 		width: 24px;
@@ -135,45 +148,58 @@
 		&_pencil {
 			background-image: url('../assets/icons/cabinetTabs/NotePencil.svg');
 		}
+
 		&_change {
 			background-image: url('../assets/icons/cabinetTabs/LockKey.svg');
 		}
+
 		&_history {
 			background-image: url('../assets/icons/cabinetTabs/Receipt.svg');
 		}
+
 		&_bookmarks {
 			background-image: url('../assets/icons/cabinetTabs/BookmarkSimple.svg');
 		}
+
 		&_baskets {
 			background-image: url('../assets/icons/cabinetTabs/ShoppingCart.svg');
 		}
+
 		&_eye {
 			background-image: url('../assets/icons/cabinetTabs/Eye.svg');
 		}
+
 		&_logout {
 			background-image: url('../assets/icons/cabinetTabs/UploadSimple.svg');
 		}
 	}
+
 	// ICONS ON HOVER
 
 	&_tablink:hover &_icon_pencil {
 		background-image: url('../assets/icons/cabinetTabs/whiteIcons/NotePencil.svg');
 	}
+
 	&_tablink:hover &_icon_change {
 		background-image: url('../assets/icons/cabinetTabs/whiteIcons/LockKey.svg');
 	}
+
 	&_tablink:hover &_icon_history {
 		background-image: url('../assets/icons/cabinetTabs/whiteIcons/Receipt.svg');
 	}
+
 	&_tablink:hover &_icon_baskets {
 		background-image: url('../assets/icons/cabinetTabs/whiteIcons/ShoppingCart.svg');
 	}
+
 	&_tablink:hover &_icon_eye {
 		background-image: url('../assets/icons/cabinetTabs/whiteIcons/Eye.svg');
 	}
+
 	&_tablink:hover &_icon_logout {
 		background-image: url('../assets/icons/cabinetTabs/whiteIcons/UploadSimple.svg');
 	}
+
 	&_tablink:hover &_icon_bookmarks {
 		background-image: url('../assets/icons/cabinetTabs/whiteIcons/BookmarkSimple.svg');
 	}
