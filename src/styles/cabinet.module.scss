@@ -4,9 +4,13 @@
 		display: flex;
 		flex-direction: column;
 		position: relative;
+
 		// @media (max-width: 700px) {
 		// 	width: 100%;
 		// }
+		@media (max-width: 900px) {
+			float: inherit;
+		}
 	}
 
 	&_borderBottom {
@@ -41,12 +45,17 @@
 		column-gap: 30px;
 
 		@media (max-width: 1200px) {
+			width: 600px;
+		}
+
+		@media (max-width: 1000px) {
 			width: 400px;
+			flex-direction: column;
 		}
 
 		@media (max-width: 900px) {
 			position: static;
-			width: 95vw;
+			width: 100%;
 			margin-top: 20px;
 		}
 	}
@@ -69,6 +78,17 @@
 		transition: 0.4s linear background-color;
 		cursor: pointer;
 		width: 100%;
+
+		@media (max-width: 900px) {
+			font-size: 20px;
+			line-height: 24px;
+
+		}
+
+		@media (max-width: 500px) {
+			font-size: 16px;
+			line-height: 22px;
+		}
 
 		&:hover {
 			background: #0b0b0b;
@@ -106,7 +126,7 @@
 		color: #ffffff;
 		padding: 16px 0;
 		border: none;
-		margin-top: -10px;
+		margin-top: 24px;
 
 		@media (max-width: 900px) {
 			margin-bottom: 20px;
