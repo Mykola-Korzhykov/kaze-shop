@@ -26,6 +26,7 @@ export class JwtAuthGuard implements CanActivate {
       }
       const bearer = authHeader.split(' ')[0];
       const accessToken = authHeader.split(' ')[1];
+      console.log(authHeader);
       if (bearer !== 'Bearer' || !accessToken) {
         throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
       }
