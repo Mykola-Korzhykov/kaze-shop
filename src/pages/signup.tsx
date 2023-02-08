@@ -19,6 +19,7 @@ import { addUserInfo } from '@/redux/slices/user'
 import SpinnerLayout from '@/layouts/SpinnerLayout'
 import { NextPage } from 'next'
 import CheckBox from '@/components/UI/CheckBox'
+import MetaHead from '@/components/MetaHead'
 
 const Signup:NextPage = () => {
 	const router = useRouter()
@@ -110,6 +111,7 @@ const Signup:NextPage = () => {
 
 	return (
 		<SpinnerLayout>
+			<MetaHead pageTitle="Sign Up" title="Sign Up" description="Sign Up - page" preview="https://kaze-shop.online/previews/signup-preview.png" />
 			<main className='content'>
 				<div className='container'>
 					<div className='page_coordinator' ref={coordRef}>

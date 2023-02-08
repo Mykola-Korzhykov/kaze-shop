@@ -7,9 +7,14 @@ import { Api } from '@/services'
 import { Suspense } from 'react'
 import { addUserInfo } from '@/redux/slices/user'
 import Spinner from '@/components/Spinner/Spinner'
+
+import { DefaultSeo } from 'next-seo';
+import SEO from '../../next-seo.config';
+
 function App({ Component, pageProps }: AppProps) {
 	return (
 		<Suspense fallback={<Spinner />}>
+			<DefaultSeo {...SEO} />
 			<Layout>
 				<Component {...pageProps} />
 			</Layout>

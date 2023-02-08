@@ -53,7 +53,7 @@ const ChangeUserPassword = () => {
 		<FormProvider {...changeUserPasswordForm}>
 			<form
 				onSubmit={changeUserPasswordForm.handleSubmit(onSubmit)}
-				className={cl.cabinet_tabcontent}
+				className={cl.cabinet_tabcontent + ' ' + cl.form}
 			>
 				{/* <div className={cl.cabinet_field}>
 					<label className='auth_label' htmlFor='email'>
@@ -85,6 +85,7 @@ const ChangeUserPassword = () => {
 					label='Введите пароль'
 					placeholder='Введите пароль'
 					isPassword={true}
+					className="margin-10"
 				/>
 				<div className={cl.cabinet_field}>
 					<label className='auth_label' htmlFor='email'>

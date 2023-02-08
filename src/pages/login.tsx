@@ -6,9 +6,11 @@ import Image from 'next/image'
 import AuthImg from '../assets/images/auth_photo.png'
 import SpinnerLayout from '@/layouts/SpinnerLayout'
 import { NextPage } from 'next'
+import MetaHead from '@/components/MetaHead'
 const Login: NextPage = () => {
 	return (
 		<SpinnerLayout>
+			<MetaHead pageTitle="Login" title="Login" description="Login - page" preview="https://kaze-shop.online/previews/login-preview.png" />
 			<main className='content'>
 				<div className='container'>
 					<div className='page_coordinator'>

@@ -36,7 +36,7 @@ const FormField: FC<FormFieldProps> = ({
 	}
 	return (
 		<>
-			<div className='auth_field'>
+			<div className={`auth_field ${className ? className : ''}`}>
 				<label className='auth_label' htmlFor={name}>
 					{label}
 				</label>

@@ -198,6 +198,11 @@
       line-height: 22px;
       color: #0b0b0b;
       transition: all 0.2s ease;
+
+      &:hover {
+        opacity: 0.7;
+        transition: all 0.2s ease;
+      }
     }
 
     @media (max-width: 428px) {
@@ -247,30 +252,6 @@
     font-size: 20px;
     transition: all 0.2s ease;
 
-    &:after {
-      transition: all 0.2s ease;
-      opacity: 0;
-      pointer-events: none;
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: inherit;
-    }
-
-    &:hover {
-      transition: all 0.2s ease;
-
-      &:after {
-        transition: all 0.2s ease;
-        opacity: 1;
-        pointer-events: visible;
-        background: rgba(#fff, 0.2);
-      }
-    }
-
     &:disabled {
       opacity: 0.2;
 
@@ -287,7 +268,7 @@
   }
 
   &_error {
-    font-family: inherit;
+    font-family: 'Georama', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
@@ -505,6 +486,7 @@
   width: 50px !important;
   border-right: 2px solid #9d9d9d !important;
   background: none !important;
+  padding-left: 12px !important;
   transition: all 0.2s ease !important;
 }
 
@@ -662,4 +644,37 @@
 
 .privacy_checkbox {
   margin-top: 20px;
+}
+
+.margin-10 {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+button[type="submit"] {
+  position: relative;
+  
+  &:after {
+    transition: all 0.2s ease;
+    opacity: 0;
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+  }
+
+  &:hover {
+    transition: all 0.2s ease;
+
+    &:after {
+      transition: all 0.2s ease;
+      opacity: 1;
+      pointer-events: visible;
+      background: rgba(#fff, 0.2);
+    }
+  }
 }

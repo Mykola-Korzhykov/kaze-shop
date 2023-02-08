@@ -14,6 +14,7 @@ import { NotAuthorized } from '@/hoc/OnlyNotAuthorized'
 import { Api } from '@/services'
 import { useRouter } from 'next/router'
 import AuthImg from '../assets/images/auth_photo.png'
+import MetaHead from '@/components/MetaHead'
 const ForgotPassword:NextPage = () => {
 	const router = useRouter()
 	const [errorMessage, setErrorMessage] = useState<string>('')
@@ -78,6 +79,7 @@ const ForgotPassword:NextPage = () => {
 	}
 	return (
 		<SpinnerLayout>
+			<MetaHead pageTitle="Forgot" title="Forgot Password" description="Forgot Password - page" preview="https://kaze-shop.online/previews/forgot-preview.png" />
 			<main className='content'>
 				<div className='container'>
 					<div className='page_coordinator'>
