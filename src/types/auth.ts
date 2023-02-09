@@ -20,6 +20,7 @@ export type User = {
 	city?: string | null
 	postOffice?: string | null
 }
+
 export type Owner = {
 	id: number
 	name: string

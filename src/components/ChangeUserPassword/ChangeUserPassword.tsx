@@ -11,6 +11,7 @@ import hidenIcon from '../../assets/icons/close_eye.svg'
 import showIcon from '../../assets/icons/show_eye.svg'
 import FormField from '../UI/FormField'
 import { Api } from '@/services'
+
 const ChangeUserPassword = () => {
 	const router = useRouter()
 	const [passwordShown, setPasswordShown] = useState(false)

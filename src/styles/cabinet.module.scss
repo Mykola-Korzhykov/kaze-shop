@@ -9,6 +9,7 @@
 		// 	width: 100%;
 		// }
 		@media (max-width: 900px) {
+		
 			float: inherit;
 			row-gap: 30px;
 		}
@@ -79,6 +80,9 @@
 		transition: 0.4s linear background-color;
 		cursor: pointer;
 		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
 		@media (max-width: 900px) {
 			font-size: 20px;
@@ -158,16 +162,18 @@
 	}
 
 	&_icon {
+		margin-right: 8px;
 		display: inline-block;
 		width: 24px;
 		height: 24px;
 		background-size: cover;
-		position: absolute;
-		left: 7%;
-		top: 50%;
-		transform: translateY(-50%);
+		// position: absolute;
+		// left: 7%;
+		// top: 50%;
+		// transform: translateY(-50%);
 
 		&_pencil {
+			
 			background-image: url('../assets/icons/cabinetTabs/NotePencil.svg');
 		}
 
@@ -195,9 +201,13 @@
 			background-image: url('../assets/icons/cabinetTabs/UploadSimple.svg');
 		}
 
-		// @media(max-width: 900px) {
-		// 	left: 34%;
-		// }
+		//@media (max-width: 900px) {
+			//left: 35%;
+		//}
+
+
+
+
 	}
 
 	// ICONS ON HOVER

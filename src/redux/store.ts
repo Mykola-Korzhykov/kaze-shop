@@ -3,6 +3,7 @@ import { createWrapper } from 'next-redux-wrapper'
 import { ThunkAction, Action } from '@reduxjs/toolkit'
 import goods from './slices/goods'
 import user from './slices/user'
+
 export function makeStore() {
 	return configureStore({
 		reducer: {
