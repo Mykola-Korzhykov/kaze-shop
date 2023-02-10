@@ -88,7 +88,7 @@ const ChangeUserPassword = () => {
 					isPassword={true}
 					className="margin-10"
 				/>
-				<div className={cl.cabinet_field}>
+				<div className={`${cl.cabinet_field} ${cl.cabinet_field_two}`}>
 					<label className='auth_label' htmlFor='email'>
 						Повторите пароль
 					</label>

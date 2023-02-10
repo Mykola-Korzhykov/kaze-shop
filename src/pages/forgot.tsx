@@ -15,7 +15,7 @@ import { Api } from '@/services'
 import { useRouter } from 'next/router'
 import AuthImg from '../assets/images/auth_photo.png'
 import MetaHead from '@/components/MetaHead'
-const ForgotPassword:NextPage = () => {
+const ForgotPassword: NextPage = () => {
 	const router = useRouter()
 	const [errorMessage, setErrorMessage] = useState<string>('')
 	const [loginLoading, setLoginLoading] = useState<boolean>(false)
@@ -100,136 +100,137 @@ const ForgotPassword:NextPage = () => {
 						<div className='auth_form forgot_form'>
 							{!getCodeform ? (
 								<>
-								<form
-									onSubmit={getForgotPasswordCodeForm.handleSubmit(
-										onSubmitGetCode
-									)}
-								>
-									<div>
-									<h3 className='auth_title'>Забыли пароль</h3>
-									<div className='register_form'>
-										<div className='auth_field'>
-											<label className='auth_label' htmlFor='email'>
-												E-mail
-											</label>
-											<div className='auth_input'>
-												<input
-													placeholder='Введите e-mail'
-													type='text'
-													{...getForgotPasswordCodeForm.register('email')}
-												/>
-											</div>
-											<span className='auth_error'>
-												{getForgotPasswordCodeForm.formState.errors.email &&
-													getForgotPasswordCodeForm.formState.errors.email
-														.message}
-											</span>
-										</div>
-									</div>
-									{errorMessage && (
-										<span className='auth_error'>{errorMessage}</span>
-									)}
-									</div>
-									<button
-										className='auth_btn'
-										type='submit'
-										disabled={loginLoading}
+									<form
+										onSubmit={getForgotPasswordCodeForm.handleSubmit(
+											onSubmitGetCode
+										)}
 									>
-									{loginLoading ? 'Loading...' : 'Восстановить пароль'}
-								</button>
-								</form>
+										<div>
+											<h3 className='auth_title'>Забыли пароль</h3>
+											<div className='register_form'>
+												<div className='auth_field'>
+													<label className='auth_label' htmlFor='email'>
+														E-mail
+
+													</label>
+													<div className='auth_input'>
+														<input
+															placeholder='Введите e-mail'
+															type='text'
+															{...getForgotPasswordCodeForm.register('email')}
+														/>
+													</div>
+													<span className='auth_error'>
+														{getForgotPasswordCodeForm.formState.errors.email &&
+															getForgotPasswordCodeForm.formState.errors.email
+																.message}
+													</span>
+												</div>
+											</div>
+											{errorMessage && (
+												<span className='auth_error'>{errorMessage}</span>
+											)}
+										</div>
+										<button
+											className='auth_btn'
+											type='submit'
+											disabled={loginLoading}
+										>
+											{loginLoading ? 'Loading...' : 'Восстановить пароль'}
+										</button>
+									</form>
 								</>
 							) : (
 								<>
-								<form
-									onSubmit={forgotPasswordForm.handleSubmit(
-										onSubmitForgotPassword
-									)}
-								>
-									<div>
-									<h3 className='auth_title'>Забыли пароль</h3>
-										<div className='register_form  w-100'>
-											<div className='auth_field'>
-												<label className='auth_label' htmlFor='email'>
-													E-mail
-												</label>
-												<div className='auth_input'>
-													<input
-														disabled={true}
-														placeholder='Введите e-mail'
-														type='text'
-														{...getForgotPasswordCodeForm.register('email')}
-													/>
-												</div>
-												<span className='auth_error'>
-													{getForgotPasswordCodeForm.formState.errors.email &&
-														getForgotPasswordCodeForm.formState.errors.email
-															.message}
-												</span>
-											</div>
-											<div className='auth_field'>
-												<label className='auth_label' htmlFor='email'>
-													8-ти значный код
-												</label>
-												<div className='auth_input'>
-													<input
-														placeholder='Введите 8-ти значный код'
-														type='text'
-														{...forgotPasswordForm.register('code')}
-													/>
-												</div>
-												<span className='auth_error'>
-													{forgotPasswordForm.formState.errors.code &&
-														forgotPasswordForm.formState.errors.code.message}
-												</span>
-												<span onClick={getPasswordCodeAgain}>Не получили код? Отправить еще раз</span>
-											</div>
-											<div className='auth_field'>
-												<label className='auth_label' htmlFor='email'>
-													Придумайте пароль
-												</label>
-												<div className='auth_input'>
-													<input
-														placeholder='Введите пароль'
-														type='text'
-														{...forgotPasswordForm.register('password')}
-													/>
-												</div>
-												<span className='auth_error'>
-													{forgotPasswordForm.formState.errors.password &&
-														forgotPasswordForm.formState.errors.password.message}
-												</span>
-											</div>
-											<div className='auth_field'>
-												<label className='auth_label' htmlFor='email'>
-													Повторите пароль
-												</label>
-												<div className='auth_input'>
-													<input
-														placeholder='Повторите пароль'
-														type='text'
-														{...forgotPasswordForm.register('confirmPassword')}
-													/>
-												</div>
-												<span className='auth_error'>
-													{forgotPasswordForm.formState.errors.confirmPassword &&
-														forgotPasswordForm.formState.errors.confirmPassword
-															.message}
-												</span>
-											</div>
-										</div>
-										{errorMessage && (
-											<span className='auth_error'>{errorMessage}</span>
+									<form
+										onSubmit={forgotPasswordForm.handleSubmit(
+											onSubmitForgotPassword
 										)}
-									</div>
-									<button
-										className='auth_btn'
-										type='submit'
-										disabled={loginLoading}>
-										{loginLoading ? 'Loading...' : 'Восстановить пароль'}
-									</button>
-							</form>
-							</>
+									>
+										<div>
+											<h3 className='auth_title'>Забыли пароль</h3>
+											<div className='register_form  w-100'>
+												<div className='auth_field'>
+													<label className='auth_label' htmlFor='email'>
+														E-mail
+													</label>
+													<div className='auth_input'>
+														<input
+															disabled={true}
+															placeholder='Введите e-mail'
+															type='text'
+															{...getForgotPasswordCodeForm.register('email')}
+														/>
+													</div>
+													<span className='auth_error'>
+														{getForgotPasswordCodeForm.formState.errors.email &&
+															getForgotPasswordCodeForm.formState.errors.email
+																.message}
+													</span>
+												</div>
+												<div className='auth_field'>
+													<label className='auth_label' htmlFor='email'>
+														8-ти значный код
+													</label>
+													<div className='auth_input'>
+														<input
+															placeholder='Введите 8-ти значный код'
+															type='text'
+															{...forgotPasswordForm.register('code')}
+														/>
+													</div>
+													<span className='auth_error'>
+														{forgotPasswordForm.formState.errors.code &&
+															forgotPasswordForm.formState.errors.code.message}
+													</span>
+													<span onClick={getPasswordCodeAgain}>Не получили код? Отправить еще раз</span>
+												</div>
+												<div className='auth_field'>
+													<label className='auth_label' htmlFor='email'>
+														Придумайте пароль
+													</label>
+													<div className='auth_input'>
+														<input
+															placeholder='Введите пароль'
+															type='text'
+															{...forgotPasswordForm.register('password')}
+														/>
+													</div>
+													<span className='auth_error'>
+														{forgotPasswordForm.formState.errors.password &&
+															forgotPasswordForm.formState.errors.password.message}
+													</span>
+												</div>
+												<div className='auth_field'>
+													<label className='auth_label' htmlFor='email'>
+														Повторите пароль
+													</label>
+													<div className='auth_input'>
+														<input
+															placeholder='Повторите пароль'
+															type='text'
+															{...forgotPasswordForm.register('confirmPassword')}
+														/>
+													</div>
+													<span className='auth_error'>
+														{forgotPasswordForm.formState.errors.confirmPassword &&
+															forgotPasswordForm.formState.errors.confirmPassword
+																.message}
+													</span>
+												</div>
+											</div>
+											{errorMessage && (
+												<span className='auth_error'>{errorMessage}</span>
+											)}
+										</div>
+										<button
+											className='auth_btn'
+											type='submit'
+											disabled={loginLoading}>
+											{loginLoading ? 'Loading...' : 'Восстановить пароль'}
+										</button>
+									</form>
+								</>
 							)}
 						</div>
 					</div>
