@@ -45,9 +45,13 @@ export class CreateOwnerDto {
     description: 'owner`s password',
   })
   @IsString()
-  @Matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).{6,64}$/gm, {
-    message: PASSWORD_VALIDATION,
-  })
+  @Matches(
+    // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+    /(?=.*[0-9])(?=.*[a-z])[0-9a-zA-Z!@#.$%^&*]{8,}/g,
+    {
+      message: PASSWORD_VALIDATION,
+    }
+  )
   readonly password: string;
 
   @ApiProperty({
