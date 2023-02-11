@@ -114,7 +114,7 @@ const ForgotPassword: NextPage = () => {
 
 													</label>
 													<div className='auth_input'>
-														<input
+														<input className='input_forgot'
 															placeholder='Введите e-mail'
 															type='text'
 															{...getForgotPasswordCodeForm.register('email')}

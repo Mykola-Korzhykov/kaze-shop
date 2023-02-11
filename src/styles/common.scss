@@ -59,6 +59,8 @@
     display: flex;
     align-items: center;
     gap: 30px;
+    // flex-direction: column;
+    
   }
 
   &_title {
@@ -75,7 +77,8 @@
     font-family: "Georama", sans-serif;
     display: flex;
     flex-direction: column;
-    width: 390px;
+    // width: 390px;
+    width: 100%;
 
     @media (max-width: 428px) {
       width: 100%;
@@ -597,7 +600,7 @@
     height: 24px;
   }
 
-  @media (max-width: 825px) {
+  @media (max-width: 800px) {
     width: 35px;
     height: 24px;
   }

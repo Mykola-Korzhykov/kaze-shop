@@ -219,19 +219,22 @@
     display: flex;
     align-items: center;
     gap: 30px;
+    @media (max-width: 400px) {
+      gap: 15px;
+    }
     &_accountSVG {
-      @media (max-width: 400px) {
-        display: none;
-      }
+      // @media (max-width: 400px) {
+      //   display: none;
+      // }
     }
 
     @media (max-width: 438px) {
       gap: 25px;
     }
 
-    @media (max-width: 400px) {
-      gap: 30px;
-    }
+    // @media (max-width: 400px) {
+    //   gap: 30px;
+    // }
   }
   &__burger {
     display: none;
