@@ -6,14 +6,14 @@ export const LoginFormSchema = yup.object().shape({
 		.required('Почта обязательная')
 		.matches(
 			/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-			'Inccorrect email'
+			'Неверный email'
 		),
 	password: yup
 		.string()
 		.required('Пароль обязательный')
 		.matches(
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-			'Пароль должен содержать не менее 8 символов, один в верхнем регистре, один в нижнем регистре, одну цифру и один специальный регистр'
+			/(?=.*[0-9])(?=.*[a-z])[0-9a-zA-Z!@#.$%^&*]{8,}/g,
+			'Пароль должен содержать не менее 8 символов и хотя бы одну цыфру'
 		),
 })
 
@@ -24,16 +24,16 @@ export const RegisterFormSchema = yup
 			.string()
 			.required('Name required')
 			.min(2, 'Minimum 2 symbols')
-			.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Use only words'),
+			.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Используйте только слова'),
 		surname: yup
 			.string()
 			.required('Surname required')
 			.min(2, 'Minimum 2 symbols')
-			.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Use only words'),
+			.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Используйте только слова'),
 
 		confirmPassword: yup
 			.string()
-			.oneOf([yup.ref('password'), null], 'Passwords must match'),
+			.oneOf([yup.ref('password'), null], 'Пароли должны совпадать'),
 	})
 	.concat(LoginFormSchema)
 
@@ -43,22 +43,22 @@ export const ChangeUserInfoShema = yup.object().shape({
 		.string()
 		.required('Surname required')
 		.min(2, 'Minimum 2 symbols')
-		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Use only words'),
+		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Используйте только слова'),
 	country: yup
 		.string()
 		.required('Country required')
 		.min(2, 'Minimum 2 symbols')
-		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Use only words'),
+		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Используйте только слова'),
 	city: yup
 		.string()
 		.required('City required')
 		.min(2, 'Minimum 2 symbols')
-		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Use only words'),
+		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Используйте только слова'),
 	postOffice: yup
 		.string()
 		.required('Post office required')
 		.min(2, 'Minimum 2 symbols')
-		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Use only words'),
+		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Используйте только слова'),
 })
 
 export const ChangeUserPasswordShema = yup.object().shape({
@@ -66,12 +66,12 @@ export const ChangeUserPasswordShema = yup.object().shape({
 		.string()
 		.required('Пароль обязательный')
 		.matches(
-			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-			'Пароль должен содержать не менее 8 символов, один в верхнем регистре, один в нижнем регистре, одну цифру и один специальный регистр'
+			/(?=.*[0-9])(?=.*[a-z])[0-9a-zA-Z!@#.$%^&*]{8,}/g,
+			'Пароль должен содержать не менее 8 символов и хотя бы одну цыфру'
 		),
 	confirmPassword: yup
 		.string()
-		.oneOf([yup.ref('password'), null], 'Passwords must match'),
+		.oneOf([yup.ref('password'), null], 'Пароли должны совпадать'),
 })
 
 export const ForgotPasswordSchema = yup
@@ -80,9 +80,9 @@ export const ForgotPasswordSchema = yup
 		code: yup
 			.string()
 			.required('required')
-			.matches(/^[0-9]+$/, 'Must be only digits')
-			.min(8, 'Must be exactly 8 digits')
-			.max(8, 'Must be exactly 8 digits'),
+			.matches(/^[0-9]+$/, 'Должны быть только цыфри')
+			.min(8, 'Должно быть только 8 цыфр')
+			.max(8, 'Должно быть только 8 цыфр'),
 	})
 	.concat(ChangeUserPasswordShema)
 
@@ -92,6 +92,6 @@ export const GetForgotPasswordCodeSchema = yup.object().shape({
 		.required('Почта обязательная')
 		.matches(
 			/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-			'Inccorrect email'
+			'Неверный email'
 		),
 })
