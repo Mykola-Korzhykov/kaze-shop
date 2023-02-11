@@ -11,7 +11,7 @@ import { useAppDispatch } from '@/redux/hooks'
 import Link from 'next/link'
 import Image from 'next/image'
 import AuthImg from '../assets/images/auth_photo.png'
-import hidenIcon from '../assets/icons/EyeClosed.svg'
+import closeIcone from '../assets/icons/closeIcone.svg'
 import showIcon from '../assets/icons/show_eye.svg'
 import { useRouter } from 'next/router'
 import { Api } from '@/services'
@@ -21,7 +21,7 @@ import { NextPage } from 'next'
 import CheckBox from '@/components/UI/CheckBox'
 import MetaHead from '@/components/MetaHead'
 
-const Signup:NextPage = () => {
+const Signup: NextPage = () => {
 	const router = useRouter()
 	const dispatch = useAppDispatch()
 	const [errorMessage, setErrorMessage] = useState<string>('')
@@ -36,17 +36,17 @@ const Signup:NextPage = () => {
 		mode: 'onSubmit',
 		resolver: yupResolver(RegisterFormSchema),
 	})
-	
+
 	const [initialTop, setInitialTop] = useState(0);
 	const [isStickyImage, setIsStickyImage] = useState<boolean>(false);
 
 	const imageRef = useRef(null);
 	const coordRef = useRef(null);
-	
+
 	const handleScroll = () => {
 		const imageRect = imageRef.current.getBoundingClientRect();
-  		const shouldBeSticky = imageRect.top <= 80 && window.pageYOffset > 100;
-		
+		const shouldBeSticky = imageRect.top <= 80 && window.pageYOffset > 100;
+
 
 		setIsStickyImage(shouldBeSticky);
 	};
@@ -55,11 +55,11 @@ const Signup:NextPage = () => {
 	useEffect(() => {
 		setInitialTop(imageRef.current.offsetTop);
 		window.addEventListener("scroll", handleScroll);
-	
+
 		return () => {
-		  window.removeEventListener("scroll", handleScroll);
+			window.removeEventListener("scroll", handleScroll);
 		};
-	  }, []);
+	}, []);
 
 	const handlePhoneNumberValue = (value: string) => {
 		/* if (!phoneNumberValue.startsWith('38') || phoneNumberValue.length < 9) {
@@ -127,12 +127,14 @@ const Signup:NextPage = () => {
 								quality={90}
 								priority={true}
 								ref={imageRef}
-								style={{position: isStickyImage ? 'fixed' : 'relative',
-								top: isStickyImage ? 0 : '',
-								left: isStickyImage ? coordRef.current.offsetLeft : '',
-								zIndex: 1,
-								paddingTop: isStickyImage ? 80 : 0,
-								height: isStickyImage ? 550 + 80 : 550}}
+								style={{
+									position: isStickyImage ? 'fixed' : 'relative',
+									top: isStickyImage ? 0 : '',
+									left: isStickyImage ? coordRef.current.offsetLeft : '',
+									zIndex: 1,
+									paddingTop: isStickyImage ? 80 : 0,
+									height: isStickyImage ? 550 + 80 : 550
+								}}
 							/>
 						</div>
 						<div className={`auth_form reg_form ${isStickyImage ? 'sticky_form' : ''}`}>
@@ -227,7 +229,7 @@ const Signup:NextPage = () => {
 												className='auth_hidden-icon'
 											>
 												<Image
-													src={passwordShown ? showIcon : hidenIcon}
+													src={passwordShown ? showIcon : closeIcone}
 													alt='show password icon'
 													width={24}
 													height={24}
@@ -254,7 +256,7 @@ const Signup:NextPage = () => {
 												className='auth_hidden-icon'
 											>
 												<Image
-													src={confirmPasswordShown ? showIcon : hidenIcon}
+													src={confirmPasswordShown ? showIcon : closeIcone}
 													alt='show password icon'
 													width={24}
 													height={24}

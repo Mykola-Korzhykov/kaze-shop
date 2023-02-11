@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { useFormContext } from 'react-hook-form'
 import Image from 'next/image'
-import hidenIcon from '../../assets/icons/EyeClosed.svg'
+import hidenIcon from '../../assets/icons/closeIcone.svg'
 import showIcon from '../../assets/icons/show_eye.svg'
 interface FormFieldProps {
 	name: string
