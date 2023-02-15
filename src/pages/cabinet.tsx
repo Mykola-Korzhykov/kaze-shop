@@ -6,6 +6,8 @@ import { withAuth } from '@/hoc/RequiredAuth'
 import { NextPage } from 'next'
 import { Api } from '@/services'
 import axios from 'axios'
+
+
 const CabinetPage: NextPage = () => {
 	return (
 		<SpinnerLayout>

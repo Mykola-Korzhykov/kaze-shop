@@ -1,0 +1,58 @@
+.button{
+    background: none;
+    border: solid 1.5px #9D9D9D;
+    border-bottom: none;
+    display: flex;
+    width: 285px;
+    height: 60px;
+    align-items: center;
+    gap: 10px;
+    padding-left: 20px;
+    transition: 0.4s linear background-color;
+
+    .text{
+        font-family: 'Georama', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+
+        display: flex;
+        align-items: center;
+    
+        color: #9D9D9D;
+    }
+
+    .img {
+        width: 24px;
+        height: 24px;
+    }
+
+    .img_white {
+         display: none;
+     }
+
+}
+
+.button7{
+    border-bottom: solid 1.5px #9D9D9D;
+}
+
+.button:hover{
+    background: #0b0b0b;
+    color: #fff;
+    transition: 0.4s linear background-color;
+    
+    .img_grey {
+        display: none;
+    }
+
+    .img_white {
+        display: block;
+    }
+    .text{
+        color: #fff;
+        transition: 0.4s linear background-color;
+    }
+}
+

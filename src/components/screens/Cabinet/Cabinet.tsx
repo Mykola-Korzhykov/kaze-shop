@@ -6,6 +6,8 @@ import { addUserInfo } from '@/redux/slices/user'
 import Link from 'next/link'
 import { setCookie } from 'nookies'
 import CabinetTabs from '@/components/screens/Cabinet/CabinetTabs'
+//
+import { CabinetAdmin } from '../Cabinet/CabinetAdmin/CabinetAdmin'
 const Cabinet: FC = () => {
 	const dispatch = useAppDispatch()
 	const router = useRouter()
@@ -35,6 +37,7 @@ const Cabinet: FC = () => {
 					<Link href='#'>Главная</Link> | <span>Личный кабинет</span>
 				</div>
 				<CabinetTabs />
+				{/* <CabinetAdmin /> */}
 			</div>
 		</main>
 	)

@@ -19,6 +19,7 @@ const CabinetTabs: FC = () => {
 		},
 		[selectedTab]
 	)
+
 	return (
 		<>
 			{selectedTab === 7 && <LogoutModal closeModal={setSelectedTab} />}

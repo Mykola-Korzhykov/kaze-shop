@@ -1,3 +1,4 @@
+import { Button } from './../components/screens/Cabinet/CabinetAdmin/Buttons/Button';
 export type LoginDto = {
 	email: string
 	password: string
@@ -66,4 +67,13 @@ export type ForgotPasswordDto = {
 	code: string
 	password: string
 	confirmPassword: string
+}
+
+// button
+
+export interface ButtonType {
+	id: number,
+	img_grey: string,
+	img_white: string,
+	text: string
 }
