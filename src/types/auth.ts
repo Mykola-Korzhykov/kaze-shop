@@ -20,6 +20,7 @@ export type User = {
 	country?: string | null
 	city?: string | null
 	postOffice?: string | null
+	type?: 'OWNER' | 'ADMIN'
 }
 
 export type Owner = {
@@ -75,5 +76,7 @@ export interface ButtonType {
 	id: number,
 	img_grey: string,
 	img_white: string,
-	text: string
+	text: string,
+	url?: string,
+	// chengeDisplayOK: (n: number) => void
 }

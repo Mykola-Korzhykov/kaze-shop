@@ -26,6 +26,7 @@ const LoginForm = () => {
 		try {
 			setLoginLoading(true)
 			const data = await Api().user.login(dto)
+			console.log('my user:', data.user)
 			setCookie(null, 'accessToken', data.accessToken, {
 				maxAge: 30 * 24 * 60 * 60,
 				path: '/',

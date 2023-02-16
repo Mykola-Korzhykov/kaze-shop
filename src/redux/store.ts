@@ -3,12 +3,14 @@ import { createWrapper } from 'next-redux-wrapper'
 import { ThunkAction, Action } from '@reduxjs/toolkit'
 import goods from './slices/goods'
 import user from './slices/user'
+import admin from './slices/admin'
 
 export function makeStore() {
 	return configureStore({
 		reducer: {
 			goods: goods,
 			user: user,
+			admin,
 		},
 	})
 }

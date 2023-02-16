@@ -38,6 +38,7 @@ const ChangeUserInfo = () => {
 			})
 			if (data.user) {
 				dispatch(addUserInfo(data.user))
+
 			} else if (data.admin) {
 				dispatch(addUserInfo(data.admin))
 			}

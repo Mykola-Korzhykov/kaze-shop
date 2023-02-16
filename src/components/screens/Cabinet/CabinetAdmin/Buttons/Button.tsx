@@ -1,15 +1,24 @@
 import React from "react";
-import s from './Button.module.scss'
+import s from './Button.module.scss';
 import Image from 'next/image';
+import Link from "next/link";
 //types
 import { ButtonType } from '../../../../../types/auth'
 
 
+interface ButtonProps {
+    id: number,
+    img_grey: string,
+    img_white: string,
+    text: string,
+    chengeDisplayOK: (n: number) => void
+}
 
-export const Button: React.FC<ButtonType> = ({ id, text, img_grey, img_white }) => {
-
+export const Button: React.FC<ButtonProps> = ({ id, text, img_grey, img_white, chengeDisplayOK }) => {
+    console.log(id)
     return (
-        <div className={s.wrapper}>
+
+        <div onClick={() => chengeDisplayOK(id)} className={s.wrapper}>
             <button className={id === 7 ? `${s.button} ${s.button7}` : `${s.button}`}>
                 {/* <span className={`${s.img} ${s.img_id}`}></span> */}
                 <Image className={`${s.img_grey}`} src={img_grey} alt="My Image" />
@@ -17,5 +26,8 @@ export const Button: React.FC<ButtonType> = ({ id, text, img_grey, img_white }) 
                 <div className={s.text}>{text}</div>
             </button>
         </div>
+
     )
 }
+
+

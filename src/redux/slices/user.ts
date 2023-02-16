@@ -2,12 +2,15 @@ import { User } from '@/types/auth'
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 import { HYDRATE } from 'next-redux-wrapper'
+
 type UserSLice = {
 	user: User | null
 }
+
 const initialState: UserSLice = {
 	user: null,
 }
+
 const userSLice = createSlice({
 	name: 'user',
 	initialState: initialState,

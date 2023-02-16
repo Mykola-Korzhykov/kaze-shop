@@ -23,7 +23,7 @@ const Cabinet: FC = () => {
 					dispatch(addUserInfo(data.user))
 				}
 			} catch (e) {
-				// router.push('/404')
+				//router.push('/404')
 				console.log(e)
 			}
 		}
@@ -36,8 +36,8 @@ const Cabinet: FC = () => {
 				<div className='page_coordinator'>
 					<Link href='#'>Главная</Link> | <span>Личный кабинет</span>
 				</div>
-				<CabinetTabs />
-				{/* <CabinetAdmin /> */}
+				{/* <CabinetTabs /> */}
+				<CabinetAdmin />
 			</div>
 		</main>
 	)
