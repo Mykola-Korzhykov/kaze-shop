@@ -31,3 +31,59 @@
 .link{
     text-transform: none;
 }
+
+.input_wrapper_on{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    align-items: center;
+
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+
+
+    color: #000000;
+    .input_wrapper{
+        display: flex;
+        justify-content: flex-end;
+       
+
+    .input {
+        padding-left: 10px;
+        background: none;
+        width: 100%;
+        border: none;
+        // border-radius: 8px;
+        // margin-right: 5px;
+        border: #000000 solid 1px;
+        border-right: none;
+        
+        // padding-left: 15px;
+    }
+
+    .input::placeholder {
+        font-family: 'Georama', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+        color: #000000;
+    }
+
+    .input:focus {
+        outline: none;
+        // border: none;
+        // box-shadow: 0 0 5px #999;
+    }
+    }
+    
+}
+
+.input_wrapper_off{
+    display: none;
+}

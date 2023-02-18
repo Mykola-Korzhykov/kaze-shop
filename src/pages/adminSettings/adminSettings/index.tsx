@@ -4,7 +4,7 @@
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { RootState } from '@/redux/store'
-import s from './giveRole.module.scss'
+import s from './giveAdmin.module.scss'
 import SpinnerLayout from '@/layouts/SpinnerLayout'
 
 
@@ -18,7 +18,8 @@ import { Api } from '@/services'
 import axios from 'axios'
 import Image from 'next/image'
 import { UserAdmin } from '@/components/screens/Cabinet/CabinetAdmin/UserAdmin/UserAdmin'
-
+//icons 
+import findUser from '../../../assets/icons/cabinetAdmin/findUser.svg'
 
 
 const AdminSettings: React.FC = () => {
@@ -33,6 +34,16 @@ const AdminSettings: React.FC = () => {
         <SpinnerLayout>
             <main className='content'>
                 <div className='container'>
+
+                    <label htmlFor="findUser" className={s.input_wrapper_on}>
+                        Пользователь
+                        <div className={s.input_wrapper}>
+                            <input className={s.input} id='findUser' type="findUser" />
+                            <Image src={findUser} alt='findUser' />
+                        </div>
+
+                    </label>
+
                     {users}
                 </div>
             </main>

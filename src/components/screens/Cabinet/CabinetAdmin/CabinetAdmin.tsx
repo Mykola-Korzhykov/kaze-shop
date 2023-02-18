@@ -6,6 +6,8 @@ import { UserRole } from './UsersRole/UserRole'
 import { UserAdmin } from './UserAdmin/UserAdmin'
 import { RootState } from "@/redux/store";
 import Link from "next/link";
+//components 
+import { AddProduct } from './Display/AddProduct'
 
 import Image from 'next/image';
 //icons
@@ -24,6 +26,7 @@ import icon_white4 from '../../../../assets/icons/cabinetAdmin/icon4_white.svg'
 import icon_white5 from '../../../../assets/icons/cabinetAdmin/icon5_white.svg'
 import icon_white6 from '../../../../assets/icons/cabinetAdmin/icon6_white.svg'
 import icon_white7 from '../../../../assets/icons/cabinetAdmin/icon7_white.svg'
+import findUser from '../../../../assets/icons/cabinetAdmin/findUser.svg'
 //types
 import { ButtonType } from '../../../../types/auth'
 
@@ -41,9 +44,7 @@ const buttonsObj: ButtonType[] = [
 export const CabinetAdmin: React.FC = () => {
 
     const users = useSelector((state: RootState) => state.admin.users)
-    console.log('users', users)
 
-    // const [openUserMy, setOpenUserMy] = React.useState<number>(0)
     const [idUserOpen, setUserOpen] = React.useState<number>(0)
     const [displayActive, setDisplayActive] = React.useState<number>(1)
 
@@ -68,8 +69,18 @@ export const CabinetAdmin: React.FC = () => {
             </div>
 
             <div className={s.display}>
+                <label htmlFor="findUser" className={displayActive === 1 || displayActive === 2 ? s.input_wrapper_on : s.input_wrapper_off}>
+                    Пользователь
+                    <div className={s.input_wrapper}>
+                        <input className={s.input} id='findUser' type="findUser" />
+                        <Image src={findUser} alt='findUser' />
+                    </div>
+
+                </label>
+
                 {displayActive === 1 ? usersRole : ''}
                 {displayActive === 2 ? usersAdmin : ''}
+                {displayActive === 3 ? <AddProduct /> : ''}
             </div>
 
         </div>

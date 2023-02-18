@@ -31,7 +31,6 @@ export const admin = createSlice({
     },
 })
 
-// Action creators are generated for each case reducer function
 export const { } = admin.actions
 
 export default admin.reducer

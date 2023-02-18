@@ -8,6 +8,9 @@ import s from './giveRole.module.scss'
 import SpinnerLayout from '@/layouts/SpinnerLayout'
 import { UserRole } from '@/components/screens/Cabinet/CabinetAdmin/UsersRole/UserRole'
 
+//icons 
+import findUser from '../../../assets/icons/cabinetAdmin/findUser.svg'
+
 //components 
 
 // import { wrapper } from '@/redux/store'
@@ -32,6 +35,16 @@ const GiveRole: React.FC = () => {
         <SpinnerLayout>
             <main className='content'>
                 <div className='container'>
+
+                    <label htmlFor="findUser" className={s.input_wrapper_on}>
+                        Пользователь
+                        <div className={s.input_wrapper}>
+                            <input className={s.input} id='findUser' type="findUser" />
+                            <Image src={findUser} alt='findUser' />
+                        </div>
+
+                    </label>
+
                     {users}
                 </div>
             </main>
