@@ -31,6 +31,13 @@ let UserRefreshToken = class UserRefreshToken extends sequelize_typescript_1.Mod
     getUser() {
         return this.user;
     }
+    getIdentifier() {
+        return this.identifier;
+    }
+    setIdentifier(identifier) {
+        this.identifier = identifier;
+        return this.identifier;
+    }
 };
 __decorate([
     (0, swagger_1.ApiProperty)({ example: '1', description: 'unique identifier' }),
@@ -49,7 +56,7 @@ __decorate([
     sequelize_typescript_1.IsEmail,
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.STRING,
-        unique: true,
+        unique: false,
         allowNull: false,
         field: 'email',
     }),
@@ -75,6 +82,8 @@ __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.INTEGER,
         field: 'userId',
+        unique: false,
+        allowNull: false,
     }),
     __metadata("design:type", Number)
 ], UserRefreshToken.prototype, "userId", void 0);
@@ -87,11 +96,25 @@ __decorate([
     __metadata("design:type", Date)
 ], UserRefreshToken.prototype, "expireDate", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
+        description: 'identifier',
+    }),
+    (0, sequelize_typescript_1.IsUUID)(4),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        unique: true,
+        allowNull: true,
+        field: 'identifier',
+    }),
+    __metadata("design:type", String)
+], UserRefreshToken.prototype, "identifier", void 0);
+__decorate([
     (0, sequelize_typescript_1.BelongsTo)(() => user_model_1.User),
     __metadata("design:type", user_model_1.User)
 ], UserRefreshToken.prototype, "user", void 0);
 UserRefreshToken = __decorate([
-    (0, sequelize_typescript_1.Table)({ tableName: 'user refresh tokens' })
+    (0, sequelize_typescript_1.Table)({ tableName: 'USER`S_Refresh-tokens' })
 ], UserRefreshToken);
 exports.UserRefreshToken = UserRefreshToken;
 //# sourceMappingURL=user.refresh.token.model.js.map

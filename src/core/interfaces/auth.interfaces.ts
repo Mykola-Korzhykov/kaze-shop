@@ -1,6 +1,5 @@
 import { Role } from '../../roles/models/roles.model';
-// tslint:disable-next-line: class-name
-export interface payload {
+export interface Payload {
   email: string;
   userId: number;
   userActivationLink: string;
@@ -8,8 +7,7 @@ export interface payload {
   roles?: Role[];
 }
 
-// tslint:disable-next-line: class-name
-export interface tokens {
+export interface Tokens {
   refreshToken: string;
   accessToken: string;
   expireDate: Date;
@@ -17,14 +15,10 @@ export interface tokens {
 
 export interface AuthUser {
   accessToken: string;
-  owner?: returnedOwner;
-  admin?: returnedAdmin;
-  user?: returnedUser;
-  type?: string;
+  user: ReturnedUser | ReturnedAdmin | ReturnedOwner;
 }
 
-// tslint:disable-next-line: class-name
-export interface returnedUser {
+export interface ReturnedUser {
   id: number;
   name: string;
   surname: string;
@@ -33,24 +27,25 @@ export interface returnedUser {
   country: string | null;
   city: string | null;
   postOffice: string | null;
+  type: 'USER';
 }
 
-// tslint:disable-next-line: class-name
-export interface returnedOwner {
+export interface ReturnedOwner {
   id: number;
   name: string;
   surname: string;
   phoneNumber: string;
   email: string;
+  type: 'OWNER';
 }
 
-// tslint:disable-next-line: class-name
-export interface returnedAdmin {
+export interface ReturnedAdmin {
   id: number;
   name: string;
   surname: string;
   phoneNumber: string;
   email: string;
+  type: 'ADMIN';
 }
 
 export interface CodeDto {

@@ -12,8 +12,8 @@ import {
   NotFoundException,
 } from '@nestjs/common/exceptions';
 import { Request, Response, NextFunction } from 'express';
-import { ADMIN_NOT_FOUND } from 'src/admin/constants/admin.constants';
-import { INVALID_PARAMS } from 'src/auth/auth.constants';
+import { ADMIN_NOT_FOUND } from '../../admin/constants/admin.constants';
+import { INVALID_PARAMS } from '../../auth/auth.constants';
 import { AdminService } from '../../admin/services/admin.service';
 import { ApiException } from '../exceptions/api.exception';
 

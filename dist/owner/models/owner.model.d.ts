@@ -1,7 +1,7 @@
 import { Model } from 'sequelize-typescript';
 import { Role } from '../../roles/models/roles.model';
 import { OwnerCreationAttrbs } from '../../core/interfaces/owner.interfaces';
-import { Product } from '../../product/product.model';
+import { Product } from '../../product/models/product.model';
 import { OwnerRefreshToken } from './owner.refresh.token.model';
 export declare class Owner extends Model<Owner, OwnerCreationAttrbs> {
     id: number;
@@ -19,7 +19,7 @@ export declare class Owner extends Model<Owner, OwnerCreationAttrbs> {
     private activationCode;
     private products;
     roles: Role[];
-    private ownerRefreshToken;
+    ownerRefreshTokens: OwnerRefreshToken[];
     getName(): string;
     setName(name: string): string;
     getSurname(): string;
@@ -41,5 +41,6 @@ export declare class Owner extends Model<Owner, OwnerCreationAttrbs> {
     getActivationCode(): number;
     setActivationCode(activationCode: number): number;
     getProducts(): Product[];
-    getOwnerRefreshToken(): OwnerRefreshToken;
+    getOwnerRefreshTokens(): OwnerRefreshToken[];
+    addProduct(product: Product): Product[];
 }

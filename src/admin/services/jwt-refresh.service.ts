@@ -1,9 +1,7 @@
 import {
-  BadRequestException,
   HttpStatus,
   Injectable,
-  InternalServerErrorException,
-  NotFoundException,
+  Logger,
   Scope,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
@@ -22,10 +20,14 @@ import { CreateAdminRefreshTokenDto } from '../dto/create-admin-refresh-token.dt
 import { MailService } from '../../mail/mail.service';
 import { InjectModel } from '@nestjs/sequelize';
 import { TasksService } from '../../core/services/scedule.service';
-import { ApiException } from 'src/common/exceptions/api.exception';
+import { ApiException } from '../../common/exceptions/api.exception';
+import { randomBytes, scrypt, createCipheriv } from 'crypto';
+import { promisify } from 'util';
+import { v4 } from 'uuid';
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class AdminJwtRefreshService {
+  private readonly Logger = new Logger(AdminJwtRefreshService.name);
   constructor(
     private jwtService: JwtService,
     private adminService: AdminService,
@@ -68,6 +70,49 @@ export class AdminJwtRefreshService {
     }
   }
 
+  async insertToken(
+    adminId: number,
+    adminRefreshToken: string,
+    email: string,
+    adminAgent: string,
+    phoneNumber: string,
+    expireDate: Date,
+  ) {
+    try{
+      const admin = await this.adminService.getAdminById(adminId);
+        if (!admin) {
+          throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', ADMIN_NOT_FOUND);
+      }
+      const token = await this.adminRefreshTokenRepository.create({
+        adminRefreshToken: adminRefreshToken,
+        adminId: admin.id,
+        email: email,
+        adminAgent: adminAgent,
+        phoneNumber: phoneNumber,
+      });
+      token.setIdentifier(v4());
+      await token.save();
+      if (!token.getExpireDate()) {
+        token.setExpireDate(expireDate);
+        await token.save(); 
+      }
+      if (!admin.getAdminRefreshTokens() || admin.getAdminRefreshTokens().length === 0) {
+        admin.$set('adminRefreshTokens', token.id);
+        admin.adminRefreshTokens = [token];
+      } else {
+        admin.$add('adminRefreshTokens', token.id);
+      }
+      await admin.save();
+      return token;
+    } catch (err: unknown) {
+      throw new ApiException(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        'Internal Server Error',
+        ERROR_WHILE_SAVING_TOKEN
+      );   
+    }
+  }
+
   async saveToken(
     adminId: number,
     adminRefreshToken: string,
@@ -75,6 +120,7 @@ export class AdminJwtRefreshService {
     adminAgent: string,
     phoneNumber: string,
     expireDate: Date,
+    identifier: string,
   ): Promise<AdminRefreshToken> {
     try {
       const admin = await this.adminService.getAdminById(adminId);
@@ -82,15 +128,35 @@ export class AdminJwtRefreshService {
         throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', ADMIN_NOT_FOUND);
       }
       const tokenData = await this.adminRefreshTokenRepository.findOne({
-        where: { adminId: adminId },
+        where: {
+          adminId: adminId,
+          identifier: identifier,
+        },
       });
+      if (tokenData && admin.getAdminAgent() === 'null') {
+        admin.setAdminAgent(adminAgent);
+        tokenData.setAdminAgent(adminAgent); 
+        await admin.save();
+        await tokenData.save(); 
+      }
       if (tokenData) {
         tokenData.adminRefreshToken = adminRefreshToken;
-        if (admin.getAdminAgent() && admin.getAdminAgent() !== adminAgent) {
+        if (admin.getAdminAgent() && admin.getAdminAgent().trim() !== adminAgent) {
           admin.setIsActivated(false);
-          // await this.mailService дописати відправку пошти!!
+          const link = await this.generateEncryptedValue('ADMIN', 16);
+          const code = this.generateActivationCode();
+          admin.setResetToken(link.replace('/', `${v4()}`).replace('=', `${v4()}`));
+          admin.setActivationCode(code);
+          admin.setResetTokenExpiration(Number(Date.now() + 3600000));
+          await admin.save();
+          this.Logger.log(`checking owner with email ${admin.email}`, admin.getAdminAgent() !== adminAgent);
+          this.mailService.sendActivationMailToAdmin(
+            admin.email,
+            `${process.env.API_URL}/auth/activate/${admin.getResetToken().trim()}?code=${code}`,
+          );
         }
-        return tokenData.save();
+        await tokenData.save();
+        return tokenData;
       }
       const token = await this.adminRefreshTokenRepository.create({
         adminRefreshToken: adminRefreshToken,
@@ -119,6 +185,9 @@ export class AdminJwtRefreshService {
       if (!token) {
         throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', TOKEN_NOT_FOUND);   
       }
+      const admin = await this.adminService.getAdminById(token.adminId);
+      admin.$remove('adminRefreshTokens', token.token.id);
+      await admin.save();
       const tokenData = await this.adminRefreshTokenRepository.destroy({
         where: { adminRefreshToken: adminRefreshToken },
       });
@@ -134,21 +203,25 @@ export class AdminJwtRefreshService {
 
   async findToken(
     adminRefreshToken: string,
-  ): Promise<AdminRefreshToken | false> {
+  ): Promise<false | {
+    token: AdminRefreshToken;
+    adminId: number;
+  }> {
     const token = await this.adminRefreshTokenRepository.findOne({
       where: { adminRefreshToken: adminRefreshToken },
     });
     if (!token) {
       return false;
     }
-    return token;
+    return { token: token, adminId: token.adminId };
   }
 
   async findTokenByToken(
     adminRefreshToken: string,
+    identifier: string,
   ): Promise<AdminRefreshToken | false> {
     const token = await this.adminRefreshTokenRepository.findOne({
-      where: { adminRefreshToken: adminRefreshToken },
+      where: { adminRefreshToken: adminRefreshToken, identifier: identifier },
     });
     if (!token) {
       throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', TOKEN_NOT_FOUND);   
@@ -159,9 +232,10 @@ export class AdminJwtRefreshService {
   async findTokenByParams(
     email: string,
     phoneNumber: string,
+    identifier: string,
   ): Promise<AdminRefreshToken> {
     const token = await this.adminRefreshTokenRepository.findOne({
-      where: { email: email, phoneNumber: phoneNumber },
+      where: { email: email, phoneNumber: phoneNumber, identifier: identifier },
     });
     if (!token) {
       throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', TOKEN_INVALID);
@@ -171,16 +245,44 @@ export class AdminJwtRefreshService {
 
   async removeTokenInTime(
     adminRefreshTokenId: number,
+    identifier: string,
   ): Promise<number | false> {
-    const token = await AdminRefreshToken.findByPk(adminRefreshTokenId);
+    const token = await AdminRefreshToken.findOne({
+      where: {
+        id: adminRefreshTokenId,
+        identifier: identifier,
+      }
+    });
     if (!token) {
       return false;
     }
+    const admin = await this.adminService.getAdminById(token.adminId);
+    admin.$remove('adminRefreshTokens', token.id);
+    await admin.save();
     return this.adminRefreshTokenRepository.destroy({
       where: {
         id: token.id,
         phoneNumber: token.phoneNumber,
+        identifier: identifier,
       },
     });
+  }
+
+  private async generateEncryptedValue(
+    value: string,
+    bytes: number,
+  ): Promise<string> {
+    const iv = randomBytes(bytes);
+    const API_KEY = process.env.API_KEY.toString();
+    const key = (await promisify(scrypt)(API_KEY, 'salt', 32)) as Buffer;
+    const cipher = createCipheriv('aes-256-ctr', key, iv);
+    return Buffer.concat([cipher.update(value), cipher.final()]).toString(
+      'base64',
+    );
+  }
+
+  private generateActivationCode(): number {
+    const confirmCode = Number(('' + Math.random()).substring(2, 10));
+    return confirmCode;
   }
 }

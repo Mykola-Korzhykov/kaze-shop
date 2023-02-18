@@ -14,7 +14,7 @@ import {
     OWNER_WITH_EMAIL_DOESNT_EXIST, 
     OWNER_WITH_EMAIL_EXIST, 
     OWNER_WITH_PHONENUMBER_EXIST 
-} from 'src/owner/constants/owner.constants';
+} from '../../owner/constants/owner.constants';
 import { ADMIN_NOT_FOUND } from '../../admin/constants/jwt-refresh.constants';
 import { OWNER_NOT_FOUND } from '../../owner/constants/jwt-refresh.constants';
 import {
@@ -210,6 +210,5 @@ export class ApiException extends Error {
         if (type = 'ACCESS_DENIED') {
             throw new ApiException(HttpStatus.FORBIDDEN, 'Forbidden!', ACCESS_DENIED); 
         }
-    }
-    
+    }  
 }

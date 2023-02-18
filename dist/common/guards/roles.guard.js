@@ -25,6 +25,7 @@ const auth_service_1 = require("../../auth/auth.service");
 const roles_auth_decorator_1 = require("../decorators/roles-auth.decorator");
 const auth_constants_1 = require("../../auth/auth.constants");
 const api_exception_1 = require("../exceptions/api.exception");
+const admin_constants_1 = require("../../admin/constants/admin.constants");
 let RolesGuard = class RolesGuard {
     constructor(authService, reflector) {
         this.authService = authService;
@@ -56,10 +57,13 @@ let RolesGuard = class RolesGuard {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', auth_constants_1.USER_NOT_AUTHORIZIED);
                 }
                 req.payload = payload;
-                return payload.roles.some((role) => requiredRoles.includes(role.value));
+                if (!payload.roles.some((role) => requiredRoles.includes(role.value))) {
+                    throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', admin_constants_1.ACCESS_DENIED);
+                }
+                return true;
             }
             catch (err) {
-                throw new common_1.HttpException(auth_constants_1.ACCESS_DENIED, common_1.HttpStatus.FORBIDDEN);
+                throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', admin_constants_1.ACCESS_DENIED);
             }
         }))();
     }

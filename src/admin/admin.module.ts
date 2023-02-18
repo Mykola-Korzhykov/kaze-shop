@@ -32,6 +32,14 @@ import { ConfigModule } from '@nestjs/config';
 import { AdminUserMiddleware } from '../common/middlewares/admin-user.middleware';
 import { CoreModule } from '../core/core.module';
 import { TasksService } from '../core/services/scedule.service';
+import { CartProduct } from '../cart/models/cart.product.model';
+import { Cart } from '../cart/models/cart.model';
+import { Category } from '../categories/models/category.model';
+import { ProductCategories } from '../categories/models/product.categories.model';
+import { Order } from '../orders/models/order.model';
+import { OrderProduct } from '../orders/models/order.product.model';
+import { Product } from '../product/models/product.model';
+import { UsersService } from '../users/services/users.service';
 @Module({
   controllers: [AdminController],
   imports: [
@@ -41,14 +49,21 @@ import { TasksService } from '../core/services/scedule.service';
       isGlobal: true,
     }),
     SequelizeModule.forFeature([
+      Product,
+      Order,
+      OrderProduct,
+      Category,
+      ProductCategories,
       Admin,
       AdminRefreshToken,
       Owner,
-      Role,
-      UserRoles,
       OwnerRefreshToken,
       User,
       UserRefreshToken,
+      Role,
+      UserRoles,
+      Cart,
+      CartProduct,
     ]),
     JwtModule.register({
       secret:
@@ -72,6 +87,7 @@ import { TasksService } from '../core/services/scedule.service';
     MailService,
     OwnerService,
     AdminService,
+    UsersService,
   ],
   exports: [AdminService, AdminJwtRefreshService],
 })

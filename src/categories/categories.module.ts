@@ -16,7 +16,7 @@ import { AuthModule } from '../auth/auth.module';
 import { Owner } from '../owner/models/owner.model';
 import { OwnerRefreshToken } from '../owner/models/owner.refresh.token.model';
 import { OwnerModule } from '../owner/owner.module';
-import { Product } from '../product/product.model';
+import { Product } from '../product/models/product.model';
 import { Role } from '../roles/models/roles.model';
 import { UserRoles } from '../roles/models/user.roles.model';
 import { RolesModule } from '../roles/roles.module';
@@ -65,6 +65,7 @@ export class CategoriesModule implements NestModule {
       .forRoutes(
         { path: 'categories/create_category', method: RequestMethod.PUT },
         { path: 'categories/delete_category', method: RequestMethod.DELETE },
+        { path: '*', method: RequestMethod.PATCH }
       );
   }
 }

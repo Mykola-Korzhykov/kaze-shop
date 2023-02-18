@@ -11,8 +11,13 @@ export declare class UserJwtRefreshTokenService {
     constructor(jwtService: JwtService, userService: UsersService, sheduleService: TasksService, userRefreshTokenRepository: typeof UserRefreshToken);
     generateRefreshToken(payload: CreateUserRefreshTokenDto): Promise<string>;
     validateRefreshToken(userRefreshToken: string): Promise<CreateUserRefreshTokenDto>;
-    saveToken(userId: number, userRefreshToken: string, email: string, userAgent: string, expireDate: Date): Promise<UserRefreshToken>;
+    insertToken(userId: number, userRefreshToken: string, email: string, userAgent: string, expireDate: Date): Promise<UserRefreshToken>;
+    saveToken(userId: number, userRefreshToken: string, email: string, userAgent: string, expireDate: Date, identifier: string): Promise<UserRefreshToken>;
     removeToken(userRefreshToken: string): Promise<number>;
-    findToken(userRefreshToken: string): Promise<UserRefreshToken>;
-    removeTokenInTime(userRefreshToken: string): Promise<number | false>;
+    findTokenByToken(userRefreshToken: string, identifier: string): Promise<UserRefreshToken>;
+    findToken(userRefreshToken: string): Promise<{
+        token: UserRefreshToken;
+        userId: number;
+    }>;
+    removeTokenInTime(userRefreshTokenId: number, identifier: string): Promise<number | false>;
 }

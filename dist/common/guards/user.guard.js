@@ -26,6 +26,7 @@ const core_1 = require("@nestjs/core");
 const roles_auth_decorator_1 = require("../decorators/roles-auth.decorator");
 const auth_service_1 = require("../../auth/auth.service");
 const api_exception_1 = require("../exceptions/api.exception");
+const admin_constants_1 = require("../../admin/constants/admin.constants");
 let UserGuard = class UserGuard {
     constructor(userJwtRefreshTokenService, reflector, authService) {
         this.userJwtRefreshTokenService = userJwtRefreshTokenService;
@@ -39,19 +40,11 @@ let UserGuard = class UserGuard {
                 return true;
             }
             const req = context.switchToHttp().getRequest();
-            const accessToken = req === null || req === void 0 ? void 0 : req.cookies['accessToken'];
             const refreshToken = req === null || req === void 0 ? void 0 : req.cookies['refreshToken'];
             if (!refreshToken) {
                 throw new api_exception_1.ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request!', auth_constants_1.REFRESH_TOKEN_NOT_PROVIDED);
             }
             const decodedRefreshToken = Buffer.from(refreshToken, 'base64').toString('ascii');
-            if (process.env.NODE_ENV === 'production') {
-                const decodedAccessToken = Buffer.from(accessToken, 'base64').toString('ascii');
-                const accessPayload = yield this.authService.validateAccessToken(decodedAccessToken);
-                if (!accessPayload.roles.some((role) => requiredRoles.includes(role.value))) {
-                    throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', auth_constants_1.USER_NOT_AUTHORIZIED);
-                }
-            }
             const userRefreshToken = yield this.userJwtRefreshTokenService.findToken(decodedRefreshToken);
             if (!userRefreshToken) {
                 return false;
@@ -64,7 +57,10 @@ let UserGuard = class UserGuard {
                 throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', auth_constants_1.USER_NOT_AUTHORIZIED);
             }
             const refreshPayload = yield this.userJwtRefreshTokenService.validateRefreshToken(decodedRefreshToken.trim());
-            return refreshPayload.roles.some((role) => requiredRoles.includes(role.value));
+            if (!refreshPayload.roles.some((role) => requiredRoles.includes(role.value))) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', admin_constants_1.ACCESS_DENIED);
+            }
+            return true;
         }))();
     }
 };

@@ -11,9 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cart = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
-const product_model_1 = require("../../product/product.model");
+const product_model_1 = require("../../product/models/product.model");
 const user_model_1 = require("../../users/models/user.model");
-const cart_item_model_1 = require("./cart-item.model");
+const cart_product_model_1 = require("./cart.product.model");
 let Cart = class Cart extends sequelize_typescript_1.Model {
     getCartStatus() {
         return this.cartStatus;
@@ -51,6 +51,14 @@ __decorate([
     __metadata("design:type", String)
 ], Cart.prototype, "cartStatus", void 0);
 __decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        unique: false,
+        field: 'totalPrice',
+    }),
+    __metadata("design:type", Number)
+], Cart.prototype, "totalPrice", void 0);
+__decorate([
     (0, sequelize_typescript_1.ForeignKey)(() => user_model_1.User),
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.INTEGER,
@@ -63,15 +71,15 @@ __decorate([
     __metadata("design:type", user_model_1.User)
 ], Cart.prototype, "user", void 0);
 __decorate([
-    (0, sequelize_typescript_1.BelongsToMany)(() => product_model_1.Product, () => cart_item_model_1.CartProduct),
+    (0, sequelize_typescript_1.BelongsToMany)(() => product_model_1.Product, () => cart_product_model_1.CartProduct),
     __metadata("design:type", Array)
 ], Cart.prototype, "products", void 0);
 __decorate([
-    (0, sequelize_typescript_1.HasMany)(() => cart_item_model_1.CartProduct),
+    (0, sequelize_typescript_1.HasMany)(() => cart_product_model_1.CartProduct),
     __metadata("design:type", Array)
 ], Cart.prototype, "cartProducts", void 0);
 Cart = __decorate([
-    (0, sequelize_typescript_1.Table)({ tableName: 'carts' })
+    (0, sequelize_typescript_1.Table)({ tableName: 'CARTS' })
 ], Cart);
 exports.Cart = Cart;
 //# sourceMappingURL=cart.model.js.map

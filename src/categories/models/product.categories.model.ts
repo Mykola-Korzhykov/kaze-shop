@@ -5,10 +5,10 @@ import {
   Model,
   ForeignKey,
 } from 'sequelize-typescript';
-import { Product } from '../../product/product.model';
+import { Product } from '../../product/models/product.model';
 import { Category } from './category.model';
 
-@Table({ tableName: 'product_categories', createdAt: false, updatedAt: false })
+@Table({ tableName: 'PRODUCT_Categories', createdAt: false, updatedAt: false })
 export class ProductCategories extends Model<ProductCategories> {
   @Column({
     type: DataType.INTEGER,

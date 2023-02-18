@@ -27,10 +27,10 @@ import { RolesService } from '../../roles/roles.service';
 import * as bcrypt from 'bcrypt';
 import { ResetDto } from '../../auth/dto/reset.password.dto';
 import { CodeDto } from '../../core/interfaces/auth.interfaces';
-import { payload } from '../../core/interfaces/auth.interfaces';
+import { Payload } from '../../core/interfaces/auth.interfaces';
 import { v4 } from 'uuid';
 import { Role } from '../../roles/models/roles.model';
-import { ApiException } from 'src/common/exceptions/api.exception';
+import { ApiException } from '../../common/exceptions/api.exception';
 @Injectable({ scope: Scope.TRANSIENT })
 export class OwnerService {
   constructor(
@@ -168,7 +168,7 @@ export class OwnerService {
     return false;
   }
 
-  async checkOwner(payload: payload, activationLink: string | undefined) {
+  async checkOwner(payload: Payload, activationLink: string | undefined) {
     if (!activationLink) {
       throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', OWNER_ID_NOT_PROVIDED); 
     }

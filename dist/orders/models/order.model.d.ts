@@ -1,5 +1,5 @@
 import { Model } from 'sequelize-typescript';
-import { Product } from '../../product/product.model';
+import { Product } from '../../product/models/product.model';
 import { User } from '../../users/models/user.model';
 import { OrderProduct } from './order.product.model';
 export declare class Order extends Model<Order> {

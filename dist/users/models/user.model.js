@@ -17,6 +17,9 @@ const admin_model_1 = require("../../admin/models/admin.model");
 const roles_model_1 = require("../../roles/models/roles.model");
 const user_roles_model_1 = require("../../roles/models/user.roles.model");
 const user_refresh_token_model_1 = require("./user.refresh.token.model");
+const product_model_1 = require("../../product/models/product.model");
+const bookmark_products_1 = require("../../product/models/bookmark.products");
+const watched_products_model_1 = require("../../product/models/watched.products.model");
 let User = class User extends sequelize_typescript_1.Model {
     getName() {
         return this.name;
@@ -125,8 +128,8 @@ let User = class User extends sequelize_typescript_1.Model {
     getCarts() {
         return this.carts;
     }
-    getUserRefreshToken() {
-        return this.userRefreshToken;
+    getUserRefreshTokens() {
+        return this.userRefreshTokens;
     }
 };
 __decorate([
@@ -379,14 +382,22 @@ __decorate([
 ], User.prototype, "roles", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => user_refresh_token_model_1.UserRefreshToken),
-    __metadata("design:type", user_refresh_token_model_1.UserRefreshToken)
-], User.prototype, "userRefreshToken", void 0);
+    __metadata("design:type", Array)
+], User.prototype, "userRefreshTokens", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => cart_model_1.Cart),
     __metadata("design:type", Array)
 ], User.prototype, "carts", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsToMany)(() => product_model_1.Product, () => bookmark_products_1.BookmarksProducts),
+    __metadata("design:type", Array)
+], User.prototype, "bookmarks", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsToMany)(() => product_model_1.Product, () => watched_products_model_1.WatchedProducts),
+    __metadata("design:type", Array)
+], User.prototype, "watched", void 0);
 User = __decorate([
-    (0, sequelize_typescript_1.Table)({ tableName: 'users' })
+    (0, sequelize_typescript_1.Table)({ tableName: 'USERS' })
 ], User);
 exports.User = User;
 //# sourceMappingURL=user.model.js.map

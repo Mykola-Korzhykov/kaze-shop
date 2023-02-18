@@ -17,6 +17,7 @@ let AllExceptionsFilter = class AllExceptionsFilter {
         this.httpAdapterHost = httpAdapterHost;
     }
     catch(exception, host) {
+        console.log(exception);
         const { httpAdapter } = this.httpAdapterHost;
         const ctx = host.switchToHttp();
         const message = exception.message;

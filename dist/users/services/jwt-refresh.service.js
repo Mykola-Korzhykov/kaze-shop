@@ -30,6 +30,7 @@ const users_service_1 = require("./users.service");
 const sequelize_1 = require("@nestjs/sequelize");
 const scedule_service_1 = require("../../core/services/scedule.service");
 const api_exception_1 = require("../../common/exceptions/api.exception");
+const uuid_1 = require("uuid");
 let UserJwtRefreshTokenService = class UserJwtRefreshTokenService {
     constructor(jwtService, userService, sheduleService, userRefreshTokenRepository) {
         this.jwtService = jwtService;
@@ -62,7 +63,42 @@ let UserJwtRefreshTokenService = class UserJwtRefreshTokenService {
             }
         });
     }
-    saveToken(userId, userRefreshToken, email, userAgent, expireDate) {
+    insertToken(userId, userRefreshToken, email, userAgent, expireDate) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const user = yield this.userService.getUserById(userId);
+                if (!user) {
+                    throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_1.USER_NOT_FOUND);
+                }
+                const token = yield this.userRefreshTokenRepository.create({
+                    userRefreshToken: userRefreshToken,
+                    userId: user.id,
+                    email: email,
+                    userAgent: userAgent ||
+                        'Mozilla/5.0 (Windows NT 7.0; Win32; x32) AppleWebKit/523.34 (KHTML, like Gecko) Chrome/105.0.0.0 Safari/523.34',
+                });
+                token.setIdentifier((0, uuid_1.v4)());
+                yield token.save();
+                if (!token.getExpireDate()) {
+                    token.setExpireDate(expireDate);
+                    yield token.save();
+                }
+                if (!user.getUserRefreshTokens() || user.getUserRefreshTokens().length === 0) {
+                    user.$set('userRefreshTokens', token.id);
+                    user.userRefreshTokens = [token];
+                }
+                else {
+                    user.$add('userRefreshTokens', token.id);
+                }
+                yield user.save();
+                return token;
+            }
+            catch (err) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.INTERNAL_SERVER_ERROR, 'Internal Server Error', jwt_refresh_constants_1.ERROR_WHILE_SAVING_TOKEN);
+            }
+        });
+    }
+    saveToken(userId, userRefreshToken, email, userAgent, expireDate, identifier) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = yield this.userService.getUserById(userId);
@@ -70,7 +106,10 @@ let UserJwtRefreshTokenService = class UserJwtRefreshTokenService {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_1.USER_NOT_FOUND);
                 }
                 const tokenData = yield this.userRefreshTokenRepository.findOne({
-                    where: { userId: userId },
+                    where: {
+                        userId: userId,
+                        identifier: identifier,
+                    },
                 });
                 if (tokenData) {
                     tokenData.userRefreshToken = userRefreshToken;
@@ -101,6 +140,9 @@ let UserJwtRefreshTokenService = class UserJwtRefreshTokenService {
                 if (!token) {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_1.TOKEN_NOT_FOUND);
                 }
+                const user = yield this.userService.getUserById(token.userId);
+                user.$remove('userRefreshTokens', token.token.id);
+                yield user.save();
                 const tokenData = yield this.userRefreshTokenRepository.destroy({
                     where: { userRefreshToken: userRefreshToken },
                 });
@@ -111,10 +153,13 @@ let UserJwtRefreshTokenService = class UserJwtRefreshTokenService {
             }
         });
     }
-    findToken(userRefreshToken) {
+    findTokenByToken(userRefreshToken, identifier) {
         return __awaiter(this, void 0, void 0, function* () {
             const token = yield user_refresh_token_model_1.UserRefreshToken.findOne({
-                where: { userRefreshToken: userRefreshToken },
+                where: {
+                    userRefreshToken: userRefreshToken,
+                    identifier: identifier,
+                },
             });
             if (!token) {
                 throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_1.TOKEN_NOT_FOUND);
@@ -122,18 +167,38 @@ let UserJwtRefreshTokenService = class UserJwtRefreshTokenService {
             return token;
         });
     }
-    removeTokenInTime(userRefreshToken) {
+    findToken(userRefreshToken) {
         return __awaiter(this, void 0, void 0, function* () {
-            const token = yield this.userRefreshTokenRepository.findOne({
+            const token = yield user_refresh_token_model_1.UserRefreshToken.findOne({
                 where: {
                     userRefreshToken: userRefreshToken,
                 },
             });
             if (!token) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_1.TOKEN_NOT_FOUND);
+            }
+            return {
+                token: token,
+                userId: token.userId,
+            };
+        });
+    }
+    removeTokenInTime(userRefreshTokenId, identifier) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const token = yield this.userRefreshTokenRepository.findOne({
+                where: {
+                    id: userRefreshTokenId,
+                    identifier: identifier,
+                },
+            });
+            if (!token) {
                 return false;
             }
+            const user = yield this.userService.getUserById(token.userId);
+            user.$remove('userRefreshTokens', token.id);
+            yield user.save();
             return this.userRefreshTokenRepository.destroy({
-                where: { userRefreshToken: userRefreshToken },
+                where: { id: userRefreshTokenId, identifier: identifier },
             });
         });
     }

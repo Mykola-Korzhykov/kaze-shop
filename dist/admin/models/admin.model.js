@@ -17,7 +17,7 @@ const roles_model_1 = require("../../roles/models/roles.model");
 const user_roles_model_1 = require("../../roles/models/user.roles.model");
 const user_model_1 = require("../../users/models/user.model");
 const admin_refresh_token_model_1 = require("./admin.refresh.token.model");
-const product_model_1 = require("../../product/product.model");
+const product_model_1 = require("../../product/models/product.model");
 let Admin = class Admin extends sequelize_typescript_1.Model {
     getName() {
         return this.name;
@@ -112,11 +112,15 @@ let Admin = class Admin extends sequelize_typescript_1.Model {
         this.activationCode = activationCode;
         return this.activationCode;
     }
-    getAdminRefreshTken() {
-        return this.adminRefreshToken;
+    getAdminRefreshTokens() {
+        return this.adminRefreshTokens;
     }
     getUser() {
         return this.user;
+    }
+    addProduct(product) {
+        this.products.push(product);
+        return this.products;
     }
 };
 __decorate([
@@ -331,8 +335,8 @@ __decorate([
 ], Admin.prototype, "products", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => admin_refresh_token_model_1.AdminRefreshToken),
-    __metadata("design:type", admin_refresh_token_model_1.AdminRefreshToken)
-], Admin.prototype, "adminRefreshToken", void 0);
+    __metadata("design:type", Array)
+], Admin.prototype, "adminRefreshTokens", void 0);
 __decorate([
     (0, sequelize_typescript_1.BelongsToMany)(() => roles_model_1.Role, () => user_roles_model_1.UserRoles),
     __metadata("design:type", Array)
@@ -342,7 +346,7 @@ __decorate([
     __metadata("design:type", user_model_1.User)
 ], Admin.prototype, "user", void 0);
 Admin = __decorate([
-    (0, sequelize_typescript_1.Table)({ tableName: 'admins' })
+    (0, sequelize_typescript_1.Table)({ tableName: 'ADMINS' })
 ], Admin);
 exports.Admin = Admin;
 //# sourceMappingURL=admin.model.js.map

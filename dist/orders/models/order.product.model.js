@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderProduct = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
-const product_model_1 = require("../../product/product.model");
+const product_model_1 = require("../../product/models/product.model");
 const order_model_1 = require("./order.model");
 let OrderProduct = class OrderProduct extends sequelize_typescript_1.Model {
     getProduct() {
@@ -79,7 +79,7 @@ __decorate([
     __metadata("design:type", product_model_1.Product)
 ], OrderProduct.prototype, "product", void 0);
 OrderProduct = __decorate([
-    (0, sequelize_typescript_1.Table)({ tableName: 'orderproduct' })
+    (0, sequelize_typescript_1.Table)({ tableName: 'PRODUCT_Orders' })
 ], OrderProduct);
 exports.OrderProduct = OrderProduct;
 //# sourceMappingURL=order.product.model.js.map

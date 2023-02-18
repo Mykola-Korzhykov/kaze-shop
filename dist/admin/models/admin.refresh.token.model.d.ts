@@ -9,10 +9,13 @@ export declare class AdminRefreshToken extends Model<AdminRefreshToken, AdminRef
     adminId: number;
     private adminAgent;
     private expireDate;
+    identifier: string;
     private admin;
     getExpireDate(): Date;
     setExpireDate(expireDate: Date): Date;
     getAdminAgent(): string;
     setAdminAgent(adminAgent: string): string;
     getAdmin(): Admin;
+    getIdentifier(): string;
+    setIdentifier(identifier: string): string;
 }

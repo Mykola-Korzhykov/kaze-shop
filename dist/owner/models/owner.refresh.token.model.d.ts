@@ -9,6 +9,7 @@ export declare class OwnerRefreshToken extends Model<OwnerRefreshToken, OwnerRef
     ownerId: number;
     private ownerAgent;
     private expireDate;
+    identifier: string;
     private owner;
     getExpireDate(): Date;
     setExpireDate(expireDate: Date): Date;
@@ -17,4 +18,6 @@ export declare class OwnerRefreshToken extends Model<OwnerRefreshToken, OwnerRef
     getownerAgent(): string;
     setownerAgent(ownerAgent: string): string;
     getOwner(): Owner;
+    getIdentifier(): string;
+    setIdentifier(identifier: string): string;
 }

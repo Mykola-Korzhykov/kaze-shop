@@ -22,25 +22,27 @@ import { User } from '../users/models/user.model';
 import { UserRefreshToken } from '../users/models/user.refresh.token.model';
 import { UsersModule } from '../users/users.module';
 import { ConfigModule } from '@nestjs/config';
-import { Product } from './product.model';
+import { Product } from './models/product.model';
 import { Category } from '../categories/models/category.model';
 import { ProductCategories } from '../categories/models/product.categories.model';
 import { CategoriesModule } from '../categories/categories.module';
 import { CartModule } from '../cart/cart.module';
-import { CartProduct } from 'src/cart/models/cart-item.model';
-import { Cart } from 'src/cart/models/cart.model';
-import { Order } from 'src/orders/models/order.model';
-import { OrderProduct } from 'src/orders/models/order.product.model';
-import { OrdersModule } from 'src/orders/orders.module';
-import { InitializeUserMiddleware } from 'src/common/middlewares/initialize-user.middleware';
+import { CartProduct } from '../cart/models/cart.product.model';
+import { Cart } from '../cart/models/cart.model';
+import { Order } from '../orders/models/order.model';
+import { OrderProduct } from '../orders/models/order.product.model';
+import { OrdersModule } from '../orders/orders.module';
+import { InitializeUserMiddleware } from '../common/middlewares/initialize-user.middleware';
+import { CategoriesService } from '../categories/categories.service';
+import { FilesService } from '../core/services/file.service';
+import { ProductMiddleware } from '../common/middlewares/product.middleware';
+import { ProductReviews } from '../reviews/models/product.reviews.model';
+import { BookmarksProducts } from './models/bookmark.products';
+import { WatchedProducts } from './models/watched.products.model';
 import { UserMiddleware } from 'src/common/middlewares/user.middleware';
-import RequestValidator from 'src/common/pipes/body-validator.pipe';
-import { UpdateUserDto } from 'src/users/dto/update-user.dto';
-import { CreateProductDto } from './dto/create.product.dto';
-import { CategoriesService } from 'src/categories/categories.service';
 
 @Module({
-  providers: [ProductService, CategoriesService],
+  providers: [ProductService, CategoriesService, FilesService],
   controllers: [ProductController],
   imports: [
     ConfigModule.forRoot({
@@ -49,6 +51,7 @@ import { CategoriesService } from 'src/categories/categories.service';
       isGlobal: true,
     }),
     SequelizeModule.forFeature([
+      ProductReviews,
       Product,
       Order,
       OrderProduct,
@@ -61,6 +64,8 @@ import { CategoriesService } from 'src/categories/categories.service';
       User,
       UserRefreshToken,
       Role,
+      BookmarksProducts,
+      WatchedProducts,
       UserRoles,
       Cart,
       CartProduct,
@@ -77,14 +82,25 @@ import { CategoriesService } from 'src/categories/categories.service';
 })
 export class ProductModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    // consumer.apply(RequestValidator.validate(CreateProductDto)).forRoutes({
-    //   path: 'product/create_product',
-    //   method: RequestMethod.POST,
-    // });
-    // consumer
-    //     .apply(InitializeUserMiddleware)
-    //     .forRoutes(
-    //       { path: 'product/create_product', method: RequestMethod.POST },
-    //     );
+    consumer.apply(ProductMiddleware).forRoutes({
+      path: '*',
+      method: RequestMethod.ALL,
+    });
+    consumer
+      .apply(UserMiddleware, InitializeUserMiddleware)
+      .forRoutes(
+        { path: 'product/addBookmark', method: RequestMethod.POST },
+        { path: 'product/addWatchedProduct', method: RequestMethod.POST },
+        { path: 'product/watchedProducts', method: RequestMethod.GET },
+        { path: 'product/bookmarkProducts', method: RequestMethod.GET }
+      );
+    consumer
+        .apply(InitializeUserMiddleware)
+        .forRoutes(
+          { path: 'product/create_product', method: RequestMethod.PUT },
+          { path: '*', method: RequestMethod.PATCH },
+          { path: '*', method: RequestMethod.DELETE },
+          { path: 'product/delete_image', method: RequestMethod.DELETE }
+        );
   }
 }

@@ -25,24 +25,41 @@ const user_model_1 = require("../users/models/user.model");
 const user_refresh_token_model_1 = require("../users/models/user.refresh.token.model");
 const users_module_1 = require("../users/users.module");
 const config_1 = require("@nestjs/config");
-const product_model_1 = require("./product.model");
+const product_model_1 = require("./models/product.model");
 const category_model_1 = require("../categories/models/category.model");
 const product_categories_model_1 = require("../categories/models/product.categories.model");
 const categories_module_1 = require("../categories/categories.module");
 const cart_module_1 = require("../cart/cart.module");
-const cart_item_model_1 = require("../cart/models/cart-item.model");
+const cart_product_model_1 = require("../cart/models/cart.product.model");
 const cart_model_1 = require("../cart/models/cart.model");
 const order_model_1 = require("../orders/models/order.model");
 const order_product_model_1 = require("../orders/models/order.product.model");
 const orders_module_1 = require("../orders/orders.module");
+const initialize_user_middleware_1 = require("../common/middlewares/initialize-user.middleware");
 const categories_service_1 = require("../categories/categories.service");
+const file_service_1 = require("../core/services/file.service");
+const product_middleware_1 = require("../common/middlewares/product.middleware");
+const product_reviews_model_1 = require("../reviews/models/product.reviews.model");
+const bookmark_products_1 = require("./models/bookmark.products");
+const watched_products_model_1 = require("./models/watched.products.model");
+const user_middleware_1 = require("../common/middlewares/user.middleware");
 let ProductModule = class ProductModule {
     configure(consumer) {
+        consumer.apply(product_middleware_1.ProductMiddleware).forRoutes({
+            path: '*',
+            method: common_1.RequestMethod.ALL,
+        });
+        consumer
+            .apply(user_middleware_1.UserMiddleware, initialize_user_middleware_1.InitializeUserMiddleware)
+            .forRoutes({ path: 'product/addBookmark', method: common_1.RequestMethod.POST }, { path: 'product/addWatchedProduct', method: common_1.RequestMethod.POST }, { path: 'product/watchedProducts', method: common_1.RequestMethod.GET }, { path: 'product/bookmarkProducts', method: common_1.RequestMethod.GET });
+        consumer
+            .apply(initialize_user_middleware_1.InitializeUserMiddleware)
+            .forRoutes({ path: 'product/create_product', method: common_1.RequestMethod.PUT }, { path: '*', method: common_1.RequestMethod.PATCH }, { path: '*', method: common_1.RequestMethod.DELETE }, { path: 'product/delete_image', method: common_1.RequestMethod.DELETE });
     }
 };
 ProductModule = __decorate([
     (0, common_1.Module)({
-        providers: [product_service_1.ProductService, categories_service_1.CategoriesService],
+        providers: [product_service_1.ProductService, categories_service_1.CategoriesService, file_service_1.FilesService],
         controllers: [product_controller_1.ProductController],
         imports: [
             config_1.ConfigModule.forRoot({
@@ -51,6 +68,7 @@ ProductModule = __decorate([
                 isGlobal: true,
             }),
             sequelize_1.SequelizeModule.forFeature([
+                product_reviews_model_1.ProductReviews,
                 product_model_1.Product,
                 order_model_1.Order,
                 order_product_model_1.OrderProduct,
@@ -63,9 +81,11 @@ ProductModule = __decorate([
                 user_model_1.User,
                 user_refresh_token_model_1.UserRefreshToken,
                 roles_model_1.Role,
+                bookmark_products_1.BookmarksProducts,
+                watched_products_model_1.WatchedProducts,
                 user_roles_model_1.UserRoles,
                 cart_model_1.Cart,
-                cart_item_model_1.CartProduct,
+                cart_product_model_1.CartProduct,
             ]),
             (0, common_1.forwardRef)(() => orders_module_1.OrdersModule),
             (0, common_1.forwardRef)(() => cart_module_1.CartModule),

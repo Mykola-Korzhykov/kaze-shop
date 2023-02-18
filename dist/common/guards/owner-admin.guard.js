@@ -27,14 +27,13 @@ const roles_auth_decorator_1 = require("../decorators/roles-auth.decorator");
 const core_1 = require("@nestjs/core");
 const jwt_refresh_service_2 = require("../../admin/services/jwt-refresh.service");
 const admin_refresh_token_model_1 = require("../../admin/models/admin.refresh.token.model");
-const auth_service_1 = require("../../auth/auth.service");
 const api_exception_1 = require("../exceptions/api.exception");
+const admin_constants_1 = require("../../admin/constants/admin.constants");
 let OwnerAdminGuard = class OwnerAdminGuard {
-    constructor(ownerJwtRefreshTokenService, adminJwtRefreshTokenService, reflector, authService) {
+    constructor(ownerJwtRefreshTokenService, adminJwtRefreshTokenService, reflector) {
         this.ownerJwtRefreshTokenService = ownerJwtRefreshTokenService;
         this.adminJwtRefreshTokenService = adminJwtRefreshTokenService;
         this.reflector = reflector;
-        this.authService = authService;
     }
     canActivate(context) {
         return (() => __awaiter(this, void 0, void 0, function* () {
@@ -43,19 +42,11 @@ let OwnerAdminGuard = class OwnerAdminGuard {
                 return true;
             }
             const req = context.switchToHttp().getRequest();
-            const accessToken = req === null || req === void 0 ? void 0 : req.cookies['accessToken'];
             const refreshToken = req === null || req === void 0 ? void 0 : req.cookies['refreshToken'];
             if (!refreshToken) {
                 throw new api_exception_1.ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request!', auth_constants_1.REFRESH_TOKEN_NOT_PROVIDED);
             }
             const decodedToken = Buffer.from(refreshToken, 'base64').toString('ascii');
-            const decodedAccessToken = Buffer.from(accessToken, 'base64').toString('ascii');
-            if (process.env.NODE_ENV === 'production') {
-                const accessPayload = yield this.authService.validateAccessToken(decodedAccessToken);
-                if (!accessPayload.roles.some((role) => requiredRoles.includes(role.value))) {
-                    throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', auth_constants_1.USER_NOT_AUTHORIZIED);
-                }
-            }
             const type = req['type'];
             if (type === undefined) {
                 throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', auth_constants_1.USER_NOT_DETECTED);
@@ -77,7 +68,10 @@ let OwnerAdminGuard = class OwnerAdminGuard {
                 if (!refreshPayload) {
                     return false;
                 }
-                return refreshPayload.roles.some((role) => requiredRoles.includes(role.value));
+                if (!refreshPayload.roles.some((role) => requiredRoles.includes(role.value))) {
+                    throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', admin_constants_1.ACCESS_DENIED);
+                }
+                return true;
             }
             if (type && type === 'ADMIN') {
                 const userRefreshToken = yield this.adminJwtRefreshTokenService.findToken(decodedToken);
@@ -93,9 +87,12 @@ let OwnerAdminGuard = class OwnerAdminGuard {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', auth_constants_1.ADMIN_NOT_AUTHORIZIED);
                 }
                 const refreshPayload = yield this.adminJwtRefreshTokenService.validateRefreshToken(decodedToken);
-                return refreshPayload.roles.some((role) => requiredRoles.includes(role.value));
+                if (!refreshPayload.roles.some((role) => requiredRoles.includes(role.value))) {
+                    throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', admin_constants_1.ACCESS_DENIED);
+                }
+                return true;
             }
-            throw new common_1.HttpException(auth_constants_1.ACCESS_DENIED, common_1.HttpStatus.FORBIDDEN);
+            throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', admin_constants_1.ACCESS_DENIED);
         }))();
     }
 };
@@ -103,8 +100,7 @@ OwnerAdminGuard = __decorate([
     (0, common_1.Injectable)({ scope: common_1.Scope.REQUEST }),
     __metadata("design:paramtypes", [jwt_refresh_service_1.OwnerJwtRefreshService,
         jwt_refresh_service_2.AdminJwtRefreshService,
-        core_1.Reflector,
-        auth_service_1.AuthService])
+        core_1.Reflector])
 ], OwnerAdminGuard);
 exports.OwnerAdminGuard = OwnerAdminGuard;
 //# sourceMappingURL=owner-admin.guard.js.map

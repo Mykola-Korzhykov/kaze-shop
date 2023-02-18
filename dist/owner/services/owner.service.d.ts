@@ -4,7 +4,7 @@ import { Owner } from '../models/owner.model';
 import { RolesService } from '../../roles/roles.service';
 import { ResetDto } from '../../auth/dto/reset.password.dto';
 import { CodeDto } from '../../core/interfaces/auth.interfaces';
-import { payload } from '../../core/interfaces/auth.interfaces';
+import { Payload } from '../../core/interfaces/auth.interfaces';
 export declare class OwnerService {
     private readonly ownerRepository;
     private readonly roleService;
@@ -17,7 +17,7 @@ export declare class OwnerService {
     getOwnerByEmail(email: string): Promise<Owner>;
     getOwnerByPhoneNumber(phoneNumber: string): Promise<Owner>;
     validateOwner(ownerDto: LoginDto): Promise<Owner | boolean>;
-    checkOwner(payload: payload, activationLink: string | undefined): Promise<boolean>;
+    checkOwner(payload: Payload, activationLink: string | undefined): Promise<boolean>;
     setConfirmCode(codeDto: CodeDto, code: number): Promise<string>;
     resetPassword(resetDto: ResetDto): Promise<string>;
     changePassword(ownerId: number, password: string): Promise<Owner | void>;

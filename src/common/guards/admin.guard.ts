@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   CanActivate,
   ExecutionContext,
   HttpStatus,
@@ -7,7 +6,7 @@ import {
   Scope,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { payload } from '../../core/interfaces/auth.interfaces';
+import { Payload } from '../../core/interfaces/auth.interfaces';
 import { REFRESH_TOKEN_NOT_PROVIDED, USER_NOT_AUTHORIZIED } from '../../auth/auth.constants';
 import { AdminJwtRefreshService } from '../../admin/services/jwt-refresh.service';
 import { AdminRefreshToken } from '../../admin/models/admin.refresh.token.model';
@@ -15,6 +14,7 @@ import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from '../decorators/roles-auth.decorator';
 import { AuthService } from '../../auth/auth.service';
 import { ApiException } from '../exceptions/api.exception';
+import { ACCESS_DENIED } from '../../admin/constants/admin.constants';
 
 @Injectable({ scope: Scope.REQUEST })
 export class AdminGuard implements CanActivate {
@@ -37,7 +37,6 @@ export class AdminGuard implements CanActivate {
       }
       const req = context.switchToHttp().getRequest();
       const refreshToken = req?.cookies['refreshToken'];
-      const accessToken = req?.cookies['accessToken'];
       if (!refreshToken) {
         throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request!', REFRESH_TOKEN_NOT_PROVIDED);
       }
@@ -47,26 +46,10 @@ export class AdminGuard implements CanActivate {
       const userRefreshToken = await this.adminJwtRefreshTokenService.findToken(
         decodedToken,
       );
-      const decodedAccessToken = Buffer.from(accessToken, 'base64').toString(
-        'ascii',
-      );
-      if (process.env.NODE_ENV === 'production') {
-        const accessPayload = await this.authService.validateAccessToken(
-          decodedAccessToken,
-        );
-        if (
-          !accessPayload.roles.some(
-            (role: { value: string; description: string }) =>
-              requiredRoles.includes(role.value),
-          )
-        ) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
-        }
-      }
       if (!userRefreshToken) {
         throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
       }
-      const payload: payload = req?.payload;
+      const payload: Payload = req?.payload;
       if (!payload) {
         throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
       }
@@ -80,10 +63,14 @@ export class AdminGuard implements CanActivate {
         await this.adminJwtRefreshTokenService.validateRefreshToken(
           decodedToken,
         );
-      return refreshPayload.roles.some(
-        (role: { value: string; description: string }) =>
-          requiredRoles.includes(role.value),
-      );
+      if (
+          !refreshPayload.roles.some(
+          (role: { value: string; description: string }) =>
+            requiredRoles.includes(role.value))
+        ) {
+          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ACCESS_DENIED);
+      }
+      return true;
     })();
   }
 }

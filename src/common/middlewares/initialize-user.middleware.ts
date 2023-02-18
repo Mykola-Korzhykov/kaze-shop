@@ -11,7 +11,7 @@ import { OwnerJwtRefreshService } from '../../owner/services/jwt-refresh.service
 import { AdminJwtRefreshService } from '../../admin/services/jwt-refresh.service';
 import { UserJwtRefreshTokenService } from '../../users/services/jwt-refresh.service';
 import { Next, Res } from '@nestjs/common/decorators';
-import { REFRESH_TOKEN_NOT_PROVIDED, INVALID_REFRESH_TOKEN } from 'src/auth/auth.constants';
+import { REFRESH_TOKEN_NOT_PROVIDED, INVALID_REFRESH_TOKEN } from '../../auth/auth.constants';
 import { ApiException } from '../exceptions/api.exception';
 @Injectable({ scope: Scope.REQUEST })
 export class InitializeUserMiddleware implements NestMiddleware {

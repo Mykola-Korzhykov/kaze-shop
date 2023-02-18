@@ -38,6 +38,13 @@ let OwnerRefreshToken = class OwnerRefreshToken extends sequelize_typescript_1.M
     getOwner() {
         return this.owner;
     }
+    getIdentifier() {
+        return this.identifier;
+    }
+    setIdentifier(identifier) {
+        this.identifier = identifier;
+        return this.identifier;
+    }
 };
 __decorate([
     (0, swagger_1.ApiProperty)({ example: '1', description: 'unique identifier' }),
@@ -66,7 +73,7 @@ __decorate([
     sequelize_typescript_1.IsEmail,
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.STRING,
-        unique: true,
+        unique: false,
         allowNull: false,
         field: 'email',
     }),
@@ -101,7 +108,7 @@ __decorate([
     }),
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.CHAR(350),
-        unique: true,
+        unique: false,
         allowNull: false,
         field: 'ownerAgent',
     }),
@@ -116,11 +123,25 @@ __decorate([
     __metadata("design:type", Date)
 ], OwnerRefreshToken.prototype, "expireDate", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
+        description: 'identifier',
+    }),
+    (0, sequelize_typescript_1.IsUUID)(4),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        unique: true,
+        allowNull: true,
+        field: 'identifier',
+    }),
+    __metadata("design:type", String)
+], OwnerRefreshToken.prototype, "identifier", void 0);
+__decorate([
     (0, sequelize_typescript_1.BelongsTo)(() => owner_model_1.Owner),
     __metadata("design:type", owner_model_1.Owner)
 ], OwnerRefreshToken.prototype, "owner", void 0);
 OwnerRefreshToken = __decorate([
-    (0, sequelize_typescript_1.Table)({ tableName: 'owner refresh token' })
+    (0, sequelize_typescript_1.Table)({ tableName: 'OWNER`s_Refresh-tokens' })
 ], OwnerRefreshToken);
 exports.OwnerRefreshToken = OwnerRefreshToken;
 //# sourceMappingURL=owner.refresh.token.model.js.map

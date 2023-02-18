@@ -8,9 +8,9 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { INVALID_REQUEST, USER_NOT_DETECTED, NO_RIGHT } from 'src/auth/auth.constants';
+import { INVALID_REQUEST, USER_NOT_DETECTED, NO_RIGHT } from '../../auth/auth.constants';
 import { AdminService } from '../../admin/services/admin.service';
-import { payload } from '../../core/interfaces/auth.interfaces';
+import { Payload } from '../../core/interfaces/auth.interfaces';
 import { ApiException } from '../exceptions/api.exception';
 
 @Injectable({ scope: Scope.REQUEST })
@@ -22,7 +22,7 @@ export class AddContentGuard implements CanActivate {
   ): boolean | Promise<boolean> | Observable<boolean> {
     return (async () => {
       const req = context.switchToHttp().getRequest();
-      const payload: payload = req?.payload;
+      const payload: Payload = req?.payload;
       const type: 'OWNER' | 'ADMIN' | null = req['type'];
       if (!payload) {
         throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', INVALID_REQUEST);

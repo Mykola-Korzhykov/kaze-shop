@@ -79,10 +79,18 @@ let TasksService = TasksService_1 = class TasksService {
         intervals.forEach((key) => this.logger.log(`Interval: ${key}`));
         return intervals;
     }
-    addTimeoutForTokens(name, milliseconds, refreshTokenId, cb) {
+    garbageCollector(name, milliseconds) {
+        const callback = () => __awaiter(this, void 0, void 0, function* () {
+            this.logger.warn(`Interval ${name} executing at time (${milliseconds})!`);
+        });
+        const interval = setInterval(callback, milliseconds);
+        this.schedulerRegistry.addInterval(name, interval);
+        return interval;
+    }
+    addTimeoutForTokens(name, milliseconds, refreshTokenId, identifier, cb) {
         const callback = () => __awaiter(this, void 0, void 0, function* () {
             this.logger.log(`Timeout ${name} executing after (${milliseconds})!`);
-            const timeout = yield cb(refreshTokenId);
+            const timeout = yield cb(refreshTokenId, identifier);
             if (!timeout) {
                 return this.deleteTimeout(name);
             }

@@ -38,6 +38,9 @@ let CategoriesController = class CategoriesController {
     createCategory(categoryDto) {
         return this.categoriesService.createCategory(categoryDto);
     }
+    updateCategory(categoryId, categoryDto) {
+        return this.categoriesService.updateCategory(categoryId, categoryDto);
+    }
     deleteCategory(categoryId) {
         return this.categoriesService.deleteCategory(categoryId);
     }
@@ -58,10 +61,25 @@ __decorate([
     (0, roles_auth_decorator_1.Roles)('OWNER', 'ADMIN'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, owner_admin_guard_1.OwnerAdminGuard, jw_refresh_guard_1.AuthFerfershGuard, add_content_guard_1.AddContentGuard),
     (0, common_1.Put)('create_category'),
+    __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_category_dto_1.CreateCategoryDto]),
     __metadata("design:returntype", Promise)
 ], CategoriesController.prototype, "createCategory", null);
+__decorate([
+    (0, throttler_1.Throttle)(70, 700),
+    (0, swagger_1.ApiOperation)({ summary: 'Creating Categories' }),
+    (0, swagger_1.ApiResponse)({ status: 201, type: category_model_1.Category }),
+    (0, common_1.HttpCode)(201),
+    (0, roles_auth_decorator_1.Roles)('OWNER', 'ADMIN'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, owner_admin_guard_1.OwnerAdminGuard, jw_refresh_guard_1.AuthFerfershGuard, add_content_guard_1.AddContentGuard),
+    (0, common_1.Patch)('update_category/:categoryId'),
+    __param(0, (0, common_1.Param)('categoryId', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, create_category_dto_1.CreateCategoryDto]),
+    __metadata("design:returntype", Promise)
+], CategoriesController.prototype, "updateCategory", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
     (0, common_1.HttpCode)(200),
@@ -71,7 +89,7 @@ __decorate([
     __param(0, (0, common_1.Param)('categoryId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], CategoriesController.prototype, "deleteCategory", null);
 CategoriesController = __decorate([
     (0, common_1.UseGuards)(throttler_behind_proxy_guard_1.ThrottlerBehindProxyGuard),

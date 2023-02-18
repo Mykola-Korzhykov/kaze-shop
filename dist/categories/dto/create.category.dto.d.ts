@@ -1,4 +1,6 @@
 export declare class CreateCategoryDto {
-    title: string;
-    description: string;
+    ua: string;
+    ru: string;
+    rs: string;
+    en: string;
 }

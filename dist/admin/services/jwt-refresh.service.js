@@ -20,6 +20,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var AdminJwtRefreshService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminJwtRefreshService = void 0;
 const common_1 = require("@nestjs/common");
@@ -31,13 +32,17 @@ const mail_service_1 = require("../../mail/mail.service");
 const sequelize_1 = require("@nestjs/sequelize");
 const scedule_service_1 = require("../../core/services/scedule.service");
 const api_exception_1 = require("../../common/exceptions/api.exception");
-let AdminJwtRefreshService = class AdminJwtRefreshService {
+const crypto_1 = require("crypto");
+const util_1 = require("util");
+const uuid_1 = require("uuid");
+let AdminJwtRefreshService = AdminJwtRefreshService_1 = class AdminJwtRefreshService {
     constructor(jwtService, adminService, sheduleService, mailService, adminRefreshTokenRepository) {
         this.jwtService = jwtService;
         this.adminService = adminService;
         this.sheduleService = sheduleService;
         this.mailService = mailService;
         this.adminRefreshTokenRepository = adminRefreshTokenRepository;
+        this.Logger = new common_1.Logger(AdminJwtRefreshService_1.name);
     }
     generateRefreshToken(payload) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -64,7 +69,42 @@ let AdminJwtRefreshService = class AdminJwtRefreshService {
             }
         });
     }
-    saveToken(adminId, adminRefreshToken, email, adminAgent, phoneNumber, expireDate) {
+    insertToken(adminId, adminRefreshToken, email, adminAgent, phoneNumber, expireDate) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const admin = yield this.adminService.getAdminById(adminId);
+                if (!admin) {
+                    throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_1.ADMIN_NOT_FOUND);
+                }
+                const token = yield this.adminRefreshTokenRepository.create({
+                    adminRefreshToken: adminRefreshToken,
+                    adminId: admin.id,
+                    email: email,
+                    adminAgent: adminAgent,
+                    phoneNumber: phoneNumber,
+                });
+                token.setIdentifier((0, uuid_1.v4)());
+                yield token.save();
+                if (!token.getExpireDate()) {
+                    token.setExpireDate(expireDate);
+                    yield token.save();
+                }
+                if (!admin.getAdminRefreshTokens() || admin.getAdminRefreshTokens().length === 0) {
+                    admin.$set('adminRefreshTokens', token.id);
+                    admin.adminRefreshTokens = [token];
+                }
+                else {
+                    admin.$add('adminRefreshTokens', token.id);
+                }
+                yield admin.save();
+                return token;
+            }
+            catch (err) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.INTERNAL_SERVER_ERROR, 'Internal Server Error', jwt_refresh_constants_1.ERROR_WHILE_SAVING_TOKEN);
+            }
+        });
+    }
+    saveToken(adminId, adminRefreshToken, email, adminAgent, phoneNumber, expireDate, identifier) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const admin = yield this.adminService.getAdminById(adminId);
@@ -72,14 +112,32 @@ let AdminJwtRefreshService = class AdminJwtRefreshService {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_1.ADMIN_NOT_FOUND);
                 }
                 const tokenData = yield this.adminRefreshTokenRepository.findOne({
-                    where: { adminId: adminId },
+                    where: {
+                        adminId: adminId,
+                        identifier: identifier,
+                    },
                 });
+                if (tokenData && admin.getAdminAgent() === 'null') {
+                    admin.setAdminAgent(adminAgent);
+                    tokenData.setAdminAgent(adminAgent);
+                    yield admin.save();
+                    yield tokenData.save();
+                }
                 if (tokenData) {
                     tokenData.adminRefreshToken = adminRefreshToken;
-                    if (admin.getAdminAgent() && admin.getAdminAgent() !== adminAgent) {
+                    if (admin.getAdminAgent() && admin.getAdminAgent().trim() !== adminAgent) {
                         admin.setIsActivated(false);
+                        const link = yield this.generateEncryptedValue('ADMIN', 16);
+                        const code = this.generateActivationCode();
+                        admin.setResetToken(link.replace('/', `${(0, uuid_1.v4)()}`).replace('=', `${(0, uuid_1.v4)()}`));
+                        admin.setActivationCode(code);
+                        admin.setResetTokenExpiration(Number(Date.now() + 3600000));
+                        yield admin.save();
+                        this.Logger.log(`checking owner with email ${admin.email}`, admin.getAdminAgent() !== adminAgent);
+                        this.mailService.sendActivationMailToAdmin(admin.email, `${process.env.API_URL}/auth/activate/${admin.getResetToken().trim()}?code=${code}`);
                     }
-                    return tokenData.save();
+                    yield tokenData.save();
+                    return tokenData;
                 }
                 const token = yield this.adminRefreshTokenRepository.create({
                     adminRefreshToken: adminRefreshToken,
@@ -106,6 +164,9 @@ let AdminJwtRefreshService = class AdminJwtRefreshService {
                 if (!token) {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_1.TOKEN_NOT_FOUND);
                 }
+                const admin = yield this.adminService.getAdminById(token.adminId);
+                admin.$remove('adminRefreshTokens', token.token.id);
+                yield admin.save();
                 const tokenData = yield this.adminRefreshTokenRepository.destroy({
                     where: { adminRefreshToken: adminRefreshToken },
                 });
@@ -124,13 +185,13 @@ let AdminJwtRefreshService = class AdminJwtRefreshService {
             if (!token) {
                 return false;
             }
-            return token;
+            return { token: token, adminId: token.adminId };
         });
     }
-    findTokenByToken(adminRefreshToken) {
+    findTokenByToken(adminRefreshToken, identifier) {
         return __awaiter(this, void 0, void 0, function* () {
             const token = yield this.adminRefreshTokenRepository.findOne({
-                where: { adminRefreshToken: adminRefreshToken },
+                where: { adminRefreshToken: adminRefreshToken, identifier: identifier },
             });
             if (!token) {
                 throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_1.TOKEN_NOT_FOUND);
@@ -138,10 +199,10 @@ let AdminJwtRefreshService = class AdminJwtRefreshService {
             return token;
         });
     }
-    findTokenByParams(email, phoneNumber) {
+    findTokenByParams(email, phoneNumber, identifier) {
         return __awaiter(this, void 0, void 0, function* () {
             const token = yield this.adminRefreshTokenRepository.findOne({
-                where: { email: email, phoneNumber: phoneNumber },
+                where: { email: email, phoneNumber: phoneNumber, identifier: identifier },
             });
             if (!token) {
                 throw new api_exception_1.ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', jwt_refresh_constants_1.TOKEN_INVALID);
@@ -149,22 +210,44 @@ let AdminJwtRefreshService = class AdminJwtRefreshService {
             return token;
         });
     }
-    removeTokenInTime(adminRefreshTokenId) {
+    removeTokenInTime(adminRefreshTokenId, identifier) {
         return __awaiter(this, void 0, void 0, function* () {
-            const token = yield admin_refresh_token_model_1.AdminRefreshToken.findByPk(adminRefreshTokenId);
+            const token = yield admin_refresh_token_model_1.AdminRefreshToken.findOne({
+                where: {
+                    id: adminRefreshTokenId,
+                    identifier: identifier,
+                }
+            });
             if (!token) {
                 return false;
             }
+            const admin = yield this.adminService.getAdminById(token.adminId);
+            admin.$remove('adminRefreshTokens', token.id);
+            yield admin.save();
             return this.adminRefreshTokenRepository.destroy({
                 where: {
                     id: token.id,
                     phoneNumber: token.phoneNumber,
+                    identifier: identifier,
                 },
             });
         });
     }
+    generateEncryptedValue(value, bytes) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const iv = (0, crypto_1.randomBytes)(bytes);
+            const API_KEY = process.env.API_KEY.toString();
+            const key = (yield (0, util_1.promisify)(crypto_1.scrypt)(API_KEY, 'salt', 32));
+            const cipher = (0, crypto_1.createCipheriv)('aes-256-ctr', key, iv);
+            return Buffer.concat([cipher.update(value), cipher.final()]).toString('base64');
+        });
+    }
+    generateActivationCode() {
+        const confirmCode = Number(('' + Math.random()).substring(2, 10));
+        return confirmCode;
+    }
 };
-AdminJwtRefreshService = __decorate([
+AdminJwtRefreshService = AdminJwtRefreshService_1 = __decorate([
     (0, common_1.Injectable)({ scope: common_1.Scope.TRANSIENT }),
     __param(4, (0, sequelize_1.InjectModel)(admin_refresh_token_model_1.AdminRefreshToken)),
     __metadata("design:paramtypes", [jwt_1.JwtService,

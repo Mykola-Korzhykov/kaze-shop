@@ -19,7 +19,7 @@ const auth_module_1 = require("../auth/auth.module");
 const owner_model_1 = require("../owner/models/owner.model");
 const owner_refresh_token_model_1 = require("../owner/models/owner.refresh.token.model");
 const owner_module_1 = require("../owner/owner.module");
-const product_model_1 = require("../product/product.model");
+const product_model_1 = require("../product/models/product.model");
 const roles_model_1 = require("../roles/models/roles.model");
 const user_roles_model_1 = require("../roles/models/user.roles.model");
 const roles_module_1 = require("../roles/roles.module");
@@ -34,7 +34,7 @@ let CategoriesModule = class CategoriesModule {
     configure(consumer) {
         consumer
             .apply(initialize_user_middleware_1.InitializeUserMiddleware)
-            .forRoutes({ path: 'categories/create_category', method: common_1.RequestMethod.PUT }, { path: 'categories/delete_category', method: common_1.RequestMethod.DELETE });
+            .forRoutes({ path: 'categories/create_category', method: common_1.RequestMethod.PUT }, { path: 'categories/delete_category', method: common_1.RequestMethod.DELETE }, { path: '*', method: common_1.RequestMethod.PATCH });
     }
 };
 CategoriesModule = __decorate([

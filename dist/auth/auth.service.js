@@ -20,6 +20,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var AuthService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
@@ -44,7 +45,7 @@ const uuid_1 = require("uuid");
 const scedule_service_1 = require("../core/services/scedule.service");
 const api_exception_1 = require("../common/exceptions/api.exception");
 const jwt_refresh_constants_1 = require("../admin/constants/jwt-refresh.constants");
-let AuthService = class AuthService {
+let AuthService = AuthService_1 = class AuthService {
     constructor(ownerJwtRefreshTokenService, adminJwtRefreshTokenService, ownerService, adminService, userService, mailService, sheduleService, jwtService, userJwtRefreshTokenService) {
         this.ownerJwtRefreshTokenService = ownerJwtRefreshTokenService;
         this.adminJwtRefreshTokenService = adminJwtRefreshTokenService;
@@ -55,6 +56,7 @@ let AuthService = class AuthService {
         this.sheduleService = sheduleService;
         this.jwtService = jwtService;
         this.userJwtRefreshTokenService = userJwtRefreshTokenService;
+        this.Logger = new common_1.Logger(AuthService_1.name);
     }
     login(userDto, response, request, next, userAgent) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -64,15 +66,13 @@ let AuthService = class AuthService {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', auth_constants_1.USER_NOT_AUTHORIZIED);
                 }
                 const user = yield this.authenticateUser(userDto, userAgent, false);
-                const tokens = yield this.generateTokens(user, userAgent, true);
+                const tokens = yield this.generateTokens(user, userAgent);
                 yield this.activateUser(user, response);
                 response.cookie('refreshToken', tokens.refreshToken, {
                     maxAge: Number(tokens.expireDate),
-                    path: request.path,
+                    path: '/',
                     httpOnly: true,
                     expires: tokens.expireDate,
-                    domain: process.env.CLIENT_DOMAIN.toString().trim(),
-                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                 });
                 return response.json(Object.assign({}, this.setResponse(tokens, user)));
@@ -91,11 +91,11 @@ let AuthService = class AuthService {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', auth_constants_1.USER_NOT_AUTHORIZIED);
                 }
                 const user = yield this.authenticateUser(userDto, userAgent, true);
-                const tokens = yield this.generateTokens(user, userAgent, true);
+                const tokens = yield this.generateTokens(user, userAgent);
                 yield this.activateUser(user, response);
                 response.cookie('refreshToken', tokens.refreshToken, {
                     maxAge: Number(tokens.expireDate),
-                    path: request.path,
+                    path: '/',
                     httpOnly: true,
                     expires: tokens.expireDate,
                     domain: process.env.CLIENT_DOMAIN.toString().trim(),
@@ -119,19 +119,21 @@ let AuthService = class AuthService {
                 }
                 const refreshToken = request === null || request === void 0 ? void 0 : request.cookies['refreshToken'];
                 const decodedToken = Buffer.from(refreshToken, 'base64').toString('ascii');
-                response.clearCookie('refreshToken');
                 let logout;
                 if (type && type === 'OWNER') {
                     response.clearCookie('user-id');
+                    response.clearCookie('refreshToken');
                     logout = yield this.ownerJwtRefreshTokenService.removeToken(decodedToken);
                     return response.json({ logout });
                 }
                 if (type && type === 'ADMIN') {
                     response.clearCookie('user-id');
+                    response.clearCookie('refreshToken');
                     logout = yield this.adminJwtRefreshTokenService.removeToken(decodedToken);
                     return response.json({ logout });
                 }
                 logout = yield this.userJwtRefreshTokenService.removeToken(decodedToken);
+                response.clearCookie('refreshToken');
                 return response.json({ logout });
             }
             catch (error) {
@@ -146,22 +148,20 @@ let AuthService = class AuthService {
                 if (!refreshToken) {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', auth_constants_1.USER_NOT_AUTHORIZIED);
                 }
-                const user = yield this.validateRefreshToken(refreshToken, type);
-                if (!user) {
+                const dto = yield this.validateRefreshToken(refreshToken, type);
+                if (!dto.user) {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', user_constants_1.USER_NOT_FOUND);
                 }
-                yield this.activateUser(user, response);
-                const tokens = yield this.generateTokens(user, userAgent, false);
+                const tokens = yield this.refreshTokens(dto.user, userAgent, dto.identifier);
                 response.cookie('refreshToken', tokens.refreshToken, {
                     maxAge: Number(tokens.expireDate),
-                    path: request.path,
+                    path: '/',
                     httpOnly: true,
                     expires: tokens.expireDate,
-                    domain: process.env.CLIENT_DOMAIN.toString().trim(),
-                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                 });
-                return response.json(Object.assign({}, this.setResponse(tokens, user)));
+                yield this.activateUser(dto.user, response);
+                return response.json(Object.assign({}, this.setResponse(tokens, dto.user)));
             }
             catch (error) {
                 return next(error);
@@ -172,22 +172,8 @@ let AuthService = class AuthService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const user = yield this.setIsActivated(type, code, activationLink, request);
-                response.redirect(process.env.CLIENT_URL.toString());
                 yield this.activateUser(user, response);
-                const tokens = yield this.generateTokens(user, userAgent, false);
-                if (user instanceof admin_model_1.Admin || user instanceof admin_model_1.Admin) {
-                    user.activationLink = (0, uuid_1.v4)();
-                    yield user.save();
-                }
-                response.cookie('refreshToken', tokens.refreshToken, {
-                    maxAge: Number(tokens.expireDate),
-                    expires: tokens.expireDate,
-                    httpOnly: true,
-                    domain: process.env.CLIENT_DOMAIN.toString().trim(),
-                    secure: process.env.NODE_ENV === 'production' ? true : false,
-                    sameSite: 'strict',
-                });
-                return response.json(Object.assign({}, this.setResponse(tokens, user)));
+                return response.redirect(process.env.CLIENT_URL.toString());
             }
             catch (error) {
                 return next(error);
@@ -263,27 +249,27 @@ let AuthService = class AuthService {
         if (user instanceof owner_model_1.Owner) {
             return {
                 accessToken: tokens.accessToken,
-                owner: {
+                user: {
                     id: user.id,
                     name: user.getName(),
                     surname: user.getSurname(),
                     phoneNumber: user.phoneNumber,
                     email: user.email,
+                    type: 'OWNER',
                 },
-                type: 'OWNER',
             };
         }
         if (user instanceof admin_model_1.Admin) {
             return {
                 accessToken: tokens.accessToken,
-                admin: {
+                user: {
                     id: user.id,
                     name: user.getName(),
                     surname: user.getSurname(),
                     phoneNumber: user.phoneNumber,
                     email: user.email,
+                    type: 'ADMIN',
                 },
-                type: 'ADMIN',
             };
         }
         return {
@@ -297,10 +283,11 @@ let AuthService = class AuthService {
                 country: user.getCountry(),
                 city: user.getCity(),
                 postOffice: user.getPostOffice(),
+                type: 'USER',
             },
         };
     }
-    generateTokens(user, userAgent, setTimeouts) {
+    generateTokens(user, userAgent) {
         return __awaiter(this, void 0, void 0, function* () {
             let accessToken;
             let refreshToken;
@@ -318,7 +305,7 @@ let AuthService = class AuthService {
                     email: user.email,
                     roles: user.roles,
                 });
-                dbToken = yield this.userJwtRefreshTokenService.saveToken(user.id, refreshToken, user.email, userAgent, new Date(new Date().setDate(new Date().getDate() + 7)));
+                dbToken = yield this.userJwtRefreshTokenService.insertToken(user.id, refreshToken, user.email, userAgent, new Date(new Date().setDate(new Date().getDate() + 7)));
             }
             if (user instanceof admin_model_1.Admin) {
                 accessToken = this.generateAccessToken({
@@ -336,7 +323,7 @@ let AuthService = class AuthService {
                         adminAgent: userAgent,
                         roles: user.roles,
                     });
-                dbToken = yield this.adminJwtRefreshTokenService.saveToken(user.id, refreshToken, user.email, userAgent, user.phoneNumber, new Date(new Date().setDate(new Date().getDate() + 2)));
+                dbToken = yield this.adminJwtRefreshTokenService.insertToken(user.id, refreshToken, user.email, userAgent, user.phoneNumber, new Date(new Date().setDate(new Date().getDate() + 2)));
             }
             if (user instanceof owner_model_1.Owner) {
                 accessToken = this.generateAccessToken({
@@ -354,10 +341,73 @@ let AuthService = class AuthService {
                         ownerAgent: userAgent,
                         roles: user.roles,
                     });
-                dbToken = yield this.ownerJwtRefreshTokenService.saveToken(user.id, refreshToken, user.email, userAgent, user.phoneNumber, new Date(new Date().setDate(new Date().getDate() + 1)));
+                dbToken = yield this.ownerJwtRefreshTokenService.insertToken(user.id, refreshToken, user.email, userAgent, user.phoneNumber, new Date(new Date().setDate(new Date().getDate() + 1)));
             }
-            if (setTimeouts) {
-                this.setTimeouts(user, refreshToken);
+            const encodedRefreshToken = Buffer.from(refreshToken, 'utf8').toString('base64');
+            const encodedAccessToken = Buffer.from(accessToken, 'utf8').toString('base64');
+            this.setTimeouts(user, refreshToken, dbToken.identifier);
+            return {
+                expireDate: dbToken.getExpireDate(),
+                refreshToken: encodedRefreshToken,
+                accessToken: encodedAccessToken,
+            };
+        });
+    }
+    refreshTokens(user, userAgent, identifier) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let accessToken;
+            let refreshToken;
+            let dbToken;
+            if (user instanceof user_model_1.User) {
+                accessToken = this.generateAccessToken({
+                    userId: user.id,
+                    isUserActivated: user.getIsActivated(),
+                    email: user.email,
+                    roles: user.roles,
+                });
+                refreshToken = yield this.userJwtRefreshTokenService.generateRefreshToken({
+                    userId: user.id,
+                    isActivated: user.getIsActivated(),
+                    email: user.email,
+                    roles: user.roles,
+                });
+                dbToken = yield this.userJwtRefreshTokenService.saveToken(user.id, refreshToken, user.email, userAgent, new Date(new Date().setDate(new Date().getDate() + 7)), identifier);
+            }
+            if (user instanceof admin_model_1.Admin) {
+                accessToken = this.generateAccessToken({
+                    userId: user.id,
+                    isUserActivated: user.getIsActivated(),
+                    userActivationLink: user.activationLink,
+                    email: user.email,
+                    roles: user.roles,
+                });
+                refreshToken =
+                    yield this.adminJwtRefreshTokenService.generateRefreshToken({
+                        isActivated: user.getIsActivated(),
+                        email: user.email,
+                        adminId: user.id,
+                        adminAgent: userAgent,
+                        roles: user.roles,
+                    });
+                dbToken = yield this.adminJwtRefreshTokenService.saveToken(user.id, refreshToken, user.email, userAgent, user.phoneNumber, new Date(new Date().setDate(new Date().getDate() + 2)), identifier);
+            }
+            if (user instanceof owner_model_1.Owner) {
+                accessToken = this.generateAccessToken({
+                    userId: user.id,
+                    isUserActivated: user.getIsActivated(),
+                    userActivationLink: user.activationLink,
+                    email: user.email,
+                    roles: user.roles,
+                });
+                refreshToken =
+                    yield this.ownerJwtRefreshTokenService.generateRefreshToken({
+                        isActivated: user.getIsActivated(),
+                        email: user.email,
+                        ownerId: user.id,
+                        ownerAgent: userAgent,
+                        roles: user.roles,
+                    });
+                dbToken = yield this.ownerJwtRefreshTokenService.saveToken(user.id, refreshToken, user.email, userAgent, user.phoneNumber, new Date(new Date().setDate(new Date().getDate() + 1)), identifier);
             }
             const encodedRefreshToken = Buffer.from(refreshToken, 'utf8').toString('base64');
             const encodedAccessToken = Buffer.from(accessToken, 'utf8').toString('base64');
@@ -403,7 +453,6 @@ let AuthService = class AuthService {
                 return user;
             }
             const user = yield this.userService.validateUser(userDto);
-            console.log('done!');
             if (user instanceof user_model_1.User) {
                 return user;
             }
@@ -419,7 +468,14 @@ let AuthService = class AuthService {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', auth_constants_1.OWNER_NOT_AUTHORIZIED);
                 }
                 const owner = yield this.ownerService.getOwnerById(ownerData.ownerId);
-                return owner;
+                const dbToken = yield this.ownerJwtRefreshTokenService.findToken(decodedToken);
+                if (!dbToken) {
+                    throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', auth_constants_1.OWNER_NOT_AUTHORIZIED);
+                }
+                return {
+                    user: owner,
+                    identifier: dbToken.token.getIdentifier(),
+                };
             }
             if (type && type === 'ADMIN') {
                 const adminData = yield this.adminJwtRefreshTokenService.validateRefreshToken(decodedToken);
@@ -427,7 +483,14 @@ let AuthService = class AuthService {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', auth_constants_1.ADMIN_NOT_AUTHORIZIED);
                 }
                 const admin = yield this.adminService.getAdminById(adminData.adminId);
-                return admin;
+                const dbToken = yield this.adminJwtRefreshTokenService.findToken(decodedToken);
+                if (!dbToken) {
+                    throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', auth_constants_1.OWNER_NOT_AUTHORIZIED);
+                }
+                return {
+                    user: admin,
+                    identifier: dbToken.token.getIdentifier(),
+                };
             }
             const userData = yield this.userJwtRefreshTokenService.validateRefreshToken(decodedToken);
             if (!userData) {
@@ -437,7 +500,14 @@ let AuthService = class AuthService {
             if (!user) {
                 throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', user_constants_1.USER_NOT_FOUND);
             }
-            return user;
+            const dbToken = yield this.userJwtRefreshTokenService.findToken(decodedToken);
+            if (!dbToken) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', auth_constants_1.OWNER_NOT_AUTHORIZIED);
+            }
+            return {
+                user: user,
+                identifier: dbToken.token.getIdentifier(),
+            };
         });
     }
     generateEncryptedValue(value, bytes) {
@@ -454,47 +524,44 @@ let AuthService = class AuthService {
             if (user instanceof user_model_1.User) {
                 return;
             }
-            if (user instanceof owner_model_1.Owner) {
-                user.activationLink = (0, uuid_1.v4)();
-                yield user.save();
+            if (user instanceof admin_model_1.Admin) {
                 response.cookie('user-id', user.activationLink, {
                     maxAge: 30 * 24 * 60 * 60 * 1000,
                     signed: true,
+                    path: '/',
                     httpOnly: true,
                     domain: process.env.CLIENT_DOMAIN.toString().trim(),
                     secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                 });
             }
-            if (user instanceof admin_model_1.Admin) {
-                user.activationLink = (0, uuid_1.v4)();
+            if (user instanceof admin_model_1.Admin && !user.getIsActivated()) {
+                const link = yield this.generateEncryptedValue('ADMIN', 16);
+                const code = this.generateConfirmCode();
+                user.setResetToken(link.replace('/', `${(0, uuid_1.v4)()}`).replace('=', `${(0, uuid_1.v4)()}`));
+                user.setActivationCode(code);
+                user.setResetTokenExpiration(Number(Date.now() + 3600000));
                 yield user.save();
+                return this.mailService.sendActivationMailToAdmin(user.email, `${process.env.API_URL}/auth/activate/${user.getResetToken().trim()}?code=${code}`);
+            }
+            if (user instanceof owner_model_1.Owner) {
                 response.cookie('user-id', user.activationLink, {
                     maxAge: 30 * 24 * 60 * 60 * 1000,
                     signed: true,
                     httpOnly: true,
-                    domain: process.env.CLIENT_DOMAIN.toString().trim(),
-                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
+                    path: '/',
                 });
             }
             if (user instanceof owner_model_1.Owner && !user.getIsActivated()) {
                 const link = yield this.generateEncryptedValue('OWNER', 16);
                 const code = this.generateConfirmCode();
-                user.setResetToken(link);
+                user.setResetToken(link.replace('/', `${(0, uuid_1.v4)()}`).replace('=', `${(0, uuid_1.v4)()}`));
                 user.setActivationCode(code);
                 user.setResetTokenExpiration(Number(Date.now() + 3600000));
                 yield user.save();
-                return this.mailService.sendActivationMail(user.email, `${process.env.API_URL}/kaze_shop/auth/activate/${link}?code=${code}`);
-            }
-            if (user instanceof admin_model_1.Admin && !user.getIsActivated()) {
-                const link = yield this.generateEncryptedValue('ADMIN', 16);
-                const code = this.generateConfirmCode();
-                user.setResetToken(link);
-                user.setActivationCode(code);
-                user.setResetTokenExpiration(Number(Date.now() + 3600000));
-                yield user.save();
-                return this.mailService.sendActivationMail(user.email, `${process.env.API_URL}/kaze_shop/auth/activate/${link}?code=${code}`);
+                this.Logger.log(`activating owner with email ${user.email}`);
+                return this.mailService.sendActivationMailToOwner(user.email, `${process.env.API_URL}/auth/activate/${user.getResetToken().trim()}?code=${code}`);
             }
             return;
         });
@@ -504,9 +571,13 @@ let AuthService = class AuthService {
             let user;
             if (type && type === 'OWNER') {
                 user = yield this.ownerService.findByActivationLink(request['activationLink']);
+                user.setOwnerAgent(null);
+                yield user.save();
             }
             if (type && type === 'ADMIN') {
                 user = yield this.adminService.findByActivationLink(request['activationLink']);
+                user.setAdminAgent(null);
+                yield user.save();
             }
             if (!user || activationLink !== user.resetToken) {
                 throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', user_constants_1.USER_NOT_FOUND);
@@ -519,28 +590,28 @@ let AuthService = class AuthService {
             return user.save();
         });
     }
-    setTimeouts(user, refreshToken) {
+    setTimeouts(user, refreshToken, identifier) {
         return __awaiter(this, void 0, void 0, function* () {
             if (user instanceof user_model_1.User) {
-                const refreshData = yield this.userJwtRefreshTokenService.findToken(refreshToken);
+                const refreshData = yield this.userJwtRefreshTokenService.findTokenByToken(refreshToken, identifier);
                 if (!refreshData) {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_1.TOKEN_NOT_FOUND);
                 }
-                return this.sheduleService.addTimeoutForTokens(`delete-user-refresh-token,: ${(0, uuid_1.v4)()}`, Number(process.env.USER_DELAY), refreshData.id, this.adminJwtRefreshTokenService.removeTokenInTime);
+                return this.sheduleService.addTimeoutForTokens(`delete-user-refresh-token,: ${(0, uuid_1.v4)()}`, Number(process.env.USER_DELAY), refreshData.id, identifier, this.userJwtRefreshTokenService.removeTokenInTime);
             }
             if (user instanceof admin_model_1.Admin) {
-                const refreshData = yield this.adminJwtRefreshTokenService.findTokenByToken(refreshToken);
+                const refreshData = yield this.adminJwtRefreshTokenService.findTokenByToken(refreshToken, identifier);
                 if (!refreshData) {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_1.TOKEN_NOT_FOUND);
                 }
-                return this.sheduleService.addTimeoutForTokens(`delete-admin-refresh-token: ${(0, uuid_1.v4)()}`, Number(process.env.ADMIN_DELAY), refreshData.id, this.adminJwtRefreshTokenService.removeTokenInTime);
+                return this.sheduleService.addTimeoutForTokens(`delete-admin-refresh-token: ${(0, uuid_1.v4)()}`, Number(process.env.ADMIN_DELAY), refreshData.id, identifier, this.adminJwtRefreshTokenService.removeTokenInTime);
             }
             if (user instanceof owner_model_1.Owner) {
-                const refreshData = yield this.ownerJwtRefreshTokenService.findTokenByToken(refreshToken);
+                const refreshData = yield this.ownerJwtRefreshTokenService.findTokenByToken(refreshToken, identifier);
                 if (!refreshData) {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_1.TOKEN_NOT_FOUND);
                 }
-                return this.sheduleService.addTimeoutForTokens(`delete-owner-refresh-token: ${(0, uuid_1.v4)()}`, Number(process.env.OWNER_DELAY), refreshData.id, this.ownerJwtRefreshTokenService.removeTokenInTime);
+                return this.sheduleService.addTimeoutForTokens(`delete-owner-refresh-token: ${(0, uuid_1.v4)()}`, Number(process.env.OWNER_DELAY), refreshData.id, identifier, this.ownerJwtRefreshTokenService.removeTokenInTime);
             }
         });
     }
@@ -585,7 +656,7 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object, Function, change_password_dto_1.ChangeDto, Number, String]),
     __metadata("design:returntype", Promise)
 ], AuthService.prototype, "changePassword", null);
-AuthService = __decorate([
+AuthService = AuthService_1 = __decorate([
     (0, common_1.Injectable)({ scope: common_1.Scope.TRANSIENT }),
     __metadata("design:paramtypes", [jwt_refresh_service_2.OwnerJwtRefreshService,
         jwt_refresh_service_3.AdminJwtRefreshService,

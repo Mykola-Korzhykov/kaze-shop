@@ -3,6 +3,7 @@ import { Cart } from '../../cart/models/cart.model';
 import { UsercreationAttrbs } from '../../core/interfaces/user.interfaces';
 import { Role } from '../../roles/models/roles.model';
 import { UserRefreshToken } from './user.refresh.token.model';
+import { Product } from '../../product/models/product.model';
 export declare class User extends Model<User, UsercreationAttrbs> {
     id: number;
     private name;
@@ -25,8 +26,10 @@ export declare class User extends Model<User, UsercreationAttrbs> {
     private editContent;
     adminId: number;
     roles: Role[];
-    private userRefreshToken;
-    private carts;
+    userRefreshTokens: UserRefreshToken[];
+    carts: Cart[];
+    bookmarks: Product[];
+    watched: Product[];
     getName(): string;
     setName(name: string): string;
     getSurname(): string;
@@ -58,5 +61,5 @@ export declare class User extends Model<User, UsercreationAttrbs> {
     getEditContent(): boolean;
     setEditContent(editContent: boolean): boolean;
     getCarts(): Cart[];
-    getUserRefreshToken(): UserRefreshToken;
+    getUserRefreshTokens(): UserRefreshToken[];
 }

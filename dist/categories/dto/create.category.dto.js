@@ -19,13 +19,27 @@ __decorate([
     (0, class_validator_1.MaxLength)(30),
     (0, class_validator_1.Matches)(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/),
     __metadata("design:type", String)
-], CreateCategoryDto.prototype, "title", void 0);
+], CreateCategoryDto.prototype, "ua", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.MinLength)(2),
     (0, class_validator_1.MaxLength)(30),
     (0, class_validator_1.Matches)(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/),
     __metadata("design:type", String)
-], CreateCategoryDto.prototype, "description", void 0);
+], CreateCategoryDto.prototype, "ru", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(2),
+    (0, class_validator_1.MaxLength)(30),
+    (0, class_validator_1.Matches)(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/),
+    __metadata("design:type", String)
+], CreateCategoryDto.prototype, "rs", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(2),
+    (0, class_validator_1.MaxLength)(30),
+    (0, class_validator_1.Matches)(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/),
+    __metadata("design:type", String)
+], CreateCategoryDto.prototype, "en", void 0);
 exports.CreateCategoryDto = CreateCategoryDto;
 //# sourceMappingURL=create.category.dto.js.map

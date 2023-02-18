@@ -30,15 +30,17 @@ import { ConfigModule } from '@nestjs/config';
 import { TasksService } from '../core/services/scedule.service';
 import { CoreModule } from '../core/core.module';
 import { ProductModule } from '../product/product.module';
-import { CartProduct } from 'src/cart/models/cart-item.model';
-import { Cart } from 'src/cart/models/cart.model';
-import { Category } from 'src/categories/models/category.model';
-import { ProductCategories } from 'src/categories/models/product.categories.model';
-import { Order } from 'src/orders/models/order.model';
-import { OrderProduct } from 'src/orders/models/order.product.model';
-import { Product } from '../product/product.model';
-import { AuthService } from 'src/auth/auth.service';
-import { MailModule } from 'src/mail/mail.module';
+import { CartProduct } from '../cart/models/cart.product.model';
+import { Cart } from '../cart/models/cart.model';
+import { Category } from '../categories/models/category.model';
+import { ProductCategories } from '../categories/models/product.categories.model';
+import { Order } from '../orders/models/order.model';
+import { OrderProduct } from '../orders/models/order.product.model';
+import { Product } from '../product/models/product.model';
+import { AuthService } from '../auth/auth.service';
+import { MailModule } from '../mail/mail.module';
+import { BookmarksProducts } from '../product/models/bookmark.products';
+import { WatchedProducts } from '../product/models/watched.products.model';
 @Module({
   controllers: [UsersController],
   imports: [
@@ -63,6 +65,8 @@ import { MailModule } from 'src/mail/mail.module';
       UserRoles,
       Cart,
       CartProduct,
+      BookmarksProducts,
+      WatchedProducts,
     ]),
     JwtModule.register({
       secret:

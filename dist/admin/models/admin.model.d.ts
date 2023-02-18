@@ -3,7 +3,7 @@ import { AdmincreationAttrbs } from '../../core/interfaces/admin.interfaces';
 import { Role } from '../../roles/models/roles.model';
 import { User } from '../../users/models/user.model';
 import { AdminRefreshToken } from './admin.refresh.token.model';
-import { Product } from 'src/product/product.model';
+import { Product } from '../../product/models/product.model';
 export declare class Admin extends Model<Admin, AdmincreationAttrbs> {
     id: number;
     email: string;
@@ -23,7 +23,7 @@ export declare class Admin extends Model<Admin, AdmincreationAttrbs> {
     userId: number;
     private adminAgent;
     private products;
-    private adminRefreshToken;
+    adminRefreshTokens: AdminRefreshToken[];
     roles: Role[];
     private user;
     getName(): string;
@@ -53,6 +53,7 @@ export declare class Admin extends Model<Admin, AdmincreationAttrbs> {
     setAdminAgent(adminAgent: string): string;
     getActivationCode(): number;
     setActivationCode(activationCode: number): number;
-    getAdminRefreshTken(): AdminRefreshToken;
+    getAdminRefreshTokens(): AdminRefreshToken[];
     getUser(): User;
+    addProduct(product: Product): Product[];
 }

@@ -16,7 +16,7 @@ server {
     add_header X-XSS-Protection "1; mode=block";
     add_header X-Frame-Options "deny";
     add_header X-Content-Type-Options "nosniff";
-    location /pgadmin {
+    location /pgadmin {    
         proxy_set_header Host $http_host;
         proxy_set_header X-Forwarded-For $remote_addr;
         proxy_set_header X-Scheme $scheme;
@@ -46,7 +46,7 @@ server {
         gzip_types text/css text/javascript text/xml text/plain text/x-component application/javascript application/json application/xml application/rss+xml font/truetype font/opentype application/vnd.ms-fontobject image/svg+xml;
 
         expires 1209600s;
-        if ($request_method !~ ^(GET|HEAD|POST)$ ) {
+        if ($request_method !~ ^(GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS)$ ) {
             return 444;
         }
         if ($http_user_agent ~* LWP::Simple|BBBike|wget) {
@@ -59,12 +59,12 @@ server {
             return 403;
         }
     }
+
     location / {
         proxy_set_header Host $http_host;
         proxy_set_header X-Forwarded-For $remote_addr;
         proxy_set_header X-Scheme $scheme;
         proxy_set_header X-Forwarded-Proto $scheme;
-
         # proxy_set_header X-Real-IP $remote_addr;
         proxy_pass http://server:${PORT};
         proxy_http_version 1.1;
@@ -98,11 +98,11 @@ server {
             return 403;
         }
     }
-    #location /static/ {
-         #valid_referers none blocked www.example.com example.com;
+    #location /public/ {
+        #valid_referers none blocked www.example.com example.com;
         #if ($invalid_referer) {
         #    return   403;
-       # }
+        #}
     #}
     location ~ /.well-known/acme-challenge/ {
         root /var/www/certbot;

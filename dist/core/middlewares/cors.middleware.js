@@ -14,20 +14,20 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var CorsMiddleware_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CorsMiddleware = void 0;
 const common_1 = require("@nestjs/common");
-const geoip_lite_1 = __importDefault(require("geoip-lite"));
 const ip_1 = __importDefault(require("ip"));
-let CorsMiddleware = class CorsMiddleware {
+let CorsMiddleware = CorsMiddleware_1 = class CorsMiddleware {
+    constructor() {
+        this.Logger = new common_1.Logger(CorsMiddleware_1.name);
+    }
     use(req, res, next) {
         const headers = JSON.parse(JSON.stringify(req.headers));
         const isEmpty = this.isEmpty(headers);
         const ipAddress = ip_1.default.address();
-        const geo = geoip_lite_1.default.lookup(ipAddress);
-        console.log(geo, ipAddress);
-        const requesAPI = req.ip;
-        req['region'] = 'ua';
+        this.Logger.log(ipAddress);
         if (isEmpty) {
             throw new common_1.BadRequestException({
                 message: 'No request headers were provided!',
@@ -60,7 +60,7 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object, Function]),
     __metadata("design:returntype", void 0)
 ], CorsMiddleware.prototype, "use", null);
-CorsMiddleware = __decorate([
+CorsMiddleware = CorsMiddleware_1 = __decorate([
     (0, common_1.Injectable)({ scope: common_1.Scope.REQUEST })
 ], CorsMiddleware);
 exports.CorsMiddleware = CorsMiddleware;

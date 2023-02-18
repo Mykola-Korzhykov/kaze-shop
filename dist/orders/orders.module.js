@@ -23,13 +23,13 @@ const config_1 = require("@nestjs/config");
 const admin_model_1 = require("../admin/models/admin.model");
 const admin_refresh_token_model_1 = require("../admin/models/admin.refresh.token.model");
 const cart_module_1 = require("../cart/cart.module");
-const cart_item_model_1 = require("../cart/models/cart-item.model");
+const cart_product_model_1 = require("../cart/models/cart.product.model");
 const cart_model_1 = require("../cart/models/cart.model");
 const category_model_1 = require("../categories/models/category.model");
 const product_categories_model_1 = require("../categories/models/product.categories.model");
 const owner_model_1 = require("../owner/models/owner.model");
 const owner_refresh_token_model_1 = require("../owner/models/owner.refresh.token.model");
-const product_model_1 = require("../product/product.model");
+const product_model_1 = require("../product/models/product.model");
 const order_model_1 = require("./models/order.model");
 const order_product_model_1 = require("./models/order.product.model");
 let OrdersModule = class OrdersModule {
@@ -60,7 +60,7 @@ OrdersModule = __decorate([
                 roles_model_1.Role,
                 user_roles_model_1.UserRoles,
                 cart_model_1.Cart,
-                cart_item_model_1.CartProduct,
+                cart_product_model_1.CartProduct,
             ]),
             (0, common_1.forwardRef)(() => cart_module_1.CartModule),
             (0, common_1.forwardRef)(() => categories_module_1.CategoriesModule),

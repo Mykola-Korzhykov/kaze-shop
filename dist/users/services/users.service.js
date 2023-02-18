@@ -66,6 +66,7 @@ let UsersService = class UsersService {
                 include: { all: true },
                 offset: (page - 1) * userPerPage,
                 limit: userPerPage,
+                order: [['updatedAt', 'DESC']],
                 attributes: [
                     'id',
                     'name',
@@ -159,6 +160,7 @@ let UsersService = class UsersService {
                 include: { all: true },
                 offset: (page - 1) * userPerPage,
                 limit: userPerPage,
+                order: [['updatedAt', 'DESC']],
             });
             if (users.length === 0) {
                 return [];
@@ -238,9 +240,7 @@ let UsersService = class UsersService {
             if (!user) {
                 throw new api_exception_1.ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', user_constants_1.USER_WITH_EMAIL_DOESNT_EXIST);
             }
-            console.log('not done');
             const passwordEquals = yield bcrypt.compare(userDto.password, user.getPassword());
-            console.log('done');
             if (passwordEquals) {
                 return user;
             }

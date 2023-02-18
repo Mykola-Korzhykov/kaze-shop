@@ -8,11 +8,11 @@ import {
   BelongsToMany,
   BelongsTo,
 } from 'sequelize-typescript';
-import { Product } from '../../product/product.model';
+import { Product } from '../../product/models/product.model';
 import { User } from '../../users/models/user.model';
-import { CartProduct } from './cart-item.model';
+import { CartProduct } from './cart.product.model';
 
-@Table({ tableName: 'carts' })
+@Table({ tableName: 'CARTS' })
 export class Cart extends Model<Cart> {
   @Column({
     type: DataType.INTEGER,
@@ -29,6 +29,13 @@ export class Cart extends Model<Cart> {
     field: 'cartStatus',
   })
   private cartStatus: string;
+
+  @Column({
+    type: DataType.INTEGER,
+    unique: false,
+    field: 'totalPrice',
+  })
+  public totalPrice: number;
 
   @ForeignKey(() => User)
   @Column({

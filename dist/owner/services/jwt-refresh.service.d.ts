@@ -10,13 +10,20 @@ export declare class OwnerJwtRefreshService {
     private readonly mailService;
     private sheduleService;
     private readonly ownerRefreshTokenRepository;
+    private readonly Logger;
     constructor(jwtService: JwtService, ownerService: OwnerService, mailService: MailService, sheduleService: TasksService, ownerRefreshTokenRepository: typeof OwnerRefreshToken);
     generateRefreshToken(payload: CreateOwnerRefreshTokenDto): Promise<string>;
     validateRefreshToken(ownerRefreshToken: string): Promise<CreateOwnerRefreshTokenDto | void>;
-    saveToken(ownerId: number, ownerRefreshToken: string, email: string, ownerAgent: string, phoneNumber: string, expireDate: Date): Promise<OwnerRefreshToken>;
+    insertToken(ownerId: number, ownerRefreshToken: string, email: string, ownerAgent: string, phoneNumber: string, expireDate: Date): Promise<OwnerRefreshToken>;
+    saveToken(ownerId: number, ownerRefreshToken: string, email: string, ownerAgent: string, phoneNumber: string, expireDate: Date, identifier: string): Promise<OwnerRefreshToken>;
     removeToken(ownerRefreshToken: string): Promise<number>;
-    findTokenByToken(ownerRefreshToken: string): Promise<OwnerRefreshToken>;
-    findToken(ownerRefreshToken: string): Promise<OwnerRefreshToken | boolean>;
-    findTokenByParams(email: string, phoneNumber: string): Promise<OwnerRefreshToken>;
-    removeTokenInTime(ownerRefreshTokenId: number): Promise<number | false>;
+    findTokenByToken(ownerRefreshToken: string, identifier: string): Promise<OwnerRefreshToken>;
+    findToken(ownerRefreshToken: string): Promise<false | {
+        token: OwnerRefreshToken;
+        ownerId: number;
+    }>;
+    findTokenByParams(email: string, phoneNumber: string, identifier: string): Promise<OwnerRefreshToken>;
+    removeTokenInTime(ownerRefreshTokenId: number, identifier: string): Promise<number | false>;
+    private generateEncryptedValue;
+    private generateActivationCode;
 }

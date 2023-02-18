@@ -76,15 +76,28 @@ export class TasksService {
     return intervals;
   }
 
+  garbageCollector(
+    name: string,
+    milliseconds: number
+  ) {
+    const callback = async () => {
+      this.logger.warn(`Interval ${name} executing at time (${milliseconds})!`);
+    };
+    const interval = setInterval(callback, milliseconds);
+    this.schedulerRegistry.addInterval(name, interval);
+    return interval;
+  }
+
   addTimeoutForTokens(
     name: string,
     milliseconds: number,
     refreshTokenId: number,
-    cb: (refreshTokenId: number) => Promise<number | false>,
+    identifier: string,
+    cb: (refreshTokenId: number, identifier: string) => Promise<number | false>,
   ): NodeJS.Timeout {
     const callback = async (): Promise<boolean | void> => {
       this.logger.log(`Timeout ${name} executing after (${milliseconds})!`);
-      const timeout = await cb(refreshTokenId);
+      const timeout = await cb(refreshTokenId, identifier);
       if (!timeout) {
         return this.deleteTimeout(name);
       }

@@ -17,28 +17,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var AppClusterService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppClusterService = void 0;
 const cluster_1 = __importDefault(require("cluster"));
 const os_1 = require("os");
 const common_1 = require("@nestjs/common");
 const numCPUs = (0, os_1.cpus)().length;
-let AppClusterService = class AppClusterService {
+let AppClusterService = AppClusterService_1 = class AppClusterService {
     static clusterize(callback) {
         return __awaiter(this, void 0, void 0, function* () {
             if (cluster_1.default.isPrimary) {
-                console.log(`Number of CPUs is ${numCPUs}`);
-                console.log(`Master server started on ${process.pid}`);
+                AppClusterService_1.Logger.log(`Number of CPUs is ${numCPUs}`);
+                AppClusterService_1.Logger.log(`Master server started on ${process.pid}`);
                 for (let i = 0; i < numCPUs; i++) {
                     const worker = cluster_1.default.fork();
                 }
                 cluster_1.default.on('exit', (worker, code, signal) => {
-                    console.log(`Worker ${worker.process.pid} died. Restarting`, signal || code);
+                    AppClusterService_1.Logger.log(`Worker ${worker.process.pid} died. Restarting`, signal || code);
                     cluster_1.default.fork();
                 });
             }
             else {
-                console.log(`Cluster server started on ${process.pid}`);
+                AppClusterService_1.Logger.log(`Cluster server started on ${process.pid}`);
                 const app = yield callback();
                 process.on('SIGINT', () => app.close());
                 process.on('SIGTERM', () => app.close());
@@ -57,7 +58,7 @@ let AppClusterService = class AppClusterService {
             cluster_1.default.workers[id].on('message', messageHandler);
         }
         setInterval(() => {
-            console.log(`numReqs = ${numReqs}`);
+            AppClusterService_1.Logger.log(`numReqs = ${numReqs}`);
         }, 1000);
         function messageHandler(msg) {
             if (msg.cmd && msg.cmd === 'notifyRequest') {
@@ -79,7 +80,8 @@ let AppClusterService = class AppClusterService {
         });
     }
 };
-AppClusterService = __decorate([
+AppClusterService.Logger = new common_1.Logger(AppClusterService_1.name);
+AppClusterService = AppClusterService_1 = __decorate([
     (0, common_1.Injectable)({ scope: common_1.Scope.DEFAULT })
 ], AppClusterService);
 exports.AppClusterService = AppClusterService;

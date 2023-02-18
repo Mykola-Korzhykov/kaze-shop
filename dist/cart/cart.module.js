@@ -25,13 +25,13 @@ const cart_model_1 = require("./models/cart.model");
 const auth_module_1 = require("../auth/auth.module");
 const product_module_1 = require("../product/product.module");
 const users_module_1 = require("../users/users.module");
-const cart_item_model_1 = require("./models/cart-item.model");
+const cart_product_model_1 = require("./models/cart.product.model");
 const categories_module_1 = require("../categories/categories.module");
 const category_model_1 = require("../categories/models/category.model");
 const product_categories_model_1 = require("../categories/models/product.categories.model");
 const order_model_1 = require("../orders/models/order.model");
 const order_product_model_1 = require("../orders/models/order.product.model");
-const product_model_1 = require("../product/product.model");
+const product_model_1 = require("../product/models/product.model");
 const orders_module_1 = require("../orders/orders.module");
 let CartModule = class CartModule {
 };
@@ -61,7 +61,7 @@ CartModule = __decorate([
                 roles_model_1.Role,
                 user_roles_model_1.UserRoles,
                 cart_model_1.Cart,
-                cart_item_model_1.CartProduct,
+                cart_product_model_1.CartProduct,
             ]),
             (0, common_1.forwardRef)(() => product_module_1.ProductModule),
             (0, common_1.forwardRef)(() => orders_module_1.OrdersModule),

@@ -25,6 +25,8 @@ exports.CategoriesService = void 0;
 const common_1 = require("@nestjs/common");
 const interfaces_1 = require("@nestjs/common/interfaces");
 const sequelize_1 = require("@nestjs/sequelize");
+const api_exception_1 = require("../common/exceptions/api.exception");
+const category_constants_1 = require("./category.constants");
 const category_model_1 = require("./models/category.model");
 let CategoriesService = class CategoriesService {
     constructor(categoryRepository) {
@@ -32,7 +34,30 @@ let CategoriesService = class CategoriesService {
     }
     getCategoryByValue(value) {
         return __awaiter(this, void 0, void 0, function* () {
-            const category = yield this.categoryRepository.findOne({ where: { value: value } });
+            const category = yield this.categoryRepository.findOne({ where: { ua: value } });
+            if (!category) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_constants_1.NOT_FOUND);
+            }
+            return category;
+        });
+    }
+    getCategoriesByIds(categoryIds) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const category = yield this.categoryRepository.findAll({ where: {
+                    id: categoryIds,
+                } });
+            if (category.length === 0 || !category) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_constants_1.NOT_FOUND);
+            }
+            return category;
+        });
+    }
+    getCategoryById(categoryId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const category = yield this.categoryRepository.findByPk(categoryId);
+            if (!category) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_constants_1.NOT_FOUND);
+            }
             return category;
         });
     }
@@ -41,8 +66,11 @@ let CategoriesService = class CategoriesService {
             const categories = yield this.categoryRepository.findAll();
             return categories.map((category) => {
                 return {
-                    title: category.title,
-                    description: category.description,
+                    id: category.id,
+                    ua: category.ua,
+                    en: category.en,
+                    rs: category.rs,
+                    ru: category.ru,
                     createdAt: category.createdAt,
                     updatedAt: category.updatedAt,
                 };
@@ -53,17 +81,24 @@ let CategoriesService = class CategoriesService {
         return __awaiter(this, void 0, void 0, function* () {
             const isExist = yield this.categoryRepository.findOne({
                 where: {
-                    title: categoryDto.title,
-                    description: categoryDto.description,
+                    ua: categoryDto.ua,
+                    en: categoryDto.en,
+                    rs: categoryDto.rs,
+                    ru: categoryDto.ru,
                 },
             });
             if (isExist) {
-                throw new common_1.BadRequestException('Category already exist!');
+                throw new api_exception_1.ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', category_constants_1.ALREADY_EXIST);
             }
             const category = yield this.categoryRepository.create(Object.assign({}, categoryDto));
             return {
-                title: category.title,
-                description: category.description,
+                id: category.id,
+                ua: category.ua,
+                en: category.en,
+                rs: category.rs,
+                ru: category.ru,
+                createdAt: category.createdAt,
+                updatedAt: category.updatedAt,
             };
         });
     }
@@ -71,15 +106,49 @@ let CategoriesService = class CategoriesService {
         return __awaiter(this, void 0, void 0, function* () {
             const isExist = yield this.categoryRepository.findByPk(categoryId);
             if (!isExist) {
-                throw new common_1.NotFoundException('Category not found!');
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_constants_1.NOT_FOUND);
             }
             const deleted = yield this.categoryRepository.destroy({
                 where: {
-                    title: isExist.title,
-                    description: isExist.description,
+                    id: isExist.id,
+                    ua: isExist.ua,
+                    en: isExist.en,
+                    rs: isExist.rs,
+                    ru: isExist.ru,
                 },
             });
             return deleted;
+        });
+    }
+    updateCategory(categoryId, updateDto) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const isExist = yield this.categoryRepository.findByPk(categoryId);
+            if (!isExist) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_constants_1.NOT_FOUND);
+            }
+            isExist.ua = updateDto.ua;
+            isExist.ru = updateDto.ru;
+            isExist.rs = updateDto.rs;
+            isExist.en = updateDto.en;
+            yield isExist.save();
+            const category = yield this.categoryRepository.findOne({
+                where: {
+                    id: isExist.id,
+                    ua: isExist.ua,
+                    en: isExist.en,
+                    rs: isExist.rs,
+                    ru: isExist.ru,
+                }
+            });
+            return {
+                id: category.id,
+                ua: category.ua,
+                en: category.en,
+                rs: category.rs,
+                ru: category.ru,
+                createdAt: category.createdAt,
+                updatedAt: category.updatedAt,
+            };
         });
     }
 };

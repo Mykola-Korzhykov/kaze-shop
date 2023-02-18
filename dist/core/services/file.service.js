@@ -40,19 +40,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.FilesService = void 0;
 const common_1 = require("@nestjs/common");
-const path = __importStar(require("path"));
 const fs = __importStar(require("fs"));
 const uuid = __importStar(require("uuid"));
+const path_1 = __importStar(require("path"));
+const fs_1 = require("fs");
+const uuid_1 = require("uuid");
 let FilesService = class FilesService {
     createFile(file) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const fileName = uuid.v4() + '.jpg';
-                const filePath = path.resolve(__dirname, '..', 'static');
+                const filePath = path_1.default.resolve(__dirname, '..', 'static');
                 if (!fs.existsSync(filePath)) {
                     fs.mkdirSync(filePath, { recursive: true });
                 }
-                fs.writeFileSync(path.join(filePath, fileName), file.buffer);
+                fs.writeFileSync(path_1.default.join(filePath, fileName), file.buffer);
                 return { fileName: fileName, filePath: filePath };
             }
             catch (e) {
@@ -62,11 +64,38 @@ let FilesService = class FilesService {
     }
     unlinkFile(filePath) {
         return __awaiter(this, void 0, void 0, function* () {
-            filePath = path.join(__dirname, '..', filePath);
+            filePath = path_1.default.join(__dirname, 'static', filePath);
             fs.unlink(filePath, (err) => {
                 throw new common_1.HttpException(err.message, common_1.HttpStatus.INTERNAL_SERVER_ERROR);
             });
         });
+    }
+    createfileName(req, file, callback) {
+        const name = file.originalname.split('.')[0];
+        const ext = (0, path_1.extname)(file.originalname);
+        const randomName = (0, uuid_1.v4)();
+        callback(null, `${randomName}--${req.body.title}--${name}${ext}`);
+    }
+    fileFilter(req, file, callback) {
+        const filetypes = /\.(jpg|jpeg|png|gif)$/;
+        const extname = filetypes.test(path_1.default.extname(file.originalname).toLowerCase());
+        const mimetype = filetypes.test(file.mimetype);
+        if (mimetype && extname) {
+            return callback(null, true);
+        }
+        return callback(new Error('Only image files are allowed!'), false);
+    }
+    destination(req, file, callback) {
+        var _a, _b;
+        const destination = path_1.default.join(__dirname, 'static', 'products', `${(_a = req === null || req === void 0 ? void 0 : req.body) === null || _a === void 0 ? void 0 : _a.title}`);
+        const imagesPath = path_1.default.join(__dirname, 'static', 'products', `${(_b = req === null || req === void 0 ? void 0 : req.body) === null || _b === void 0 ? void 0 : _b.title}`, file.fieldname);
+        if (!(0, fs_1.existsSync)(destination)) {
+            (0, fs_1.mkdirSync)(destination, { recursive: true });
+        }
+        if (!(0, fs_1.existsSync)(imagesPath)) {
+            (0, fs_1.mkdirSync)(imagesPath, { recursive: true });
+        }
+        callback(null, imagesPath);
     }
 };
 FilesService = __decorate([

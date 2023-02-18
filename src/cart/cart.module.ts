@@ -16,14 +16,14 @@ import { Cart } from './models/cart.model';
 import { AuthModule } from '../auth/auth.module';
 import { ProductModule } from '../product/product.module';
 import { UsersModule } from '../users/users.module';
-import { CartProduct } from './models/cart-item.model';
-import { CategoriesModule } from 'src/categories/categories.module';
-import { Category } from 'src/categories/models/category.model';
-import { ProductCategories } from 'src/categories/models/product.categories.model';
-import { Order } from 'src/orders/models/order.model';
-import { OrderProduct } from 'src/orders/models/order.product.model';
-import { Product } from 'src/product/product.model';
-import { OrdersModule } from 'src/orders/orders.module';
+import { CartProduct } from './models/cart.product.model';
+import { CategoriesModule } from '../categories/categories.module';
+import { Category } from '../categories/models/category.model';
+import { ProductCategories } from '../categories/models/product.categories.model';
+import { Order } from '../orders/models/order.model';
+import { OrderProduct } from '../orders/models/order.product.model';
+import { Product } from '../product/models/product.model';
+import { OrdersModule } from '../orders/orders.module';
 
 @Module({
   providers: [CardService],

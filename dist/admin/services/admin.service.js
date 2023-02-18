@@ -68,6 +68,7 @@ let AdminService = class AdminService {
                 include: { all: true },
                 offset: (page - 1) * adminPerPage,
                 limit: adminPerPage,
+                order: [['updatedAt', 'DESC']],
                 attributes: [
                     'id',
                     'name',
@@ -214,6 +215,7 @@ let AdminService = class AdminService {
                 include: { all: true },
                 offset: (page - 1) * adminPerPage,
                 limit: adminPerPage,
+                order: [['updatedAt', 'DESC']],
             });
             if (admins.length === 0) {
                 return [];

@@ -1,0 +1,1 @@
+{"version":3,"file":"comander.js","sourceRoot":"","sources":["../src/comander.ts"],"names":[],"mappings":";;;;;;;;;;;AACA,mDAAgD;AAChD,6CAAyC;AAEzC,SAAe,cAAc;;QACzB,MAAM,+BAAc,CAAC,GAAG,CAAC,sBAAS,CAAC,CAAC;QACpC,MAAM,+BAAc,CAAC,GAAG,CAAC,sBAAS,EAAE,CAAC,MAAM,EAAE,OAAO,CAAC,CAAC,CAAC;IAC3D,CAAC;CAAA;AAED,cAAc,EAAE,CAAC"}

@@ -7,10 +7,11 @@ import {
   ForeignKey,
   IsEmail,
   BelongsTo,
+  IsUUID,
 } from 'sequelize-typescript';
 import { AdminRefreshTokenCreationAttrbs } from '../../core/interfaces/admin.interfaces';
 import { Admin } from './admin.model';
-@Table({ tableName: 'Admin refresh tokens' })
+@Table({ tableName: 'ADMIN`s_Refresh-tokens' })
 export class AdminRefreshToken extends Model<
   AdminRefreshToken,
   AdminRefreshTokenCreationAttrbs
@@ -30,7 +31,7 @@ export class AdminRefreshToken extends Model<
   @IsEmail
   @Column({
     type: DataType.STRING,
-    unique: true,
+    unique: false,
     allowNull: false,
     field: 'email',
   })
@@ -63,6 +64,8 @@ export class AdminRefreshToken extends Model<
   @Column({
     type: DataType.INTEGER,
     field: 'adminId',
+    unique: false,
+    allowNull: false,
   })
   public adminId: number;
 
@@ -87,6 +90,19 @@ export class AdminRefreshToken extends Model<
   })
   private expireDate: Date;
 
+  @ApiProperty({
+    example: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
+    description: 'identifier',
+  })
+  @IsUUID(4)
+  @Column({
+    type: DataType.STRING,
+    unique: true,
+    allowNull: true,
+    field: 'identifier',
+  })
+  public identifier: string;
+
   @BelongsTo(() => Admin)
   private admin: Admin;
 
@@ -110,5 +126,14 @@ export class AdminRefreshToken extends Model<
 
   getAdmin(): Admin {
     return this.admin;
+  }
+
+  getIdentifier(): string {
+    return this.identifier;
+  }
+
+  setIdentifier(identifier: string): string {
+    this.identifier = identifier;
+    return this.identifier;
   }
 }

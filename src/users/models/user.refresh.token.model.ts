@@ -8,11 +8,12 @@ import {
   IsEmail,
   IsInt,
   BelongsTo,
+  IsUUID,
 } from 'sequelize-typescript';
 import { UserRefreshCreationAttrbs } from '../../core/interfaces/user.interfaces';
 import { User } from './user.model';
 
-@Table({ tableName: 'user refresh tokens' })
+@Table({ tableName: 'USER`S_Refresh-tokens' })
 export class UserRefreshToken extends Model<
   UserRefreshToken,
   UserRefreshCreationAttrbs
@@ -32,7 +33,7 @@ export class UserRefreshToken extends Model<
   @IsEmail
   @Column({
     type: DataType.STRING,
-    unique: true,
+    unique: false,
     allowNull: false,
     field: 'email',
   })
@@ -57,6 +58,8 @@ export class UserRefreshToken extends Model<
   @Column({
     type: DataType.INTEGER,
     field: 'userId',
+    unique: false,
+    allowNull: false,
   })
   public userId: number;
 
@@ -66,6 +69,19 @@ export class UserRefreshToken extends Model<
     field: 'expireDate',
   })
   private expireDate: Date;
+
+  @ApiProperty({
+    example: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
+    description: 'identifier',
+  })
+  @IsUUID(4)
+  @Column({
+    type: DataType.STRING,
+    unique: true,
+    allowNull: true,
+    field: 'identifier',
+  })
+  public identifier: string;
 
   @BelongsTo(() => User)
   private user: User;
@@ -90,5 +106,14 @@ export class UserRefreshToken extends Model<
 
   getUser(): User {
     return this.user;
+  }
+
+  getIdentifier(): string {
+    return this.identifier;
+  }
+
+  setIdentifier(identifier: string): string {
+    this.identifier = identifier;
+    return this.identifier;
   }
 }

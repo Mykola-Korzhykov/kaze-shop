@@ -5,15 +5,15 @@ import {
   HttpStatus,
   Injectable,
   Scope,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { ROLES_KEY } from '../decorators/roles-auth.decorator';
-import { payload } from '../../core/interfaces/auth.interfaces';
-import { ACCESS_DENIED, USER_NOT_AUTHORIZIED } from '../../auth/auth.constants';
+import { Payload } from '../../core/interfaces/auth.interfaces';
+import { USER_NOT_AUTHORIZIED } from '../../auth/auth.constants';
 import { ApiException } from '../exceptions/api.exception';
+import { ACCESS_DENIED } from '../../admin/constants/admin.constants';
 @Injectable({ scope: Scope.REQUEST })
 export class RolesGuard implements CanActivate {
   constructor(private authService: AuthService, private reflector: Reflector) {}
@@ -31,15 +31,14 @@ export class RolesGuard implements CanActivate {
           return true;
         }
         const req = context.switchToHttp().getRequest();
-        const authHeader = req.headers.authorization.toString();
-        const bearer = authHeader.split(' ')[0].trim();
-        const token = authHeader.split(' ')[1].trim();
-        console.log(token);
+        const authHeader = req.headers.authorization;
+        const bearer = authHeader.split(' ')[0];
+        const token = authHeader.split(' ')[1];
         if (bearer !== 'Bearer' || !token) {
           throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
         }
         const decodedToken = Buffer.from(token, 'base64').toString('ascii');
-        let payload: payload;
+        let payload: Payload;
         try {
           payload = await this.authService.validateAccessToken(decodedToken);
         } catch (err) {
@@ -49,12 +48,16 @@ export class RolesGuard implements CanActivate {
           throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
         }
         req.payload = payload;
-        return payload.roles.some(
+        if (
+          !payload.roles.some(
           (role: { value: string; description: string }) =>
-            requiredRoles.includes(role.value),
-        );
+            requiredRoles.includes(role.value))
+        ) {
+          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ACCESS_DENIED);
+        }
+        return true;
       } catch (err) {
-        throw new HttpException(ACCESS_DENIED, HttpStatus.FORBIDDEN);
+        throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ACCESS_DENIED);
       }
     })();
   }

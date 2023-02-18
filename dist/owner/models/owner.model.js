@@ -15,7 +15,7 @@ const class_transformer_1 = require("class-transformer");
 const sequelize_typescript_1 = require("sequelize-typescript");
 const roles_model_1 = require("../../roles/models/roles.model");
 const user_roles_model_1 = require("../../roles/models/user.roles.model");
-const product_model_1 = require("../../product/product.model");
+const product_model_1 = require("../../product/models/product.model");
 const owner_refresh_token_model_1 = require("./owner.refresh.token.model");
 let Owner = class Owner extends sequelize_typescript_1.Model {
     getName() {
@@ -90,8 +90,12 @@ let Owner = class Owner extends sequelize_typescript_1.Model {
     getProducts() {
         return this.products;
     }
-    getOwnerRefreshToken() {
-        return this.ownerRefreshToken;
+    getOwnerRefreshTokens() {
+        return this.ownerRefreshTokens;
+    }
+    addProduct(product) {
+        this.products.push(product);
+        return this.products;
     }
 };
 __decorate([
@@ -262,8 +266,8 @@ __decorate([
 ], Owner.prototype, "roles", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => owner_refresh_token_model_1.OwnerRefreshToken),
-    __metadata("design:type", owner_refresh_token_model_1.OwnerRefreshToken)
-], Owner.prototype, "ownerRefreshToken", void 0);
+    __metadata("design:type", Array)
+], Owner.prototype, "ownerRefreshTokens", void 0);
 Owner = __decorate([
     (0, sequelize_typescript_1.Table)({ tableName: 'OWNER' })
 ], Owner);

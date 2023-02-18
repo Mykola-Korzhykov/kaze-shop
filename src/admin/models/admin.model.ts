@@ -18,9 +18,9 @@ import { Role } from '../../roles/models/roles.model';
 import { UserRoles } from '../../roles/models/user.roles.model';
 import { User } from '../../users/models/user.model';
 import { AdminRefreshToken } from './admin.refresh.token.model';
-import { Product } from 'src/product/product.model';
+import { Product } from '../../product/models/product.model';
 
-@Table({ tableName: 'admins' })
+@Table({ tableName: 'ADMINS' })
 export class Admin extends Model<Admin, AdmincreationAttrbs> {
   @ApiProperty({ example: '1', description: 'unique identifier' })
   @Column({
@@ -217,7 +217,7 @@ export class Admin extends Model<Admin, AdmincreationAttrbs> {
   private products: Product[];
 
   @HasMany(() => AdminRefreshToken)
-  private adminRefreshToken: AdminRefreshToken;
+  public adminRefreshTokens: AdminRefreshToken[];
 
   @BelongsToMany(() => Role, () => UserRoles)
   roles: Role[];
@@ -345,11 +345,16 @@ export class Admin extends Model<Admin, AdmincreationAttrbs> {
     return this.activationCode;
   }
 
-  getAdminRefreshTken(): AdminRefreshToken {
-    return this.adminRefreshToken;
+  getAdminRefreshTokens(): AdminRefreshToken[]{
+    return this.adminRefreshTokens;
   }
 
   getUser(): User {
     return this.user;
+  }
+
+  addProduct(product: Product): Product[]{
+    this.products.push(product);
+    return this.products;
   }
 }

@@ -14,7 +14,7 @@ import {
 import { Role } from '../../roles/models/roles.model';
 import { UserRoles } from '../../roles/models/user.roles.model';
 import { OwnerCreationAttrbs } from '../../core/interfaces/owner.interfaces';
-import { Product } from '../../product/product.model';
+import { Product } from '../../product/models/product.model';
 import { OwnerRefreshToken } from './owner.refresh.token.model';
 
 @Table({ tableName: 'OWNER' })
@@ -173,7 +173,7 @@ export class Owner extends Model<Owner, OwnerCreationAttrbs> {
   public roles: Role[];
 
   @HasMany(() => OwnerRefreshToken)
-  private ownerRefreshToken: OwnerRefreshToken;
+  public ownerRefreshTokens: OwnerRefreshToken[];
 
   getName(): string {
     return this.name;
@@ -268,7 +268,12 @@ export class Owner extends Model<Owner, OwnerCreationAttrbs> {
     return this.products;
   }
 
-  getOwnerRefreshToken(): OwnerRefreshToken {
-    return this.ownerRefreshToken;
+  getOwnerRefreshTokens(): OwnerRefreshToken[] {
+    return this.ownerRefreshTokens;
+  }
+
+  addProduct(product: Product): Product[]{
+    this.products.push(product);
+    return this.products;
   }
 }

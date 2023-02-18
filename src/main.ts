@@ -4,13 +4,18 @@ import { AppModule } from './app.module';
 import helmet from 'helmet';
 import compression from 'compression';
 import cookieParser from 'cookie-parser';
+import { Response } from 'express';
+import favicon from 'serve-favicon';
 import { AppClusterService } from './core/services/cluster.service';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { INestApplication } from '@nestjs/common';
+import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { AllExceptionsFilter } from './core/filters/all-exceptions.filter';
 import { OwnerService } from './owner/services/owner.service';
 import { ApiErrorExceptionFilter } from './common/filters/error-handler.filter';
 import { ApiExceptionFilter } from './common/filters/api-exception.filter';
+import { extname, join } from 'path';
+import bodyParser from 'body-parser';
+import { ParseJsonPipe } from './common/pipes/parse.json.pipe';
 const PORT: number = Number(process.env.PORT) || 2222;
 declare const module: any;
 async function startServer(): Promise<INestApplication> {
@@ -26,12 +31,53 @@ async function startServer(): Promise<INestApplication> {
   }
   const httpAdapter = app.get(HttpAdapterHost);
   app.enableShutdownHooks();
+  app.useGlobalPipes(
+    new ParseJsonPipe(),
+    new ValidationPipe({
+      transform: true,
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    }),
+  );
   app.useGlobalFilters(
     new AllExceptionsFilter(httpAdapter),
     new ApiErrorExceptionFilter(),
     new ApiExceptionFilter(),
   );
   app.set('trust proxy', true);
+  app.use(favicon(join(__dirname, 'static', 'favicon.svg')));
+  app.useStaticAssets(join(__dirname, 'static'), {
+    prefix: '/public',
+    lastModified: true,
+    immutable: true,
+    etag: true,
+    redirect: true,
+    fallthrough: true,
+    maxAge: 30 * 24 * 60,
+    setHeaders(res: Response, path, stat) {
+      res.setHeader(
+        'Access-Control-Allow-Origin',
+        `${process.env.CLIENT_URL.toString().trim()}`,
+      );
+      res.setHeader('Content-size', `${stat.size}`);
+      res.setHeader('Content-Type', `image/${extname(path).replace('.', '')}`);
+      res.setHeader(
+        'Access-Control-Allow-Methods',
+        'OPTIONS, GET, POST, PUT, PATCH, DELETE',
+      );
+      res.setHeader('Access-Control-Allow-Credentials', 'true');
+      res.setHeader(
+        'Access-Control-Allow-Headers',
+        'imageType, Authorization, X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept',
+      );
+      res.setHeader(
+        'Content-Security-Policy',
+        'default-src \'self\'; font-src \'self\'; img-src \'self\'; script-src \'self\'; style-src \'self\'; frame-src \'self\'',
+      );
+    },
+  });
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
   app.use(helmet());
   app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
   app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
@@ -81,16 +127,12 @@ async function startServer(): Promise<INestApplication> {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('/api/docs', app, document);
   process.on('unhandledRejection', (reason: Error) => {
-    // tslint:disable-next-line: no-console
     console.log(reason.name, reason.message);
-    // tslint:disable-next-line: no-console
     console.log('UNHANDLED REJECTION! 💥 Shutting down...');
     return process.exit(1), reason;
   });
   process.on('uncaughtException', (err: Error) => {
-    // tslint:disable-next-line: no-console
     console.log(err.name, err.message);
-    // tslint:disable-next-line: no-console
     console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
     return process.exit(1);
   });
@@ -110,21 +152,17 @@ async function startServer(): Promise<INestApplication> {
     console.error(`Error occured: ${error.message}`);
   }
 }
-
 if (process.env?.NODE_ENV === 'development') {
   try {
     startServer();
   } catch (err) {
-    // tslint:disable-next-line: no-console
     console.log(err);
   }
 }
-
 if (process.env?.NODE_ENV === 'production') {
   try {
     AppClusterService.clusterize(startServer);
   } catch (err) {
-    // tslint:disable-next-line: no-console
     console.log(err);
   }
 }

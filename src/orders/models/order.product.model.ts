@@ -7,10 +7,10 @@ import {
   ForeignKey,
   BelongsTo,
 } from 'sequelize-typescript';
-import { Product } from '../../product/product.model';
+import { Product } from '../../product/models/product.model';
 import { Order } from './order.model';
 
-@Table({ tableName: 'orderproduct' })
+@Table({ tableName: 'PRODUCT_Orders' })
 export class OrderProduct extends Model<OrderProduct> {
   @Column({
     type: DataType.INTEGER,

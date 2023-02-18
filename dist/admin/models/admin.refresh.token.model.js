@@ -31,6 +31,13 @@ let AdminRefreshToken = class AdminRefreshToken extends sequelize_typescript_1.M
     getAdmin() {
         return this.admin;
     }
+    getIdentifier() {
+        return this.identifier;
+    }
+    setIdentifier(identifier) {
+        this.identifier = identifier;
+        return this.identifier;
+    }
 };
 __decorate([
     (0, swagger_1.ApiProperty)({ example: '1', description: 'unique identifier' }),
@@ -49,7 +56,7 @@ __decorate([
     sequelize_typescript_1.IsEmail,
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.STRING,
-        unique: true,
+        unique: false,
         allowNull: false,
         field: 'email',
     }),
@@ -84,6 +91,8 @@ __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.INTEGER,
         field: 'adminId',
+        unique: false,
+        allowNull: false,
     }),
     __metadata("design:type", Number)
 ], AdminRefreshToken.prototype, "adminId", void 0);
@@ -109,11 +118,25 @@ __decorate([
     __metadata("design:type", Date)
 ], AdminRefreshToken.prototype, "expireDate", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({
+        example: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
+        description: 'identifier',
+    }),
+    (0, sequelize_typescript_1.IsUUID)(4),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        unique: true,
+        allowNull: true,
+        field: 'identifier',
+    }),
+    __metadata("design:type", String)
+], AdminRefreshToken.prototype, "identifier", void 0);
+__decorate([
     (0, sequelize_typescript_1.BelongsTo)(() => admin_model_1.Admin),
     __metadata("design:type", admin_model_1.Admin)
 ], AdminRefreshToken.prototype, "admin", void 0);
 AdminRefreshToken = __decorate([
-    (0, sequelize_typescript_1.Table)({ tableName: 'Admin refresh tokens' })
+    (0, sequelize_typescript_1.Table)({ tableName: 'ADMIN`s_Refresh-tokens' })
 ], AdminRefreshToken);
 exports.AdminRefreshToken = AdminRefreshToken;
 //# sourceMappingURL=admin.refresh.token.model.js.map

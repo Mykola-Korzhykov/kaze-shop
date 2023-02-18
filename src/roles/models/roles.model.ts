@@ -12,7 +12,7 @@ import { Owner } from '../../owner/models/owner.model';
 import { User } from '../../users/models/user.model';
 import { UserRoles } from './user.roles.model';
 
-@Table({ tableName: 'roles' })
+@Table({ tableName: 'ROLES' })
 export class Role extends Model<Role, RolecreationAttrbs> {
   @ApiProperty({ example: '1', description: 'unique identifier' })
   @Column({

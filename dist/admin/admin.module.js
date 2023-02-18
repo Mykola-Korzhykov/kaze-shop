@@ -39,6 +39,14 @@ const config_1 = require("@nestjs/config");
 const admin_user_middleware_1 = require("../common/middlewares/admin-user.middleware");
 const core_module_1 = require("../core/core.module");
 const scedule_service_1 = require("../core/services/scedule.service");
+const cart_product_model_1 = require("../cart/models/cart.product.model");
+const cart_model_1 = require("../cart/models/cart.model");
+const category_model_1 = require("../categories/models/category.model");
+const product_categories_model_1 = require("../categories/models/product.categories.model");
+const order_model_1 = require("../orders/models/order.model");
+const order_product_model_1 = require("../orders/models/order.product.model");
+const product_model_1 = require("../product/models/product.model");
+const users_service_1 = require("../users/services/users.service");
 let AdminModule = AdminModule_1 = class AdminModule {
     configure(consumer) {
         consumer
@@ -68,14 +76,21 @@ AdminModule = AdminModule_1 = __decorate([
                 isGlobal: true,
             }),
             sequelize_1.SequelizeModule.forFeature([
+                product_model_1.Product,
+                order_model_1.Order,
+                order_product_model_1.OrderProduct,
+                category_model_1.Category,
+                product_categories_model_1.ProductCategories,
                 admin_model_1.Admin,
                 admin_refresh_token_model_1.AdminRefreshToken,
                 owner_model_1.Owner,
-                roles_model_1.Role,
-                user_roles_model_1.UserRoles,
                 owner_refresh_token_model_1.OwnerRefreshToken,
                 user_model_1.User,
                 user_refresh_token_model_1.UserRefreshToken,
+                roles_model_1.Role,
+                user_roles_model_1.UserRoles,
+                cart_model_1.Cart,
+                cart_product_model_1.CartProduct,
             ]),
             jwt_1.JwtModule.register({
                 secret: process.env.JWT_REFRESH_ADMIN_SECRET.toString().trim() ||
@@ -98,6 +113,7 @@ AdminModule = AdminModule_1 = __decorate([
             mail_service_1.MailService,
             owner_service_1.OwnerService,
             admin_service_1.AdminService,
+            users_service_1.UsersService,
         ],
         exports: [admin_service_1.AdminService, jwt_refresh_service_1.AdminJwtRefreshService],
     })

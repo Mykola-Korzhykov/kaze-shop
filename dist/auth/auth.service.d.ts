@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { payload, CodeDto } from '../core/interfaces/auth.interfaces';
+import { Payload, CodeDto } from '../core/interfaces/auth.interfaces';
 import { JwtService } from '@nestjs/jwt';
 import { SignupDto } from './dto/signup.dto';
 import { LoginDto } from './dto/login.dto';
@@ -27,6 +27,7 @@ export declare class AuthService {
     private readonly sheduleService;
     private readonly jwtService;
     private readonly userJwtRefreshTokenService;
+    private readonly Logger;
     constructor(ownerJwtRefreshTokenService: OwnerJwtRefreshService, adminJwtRefreshTokenService: AdminJwtRefreshService, ownerService: OwnerService, adminService: AdminService, userService: UsersService, mailService: MailService, sheduleService: TasksService, jwtService: JwtService, userJwtRefreshTokenService: UserJwtRefreshTokenService);
     login(userDto: LoginDto, response: Response, request: Request, next: NextFunction, userAgent: string): Promise<void | Response<any, Record<string, any>>>;
     signup(userDto: SignupDto, response: Response, request: Request, next: NextFunction, userAgent: string): Promise<void | Response<any, Record<string, any>>>;
@@ -36,15 +37,16 @@ export declare class AuthService {
     setCode(codeDto: CodeDto, locale: 'ua' | 'ru' | 'rs' | 'en'): Promise<string>;
     resetPassword(resetDto: ResetDto, codeDto: CodeDto): Promise<string | void>;
     changePassword(response: Response, request: Request, next: NextFunction, changeDto: ChangeDto, userId: number, type: 'OWNER' | 'ADMIN' | null): Promise<void | Response<any, Record<string, any>>>;
-    validateAccessToken(token: string): Promise<payload>;
+    validateAccessToken(token: string): Promise<Payload>;
     private generateConfirmCode;
     private generateAccessToken;
     private setResponse;
     private generateTokens;
+    private refreshTokens;
     private authenticateUser;
     private validateRefreshToken;
     private generateEncryptedValue;
     private activateUser;
     private setIsActivated;
-    setTimeouts(user: User | Admin | Owner, refreshToken: string): Promise<NodeJS.Timeout | void>;
+    setTimeouts(user: User | Admin | Owner, refreshToken: string, identifier: string): Promise<NodeJS.Timeout | void>;
 }

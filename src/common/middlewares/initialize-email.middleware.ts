@@ -12,7 +12,7 @@ import { Next, Res } from '@nestjs/common/decorators';
 import { AdminService } from '../../admin/services/admin.service';
 import { OwnerService } from '../../owner/services/owner.service';
 import { UsersService } from '../../users/services/users.service';
-import { EMAIL_NOT_PROVIDED, USER_WITH_EMAIL_DOESNT_EXIST, USER_WITH_EMAIL_NOT_FOUND } from 'src/auth/auth.constants';
+import { EMAIL_NOT_PROVIDED, USER_WITH_EMAIL_DOESNT_EXIST, USER_WITH_EMAIL_NOT_FOUND } from '../../auth/auth.constants';
 import { ApiException } from '../exceptions/api.exception';
 @Injectable({ scope: Scope.REQUEST })
 export class InitializeEmailMiddleware implements NestMiddleware {

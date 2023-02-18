@@ -33,7 +33,7 @@ import {
 import { ResetDto } from '../../auth/dto/reset.password.dto';
 import { CodeDto } from '../../core/interfaces/auth.interfaces';
 import { UpdateUserDto } from '../dto/update-user.dto';
-import { ApiException } from 'src/common/exceptions/api.exception';
+import { ApiException } from '../../common/exceptions/api.exception';
 @Injectable({ scope: Scope.TRANSIENT })
 export class UsersService {
   constructor(
@@ -53,6 +53,7 @@ export class UsersService {
       include: { all: true },
       offset: (page - 1) * userPerPage,
       limit: userPerPage,
+      order: [['updatedAt', 'DESC']],
       attributes: [
         'id',
         'name',
@@ -71,7 +72,6 @@ export class UsersService {
     const users = [];
     dbUsers.forEach((user: User) => {
       const dbArray = [];
-      // tslint:disable-next-line: forin
       for (const key in user) {
         dbArray.push(user[key]);
       }
@@ -151,6 +151,7 @@ export class UsersService {
       include: { all: true },
       offset: (page - 1) * userPerPage,
       limit: userPerPage,
+      order: [['updatedAt', 'DESC']],
     });
     if (users.length === 0) {
       return [];
@@ -224,12 +225,10 @@ export class UsersService {
     if (!user) {
      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', USER_WITH_EMAIL_DOESNT_EXIST);
     }
-    console.log('not done');
     const passwordEquals = await bcrypt.compare(
       userDto.password,
       user.getPassword(),
     );
-    console.log('done');
     if (passwordEquals) {
       return user;
     }

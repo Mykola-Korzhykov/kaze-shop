@@ -18,6 +18,24 @@ const config_1 = require("@nestjs/config");
 const schedule_1 = require("@nestjs/schedule");
 const scedule_service_1 = require("./services/scedule.service");
 const event_emitter_1 = require("@nestjs/event-emitter");
+const bull_1 = require("@nestjs/bull");
+const garbage_processor_1 = require("./processors/garbage.processor");
+const admin_model_1 = require("../admin/models/admin.model");
+const admin_refresh_token_model_1 = require("../admin/models/admin.refresh.token.model");
+const cart_product_model_1 = require("../cart/models/cart.product.model");
+const cart_model_1 = require("../cart/models/cart.model");
+const category_model_1 = require("../categories/models/category.model");
+const product_categories_model_1 = require("../categories/models/product.categories.model");
+const order_model_1 = require("../orders/models/order.model");
+const order_product_model_1 = require("../orders/models/order.product.model");
+const owner_model_1 = require("../owner/models/owner.model");
+const owner_refresh_token_model_1 = require("../owner/models/owner.refresh.token.model");
+const product_model_1 = require("../product/models/product.model");
+const roles_model_1 = require("../roles/models/roles.model");
+const user_roles_model_1 = require("../roles/models/user.roles.model");
+const user_model_1 = require("../users/models/user.model");
+const user_refresh_token_model_1 = require("../users/models/user.refresh.token.model");
+const sequelize_1 = require("@nestjs/sequelize");
 let CoreModule = class CoreModule {
 };
 CoreModule = __decorate([
@@ -32,14 +50,18 @@ CoreModule = __decorate([
             scedule_service_1.TasksService,
             cluster_service_1.AppClusterService,
             file_service_1.FilesService,
+            garbage_processor_1.GarbageCollectingProcessor,
         ],
         imports: [
+            bull_1.BullModule.registerQueue({
+                name: 'garbageCollecting',
+            }),
             event_emitter_1.EventEmitterModule.forRoot({
                 wildcard: true,
                 delimiter: '.',
                 newListener: true,
                 removeListener: true,
-                maxListeners: 20,
+                maxListeners: 10,
                 verboseMemoryLeak: true,
                 ignoreErrors: false,
             }),
@@ -49,6 +71,23 @@ CoreModule = __decorate([
                 expandVariables: true,
                 isGlobal: true,
             }),
+            sequelize_1.SequelizeModule.forFeature([
+                product_model_1.Product,
+                order_model_1.Order,
+                order_product_model_1.OrderProduct,
+                category_model_1.Category,
+                product_categories_model_1.ProductCategories,
+                admin_model_1.Admin,
+                admin_refresh_token_model_1.AdminRefreshToken,
+                owner_model_1.Owner,
+                owner_refresh_token_model_1.OwnerRefreshToken,
+                user_model_1.User,
+                user_refresh_token_model_1.UserRefreshToken,
+                roles_model_1.Role,
+                user_roles_model_1.UserRoles,
+                cart_model_1.Cart,
+                cart_product_model_1.CartProduct,
+            ]),
         ],
     })
 ], CoreModule);

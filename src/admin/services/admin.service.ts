@@ -25,12 +25,12 @@ import { Admin } from '../models/admin.model';
 import { LoginDto } from '../../auth/dto/login.dto';
 import { ResetDto } from '../../auth/dto/reset.password.dto';
 import { CodeDto } from '../../core/interfaces/auth.interfaces';
-import { payload } from '../../core/interfaces/auth.interfaces';
+import { Payload } from '../../core/interfaces/auth.interfaces';
 import { AdminInterface } from '../../core/interfaces/admin.interfaces';
 import { UsersService } from '../../users/services/users.service';
 import { User } from '../../users/models/user.model';
 import { RolesService } from '../../roles/roles.service';
-import { ApiException } from 'src/common/exceptions/api.exception';
+import { ApiException } from '../../common/exceptions/api.exception';
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class AdminService {
@@ -52,6 +52,7 @@ export class AdminService {
       include: { all: true },
       offset: (page - 1) * adminPerPage,
       limit: adminPerPage,
+      order: [['updatedAt', 'DESC']],
       attributes: [
         'id',
         'name',
@@ -199,6 +200,7 @@ export class AdminService {
       include: { all: true },
       offset: (page - 1) * adminPerPage,
       limit: adminPerPage,
+      order: [['updatedAt', 'DESC']],
     });
     if (admins.length === 0) {
       return [];
@@ -236,7 +238,7 @@ export class AdminService {
     return admin;
   }
 
-  async checkAdmin(payload: payload, activationLink: string | undefined) {
+  async checkAdmin(payload: Payload, activationLink: string | undefined) {
     if (!activationLink) {
       throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ADMIN_ID_NOT_PROVIDED); 
     }

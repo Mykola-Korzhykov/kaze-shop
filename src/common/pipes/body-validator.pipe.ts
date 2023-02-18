@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express';
 import { ClassConstructor, plainToInstance } from 'class-transformer';
 import { validate } from 'class-validator';
 import { BadRequestError } from '../exceptions/validate-dto.exception.error';
-
 export default class RequestValidator {
   static validate = <T extends object>(classInstance: ClassConstructor<T>) => {
     return async (req: Request, res: Response, next: NextFunction) => {

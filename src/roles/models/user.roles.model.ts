@@ -11,7 +11,7 @@ import { Admin } from '../../admin/models/admin.model';
 import { User } from '../../users/models/user.model';
 import { Role } from './roles.model';
 
-@Table({ tableName: 'user_roles', createdAt: false, updatedAt: false })
+@Table({ tableName: 'USER`s_Roles', createdAt: false, updatedAt: false })
 export class UserRoles extends Model<UserRoles> {
   @ApiProperty({ example: '1', description: 'unique identifier' })
   @Column({

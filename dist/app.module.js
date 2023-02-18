@@ -18,7 +18,6 @@ const admin_model_1 = require("./admin/models/admin.model");
 const auth_module_1 = require("./auth/auth.module");
 const cluster_service_1 = require("./core/services/cluster.service");
 const throttler_1 = require("@nestjs/throttler");
-const serve_static_1 = require("@nestjs/serve-static");
 const path_1 = __importDefault(require("path"));
 const admin_refresh_token_model_1 = require("./admin/models/admin.refresh.token.model");
 const mail_module_1 = require("./mail/mail.module");
@@ -42,14 +41,20 @@ const app_controller_1 = require("./app.controller");
 const telegram_module_1 = require("./telegram/telegram.module");
 const telegram_config_1 = require("./telegram/telegram.config");
 const categories_module_1 = require("./categories/categories.module");
-const product_model_1 = require("./product/product.model");
+const product_model_1 = require("./product/models/product.model");
 const category_model_1 = require("./categories/models/category.model");
 const product_categories_model_1 = require("./categories/models/product.categories.model");
-const cart_item_model_1 = require("./cart/models/cart-item.model");
+const cart_product_model_1 = require("./cart/models/cart.product.model");
 const cart_model_1 = require("./cart/models/cart.model");
 const order_model_1 = require("./orders/models/order.model");
 const order_product_model_1 = require("./orders/models/order.product.model");
 const platform_express_1 = require("@nestjs/platform-express");
+const bull_1 = require("@nestjs/bull");
+const reviews_module_1 = require("./reviews/reviews.module");
+const review_model_1 = require("./reviews/models/review.model");
+const product_reviews_model_1 = require("./reviews/models/product.reviews.model");
+const bookmark_products_1 = require("./product/models/bookmark.products");
+const watched_products_model_1 = require("./product/models/watched.products.model");
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(cors_middleware_1.CorsMiddleware).forRoutes({
@@ -90,11 +95,43 @@ AppModule = __decorate([
                 ttl: 600,
                 limit: 100,
             }),
-            serve_static_1.ServeStaticModule.forRoot({
-                rootPath: path_1.default.join(__dirname, 'static'),
+            bull_1.BullModule.forRoot({
+                limiter: {
+                    max: 5,
+                    duration: 10000,
+                    bounceBack: true,
+                },
+                redis: {
+                    host: process.env.REDIS_HOST.toString(),
+                    port: Number(process.env.REDIS_PORT),
+                    db: 1,
+                    password: process.env.REDIS_PASSWORD.toString(),
+                },
+                settings: {
+                    lockDuration: 30000,
+                    lockRenewTime: 15000,
+                    stalledInterval: 30000,
+                    maxStalledCount: 1,
+                    guardInterval: 5000,
+                    retryProcessDelay: 5000,
+                    drainDelay: 5,
+                }
             }),
             platform_express_1.MulterModule.register({
                 dest: './static',
+                fileFilter(req, file, callback) {
+                    const filetypes = /\.(jpg|jpeg|png|gif)$/;
+                    const extname = filetypes.test(path_1.default.extname(file.originalname).toLowerCase());
+                    const mimetype = filetypes.test(file.mimetype);
+                    if (mimetype && extname) {
+                        return callback(null, true);
+                    }
+                    return callback(new Error('Only image files are allowed!'), false);
+                },
+                preservePath: true,
+                limits: {
+                    fileSize: 12282810,
+                }
             }),
             sequelize_1.SequelizeModule.forRoot({
                 dialect: 'postgres',
@@ -104,6 +141,7 @@ AppModule = __decorate([
                 password: process.env.PGPASSWORD.toString(),
                 database: process.env.PGDATABASE.toString(),
                 models: [
+                    product_reviews_model_1.ProductReviews,
                     product_model_1.Product,
                     order_model_1.Order,
                     order_product_model_1.OrderProduct,
@@ -118,7 +156,10 @@ AppModule = __decorate([
                     roles_model_1.Role,
                     user_roles_model_1.UserRoles,
                     cart_model_1.Cart,
-                    cart_item_model_1.CartProduct,
+                    cart_product_model_1.CartProduct,
+                    review_model_1.Review,
+                    bookmark_products_1.BookmarksProducts,
+                    watched_products_model_1.WatchedProducts,
                 ],
                 autoLoadModels: true,
                 synchronize: true,
@@ -135,6 +176,7 @@ AppModule = __decorate([
             orders_module_1.OrdersModule,
             cart_module_1.CartModule,
             categories_module_1.CategoriesModule,
+            reviews_module_1.ReviewsModule,
         ],
     })
 ], AppModule);

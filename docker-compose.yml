@@ -1,22 +1,35 @@
 version: '3.0'
 
 services:
-  main:
-    container_name: main
+  server:
+    container_name: server
+    image: node:19.4.0-alpine
     build:
       context: .
+      dockerfile: Dockerfile
+    command: npm run start:prodpack
     env_file:
-      - .production.env
-    volumes:
-      - .:/app
-      - /app/node_modules
+     - .production.env
     ports:
       - 7457:7457
       - 9229:9229
-    command: npm run start:prodpack
     depends_on:
+      - redis
       - postgres
-    restart: always
+    volumes:
+      - .:/app
+      - /app/node_modules
+    restart: unless-stopped
+    hostname: server
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - 6379:6379
+    restart: unless-stopped
+    env_file:
+     - .production.env
+    hostname: redis
   postgres:
     container_name: postgres
     image: postgres:latest

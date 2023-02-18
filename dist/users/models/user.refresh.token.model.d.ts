@@ -7,10 +7,13 @@ export declare class UserRefreshToken extends Model<UserRefreshToken, UserRefres
     userRefreshToken: string;
     userId: number;
     private expireDate;
+    identifier: string;
     private user;
     getExpireDate(): Date;
     setExpireDate(expireDate: Date): Date;
     getuserId(): number;
     setuserId(userId: number): number;
     getUser(): User;
+    getIdentifier(): string;
+    setIdentifier(identifier: string): string;
 }

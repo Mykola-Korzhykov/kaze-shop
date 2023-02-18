@@ -37,15 +37,17 @@ const config_1 = require("@nestjs/config");
 const scedule_service_1 = require("../core/services/scedule.service");
 const core_module_1 = require("../core/core.module");
 const product_module_1 = require("../product/product.module");
-const cart_item_model_1 = require("../cart/models/cart-item.model");
+const cart_product_model_1 = require("../cart/models/cart.product.model");
 const cart_model_1 = require("../cart/models/cart.model");
 const category_model_1 = require("../categories/models/category.model");
 const product_categories_model_1 = require("../categories/models/product.categories.model");
 const order_model_1 = require("../orders/models/order.model");
 const order_product_model_1 = require("../orders/models/order.product.model");
-const product_model_1 = require("../product/product.model");
+const product_model_1 = require("../product/models/product.model");
 const auth_service_1 = require("../auth/auth.service");
 const mail_module_1 = require("../mail/mail.module");
+const bookmark_products_1 = require("../product/models/bookmark.products");
+const watched_products_model_1 = require("../product/models/watched.products.model");
 let UsersModule = UsersModule_1 = class UsersModule {
     configure(consumer) {
         consumer
@@ -83,7 +85,9 @@ UsersModule = UsersModule_1 = __decorate([
                 roles_model_1.Role,
                 user_roles_model_1.UserRoles,
                 cart_model_1.Cart,
-                cart_item_model_1.CartProduct,
+                cart_product_model_1.CartProduct,
+                bookmark_products_1.BookmarksProducts,
+                watched_products_model_1.WatchedProducts,
             ]),
             jwt_1.JwtModule.register({
                 secret: process.env.JWT_REFRESH_USER_SECRET.toString().trim() ||

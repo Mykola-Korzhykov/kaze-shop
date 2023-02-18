@@ -6,12 +6,13 @@ import {
   ForeignKey,
   IsEmail,
   BelongsTo,
+  IsUUID,
 } from 'sequelize-typescript';
 import { ApiProperty } from '@nestjs/swagger';
 import { OwnerRefreshTokenCreationAttrbs } from '../../core/interfaces/owner.interfaces';
 import { Owner } from './owner.model';
 
-@Table({ tableName: 'owner refresh token' })
+@Table({ tableName: 'OWNER`s_Refresh-tokens' })
 export class OwnerRefreshToken extends Model<
   OwnerRefreshToken,
   OwnerRefreshTokenCreationAttrbs
@@ -40,7 +41,7 @@ export class OwnerRefreshToken extends Model<
   @IsEmail
   @Column({
     type: DataType.STRING,
-    unique: true,
+    unique: false,
     allowNull: false,
     field: 'email',
   })
@@ -75,7 +76,7 @@ export class OwnerRefreshToken extends Model<
   })
   @Column({
     type: DataType.CHAR(350),
-    unique: true,
+    unique: false,
     allowNull: false,
     field: 'ownerAgent',
   })
@@ -87,6 +88,19 @@ export class OwnerRefreshToken extends Model<
     field: 'expireDate',
   })
   private expireDate: Date;
+
+  @ApiProperty({
+    example: '9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d',
+    description: 'identifier',
+  })
+  @IsUUID(4)
+  @Column({
+    type: DataType.STRING,
+    unique: true,
+    allowNull: true,
+    field: 'identifier',
+  })
+  public identifier: string;
 
   @BelongsTo(() => Owner)
   private owner: Owner;
@@ -120,5 +134,14 @@ export class OwnerRefreshToken extends Model<
 
   getOwner(): Owner {
     return this.owner;
+  }
+
+  getIdentifier(): string {
+    return this.identifier;
+  }
+
+  setIdentifier(identifier: string): string {
+    this.identifier = identifier;
+    return this.identifier;
   }
 }

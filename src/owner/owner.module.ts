@@ -14,6 +14,19 @@ import { RolesModule } from '../roles/roles.module';
 import { ConfigModule } from '@nestjs/config';
 import { CoreModule } from '../core/core.module';
 import { TasksService } from '../core/services/scedule.service';
+import { Admin } from '../admin/models/admin.model';
+import { AdminRefreshToken } from '../admin/models/admin.refresh.token.model';
+import { CartProduct } from '../cart/models/cart.product.model';
+import { Cart } from '../cart/models/cart.model';
+import { Category } from '../categories/models/category.model';
+import { ProductCategories } from '../categories/models/product.categories.model';
+import { Order } from '../orders/models/order.model';
+import { OrderProduct } from '../orders/models/order.product.model';
+import { Product } from '../product/models/product.model';
+import { User } from '../users/models/user.model';
+import { UserRefreshToken } from '../users/models/user.refresh.token.model';
+import { UsersService } from '../users/services/users.service';
+import { AdminService } from '../admin/services/admin.service';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -32,11 +45,28 @@ import { TasksService } from '../core/services/scedule.service';
         expiresIn: 86400000,
       },
     }),
+    SequelizeModule.forFeature([
+      Product,
+      Order,
+      OrderProduct,
+      Category,
+      ProductCategories,
+      Admin,
+      AdminRefreshToken,
+      Owner,
+      OwnerRefreshToken,
+      User,
+      UserRefreshToken,
+      Role,
+      UserRoles,
+      Cart,
+      CartProduct,
+    ]),
     forwardRef(() => CoreModule),
     forwardRef(() => AuthModule),
     forwardRef(() => AdminModule),
   ],
-  providers: [OwnerService, OwnerJwtRefreshService, MailService, TasksService],
+  providers: [OwnerService, OwnerJwtRefreshService, MailService, TasksService, UsersService, AdminService],
   exports: [OwnerService, OwnerJwtRefreshService],
 })
 export class OwnerModule {}

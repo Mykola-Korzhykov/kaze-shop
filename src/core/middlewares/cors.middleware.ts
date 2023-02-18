@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  Logger,
   NestMiddleware,
   Next,
   Req,
@@ -19,14 +20,12 @@ interface RequestHeaders {
 
 @Injectable({ scope: Scope.REQUEST })
 export class CorsMiddleware implements NestMiddleware {
+  readonly Logger = new Logger(CorsMiddleware.name);
   use(@Req() req: Request, @Res() res: Response, @Next() next: NextFunction) {
     const headers: RequestHeaders = JSON.parse(JSON.stringify(req.headers));
     const isEmpty = this.isEmpty(headers);
     const ipAddress = IP.address();
-    const geo = geoip.lookup(ipAddress);
-    console.log(geo, ipAddress);
-    const requesAPI = req.ip;
-    req['region'] = 'ua'; 
+    this.Logger.log(ipAddress);
     if (isEmpty) {
       throw new BadRequestException({
         message: 'No request headers were provided!',

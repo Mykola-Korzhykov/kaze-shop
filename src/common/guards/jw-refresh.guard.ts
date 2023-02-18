@@ -1,21 +1,18 @@
 import {
   CanActivate,
   ExecutionContext,
-  ForbiddenException,
   HttpStatus,
   Injectable,
-  NotFoundException,
   Scope,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { AdminService } from '../../admin/services/admin.service';
 import { OwnerService } from '../../owner/services/owner.service';
 import { UsersService } from '../../users/services/users.service';
-import { payload } from '../../core/interfaces/auth.interfaces';
-import { USER_NOT_FOUND } from 'src/users/constants/user.constants';
+import { Payload } from '../../core/interfaces/auth.interfaces';
+import { USER_NOT_FOUND } from '../../users/constants/user.constants';
 import { ApiException } from '../exceptions/api.exception';
-import { INVALID_REQUEST, NO_LINK_PROVIDED, USER_NOT_DETECTED } from 'src/auth/auth.constants';
+import { INVALID_REQUEST, NO_LINK_PROVIDED, USER_NOT_DETECTED } from '../../auth/auth.constants';
 
 @Injectable({ scope: Scope.REQUEST })
 export class AuthFerfershGuard implements CanActivate {
@@ -30,7 +27,7 @@ export class AuthFerfershGuard implements CanActivate {
   ): boolean | Promise<boolean> | Observable<boolean> {
     return (async () => {
       const req = context.switchToHttp().getRequest();
-      const payload: payload = req?.payload;
+      const payload: Payload = req?.payload;
       const type: 'OWNER' | 'ADMIN' | null = req['type'];
       if (!payload) {
         throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', INVALID_REQUEST);

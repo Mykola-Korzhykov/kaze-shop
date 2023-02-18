@@ -55,7 +55,6 @@ export class UsersController {
     private readonly authService: AuthService,
   ) {}
 
-  // tslint:disable-next-line: promise-function-async
   @Throttle(40, 400)
   @ApiOperation({ summary: 'Getting Users' })
   @ApiResponse({ status: 200, type: [User] })
@@ -69,7 +68,6 @@ export class UsersController {
     return this.userService.getAllUsers(page, pageSize);
   }
 
-  // tslint:disable-next-line: promise-function-async
   @Throttle(60, 700)
   @ApiOperation({ summary: 'Getting User' })
   @ApiResponse({ status: 200, type: User })
@@ -84,7 +82,6 @@ export class UsersController {
     return this.userService.findUser(v, page, pageSize);
   }
 
-  // tslint:disable-next-line: promise-function-async
   @Throttle(40, 400)
   @ApiOperation({ summary: 'Ban a user' })
   @ApiResponse({ status: 200 })

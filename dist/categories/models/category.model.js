@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Category = void 0;
 const sequelize_typescript_1 = require("sequelize-typescript");
-const product_model_1 = require("../../product/product.model");
+const product_model_1 = require("../../product/models/product.model");
 const product_categories_model_1 = require("./product.categories.model");
 let Category = class Category extends sequelize_typescript_1.Model {
     getProducts() {
@@ -29,24 +29,47 @@ __decorate([
     __metadata("design:type", Number)
 ], Category.prototype, "id", void 0);
 __decorate([
-    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.STRING, unique: false, allowNull: false }),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: false,
+        unique: false,
+        field: 'ua-locale',
+    }),
     __metadata("design:type", String)
-], Category.prototype, "title", void 0);
+], Category.prototype, "ua", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
         type: sequelize_typescript_1.DataType.STRING,
         allowNull: false,
         unique: false,
-        field: 'description',
+        field: 'ru-locale',
     }),
     __metadata("design:type", String)
-], Category.prototype, "description", void 0);
+], Category.prototype, "ru", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: false,
+        unique: false,
+        field: 'en-locale',
+    }),
+    __metadata("design:type", String)
+], Category.prototype, "en", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: false,
+        unique: false,
+        field: 'rs-locale',
+    }),
+    __metadata("design:type", String)
+], Category.prototype, "rs", void 0);
 __decorate([
     (0, sequelize_typescript_1.BelongsToMany)(() => product_model_1.Product, () => product_categories_model_1.ProductCategories),
     __metadata("design:type", Array)
 ], Category.prototype, "products", void 0);
 Category = __decorate([
-    (0, sequelize_typescript_1.Table)({ tableName: 'categories' })
+    (0, sequelize_typescript_1.Table)({ tableName: 'CATEGORIES' })
 ], Category);
 exports.Category = Category;
 //# sourceMappingURL=category.model.js.map

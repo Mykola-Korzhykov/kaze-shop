@@ -12,8 +12,8 @@ import {
   NotFoundException,
 } from '@nestjs/common/exceptions';
 import { Request, Response, NextFunction } from 'express';
-import { INVALID_PARAMS } from 'src/auth/auth.constants';
-import { USER_NOT_FOUND } from 'src/users/constants/user.constants';
+import { INVALID_PARAMS } from '../../auth/auth.constants';
+import { USER_NOT_FOUND } from '../../users/constants/user.constants';
 import { v4 } from 'uuid';
 import { UsersService } from '../../users/services/users.service';
 import { ApiException } from '../exceptions/api.exception';

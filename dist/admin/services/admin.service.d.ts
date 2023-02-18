@@ -3,7 +3,7 @@ import { Admin } from '../models/admin.model';
 import { LoginDto } from '../../auth/dto/login.dto';
 import { ResetDto } from '../../auth/dto/reset.password.dto';
 import { CodeDto } from '../../core/interfaces/auth.interfaces';
-import { payload } from '../../core/interfaces/auth.interfaces';
+import { Payload } from '../../core/interfaces/auth.interfaces';
 import { AdminInterface } from '../../core/interfaces/admin.interfaces';
 import { UsersService } from '../../users/services/users.service';
 import { User } from '../../users/models/user.model';
@@ -20,7 +20,7 @@ export declare class AdminService {
     getAllAdmins(page: number, adminPerPage: number): Promise<AdminInterface[] | []>;
     getAdminById(id: number): Promise<Admin>;
     getAdminByEmail(email: string): Promise<Admin>;
-    checkAdmin(payload: payload, activationLink: string | undefined): Promise<boolean>;
+    checkAdmin(payload: Payload, activationLink: string | undefined): Promise<boolean>;
     getAdminByPhoneNumber(phoneNumber: string): Promise<Admin>;
     validateAdmin(adminDto: LoginDto): Promise<Admin | boolean>;
     setConfirmCode(codeDto: CodeDto, code: number): Promise<string>;

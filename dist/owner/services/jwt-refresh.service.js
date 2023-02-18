@@ -20,11 +20,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var OwnerJwtRefreshService_1;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OwnerJwtRefreshService = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
 const sequelize_1 = require("@nestjs/sequelize");
+const crypto_1 = require("crypto");
+const util_1 = require("util");
+const uuid_1 = require("uuid");
 const api_exception_1 = require("../../common/exceptions/api.exception");
 const scedule_service_1 = require("../../core/services/scedule.service");
 const mail_service_1 = require("../../mail/mail.service");
@@ -32,13 +36,14 @@ const jwt_refresh_constants_1 = require("../constants/jwt-refresh.constants");
 const owner_constants_1 = require("../constants/owner.constants");
 const owner_refresh_token_model_1 = require("../models/owner.refresh.token.model");
 const owner_service_1 = require("./owner.service");
-let OwnerJwtRefreshService = class OwnerJwtRefreshService {
+let OwnerJwtRefreshService = OwnerJwtRefreshService_1 = class OwnerJwtRefreshService {
     constructor(jwtService, ownerService, mailService, sheduleService, ownerRefreshTokenRepository) {
         this.jwtService = jwtService;
         this.ownerService = ownerService;
         this.mailService = mailService;
         this.sheduleService = sheduleService;
         this.ownerRefreshTokenRepository = ownerRefreshTokenRepository;
+        this.Logger = new common_1.Logger(OwnerJwtRefreshService_1.name);
     }
     generateRefreshToken(payload) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -65,7 +70,42 @@ let OwnerJwtRefreshService = class OwnerJwtRefreshService {
             }
         });
     }
-    saveToken(ownerId, ownerRefreshToken, email, ownerAgent, phoneNumber, expireDate) {
+    insertToken(ownerId, ownerRefreshToken, email, ownerAgent, phoneNumber, expireDate) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const owner = yield this.ownerService.getOwnerById(ownerId);
+                if (!owner) {
+                    throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', owner_constants_1.OWNER_NOT_FOUND);
+                }
+                const token = yield this.ownerRefreshTokenRepository.create({
+                    ownerRefreshToken: ownerRefreshToken,
+                    ownerId: owner.id,
+                    email: email,
+                    ownerAgent: ownerAgent,
+                    phoneNumber: phoneNumber,
+                });
+                token.setIdentifier((0, uuid_1.v4)());
+                yield token.save();
+                if (!token.getExpireDate()) {
+                    token.setExpireDate(expireDate);
+                    yield token.save();
+                }
+                if (!owner.getOwnerRefreshTokens() || owner.getOwnerRefreshTokens().length === 0) {
+                    owner.$set('ownerRefreshTokens', token.id);
+                    owner.ownerRefreshTokens = [token];
+                }
+                else {
+                    owner.$add('ownerRefreshTokens', token.id);
+                }
+                return token;
+            }
+            catch (err) {
+                console.log(err);
+                throw new api_exception_1.ApiException(common_1.HttpStatus.INTERNAL_SERVER_ERROR, 'Internal Server Error', jwt_refresh_constants_1.ERROR_WHILE_SAVING_TOKEN);
+            }
+        });
+    }
+    saveToken(ownerId, ownerRefreshToken, email, ownerAgent, phoneNumber, expireDate, identifier) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const owner = yield this.ownerService.getOwnerById(ownerId);
@@ -73,12 +113,29 @@ let OwnerJwtRefreshService = class OwnerJwtRefreshService {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', owner_constants_1.OWNER_NOT_FOUND);
                 }
                 const tokenData = yield this.ownerRefreshTokenRepository.findOne({
-                    where: { ownerId: ownerId },
+                    where: {
+                        ownerId: ownerId,
+                        identifier: identifier,
+                    },
                 });
+                if (tokenData && !owner.getOwnerAgent()) {
+                    owner.setOwnerAgent(ownerAgent);
+                    tokenData.setownerAgent(ownerAgent);
+                    yield owner.save();
+                    yield tokenData.save();
+                }
                 if (tokenData) {
                     tokenData.ownerRefreshToken = ownerRefreshToken;
-                    if (owner.getOwnerAgent() && owner.getOwnerAgent() !== ownerAgent) {
+                    if (owner.getOwnerAgent() && owner.getOwnerAgent().trim() !== ownerAgent) {
                         owner.setIsActivated(false);
+                        const link = yield this.generateEncryptedValue('OWNER', 16);
+                        const code = this.generateActivationCode();
+                        owner.setResetToken(link.replace('/', `${(0, uuid_1.v4)()}`).replace('=', `${(0, uuid_1.v4)()}`));
+                        owner.setActivationCode(code);
+                        owner.setResetTokenExpiration(Number(Date.now() + 3600000));
+                        yield owner.save();
+                        this.Logger.log(`checking owner with email ${owner.email}`, owner.getOwnerAgent() !== ownerAgent);
+                        this.mailService.sendActivationMailToOwner(owner.email, `${process.env.API_URL}/auth/activate/${owner.getResetToken().trim()}?code=${code}`);
                     }
                     return tokenData.save();
                 }
@@ -107,6 +164,9 @@ let OwnerJwtRefreshService = class OwnerJwtRefreshService {
                 if (!token) {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_1.TOKEN_NOT_FOUND);
                 }
+                const owner = yield this.ownerService.getOwnerById(token.ownerId);
+                owner.$remove('ownerRefreshTokens', token.token.id);
+                yield owner.save();
                 const tokenData = yield this.ownerRefreshTokenRepository.destroy({
                     where: { ownerRefreshToken: ownerRefreshToken },
                 });
@@ -117,10 +177,13 @@ let OwnerJwtRefreshService = class OwnerJwtRefreshService {
             }
         });
     }
-    findTokenByToken(ownerRefreshToken) {
+    findTokenByToken(ownerRefreshToken, identifier) {
         return __awaiter(this, void 0, void 0, function* () {
             const token = yield this.ownerRefreshTokenRepository.findOne({
-                where: { ownerRefreshToken: ownerRefreshToken },
+                where: {
+                    ownerRefreshToken: ownerRefreshToken,
+                    identifier: identifier,
+                },
             });
             if (!token) {
                 throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_1.TOKEN_NOT_FOUND);
@@ -136,13 +199,13 @@ let OwnerJwtRefreshService = class OwnerJwtRefreshService {
             if (!token) {
                 return false;
             }
-            return token;
+            return { token: token, ownerId: token.ownerId };
         });
     }
-    findTokenByParams(email, phoneNumber) {
+    findTokenByParams(email, phoneNumber, identifier) {
         return __awaiter(this, void 0, void 0, function* () {
             const token = yield this.ownerRefreshTokenRepository.findOne({
-                where: { email: email, phoneNumber: phoneNumber },
+                where: { email: email, phoneNumber: phoneNumber, identifier: identifier },
             });
             if (!token) {
                 throw new api_exception_1.ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', jwt_refresh_constants_1.TOKEN_INVALID);
@@ -150,22 +213,44 @@ let OwnerJwtRefreshService = class OwnerJwtRefreshService {
             return token;
         });
     }
-    removeTokenInTime(ownerRefreshTokenId) {
+    removeTokenInTime(ownerRefreshTokenId, identifier) {
         return __awaiter(this, void 0, void 0, function* () {
-            const token = yield owner_refresh_token_model_1.OwnerRefreshToken.findByPk(ownerRefreshTokenId);
+            const token = yield owner_refresh_token_model_1.OwnerRefreshToken.findOne({
+                where: {
+                    id: ownerRefreshTokenId,
+                    identifier: identifier,
+                }
+            });
             if (!token) {
                 return false;
             }
+            const owner = yield this.ownerService.getOwnerById(token.ownerId);
+            owner.$remove('ownerRefreshTokens', token.id);
+            yield owner.save();
             return owner_refresh_token_model_1.OwnerRefreshToken.destroy({
                 where: {
                     id: token.id,
                     phoneNumber: token.phoneNumber,
+                    identifier: identifier,
                 },
             });
         });
     }
+    generateEncryptedValue(value, bytes) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const iv = (0, crypto_1.randomBytes)(bytes);
+            const API_KEY = process.env.API_KEY.toString();
+            const key = (yield (0, util_1.promisify)(crypto_1.scrypt)(API_KEY, 'salt', 32));
+            const cipher = (0, crypto_1.createCipheriv)('aes-256-ctr', key, iv);
+            return Buffer.concat([cipher.update(value), cipher.final()]).toString('base64');
+        });
+    }
+    generateActivationCode() {
+        const confirmCode = Number(('' + Math.random()).substring(2, 10));
+        return confirmCode;
+    }
 };
-OwnerJwtRefreshService = __decorate([
+OwnerJwtRefreshService = OwnerJwtRefreshService_1 = __decorate([
     (0, common_1.Injectable)({ scope: common_1.Scope.TRANSIENT }),
     __param(4, (0, sequelize_1.InjectModel)(owner_refresh_token_model_1.OwnerRefreshToken)),
     __metadata("design:paramtypes", [jwt_1.JwtService,

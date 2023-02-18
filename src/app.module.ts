@@ -13,7 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { AppClusterService } from './core/services/cluster.service';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import path, { extname } from 'path';
+import path from 'path';
 import { AdminRefreshToken } from './admin/models/admin.refresh.token.model';
 import { MailModule } from './mail/mail.module';
 import { CorsMiddleware } from './core/middlewares/cors.middleware';
@@ -36,14 +36,20 @@ import { AppController } from './app.controller';
 import { TelegramModule } from './telegram/telegram.module';
 import { getTelegramConfig } from './telegram/telegram.config';
 import { CategoriesModule } from './categories/categories.module';
-import { Product } from './product/product.model';
+import { Product } from './product/models/product.model';
 import { Category } from './categories/models/category.model';
 import { ProductCategories } from './categories/models/product.categories.model';
-import { CartProduct } from './cart/models/cart-item.model';
+import { CartProduct } from './cart/models/cart.product.model';
 import { Cart } from './cart/models/cart.model';
 import { Order } from './orders/models/order.model';
 import { OrderProduct } from './orders/models/order.product.model';
 import { MulterModule } from '@nestjs/platform-express';
+import { BullModule } from '@nestjs/bull';
+import { ReviewsModule } from './reviews/reviews.module';
+import { Review } from './reviews/models/review.model';
+import { ProductReviews } from './reviews/models/product.reviews.model';
+import { BookmarksProducts } from './product/models/bookmark.products';
+import { WatchedProducts } from './product/models/watched.products.model';
 @Module({
   controllers: [AppController],
   providers: [
@@ -75,11 +81,47 @@ import { MulterModule } from '@nestjs/platform-express';
       ttl: 600,
       limit: 100,
     }),
-    ServeStaticModule.forRoot({
-      rootPath: path.join(__dirname, 'static'),
+    BullModule.forRoot({
+      limiter: {
+        max: 5,
+        duration: 10000,
+        bounceBack: true,
+      },
+      redis: {
+        host: process.env.REDIS_HOST.toString(),
+        port: Number(process.env.REDIS_PORT),
+        db: 1,
+        password: process.env.REDIS_PASSWORD.toString(),
+      },
+      settings: {
+        lockDuration: 30000, 
+        lockRenewTime: 15000, 
+        stalledInterval: 30000, 
+        maxStalledCount: 1, 
+        guardInterval: 5000, 
+        retryProcessDelay: 5000, 
+        drainDelay: 5, 
+      }
     }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: path.join(__dirname, 'static'),
+    //   renderPath: '*',
+    // }),  NOT WORKING
     MulterModule.register({
       dest: './static',
+      fileFilter(req, file, callback) {
+        const filetypes = /\.(jpg|jpeg|png|gif)$/;
+        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+        const mimetype = filetypes.test(file.mimetype);
+        if (mimetype && extname) {
+          return callback(null, true);
+        }
+        return callback(new Error('Only image files are allowed!'), false);
+      },
+      preservePath: true,
+      limits: {
+        fileSize: 12282810,
+      }
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
@@ -89,6 +131,7 @@ import { MulterModule } from '@nestjs/platform-express';
       password: process.env.PGPASSWORD.toString(),
       database: process.env.PGDATABASE.toString(),
       models: [
+        ProductReviews,
         Product,
         Order,
         OrderProduct,
@@ -104,6 +147,9 @@ import { MulterModule } from '@nestjs/platform-express';
         UserRoles,
         Cart,
         CartProduct,
+        Review,
+        BookmarksProducts,
+        WatchedProducts,
       ],
       autoLoadModels: true,
       synchronize: true,
@@ -120,6 +166,7 @@ import { MulterModule } from '@nestjs/platform-express';
     OrdersModule,
     CartModule,
     CategoriesModule,
+    ReviewsModule,
   ],
 })
 export class AppModule implements NestModule {

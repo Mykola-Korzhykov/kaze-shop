@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   CanActivate,
   ExecutionContext,
   HttpStatus,
@@ -7,14 +6,14 @@ import {
   Scope,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
-import { payload } from '../../core/interfaces/auth.interfaces';
+import { Payload } from '../../core/interfaces/auth.interfaces';
 import { UserJwtRefreshTokenService } from '../../users/services/jwt-refresh.service';
 import { REFRESH_TOKEN_NOT_PROVIDED, USER_NOT_AUTHORIZIED } from '../../auth/auth.constants';
 import { Reflector } from '@nestjs/core';
 import { ROLES_KEY } from '../decorators/roles-auth.decorator';
 import { AuthService } from '../../auth/auth.service';
 import { ApiException } from '../exceptions/api.exception';
-import { CreateUserRefreshTokenDto } from 'src/users/dto/create-user-refresh-token.dto';
+import { ACCESS_DENIED } from '../../admin/constants/admin.constants';
 
 @Injectable({ scope: Scope.REQUEST })
 export class UserGuard implements CanActivate {
@@ -36,36 +35,20 @@ export class UserGuard implements CanActivate {
           return true;
         }
         const req = context.switchToHttp().getRequest();
-        const accessToken = req?.cookies['accessToken'];
         const refreshToken = req?.cookies['refreshToken'];
-        console.log(accessToken, refreshToken);
         if (!refreshToken) {
           throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request!', REFRESH_TOKEN_NOT_PROVIDED);
         }
         const decodedRefreshToken = Buffer.from(refreshToken, 'base64').toString(
           'ascii',
         );
-//         if (process.env.NODE_ENV === 'production') {
-//           const decodedAccessToken = Buffer.from(accessToken, 'base64').toString('ascii');
-//           const accessPayload = await this.authService.validateAccessToken(
-//             decodedAccessToken,
-//           );
-//           if (
-//             !accessPayload.roles.some(
-//               (role: { value: string; description: string }) =>
-//                 requiredRoles.includes(role.value),
-//             )
-//           ) {
-//             throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
-//           }
-//         }
         const userRefreshToken = await this.userJwtRefreshTokenService.findToken(
           decodedRefreshToken,
-      );
+        );
         if (!userRefreshToken) {
           return false;
         }
-        const payload: payload = req?.payload;
+        const payload: Payload = req?.payload;
         if (!payload) {
           throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
         }
@@ -76,10 +59,14 @@ export class UserGuard implements CanActivate {
           await this.userJwtRefreshTokenService.validateRefreshToken(
             decodedRefreshToken.trim(),
         );
-        return refreshPayload.roles.some(
+        if (
+          !refreshPayload.roles.some(
           (role: { value: string; description: string }) =>
-            requiredRoles.includes(role.value),
-        );
+            requiredRoles.includes(role.value))
+        ) {
+          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ACCESS_DENIED);
+        }
+        return true;
       }
     )();
   }

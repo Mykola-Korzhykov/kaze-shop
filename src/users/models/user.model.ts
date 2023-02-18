@@ -8,7 +8,6 @@ import {
   IsEmail,
   IsInt,
   HasMany,
-  HasOne,
   ForeignKey,
 } from 'sequelize-typescript';
 import { Cart } from '../../cart/models/cart.model';
@@ -17,7 +16,10 @@ import { UsercreationAttrbs } from '../../core/interfaces/user.interfaces';
 import { Role } from '../../roles/models/roles.model';
 import { UserRoles } from '../../roles/models/user.roles.model';
 import { UserRefreshToken } from './user.refresh.token.model';
-@Table({ tableName: 'users' })
+import { Product } from '../../product/models/product.model';
+import { BookmarksProducts } from '../../product/models/bookmark.products';
+import { WatchedProducts } from '../../product/models/watched.products.model';
+@Table({ tableName: 'USERS' })
 export class User extends Model<User, UsercreationAttrbs> {
   @ApiProperty({ example: '1', description: 'unique identifier' })
   @Column({
@@ -247,10 +249,16 @@ export class User extends Model<User, UsercreationAttrbs> {
   public roles: Role[];
 
   @HasMany(() => UserRefreshToken)
-  private userRefreshToken: UserRefreshToken;
+  public userRefreshTokens: UserRefreshToken[];
 
   @HasMany(() => Cart)
-  private carts: Cart[];
+  public carts: Cart[];
+
+  @BelongsToMany(() => Product, () => BookmarksProducts)
+  public bookmarks: Product[];
+
+  @BelongsToMany(() => Product, () => WatchedProducts)
+  public watched: Product[];
 
   getName(): string {
     return this.name;
@@ -390,7 +398,7 @@ export class User extends Model<User, UsercreationAttrbs> {
     return this.carts;
   }
 
-  getUserRefreshToken(): UserRefreshToken {
-    return this.userRefreshToken;
+  getUserRefreshTokens(): UserRefreshToken[] {
+    return this.userRefreshTokens;
   }
 }

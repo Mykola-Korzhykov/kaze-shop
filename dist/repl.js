@@ -10,11 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@nestjs/core");
-const nest_commander_1 = require("nest-commander");
 const app_module_1 = require("./app.module");
 function replStart() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield nest_commander_1.CommandFactory.run(app_module_1.AppModule);
         yield (0, core_1.repl)(app_module_1.AppModule);
     });
 }
