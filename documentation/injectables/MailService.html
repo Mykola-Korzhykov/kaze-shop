@@ -1,0 +1,722 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>kazi.shop-api documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">kazi.shop-api documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li >MailService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/mail/mail.service.ts</code>
+        </p>
+
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#Logger" >Logger</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#sendActivationMailToAdmin" >sendActivationMailToAdmin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#sendActivationMailToOwner" >sendActivationMailToOwner</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#sendCode" >sendCode</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(mailerService: MailerService, userService: <a href="../injectables/UsersService.html" target="_self">UsersService</a>, adminService: <a href="../injectables/AdminService.html" target="_self">AdminService</a>, ownerService: <a href="../injectables/OwnerService.html" target="_self">OwnerService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/mail/mail.service.ts:19</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>mailerService</td>
+                                                  
+                                                        <td>
+                                                                    <code>MailerService</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UsersService.html" target="_self" >UsersService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>adminService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AdminService.html" target="_self" >AdminService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>ownerService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/OwnerService.html" target="_self" >OwnerService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendActivationMailToAdmin"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>sendActivationMailToAdmin</b></span>
+                        <a href="#sendActivationMailToAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendActivationMailToAdmin(toMail: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, link: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">src/mail/mail.service.ts:62</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>toMail</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>link</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendActivationMailToOwner"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>sendActivationMailToOwner</b></span>
+                        <a href="#sendActivationMailToOwner"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendActivationMailToOwner(toMail: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, link: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="27"
+                            class="link-to-prism">src/mail/mail.service.ts:27</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>toMail</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>link</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendCode"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>sendCode</b></span>
+                        <a href="#sendCode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendCode(toMail: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, code: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, locale: "ua" | "ru" | "rs" | "en")</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="97"
+                            class="link-to-prism">src/mail/mail.service.ts:97</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>toMail</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>code</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>locale</td>
+                                    <td>
+                                            <code>&quot;ua&quot; | &quot;ru&quot; | &quot;rs&quot; | &quot;en&quot;</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Logger"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>Logger</b></span>
+                        <a href="#Logger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Logger(MailService.name)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/mail/mail.service.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  HttpStatus,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  Scope,
+} from &#x27;@nestjs/common&#x27;;
+import { MailerService } from &#x27;@nestjs-modules/mailer&#x27;;
+import { ERORR_WHILE_SENDING_EMAIL, RESETTING, TROUBLE_SIGNING } from &#x27;./mail.constants&#x27;;
+import { UsersService } from &#x27;../users/services/users.service&#x27;;
+import { AdminService } from &#x27;../admin/services/admin.service&#x27;;
+import { OwnerService } from &#x27;../owner/services/owner.service&#x27;;
+import { ApiException } from &#x27;../common/exceptions/api.exception&#x27;;
+import { OWNER_NOT_FOUND } from &#x27;../owner/constants/owner.constants&#x27;;
+import { ADMIN_NOT_FOUND } from &#x27;../admin/constants/admin.constants&#x27;;
+import { USER_NOT_FOUND } from &#x27;../users/constants/user.constants&#x27;;
+@Injectable({ scope: Scope.REQUEST })
+export class MailService {
+  private readonly Logger &#x3D; new Logger(MailService.name);
+  constructor(
+    private readonly mailerService: MailerService,
+    private readonly userService: UsersService,
+    private readonly adminService: AdminService,
+    private readonly ownerService: OwnerService,
+  ) {}
+  
+  async sendActivationMailToOwner(toMail: string, link: string) {
+    try {
+      const owner &#x3D; await this.ownerService.getOwnerByEmail(toMail);
+      if (!owner) {
+        throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, OWNER_NOT_FOUND);   
+      }
+      const info &#x3D; await this.mailerService.sendMail({
+        from: process.env.MAILER_USER,
+        to: owner.email,
+        subject: &#x27;Activation of account on &#x27; + process.env.API_URL,
+        text: &#x27;KAZE_SPORT&lt;activating&gt;&#x27;,
+        html: &#x60;
+        &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;&lt;html xmlns&#x3D;&quot;http://www.w3.org/1999/xhtml&quot; xmlns:o&#x3D;&quot;urn:schemas-microsoft-com:office:office&quot; style&#x3D;&quot;width:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0&quot;&gt;&lt;head&gt;&lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;&lt;meta content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1&quot; name&#x3D;&quot;viewport&quot;&gt;&lt;meta name&#x3D;&quot;x-apple-disable-message-reformatting&quot;&gt;&lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;IE&#x3D;edge&quot;&gt;&lt;meta content&#x3D;&quot;telephone&#x3D;no&quot; name&#x3D;&quot;format-detection&quot;&gt;&lt;title&gt;Новий лист 2&lt;/title&gt;&lt;!--[if (mso 16)]&gt;&lt;style type&#x3D;&quot;text/css&quot;&gt;     a {text-decoration: none;}     &lt;/style&gt;&lt;![endif]--&gt;&lt;!--[if gte mso 9]&gt;&lt;style&gt;sup { font-size: 100% !important; }&lt;/style&gt;&lt;![endif]--&gt;&lt;!--[if gte mso 9]&gt;&lt;xml&gt; &lt;o:OfficeDocumentSettings&gt; &lt;o:AllowPNG&gt;&lt;/o:AllowPNG&gt; &lt;o:PixelsPerInch&gt;96&lt;/o:PixelsPerInch&gt; &lt;/o:OfficeDocumentSettings&gt; &lt;/xml&gt;&lt;![endif]--&gt;&lt;!--[if !mso]&gt;&lt;!-- --&gt;&lt;link href&#x3D;&quot;https://fonts.googleapis.com/css?family&#x3D;Lato:400,400i,700,700i&quot; rel&#x3D;&quot;stylesheet&quot;&gt;&lt;!--&lt;![endif]--&gt;&lt;style type&#x3D;&quot;text/css&quot;&gt;#outlook a {	padding:0;}.ExternalClass {	width:100%;}.ExternalClass,.ExternalClass p,.ExternalClass span,.ExternalClass font,.ExternalClass td,.ExternalClass div {	line-height:100%;}.es-button {	mso-style-priority:100!important;	text-decoration:none!important;}a[x-apple-data-detectors] {	color:inherit!important;	text-decoration:none!important;	font-size:inherit!important;	font-family:inherit!important;	font-weight:inherit!important;	line-height:inherit!important;}.es-desk-hidden {	display:none;	float:left;	overflow:hidden;	width:0;	max-height:0;	line-height:0;	mso-hide:all;}[data-ogsb] .es-button {	border-width:0!important;	padding:15px 25px 15px 25px!important;}[data-ogsb] .es-button.es-button-1 {	padding:15px 25px!important;}@media only screen and (max-width:600px) {p, ul li, ol li, a { line-height:150%!important } h1, h2, h3, h1 a, h2 a, h3 a { line-height:120%!important } h1 { font-size:30px!important; text-align:center } h2 { font-size:26px!important; text-align:center } h3 { font-size:20px!important; text-align:center } .es-header-body h1 a, .es-content-body h1 a, .es-footer-body h1 a { font-size:30px!important } .es-header-body h2 a, .es-content-body h2 a, .es-footer-body h2 a { font-size:26px!important } .es-header-body h3 a, .es-content-body h3 a, .es-footer-body h3 a { font-size:20px!important } .es-menu td a { font-size:16px!important } .es-header-body p, .es-header-body ul li, .es-header-body ol li, .es-header-body a { font-size:16px!important } .es-content-body p, .es-content-body ul li, .es-content-body ol li, .es-content-body a { font-size:16px!important } .es-footer-body p, .es-footer-body ul li, .es-footer-body ol li, .es-footer-body a { font-size:16px!important } .es-infoblock p, .es-infoblock ul li, .es-infoblock ol li, .es-infoblock a { font-size:12px!important } *[class&#x3D;&quot;gmail-fix&quot;] { display:none!important } .es-m-txt-c, .es-m-txt-c h1, .es-m-txt-c h2, .es-m-txt-c h3 { text-align:center!important } .es-m-txt-r, .es-m-txt-r h1, .es-m-txt-r h2, .es-m-txt-r h3 { text-align:right!important } .es-m-txt-l, .es-m-txt-l h1, .es-m-txt-l h2, .es-m-txt-l h3 { text-align:left!important } .es-m-txt-r img, .es-m-txt-c img, .es-m-txt-l img { display:inline!important } .es-button-border { display:block!important } a.es-button, button.es-button { font-size:20px!important; display:block!important; border-width:15px 25px 15px 25px!important } .es-btn-fw { border-width:10px 0px!important; text-align:center!important } .es-adaptive table, .es-btn-fw, .es-btn-fw-brdr, .es-left, .es-right { width:100%!important } .es-content table, .es-header table, .es-footer table, .es-content, .es-footer, .es-header { width:100%!important; max-width:600px!important } .es-adapt-td { display:block!important; width:100%!important } .adapt-img { width:100%!important; height:auto!important } .es-m-p0 { padding:0px!important } .es-m-p0r { padding-right:0px!important } .es-m-p0l { padding-left:0px!important } .es-m-p0t { padding-top:0px!important } .es-m-p0b { padding-bottom:0!important } .es-m-p20b { padding-bottom:20px!important } .es-mobile-hidden, .es-hidden { display:none!important } tr.es-desk-hidden, td.es-desk-hidden, table.es-desk-hidden { width:auto!important; overflow:visible!important; float:none!important; max-height:inherit!important; line-height:inherit!important } tr.es-desk-hidden { display:table-row!important } table.es-desk-hidden { display:table!important } td.es-desk-menu-hidden { display:table-cell!important } .es-menu td { width:1%!important } table.es-table-not-adapt, .esd-block-html table { width:auto!important } table.es-social { display:inline-block!important } table.es-social td { display:inline-block!important } .es-desk-hidden { display:table-row!important; width:auto!important; overflow:visible!important; max-height:inherit!important } }&lt;/style&gt;&lt;/head&gt;
+&lt;body style&#x3D;&quot;width:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;padding:0;Margin:0&quot;&gt;&lt;div class&#x3D;&quot;es-wrapper-color&quot; style&#x3D;&quot;background-color:#F4F4F4&quot;&gt;&lt;!--[if gte mso 9]&gt;&lt;v:background xmlns:v&#x3D;&quot;urn:schemas-microsoft-com:vml&quot; fill&#x3D;&quot;t&quot;&gt; &lt;v:fill type&#x3D;&quot;tile&quot; color&#x3D;&quot;#f4f4f4&quot;&gt;&lt;/v:fill&gt; &lt;/v:background&gt;&lt;![endif]--&gt;&lt;table class&#x3D;&quot;es-wrapper&quot; width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top;background-color:#F4F4F4&quot;&gt;&lt;tr class&#x3D;&quot;gmail-fix&quot; height&#x3D;&quot;0&quot; style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; border&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:600px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td cellpadding&#x3D;&quot;0&quot; cellspacing&#x3D;&quot;0&quot; border&#x3D;&quot;0&quot; style&#x3D;&quot;padding:0;Margin:0;line-height:1px;min-width:600px&quot; height&#x3D;&quot;0&quot;&gt;&lt;img src&#x3D;&quot;https://zxkiiu.stripocdn.email/content/guids/CABINET_837dc1d79e3a5eca5eb1609bfe9fd374/images/41521605538834349.png&quot; style&#x3D;&quot;display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;max-height:0px;min-height:0px;min-width:600px;width:600px&quot; alt width&#x3D;&quot;600&quot; height&#x3D;&quot;1&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table class&#x3D;&quot;es-header&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:#66BB7F;background-repeat:repeat;background-position:center top&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; bgcolor&#x3D;&quot;#010101&quot; style&#x3D;&quot;padding:0;Margin:0;background-color:#010101&quot;&gt;&lt;table class&#x3D;&quot;es-header-body&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#66BB7F;width:600px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; bgcolor&#x3D;&quot;#040404&quot; style&#x3D;&quot;Margin:0;padding-bottom:10px;padding-left:10px;padding-right:10px;padding-top:20px;background-color:#040404&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:580px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;Margin:0;padding-left:10px;padding-right:10px;padding-top:25px;padding-bottom:25px;font-size:0&quot;&gt;&lt;img src&#x3D;&quot;https://zxkiiu.stripocdn.email/content/guids/CABINET_3df254a10a99df5e44cb27b842c2c69e/images/7331519201751184.png&quot; alt style&#x3D;&quot;display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic&quot; width&#x3D;&quot;40&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;table class&#x3D;&quot;es-content&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td style&#x3D;&quot;padding:0;Margin:0;background-color:#ffffff&quot; bgcolor&#x3D;&quot;#ffffff&quot; align&#x3D;&quot;center&quot;&gt;&lt;table class&#x3D;&quot;es-content-body&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:600px&quot;&gt;&lt;table style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;background-color:#ffffff;border-radius:4px&quot; width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; bgcolor&#x3D;&quot;#ffffff&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;Margin:0;padding-bottom:5px;padding-left:30px;padding-right:30px;padding-top:35px&quot;&gt;&lt;h1 style&#x3D;&quot;Margin:0;line-height:48px;mso-line-height-rule:exactly;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;font-size:48px;font-style:normal;font-weight:normal;color:#111111&quot;&gt;To activate Owner rights, click the button below...&lt;/h1&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td bgcolor&#x3D;&quot;#ffffff&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;Margin:0;padding-top:5px;padding-bottom:5px;padding-left:20px;padding-right:20px;font-size:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; height&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; border&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td style&#x3D;&quot;padding:0;Margin:0;border-bottom:1px solid #ffffff;background:#FFFFFF none repeat scroll 0% 0%;height:1px;width:100%;margin:0px&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;table class&#x3D;&quot;es-content&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table class&#x3D;&quot;es-content-body&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#ffffff;width:600px&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; bgcolor&#x3D;&quot;#ffffff&quot; align&#x3D;&quot;center&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0;padding-bottom:15px;padding-left:30px;padding-right:30px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:540px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;Margin:0;padding-left:10px;padding-right:10px;padding-top:40px;padding-bottom:40px&quot;&gt;&lt;!--[if mso]&gt;&lt;a href&#x3D;&quot;https://viewstripo.email/&quot; target&#x3D;&quot;_blank&quot; hidden&gt; &lt;v:roundrect xmlns:v&#x3D;&quot;urn:schemas-microsoft-com:vml&quot; xmlns:w&#x3D;&quot;urn:schemas-microsoft-com:office:word&quot; esdevVmlButton href&#x3D;&quot;https://viewstripo.email/&quot; style&#x3D;&quot;height:54px; v-text-anchor:middle; width:200px&quot; arcsize&#x3D;&quot;4%&quot; strokecolor&#x3D;&quot;#66bb7f&quot; strokeweight&#x3D;&quot;1px&quot; fillcolor&#x3D;&quot;#0d0e0d&quot;&gt; &lt;w:anchorlock&gt;&lt;/w:anchorlock&gt; &lt;center style&#x3D;&#x27;color:#ffffff; font-family:helvetica, &quot;helvetica neue&quot;, arial, verdana, sans-serif; font-size:20px; font-weight:400; line-height:20px; mso-text-raise:1px&#x27;&gt;Activate Account&lt;/center&gt; &lt;/v:roundrect&gt;&lt;/a&gt;&lt;![endif]--&gt;&lt;!--[if !mso]&gt;&lt;!-- --&gt;&lt;span class&#x3D;&quot;msohide es-button-border&quot; style&#x3D;&quot;border-style:solid;border-color:#66bb7f;background:#0d0e0d;border-width:1px;display:inline-block;border-radius:2px;width:auto;mso-hide:all&quot;&gt;&lt;a href&#x3D;&quot;${link}&quot; class&#x3D;&quot;es-button es-button-1&quot; target&#x3D;&quot;_blank&quot; style&#x3D;&quot;mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;font-size:20px;border-style:solid;border-color:#0d0e0d;border-width:15px 25px;display:inline-block;background:#0d0e0d;border-radius:2px;font-family:helvetica, &#x27;helvetica neue&#x27;, arial, verdana, sans-serif;font-weight:normal;font-style:normal;line-height:24px;width:auto;text-align:center&quot;&gt;Activate Account&lt;/a&gt;&lt;/span&gt;&lt;!--&lt;![endif]--&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;table class&#x3D;&quot;es-content&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table class&#x3D;&quot;es-content-body&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; bgcolor&#x3D;&quot;#ffffff&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:600px&quot;&gt;&lt;table style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-radius:4px;background-color:#111111&quot; width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; bgcolor&#x3D;&quot;#111111&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td class&#x3D;&quot;es-m-txt-l&quot; bgcolor&#x3D;&quot;#111111&quot; align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0;padding-left:30px;padding-right:30px;padding-top:35px&quot;&gt;&lt;h2 style&#x3D;&quot;Margin:0;line-height:29px;mso-line-height-rule:exactly;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;font-size:24px;font-style:normal;font-weight:normal;color:#ffffff&quot;&gt;Make your website better.&lt;/h2&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td class&#x3D;&quot;es-m-txt-l&quot; align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0;padding-top:20px;padding-left:30px;padding-right:30px&quot;&gt;&lt;p style&#x3D;&quot;Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;line-height:27px;color:#666666;font-size:18px&quot;&gt;You will get the rights to edit and create content on the&amp;nbsp; website.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td class&#x3D;&quot;es-m-txt-l&quot; esdev-links-color&#x3D;&quot;#66bb7f&quot; align&#x3D;&quot;left&quot; style&#x3D;&quot;Margin:0;padding-top:20px;padding-left:30px;padding-right:30px;padding-bottom:40px&quot;&gt;&lt;p style&#x3D;&quot;Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;line-height:27px;color:#666666;font-size:18px&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;table class&#x3D;&quot;es-content&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table class&#x3D;&quot;es-content-body&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:600px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;Margin:0;padding-top:10px;padding-bottom:20px;padding-left:20px;padding-right:20px;font-size:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; height&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; border&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td style&#x3D;&quot;padding:0;Margin:0;border-bottom:1px solid #f4f4f4;background:#FFFFFF none repeat scroll 0% 0%;height:1px;width:100%;margin:0px&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;table class&#x3D;&quot;es-content&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table class&#x3D;&quot;es-content-body&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:600px&quot;&gt;&lt;table style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;background-color:#c0ede0;border-radius:4px&quot; width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; bgcolor&#x3D;&quot;#c0ede0&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; bgcolor&#x3D;&quot;#ffffff&quot; style&#x3D;&quot;padding:0;Margin:0;padding-top:30px;padding-left:30px;padding-right:30px&quot;&gt;&lt;h3 style&#x3D;&quot;Margin:0;line-height:24px;mso-line-height-rule:exactly;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;font-size:20px;font-style:normal;font-weight:normal;color:#111111&quot;&gt;Need more help?&lt;/h3&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td esdev-links-color&#x3D;&quot;#66bb7f&quot; align&#x3D;&quot;center&quot; bgcolor&#x3D;&quot;#333333&quot; style&#x3D;&quot;padding:0;Margin:0;padding-bottom:30px;padding-left:30px;padding-right:30px&quot;&gt;&lt;a style&#x3D;&quot;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#fefafa;font-size:18px&quot; href&#x3D;&quot;&quot;&gt;KAZE_SHOP&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt; 
+        &#x60;
+      });
+      this.Logger.log(&#x27;Message sent: %s&#x27;, info.messageId);
+    } catch (err) {
+      throw new InternalServerErrorException(ERORR_WHILE_SENDING_EMAIL);
+    }
+  } 
+
+  async sendActivationMailToAdmin(toMail: string, link: string) {
+    try {
+      const admin &#x3D; await this.adminService.getAdminByEmail(toMail);
+      if (!admin) {
+        throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, ADMIN_NOT_FOUND);   
+      }
+      const info &#x3D; await this.mailerService.sendMail({
+        from: process.env.MAILER_USER,
+        to: admin.email,
+        subject: &#x27;Activation of account on &#x27; + process.env.API_URL,
+        text: &#x27;KAZE_SPORT&lt;activating&gt;&#x27;,
+        html: &#x60;
+       &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;&lt;html xmlns&#x3D;&quot;http://www.w3.org/1999/xhtml&quot; xmlns:o&#x3D;&quot;urn:schemas-microsoft-com:office:office&quot; style&#x3D;&quot;width:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0&quot;&gt;&lt;head&gt;&lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;&lt;meta content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1&quot; name&#x3D;&quot;viewport&quot;&gt;&lt;meta name&#x3D;&quot;x-apple-disable-message-reformatting&quot;&gt;&lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;IE&#x3D;edge&quot;&gt;&lt;meta content&#x3D;&quot;telephone&#x3D;no&quot; name&#x3D;&quot;format-detection&quot;&gt;&lt;title&gt;Новий лист 2&lt;/title&gt;&lt;!--[if (mso 16)]&gt;&lt;style type&#x3D;&quot;text/css&quot;&gt;     a {text-decoration: none;}     &lt;/style&gt;&lt;![endif]--&gt;&lt;!--[if gte mso 9]&gt;&lt;style&gt;sup { font-size: 100% !important; }&lt;/style&gt;&lt;![endif]--&gt;&lt;!--[if gte mso 9]&gt;&lt;xml&gt; &lt;o:OfficeDocumentSettings&gt; &lt;o:AllowPNG&gt;&lt;/o:AllowPNG&gt; &lt;o:PixelsPerInch&gt;96&lt;/o:PixelsPerInch&gt; &lt;/o:OfficeDocumentSettings&gt; &lt;/xml&gt;&lt;![endif]--&gt;&lt;!--[if !mso]&gt;&lt;!-- --&gt;&lt;link href&#x3D;&quot;https://fonts.googleapis.com/css?family&#x3D;Lato:400,400i,700,700i&quot; rel&#x3D;&quot;stylesheet&quot;&gt;&lt;!--&lt;![endif]--&gt;&lt;style type&#x3D;&quot;text/css&quot;&gt;#outlook a {	padding:0;}.ExternalClass {	width:100%;}.ExternalClass,.ExternalClass p,.ExternalClass span,.ExternalClass font,.ExternalClass td,.ExternalClass div {	line-height:100%;}.es-button {	mso-style-priority:100!important;	text-decoration:none!important;}a[x-apple-data-detectors] {	color:inherit!important;	text-decoration:none!important;	font-size:inherit!important;	font-family:inherit!important;	font-weight:inherit!important;	line-height:inherit!important;}.es-desk-hidden {	display:none;	float:left;	overflow:hidden;	width:0;	max-height:0;	line-height:0;	mso-hide:all;}[data-ogsb] .es-button {	border-width:0!important;	padding:15px 25px 15px 25px!important;}[data-ogsb] .es-button.es-button-1 {	padding:15px 25px!important;}@media only screen and (max-width:600px) {p, ul li, ol li, a { line-height:150%!important } h1, h2, h3, h1 a, h2 a, h3 a { line-height:120%!important } h1 { font-size:30px!important; text-align:center } h2 { font-size:26px!important; text-align:center } h3 { font-size:20px!important; text-align:center } .es-header-body h1 a, .es-content-body h1 a, .es-footer-body h1 a { font-size:30px!important } .es-header-body h2 a, .es-content-body h2 a, .es-footer-body h2 a { font-size:26px!important } .es-header-body h3 a, .es-content-body h3 a, .es-footer-body h3 a { font-size:20px!important } .es-menu td a { font-size:16px!important } .es-header-body p, .es-header-body ul li, .es-header-body ol li, .es-header-body a { font-size:16px!important } .es-content-body p, .es-content-body ul li, .es-content-body ol li, .es-content-body a { font-size:16px!important } .es-footer-body p, .es-footer-body ul li, .es-footer-body ol li, .es-footer-body a { font-size:16px!important } .es-infoblock p, .es-infoblock ul li, .es-infoblock ol li, .es-infoblock a { font-size:12px!important } *[class&#x3D;&quot;gmail-fix&quot;] { display:none!important } .es-m-txt-c, .es-m-txt-c h1, .es-m-txt-c h2, .es-m-txt-c h3 { text-align:center!important } .es-m-txt-r, .es-m-txt-r h1, .es-m-txt-r h2, .es-m-txt-r h3 { text-align:right!important } .es-m-txt-l, .es-m-txt-l h1, .es-m-txt-l h2, .es-m-txt-l h3 { text-align:left!important } .es-m-txt-r img, .es-m-txt-c img, .es-m-txt-l img { display:inline!important } .es-button-border { display:block!important } a.es-button, button.es-button { font-size:20px!important; display:block!important; border-width:15px 25px 15px 25px!important } .es-btn-fw { border-width:10px 0px!important; text-align:center!important } .es-adaptive table, .es-btn-fw, .es-btn-fw-brdr, .es-left, .es-right { width:100%!important } .es-content table, .es-header table, .es-footer table, .es-content, .es-footer, .es-header { width:100%!important; max-width:600px!important } .es-adapt-td { display:block!important; width:100%!important } .adapt-img { width:100%!important; height:auto!important } .es-m-p0 { padding:0px!important } .es-m-p0r { padding-right:0px!important } .es-m-p0l { padding-left:0px!important } .es-m-p0t { padding-top:0px!important } .es-m-p0b { padding-bottom:0!important } .es-m-p20b { padding-bottom:20px!important } .es-mobile-hidden, .es-hidden { display:none!important } tr.es-desk-hidden, td.es-desk-hidden, table.es-desk-hidden { width:auto!important; overflow:visible!important; float:none!important; max-height:inherit!important; line-height:inherit!important } tr.es-desk-hidden { display:table-row!important } table.es-desk-hidden { display:table!important } td.es-desk-menu-hidden { display:table-cell!important } .es-menu td { width:1%!important } table.es-table-not-adapt, .esd-block-html table { width:auto!important } table.es-social { display:inline-block!important } table.es-social td { display:inline-block!important } .es-desk-hidden { display:table-row!important; width:auto!important; overflow:visible!important; max-height:inherit!important } }&lt;/style&gt;&lt;/head&gt;
+&lt;body style&#x3D;&quot;width:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;padding:0;Margin:0&quot;&gt;&lt;div class&#x3D;&quot;es-wrapper-color&quot; style&#x3D;&quot;background-color:#F4F4F4&quot;&gt;&lt;!--[if gte mso 9]&gt;&lt;v:background xmlns:v&#x3D;&quot;urn:schemas-microsoft-com:vml&quot; fill&#x3D;&quot;t&quot;&gt; &lt;v:fill type&#x3D;&quot;tile&quot; color&#x3D;&quot;#f4f4f4&quot;&gt;&lt;/v:fill&gt; &lt;/v:background&gt;&lt;![endif]--&gt;&lt;table class&#x3D;&quot;es-wrapper&quot; width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top;background-color:#F4F4F4&quot;&gt;&lt;tr class&#x3D;&quot;gmail-fix&quot; height&#x3D;&quot;0&quot; style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; border&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:600px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td cellpadding&#x3D;&quot;0&quot; cellspacing&#x3D;&quot;0&quot; border&#x3D;&quot;0&quot; style&#x3D;&quot;padding:0;Margin:0;line-height:1px;min-width:600px&quot; height&#x3D;&quot;0&quot;&gt;&lt;img src&#x3D;&quot;https://zxkiiu.stripocdn.email/content/guids/CABINET_837dc1d79e3a5eca5eb1609bfe9fd374/images/41521605538834349.png&quot; style&#x3D;&quot;display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;max-height:0px;min-height:0px;min-width:600px;width:600px&quot; alt width&#x3D;&quot;600&quot; height&#x3D;&quot;1&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table class&#x3D;&quot;es-header&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:#66BB7F;background-repeat:repeat;background-position:center top&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; bgcolor&#x3D;&quot;#010101&quot; style&#x3D;&quot;padding:0;Margin:0;background-color:#010101&quot;&gt;&lt;table class&#x3D;&quot;es-header-body&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#66BB7F;width:600px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; bgcolor&#x3D;&quot;#040404&quot; style&#x3D;&quot;Margin:0;padding-bottom:10px;padding-left:10px;padding-right:10px;padding-top:20px;background-color:#040404&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:580px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;Margin:0;padding-left:10px;padding-right:10px;padding-top:25px;padding-bottom:25px;font-size:0&quot;&gt;&lt;img src&#x3D;&quot;https://zxkiiu.stripocdn.email/content/guids/CABINET_3df254a10a99df5e44cb27b842c2c69e/images/7331519201751184.png&quot; alt style&#x3D;&quot;display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic&quot; width&#x3D;&quot;40&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;table class&#x3D;&quot;es-content&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td style&#x3D;&quot;padding:0;Margin:0;background-color:#ffffff&quot; bgcolor&#x3D;&quot;#ffffff&quot; align&#x3D;&quot;center&quot;&gt;&lt;table class&#x3D;&quot;es-content-body&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:600px&quot;&gt;&lt;table style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;background-color:#ffffff;border-radius:4px&quot; width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; bgcolor&#x3D;&quot;#ffffff&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;Margin:0;padding-bottom:5px;padding-left:30px;padding-right:30px;padding-top:35px&quot;&gt;&lt;h1 style&#x3D;&quot;Margin:0;line-height:48px;mso-line-height-rule:exactly;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;font-size:48px;font-style:normal;font-weight:normal;color:#111111&quot;&gt;To activate admin rights, click the button below...&lt;/h1&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td bgcolor&#x3D;&quot;#ffffff&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;Margin:0;padding-top:5px;padding-bottom:5px;padding-left:20px;padding-right:20px;font-size:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; height&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; border&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td style&#x3D;&quot;padding:0;Margin:0;border-bottom:1px solid #ffffff;background:#FFFFFF none repeat scroll 0% 0%;height:1px;width:100%;margin:0px&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;table class&#x3D;&quot;es-content&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table class&#x3D;&quot;es-content-body&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#ffffff;width:600px&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; bgcolor&#x3D;&quot;#ffffff&quot; align&#x3D;&quot;center&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0;padding-bottom:15px;padding-left:30px;padding-right:30px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:540px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;Margin:0;padding-left:10px;padding-right:10px;padding-top:40px;padding-bottom:40px&quot;&gt;&lt;!--[if mso]&gt;&lt;a href&#x3D;&quot;https://viewstripo.email/&quot; target&#x3D;&quot;_blank&quot; hidden&gt; &lt;v:roundrect xmlns:v&#x3D;&quot;urn:schemas-microsoft-com:vml&quot; xmlns:w&#x3D;&quot;urn:schemas-microsoft-com:office:word&quot; esdevVmlButton href&#x3D;&quot;https://viewstripo.email/&quot; style&#x3D;&quot;height:54px; v-text-anchor:middle; width:200px&quot; arcsize&#x3D;&quot;4%&quot; strokecolor&#x3D;&quot;#66bb7f&quot; strokeweight&#x3D;&quot;1px&quot; fillcolor&#x3D;&quot;#0d0e0d&quot;&gt; &lt;w:anchorlock&gt;&lt;/w:anchorlock&gt; &lt;center style&#x3D;&#x27;color:#ffffff; font-family:helvetica, &quot;helvetica neue&quot;, arial, verdana, sans-serif; font-size:20px; font-weight:400; line-height:20px; mso-text-raise:1px&#x27;&gt;Activate Account&lt;/center&gt; &lt;/v:roundrect&gt;&lt;/a&gt;&lt;![endif]--&gt;&lt;!--[if !mso]&gt;&lt;!-- --&gt;&lt;span class&#x3D;&quot;msohide es-button-border&quot; style&#x3D;&quot;border-style:solid;border-color:#66bb7f;background:#0d0e0d;border-width:1px;display:inline-block;border-radius:2px;width:auto;mso-hide:all&quot;&gt;&lt;a href&#x3D;&quot;${link}&quot; class&#x3D;&quot;es-button es-button-1&quot; target&#x3D;&quot;_blank&quot; style&#x3D;&quot;mso-style-priority:100 !important;text-decoration:none;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;color:#FFFFFF;font-size:20px;border-style:solid;border-color:#0d0e0d;border-width:15px 25px;display:inline-block;background:#0d0e0d;border-radius:2px;font-family:helvetica, &#x27;helvetica neue&#x27;, arial, verdana, sans-serif;font-weight:normal;font-style:normal;line-height:24px;width:auto;text-align:center&quot;&gt;Activate Account&lt;/a&gt;&lt;/span&gt;&lt;!--&lt;![endif]--&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;table class&#x3D;&quot;es-content&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table class&#x3D;&quot;es-content-body&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; bgcolor&#x3D;&quot;#ffffff&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:600px&quot;&gt;&lt;table style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;border-radius:4px;background-color:#111111&quot; width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; bgcolor&#x3D;&quot;#111111&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td class&#x3D;&quot;es-m-txt-l&quot; bgcolor&#x3D;&quot;#111111&quot; align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0;padding-left:30px;padding-right:30px;padding-top:35px&quot;&gt;&lt;h2 style&#x3D;&quot;Margin:0;line-height:29px;mso-line-height-rule:exactly;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;font-size:24px;font-style:normal;font-weight:normal;color:#ffffff&quot;&gt;Make your website better.&lt;/h2&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td class&#x3D;&quot;es-m-txt-l&quot; align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0;padding-top:20px;padding-left:30px;padding-right:30px&quot;&gt;&lt;p style&#x3D;&quot;Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;line-height:27px;color:#666666;font-size:18px&quot;&gt;You will get the rights to edit and create content on the&amp;nbsp; website.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td class&#x3D;&quot;es-m-txt-l&quot; esdev-links-color&#x3D;&quot;#66bb7f&quot; align&#x3D;&quot;left&quot; style&#x3D;&quot;Margin:0;padding-top:20px;padding-left:30px;padding-right:30px;padding-bottom:40px&quot;&gt;&lt;p style&#x3D;&quot;Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;line-height:27px;color:#666666;font-size:18px&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;table class&#x3D;&quot;es-content&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table class&#x3D;&quot;es-content-body&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:600px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;Margin:0;padding-top:10px;padding-bottom:20px;padding-left:20px;padding-right:20px;font-size:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; height&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; border&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td style&#x3D;&quot;padding:0;Margin:0;border-bottom:1px solid #f4f4f4;background:#FFFFFF none repeat scroll 0% 0%;height:1px;width:100%;margin:0px&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;table class&#x3D;&quot;es-content&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table class&#x3D;&quot;es-content-body&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:600px&quot;&gt;&lt;table style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;background-color:#c0ede0;border-radius:4px&quot; width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; bgcolor&#x3D;&quot;#c0ede0&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; bgcolor&#x3D;&quot;#ffffff&quot; style&#x3D;&quot;padding:0;Margin:0;padding-top:30px;padding-left:30px;padding-right:30px&quot;&gt;&lt;h3 style&#x3D;&quot;Margin:0;line-height:24px;mso-line-height-rule:exactly;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;font-size:20px;font-style:normal;font-weight:normal;color:#111111&quot;&gt;Need more help?&lt;/h3&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td esdev-links-color&#x3D;&quot;#66bb7f&quot; align&#x3D;&quot;center&quot; bgcolor&#x3D;&quot;#333333&quot; style&#x3D;&quot;padding:0;Margin:0;padding-bottom:30px;padding-left:30px;padding-right:30px&quot;&gt;&lt;a style&#x3D;&quot;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#fefafa;font-size:18px&quot; href&#x3D;&quot;&quot;&gt;KAZE_SHOP&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;
+        &#x60;,
+      });
+      this.Logger.log(&#x27;Message sent: %s&#x27;, info.messageId);
+    } catch (err: unknown) {
+      throw new InternalServerErrorException(ERORR_WHILE_SENDING_EMAIL);
+    }
+  }
+
+  async sendCode(toMail: string, code: number, locale: &#x27;ua&#x27; | &#x27;ru&#x27; | &#x27;rs&#x27; | &#x27;en&#x27;,) {
+    try {
+      const user &#x3D; await this.userService.getUserByEmail(toMail);
+      if (!user) {
+        throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);   
+      }
+      const info &#x3D; await this.mailerService.sendMail({
+        from: process.env.MAILER_USER,
+        to: user.email,
+        subject: &#x27;Reset password on &#x27; + process.env.CLIENT_URL,
+        text: &#x27;KAZE_SPORT&lt;Resetting password&gt;&#x27;,
+        html: &#x60;
+        &lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;&lt;html xmlns&#x3D;&quot;http://www.w3.org/1999/xhtml&quot; xmlns:o&#x3D;&quot;urn:schemas-microsoft-com:office:office&quot; style&#x3D;&quot;width:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0&quot;&gt;&lt;head&gt;&lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;&lt;meta content&#x3D;&quot;width&#x3D;device-width, initial-scale&#x3D;1&quot; name&#x3D;&quot;viewport&quot;&gt;&lt;meta name&#x3D;&quot;x-apple-disable-message-reformatting&quot;&gt;&lt;meta http-equiv&#x3D;&quot;X-UA-Compatible&quot; content&#x3D;&quot;IE&#x3D;edge&quot;&gt;&lt;meta content&#x3D;&quot;telephone&#x3D;no&quot; name&#x3D;&quot;format-detection&quot;&gt;&lt;title&gt;Новий лист&lt;/title&gt;&lt;!--[if (mso 16)]&gt;&lt;style type&#x3D;&quot;text/css&quot;&gt;     a {text-decoration: none;}     &lt;/style&gt;&lt;![endif]--&gt;&lt;!--[if gte mso 9]&gt;&lt;style&gt;sup { font-size: 100% !important; }&lt;/style&gt;&lt;![endif]--&gt;&lt;!--[if gte mso 9]&gt;&lt;xml&gt; &lt;o:OfficeDocumentSettings&gt; &lt;o:AllowPNG&gt;&lt;/o:AllowPNG&gt; &lt;o:PixelsPerInch&gt;96&lt;/o:PixelsPerInch&gt; &lt;/o:OfficeDocumentSettings&gt; &lt;/xml&gt;&lt;![endif]--&gt;&lt;!--[if !mso]&gt;&lt;!-- --&gt;&lt;link href&#x3D;&quot;https://fonts.googleapis.com/css?family&#x3D;Lato:400,400i,700,700i&quot; rel&#x3D;&quot;stylesheet&quot;&gt;&lt;!--&lt;![endif]--&gt;&lt;style type&#x3D;&quot;text/css&quot;&gt;#outlook a {	padding:0;}.ExternalClass {	width:100%;}.ExternalClass,.ExternalClass p,.ExternalClass span,.ExternalClass font,.ExternalClass td,.ExternalClass div {	line-height:100%;}.es-button {	mso-style-priority:100!important;	text-decoration:none!important;}a[x-apple-data-detectors] {	color:inherit!important;	text-decoration:none!important;	font-size:inherit!important;	font-family:inherit!important;	font-weight:inherit!important;	line-height:inherit!important;}.es-desk-hidden {	display:none;	float:left;	overflow:hidden;	width:0;	max-height:0;	line-height:0;	mso-hide:all;}[data-ogsb] .es-button {	border-width:0!important;	padding:15px 25px 15px 25px!important;}@media only screen and (max-width:600px) {p, ul li, ol li, a { line-height:150%!important } h1, h2, h3, h1 a, h2 a, h3 a { line-height:120%!important } h1 { font-size:30px!important; text-align:center } h2 { font-size:26px!important; text-align:center } h3 { font-size:20px!important; text-align:center } .es-header-body h1 a, .es-content-body h1 a, .es-footer-body h1 a { font-size:30px!important } .es-header-body h2 a, .es-content-body h2 a, .es-footer-body h2 a { font-size:26px!important } .es-header-body h3 a, .es-content-body h3 a, .es-footer-body h3 a { font-size:20px!important } .es-menu td a { font-size:16px!important } .es-header-body p, .es-header-body ul li, .es-header-body ol li, .es-header-body a { font-size:16px!important } .es-content-body p, .es-content-body ul li, .es-content-body ol li, .es-content-body a { font-size:16px!important } .es-footer-body p, .es-footer-body ul li, .es-footer-body ol li, .es-footer-body a { font-size:16px!important } .es-infoblock p, .es-infoblock ul li, .es-infoblock ol li, .es-infoblock a { font-size:12px!important } *[class&#x3D;&quot;gmail-fix&quot;] { display:none!important } .es-m-txt-c, .es-m-txt-c h1, .es-m-txt-c h2, .es-m-txt-c h3 { text-align:center!important } .es-m-txt-r, .es-m-txt-r h1, .es-m-txt-r h2, .es-m-txt-r h3 { text-align:right!important } .es-m-txt-l, .es-m-txt-l h1, .es-m-txt-l h2, .es-m-txt-l h3 { text-align:left!important } .es-m-txt-r img, .es-m-txt-c img, .es-m-txt-l img { display:inline!important } .es-button-border { display:block!important } a.es-button, button.es-button { font-size:20px!important; display:block!important; border-width:15px 25px 15px 25px!important } .es-btn-fw { border-width:10px 0px!important; text-align:center!important } .es-adaptive table, .es-btn-fw, .es-btn-fw-brdr, .es-left, .es-right { width:100%!important } .es-content table, .es-header table, .es-footer table, .es-content, .es-footer, .es-header { width:100%!important; max-width:600px!important } .es-adapt-td { display:block!important; width:100%!important } .adapt-img { width:100%!important; height:auto!important } .es-m-p0 { padding:0px!important } .es-m-p0r { padding-right:0px!important } .es-m-p0l { padding-left:0px!important } .es-m-p0t { padding-top:0px!important } .es-m-p0b { padding-bottom:0!important } .es-m-p20b { padding-bottom:20px!important } .es-mobile-hidden, .es-hidden { display:none!important } tr.es-desk-hidden, td.es-desk-hidden, table.es-desk-hidden { width:auto!important; overflow:visible!important; float:none!important; max-height:inherit!important; line-height:inherit!important } tr.es-desk-hidden { display:table-row!important } table.es-desk-hidden { display:table!important } td.es-desk-menu-hidden { display:table-cell!important } .es-menu td { width:1%!important } table.es-table-not-adapt, .esd-block-html table { width:auto!important } table.es-social { display:inline-block!important } table.es-social td { display:inline-block!important } .es-desk-hidden { display:table-row!important; width:auto!important; overflow:visible!important; max-height:inherit!important } }&lt;/style&gt;&lt;/head&gt;
+&lt;body style&#x3D;&quot;width:100%;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;padding:0;Margin:0&quot;&gt;&lt;div class&#x3D;&quot;es-wrapper-color&quot; style&#x3D;&quot;background-color:#F4F4F4&quot;&gt;&lt;!--[if gte mso 9]&gt;&lt;v:background xmlns:v&#x3D;&quot;urn:schemas-microsoft-com:vml&quot; fill&#x3D;&quot;t&quot;&gt; &lt;v:fill type&#x3D;&quot;tile&quot; color&#x3D;&quot;#f4f4f4&quot;&gt;&lt;/v:fill&gt; &lt;/v:background&gt;&lt;![endif]--&gt;&lt;table class&#x3D;&quot;es-wrapper&quot; width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top;background-color:#F4F4F4&quot;&gt;&lt;tr class&#x3D;&quot;gmail-fix&quot; height&#x3D;&quot;0&quot; style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; border&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:600px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td cellpadding&#x3D;&quot;0&quot; cellspacing&#x3D;&quot;0&quot; border&#x3D;&quot;0&quot; style&#x3D;&quot;padding:0;Margin:0;line-height:1px;min-width:600px&quot; height&#x3D;&quot;0&quot;&gt;&lt;img src&#x3D;&quot;https://zxkiiu.stripocdn.email/content/guids/CABINET_837dc1d79e3a5eca5eb1609bfe9fd374/images/41521605538834349.png&quot; style&#x3D;&quot;display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;max-height:0px;min-height:0px;min-width:600px;width:600px&quot; alt width&#x3D;&quot;600&quot; height&#x3D;&quot;1&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table cellpadding&#x3D;&quot;0&quot; cellspacing&#x3D;&quot;0&quot; class&#x3D;&quot;es-content&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table class&#x3D;&quot;es-content-body&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;Margin:0;padding-left:10px;padding-right:10px;padding-top:15px;padding-bottom:15px&quot;&gt;&lt;!--[if mso]&gt;&lt;table style&#x3D;&quot;width:580px&quot; cellpadding&#x3D;&quot;0&quot; cellspacing&#x3D;&quot;0&quot;&gt;&lt;tr&gt;&lt;td style&#x3D;&quot;width:282px&quot; valign&#x3D;&quot;top&quot;&gt;&lt;![endif]--&gt;&lt;table class&#x3D;&quot;es-left&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;left&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0;width:282px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; role&#x3D;&quot;presentation&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td class&#x3D;&quot;es-infoblock es-m-txt-c&quot; align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0;line-height:14px;font-size:12px;color:#CCCCCC&quot;&gt;&lt;p style&#x3D;&quot;Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:arial, &#x27;helvetica\ neue&#x27;, helvetica, sans-serif;line-height:14px;color:#CCCCCC;font-size:12px&quot;&gt;&lt;br&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;!--[if mso]&gt;&lt;/td&gt;&lt;td style&#x3D;&quot;width:20px&quot;&gt;&lt;/td&gt;
+&lt;td style&#x3D;&quot;width:278px&quot; valign&#x3D;&quot;top&quot;&gt;&lt;![endif]--&gt;&lt;table class&#x3D;&quot;es-right&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;right&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0;width:278px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; role&#x3D;&quot;presentation&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;right&quot; class&#x3D;&quot;es-infoblock es-m-txt-c&quot; style&#x3D;&quot;padding:0;Margin:0;line-height:14px;font-size:12px;color:#CCCCCC&quot;&gt;&lt;p style&#x3D;&quot;Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;line-height:14px;color:#CCCCCC;font-size:12px&quot;&gt;&lt;a href&#x3D;&quot;https://viewstripo.email&quot; class&#x3D;&quot;view&quot; target&#x3D;&quot;_blank&quot; style&#x3D;&quot;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#CCCCCC;font-size:12px;font-family:arial, &#x27;helvetica neue&#x27;, helvetica, sans-serif&quot;&gt;&lt;br&gt;r&lt;/a&gt;&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;!--[if mso]&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;![endif]--&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;table class&#x3D;&quot;es-header&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:#7C72DC;background-repeat:repeat;background-position:center top&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td style&#x3D;&quot;padding:0;Margin:0;background-color:#151525&quot; bgcolor&#x3D;&quot;#151525&quot; align&#x3D;&quot;center&quot;&gt;&lt;table class&#x3D;&quot;es-header-body&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; bgcolor&#x3D;&quot;#121216&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#121216;width:600px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;Margin:0;padding-bottom:10px;padding-left:10px;padding-right:10px;padding-top:20px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:580px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; role&#x3D;&quot;presentation&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;Margin:0;padding-left:10px;padding-right:10px;padding-top:25px;padding-bottom:25px;font-size:0&quot;&gt;&lt;img src&#x3D;&quot;https://zxkiiu.stripocdn.email/content/guids/CABINET_3df254a10a99df5e44cb27b842c2c69e/images/7331519201751184.png&quot; alt style&#x3D;&quot;display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic&quot; width&#x3D;&quot;40&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;table class&#x3D;&quot;es-content&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td style&#x3D;&quot;padding:0;Margin:0;background-color:#f7f7fd&quot; bgcolor&#x3D;&quot;#f7f7fd&quot; align&#x3D;&quot;center&quot;&gt;&lt;table class&#x3D;&quot;es-content-body&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:600px&quot;&gt;&lt;table style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;background-color:#ffffff;border-radius:4px&quot; width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; bgcolor&#x3D;&quot;#ffffff&quot; role&#x3D;&quot;presentation&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;Margin:0;padding-bottom:5px;padding-left:30px;padding-right:30px;padding-top:35px&quot;&gt;&lt;h1 style&#x3D;&quot;Margin:0;line-height:58px;mso-line-height-rule:exactly;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;font-size:48px;font-style:normal;font-weight:normal;color:#111111&quot;&gt;${TROUBLE_SIGNING[locale]}&lt;/h1&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td bgcolor&#x3D;&quot;#ffffff&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;Margin:0;padding-top:5px;padding-bottom:5px;padding-left:20px;padding-right:20px;font-size:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; height&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; border&#x3D;&quot;0&quot; role&#x3D;&quot;presentation&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td style&#x3D;&quot;padding:0;Margin:0;border-bottom:1px solid #ffffff;background:#FFFFFF none repeat scroll 0% 0%;height:1px;width:100%;margin:0px&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;table class&#x3D;&quot;es-content&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table class&#x3D;&quot;es-content-body&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#ffffff;width:600px&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; bgcolor&#x3D;&quot;#ffffff&quot; align&#x3D;&quot;center&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:600px&quot;&gt;&lt;table style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#ffffff&quot; width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; bgcolor&#x3D;&quot;#ffffff&quot; role&#x3D;&quot;presentation&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td class&#x3D;&quot;es-m-txt-l&quot; bgcolor&#x3D;&quot;#ffffff&quot; align&#x3D;&quot;left&quot; style&#x3D;&quot;Margin:0;padding-bottom:15px;padding-top:20px;padding-left:30px;padding-right:30px&quot;&gt;&lt;p style&#x3D;&quot;Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;line-height:27px;color:#666666;font-size:18px&quot;&gt;${RESETTING[locale]}&lt;/p&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0;padding-bottom:20px;padding-left:30px;padding-right:30px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:540px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; role&#x3D;&quot;presentation&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;p style&#x3D;&quot;Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:lato, &#x27;helvetica neue&#x27;, helvetica, arial, sans-serif;line-height:33px;color:#090909;font-size:22px&quot;&gt;${code}&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;table class&#x3D;&quot;es-content&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table class&#x3D;&quot;es-content-body&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:600px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; role&#x3D;&quot;presentation&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;Margin:0;padding-top:10px;padding-bottom:20px;padding-left:20px;padding-right:20px;font-size:0&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; height&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; border&#x3D;&quot;0&quot; role&#x3D;&quot;presentation&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td style&#x3D;&quot;padding:0;Margin:0;border-bottom:1px solid #f4f4f4;background:#FFFFFF none repeat scroll 0% 0%;height:1px;width:100%;margin:0px&quot;&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;table class&#x3D;&quot;es-content&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0&quot;&gt;&lt;table class&#x3D;&quot;es-content-body&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; align&#x3D;&quot;center&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td align&#x3D;&quot;left&quot; style&#x3D;&quot;Margin:0;padding-left:20px;padding-right:20px;padding-top:30px;padding-bottom:30px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;td valign&#x3D;&quot;top&quot; align&#x3D;&quot;center&quot; style&#x3D;&quot;padding:0;Margin:0;width:560px&quot;&gt;&lt;table width&#x3D;&quot;100%&quot; cellspacing&#x3D;&quot;0&quot; cellpadding&#x3D;&quot;0&quot; role&#x3D;&quot;presentation&quot; style&#x3D;&quot;mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px&quot;&gt;&lt;tr style&#x3D;&quot;border-collapse:collapse&quot;&gt;&lt;svg width&#x3D;&quot;130&quot; height&#x3D;&quot;22&quot; viewBox&#x3D;&quot;0 0 130 22&quot; fill&#x3D;&quot;none&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&gt;
+&lt;path d&#x3D;&quot;M4.76 17H0.44V0.199999H4.76V6.8H6.92L10.664 0.199999H15.224L10.52 8.48L15.2 17H10.64L6.92 10.16H4.76V17ZM21.4588 13.88C22.3068 13.88 23.2668 13.72 24.3388 13.4V11.96H20.8588C20.6188 11.96 20.4188 12.04 20.2588 12.2C20.0988 12.36 20.0188 12.56 20.0188 12.8V13.04C20.0188 13.28 20.0988 13.48 20.2588 13.64C20.4188 13.8 20.6188 13.88 20.8588 13.88H21.4588ZM17.0188 4.52C19.9468 4.2 22.5868 4.04 24.9388 4.04C26.0268 4.04 26.8988 4.368 27.5547 5.024C28.2108 5.68 28.5388 6.552 28.5388 7.64V17H24.8188L24.5788 15.8C23.8268 16.296 23.0508 16.664 22.2508 16.904C21.4668 17.128 20.8028 17.24 20.2588 17.24H19.4188C18.3308 17.24 17.4588 16.912 16.8027 16.256C16.1468 15.6 15.8188 14.728 15.8188 13.64V12.56C15.8188 11.472 16.1468 10.6 16.8027 9.944C17.4588 9.288 18.3308 8.96 19.4188 8.96H24.3388V8C24.3388 7.76 24.2588 7.56 24.0988 7.4C23.9388 7.24 23.7388 7.16 23.4988 7.16C22.4588 7.16 21.3068 7.208 20.0428 7.304C18.7948 7.4 17.7868 7.472 17.0188 7.52V4.52ZM41.8522 7.52L35.2522 13.76H41.8522V17H29.9722V13.76L36.5722 7.52H29.9722V4.28H41.8522V7.52ZM48.4559 7.04C47.8159 7.04 47.4959 7.36 47.4959 8V9.32H51.5759V8C51.5759 7.36 51.2559 7.04 50.6159 7.04H48.4559ZM55.2959 16.76C52.2079 17.08 49.4079 17.24 46.8959 17.24C45.8079 17.24 44.9359 16.912 44.2799 16.256C43.6239 15.6 43.2959 14.728 43.2959 13.64V7.88C43.2959 6.68 43.6319 5.744 44.3039 5.072C44.9919 4.384 45.9359 4.04 47.1359 4.04H51.9359C53.1359 4.04 54.0719 4.384 54.7439 5.072C55.4319 5.744 55.7759 6.68 55.7759 7.88V12.32H47.4959V13.28C47.4959 13.52 47.5759 13.72 47.7359 13.88C47.8959 14.04 48.0959 14.12 48.3359 14.12C49.9199 14.12 52.2399 14 55.2959 13.76V16.76ZM64.6419 13.64C67.8899 13.88 70.4499 14 72.3219 14C72.5619 14 72.7619 13.92 72.9219 13.76C73.0819 13.6 73.1619 13.4 73.1619 13.16V12.32H68.0019C66.9139 12.32 66.0419 11.992 65.3859 11.336C64.7299 10.68 64.4019 9.808 64.4019 8.72V7.88C64.4019 6.792 64.7299 5.92 65.3859 5.264C66.0419 4.608 66.9139 4.28 68.0019 4.28H76.1619V7.4H69.4419C69.2019 7.4 69.0019 7.48 68.8419 7.64C68.6819 7.8 68.6019 8 68.6019 8.24C68.6019 8.48 68.6819 8.68 68.8419 8.84C69.0019 9 69.2019 9.08 69.4419 9.08H73.7619C74.8499 9.08 75.7219 9.408 76.3779 10.064C77.0339 10.72 77.3619 11.592 77.3619 12.68V13.64C77.3619 14.728 77.0339 15.6 76.3779 16.256C75.7219 16.912 74.8499 17.24 73.7619 17.24C70.9299 17.24 67.8899 17.08 64.6419 16.76V13.64ZM86.1238 7.52C85.2758 7.52 84.3158 7.68 83.2438 8V13.76H86.8438C87.4838 13.76 87.8038 13.44 87.8038 12.8V8.36C87.8038 8.12 87.7238 7.92 87.5638 7.76C87.4038 7.6 87.2038 7.52 86.9638 7.52H86.1238ZM83.2438 17V21.08H79.0438V4.28H82.7638L83.0038 5.48C83.7558 4.984 84.5238 4.624 85.3078 4.4C86.1078 4.16 86.7798 4.04 87.3238 4.04H88.4038C89.4918 4.04 90.3638 4.368 91.0198 5.024C91.6758 5.68 92.0038 6.552 92.0038 7.64V13.16C92.0038 14.36 91.6598 15.304 90.9718 15.992C90.2998 16.664 89.3637 17 88.1638 17H83.2438ZM107.121 13.4C107.121 14.6 106.777 15.544 106.089 16.232C105.417 16.904 104.481 17.24 103.281 17.24H97.7609C96.5609 17.24 95.6169 16.904 94.9289 16.232C94.2569 15.544 93.9209 14.6 93.9209 13.4V7.88C93.9209 6.68 94.2569 5.744 94.9289 5.072C95.6169 4.384 96.5609 4.04 97.7609 4.04H103.281C104.481 4.04 105.417 4.384 106.089 5.072C106.777 5.744 107.121 6.68 107.121 7.88V13.4ZM102.921 8.24C102.921 7.6 102.601 7.28 101.961 7.28H99.0809C98.4409 7.28 98.1209 7.6 98.1209 8.24V13.04C98.1209 13.68 98.4409 14 99.0809 14H101.961C102.601 14 102.921 13.68 102.921 13.04V8.24ZM116.598 7.76C115.59 7.76 114.55 8 113.478 8.48V17H109.278V4.28H112.998L113.238 5.84C114.614 4.64 116.054 4.04 117.558 4.04H118.638V7.76H116.598ZM129.197 17C127.645 17.16 126.125 17.24 124.637 17.24C123.549 17.24 122.677 16.912 122.021 16.256C121.365 15.6 121.037 14.728 121.037 13.64V7.52H119.597V4.28H121.037L121.517 1.4H125.237V4.28H128.237V7.52H125.237V13.04C125.237 13.28 125.317 13.48 125.477 13.64C125.637 13.8 125.837 13.88 126.077 13.88H129.197V17Z&quot; fill&#x3D;&quot;#0B0B0B&quot;/&gt;
+&lt;/svg&gt;
+ &lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;&#x60;,
+      });
+      this.Logger.log(&#x27;Message sent: %s&#x27;, info.messageId);
+    } catch (err: unknown) {
+      throw new InternalServerErrorException(ERORR_WHILE_SENDING_EMAIL);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'MailService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

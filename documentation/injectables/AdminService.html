@@ -1,0 +1,1708 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>kazi.shop-api documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">kazi.shop-api documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li >AdminService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/admin/services/admin.service.ts</code>
+        </p>
+
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#changePassword" >changePassword</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#checkAdmin" >checkAdmin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createAdmin" >createAdmin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#findAdmin" >findAdmin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#findByActivationLink" >findByActivationLink</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getAdminByEmail" >getAdminByEmail</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getAdminById" >getAdminById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getAdminByPhoneNumber" >getAdminByPhoneNumber</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getAllAdmins" >getAllAdmins</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#resetPassword" >resetPassword</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#rewritePassword" >rewritePassword</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#setConfirmCode" >setConfirmCode</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateAdmin" >updateAdmin</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#validateAdmin" >validateAdmin</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(adminRepository, userService: <a href="../injectables/UsersService.html" target="_self">UsersService</a>, roleService: <a href="../injectables/RolesService.html" target="_self">RolesService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/admin/services/admin.service.ts:36</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>adminRepository</td>
+                                                  
+                                                        <td>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UsersService.html" target="_self" >UsersService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>roleService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/RolesService.html" target="_self" >RolesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changePassword"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>changePassword</b></span>
+                        <a href="#changePassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>changePassword(adminId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, password: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="305"
+                            class="link-to-prism">src/admin/services/admin.service.ts:305</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>adminId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>password</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Admin.html" target="_self" >Promise&lt;Admin&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="checkAdmin"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>checkAdmin</b></span>
+                        <a href="#checkAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>checkAdmin(payload: <a href="../interfaces/Payload.html" target="_self">Payload</a>, activationLink: string | undefined)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="241"
+                            class="link-to-prism">src/admin/services/admin.service.ts:241</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>payload</td>
+                                    <td>
+                                                <code><a href="../interfaces/Payload.html" target="_self" >Payload</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>activationLink</td>
+                                    <td>
+                                            <code>string | undefined</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createAdmin"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>createAdmin</b></span>
+                        <a href="#createAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createAdmin(dto: <a href="../classes/CreateAdminDto.html" target="_self">CreateAdminDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="87"
+                            class="link-to-prism">src/admin/services/admin.service.ts:87</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>dto</td>
+                                    <td>
+                                                <code><a href="../classes/CreateAdminDto.html" target="_self" >CreateAdminDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;Admin | User&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findAdmin"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>findAdmin</b></span>
+                        <a href="#findAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findAdmin(v: string[], page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, adminPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="43"
+                            class="link-to-prism">src/admin/services/admin.service.ts:43</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>v</td>
+                                    <td>
+                                            <code>string[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>page</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>adminPerPage</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;any[]&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findByActivationLink"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>findByActivationLink</b></span>
+                        <a href="#findByActivationLink"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findByActivationLink(activationLink: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="185"
+                            class="link-to-prism">src/admin/services/admin.service.ts:185</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>activationLink</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Admin.html" target="_self" >Promise&lt;Admin&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAdminByEmail"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getAdminByEmail</b></span>
+                        <a href="#getAdminByEmail"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getAdminByEmail(email: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="233"
+                            class="link-to-prism">src/admin/services/admin.service.ts:233</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>email</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Admin.html" target="_self" >Promise&lt;Admin&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAdminById"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getAdminById</b></span>
+                        <a href="#getAdminById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getAdminById(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="223"
+                            class="link-to-prism">src/admin/services/admin.service.ts:223</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Admin.html" target="_self" >Promise&lt;Admin&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAdminByPhoneNumber"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getAdminByPhoneNumber</b></span>
+                        <a href="#getAdminByPhoneNumber"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getAdminByPhoneNumber(phoneNumber: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="258"
+                            class="link-to-prism">src/admin/services/admin.service.ts:258</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>phoneNumber</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Admin.html" target="_self" >Promise&lt;Admin&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAllAdmins"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getAllAdmins</b></span>
+                        <a href="#getAllAdmins"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getAllAdmins(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, adminPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="195"
+                            class="link-to-prism">src/admin/services/admin.service.ts:195</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>page</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>adminPerPage</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;[] | &gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="resetPassword"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>resetPassword</b></span>
+                        <a href="#resetPassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>resetPassword(resetDto: <a href="../classes/ResetDto.html" target="_self">ResetDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="289"
+                            class="link-to-prism">src/admin/services/admin.service.ts:289</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>resetDto</td>
+                                    <td>
+                                                <code><a href="../classes/ResetDto.html" target="_self" >ResetDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="rewritePassword"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>rewritePassword</b></span>
+                        <a href="#rewritePassword"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>rewritePassword(admin: <a href="../classes/Admin.html" target="_self">Admin</a>, password: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="311"
+                            class="link-to-prism">src/admin/services/admin.service.ts:311</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>admin</td>
+                                    <td>
+                                                <code><a href="../classes/Admin.html" target="_self" >Admin</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>password</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Admin.html" target="_self" >Promise&lt;Admin&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setConfirmCode"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>setConfirmCode</b></span>
+                        <a href="#setConfirmCode"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setConfirmCode(codeDto: <a href="../interfaces/CodeDto.html" target="_self">CodeDto</a>, code: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="281"
+                            class="link-to-prism">src/admin/services/admin.service.ts:281</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>codeDto</td>
+                                    <td>
+                                                <code><a href="../interfaces/CodeDto.html" target="_self" >CodeDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>code</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateAdmin"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>updateAdmin</b></span>
+                        <a href="#updateAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateAdmin(dto: <a href="../classes/CreateAdminDto.html" target="_self">CreateAdminDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="151"
+                            class="link-to-prism">src/admin/services/admin.service.ts:151</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>dto</td>
+                                    <td>
+                                                <code><a href="../classes/CreateAdminDto.html" target="_self" >CreateAdminDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Admin.html" target="_self" >Promise&lt;number | Admin&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="validateAdmin"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>validateAdmin</b></span>
+                        <a href="#validateAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>validateAdmin(adminDto: <a href="../classes/LoginDto.html" target="_self">LoginDto</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="266"
+                            class="link-to-prism">src/admin/services/admin.service.ts:266</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>adminDto</td>
+                                    <td>
+                                                <code><a href="../classes/LoginDto.html" target="_self" >LoginDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Admin.html" target="_self" >Promise&lt;Admin | boolean&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  BadRequestException,
+  ForbiddenException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+  Scope,
+  UnauthorizedException,
+} from &#x27;@nestjs/common&#x27;;
+import { InjectModel } from &#x27;@nestjs/sequelize&#x27;;
+import { CreateAdminDto } from &#x27;../dto/create-admin.dto&#x27;;
+import * as bcrypt from &#x27;bcrypt&#x27;;
+import {
+  INVALID_LINK,
+  ADMIN_NOT_FOUND,
+  ADMIN_WITH_EMAIL_EXIST,
+  ADMIN_WITH_PHONENUMBER_EXIST,
+  INVALID_EMAIL,
+  RESET_TIME_EXPIRED,
+  INVALID_CODE,
+  ADMIN_ID_NOT_PROVIDED,
+  NOT_ACTIVATED,
+} from &#x27;../constants/admin.constants&#x27;;
+import { Admin } from &#x27;../models/admin.model&#x27;;
+import { LoginDto } from &#x27;../../auth/dto/login.dto&#x27;;
+import { ResetDto } from &#x27;../../auth/dto/reset.password.dto&#x27;;
+import { CodeDto } from &#x27;../../core/interfaces/auth.interfaces&#x27;;
+import { Payload } from &#x27;../../core/interfaces/auth.interfaces&#x27;;
+import { AdminInterface } from &#x27;../../core/interfaces/admin.interfaces&#x27;;
+import { UsersService } from &#x27;../../users/services/users.service&#x27;;
+import { User } from &#x27;../../users/models/user.model&#x27;;
+import { RolesService } from &#x27;../../roles/roles.service&#x27;;
+import { ApiException } from &#x27;../../common/exceptions/api.exception&#x27;;
+
+@Injectable({ scope: Scope.TRANSIENT })
+export class AdminService {
+  constructor(
+    @InjectModel(Admin) private adminRepository: typeof Admin,
+    private readonly userService: UsersService,
+    private readonly roleService: RolesService,
+  ) {}
+
+  async findAdmin(
+    v: string[],
+    page: number,
+    adminPerPage: number,
+  ): Promise&lt;any[]&gt; {
+    const params &#x3D; v.map((param: string) &#x3D;&gt; {
+      return param.toLowerCase();
+    });
+    const dbAdmins &#x3D; await this.adminRepository.findAll({
+      include: { all: true },
+      offset: (page - 1) * adminPerPage,
+      limit: adminPerPage,
+      order: [[&#x27;updatedAt&#x27;, &#x27;DESC&#x27;]],
+      attributes: [
+        &#x27;id&#x27;,
+        &#x27;name&#x27;,
+        &#x27;surname&#x27;,
+        &#x27;email&#x27;,
+        &#x27;phoneNumber&#x27;,
+        &#x27;userId&#x27;,
+        &#x27;addContent&#x27;,
+        &#x27;editContent&#x27;,
+        &#x27;editWebsite&#x27;,
+      ],
+    });
+    if (dbAdmins.length &#x3D;&#x3D;&#x3D; 0) {
+      return [];
+    }
+    const admins &#x3D; [];
+    dbAdmins.forEach((admin: Admin) &#x3D;&gt; {
+      const dbArray &#x3D; [];
+      for (const key in admin) {
+        dbArray.push(admin[key]);
+      }
+      const isContained &#x3D; params.some(
+        (param: string) &#x3D;&gt; dbArray.indexOf(param) &gt;&#x3D; 0,
+      );
+      if (isContained) {
+        admins.push(admin);
+      }
+    });
+    return admins;
+  }
+
+  async createAdmin(dto: CreateAdminDto): Promise&lt;Admin | User&gt; {
+    const user &#x3D; await this.userService.getUserByEmail(dto.email);
+    if (!dto.isAdmin) {
+      user.setIsAdmin(dto.isAdmin);
+      user.setAddContent(dto.addContent);
+      user.setEditContent(dto.editContent);
+      user.setEditWebsite(dto.editWebSite);
+      await user.save();
+      return JSON.parse(JSON.stringify(user));
+    }
+    if (user.getIsAdmin()) {
+      user.setAddContent(dto.addContent);
+      user.setEditContent(dto.editContent);
+      user.setEditWebsite(dto.editWebSite);
+      await user.save();
+      const admin &#x3D; await this.getAdminByEmail(dto.email);
+      admin.setAddContent(dto.addContent);
+      admin.setEditContent(dto.editWebSite);
+      admin.setEditWebsite(dto.editWebSite);
+      await admin.save();
+      return JSON.parse(JSON.stringify(admin));
+    }
+    const [phoneNumber, email] &#x3D; await Promise.all([
+      await this.getAdminByPhoneNumber(dto.phoneNumber),
+      await this.getAdminByEmail(dto.email),
+    ]);
+    if (phoneNumber) {
+       throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, ADMIN_WITH_PHONENUMBER_EXIST);
+    }
+    if (email) {
+      throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, ADMIN_WITH_EMAIL_EXIST);
+    }
+    const [admin] &#x3D; await Promise.all([await this.adminRepository.create(dto)]);
+    const role &#x3D; await this.roleService.getRoleByValue(&#x27;ADMIN&#x27;);
+    if (!role) {
+      const userRole &#x3D; await this.roleService.createRole({
+        value: &#x27;ADMIN&#x27;,
+        description: &#x27;User with rights&#x27;,
+      });
+      user.setIsAdmin(dto.isAdmin);
+      user.setAddContent(dto.addContent);
+      user.setEditContent(dto.editContent);
+      user.setEditWebsite(dto.editWebSite);
+      await user.save();
+      admin.setIsActivated(user.getIsActivated());
+      admin.userId &#x3D; user.id;
+      await admin.$set(&#x27;roles&#x27;, userRole.id);
+      admin.roles &#x3D; [role];
+      await admin.save();
+      return JSON.parse(JSON.stringify(admin));
+    }
+    user.setIsAdmin(dto.isAdmin);
+    user.setAddContent(dto.addContent);
+    user.setEditContent(dto.editContent);
+    user.setEditWebsite(dto.editWebSite);
+    await user.save();
+    admin.setIsActivated(user.getIsActivated());
+    await admin.$set(&#x27;roles&#x27;, role.id);
+    admin.roles &#x3D; [role];
+    admin.userId &#x3D; user.id;
+    await admin.save();
+    return JSON.parse(JSON.stringify(admin));
+  }
+
+  async updateAdmin(dto: CreateAdminDto): Promise&lt;number | Admin&gt; {
+    const [admin, user] &#x3D; await Promise.all([
+      await this.getAdminByEmail(dto.email),
+      await this.userService.getUserByEmail(dto.email),
+    ]);
+    if (dto.isAdmin) {
+      user.setIsAdmin(dto.isAdmin);
+      user.setAddContent(dto.addContent);
+      user.setEditContent(dto.editContent);
+      user.setEditWebsite(dto.editWebSite);
+      admin.userId &#x3D; user.id;
+      admin.setAddContent(dto.addContent);
+      admin.setEditContent(dto.editContent);
+      admin.setEditWebsite(dto.editWebSite);
+      await Promise.all([await user.save(), await admin.save()]);
+      return JSON.parse(JSON.stringify(admin));
+    }
+    user.setIsAdmin(dto.isAdmin);
+    user.setAddContent(dto.addContent);
+    user.setEditContent(dto.editContent);
+    user.setEditWebsite(dto.editWebSite);
+    const [deletedAdmin] &#x3D; await Promise.all([
+      await this.adminRepository.destroy({
+        where: {
+          userId: user.id,
+          email: dto.email,
+          phoneNumber: dto.phoneNumber,
+        },
+      }),
+      await user.save(),
+    ]);
+    return deletedAdmin;
+  }
+
+  async findByActivationLink(activationLink: string): Promise&lt;Admin&gt; {
+    const admin &#x3D; this.adminRepository.findOne({
+      where: { activationLink: activationLink },
+    });
+    if (!admin) {
+      throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, INVALID_LINK);
+    }
+    return admin;
+  }
+
+  async getAllAdmins(
+    page: number,
+    adminPerPage: number,
+  ): Promise&lt;AdminInterface[] | []&gt; {
+    const admins &#x3D; await this.adminRepository.findAll({
+      include: { all: true },
+      offset: (page - 1) * adminPerPage,
+      limit: adminPerPage,
+      order: [[&#x27;updatedAt&#x27;, &#x27;DESC&#x27;]],
+    });
+    if (admins.length &#x3D;&#x3D;&#x3D; 0) {
+      return [];
+    }
+    return admins.map((admin: Admin) &#x3D;&gt; {
+      return {
+        id: admin.id,
+        name: admin.getName(),
+        surname: admin.getSurname(),
+        email: admin.email,
+        phoneNumber: admin.phoneNumber,
+        userId: admin.userId,
+        addContent: admin.getAddContent(),
+        editContent: admin.getEditContent(),
+        editWebsite: admin.getEditWebSite(),
+      };
+    });
+  }
+
+  async getAdminById(id: number): Promise&lt;Admin&gt; {
+    const admin &#x3D; await this.adminRepository.findByPk(id, {
+      include: { all: true },
+    });
+    if (!admin) {
+       throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, ADMIN_NOT_FOUND);  
+    }
+    return admin;
+  }
+
+  async getAdminByEmail(email: string): Promise&lt;Admin&gt; {
+    const admin &#x3D; await this.adminRepository.findOne({
+      where: { email: email },
+      include: { all: true },
+    });
+    return admin;
+  }
+
+  async checkAdmin(payload: Payload, activationLink: string | undefined) {
+    if (!activationLink) {
+      throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, ADMIN_ID_NOT_PROVIDED); 
+    }
+    const admin &#x3D; await this.getAdminById(payload.userId);
+    if (!admin.getIsActivated()) {
+      throw new ApiException(HttpStatus.FORBIDDEN, &#x27;Forbidden!&#x27;, NOT_ACTIVATED); 
+    }
+    if (
+      admin.activationLink &#x3D;&#x3D;&#x3D; activationLink &amp;&amp;
+      payload.userActivationLink &#x3D;&#x3D;&#x3D; activationLink
+    ) {
+      return true;
+    }
+    return false;
+  }
+
+  async getAdminByPhoneNumber(phoneNumber: string): Promise&lt;Admin&gt; {
+    const admin &#x3D; await this.adminRepository.findOne({
+      where: { phoneNumber: phoneNumber },
+      include: { all: true },
+    });
+    return admin;
+  }
+
+  async validateAdmin(adminDto: LoginDto): Promise&lt;Admin | boolean&gt; {
+    const admin &#x3D; await this.getAdminByEmail(adminDto.email);
+    if (!admin) {
+      return false;
+    }
+    const passwordEquals &#x3D; await bcrypt.compare(
+      adminDto.password,
+      admin.getPassword(),
+    );
+    if (passwordEquals) {
+      return admin;
+    }
+    return false;
+  }
+
+  async setConfirmCode(codeDto: CodeDto, code: number): Promise&lt;string&gt; {
+    const admin &#x3D; await this.getAdminByEmail(codeDto.email);
+    admin.setConfirmCode(code);
+    admin.setResetTokenExpiration(Number(Date.now() + 3600000));
+    await admin.save();
+    return admin.email;
+  }
+
+  async resetPassword(resetDto: ResetDto): Promise&lt;string&gt; {
+    const admin &#x3D; await this.getAdminByEmail(resetDto.email);
+    if (resetDto.email !&#x3D;&#x3D; admin.email) {
+      throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, INVALID_EMAIL);
+    }
+    if (Number(Date.now()) &gt;&#x3D; admin.getResetTokenExpiration()) {
+      throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, RESET_TIME_EXPIRED);
+    }
+    if (Number(resetDto.code) !&#x3D;&#x3D; admin.getConfirmCode()) {
+      throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, INVALID_CODE);
+    }
+    await this.userService.rewritePassword(admin.userId, resetDto.password);
+    await this.rewritePassword(admin, resetDto.password);
+    return admin.email;
+  }
+
+  async changePassword(adminId: number, password: string): Promise&lt;Admin&gt; {
+    const admin &#x3D; await this.getAdminById(adminId);
+    await this.userService.rewritePassword(admin.userId, password);
+    return this.rewritePassword(admin, password);
+  }
+
+  private async rewritePassword(
+    admin: Admin,
+    password: string,
+  ): Promise&lt;Admin&gt; {
+    const SALT_ROUNDS &#x3D; Number(process.env.SALT_ROUNDS);
+    const salt &#x3D; await bcrypt.genSalt(SALT_ROUNDS);
+    const hashedPassword &#x3D; await bcrypt.hash(password, salt);
+    admin.setNewPasssword(hashedPassword);
+    return admin.save();
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'AdminService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

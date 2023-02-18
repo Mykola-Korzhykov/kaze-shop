@@ -1,0 +1,639 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>kazi.shop-api documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">kazi.shop-api documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content controller">
+                   <div class="content-data">
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Controllers</li>
+  <li >AdminController</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/admin/admin.controller.ts</code>
+        </p>
+
+            <p class="comment">
+                <h3>Prefix</h3>
+            </p>
+            <p class="comment">
+                <code>admin</code>
+            </p>
+
+
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#createAdmin" >createAdmin</a>
+                            </li>
+                            <li>
+                                <a href="#findAdmin" >findAdmin</a>
+                            </li>
+                            <li>
+                                <a href="#getAllUsers" >getAllUsers</a>
+                            </li>
+                            <li>
+                                <a href="#updateAdmin" >updateAdmin</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createAdmin"></a>
+                    <span class="name">
+                        <span ><b>createAdmin</b></span>
+                        <a href="#createAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createAdmin(adminDto: <a href="../classes/CreateAdminDto.html" target="_self">CreateAdminDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiOperation({summary: &#x27;Creating Admin&#x27;})<br />@ApiResponse({status: 200, type: Admin})<br />@Throttle(60, 700)<br />@Roles(&#x27;OWNER&#x27;)<br />@UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard)<br />@HttpCode(201)<br />@Post(&#x27;create_admin&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="55"
+                            class="link-to-prism">src/admin/admin.controller.ts:55</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>adminDto</td>
+                                    <td>
+                                                <code><a href="../classes/CreateAdminDto.html" target="_self" >CreateAdminDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;Admin | User&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findAdmin"></a>
+                    <span class="name">
+                        <span ><b>findAdmin</b></span>
+                        <a href="#findAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>findAdmin(v: string[], page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, pageSize: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiOperation({summary: &#x27;Getting Admins&#x27;})<br />@ApiResponse({status: 200, type: Admin})<br />@Throttle(60, 700)<br />@Roles(&#x27;OWNER&#x27;)<br />@UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard)<br />@Get(&#x27;find_admin&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="82"
+                            class="link-to-prism">src/admin/admin.controller.ts:82</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>v</td>
+                                    <td>
+                                            <code>string[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>page</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>pageSize</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;any[]&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getAllUsers"></a>
+                    <span class="name">
+                        <span ><b>getAllUsers</b></span>
+                        <a href="#getAllUsers"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getAllUsers(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, pageSize: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiOperation({summary: &#x27;Getting Admins&#x27;})<br />@ApiResponse({status: 200, type: undefined})<br />@Throttle(60, 700)<br />@Roles(&#x27;OWNER&#x27;)<br />@UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard)<br />@Get(&#x27;get_admins&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="97"
+                            class="link-to-prism">src/admin/admin.controller.ts:97</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>page</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>pageSize</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;[] | &gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateAdmin"></a>
+                    <span class="name">
+                        <span ><b>updateAdmin</b></span>
+                        <a href="#updateAdmin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateAdmin(adminDto: <a href="../classes/CreateAdminDto.html" target="_self">CreateAdminDto</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@ApiOperation({summary: &#x27;Updating Admin&#x27;})<br />@ApiResponse({status: 202, type: Admin})<br />@Throttle(70, 700)<br />@Roles(&#x27;OWNER&#x27;)<br />@UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard)<br />@HttpCode(202)<br />@Patch(&#x27;update_admin&#x27;)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="69"
+                            class="link-to-prism">src/admin/admin.controller.ts:69</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>adminDto</td>
+                                    <td>
+                                                <code><a href="../classes/CreateAdminDto.html" target="_self" >CreateAdminDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/Admin.html" target="_self" >Promise&lt;number | Admin&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  UseGuards,
+  ClassSerializerInterceptor,
+  UseInterceptors,
+  HttpCode,
+  Query,
+  ParseIntPipe,
+  Patch,
+  UseFilters,
+} from &#x27;@nestjs/common&#x27;;
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from &#x27;@nestjs/swagger&#x27;;
+import { JwtAuthGuard } from &#x27;../common/guards/jwt-auth.guard&#x27;;
+import { CreateAdminDto } from &#x27;./dto/create-admin.dto&#x27;;
+import { Admin } from &#x27;./models/admin.model&#x27;;
+import { AdminService } from &#x27;./services/admin.service&#x27;;
+import { ValidateDto } from &#x27;../common/pipes/validation.pipe&#x27;;
+import { AdminInterface } from &#x27;../core/interfaces/admin.interfaces&#x27;;
+import { ThrottlerBehindProxyGuard } from &#x27;../common/guards/throttler-behind-proxy.guard&#x27;;
+import { Roles } from &#x27;../common/decorators/roles-auth.decorator&#x27;;
+import { RolesGuard } from &#x27;../common/guards/roles.guard&#x27;;
+import { OwnerAdminGuard } from &#x27;../common/guards/owner-admin.guard&#x27;;
+import { AuthFerfershGuard } from &#x27;../common/guards/jw-refresh.guard&#x27;;
+import { Throttle } from &#x27;@nestjs/throttler&#x27;;
+import { User } from &#x27;../users/models/user.model&#x27;;
+import { ParseArrayPipe } from &#x27;@nestjs/common/pipes&#x27;;
+import { ApiErrorExceptionFilter } from &#x27;../common/filters/error-handler.filter&#x27;;
+import { ApiExceptionFilter } from &#x27;../common/filters/api-exception.filter&#x27;;
+
+@UseGuards(ThrottlerBehindProxyGuard)
+@UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
+@UseInterceptors(ClassSerializerInterceptor)
+@ApiTags(&#x27;admin&#x27;)
+@ApiBearerAuth(&#x27;JWT-auth&#x27;)
+@Controller(&#x27;admin&#x27;)
+export class AdminController {
+  constructor(private readonly adminService: AdminService) {}
+
+  // tslint:disable-next-line: promise-function-async
+  @ApiOperation({ summary: &#x27;Creating Admin&#x27; })
+  @ApiResponse({ status: 200, type: Admin })
+  @Throttle(60, 700)
+  @Roles(&#x27;OWNER&#x27;)
+  @UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard)
+  @HttpCode(201)
+  @Post(&#x27;create_admin&#x27;)
+  createAdmin(
+    @Body(new ValidateDto()) adminDto: CreateAdminDto,
+  ): Promise&lt;Admin | User&gt; {
+    return this.adminService.createAdmin(adminDto);
+  }
+
+  // tslint:disable-next-line: promise-function-async
+  @ApiOperation({ summary: &#x27;Updating Admin&#x27; })
+  @ApiResponse({ status: 202, type: Admin })
+  @Throttle(70, 700)
+  @Roles(&#x27;OWNER&#x27;)
+  @UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard)
+  @HttpCode(202)
+  @Patch(&#x27;update_admin&#x27;)
+  updateAdmin(
+    @Body(new ValidateDto()) adminDto: CreateAdminDto,
+  ): Promise&lt;number | Admin&gt; {
+    return this.adminService.updateAdmin(adminDto);
+  }
+
+  // tslint:disable-next-line: promise-function-async
+  @ApiOperation({ summary: &#x27;Getting Admins&#x27; })
+  @ApiResponse({ status: 200, type: Admin })
+  @Throttle(60, 700)
+  @Roles(&#x27;OWNER&#x27;)
+  @UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard)
+  @Get(&#x27;find_admin&#x27;)
+  findAdmin(
+    @Query(&#x27;v&#x27;, ParseArrayPipe) v: string[],
+    @Query(&#x27;page&#x27;, ParseIntPipe) page: number,
+    @Query(&#x27;pageSize&#x27;, ParseIntPipe) pageSize: number,
+  ): Promise&lt;any[]&gt; {
+    return this.adminService.findAdmin(v, page, pageSize);
+  }
+
+  // tslint:disable-next-line: promise-function-async
+  @ApiOperation({ summary: &#x27;Getting Admins&#x27; })
+  @ApiResponse({ status: 200, type: [Admin] })
+  @Throttle(60, 700)
+  @Roles(&#x27;OWNER&#x27;)
+  @UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard)
+  @Get(&#x27;get_admins&#x27;)
+  getAllUsers(
+    @Query(&#x27;page&#x27;, ParseIntPipe) page: number,
+    @Query(&#x27;pageSize&#x27;, ParseIntPipe) pageSize: number,
+  ): Promise&lt;AdminInterface[] | []&gt; {
+    return this.adminService.getAllAdmins(page, pageSize);
+  }
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'controller';
+            var COMPODOC_CURRENT_PAGE_URL = 'AdminController.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,2387 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>kazi.shop-api documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">kazi.shop-api documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content injectable">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Injectables</li>
+  <li >ProductService</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>src/product/product.service.ts</code>
+        </p>
+
+
+
+
+
+            <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#Logger" >Logger</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#addBookmarkProduct" >addBookmarkProduct</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#addWatchedProduct" >addWatchedProduct</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createProduct" >createProduct</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteImage" >deleteImage</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#deleteProduct" >deleteProduct</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#filterProducts" >filterProducts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#findById" >findById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getBookmarks" >getBookmarks</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getProductById" >getProductById</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getProducts" >getProducts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getProductsByIds" >getProductsByIds</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#getWatchedProducts" >getWatchedProducts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#updateProduct" >updateProduct</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(productRepository, userService: <a href="../injectables/UsersService.html" target="_self">UsersService</a>, ownerService: <a href="../injectables/OwnerService.html" target="_self">OwnerService</a>, adminService: <a href="../injectables/AdminService.html" target="_self">AdminService</a>, categoriesService: <a href="../injectables/CategoriesService.html" target="_self">CategoriesService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/product/product.service.ts:19</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>productRepository</td>
+                                                  
+                                                        <td>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UsersService.html" target="_self" >UsersService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>ownerService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/OwnerService.html" target="_self" >OwnerService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>adminService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AdminService.html" target="_self" >AdminService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>categoriesService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CategoriesService.html" target="_self" >CategoriesService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addBookmarkProduct"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>addBookmarkProduct</b></span>
+                        <a href="#addBookmarkProduct"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addBookmarkProduct(productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="142"
+                            class="link-to-prism">src/product/product.service.ts:142</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>productId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>userId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addWatchedProduct"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>addWatchedProduct</b></span>
+                        <a href="#addWatchedProduct"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>addWatchedProduct(productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="126"
+                            class="link-to-prism">src/product/product.service.ts:126</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>productId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>userId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createProduct"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>createProduct</b></span>
+                        <a href="#createProduct"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createProduct(createProductDto: <a href="../classes/CreateProductDto.html" target="_self">CreateProductDto</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, type: "OWNER" | "ADMIN" | null, images: Express.Multer.File[], sizeChartImage: Express.Multer.File[])</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="477"
+                            class="link-to-prism">src/product/product.service.ts:477</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>createProductDto</td>
+                                    <td>
+                                                <code><a href="../classes/CreateProductDto.html" target="_self" >CreateProductDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>userId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>type</td>
+                                    <td>
+                                            <code>&quot;OWNER&quot; | &quot;ADMIN&quot; | null</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>images</td>
+                                    <td>
+                                            <code>Express.Multer.File[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>sizeChartImage</td>
+                                    <td>
+                                            <code>Express.Multer.File[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/ReturnedProduct.html" target="_self" >Promise&lt;ReturnedProduct&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteImage"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>deleteImage</b></span>
+                        <a href="#deleteImage"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteImage(filePath: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="776"
+                            class="link-to-prism">src/product/product.service.ts:776</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>filePath</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;string&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteProduct"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>deleteProduct</b></span>
+                        <a href="#deleteProduct"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteProduct(productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="715"
+                            class="link-to-prism">src/product/product.service.ts:715</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>productId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;number&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="filterProducts"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>filterProducts</b></span>
+                        <a href="#filterProducts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>filterProducts(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, order: "ASC" | "DESC" | null, sizes: string[], colours: string[], categories: number[])</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="288"
+                            class="link-to-prism">src/product/product.service.ts:288</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>page</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>productPerPage</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>order</td>
+                                    <td>
+                                            <code>&quot;ASC&quot; | &quot;DESC&quot; | null</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>sizes</td>
+                                    <td>
+                                            <code>string[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>colours</td>
+                                    <td>
+                                            <code>string[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>categories</td>
+                                    <td>
+                                            <code>number[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;ReturnedProducts&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="findById"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>findById</b></span>
+                        <a href="#findById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>findById(productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="469"
+                            class="link-to-prism">src/product/product.service.ts:469</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>productId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;Product&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getBookmarks"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getBookmarks</b></span>
+                        <a href="#getBookmarks"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getBookmarks(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/product/product.service.ts:28</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>page</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>productPerPage</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>userId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProductById"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getProductById</b></span>
+                        <a href="#getProductById"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getProductById(productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="413"
+                            class="link-to-prism">src/product/product.service.ts:413</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>productId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/ReturnedProduct.html" target="_self" >Promise&lt;ReturnedProduct&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProducts"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getProducts</b></span>
+                        <a href="#getProducts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getProducts(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="220"
+                            class="link-to-prism">src/product/product.service.ts:220</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>page</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>productPerPage</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;ReturnedProducts&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProductsByIds"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getProductsByIds</b></span>
+                        <a href="#getProductsByIds"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getProductsByIds(productIds: number[], page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="158"
+                            class="link-to-prism">src/product/product.service.ts:158</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>productIds</td>
+                                    <td>
+                                            <code>number[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>page</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>productPerPage</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getWatchedProducts"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getWatchedProducts</b></span>
+                        <a href="#getWatchedProducts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getWatchedProducts(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="75"
+                            class="link-to-prism">src/product/product.service.ts:75</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>page</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>productPerPage</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>userId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;ReturnedProducts&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateProduct"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>updateProduct</b></span>
+                        <a href="#updateProduct"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>updateProduct(updateProductDto: <a href="../classes/UpdateProductDto.html" target="_self">UpdateProductDto</a>, productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, type: "OWNER" | "ADMIN" | null, images: Express.Multer.File[], sizeChartImage: Express.Multer.File[])</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="589"
+                            class="link-to-prism">src/product/product.service.ts:589</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>updateProductDto</td>
+                                    <td>
+                                                <code><a href="../classes/UpdateProductDto.html" target="_self" >UpdateProductDto</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>productId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>userId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>type</td>
+                                    <td>
+                                            <code>&quot;OWNER&quot; | &quot;ADMIN&quot; | null</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>images</td>
+                                    <td>
+                                            <code>Express.Multer.File[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>sizeChartImage</td>
+                                    <td>
+                                            <code>Express.Multer.File[]</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/ReturnedProduct.html" target="_self" >Promise&lt;ReturnedProduct&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Logger"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>Logger</b></span>
+                        <a href="#Logger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Logger(ProductService.name)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/product/product.service.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpStatus, Injectable, Logger, Scope } from &#x27;@nestjs/common&#x27;;
+import { FILE_NOT_FOUND, NOT_AUTHORIZED, NO_IMAGES_PROVIDED, PRODUCTS_NOT_FOUND, PRODUCT_NOT_FOUND } from &#x27;./product.constants&#x27;;
+import { InjectModel } from &#x27;@nestjs/sequelize&#x27;;
+import { unlink, existsSync, readdirSync, rmSync } from &#x27;fs&#x27;;
+import { join } from &#x27;path&#x27;;
+import { AdminService } from &#x27;../admin/services/admin.service&#x27;;
+import { Category } from &#x27;../categories/models/category.model&#x27;;
+import { ApiException } from &#x27;../common/exceptions/api.exception&#x27;;
+import { ReturnedProduct, ReturnedProducts } from &#x27;../core/interfaces/product.interfaces&#x27;;
+import { OwnerService } from &#x27;../owner/services/owner.service&#x27;;
+import { CategoriesService } from &#x27;../categories/categories.service&#x27;;
+import { CreateProductDto } from &#x27;./dto/create.product.dto&#x27;;
+import { UpdateProductDto } from &#x27;./dto/update.product.dto&#x27;;
+import { Product } from &#x27;./models/product.model&#x27;;
+import { UsersService } from &#x27;../users/services/users.service&#x27;;
+import { USER_NOT_FOUND } from &#x27;../users/constants/user.constants&#x27;;
+@Injectable({ scope: Scope.TRANSIENT })
+export class ProductService {
+    private readonly Logger &#x3D; new Logger(ProductService.name);
+    constructor(
+        @InjectModel(Product) private readonly productRepository: typeof Product,
+        private readonly userService: UsersService,
+        private readonly ownerService: OwnerService,
+        private readonly adminService: AdminService,
+        private readonly categoriesService: CategoriesService
+    ) {}
+
+    async getBookmarks(page: number, productPerPage: number, userId: number) {
+        const user &#x3D; await this.userService.getUserById(userId);
+        if (!user) {
+            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);   
+        }
+        const products &#x3D; user.bookmarks
+            .slice((page - 1) * productPerPage, productPerPage * page)
+            .map(product &#x3D;&gt; {
+                return {
+                    id: product.id,
+                    title: product.getTitle(),
+                    description: product.getDescription(),
+                    price: product.price,
+                    quantity: product.quantity,
+                    images: product.images,
+                    sizeChartImage: product.sizeChartImage,
+                    sizes: product.sizes,
+                    colours: product.colours,
+                    categories: product.categories.map((category) &#x3D;&gt; {
+                        return {
+                            id: category.id,
+                            ua: category.ua,
+                            en: category.en,
+                            rs: category.rs,
+                            ru: category.ru,
+                            createdAt: category.createdAt,
+                            updatedAt: category.updatedAt,
+                        };
+                    }),
+                    reviews: product.reviews.map((review) &#x3D;&gt; {
+                        return {
+                            id: review.id,
+                            name: review.name,
+                            surname: review.surname,
+                            review: review.review,
+                            createdAt: review.createdAt,
+                            updatedAt: review.updatedAt,
+                        };
+                    })
+                };
+            });
+        return {
+            products: products,
+            totalItems: user.bookmarks.length,
+        };
+    }
+
+    async getWatchedProducts(
+        page: number,
+        productPerPage: number,
+        userId: number
+    ): Promise&lt;ReturnedProducts&gt; {
+        const user &#x3D; await this.userService.getUserById(userId);
+        if (!user) {
+            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);   
+        }
+        const products &#x3D; user.watched
+            .slice((page - 1) * productPerPage, productPerPage * page)
+            .map(product &#x3D;&gt; {
+                return {
+                    id: product.id,
+                    title: product.getTitle(),
+                    description: product.getDescription(),
+                    price: product.price,
+                    quantity: product.quantity,
+                    images: product.images,
+                    sizeChartImage: product.sizeChartImage,
+                    sizes: product.sizes,
+                    colours: product.colours,
+                    categories: product.categories.map((category) &#x3D;&gt; {
+                        return {
+                            id: category.id,
+                            ua: category.ua,
+                            en: category.en,
+                            rs: category.rs,
+                            ru: category.ru,
+                            createdAt: category.createdAt,
+                            updatedAt: category.updatedAt,
+                        };
+                    }),
+                    reviews: product.reviews.map((review) &#x3D;&gt; {
+                        return {
+                            id: review.id,
+                            name: review.name,
+                            surname: review.surname,
+                            review: review.review,
+                            createdAt: review.createdAt,
+                            updatedAt: review.updatedAt,
+                        };
+                    })
+                };
+            });
+        return {
+            products: products,
+            totalItems: user.watched.length,
+        };
+    }
+
+    async addWatchedProduct(productId: number, userId: number) {
+        const user &#x3D; await this.userService.getUserById(userId);
+        if (!user) {
+            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);   
+        }
+        const product &#x3D; await this.findById(productId);
+        if (!user.watched || user.watched.length &#x3D;&#x3D;&#x3D; 0) {
+            user.$set(&#x27;watched&#x27;, product.id);
+            user.watched &#x3D; [product];
+        } else {
+            user.$add(&#x27;watched&#x27;, product.id);
+        }
+        await user.save();
+        return productId;
+    }
+
+    async addBookmarkProduct(productId: number, userId: number) {
+        const user &#x3D; await this.userService.getUserById(userId);
+        if (!user) {
+            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);   
+        }
+        const product &#x3D; await this.findById(productId);
+        if (!user.bookmarks || user.bookmarks.length &#x3D;&#x3D;&#x3D; 0) {
+            user.$set(&#x27;bookmarks&#x27;, product.id);
+            user.bookmarks &#x3D; [product];
+        } else {
+            user.$add(&#x27;bookmarks&#x27;, product.id);
+        }
+        await user.save();
+        return productId;
+    }
+
+    async getProductsByIds(productIds: number[], page: number, productPerPage: number){
+        const totalCount &#x3D; await this.productRepository.count();
+        const products &#x3D; await this.productRepository.findAll({
+            include: { all: true },
+            offset: (page - 1) * productPerPage,
+            limit: productPerPage,
+            attributes: [
+                &#x27;id&#x27;,
+                &#x27;title&#x27;,
+                &#x27;price&#x27;,
+                &#x27;decription&#x27;,
+                &#x27;quantity&#x27;,
+                &#x27;colours&#x27;,
+                &#x27;sizes&#x27;,
+                &#x27;categories&#x27;,
+                &#x27;images&#x27;,
+                &#x27;sizeChartImage&#x27;
+            ],
+            where: {
+                id: productIds,
+            }
+        });
+        const returnedProducts &#x3D; products.map(product &#x3D;&gt; {
+            return {
+                id: product.id,
+                title: product.getTitle(),
+                description: product.getDescription(),
+                price: product.price,
+                quantity: product.quantity,
+                images: product.images,
+                sizeChartImage: product.sizeChartImage,
+                sizes: product.sizes,
+                colours: product.colours,
+                categories: product.categories.map((category) &#x3D;&gt; {
+                    return {
+                        id: category.id,
+                        ua: category.ua,
+                        en: category.en,
+                        rs: category.rs,
+                        ru: category.ru,
+                        createdAt: category.createdAt,
+                        updatedAt: category.updatedAt,
+                    };
+                }),
+                reviews: product.reviews.map((review) &#x3D;&gt; {
+                    return {
+                        id: review.id,
+                        name: review.name,
+                        surname: review.surname,
+                        review: review.review,
+                        createdAt: review.createdAt,
+                        updatedAt: review.updatedAt,
+                    };
+                })
+            };
+        });
+        return {
+            products: returnedProducts,
+            totalItems: totalCount,
+        };
+    }
+    
+    async getProducts(
+        page: number,
+        productPerPage: number,
+    ): Promise&lt;ReturnedProducts&gt;{
+        try {
+            const totalCount &#x3D; await this.productRepository.count();
+            const products &#x3D; await this.productRepository.findAll({
+                include: { all: true },
+                offset: (page - 1) * productPerPage,
+                order: [[&#x27;updatedAt&#x27;, &#x27;DESC&#x27;]],
+                limit: productPerPage,
+                attributes: [
+                    &#x27;id&#x27;,
+                    &#x27;title&#x27;,
+                    &#x27;price&#x27;,
+                    &#x27;decription&#x27;,
+                    &#x27;quantity&#x27;,
+                    &#x27;colours&#x27;,
+                    &#x27;sizes&#x27;,
+                    &#x27;categories&#x27;,
+                    &#x27;images&#x27;,
+                    &#x27;sizeChartImage&#x27;
+                ]
+            });
+            const returnedProducts &#x3D; products.map(product &#x3D;&gt; {
+                return {
+                    id: product.id,
+                    title: product.getTitle(),
+                    description: product.getDescription(),
+                    price: product.price,
+                    quantity: product.quantity,
+                    images: product.images,
+                    sizeChartImage: product.sizeChartImage,
+                    sizes: product.sizes,
+                    colours: product.colours,
+                    categories: product.categories.map((category) &#x3D;&gt; {
+                        return {
+                            id: category.id,
+                            ua: category.ua,
+                            en: category.en,
+                            rs: category.rs,
+                            ru: category.ru,
+                            createdAt: category.createdAt,
+                            updatedAt: category.updatedAt,
+                        };
+                    }),
+                    reviews: product.reviews.map((review) &#x3D;&gt; {
+                        return {
+                            id: review.id,
+                            name: review.name,
+                            surname: review.surname,
+                            review: review.review,
+                            createdAt: review.createdAt,
+                            updatedAt: review.updatedAt,
+                        };
+                    })
+                };
+            });
+            return {
+                products: returnedProducts,
+                totalItems: totalCount,
+            };
+        } catch (error) {
+            this.Logger.error(error);
+            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, PRODUCTS_NOT_FOUND);   
+        }
+    }
+    
+    async filterProducts(
+        page: number,
+        productPerPage: number,
+        order: &#x27;ASC&#x27; | &#x27;DESC&#x27; | null,
+        sizes: string[],
+        colours: string[],
+        categories: number[],
+    ): Promise&lt;ReturnedProducts&gt; {
+        try {
+            const totalCount &#x3D; await this.productRepository.count({
+                where: {
+                    sizes: sizes ? sizes : [],
+                    colours: colours ? colours : [],
+                }
+            });
+            const products &#x3D; await this.productRepository.findAll({
+                include: { all: true },
+                offset: (page - 1) * productPerPage,
+                limit: productPerPage,
+                attributes: [
+                    &#x27;id&#x27;,
+                    &#x27;title&#x27;,
+                    &#x27;price&#x27;,
+                    &#x27;decription&#x27;,
+                    &#x27;quantity&#x27;,
+                    &#x27;colours&#x27;,
+                    &#x27;sizes&#x27;,
+                    &#x27;categories&#x27;,
+                    &#x27;images&#x27;,
+                    &#x27;sizeChartImage&#x27;
+                ],
+                where: {
+                    sizes: { include: sizes },
+                    colours: { include: colours },
+                }
+            });
+            if (categories.length &#x3D;&#x3D;&#x3D; 0 || !categories) {
+                const returnedProducts &#x3D; products.map((product: Product) &#x3D;&gt; {
+                    return {
+                        id: product.id,
+                        title: product.getTitle(),
+                        description: product.getDescription(),
+                        price: product.price,
+                        quantity: product.quantity,
+                        images: product.images,
+                        sizeChartImage: product.sizeChartImage,
+                        sizes: product.sizes,
+                        colours: product.colours,
+                        categories: product.categories.map((category) &#x3D;&gt; {
+                            return {
+                                id: category.id,
+                                ua: category.ua,
+                                en: category.en,
+                                rs: category.rs,
+                                ru: category.ru,
+                                createdAt: category.createdAt,
+                                updatedAt: category.updatedAt,
+                            };
+                        }),
+                        reviews: product.reviews.map((review) &#x3D;&gt; {
+                            return {
+                                id: review.id,
+                                name: review.name,
+                                surname: review.surname,
+                                review: review.review,
+                                createdAt: review.createdAt,
+                                updatedAt: review.updatedAt,
+                            };
+                        })
+                    };
+                });
+                return {
+                    products: returnedProducts,
+                    totalItems: totalCount,
+                };
+            }
+            const returnedProducts &#x3D; products.map((product: Product) &#x3D;&gt; {
+                if (
+                    product.categories.some((category: Category) &#x3D;&gt;
+                    categories.indexOf(category.id) &gt;&#x3D; 0)
+                ) {
+                    return {
+                        id: product.id,
+                        title: product.getTitle(),
+                        description: product.getDescription(),
+                        price: product.price,
+                        quantity: product.quantity,
+                        images: product.images,
+                        sizeChartImage: product.sizeChartImage,
+                        sizes: product.sizes,
+                        colours: product.colours,
+                        categories: product.categories.map((category) &#x3D;&gt; {
+                            return {
+                                id: category.id,
+                                ua: category.ua,
+                                en: category.en,
+                                rs: category.rs,
+                                ru: category.ru,
+                                createdAt: category.createdAt,
+                                updatedAt: category.updatedAt,
+                            };
+                        }),
+                        reviews: product?.reviews?.map((review) &#x3D;&gt; {
+                            return {
+                                id: review.id,
+                                name: review.name,
+                                surname: review.surname,
+                                review: review.review,
+                                createdAt: review.createdAt,
+                                updatedAt: review.updatedAt,
+                            };
+                        })
+                    };
+                }
+            });
+            return {
+                products: returnedProducts,
+                totalItems: totalCount,
+            };
+        } catch (error) {
+            this.Logger.error(error);
+            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, PRODUCTS_NOT_FOUND);
+        }
+    }
+
+    async getProductById(productId: number): Promise&lt;ReturnedProduct&gt; {
+        const product &#x3D; await this.productRepository.findByPk(productId,
+            {
+                include: {
+                  all: true,
+                },
+                attributes: [
+                    &#x27;id&#x27;,
+                    &#x27;title&#x27;,
+                    &#x27;price&#x27;,
+                    &#x27;description&#x27;,
+                    &#x27;quantity&#x27;,
+                    &#x27;colours&#x27;,
+                    &#x27;sizes&#x27;,
+                    &#x27;images&#x27;,
+                    &#x27;sizeChartImage&#x27;
+                ],
+            }
+        );
+        if (!product) {
+            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, PRODUCT_NOT_FOUND);   
+        }
+        return {
+            id: product.id,
+            title: product.getTitle(),   
+            description: product.getDescription(),
+            price: product.price,
+            quantity: product.quantity,
+            images: product.images,
+            sizeChartImage: product.sizeChartImage,
+            sizes: product.sizes,
+            colours: product.colours,
+            categories: product.categories.map((category) &#x3D;&gt; {
+                return {
+                    id: category.id,
+                    ua: category.ua,
+                    en: category.en,
+                    rs: category.rs,
+                    ru: category.ru,
+                    createdAt: category.createdAt,
+                    updatedAt: category.updatedAt,
+                };
+            }),
+            reviews: product.reviews.map((review) &#x3D;&gt; {
+                return {
+                    id: review.id,
+                    name: review.name,
+                    surname: review.surname,
+                    review: review.review,
+                    createdAt: review.createdAt,
+                    updatedAt: review.updatedAt,
+                };
+            })
+        };
+    }
+    
+    async findById(productId: number): Promise&lt;Product&gt;{
+        const product &#x3D; await this.productRepository.findByPk(productId);
+        if (!product) {
+            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, PRODUCT_NOT_FOUND);   
+        }
+        return product;
+    }
+
+    async createProduct(
+        createProductDto: CreateProductDto,
+        userId: number,
+        type: &#x27;OWNER&#x27; | &#x27;ADMIN&#x27; | null,
+        images: Express.Multer.File[],
+        sizeChartImage: Express.Multer.File[]
+    ): Promise&lt;ReturnedProduct&gt; {
+        try {
+            if (!type &amp;&amp; !userId) {
+                throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, NOT_AUTHORIZED);   
+            }
+            if (!images || images.length &#x3D;&#x3D;&#x3D; 0 || !sizeChartImage || sizeChartImage.length &#x3D;&#x3D;&#x3D; 0) {
+                 throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, NO_IMAGES_PROVIDED);
+            }
+            const imagesPaths: string[] &#x3D; images.map((image: Express.Multer.File) &#x3D;&gt; {
+                return &#x27;/&#x27; + image
+                .path.split(&#x27;\\&#x27;)
+                .slice(image.path.split(&#x27;\\&#x27;)
+                    .indexOf(&#x27;products&#x27;))
+                .join(&#x27;/&#x27;); 
+            });
+            const sizeChartImagePath &#x3D; &#x27;/&#x27; + sizeChartImage[0].path
+                .split(&#x27;\\&#x27;).slice(sizeChartImage[0]
+                .path.split(&#x27;\\&#x27;).indexOf(&#x27;products&#x27;)).join(&#x27;/&#x27;);
+            const product &#x3D; await this.productRepository.create({
+                ...createProductDto,
+                title: JSON.stringify(createProductDto.title),
+                description: JSON.stringify(createProductDto.description),
+                images: imagesPaths,
+                sizeChartImage: sizeChartImagePath,
+            });
+            for(const category of createProductDto.categories) {
+                const productCategory &#x3D; await this.categoriesService.getCategoryById(Number(category));
+                if (!product.categories) {
+                    product.$set(&#x27;categories&#x27;, productCategory.id);
+                    product.categories &#x3D; [productCategory];
+                } else {
+                    product.$add(&#x27;categories&#x27;, productCategory.id);
+                }
+                await product.save();
+            }
+            if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;OWNER&#x27;) {
+                setTimeout(async () &#x3D;&gt; { 
+                    const owner &#x3D; await this.ownerService.getOwnerById(userId);
+                    product.setOwnerId(userId);
+                    product.$set(&#x27;owner&#x27;, userId);
+                    product.owner &#x3D; owner;
+                    owner.$add(&#x27;products&#x27;, product.id);
+                    owner.addProduct(product);
+                    await Promise.all([
+                        await product.save(),
+                        await owner.save(),
+                    ]);
+                }, 0);
+            }
+            if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;ADMIN&#x27;) {
+                setTimeout(async () &#x3D;&gt; { 
+                    product.setAdminId(userId);
+                    product.$set(&#x27;admin&#x27;, userId);
+                    const admin &#x3D; await this.adminService.getAdminById(userId);
+                    product.admin &#x3D; admin;
+                    admin.$add(&#x27;products&#x27;, product.id);
+                    admin.addProduct(product);
+                    await Promise.all([
+                        await product.save(),
+                        await admin.save(),
+                    ]);
+                }, 0);
+            }  
+            const dbProduct &#x3D; await this.getProductById(product.id);
+            const Product &#x3D; {
+                id: dbProduct.id,
+                title: product.getTitle(),
+                description: product.getDescription(),
+                price: dbProduct.price,
+                quantity: dbProduct.quantity,
+                images: dbProduct.images,
+                sizeChartImage: dbProduct.sizeChartImage,
+                sizes: dbProduct.sizes,
+                colours: dbProduct.colours,
+                categories: dbProduct.categories.map((category) &#x3D;&gt; {
+                    return {
+                        id: category.id,
+                        ua: category.ua,
+                        en: category.en,
+                        rs: category.rs,
+                        ru: category.ru,
+                        createdAt: category.createdAt,
+                        updatedAt: category.updatedAt,
+                    };
+                }),
+                reviews: [],
+            };
+            if (dbProduct.reviews.length !&#x3D;&#x3D; 0) {
+                Product.reviews &#x3D; dbProduct.reviews.map((review) &#x3D;&gt; {
+                    return {
+                        id: review.id,
+                        name: review.name,
+                        surname: review.surname,
+                        review: review.review,
+                        createdAt: review.createdAt,
+                        updatedAt: review.updatedAt,
+                    };
+                });
+            }
+            return Product;
+        } catch (error) {
+            this.Logger.error(error);
+            throw error;
+        }
+    }
+
+    async updateProduct(
+        updateProductDto: UpdateProductDto,
+        productId: number,
+        userId: number,
+        type: &#x27;OWNER&#x27; | &#x27;ADMIN&#x27; | null,
+        images: Express.Multer.File[],
+        sizeChartImage: Express.Multer.File[]
+    ): Promise&lt;ReturnedProduct&gt; {
+        try{
+            const existingProduct &#x3D; await this.productRepository.findByPk(productId, {
+                include: { all: true }
+            });
+            if (!existingProduct) {
+                throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, PRODUCT_NOT_FOUND);   
+            } 
+            if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;OWNER&#x27;) {
+                existingProduct.setOwnerId(userId);
+            }
+            if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;ADMIN&#x27; &amp;&amp; !existingProduct.getAdminId()) {
+                setTimeout(async () &#x3D;&gt; { 
+                    existingProduct.setAdminId(userId);
+                    existingProduct.$set(&#x27;admin&#x27;, userId);
+                    const admin &#x3D; await this.adminService.getAdminById(userId);
+                    existingProduct.admin &#x3D; admin;
+                    admin.$add(&#x27;products&#x27;, existingProduct.id);
+                    admin.addProduct(existingProduct);
+                    await Promise.all([
+                        await existingProduct.save(),
+                        await admin.save(),
+                    ]);
+                }, 0);
+            }
+            existingProduct.setTitle(updateProductDto.title);
+            existingProduct.setDescription(updateProductDto.description);
+            existingProduct.quantity &#x3D; updateProductDto.quantity;
+            existingProduct.price &#x3D; updateProductDto.price;
+            existingProduct.sizes &#x3D; [ ...updateProductDto.sizes ];
+            existingProduct.colours &#x3D; [...updateProductDto.colours];
+            for(const category of existingProduct.categories) {
+                existingProduct.$remove(&#x27;categories&#x27;, category.id);
+                await existingProduct.save();
+            }
+            for (const category of updateProductDto.categories) {
+                const productCategory &#x3D; await this.categoriesService.getCategoryById(Number(category));
+                if (existingProduct.categories.length &#x3D;&#x3D;&#x3D; 0) {
+                    existingProduct.$set(&#x27;categories&#x27;, productCategory.id);
+                    existingProduct.categories &#x3D; [productCategory];
+                } else {
+                    existingProduct.$add(&#x27;categories&#x27;, productCategory.id);
+                }
+                await existingProduct.save();
+            }
+            if (images &amp;&amp; images.length &gt; 0) { 
+                for(const image of existingProduct.images) {
+                    const file &#x3D; join(__dirname, &#x27;static&#x27; + image);
+                    unlink(file, (err) &#x3D;&gt; {
+                        if (err) {
+                            this.Logger.error(err.message);
+                        }
+                    });   
+                }
+                const imagesPaths: string[] &#x3D; images.map((image: Express.Multer.File) &#x3D;&gt; {
+                    return &#x27;/&#x27; + image.path.split(&#x27;\\&#x27;)
+                        .slice(image.path.split(&#x27;\\&#x27;)
+                            .indexOf(&#x27;products&#x27;)).join(&#x27;/&#x27;); 
+                });
+                existingProduct.images &#x3D; [...imagesPaths];
+            }
+            if (sizeChartImage &amp;&amp; sizeChartImage.length &gt; 0) {
+                const sizeChartImagePath &#x3D; &#x27;/&#x27; + sizeChartImage[0].path
+                    .split(&#x27;\\&#x27;).slice(sizeChartImage[0].path
+                        .split(&#x27;\\&#x27;).indexOf(&#x27;products&#x27;)).join(&#x27;/&#x27;); 
+                const file &#x3D; join(__dirname, &#x27;static&#x27; + existingProduct.sizeChartImage);
+                if (existsSync(file)) {
+                    unlink(file, (err) &#x3D;&gt; {
+                        if (err) {
+                            this.Logger.error(err.message);
+                        }
+                    });   
+                }
+                existingProduct.sizeChartImage &#x3D; sizeChartImagePath;   
+            }
+            await existingProduct.save();
+            const dbProduct &#x3D; await this.getProductById(existingProduct.id);
+            const Product &#x3D; {
+                id: dbProduct?.id,
+                title: dbProduct?.title,
+                description: dbProduct?.description,
+                price: dbProduct?.price,
+                quantity: dbProduct?.quantity,
+                images: dbProduct?.images,
+                sizeChartImage: dbProduct?.sizeChartImage,
+                sizes: dbProduct?.sizes,
+                colours: dbProduct?.colours,
+                categories: dbProduct?.categories?.map((category) &#x3D;&gt; {
+                    return {
+                        id: category.id,
+                        ua: category.ua,
+                        en: category.en,
+                        rs: category.rs,
+                        ru: category.ru,
+                        createdAt: category.createdAt,
+                        updatedAt: category.updatedAt,
+                    };
+                }),
+                reviews: [],
+            };
+            if (dbProduct.reviews.length !&#x3D;&#x3D; 0) {
+                Product.reviews &#x3D; dbProduct.reviews.map((review) &#x3D;&gt; {
+                    return {
+                        id: review.id,
+                        name: review.name,
+                        surname: review.surname,
+                        review: review.review,
+                        createdAt: review.createdAt,
+                        updatedAt: review.updatedAt,
+                    };
+                });
+            }
+            return Product;
+        } catch (error) {
+            this.Logger.error(error);
+            throw error;
+        }
+    }
+
+    async deleteProduct(productId: number): Promise&lt;number&gt; {
+        try{
+            const existingProduct &#x3D; await this.productRepository.findByPk(productId, {
+                include: { all: true }
+            });
+            if (!existingProduct) {
+                throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, PRODUCTS_NOT_FOUND);   
+            }
+            for(const image of existingProduct.images){
+                const file &#x3D; join(__dirname, &#x27;static&#x27; + image);
+                unlink(file, (err) &#x3D;&gt; {
+                    if (err) {
+                        this.Logger.error(err.message);
+                    }
+                });
+            }
+            const sizeChartImage &#x3D; join(__dirname, &#x27;static&#x27;, ...existingProduct.sizeChartImage.split(&#x27;/&#x27;));
+            unlink(sizeChartImage, (err) &#x3D;&gt; {
+                if (err) {
+                    this.Logger.error(err.message);
+                }
+            });
+            const folderPath &#x3D; join(
+                __dirname,
+                &#x27;static&#x27;,
+                ...existingProduct.images[0].split(&#x27;/&#x27;)
+                .slice(0, existingProduct.images[0].split(&#x27;/&#x27;).length - 2)
+            );
+            const imagesFolder &#x3D; join(
+                 __dirname,
+                &#x27;static&#x27;,
+                ...existingProduct.images[0].split(&#x27;/&#x27;)
+                .slice(0, existingProduct.images[0].split(&#x27;/&#x27;).length - 1)
+            );
+            const sizeChartImageFolder &#x3D; join(
+                __dirname, &#x27;static&#x27;,
+                ...existingProduct.sizeChartImage
+                .split(&#x27;/&#x27;).slice(0, existingProduct.sizeChartImage.split(&#x27;/&#x27;).length - 1)
+            );
+            if (
+                readdirSync(imagesFolder).length &#x3D;&#x3D;&#x3D; 0 &amp;&amp;
+                readdirSync(sizeChartImageFolder).length &#x3D;&#x3D;&#x3D; 0)
+            {
+                rmSync(folderPath, { recursive: true, force: true });
+            }
+            const product &#x3D; await this.productRepository.destroy({
+                where: {
+                    id: existingProduct?.id,
+                    quantity: existingProduct?.quantity,
+                    price: existingProduct?.price,
+                    sizes: existingProduct?.sizes,
+                    images: existingProduct?.images,
+                },
+            });
+            return product;
+        } catch (error) {
+            this.Logger.error(error);
+            throw error;
+        }
+    }
+
+    async deleteImage(filePath: string): Promise&lt;string&gt;{
+        try{
+            const file &#x3D; join(__dirname, &#x27;static&#x27; + filePath);
+            this.Logger.log(file);
+            if (!existsSync(file)) {
+                throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, FILE_NOT_FOUND);   
+            }
+            unlink(file, (err) &#x3D;&gt; {
+                if (err) {
+                    this.Logger.error(err.message);
+                }
+            });
+            const [productsImages, sizeChartImageProducts] &#x3D; await Promise.all([
+                await this.productRepository.findAll({ where: { images: [ filePath ] } }),
+                await this.productRepository.findAll({ where: { sizeChartImage: filePath } }),
+            ]);
+            if(productsImages?.length !&#x3D;&#x3D; 0){
+                for(const product of productsImages){
+                    const index &#x3D; product.images.indexOf(filePath);
+                    product.images.splice(index, 1);
+                    await product.save();
+                }
+            }
+            if (sizeChartImageProducts?.length !&#x3D;&#x3D; 0) {
+                for(const product of sizeChartImageProducts){
+                    product.sizeChartImage &#x3D; null;
+                    await product.save();
+                }
+            }
+            return filePath;
+        } catch (error) {
+            console.log(error);
+            this.Logger.error(error);
+            throw error;
+        }
+    }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
+            var COMPODOC_CURRENT_PAGE_URL = 'ProductService.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
