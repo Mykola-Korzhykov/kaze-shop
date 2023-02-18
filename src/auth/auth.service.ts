@@ -87,7 +87,7 @@ export class AuthService {
         httpOnly: true,
         expires: tokens.expireDate,
         // domain: process.env.CLIENT_DOMAIN.toString().trim(),
-        // secure: process.env.NODE_ENV === 'production' ? true : false,
+        secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'strict',
       });
       return response.json({ ...this.setResponse(tokens, user) });
@@ -117,7 +117,7 @@ export class AuthService {
         path: '/',
         httpOnly: true,
         expires: tokens.expireDate,
-        domain: process.env.CLIENT_DOMAIN.toString().trim(),
+        // domain: process.env.CLIENT_DOMAIN.toString().trim(),
         secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'strict',
       });
@@ -140,9 +140,7 @@ export class AuthService {
         throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
       }
       const refreshToken = request?.cookies['refreshToken'];
-      const decodedToken = Buffer.from(refreshToken, 'base64').toString(
-        'ascii',
-      );
+      const decodedToken = Buffer.from(refreshToken, 'base64').toString('ascii');
       let logout: number;
       if (type && type === 'OWNER') {
         response.clearCookie('user-id');
@@ -191,7 +189,7 @@ export class AuthService {
         httpOnly: true,
         expires: tokens.expireDate,
         // domain: process.env.CLIENT_DOMAIN.toString().trim(),
-        // secure: process.env.NODE_ENV === 'production' ? true : false,
+        secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'strict',
       });
       await this.activateUser(dto.user, response);
@@ -674,7 +672,7 @@ export class AuthService {
         signed: true,
         path: '/',
         httpOnly: true,
-        domain: process.env.CLIENT_DOMAIN.toString().trim(),
+        // domain: process.env.CLIENT_DOMAIN.toString().trim(),
         secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'strict',
       });
@@ -697,7 +695,7 @@ export class AuthService {
         signed: true,
         httpOnly: true,
         // domain: process.env.CLIENT_DOMAIN.toString().trim(),
-        // secure: process.env.NODE_ENV === 'production' ? true : false,
+        secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'strict',
         path: '/',
       });
