@@ -29,8 +29,8 @@ import { ButtonType } from '../../../../types/auth'
 
 
 const buttonsObj: ButtonType[] = [
-    { id: 1, img_grey: icon1, img_white: icon_white1, text: 'Выдать роль', url: '/adminSetings/giveRole' },
-    { id: 2, img_grey: icon2, img_white: icon_white2, text: 'Администраторы' },
+    { id: 1, img_grey: icon1, img_white: icon_white1, text: 'Выдать роль', url: '/adminSettings/roleSettings' },
+    { id: 2, img_grey: icon2, img_white: icon_white2, text: 'Администраторы', url: '/adminSettings/adminSettings' },
     // { id: 3, img_grey: icon3, img_white: icon_white3, text: 'Редактировать сайт' },
     { id: 4, img_grey: icon4, img_white: icon_white4, text: 'Добавить товар' },
     { id: 5, img_grey: icon5, img_white: icon_white5, text: 'Редактировать товар' },
