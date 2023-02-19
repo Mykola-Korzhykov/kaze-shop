@@ -27,6 +27,9 @@ import { User } from '../users/models/user.model';
 import { UserRefreshToken } from '../users/models/user.refresh.token.model';
 import { UsersService } from '../users/services/users.service';
 import { AdminService } from '../admin/services/admin.service';
+import { Currencies } from './models/currencies.model';
+import { CurrencyService } from './services/currency.service';
+import { HttpService } from '@nestjs/axios';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -61,12 +64,14 @@ import { AdminService } from '../admin/services/admin.service';
       UserRoles,
       Cart,
       CartProduct,
+      Currencies,
     ]),
     forwardRef(() => CoreModule),
     forwardRef(() => AuthModule),
     forwardRef(() => AdminModule),
   ],
-  providers: [OwnerService, OwnerJwtRefreshService, MailService, TasksService, UsersService, AdminService],
+  providers: [OwnerService, OwnerJwtRefreshService, CurrencyService,
+    MailService, TasksService, UsersService, AdminService],
   exports: [OwnerService, OwnerJwtRefreshService],
 })
 export class OwnerModule {}

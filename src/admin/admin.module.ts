@@ -40,6 +40,7 @@ import { Order } from '../orders/models/order.model';
 import { OrderProduct } from '../orders/models/order.product.model';
 import { Product } from '../product/models/product.model';
 import { UsersService } from '../users/services/users.service';
+import { Currencies } from 'src/owner/models/currencies.model';
 @Module({
   controllers: [AdminController],
   imports: [
@@ -64,6 +65,7 @@ import { UsersService } from '../users/services/users.service';
       UserRoles,
       Cart,
       CartProduct,
+      Currencies,
     ]),
     JwtModule.register({
       secret:

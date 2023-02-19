@@ -179,18 +179,18 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(4);
 const swagger_1 = __webpack_require__(5);
 const app_module_1 = __webpack_require__(6);
-const helmet_1 = __importDefault(__webpack_require__(165));
-const compression_1 = __importDefault(__webpack_require__(166));
-const cookie_parser_1 = __importDefault(__webpack_require__(167));
-const serve_favicon_1 = __importDefault(__webpack_require__(168));
-const cluster_service_1 = __webpack_require__(105);
+const helmet_1 = __importDefault(__webpack_require__(170));
+const compression_1 = __importDefault(__webpack_require__(171));
+const cookie_parser_1 = __importDefault(__webpack_require__(172));
+const serve_favicon_1 = __importDefault(__webpack_require__(173));
+const cluster_service_1 = __webpack_require__(106);
 const common_1 = __webpack_require__(7);
-const all_exceptions_filter_1 = __webpack_require__(101);
-const owner_service_1 = __webpack_require__(56);
-const error_handler_filter_1 = __webpack_require__(77);
-const api_exception_filter_1 = __webpack_require__(79);
-const path_1 = __webpack_require__(110);
-const body_parser_1 = __importDefault(__webpack_require__(169));
+const all_exceptions_filter_1 = __webpack_require__(102);
+const owner_service_1 = __webpack_require__(57);
+const error_handler_filter_1 = __webpack_require__(78);
+const api_exception_filter_1 = __webpack_require__(80);
+const path_1 = __webpack_require__(111);
+const body_parser_1 = __importDefault(__webpack_require__(174));
 const PORT = Number(process.env.PORT) || 2222;
 function startServer() {
     var _a;
@@ -202,8 +202,13 @@ function startServer() {
             forceCloseConnections: true,
         });
         if (((_a = process.env) === null || _a === void 0 ? void 0 : _a.NODE_ENV) === 'production') {
-            const OWNER = process.env.OWNER.toString().trim().split(',');
-            yield owner_service_1.OwnerService.creatingOwner(OWNER);
+            const owner = yield owner_service_1.OwnerService.creatingOwner({
+                name: process.env.OWNER.toString().trim().split(',')[0],
+                surname: process.env.OWNER.toString().trim().split(',')[1],
+                phoneNumber: process.env.OWNER.toString().trim().split(',')[2],
+                email: process.env.OWNER.toString().trim().split(',')[3],
+                password: process.env.OWNER.toString().trim().split(',')[4],
+            });
         }
         const httpAdapter = app.get(core_1.HttpAdapterHost);
         app.enableShutdownHooks();
@@ -356,34 +361,34 @@ exports.AppModule = void 0;
 const common_1 = __webpack_require__(7);
 const sequelize_1 = __webpack_require__(8);
 const admin_module_1 = __webpack_require__(9);
-const config_1 = __webpack_require__(99);
+const config_1 = __webpack_require__(100);
 const admin_model_1 = __webpack_require__(28);
-const auth_module_1 = __webpack_require__(80);
-const cluster_service_1 = __webpack_require__(105);
-const throttler_1 = __webpack_require__(71);
-const path_1 = __importDefault(__webpack_require__(110));
-const admin_refresh_token_model_1 = __webpack_require__(46);
-const mail_module_1 = __webpack_require__(114);
-const cors_middleware_1 = __webpack_require__(151);
+const auth_module_1 = __webpack_require__(81);
+const cluster_service_1 = __webpack_require__(106);
+const throttler_1 = __webpack_require__(72);
+const path_1 = __importDefault(__webpack_require__(111));
+const admin_refresh_token_model_1 = __webpack_require__(47);
+const mail_module_1 = __webpack_require__(115);
+const cors_middleware_1 = __webpack_require__(154);
 const core_1 = __webpack_require__(4);
-const all_exceptions_filter_1 = __webpack_require__(101);
-const global_interceptor_1 = __webpack_require__(102);
-const core_module_1 = __webpack_require__(100);
-const product_module_1 = __webpack_require__(123);
-const users_module_1 = __webpack_require__(115);
-const owner_module_1 = __webpack_require__(94);
-const orders_module_1 = __webpack_require__(143);
-const cart_module_1 = __webpack_require__(140);
+const all_exceptions_filter_1 = __webpack_require__(102);
+const global_interceptor_1 = __webpack_require__(103);
+const core_module_1 = __webpack_require__(101);
+const product_module_1 = __webpack_require__(124);
+const users_module_1 = __webpack_require__(116);
+const owner_module_1 = __webpack_require__(95);
+const orders_module_1 = __webpack_require__(144);
+const cart_module_1 = __webpack_require__(141);
 const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const app_controller_1 = __webpack_require__(153);
-const telegram_module_1 = __webpack_require__(155);
-const telegram_config_1 = __webpack_require__(160);
-const categories_module_1 = __webpack_require__(137);
+const app_controller_1 = __webpack_require__(156);
+const telegram_module_1 = __webpack_require__(160);
+const telegram_config_1 = __webpack_require__(165);
+const categories_module_1 = __webpack_require__(138);
 const product_model_1 = __webpack_require__(32);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
@@ -391,13 +396,15 @@ const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
-const platform_express_1 = __webpack_require__(129);
-const bull_1 = __webpack_require__(111);
-const reviews_module_1 = __webpack_require__(161);
+const platform_express_1 = __webpack_require__(130);
+const bull_1 = __webpack_require__(112);
+const reviews_module_1 = __webpack_require__(166);
 const review_model_1 = __webpack_require__(43);
 const product_reviews_model_1 = __webpack_require__(44);
 const bookmark_products_1 = __webpack_require__(37);
 const watched_products_model_1 = __webpack_require__(38);
+const currencies_model_1 = __webpack_require__(46);
+const axios_1 = __webpack_require__(159);
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(cors_middleware_1.CorsMiddleware).forRoutes({
@@ -421,6 +428,7 @@ AppModule = __decorate([
             },
         ],
         imports: [
+            axios_1.HttpModule,
             config_1.ConfigModule.forRoot({
                 envFilePath: `.${process.env.NODE_ENV}.env`,
                 expandVariables: true,
@@ -503,6 +511,7 @@ AppModule = __decorate([
                     review_model_1.Review,
                     bookmark_products_1.BookmarksProducts,
                     watched_products_model_1.WatchedProducts,
+                    currencies_model_1.Currencies,
                 ],
                 autoLoadModels: true,
                 synchronize: true,
@@ -560,32 +569,32 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AdminModule = void 0;
 const common_1 = __webpack_require__(7);
 const admin_controller_1 = __webpack_require__(10);
-const admin_service_1 = __webpack_require__(55);
+const admin_service_1 = __webpack_require__(56);
 const sequelize_1 = __webpack_require__(8);
 const admin_model_1 = __webpack_require__(28);
-const auth_module_1 = __webpack_require__(80);
+const auth_module_1 = __webpack_require__(81);
 const jwt_1 = __webpack_require__(16);
-const admin_refresh_token_model_1 = __webpack_require__(46);
-const jwt_refresh_service_1 = __webpack_require__(65);
-const owner_module_1 = __webpack_require__(94);
+const admin_refresh_token_model_1 = __webpack_require__(47);
+const jwt_refresh_service_1 = __webpack_require__(66);
+const owner_module_1 = __webpack_require__(95);
 const mail_service_1 = __webpack_require__(21);
-const initialize_user_middleware_1 = __webpack_require__(121);
-const owner_service_1 = __webpack_require__(56);
+const initialize_user_middleware_1 = __webpack_require__(122);
+const owner_service_1 = __webpack_require__(57);
 const owner_model_1 = __webpack_require__(31);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(95);
+const roles_module_1 = __webpack_require__(96);
 const owner_refresh_token_model_1 = __webpack_require__(45);
-const users_module_1 = __webpack_require__(115);
+const users_module_1 = __webpack_require__(116);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const user_admin_middleware_1 = __webpack_require__(149);
-const body_validator_pipe_1 = __importDefault(__webpack_require__(122));
-const create_admin_dto_1 = __webpack_require__(67);
-const config_1 = __webpack_require__(99);
-const admin_user_middleware_1 = __webpack_require__(150);
-const core_module_1 = __webpack_require__(100);
-const scedule_service_1 = __webpack_require__(59);
+const user_admin_middleware_1 = __webpack_require__(152);
+const body_validator_pipe_1 = __importDefault(__webpack_require__(123));
+const create_admin_dto_1 = __webpack_require__(68);
+const config_1 = __webpack_require__(100);
+const admin_user_middleware_1 = __webpack_require__(153);
+const core_module_1 = __webpack_require__(101);
+const scedule_service_1 = __webpack_require__(60);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const category_model_1 = __webpack_require__(41);
@@ -594,6 +603,7 @@ const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
 const product_model_1 = __webpack_require__(32);
 const users_service_1 = __webpack_require__(24);
+const currencies_model_1 = __webpack_require__(46);
 let AdminModule = AdminModule_1 = class AdminModule {
     configure(consumer) {
         consumer
@@ -638,6 +648,7 @@ AdminModule = AdminModule_1 = __decorate([
                 user_roles_model_1.UserRoles,
                 cart_model_1.Cart,
                 cart_product_model_1.CartProduct,
+                currencies_model_1.Currencies,
             ]),
             jwt_1.JwtModule.register({
                 secret: process.env.JWT_REFRESH_ADMIN_SECRET.toString().trim() ||
@@ -692,19 +703,19 @@ exports.AdminController = void 0;
 const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
 const jwt_auth_guard_1 = __webpack_require__(11);
-const create_admin_dto_1 = __webpack_require__(67);
+const create_admin_dto_1 = __webpack_require__(68);
 const admin_model_1 = __webpack_require__(28);
-const admin_service_1 = __webpack_require__(55);
-const validation_pipe_1 = __webpack_require__(68);
-const throttler_behind_proxy_guard_1 = __webpack_require__(70);
-const roles_auth_decorator_1 = __webpack_require__(72);
-const roles_guard_1 = __webpack_require__(73);
-const owner_admin_guard_1 = __webpack_require__(74);
-const jw_refresh_guard_1 = __webpack_require__(75);
-const throttler_1 = __webpack_require__(71);
-const pipes_1 = __webpack_require__(76);
-const error_handler_filter_1 = __webpack_require__(77);
-const api_exception_filter_1 = __webpack_require__(79);
+const admin_service_1 = __webpack_require__(56);
+const validation_pipe_1 = __webpack_require__(69);
+const throttler_behind_proxy_guard_1 = __webpack_require__(71);
+const roles_auth_decorator_1 = __webpack_require__(73);
+const roles_guard_1 = __webpack_require__(74);
+const owner_admin_guard_1 = __webpack_require__(75);
+const jw_refresh_guard_1 = __webpack_require__(76);
+const throttler_1 = __webpack_require__(72);
+const pipes_1 = __webpack_require__(77);
+const error_handler_filter_1 = __webpack_require__(78);
+const api_exception_filter_1 = __webpack_require__(80);
 let AdminController = class AdminController {
     constructor(adminService) {
         this.adminService = adminService;
@@ -817,7 +828,7 @@ exports.JwtAuthGuard = void 0;
 const common_1 = __webpack_require__(7);
 const auth_constants_1 = __webpack_require__(12);
 const auth_service_1 = __webpack_require__(13);
-const api_exception_1 = __webpack_require__(49);
+const api_exception_1 = __webpack_require__(50);
 let JwtAuthGuard = class JwtAuthGuard {
     constructor(authService) {
         this.authService = authService;
@@ -1019,21 +1030,21 @@ const jwt_1 = __webpack_require__(16);
 const signup_dto_1 = __webpack_require__(17);
 const express_1 = __webpack_require__(20);
 const mail_service_1 = __webpack_require__(21);
-const admin_service_1 = __webpack_require__(55);
-const owner_service_1 = __webpack_require__(56);
-const jwt_refresh_service_1 = __webpack_require__(58);
+const admin_service_1 = __webpack_require__(56);
+const owner_service_1 = __webpack_require__(57);
+const jwt_refresh_service_1 = __webpack_require__(59);
 const users_service_1 = __webpack_require__(24);
-const jwt_refresh_service_2 = __webpack_require__(64);
-const jwt_refresh_service_3 = __webpack_require__(65);
+const jwt_refresh_service_2 = __webpack_require__(65);
+const jwt_refresh_service_3 = __webpack_require__(66);
 const user_model_1 = __webpack_require__(35);
 const owner_model_1 = __webpack_require__(31);
 const admin_model_1 = __webpack_require__(28);
-const user_constants_1 = __webpack_require__(47);
-const change_password_dto_1 = __webpack_require__(66);
-const uuid_1 = __webpack_require__(57);
-const scedule_service_1 = __webpack_require__(59);
-const api_exception_1 = __webpack_require__(49);
-const jwt_refresh_constants_1 = __webpack_require__(52);
+const user_constants_1 = __webpack_require__(48);
+const change_password_dto_1 = __webpack_require__(67);
+const uuid_1 = __webpack_require__(58);
+const scedule_service_1 = __webpack_require__(60);
+const api_exception_1 = __webpack_require__(50);
+const jwt_refresh_constants_1 = __webpack_require__(53);
 let AuthService = AuthService_1 = class AuthService {
     constructor(ownerJwtRefreshTokenService, adminJwtRefreshTokenService, ownerService, adminService, userService, mailService, sheduleService, jwtService, userJwtRefreshTokenService) {
         this.ownerJwtRefreshTokenService = ownerJwtRefreshTokenService;
@@ -1847,12 +1858,12 @@ const common_1 = __webpack_require__(7);
 const mailer_1 = __webpack_require__(22);
 const mail_constants_1 = __webpack_require__(23);
 const users_service_1 = __webpack_require__(24);
-const admin_service_1 = __webpack_require__(55);
-const owner_service_1 = __webpack_require__(56);
-const api_exception_1 = __webpack_require__(49);
-const owner_constants_1 = __webpack_require__(51);
-const admin_constants_1 = __webpack_require__(50);
-const user_constants_1 = __webpack_require__(47);
+const admin_service_1 = __webpack_require__(56);
+const owner_service_1 = __webpack_require__(57);
+const api_exception_1 = __webpack_require__(50);
+const owner_constants_1 = __webpack_require__(52);
+const admin_constants_1 = __webpack_require__(51);
+const user_constants_1 = __webpack_require__(48);
 let MailService = MailService_1 = class MailService {
     constructor(mailerService, userService, adminService, ownerService) {
         this.mailerService = mailerService;
@@ -2073,10 +2084,10 @@ exports.UsersService = void 0;
 const common_1 = __webpack_require__(7);
 const sequelize_1 = __webpack_require__(8);
 const roles_service_1 = __webpack_require__(25);
-const user_constants_1 = __webpack_require__(47);
+const user_constants_1 = __webpack_require__(48);
 const user_model_1 = __webpack_require__(35);
-const bcrypt = __importStar(__webpack_require__(48));
-const api_exception_1 = __webpack_require__(49);
+const bcrypt = __importStar(__webpack_require__(49));
+const api_exception_1 = __webpack_require__(50);
 let UsersService = class UsersService {
     constructor(userRepository, roleService) {
         this.userRepository = userRepository;
@@ -2500,7 +2511,7 @@ const class_transformer_1 = __webpack_require__(29);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
 const user_model_1 = __webpack_require__(35);
-const admin_refresh_token_model_1 = __webpack_require__(46);
+const admin_refresh_token_model_1 = __webpack_require__(47);
 const product_model_1 = __webpack_require__(32);
 let Admin = class Admin extends sequelize_typescript_1.Model {
     getName() {
@@ -2945,6 +2956,7 @@ const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
 const product_model_1 = __webpack_require__(32);
 const owner_refresh_token_model_1 = __webpack_require__(45);
+const currencies_model_1 = __webpack_require__(46);
 let Owner = class Owner extends sequelize_typescript_1.Model {
     getName() {
         return this.name;
@@ -3184,6 +3196,10 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], Owner.prototype, "activationCode", void 0);
+__decorate([
+    (0, sequelize_typescript_1.HasMany)(() => currencies_model_1.Currencies),
+    __metadata("design:type", Array)
+], Owner.prototype, "currencies", void 0);
 __decorate([
     (0, sequelize_typescript_1.HasMany)(() => product_model_1.Product),
     __metadata("design:type", Array)
@@ -4843,6 +4859,94 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Currencies = void 0;
+const sequelize_typescript_1 = __webpack_require__(27);
+const swagger_1 = __webpack_require__(5);
+const owner_model_1 = __webpack_require__(31);
+let Currencies = class Currencies extends sequelize_typescript_1.Model {
+    getAuthor() {
+        return this.owner;
+    }
+    getOwnerId() {
+        return this.ownerId;
+    }
+    setOwnerId(ownerId) {
+        this.ownerId = ownerId;
+        return this.ownerId;
+    }
+};
+__decorate([
+    (0, swagger_1.ApiProperty)({ example: '1', description: 'unique identifier' }),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        unique: true,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false,
+        field: 'id',
+    }),
+    __metadata("design:type", Number)
+], Currencies.prototype, "id", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.ENUM('USD'),
+        unique: true,
+        allowNull: false,
+        field: 'base',
+    }),
+    __metadata("design:type", String)
+], Currencies.prototype, "base", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.DATE,
+        unique: true,
+        allowNull: false,
+        field: 'Date',
+    }),
+    __metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
+], Currencies.prototype, "date", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.JSONB,
+        unique: true,
+        allowNull: false,
+        field: 'rates',
+    }),
+    __metadata("design:type", String)
+], Currencies.prototype, "rates", void 0);
+__decorate([
+    sequelize_typescript_1.IsInt,
+    (0, sequelize_typescript_1.ForeignKey)(() => owner_model_1.Owner),
+    (0, sequelize_typescript_1.Column)({ type: sequelize_typescript_1.DataType.INTEGER, unique: false, allowNull: true }),
+    __metadata("design:type", Number)
+], Currencies.prototype, "ownerId", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsTo)(() => owner_model_1.Owner),
+    __metadata("design:type", typeof (_b = typeof owner_model_1.Owner !== "undefined" && owner_model_1.Owner) === "function" ? _b : Object)
+], Currencies.prototype, "owner", void 0);
+Currencies = __decorate([
+    (0, sequelize_typescript_1.Table)({ tableName: 'Currencies' })
+], Currencies);
+exports.Currencies = Currencies;
+
+
+/***/ }),
+/* 47 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AdminRefreshToken = void 0;
 const swagger_1 = __webpack_require__(5);
 const sequelize_typescript_1 = __webpack_require__(27);
@@ -4976,7 +5080,7 @@ exports.AdminRefreshToken = AdminRefreshToken;
 
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5063,14 +5167,14 @@ exports.INVALID_PHONE_NUMBER = {
 
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("bcrypt");
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -5078,12 +5182,12 @@ module.exports = require("bcrypt");
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ApiException = void 0;
 const common_1 = __webpack_require__(7);
-const admin_constants_1 = __webpack_require__(50);
-const owner_constants_1 = __webpack_require__(51);
-const jwt_refresh_constants_1 = __webpack_require__(52);
-const jwt_refresh_constants_2 = __webpack_require__(53);
-const jwt_refresh_constants_3 = __webpack_require__(54);
-const user_constants_1 = __webpack_require__(47);
+const admin_constants_1 = __webpack_require__(51);
+const owner_constants_1 = __webpack_require__(52);
+const jwt_refresh_constants_1 = __webpack_require__(53);
+const jwt_refresh_constants_2 = __webpack_require__(54);
+const jwt_refresh_constants_3 = __webpack_require__(55);
+const user_constants_1 = __webpack_require__(48);
 class ApiException extends Error {
     constructor(status, message, errors) {
         super(message);
@@ -5197,7 +5301,7 @@ exports.ApiException = ApiException;
 
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5302,7 +5406,7 @@ exports.PHONENUMBER_VALIDATION = 'Provided phoneNumber is incorrect!';
 
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5407,7 +5511,7 @@ exports.INVALID_PHONE_NUMBER = {
 
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5459,7 +5563,7 @@ exports.ERROR_WHILE_REMOVING_TOKEN = {
 
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5511,7 +5615,7 @@ exports.ERROR_WHILE_REMOVING_TOKEN = {
 
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5563,7 +5667,7 @@ exports.ERROR_WHILE_REMOVING_TOKEN = {
 
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -5617,12 +5721,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AdminService = void 0;
 const common_1 = __webpack_require__(7);
 const sequelize_1 = __webpack_require__(8);
-const bcrypt = __importStar(__webpack_require__(48));
-const admin_constants_1 = __webpack_require__(50);
+const bcrypt = __importStar(__webpack_require__(49));
+const admin_constants_1 = __webpack_require__(51);
 const admin_model_1 = __webpack_require__(28);
 const users_service_1 = __webpack_require__(24);
 const roles_service_1 = __webpack_require__(25);
-const api_exception_1 = __webpack_require__(49);
+const api_exception_1 = __webpack_require__(50);
 let AdminService = class AdminService {
     constructor(adminRepository, userService, roleService) {
         this.adminRepository = adminRepository;
@@ -5915,7 +6019,7 @@ exports.AdminService = AdminService;
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -5964,39 +6068,45 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var OwnerService_1;
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OwnerService = void 0;
 const common_1 = __webpack_require__(7);
 const sequelize_1 = __webpack_require__(8);
-const owner_constants_1 = __webpack_require__(51);
+const owner_constants_1 = __webpack_require__(52);
 const owner_model_1 = __webpack_require__(31);
 const roles_service_1 = __webpack_require__(25);
-const bcrypt = __importStar(__webpack_require__(48));
-const uuid_1 = __webpack_require__(57);
+const bcrypt = __importStar(__webpack_require__(49));
+const uuid_1 = __webpack_require__(58);
 const roles_model_1 = __webpack_require__(26);
-const api_exception_1 = __webpack_require__(49);
-let OwnerService = class OwnerService {
-    constructor(ownerRepository, roleService) {
+const api_exception_1 = __webpack_require__(50);
+const currencies_model_1 = __webpack_require__(46);
+let OwnerService = OwnerService_1 = class OwnerService {
+    constructor(currenciesRepository, ownerRepository, roleService) {
+        this.currenciesRepository = currenciesRepository;
         this.ownerRepository = ownerRepository;
         this.roleService = roleService;
+        this.Logger = new common_1.Logger(OwnerService_1.name);
     }
     static creatingOwner(OWNER) {
         return __awaiter(this, void 0, void 0, function* () {
-            const existingOwners = yield owner_model_1.Owner.findAll();
-            console.log(existingOwners);
-            if (existingOwners.length > 0) {
+            const [phoneNumber, email] = yield Promise.all([
+                yield owner_model_1.Owner.findOne({ where: { phoneNumber: OWNER.phoneNumber }, include: { all: true } }),
+                yield owner_model_1.Owner.findOne({ where: { email: OWNER.email }, include: { all: true } }),
+            ]);
+            if (phoneNumber || email) {
+                console.log(phoneNumber, email);
                 return;
             }
-            console.log('Creating');
             const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
             const salt = yield bcrypt.genSalt(SALT_ROUNDS || 10);
-            const hashedPassword = yield bcrypt.hash(OWNER[4], salt);
+            const hashedPassword = yield bcrypt.hash(OWNER.password, salt);
             const ownerDto = {
-                name: OWNER[0],
-                surname: OWNER[1],
-                phoneNumber: OWNER[2],
-                email: OWNER[3],
+                name: OWNER.name,
+                surname: OWNER.surname,
+                phoneNumber: OWNER.phoneNumber,
+                email: OWNER.email,
                 password: hashedPassword,
                 activationLink: (0, uuid_1.v4)(),
             };
@@ -6171,23 +6281,24 @@ let OwnerService = class OwnerService {
         });
     }
 };
-OwnerService = __decorate([
+OwnerService = OwnerService_1 = __decorate([
     (0, common_1.Injectable)({ scope: common_1.Scope.TRANSIENT }),
-    __param(0, (0, sequelize_1.InjectModel)(owner_model_1.Owner)),
-    __metadata("design:paramtypes", [Object, typeof (_a = typeof roles_service_1.RolesService !== "undefined" && roles_service_1.RolesService) === "function" ? _a : Object])
+    __param(0, (0, sequelize_1.InjectModel)(currencies_model_1.Currencies)),
+    __param(1, (0, sequelize_1.InjectModel)(owner_model_1.Owner)),
+    __metadata("design:paramtypes", [Object, Object, typeof (_a = typeof roles_service_1.RolesService !== "undefined" && roles_service_1.RolesService) === "function" ? _a : Object])
 ], OwnerService);
 exports.OwnerService = OwnerService;
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("uuid");
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -6218,13 +6329,13 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserJwtRefreshTokenService = void 0;
 const common_1 = __webpack_require__(7);
 const jwt_1 = __webpack_require__(16);
-const jwt_refresh_constants_1 = __webpack_require__(54);
+const jwt_refresh_constants_1 = __webpack_require__(55);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const users_service_1 = __webpack_require__(24);
 const sequelize_1 = __webpack_require__(8);
-const scedule_service_1 = __webpack_require__(59);
-const api_exception_1 = __webpack_require__(49);
-const uuid_1 = __webpack_require__(57);
+const scedule_service_1 = __webpack_require__(60);
+const api_exception_1 = __webpack_require__(50);
+const uuid_1 = __webpack_require__(58);
 let UserJwtRefreshTokenService = class UserJwtRefreshTokenService {
     constructor(jwtService, userService, sheduleService, userRefreshTokenRepository) {
         this.jwtService = jwtService;
@@ -6406,7 +6517,7 @@ exports.UserJwtRefreshTokenService = UserJwtRefreshTokenService;
 
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -6434,10 +6545,10 @@ var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TasksService = void 0;
 const common_1 = __webpack_require__(7);
-const event_emitter_1 = __webpack_require__(60);
-const schedule_1 = __webpack_require__(61);
-const cron_1 = __webpack_require__(62);
-const jwt_refresh_token_deleted_evet_1 = __webpack_require__(63);
+const event_emitter_1 = __webpack_require__(61);
+const schedule_1 = __webpack_require__(62);
+const cron_1 = __webpack_require__(63);
+const jwt_refresh_token_deleted_evet_1 = __webpack_require__(64);
 let TasksService = TasksService_1 = class TasksService {
     constructor(schedulerRegistry, eventEmitter) {
         this.schedulerRegistry = schedulerRegistry;
@@ -6556,28 +6667,28 @@ exports.TasksService = TasksService;
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/event-emitter");
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/schedule");
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("cron");
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -6595,7 +6706,7 @@ exports.JwtRefreshTokenDeletedEvent = JwtRefreshTokenDeletedEvent;
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -6630,14 +6741,14 @@ const jwt_1 = __webpack_require__(16);
 const sequelize_1 = __webpack_require__(8);
 const crypto_1 = __webpack_require__(14);
 const util_1 = __webpack_require__(15);
-const uuid_1 = __webpack_require__(57);
-const api_exception_1 = __webpack_require__(49);
-const scedule_service_1 = __webpack_require__(59);
+const uuid_1 = __webpack_require__(58);
+const api_exception_1 = __webpack_require__(50);
+const scedule_service_1 = __webpack_require__(60);
 const mail_service_1 = __webpack_require__(21);
-const jwt_refresh_constants_1 = __webpack_require__(53);
-const owner_constants_1 = __webpack_require__(51);
+const jwt_refresh_constants_1 = __webpack_require__(54);
+const owner_constants_1 = __webpack_require__(52);
 const owner_refresh_token_model_1 = __webpack_require__(45);
-const owner_service_1 = __webpack_require__(56);
+const owner_service_1 = __webpack_require__(57);
 let OwnerJwtRefreshService = OwnerJwtRefreshService_1 = class OwnerJwtRefreshService {
     constructor(jwtService, ownerService, mailService, sheduleService, ownerRefreshTokenRepository) {
         this.jwtService = jwtService;
@@ -6861,7 +6972,7 @@ exports.OwnerJwtRefreshService = OwnerJwtRefreshService;
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -6893,16 +7004,16 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AdminJwtRefreshService = void 0;
 const common_1 = __webpack_require__(7);
 const jwt_1 = __webpack_require__(16);
-const jwt_refresh_constants_1 = __webpack_require__(52);
-const admin_refresh_token_model_1 = __webpack_require__(46);
-const admin_service_1 = __webpack_require__(55);
+const jwt_refresh_constants_1 = __webpack_require__(53);
+const admin_refresh_token_model_1 = __webpack_require__(47);
+const admin_service_1 = __webpack_require__(56);
 const mail_service_1 = __webpack_require__(21);
 const sequelize_1 = __webpack_require__(8);
-const scedule_service_1 = __webpack_require__(59);
-const api_exception_1 = __webpack_require__(49);
+const scedule_service_1 = __webpack_require__(60);
+const api_exception_1 = __webpack_require__(50);
 const crypto_1 = __webpack_require__(14);
 const util_1 = __webpack_require__(15);
-const uuid_1 = __webpack_require__(57);
+const uuid_1 = __webpack_require__(58);
 let AdminJwtRefreshService = AdminJwtRefreshService_1 = class AdminJwtRefreshService {
     constructor(jwtService, adminService, sheduleService, mailService, adminRefreshTokenRepository) {
         this.jwtService = jwtService;
@@ -7124,7 +7235,7 @@ exports.AdminJwtRefreshService = AdminJwtRefreshService;
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7173,7 +7284,7 @@ exports.ChangeDto = ChangeDto;
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7191,7 +7302,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateAdminDto = void 0;
 const swagger_1 = __webpack_require__(5);
 const class_validator_1 = __webpack_require__(18);
-const admin_constants_1 = __webpack_require__(50);
+const admin_constants_1 = __webpack_require__(51);
 class CreateAdminDto {
 }
 __decorate([
@@ -7282,7 +7393,7 @@ exports.CreateAdminDto = CreateAdminDto;
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7307,7 +7418,7 @@ exports.ValidateDto = void 0;
 const common_1 = __webpack_require__(7);
 const class_transformer_1 = __webpack_require__(29);
 const class_validator_1 = __webpack_require__(18);
-const validation_excetion_1 = __webpack_require__(69);
+const validation_excetion_1 = __webpack_require__(70);
 let ValidateDto = class ValidateDto {
     transform(value, metadata) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -7330,7 +7441,7 @@ exports.ValidateDto = ValidateDto;
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -7348,7 +7459,7 @@ exports.ValidationException = ValidationException;
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7361,7 +7472,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ThrottlerBehindProxyGuard = void 0;
-const throttler_1 = __webpack_require__(71);
+const throttler_1 = __webpack_require__(72);
 const common_1 = __webpack_require__(7);
 let ThrottlerBehindProxyGuard = class ThrottlerBehindProxyGuard extends throttler_1.ThrottlerGuard {
     getTracker(req) {
@@ -7375,14 +7486,14 @@ exports.ThrottlerBehindProxyGuard = ThrottlerBehindProxyGuard;
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/throttler");
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -7396,7 +7507,7 @@ exports.Roles = Roles;
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7425,10 +7536,10 @@ exports.RolesGuard = void 0;
 const common_1 = __webpack_require__(7);
 const core_1 = __webpack_require__(4);
 const auth_service_1 = __webpack_require__(13);
-const roles_auth_decorator_1 = __webpack_require__(72);
+const roles_auth_decorator_1 = __webpack_require__(73);
 const auth_constants_1 = __webpack_require__(12);
-const api_exception_1 = __webpack_require__(49);
-const admin_constants_1 = __webpack_require__(50);
+const api_exception_1 = __webpack_require__(50);
+const admin_constants_1 = __webpack_require__(51);
 let RolesGuard = class RolesGuard {
     constructor(authService, reflector) {
         this.authService = authService;
@@ -7479,7 +7590,7 @@ exports.RolesGuard = RolesGuard;
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7507,14 +7618,14 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OwnerAdminGuard = void 0;
 const common_1 = __webpack_require__(7);
 const auth_constants_1 = __webpack_require__(12);
-const jwt_refresh_service_1 = __webpack_require__(64);
+const jwt_refresh_service_1 = __webpack_require__(65);
 const owner_refresh_token_model_1 = __webpack_require__(45);
-const roles_auth_decorator_1 = __webpack_require__(72);
+const roles_auth_decorator_1 = __webpack_require__(73);
 const core_1 = __webpack_require__(4);
-const jwt_refresh_service_2 = __webpack_require__(65);
-const admin_refresh_token_model_1 = __webpack_require__(46);
-const api_exception_1 = __webpack_require__(49);
-const admin_constants_1 = __webpack_require__(50);
+const jwt_refresh_service_2 = __webpack_require__(66);
+const admin_refresh_token_model_1 = __webpack_require__(47);
+const api_exception_1 = __webpack_require__(50);
+const admin_constants_1 = __webpack_require__(51);
 let OwnerAdminGuard = class OwnerAdminGuard {
     constructor(ownerJwtRefreshTokenService, adminJwtRefreshTokenService, reflector) {
         this.ownerJwtRefreshTokenService = ownerJwtRefreshTokenService;
@@ -7590,7 +7701,7 @@ exports.OwnerAdminGuard = OwnerAdminGuard;
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7617,11 +7728,11 @@ var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthFerfershGuard = void 0;
 const common_1 = __webpack_require__(7);
-const admin_service_1 = __webpack_require__(55);
-const owner_service_1 = __webpack_require__(56);
+const admin_service_1 = __webpack_require__(56);
+const owner_service_1 = __webpack_require__(57);
 const users_service_1 = __webpack_require__(24);
-const user_constants_1 = __webpack_require__(47);
-const api_exception_1 = __webpack_require__(49);
+const user_constants_1 = __webpack_require__(48);
+const api_exception_1 = __webpack_require__(50);
 const auth_constants_1 = __webpack_require__(12);
 let AuthFerfershGuard = class AuthFerfershGuard {
     constructor(ownerService, adminService, userService) {
@@ -7670,14 +7781,14 @@ exports.AuthFerfershGuard = AuthFerfershGuard;
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/common/pipes");
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7690,7 +7801,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ApiErrorExceptionFilter = void 0;
-const validate_dto_exception_error_1 = __webpack_require__(78);
+const validate_dto_exception_error_1 = __webpack_require__(79);
 const common_1 = __webpack_require__(7);
 let ApiErrorExceptionFilter = class ApiErrorExceptionFilter {
     catch(exception, host) {
@@ -7717,7 +7828,7 @@ exports.ApiErrorExceptionFilter = ApiErrorExceptionFilter;
 
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -7752,7 +7863,7 @@ exports.BadRequestError = BadRequestError;
 
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7766,7 +7877,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ApiExceptionFilter = void 0;
 const common_1 = __webpack_require__(7);
-const api_exception_1 = __webpack_require__(49);
+const api_exception_1 = __webpack_require__(50);
 let ApiExceptionFilter = class ApiExceptionFilter {
     catch(exception, host) {
         const ctx = host.switchToHttp();
@@ -7791,7 +7902,7 @@ exports.ApiExceptionFilter = ApiExceptionFilter;
 
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7809,39 +7920,39 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthModule = void 0;
 const common_1 = __webpack_require__(7);
 const auth_service_1 = __webpack_require__(13);
-const auth_controller_1 = __webpack_require__(81);
+const auth_controller_1 = __webpack_require__(82);
 const admin_module_1 = __webpack_require__(9);
 const jwt_1 = __webpack_require__(16);
 const mail_service_1 = __webpack_require__(21);
 const core_1 = __webpack_require__(4);
-const http_exception_filter_1 = __webpack_require__(92);
-const auth_middleware_1 = __webpack_require__(93);
-const throttler_1 = __webpack_require__(71);
-const owner_module_1 = __webpack_require__(94);
-const jwt_refresh_service_1 = __webpack_require__(65);
-const jwt_refresh_service_2 = __webpack_require__(64);
-const users_module_1 = __webpack_require__(115);
-const initialize_user_middleware_1 = __webpack_require__(121);
-const initialize_email_middleware_1 = __webpack_require__(147);
-const activate_middleware_1 = __webpack_require__(148);
-const body_validator_pipe_1 = __importDefault(__webpack_require__(122));
-const login_dto_1 = __webpack_require__(83);
+const http_exception_filter_1 = __webpack_require__(93);
+const auth_middleware_1 = __webpack_require__(94);
+const throttler_1 = __webpack_require__(72);
+const owner_module_1 = __webpack_require__(95);
+const jwt_refresh_service_1 = __webpack_require__(66);
+const jwt_refresh_service_2 = __webpack_require__(65);
+const users_module_1 = __webpack_require__(116);
+const initialize_user_middleware_1 = __webpack_require__(122);
+const initialize_email_middleware_1 = __webpack_require__(150);
+const activate_middleware_1 = __webpack_require__(151);
+const body_validator_pipe_1 = __importDefault(__webpack_require__(123));
+const login_dto_1 = __webpack_require__(84);
 const signup_dto_1 = __webpack_require__(17);
-const reset_password_dto_1 = __webpack_require__(84);
-const change_password_dto_1 = __webpack_require__(66);
+const reset_password_dto_1 = __webpack_require__(85);
+const change_password_dto_1 = __webpack_require__(67);
 const sequelize_1 = __webpack_require__(8);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(46);
+const admin_refresh_token_model_1 = __webpack_require__(47);
 const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const config_1 = __webpack_require__(99);
-const scedule_service_1 = __webpack_require__(59);
-const core_module_1 = __webpack_require__(100);
-const events_service_1 = __webpack_require__(90);
+const config_1 = __webpack_require__(100);
+const scedule_service_1 = __webpack_require__(60);
+const core_module_1 = __webpack_require__(101);
+const events_service_1 = __webpack_require__(91);
 let AuthModule = class AuthModule {
     configure(consumer) {
         consumer
@@ -7930,7 +8041,7 @@ exports.AuthModule = AuthModule;
 
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7960,27 +8071,27 @@ var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthController = void 0;
 const common_1 = __webpack_require__(7);
-const decorators_1 = __webpack_require__(82);
+const decorators_1 = __webpack_require__(83);
 const auth_service_1 = __webpack_require__(13);
-const login_dto_1 = __webpack_require__(83);
-const reset_password_dto_1 = __webpack_require__(84);
+const login_dto_1 = __webpack_require__(84);
+const reset_password_dto_1 = __webpack_require__(85);
 const signup_dto_1 = __webpack_require__(17);
 const swagger_1 = __webpack_require__(5);
 const express_1 = __webpack_require__(20);
 const jwt_auth_guard_1 = __webpack_require__(11);
-const throttler_1 = __webpack_require__(71);
-const throttler_behind_proxy_guard_1 = __webpack_require__(70);
-const user_type_decorator_1 = __webpack_require__(85);
-const user_agent_decorator_1 = __webpack_require__(86);
-const validation_pipe_1 = __webpack_require__(68);
-const refresh_guard_1 = __webpack_require__(87);
-const auth_interfaces_1 = __webpack_require__(88);
-const jw_refresh_guard_1 = __webpack_require__(75);
-const change_password_dto_1 = __webpack_require__(66);
-const user_id_decorator_1 = __webpack_require__(89);
-const error_handler_filter_1 = __webpack_require__(77);
-const events_service_1 = __webpack_require__(90);
-const api_exception_filter_1 = __webpack_require__(79);
+const throttler_1 = __webpack_require__(72);
+const throttler_behind_proxy_guard_1 = __webpack_require__(71);
+const user_type_decorator_1 = __webpack_require__(86);
+const user_agent_decorator_1 = __webpack_require__(87);
+const validation_pipe_1 = __webpack_require__(69);
+const refresh_guard_1 = __webpack_require__(88);
+const auth_interfaces_1 = __webpack_require__(89);
+const jw_refresh_guard_1 = __webpack_require__(76);
+const change_password_dto_1 = __webpack_require__(67);
+const user_id_decorator_1 = __webpack_require__(90);
+const error_handler_filter_1 = __webpack_require__(78);
+const events_service_1 = __webpack_require__(91);
+const api_exception_filter_1 = __webpack_require__(80);
 let AuthController = class AuthController {
     constructor(authService, appListener) {
         this.authService = authService;
@@ -8165,14 +8276,14 @@ exports.AuthController = AuthController;
 
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/common/decorators");
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8217,7 +8328,7 @@ exports.LoginDto = LoginDto;
 
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8281,7 +8392,7 @@ exports.ResetDto = ResetDto;
 
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -8307,7 +8418,7 @@ exports.Type = (0, common_1.createParamDecorator)((data, ctx) => {
 
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -8323,7 +8434,7 @@ exports.UserAgent = (0, common_1.createParamDecorator)((data, ctx) => {
 
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8343,7 +8454,7 @@ exports.RefreshAuthGuard = void 0;
 const common_1 = __webpack_require__(7);
 const auth_constants_1 = __webpack_require__(12);
 const auth_service_1 = __webpack_require__(13);
-const api_exception_1 = __webpack_require__(49);
+const api_exception_1 = __webpack_require__(50);
 let RefreshAuthGuard = class RefreshAuthGuard {
     constructor(authService) {
         this.authService = authService;
@@ -8370,7 +8481,7 @@ exports.RefreshAuthGuard = RefreshAuthGuard;
 
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -8379,7 +8490,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 
 /***/ }),
-/* 89 */
+/* 90 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -8396,7 +8507,7 @@ exports.UserId = (0, common_1.createParamDecorator)((data, ctx) => {
 
 
 /***/ }),
-/* 90 */
+/* 91 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8414,9 +8525,9 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppListener = void 0;
 const common_1 = __webpack_require__(7);
-const interfaces_1 = __webpack_require__(91);
-const event_emitter_1 = __webpack_require__(60);
-const jwt_refresh_token_deleted_evet_1 = __webpack_require__(63);
+const interfaces_1 = __webpack_require__(92);
+const event_emitter_1 = __webpack_require__(61);
+const jwt_refresh_token_deleted_evet_1 = __webpack_require__(64);
 let AppListener = class AppListener {
     handleTokenDeletedEvent(event) {
         return event;
@@ -8435,14 +8546,14 @@ exports.AppListener = AppListener;
 
 
 /***/ }),
-/* 91 */
+/* 92 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/common/interfaces");
 
 /***/ }),
-/* 92 */
+/* 93 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8478,7 +8589,7 @@ exports.HttpExceptionFilter = HttpExceptionFilter;
 
 
 /***/ }),
-/* 93 */
+/* 94 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8530,7 +8641,7 @@ exports.AuthMiddleware = AuthMiddleware;
 
 
 /***/ }),
-/* 94 */
+/* 95 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8545,23 +8656,23 @@ var OwnerModule_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OwnerModule = void 0;
 const common_1 = __webpack_require__(7);
-const owner_service_1 = __webpack_require__(56);
+const owner_service_1 = __webpack_require__(57);
 const jwt_1 = __webpack_require__(16);
 const sequelize_1 = __webpack_require__(8);
-const auth_module_1 = __webpack_require__(80);
+const auth_module_1 = __webpack_require__(81);
 const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
-const jwt_refresh_service_1 = __webpack_require__(64);
+const jwt_refresh_service_1 = __webpack_require__(65);
 const admin_module_1 = __webpack_require__(9);
 const mail_service_1 = __webpack_require__(21);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(95);
-const config_1 = __webpack_require__(99);
-const core_module_1 = __webpack_require__(100);
-const scedule_service_1 = __webpack_require__(59);
+const roles_module_1 = __webpack_require__(96);
+const config_1 = __webpack_require__(100);
+const core_module_1 = __webpack_require__(101);
+const scedule_service_1 = __webpack_require__(60);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(46);
+const admin_refresh_token_model_1 = __webpack_require__(47);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const category_model_1 = __webpack_require__(41);
@@ -8572,7 +8683,9 @@ const product_model_1 = __webpack_require__(32);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const users_service_1 = __webpack_require__(24);
-const admin_service_1 = __webpack_require__(55);
+const admin_service_1 = __webpack_require__(56);
+const currencies_model_1 = __webpack_require__(46);
+const currency_service_1 = __webpack_require__(148);
 let OwnerModule = OwnerModule_1 = class OwnerModule {
 };
 OwnerModule = OwnerModule_1 = __decorate([
@@ -8609,12 +8722,14 @@ OwnerModule = OwnerModule_1 = __decorate([
                 user_roles_model_1.UserRoles,
                 cart_model_1.Cart,
                 cart_product_model_1.CartProduct,
+                currencies_model_1.Currencies,
             ]),
             (0, common_1.forwardRef)(() => core_module_1.CoreModule),
             (0, common_1.forwardRef)(() => auth_module_1.AuthModule),
             (0, common_1.forwardRef)(() => admin_module_1.AdminModule),
         ],
-        providers: [owner_service_1.OwnerService, jwt_refresh_service_1.OwnerJwtRefreshService, mail_service_1.MailService, scedule_service_1.TasksService, users_service_1.UsersService, admin_service_1.AdminService],
+        providers: [owner_service_1.OwnerService, jwt_refresh_service_1.OwnerJwtRefreshService, currency_service_1.CurrencyService,
+            mail_service_1.MailService, scedule_service_1.TasksService, users_service_1.UsersService, admin_service_1.AdminService],
         exports: [owner_service_1.OwnerService, jwt_refresh_service_1.OwnerJwtRefreshService],
     })
 ], OwnerModule);
@@ -8622,7 +8737,7 @@ exports.OwnerModule = OwnerModule;
 
 
 /***/ }),
-/* 95 */
+/* 96 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8637,16 +8752,16 @@ var RolesModule_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.RolesModule = void 0;
 const common_1 = __webpack_require__(7);
-const roles_controller_1 = __webpack_require__(96);
+const roles_controller_1 = __webpack_require__(97);
 const roles_service_1 = __webpack_require__(25);
 const sequelize_1 = __webpack_require__(8);
 const roles_model_1 = __webpack_require__(26);
 const user_model_1 = __webpack_require__(35);
 const user_roles_model_1 = __webpack_require__(30);
-const config_1 = __webpack_require__(99);
+const config_1 = __webpack_require__(100);
 const order_product_model_1 = __webpack_require__(40);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(46);
+const admin_refresh_token_model_1 = __webpack_require__(47);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const category_model_1 = __webpack_require__(41);
@@ -8658,15 +8773,15 @@ const product_model_1 = __webpack_require__(32);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const auth_service_1 = __webpack_require__(13);
 const admin_module_1 = __webpack_require__(9);
-const auth_module_1 = __webpack_require__(80);
-const core_module_1 = __webpack_require__(100);
-const mail_module_1 = __webpack_require__(114);
-const owner_module_1 = __webpack_require__(94);
-const product_module_1 = __webpack_require__(123);
+const auth_module_1 = __webpack_require__(81);
+const core_module_1 = __webpack_require__(101);
+const mail_module_1 = __webpack_require__(115);
+const owner_module_1 = __webpack_require__(95);
+const product_module_1 = __webpack_require__(124);
 const users_service_1 = __webpack_require__(24);
-const scedule_service_1 = __webpack_require__(59);
-const jwt_refresh_service_1 = __webpack_require__(58);
-const initialize_user_middleware_1 = __webpack_require__(121);
+const scedule_service_1 = __webpack_require__(60);
+const jwt_refresh_service_1 = __webpack_require__(59);
+const initialize_user_middleware_1 = __webpack_require__(122);
 let RolesModule = RolesModule_1 = class RolesModule {
     configure(consumer) {
         consumer
@@ -8727,7 +8842,7 @@ exports.RolesModule = RolesModule;
 
 
 /***/ }),
-/* 96 */
+/* 97 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8749,19 +8864,19 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.RolesController = void 0;
 const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
-const roles_auth_decorator_1 = __webpack_require__(72);
-const add_content_guard_1 = __webpack_require__(97);
-const jw_refresh_guard_1 = __webpack_require__(75);
+const roles_auth_decorator_1 = __webpack_require__(73);
+const add_content_guard_1 = __webpack_require__(98);
+const jw_refresh_guard_1 = __webpack_require__(76);
 const jwt_auth_guard_1 = __webpack_require__(11);
-const owner_admin_guard_1 = __webpack_require__(74);
-const roles_guard_1 = __webpack_require__(73);
-const error_handler_filter_1 = __webpack_require__(77);
-const create_role_dto_1 = __webpack_require__(98);
+const owner_admin_guard_1 = __webpack_require__(75);
+const roles_guard_1 = __webpack_require__(74);
+const error_handler_filter_1 = __webpack_require__(78);
+const create_role_dto_1 = __webpack_require__(99);
 const roles_model_1 = __webpack_require__(26);
 const roles_service_1 = __webpack_require__(25);
-const throttler_1 = __webpack_require__(71);
-const api_exception_filter_1 = __webpack_require__(79);
-const throttler_behind_proxy_guard_1 = __webpack_require__(70);
+const throttler_1 = __webpack_require__(72);
+const api_exception_filter_1 = __webpack_require__(80);
+const throttler_behind_proxy_guard_1 = __webpack_require__(71);
 let RolesController = class RolesController {
     constructor(roleService) {
         this.roleService = roleService;
@@ -8820,7 +8935,7 @@ exports.RolesController = RolesController;
 
 
 /***/ }),
-/* 97 */
+/* 98 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8848,8 +8963,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AddContentGuard = void 0;
 const common_1 = __webpack_require__(7);
 const auth_constants_1 = __webpack_require__(12);
-const admin_service_1 = __webpack_require__(55);
-const api_exception_1 = __webpack_require__(49);
+const admin_service_1 = __webpack_require__(56);
+const api_exception_1 = __webpack_require__(50);
 let AddContentGuard = class AddContentGuard {
     constructor(adminService) {
         this.adminService = adminService;
@@ -8884,7 +8999,7 @@ exports.AddContentGuard = AddContentGuard;
 
 
 /***/ }),
-/* 98 */
+/* 99 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8924,14 +9039,14 @@ exports.CreateRoleDto = CreateRoleDto;
 
 
 /***/ }),
-/* 99 */
+/* 100 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/config");
 
 /***/ }),
-/* 100 */
+/* 101 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8946,19 +9061,19 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CoreModule = void 0;
 const common_1 = __webpack_require__(7);
 const core_1 = __webpack_require__(4);
-const all_exceptions_filter_1 = __webpack_require__(101);
-const throttler_behind_proxy_guard_1 = __webpack_require__(70);
-const global_interceptor_1 = __webpack_require__(102);
-const cluster_service_1 = __webpack_require__(105);
-const file_service_1 = __webpack_require__(108);
-const config_1 = __webpack_require__(99);
-const schedule_1 = __webpack_require__(61);
-const scedule_service_1 = __webpack_require__(59);
-const event_emitter_1 = __webpack_require__(60);
-const bull_1 = __webpack_require__(111);
-const garbage_processor_1 = __webpack_require__(112);
+const all_exceptions_filter_1 = __webpack_require__(102);
+const throttler_behind_proxy_guard_1 = __webpack_require__(71);
+const global_interceptor_1 = __webpack_require__(103);
+const cluster_service_1 = __webpack_require__(106);
+const file_service_1 = __webpack_require__(109);
+const config_1 = __webpack_require__(100);
+const schedule_1 = __webpack_require__(62);
+const scedule_service_1 = __webpack_require__(60);
+const event_emitter_1 = __webpack_require__(61);
+const bull_1 = __webpack_require__(112);
+const garbage_processor_1 = __webpack_require__(113);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(46);
+const admin_refresh_token_model_1 = __webpack_require__(47);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const category_model_1 = __webpack_require__(41);
@@ -9032,7 +9147,7 @@ exports.CoreModule = CoreModule;
 
 
 /***/ }),
-/* 101 */
+/* 102 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9080,7 +9195,7 @@ exports.AllExceptionsFilter = AllExceptionsFilter;
 
 
 /***/ }),
-/* 102 */
+/* 103 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9094,8 +9209,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GlobalInterceptor = void 0;
 const common_1 = __webpack_require__(7);
-const rxjs_1 = __webpack_require__(103);
-const operators_1 = __webpack_require__(104);
+const rxjs_1 = __webpack_require__(104);
+const operators_1 = __webpack_require__(105);
 let GlobalInterceptor = class GlobalInterceptor {
     intercept(context, next) {
         return next.handle().pipe((0, operators_1.timeout)(5000), (0, operators_1.catchError)((err) => {
@@ -9113,21 +9228,21 @@ exports.GlobalInterceptor = GlobalInterceptor;
 
 
 /***/ }),
-/* 103 */
+/* 104 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("rxjs");
 
 /***/ }),
-/* 104 */
+/* 105 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("rxjs/operators");
 
 /***/ }),
-/* 105 */
+/* 106 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9153,8 +9268,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 var AppClusterService_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppClusterService = void 0;
-const cluster_1 = __importDefault(__webpack_require__(106));
-const os_1 = __webpack_require__(107);
+const cluster_1 = __importDefault(__webpack_require__(107));
+const os_1 = __webpack_require__(108);
 const common_1 = __webpack_require__(7);
 const numCPUs = (0, os_1.cpus)().length;
 let AppClusterService = AppClusterService_1 = class AppClusterService {
@@ -9221,21 +9336,21 @@ exports.AppClusterService = AppClusterService;
 
 
 /***/ }),
-/* 106 */
+/* 107 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("cluster");
 
 /***/ }),
-/* 107 */
+/* 108 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("os");
 
 /***/ }),
-/* 108 */
+/* 109 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9281,11 +9396,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FilesService = void 0;
 const common_1 = __webpack_require__(7);
-const fs = __importStar(__webpack_require__(109));
-const uuid = __importStar(__webpack_require__(57));
-const path_1 = __importStar(__webpack_require__(110));
-const fs_1 = __webpack_require__(109);
-const uuid_1 = __webpack_require__(57);
+const fs = __importStar(__webpack_require__(110));
+const uuid = __importStar(__webpack_require__(58));
+const path_1 = __importStar(__webpack_require__(111));
+const fs_1 = __webpack_require__(110);
+const uuid_1 = __webpack_require__(58);
 let FilesService = class FilesService {
     createFile(file) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -9346,28 +9461,28 @@ exports.FilesService = FilesService;
 
 
 /***/ }),
-/* 109 */
+/* 110 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("fs");
 
 /***/ }),
-/* 110 */
+/* 111 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("path");
 
 /***/ }),
-/* 111 */
+/* 112 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/bull");
 
 /***/ }),
-/* 112 */
+/* 113 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9385,9 +9500,9 @@ var GarbageCollectingProcessor_1;
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GarbageCollectingProcessor = void 0;
-const bull_1 = __webpack_require__(111);
+const bull_1 = __webpack_require__(112);
 const common_1 = __webpack_require__(7);
-const bull_2 = __webpack_require__(113);
+const bull_2 = __webpack_require__(114);
 let GarbageCollectingProcessor = GarbageCollectingProcessor_1 = class GarbageCollectingProcessor {
     constructor() {
         this.logger = new common_1.Logger(GarbageCollectingProcessor_1.name);
@@ -9411,14 +9526,14 @@ exports.GarbageCollectingProcessor = GarbageCollectingProcessor;
 
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("bull");
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9436,17 +9551,17 @@ const common_1 = __webpack_require__(7);
 const mail_service_1 = __webpack_require__(21);
 const mailer_1 = __webpack_require__(22);
 const admin_module_1 = __webpack_require__(9);
-const auth_module_1 = __webpack_require__(80);
-const owner_module_1 = __webpack_require__(94);
-const roles_module_1 = __webpack_require__(95);
-const users_module_1 = __webpack_require__(115);
-const config_1 = __webpack_require__(99);
+const auth_module_1 = __webpack_require__(81);
+const owner_module_1 = __webpack_require__(95);
+const roles_module_1 = __webpack_require__(96);
+const users_module_1 = __webpack_require__(116);
+const config_1 = __webpack_require__(100);
 const users_service_1 = __webpack_require__(24);
-const owner_service_1 = __webpack_require__(56);
-const admin_service_1 = __webpack_require__(55);
+const owner_service_1 = __webpack_require__(57);
+const admin_service_1 = __webpack_require__(56);
 const sequelize_1 = __webpack_require__(8);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(46);
+const admin_refresh_token_model_1 = __webpack_require__(47);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const category_model_1 = __webpack_require__(41);
@@ -9460,6 +9575,7 @@ const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
+const currencies_model_1 = __webpack_require__(46);
 let MailModule = class MailModule {
 };
 MailModule = __decorate([
@@ -9487,6 +9603,7 @@ MailModule = __decorate([
                 user_roles_model_1.UserRoles,
                 cart_model_1.Cart,
                 cart_product_model_1.CartProduct,
+                currencies_model_1.Currencies,
             ]),
             (0, common_1.forwardRef)(() => admin_module_1.AdminModule),
             (0, common_1.forwardRef)(() => roles_module_1.RolesModule),
@@ -9519,7 +9636,7 @@ exports.MailModule = MailModule;
 
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9537,31 +9654,31 @@ var UsersModule_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersModule = void 0;
 const common_1 = __webpack_require__(7);
-const users_controller_1 = __webpack_require__(116);
+const users_controller_1 = __webpack_require__(117);
 const users_service_1 = __webpack_require__(24);
 const sequelize_1 = __webpack_require__(8);
 const user_model_1 = __webpack_require__(35);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(95);
-const auth_module_1 = __webpack_require__(80);
+const roles_module_1 = __webpack_require__(96);
+const auth_module_1 = __webpack_require__(81);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const jwt_1 = __webpack_require__(16);
-const jwt_refresh_service_1 = __webpack_require__(58);
-const user_middleware_1 = __webpack_require__(120);
-const initialize_user_middleware_1 = __webpack_require__(121);
-const admin_refresh_token_model_1 = __webpack_require__(46);
+const jwt_refresh_service_1 = __webpack_require__(59);
+const user_middleware_1 = __webpack_require__(121);
+const initialize_user_middleware_1 = __webpack_require__(122);
+const admin_refresh_token_model_1 = __webpack_require__(47);
 const admin_model_1 = __webpack_require__(28);
 const admin_module_1 = __webpack_require__(9);
 const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
-const owner_module_1 = __webpack_require__(94);
-const body_validator_pipe_1 = __importDefault(__webpack_require__(122));
-const update_user_dto_1 = __webpack_require__(118);
-const config_1 = __webpack_require__(99);
-const scedule_service_1 = __webpack_require__(59);
-const core_module_1 = __webpack_require__(100);
-const product_module_1 = __webpack_require__(123);
+const owner_module_1 = __webpack_require__(95);
+const body_validator_pipe_1 = __importDefault(__webpack_require__(123));
+const update_user_dto_1 = __webpack_require__(119);
+const config_1 = __webpack_require__(100);
+const scedule_service_1 = __webpack_require__(60);
+const core_module_1 = __webpack_require__(101);
+const product_module_1 = __webpack_require__(124);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const category_model_1 = __webpack_require__(41);
@@ -9570,9 +9687,10 @@ const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
 const product_model_1 = __webpack_require__(32);
 const auth_service_1 = __webpack_require__(13);
-const mail_module_1 = __webpack_require__(114);
+const mail_module_1 = __webpack_require__(115);
 const bookmark_products_1 = __webpack_require__(37);
 const watched_products_model_1 = __webpack_require__(38);
+const currencies_model_1 = __webpack_require__(46);
 let UsersModule = UsersModule_1 = class UsersModule {
     configure(consumer) {
         consumer
@@ -9611,6 +9729,7 @@ UsersModule = UsersModule_1 = __decorate([
                 user_roles_model_1.UserRoles,
                 cart_model_1.Cart,
                 cart_product_model_1.CartProduct,
+                currencies_model_1.Currencies,
                 bookmark_products_1.BookmarksProducts,
                 watched_products_model_1.WatchedProducts,
             ]),
@@ -9643,7 +9762,7 @@ exports.UsersModule = UsersModule;
 
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9674,24 +9793,24 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersController = void 0;
 const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
-const roles_auth_decorator_1 = __webpack_require__(72);
+const roles_auth_decorator_1 = __webpack_require__(73);
 const jwt_auth_guard_1 = __webpack_require__(11);
 const user_model_1 = __webpack_require__(35);
 const users_service_1 = __webpack_require__(24);
-const roles_guard_1 = __webpack_require__(73);
-const ban_user_dto_1 = __webpack_require__(117);
-const throttler_1 = __webpack_require__(71);
-const throttler_behind_proxy_guard_1 = __webpack_require__(70);
+const roles_guard_1 = __webpack_require__(74);
+const ban_user_dto_1 = __webpack_require__(118);
+const throttler_1 = __webpack_require__(72);
+const throttler_behind_proxy_guard_1 = __webpack_require__(71);
 const auth_service_1 = __webpack_require__(13);
-const update_user_dto_1 = __webpack_require__(118);
+const update_user_dto_1 = __webpack_require__(119);
 const express_1 = __webpack_require__(20);
-const user_agent_decorator_1 = __webpack_require__(86);
-const user_id_decorator_1 = __webpack_require__(89);
-const user_guard_1 = __webpack_require__(119);
-const owner_admin_guard_1 = __webpack_require__(74);
-const jw_refresh_guard_1 = __webpack_require__(75);
-const error_handler_filter_1 = __webpack_require__(77);
-const api_exception_filter_1 = __webpack_require__(79);
+const user_agent_decorator_1 = __webpack_require__(87);
+const user_id_decorator_1 = __webpack_require__(90);
+const user_guard_1 = __webpack_require__(120);
+const owner_admin_guard_1 = __webpack_require__(75);
+const jw_refresh_guard_1 = __webpack_require__(76);
+const error_handler_filter_1 = __webpack_require__(78);
+const api_exception_filter_1 = __webpack_require__(80);
 let UsersController = class UsersController {
     constructor(userService, authService) {
         this.userService = userService;
@@ -9781,7 +9900,7 @@ exports.UsersController = UsersController;
 
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9815,7 +9934,7 @@ exports.BanUserDto = BanUserDto;
 
 
 /***/ }),
-/* 118 */
+/* 119 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9833,7 +9952,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateUserDto = void 0;
 const swagger_1 = __webpack_require__(5);
 const class_validator_1 = __webpack_require__(18);
-const user_constants_1 = __webpack_require__(47);
+const user_constants_1 = __webpack_require__(48);
 class UpdateUserDto {
 }
 __decorate([
@@ -9890,7 +10009,7 @@ exports.UpdateUserDto = UpdateUserDto;
 
 
 /***/ }),
-/* 119 */
+/* 120 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9917,13 +10036,13 @@ var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserGuard = void 0;
 const common_1 = __webpack_require__(7);
-const jwt_refresh_service_1 = __webpack_require__(58);
+const jwt_refresh_service_1 = __webpack_require__(59);
 const auth_constants_1 = __webpack_require__(12);
 const core_1 = __webpack_require__(4);
-const roles_auth_decorator_1 = __webpack_require__(72);
+const roles_auth_decorator_1 = __webpack_require__(73);
 const auth_service_1 = __webpack_require__(13);
-const api_exception_1 = __webpack_require__(49);
-const admin_constants_1 = __webpack_require__(50);
+const api_exception_1 = __webpack_require__(50);
+const admin_constants_1 = __webpack_require__(51);
 let UserGuard = class UserGuard {
     constructor(userJwtRefreshTokenService, reflector, authService) {
         this.userJwtRefreshTokenService = userJwtRefreshTokenService;
@@ -9969,7 +10088,7 @@ exports.UserGuard = UserGuard;
 
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10022,7 +10141,7 @@ exports.UserMiddleware = UserMiddleware;
 
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10053,12 +10172,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.InitializeUserMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
-const jwt_refresh_service_1 = __webpack_require__(64);
-const jwt_refresh_service_2 = __webpack_require__(65);
-const jwt_refresh_service_3 = __webpack_require__(58);
-const decorators_1 = __webpack_require__(82);
+const jwt_refresh_service_1 = __webpack_require__(65);
+const jwt_refresh_service_2 = __webpack_require__(66);
+const jwt_refresh_service_3 = __webpack_require__(59);
+const decorators_1 = __webpack_require__(83);
 const auth_constants_1 = __webpack_require__(12);
-const api_exception_1 = __webpack_require__(49);
+const api_exception_1 = __webpack_require__(50);
 let InitializeUserMiddleware = class InitializeUserMiddleware {
     constructor(ownerJwtRefreshTokenService, adminJwtRefreshTokenService, userJwtRefreshTokenService) {
         this.ownerJwtRefreshTokenService = ownerJwtRefreshTokenService;
@@ -10113,7 +10232,7 @@ exports.InitializeUserMiddleware = InitializeUserMiddleware;
 
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10131,7 +10250,7 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const class_transformer_1 = __webpack_require__(29);
 const class_validator_1 = __webpack_require__(18);
-const validate_dto_exception_error_1 = __webpack_require__(78);
+const validate_dto_exception_error_1 = __webpack_require__(79);
 class RequestValidator {
 }
 exports["default"] = RequestValidator;
@@ -10158,7 +10277,7 @@ RequestValidator.validate = (classInstance) => {
 
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10172,41 +10291,41 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductModule = void 0;
 const common_1 = __webpack_require__(7);
-const product_service_1 = __webpack_require__(124);
-const product_controller_1 = __webpack_require__(128);
+const product_service_1 = __webpack_require__(125);
+const product_controller_1 = __webpack_require__(129);
 const sequelize_1 = __webpack_require__(8);
 const admin_module_1 = __webpack_require__(9);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(46);
-const auth_module_1 = __webpack_require__(80);
+const admin_refresh_token_model_1 = __webpack_require__(47);
+const auth_module_1 = __webpack_require__(81);
 const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
-const owner_module_1 = __webpack_require__(94);
+const owner_module_1 = __webpack_require__(95);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(95);
+const roles_module_1 = __webpack_require__(96);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const users_module_1 = __webpack_require__(115);
-const config_1 = __webpack_require__(99);
+const users_module_1 = __webpack_require__(116);
+const config_1 = __webpack_require__(100);
 const product_model_1 = __webpack_require__(32);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
-const categories_module_1 = __webpack_require__(137);
-const cart_module_1 = __webpack_require__(140);
+const categories_module_1 = __webpack_require__(138);
+const cart_module_1 = __webpack_require__(141);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
-const orders_module_1 = __webpack_require__(143);
-const initialize_user_middleware_1 = __webpack_require__(121);
-const categories_service_1 = __webpack_require__(126);
-const file_service_1 = __webpack_require__(108);
-const product_middleware_1 = __webpack_require__(146);
+const orders_module_1 = __webpack_require__(144);
+const initialize_user_middleware_1 = __webpack_require__(122);
+const categories_service_1 = __webpack_require__(127);
+const file_service_1 = __webpack_require__(109);
+const product_middleware_1 = __webpack_require__(147);
 const product_reviews_model_1 = __webpack_require__(44);
 const bookmark_products_1 = __webpack_require__(37);
 const watched_products_model_1 = __webpack_require__(38);
-const user_middleware_1 = __webpack_require__(120);
+const user_middleware_1 = __webpack_require__(121);
 let ProductModule = class ProductModule {
     configure(consumer) {
         consumer.apply(product_middleware_1.ProductMiddleware).forRoutes({
@@ -10266,7 +10385,7 @@ exports.ProductModule = ProductModule;
 
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10297,17 +10416,17 @@ var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductService = void 0;
 const common_1 = __webpack_require__(7);
-const product_constants_1 = __webpack_require__(125);
+const product_constants_1 = __webpack_require__(126);
 const sequelize_1 = __webpack_require__(8);
-const fs_1 = __webpack_require__(109);
-const path_1 = __webpack_require__(110);
-const admin_service_1 = __webpack_require__(55);
-const api_exception_1 = __webpack_require__(49);
-const owner_service_1 = __webpack_require__(56);
-const categories_service_1 = __webpack_require__(126);
+const fs_1 = __webpack_require__(110);
+const path_1 = __webpack_require__(111);
+const admin_service_1 = __webpack_require__(56);
+const api_exception_1 = __webpack_require__(50);
+const owner_service_1 = __webpack_require__(57);
+const categories_service_1 = __webpack_require__(127);
 const product_model_1 = __webpack_require__(32);
 const users_service_1 = __webpack_require__(24);
-const user_constants_1 = __webpack_require__(47);
+const user_constants_1 = __webpack_require__(48);
 let ProductService = ProductService_1 = class ProductService {
     constructor(productRepository, userService, ownerService, adminService, categoriesService) {
         this.productRepository = productRepository;
@@ -11086,7 +11205,7 @@ exports.ProductService = ProductService;
 
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -11126,7 +11245,7 @@ exports.FILE_NOT_FOUND = {
 
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -11155,10 +11274,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CategoriesService = void 0;
 const common_1 = __webpack_require__(7);
-const interfaces_1 = __webpack_require__(91);
+const interfaces_1 = __webpack_require__(92);
 const sequelize_1 = __webpack_require__(8);
-const api_exception_1 = __webpack_require__(49);
-const category_constants_1 = __webpack_require__(127);
+const api_exception_1 = __webpack_require__(50);
+const category_constants_1 = __webpack_require__(128);
 const category_model_1 = __webpack_require__(41);
 let CategoriesService = class CategoriesService {
     constructor(categoryRepository) {
@@ -11293,7 +11412,7 @@ exports.CategoriesService = CategoriesService;
 
 
 /***/ }),
-/* 127 */
+/* 128 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -11315,7 +11434,7 @@ exports.ALREADY_EXIST = {
 
 
 /***/ }),
-/* 128 */
+/* 129 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -11359,29 +11478,29 @@ var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductController = void 0;
 const common_1 = __webpack_require__(7);
-const platform_express_1 = __webpack_require__(129);
-const throttler_behind_proxy_guard_1 = __webpack_require__(70);
-const error_handler_filter_1 = __webpack_require__(77);
-const create_product_dto_1 = __webpack_require__(130);
-const throttler_1 = __webpack_require__(71);
-const product_service_1 = __webpack_require__(124);
-const roles_auth_decorator_1 = __webpack_require__(72);
-const add_content_guard_1 = __webpack_require__(97);
-const jw_refresh_guard_1 = __webpack_require__(75);
+const platform_express_1 = __webpack_require__(130);
+const throttler_behind_proxy_guard_1 = __webpack_require__(71);
+const error_handler_filter_1 = __webpack_require__(78);
+const create_product_dto_1 = __webpack_require__(131);
+const throttler_1 = __webpack_require__(72);
+const product_service_1 = __webpack_require__(125);
+const roles_auth_decorator_1 = __webpack_require__(73);
+const add_content_guard_1 = __webpack_require__(98);
+const jw_refresh_guard_1 = __webpack_require__(76);
 const jwt_auth_guard_1 = __webpack_require__(11);
-const owner_admin_guard_1 = __webpack_require__(74);
-const roles_guard_1 = __webpack_require__(73);
-const multer_1 = __webpack_require__(131);
-const path_1 = __importStar(__webpack_require__(110));
-const update_product_dto_1 = __webpack_require__(132);
-const user_type_decorator_1 = __webpack_require__(85);
-const user_id_decorator_1 = __webpack_require__(89);
-const api_exception_filter_1 = __webpack_require__(79);
-const fs_1 = __webpack_require__(109);
-const uuid_1 = __webpack_require__(57);
-const edit_content_guard_1 = __webpack_require__(133);
-const formdata_pipe_1 = __webpack_require__(134);
-const user_guard_1 = __webpack_require__(119);
+const owner_admin_guard_1 = __webpack_require__(75);
+const roles_guard_1 = __webpack_require__(74);
+const multer_1 = __webpack_require__(132);
+const path_1 = __importStar(__webpack_require__(111));
+const update_product_dto_1 = __webpack_require__(133);
+const user_type_decorator_1 = __webpack_require__(86);
+const user_id_decorator_1 = __webpack_require__(90);
+const api_exception_filter_1 = __webpack_require__(80);
+const fs_1 = __webpack_require__(110);
+const uuid_1 = __webpack_require__(58);
+const edit_content_guard_1 = __webpack_require__(134);
+const formdata_pipe_1 = __webpack_require__(135);
+const user_guard_1 = __webpack_require__(120);
 let ProductController = class ProductController {
     constructor(productService) {
         this.productService = productService;
@@ -11714,14 +11833,14 @@ exports.ProductController = ProductController;
 
 
 /***/ }),
-/* 129 */
+/* 130 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/platform-express");
 
 /***/ }),
-/* 130 */
+/* 131 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -11809,14 +11928,14 @@ exports.CreateProductDto = CreateProductDto;
 
 
 /***/ }),
-/* 131 */
+/* 132 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("multer");
 
 /***/ }),
-/* 132 */
+/* 133 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -11904,7 +12023,7 @@ exports.UpdateProductDto = UpdateProductDto;
 
 
 /***/ }),
-/* 133 */
+/* 134 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -11932,8 +12051,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.EditContentGuard = void 0;
 const common_1 = __webpack_require__(7);
 const auth_constants_1 = __webpack_require__(12);
-const admin_service_1 = __webpack_require__(55);
-const api_exception_1 = __webpack_require__(49);
+const admin_service_1 = __webpack_require__(56);
+const api_exception_1 = __webpack_require__(50);
 let EditContentGuard = class EditContentGuard {
     constructor(adminService) {
         this.adminService = adminService;
@@ -11968,7 +12087,7 @@ exports.EditContentGuard = EditContentGuard;
 
 
 /***/ }),
-/* 134 */
+/* 135 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -11998,8 +12117,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ParseFormDataJsonPipe = void 0;
-const deep_parse_json_1 = __webpack_require__(135);
-const _ = __importStar(__webpack_require__(136));
+const deep_parse_json_1 = __webpack_require__(136);
+const _ = __importStar(__webpack_require__(137));
 class ParseFormDataJsonPipe {
     constructor(options) {
         this.options = options;
@@ -12020,21 +12139,21 @@ exports.ParseFormDataJsonPipe = ParseFormDataJsonPipe;
 
 
 /***/ }),
-/* 135 */
+/* 136 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("deep-parse-json");
 
 /***/ }),
-/* 136 */
+/* 137 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("lodash");
 
 /***/ }),
-/* 137 */
+/* 138 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12048,28 +12167,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CategoriesModule = void 0;
 const common_1 = __webpack_require__(7);
-const categories_service_1 = __webpack_require__(126);
-const categories_controller_1 = __webpack_require__(138);
-const config_1 = __webpack_require__(99);
+const categories_service_1 = __webpack_require__(127);
+const categories_controller_1 = __webpack_require__(139);
+const config_1 = __webpack_require__(100);
 const sequelize_1 = __webpack_require__(8);
 const admin_module_1 = __webpack_require__(9);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(46);
-const auth_module_1 = __webpack_require__(80);
+const admin_refresh_token_model_1 = __webpack_require__(47);
+const auth_module_1 = __webpack_require__(81);
 const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
-const owner_module_1 = __webpack_require__(94);
+const owner_module_1 = __webpack_require__(95);
 const product_model_1 = __webpack_require__(32);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(95);
+const roles_module_1 = __webpack_require__(96);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const users_module_1 = __webpack_require__(115);
+const users_module_1 = __webpack_require__(116);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
-const product_module_1 = __webpack_require__(123);
-const initialize_user_middleware_1 = __webpack_require__(121);
+const product_module_1 = __webpack_require__(124);
+const initialize_user_middleware_1 = __webpack_require__(122);
 let CategoriesModule = class CategoriesModule {
     configure(consumer) {
         consumer
@@ -12113,7 +12232,7 @@ exports.CategoriesModule = CategoriesModule;
 
 
 /***/ }),
-/* 138 */
+/* 139 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12135,19 +12254,19 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CategoriesController = void 0;
 const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
-const throttler_1 = __webpack_require__(71);
-const roles_auth_decorator_1 = __webpack_require__(72);
-const add_content_guard_1 = __webpack_require__(97);
-const jw_refresh_guard_1 = __webpack_require__(75);
+const throttler_1 = __webpack_require__(72);
+const roles_auth_decorator_1 = __webpack_require__(73);
+const add_content_guard_1 = __webpack_require__(98);
+const jw_refresh_guard_1 = __webpack_require__(76);
 const jwt_auth_guard_1 = __webpack_require__(11);
-const owner_admin_guard_1 = __webpack_require__(74);
-const roles_guard_1 = __webpack_require__(73);
-const throttler_behind_proxy_guard_1 = __webpack_require__(70);
-const error_handler_filter_1 = __webpack_require__(77);
-const categories_service_1 = __webpack_require__(126);
-const create_category_dto_1 = __webpack_require__(139);
+const owner_admin_guard_1 = __webpack_require__(75);
+const roles_guard_1 = __webpack_require__(74);
+const throttler_behind_proxy_guard_1 = __webpack_require__(71);
+const error_handler_filter_1 = __webpack_require__(78);
+const categories_service_1 = __webpack_require__(127);
+const create_category_dto_1 = __webpack_require__(140);
 const category_model_1 = __webpack_require__(41);
-const api_exception_filter_1 = __webpack_require__(79);
+const api_exception_filter_1 = __webpack_require__(80);
 let CategoriesController = class CategoriesController {
     constructor(categoriesService) {
         this.categoriesService = categoriesService;
@@ -12223,7 +12342,7 @@ exports.CategoriesController = CategoriesController;
 
 
 /***/ }),
-/* 139 */
+/* 140 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12274,7 +12393,7 @@ exports.CreateCategoryDto = CreateCategoryDto;
 
 
 /***/ }),
-/* 140 */
+/* 141 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12288,31 +12407,31 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CartModule = void 0;
 const common_1 = __webpack_require__(7);
-const cart_service_1 = __webpack_require__(141);
-const cart_controller_1 = __webpack_require__(142);
-const config_1 = __webpack_require__(99);
+const cart_service_1 = __webpack_require__(142);
+const cart_controller_1 = __webpack_require__(143);
+const config_1 = __webpack_require__(100);
 const sequelize_1 = __webpack_require__(8);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(46);
+const admin_refresh_token_model_1 = __webpack_require__(47);
 const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(95);
+const roles_module_1 = __webpack_require__(96);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const cart_model_1 = __webpack_require__(34);
-const auth_module_1 = __webpack_require__(80);
-const product_module_1 = __webpack_require__(123);
-const users_module_1 = __webpack_require__(115);
+const auth_module_1 = __webpack_require__(81);
+const product_module_1 = __webpack_require__(124);
+const users_module_1 = __webpack_require__(116);
 const cart_product_model_1 = __webpack_require__(33);
-const categories_module_1 = __webpack_require__(137);
+const categories_module_1 = __webpack_require__(138);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
 const product_model_1 = __webpack_require__(32);
-const orders_module_1 = __webpack_require__(143);
+const orders_module_1 = __webpack_require__(144);
 let CartModule = class CartModule {
 };
 CartModule = __decorate([
@@ -12356,7 +12475,7 @@ exports.CartModule = CartModule;
 
 
 /***/ }),
-/* 141 */
+/* 142 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12379,7 +12498,7 @@ exports.CardService = CardService;
 
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12393,8 +12512,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CardController = void 0;
 const common_1 = __webpack_require__(7);
-const api_exception_filter_1 = __webpack_require__(79);
-const error_handler_filter_1 = __webpack_require__(77);
+const api_exception_filter_1 = __webpack_require__(80);
+const error_handler_filter_1 = __webpack_require__(78);
 let CardController = class CardController {
 };
 CardController = __decorate([
@@ -12405,7 +12524,7 @@ exports.CardController = CardController;
 
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12419,21 +12538,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OrdersModule = void 0;
 const common_1 = __webpack_require__(7);
-const orders_service_1 = __webpack_require__(144);
-const orders_controller_1 = __webpack_require__(145);
+const orders_service_1 = __webpack_require__(145);
+const orders_controller_1 = __webpack_require__(146);
 const sequelize_1 = __webpack_require__(8);
-const auth_module_1 = __webpack_require__(80);
+const auth_module_1 = __webpack_require__(81);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(95);
+const roles_module_1 = __webpack_require__(96);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const users_module_1 = __webpack_require__(115);
-const categories_module_1 = __webpack_require__(137);
-const config_1 = __webpack_require__(99);
+const users_module_1 = __webpack_require__(116);
+const categories_module_1 = __webpack_require__(138);
+const config_1 = __webpack_require__(100);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(46);
-const cart_module_1 = __webpack_require__(140);
+const admin_refresh_token_model_1 = __webpack_require__(47);
+const cart_module_1 = __webpack_require__(141);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const category_model_1 = __webpack_require__(41);
@@ -12485,7 +12604,7 @@ exports.OrdersModule = OrdersModule;
 
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12508,7 +12627,7 @@ exports.OrdersService = OrdersService;
 
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12522,8 +12641,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OrdersController = void 0;
 const common_1 = __webpack_require__(7);
-const api_exception_filter_1 = __webpack_require__(79);
-const error_handler_filter_1 = __webpack_require__(77);
+const api_exception_filter_1 = __webpack_require__(80);
+const error_handler_filter_1 = __webpack_require__(78);
 let OrdersController = class OrdersController {
 };
 OrdersController = __decorate([
@@ -12534,7 +12653,7 @@ exports.OrdersController = OrdersController;
 
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12587,7 +12706,83 @@ exports.ProductMiddleware = ProductMiddleware;
 
 
 /***/ }),
-/* 147 */
+/* 148 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+var CurrencyService_1;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CurrencyService = void 0;
+const common_1 = __webpack_require__(7);
+const sequelize_1 = __webpack_require__(8);
+const owner_model_1 = __webpack_require__(31);
+const currencies_model_1 = __webpack_require__(46);
+const axios_1 = __importDefault(__webpack_require__(149));
+let CurrencyService = CurrencyService_1 = class CurrencyService {
+    constructor(currenciesRepository, ownerRepository) {
+        this.currenciesRepository = currenciesRepository;
+        this.ownerRepository = ownerRepository;
+        this.Logger = new common_1.Logger(CurrencyService_1.name);
+    }
+    static setCurrencies(ownerId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const currencies = yield currencies_model_1.Currencies.findAll();
+            if (currencies.length > 0) {
+                console.log(currencies);
+                return;
+            }
+            const response = yield axios_1.default.get(`${process.env.CURRENCIES_URL.trim()}/latest?base=${process.env.BASE_CURRENCY.trim()}`, {
+                headers: {
+                    'apikey': process.env.CURRENCIES_API_KEY.trim(),
+                },
+            });
+            const currency = yield currencies_model_1.Currencies.create({});
+        });
+    }
+};
+CurrencyService = CurrencyService_1 = __decorate([
+    (0, common_1.Injectable)({ scope: common_1.Scope.TRANSIENT }),
+    __param(0, (0, sequelize_1.InjectModel)(currencies_model_1.Currencies)),
+    __param(1, (0, sequelize_1.InjectModel)(owner_model_1.Owner)),
+    __metadata("design:paramtypes", [Object, Object])
+], CurrencyService);
+exports.CurrencyService = CurrencyService;
+
+
+/***/ }),
+/* 149 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("axios");
+
+/***/ }),
+/* 150 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12618,12 +12813,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.InitializeEmailMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
-const decorators_1 = __webpack_require__(82);
-const admin_service_1 = __webpack_require__(55);
-const owner_service_1 = __webpack_require__(56);
+const decorators_1 = __webpack_require__(83);
+const admin_service_1 = __webpack_require__(56);
+const owner_service_1 = __webpack_require__(57);
 const users_service_1 = __webpack_require__(24);
 const auth_constants_1 = __webpack_require__(12);
-const api_exception_1 = __webpack_require__(49);
+const api_exception_1 = __webpack_require__(50);
 let InitializeEmailMiddleware = class InitializeEmailMiddleware {
     constructor(ownerService, adminService, userService) {
         this.ownerService = ownerService;
@@ -12678,7 +12873,7 @@ exports.InitializeEmailMiddleware = InitializeEmailMiddleware;
 
 
 /***/ }),
-/* 148 */
+/* 151 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12713,7 +12908,7 @@ const express_1 = __webpack_require__(20);
 const auth_constants_1 = __webpack_require__(12);
 const admin_model_1 = __webpack_require__(28);
 const owner_model_1 = __webpack_require__(31);
-const api_exception_1 = __webpack_require__(49);
+const api_exception_1 = __webpack_require__(50);
 let ActivateMiddleware = class ActivateMiddleware {
     constructor(adminRepository, ownerRepository) {
         this.adminRepository = adminRepository;
@@ -12781,7 +12976,7 @@ exports.ActivateMiddleware = ActivateMiddleware;
 
 
 /***/ }),
-/* 149 */
+/* 152 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12813,10 +13008,10 @@ exports.UserAdminMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
 const auth_constants_1 = __webpack_require__(12);
-const user_constants_1 = __webpack_require__(47);
-const uuid_1 = __webpack_require__(57);
+const user_constants_1 = __webpack_require__(48);
+const uuid_1 = __webpack_require__(58);
 const users_service_1 = __webpack_require__(24);
-const api_exception_1 = __webpack_require__(49);
+const api_exception_1 = __webpack_require__(50);
 let UserAdminMiddleware = class UserAdminMiddleware {
     constructor(userService) {
         this.userService = userService;
@@ -12873,7 +13068,7 @@ exports.UserAdminMiddleware = UserAdminMiddleware;
 
 
 /***/ }),
-/* 150 */
+/* 153 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12904,10 +13099,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AdminUserMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
-const admin_constants_1 = __webpack_require__(50);
+const admin_constants_1 = __webpack_require__(51);
 const auth_constants_1 = __webpack_require__(12);
-const admin_service_1 = __webpack_require__(55);
-const api_exception_1 = __webpack_require__(49);
+const admin_service_1 = __webpack_require__(56);
+const api_exception_1 = __webpack_require__(50);
 let AdminUserMiddleware = class AdminUserMiddleware {
     constructor(adminService) {
         this.adminService = adminService;
@@ -12964,7 +13159,7 @@ exports.AdminUserMiddleware = AdminUserMiddleware;
 
 
 /***/ }),
-/* 151 */
+/* 154 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12990,7 +13185,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CorsMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
-const ip_1 = __importDefault(__webpack_require__(152));
+const ip_1 = __importDefault(__webpack_require__(155));
 let CorsMiddleware = CorsMiddleware_1 = class CorsMiddleware {
     constructor() {
         this.Logger = new common_1.Logger(CorsMiddleware_1.name);
@@ -13040,14 +13235,14 @@ exports.CorsMiddleware = CorsMiddleware;
 
 
 /***/ }),
-/* 152 */
+/* 155 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("ip");
 
 /***/ }),
-/* 153 */
+/* 156 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13077,19 +13272,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 var AppController_1;
-var _a, _b, _c, _d, _e, _f, _g;
+var _a, _b, _c, _d, _e, _f, _g, _h;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppController = void 0;
 const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
-const path_1 = __importDefault(__webpack_require__(110));
-const geoip2_node_1 = __webpack_require__(154);
-const rxjs_1 = __webpack_require__(103);
+const path_1 = __importDefault(__webpack_require__(111));
+const geoip2_node_1 = __webpack_require__(157);
+const rxjs_1 = __webpack_require__(104);
 const express_1 = __webpack_require__(20);
 const crypto_1 = __webpack_require__(14);
 const util_1 = __webpack_require__(15);
+const country_to_currency_1 = __importDefault(__webpack_require__(158));
+const axios_1 = __webpack_require__(159);
 let AppController = AppController_1 = class AppController {
-    constructor() {
+    constructor(httpService) {
+        this.httpService = httpService;
         this.Logger = new common_1.Logger(AppController_1.name);
     }
     set(request, response, next) {
@@ -13122,7 +13320,10 @@ let AppController = AppController_1 = class AppController {
                 this.Logger.log(ipAddress);
                 const reader = yield geoip2_node_1.Reader.open(path_1.default.join(__dirname, 'GeoLite2-Country.mmdb'));
                 const geoCountry = reader.country(request.ip);
-                return response.json(Object.assign({}, geoCountry));
+                return response.json({
+                    currency: country_to_currency_1.default[`${geoCountry.country.isoCode}`],
+                    geoLocation: Object.assign({}, geoCountry),
+                });
             }
             catch (err) {
                 this.Logger.error(err);
@@ -13150,7 +13351,7 @@ __decorate([
     __param(1, (0, common_1.Res)()),
     __param(2, (0, common_1.Next)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_a = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _a : Object, typeof (_b = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _b : Object, typeof (_c = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _c : Object]),
+    __metadata("design:paramtypes", [typeof (_b = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _b : Object, typeof (_c = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _c : Object, typeof (_d = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _d : Object]),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "set", null);
 __decorate([
@@ -13160,31 +13361,46 @@ __decorate([
     __param(1, (0, common_1.Res)()),
     __param(2, (0, common_1.Next)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_d = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _d : Object, typeof (_e = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _e : Object, typeof (_f = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _f : Object]),
+    __metadata("design:paramtypes", [typeof (_e = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _e : Object, typeof (_f = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _f : Object, typeof (_g = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _g : Object]),
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "getLocation", null);
 __decorate([
     (0, common_1.Sse)('sse'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", typeof (_g = typeof rxjs_1.Observable !== "undefined" && rxjs_1.Observable) === "function" ? _g : Object)
+    __metadata("design:returntype", typeof (_h = typeof rxjs_1.Observable !== "undefined" && rxjs_1.Observable) === "function" ? _h : Object)
 ], AppController.prototype, "sse", null);
 AppController = AppController_1 = __decorate([
     (0, swagger_1.ApiTags)('/'),
-    (0, common_1.Controller)('/')
+    (0, common_1.Controller)('/'),
+    __metadata("design:paramtypes", [typeof (_a = typeof axios_1.HttpService !== "undefined" && axios_1.HttpService) === "function" ? _a : Object])
 ], AppController);
 exports.AppController = AppController;
 
 
 /***/ }),
-/* 154 */
+/* 157 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@maxmind/geoip2-node");
 
 /***/ }),
-/* 155 */
+/* 158 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("country-to-currency");
+
+/***/ }),
+/* 159 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("@nestjs/axios");
+
+/***/ }),
+/* 160 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13208,8 +13424,8 @@ var TelegramModule_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TelegramModule = void 0;
 const common_1 = __webpack_require__(7);
-const telegram_constants_1 = __webpack_require__(156);
-const telegram_service_1 = __webpack_require__(157);
+const telegram_constants_1 = __webpack_require__(161);
+const telegram_service_1 = __webpack_require__(162);
 let TelegramModule = TelegramModule_1 = class TelegramModule {
     static forRootAsync(options) {
         const asyncOptions = TelegramModule_1.createAsyncOptionsProvider(options);
@@ -13239,7 +13455,7 @@ exports.TelegramModule = TelegramModule;
 
 
 /***/ }),
-/* 156 */
+/* 161 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -13250,7 +13466,7 @@ exports.TELEGRAM_MODULE_OPTIONS = 'TELEGRAM_MODULE_OPTIONS';
 
 
 /***/ }),
-/* 157 */
+/* 162 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13280,9 +13496,9 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TelegramService = void 0;
 const common_1 = __webpack_require__(7);
-const telegraf_1 = __webpack_require__(158);
-const telegram_constants_1 = __webpack_require__(156);
-const telegram_interface_1 = __webpack_require__(159);
+const telegraf_1 = __webpack_require__(163);
+const telegram_constants_1 = __webpack_require__(161);
+const telegram_interface_1 = __webpack_require__(164);
 let TelegramService = class TelegramService {
     constructor(options) {
         this.bot = new telegraf_1.Telegraf(options.token);
@@ -13303,14 +13519,14 @@ exports.TelegramService = TelegramService;
 
 
 /***/ }),
-/* 158 */
+/* 163 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("telegraf");
 
 /***/ }),
-/* 159 */
+/* 164 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -13319,7 +13535,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 
 /***/ }),
-/* 160 */
+/* 165 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -13341,7 +13557,7 @@ exports.getTelegramConfig = getTelegramConfig;
 
 
 /***/ }),
-/* 161 */
+/* 166 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13358,40 +13574,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ReviewsModule = void 0;
 const common_1 = __webpack_require__(7);
-const config_1 = __webpack_require__(99);
+const config_1 = __webpack_require__(100);
 const sequelize_1 = __webpack_require__(8);
-const categories_service_1 = __webpack_require__(126);
-const initialize_user_middleware_1 = __webpack_require__(121);
+const categories_service_1 = __webpack_require__(127);
+const initialize_user_middleware_1 = __webpack_require__(122);
 const admin_module_1 = __webpack_require__(9);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(46);
-const auth_module_1 = __webpack_require__(80);
-const cart_module_1 = __webpack_require__(140);
+const admin_refresh_token_model_1 = __webpack_require__(47);
+const auth_module_1 = __webpack_require__(81);
+const cart_module_1 = __webpack_require__(141);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
-const categories_module_1 = __webpack_require__(137);
+const categories_module_1 = __webpack_require__(138);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
-const orders_module_1 = __webpack_require__(143);
+const orders_module_1 = __webpack_require__(144);
 const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
-const owner_module_1 = __webpack_require__(94);
+const owner_module_1 = __webpack_require__(95);
 const product_model_1 = __webpack_require__(32);
-const product_service_1 = __webpack_require__(124);
+const product_service_1 = __webpack_require__(125);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(95);
+const roles_module_1 = __webpack_require__(96);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const users_module_1 = __webpack_require__(115);
+const users_module_1 = __webpack_require__(116);
 const product_reviews_model_1 = __webpack_require__(44);
 const review_model_1 = __webpack_require__(43);
-const reviews_controller_1 = __webpack_require__(162);
-const reviews_service_1 = __webpack_require__(164);
-const create_review_dto_1 = __webpack_require__(163);
-const body_validator_pipe_1 = __importDefault(__webpack_require__(122));
+const reviews_controller_1 = __webpack_require__(167);
+const reviews_service_1 = __webpack_require__(169);
+const create_review_dto_1 = __webpack_require__(168);
+const body_validator_pipe_1 = __importDefault(__webpack_require__(123));
 let ReviewsModule = class ReviewsModule {
     configure(consumer) {
         consumer
@@ -13446,7 +13662,7 @@ exports.ReviewsModule = ReviewsModule;
 
 
 /***/ }),
-/* 162 */
+/* 167 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13467,18 +13683,18 @@ var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ReviewsController = void 0;
 const common_1 = __webpack_require__(7);
-const throttler_1 = __webpack_require__(71);
-const roles_auth_decorator_1 = __webpack_require__(72);
-const jw_refresh_guard_1 = __webpack_require__(75);
+const throttler_1 = __webpack_require__(72);
+const roles_auth_decorator_1 = __webpack_require__(73);
+const jw_refresh_guard_1 = __webpack_require__(76);
 const jwt_auth_guard_1 = __webpack_require__(11);
-const owner_admin_guard_1 = __webpack_require__(74);
-const roles_guard_1 = __webpack_require__(73);
-const api_exception_filter_1 = __webpack_require__(79);
-const error_handler_filter_1 = __webpack_require__(77);
-const throttler_behind_proxy_guard_1 = __webpack_require__(70);
-const create_review_dto_1 = __webpack_require__(163);
-const reviews_service_1 = __webpack_require__(164);
-const edit_content_guard_1 = __webpack_require__(133);
+const owner_admin_guard_1 = __webpack_require__(75);
+const roles_guard_1 = __webpack_require__(74);
+const api_exception_filter_1 = __webpack_require__(80);
+const error_handler_filter_1 = __webpack_require__(78);
+const throttler_behind_proxy_guard_1 = __webpack_require__(71);
+const create_review_dto_1 = __webpack_require__(168);
+const reviews_service_1 = __webpack_require__(169);
+const edit_content_guard_1 = __webpack_require__(134);
 let ReviewsController = class ReviewsController {
     constructor(reviewsService) {
         this.reviewsService = reviewsService;
@@ -13531,7 +13747,7 @@ exports.ReviewsController = ReviewsController;
 
 
 /***/ }),
-/* 163 */
+/* 168 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13572,7 +13788,7 @@ exports.CreateReviewDto = CreateReviewDto;
 
 
 /***/ }),
-/* 164 */
+/* 169 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13603,7 +13819,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ReviewsService = void 0;
 const common_1 = __webpack_require__(7);
 const sequelize_1 = __webpack_require__(8);
-const product_service_1 = __webpack_require__(124);
+const product_service_1 = __webpack_require__(125);
 const review_model_1 = __webpack_require__(43);
 let ReviewsService = class ReviewsService {
     constructor(reviewRepository, productService) {
@@ -13656,35 +13872,35 @@ exports.ReviewsService = ReviewsService;
 
 
 /***/ }),
-/* 165 */
+/* 170 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("helmet");
 
 /***/ }),
-/* 166 */
+/* 171 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("compression");
 
 /***/ }),
-/* 167 */
+/* 172 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 168 */
+/* 173 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("serve-favicon");
 
 /***/ }),
-/* 169 */
+/* 174 */
 /***/ ((module) => {
 
 "use strict";
@@ -13752,7 +13968,7 @@ module.exports = require("body-parser");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("d77997f9d4e750552a50")
+/******/ 		__webpack_require__.h = () => ("91f215d33eec609cae01")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

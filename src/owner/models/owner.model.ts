@@ -16,6 +16,7 @@ import { UserRoles } from '../../roles/models/user.roles.model';
 import { OwnerCreationAttrbs } from '../../core/interfaces/owner.interfaces';
 import { Product } from '../../product/models/product.model';
 import { OwnerRefreshToken } from './owner.refresh.token.model';
+import { Currencies } from './currencies.model';
 
 @Table({ tableName: 'OWNER' })
 export class Owner extends Model<Owner, OwnerCreationAttrbs> {
@@ -165,6 +166,9 @@ export class Owner extends Model<Owner, OwnerCreationAttrbs> {
     field: 'activationCode',
   })
   private activationCode: number;
+
+  @HasMany(() => Currencies)
+  public currencies: Currencies[];  
 
   @HasMany(() => Product)
   private products: Product[];

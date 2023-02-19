@@ -52,6 +52,7 @@
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
+    "country-to-currency": "^1.0.7",
     "cross-env": "^7.0.3",
     "deep-parse-json": "^1.0.2",
     "geoip-lite": "^1.4.7",

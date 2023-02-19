@@ -26,6 +26,8 @@ import { Role } from '../roles/models/roles.model';
 import { UserRoles } from '../roles/models/user.roles.model';
 import { User } from '../users/models/user.model';
 import { UserRefreshToken } from '../users/models/user.refresh.token.model';
+import { HttpService } from '@nestjs/axios';
+import { Currencies } from 'src/owner/models/currencies.model';
 
 @Module({
   providers: [MailService, UsersService, OwnerService, AdminService],
@@ -51,6 +53,7 @@ import { UserRefreshToken } from '../users/models/user.refresh.token.model';
       UserRoles,
       Cart,
       CartProduct,
+      Currencies,
     ]),
     forwardRef(() => AdminModule),
     forwardRef(() => RolesModule),

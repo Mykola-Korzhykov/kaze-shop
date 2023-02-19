@@ -15,7 +15,7 @@ import { ApiErrorExceptionFilter } from './common/filters/error-handler.filter';
 import { ApiExceptionFilter } from './common/filters/api-exception.filter';
 import { extname, join } from 'path';
 import bodyParser from 'body-parser';
-import { ParseJsonPipe } from './common/pipes/parse.json.pipe';
+import { CreateOwnerDto } from './owner/dto/create.owner.dto';
 const PORT: number = Number(process.env.PORT) || 2222;
 declare const module: any;
 async function startServer(): Promise<INestApplication> {
@@ -26,8 +26,13 @@ async function startServer(): Promise<INestApplication> {
     forceCloseConnections: true,
   });
   if (process.env?.NODE_ENV === 'production') {
-    const OWNER: string[] = process.env.OWNER.toString().trim().split(',');
-    await OwnerService.creatingOwner(OWNER);
+    const owner = await OwnerService.creatingOwner(<CreateOwnerDto>{
+      name: process.env.OWNER.toString().trim().split(',')[0],
+      surname: process.env.OWNER.toString().trim().split(',')[1],
+      phoneNumber: process.env.OWNER.toString().trim().split(',')[2],
+      email: process.env.OWNER.toString().trim().split(',')[3],
+      password: process.env.OWNER.toString().trim().split(',')[4],
+    });
   }
   const httpAdapter = app.get(HttpAdapterHost);
   app.enableShutdownHooks();

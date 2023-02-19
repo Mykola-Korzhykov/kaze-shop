@@ -41,6 +41,7 @@ import { AuthService } from '../auth/auth.service';
 import { MailModule } from '../mail/mail.module';
 import { BookmarksProducts } from '../product/models/bookmark.products';
 import { WatchedProducts } from '../product/models/watched.products.model';
+import { Currencies } from 'src/owner/models/currencies.model';
 @Module({
   controllers: [UsersController],
   imports: [
@@ -65,6 +66,7 @@ import { WatchedProducts } from '../product/models/watched.products.model';
       UserRoles,
       Cart,
       CartProduct,
+      Currencies,
       BookmarksProducts,
       WatchedProducts,
     ]),

@@ -15,12 +15,15 @@ import { Observable, map, timeout } from 'rxjs';
 import { NextFunction, Request, Response } from 'express';
 import { randomBytes, scrypt, createCipheriv } from 'crypto';
 import { promisify } from 'util';
-import IP from 'ip';
-import axios from 'axios';
+import countryToCurrency from 'country-to-currency';
+import { HttpService } from '@nestjs/axios';
 @ApiTags('/')
 @Controller('/')
 export class AppController {
   private readonly Logger = new Logger(AppController.name);
+  constructor(private readonly httpService: HttpService) {
+    
+  }
   @Get('set')
   @HttpCode(200)
   set(
@@ -63,7 +66,10 @@ export class AppController {
         this.Logger.log(ipAddress);
         const reader = await Reader.open(path.join(__dirname, 'GeoLite2-Country.mmdb'));
         const geoCountry = reader.country(request.ip);
-        return response.json({ ...geoCountry });
+        return response.json({
+          currency: countryToCurrency[`${geoCountry.country.isoCode}`],   
+          geoLocation: { ...geoCountry },
+        });
       } catch (err) {
         this.Logger.error(err);
         next(err);

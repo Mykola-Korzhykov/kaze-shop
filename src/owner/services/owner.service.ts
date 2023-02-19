@@ -1,11 +1,8 @@
 import {
-  BadRequestException,
-  ForbiddenException,
   HttpStatus,
   Injectable,
-  NotFoundException,
+  Logger,
   Scope,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { LoginDto } from '../../auth/dto/login.dto';
@@ -31,28 +28,33 @@ import { Payload } from '../../core/interfaces/auth.interfaces';
 import { v4 } from 'uuid';
 import { Role } from '../../roles/models/roles.model';
 import { ApiException } from '../../common/exceptions/api.exception';
+import { Currencies } from '../models/currencies.model';
 @Injectable({ scope: Scope.TRANSIENT })
 export class OwnerService {
+  private readonly Logger = new Logger(OwnerService.name);
   constructor(
+    @InjectModel(Currencies) private readonly currenciesRepository: typeof Currencies,
     @InjectModel(Owner) private readonly ownerRepository: typeof Owner,
     private readonly roleService: RolesService,
   ) {}
 
-  static async creatingOwner(OWNER: string[]) {
-    const existingOwners = await Owner.findAll();
-    console.log(existingOwners);
-    if (existingOwners.length > 0) {
+  static async creatingOwner(OWNER: CreateOwnerDto) {
+    const [phoneNumber, email] = await Promise.all([
+      await Owner.findOne({ where: { phoneNumber: OWNER.phoneNumber }, include: { all: true } }),
+      await Owner.findOne({ where: { email: OWNER.email }, include: { all: true } }),
+    ]);
+    if (phoneNumber || email) {
+      console.log(phoneNumber, email);
       return;
     }
-    console.log('Creating');
     const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
     const salt = await bcrypt.genSalt(SALT_ROUNDS || 10);
-    const hashedPassword = await bcrypt.hash(OWNER[4], salt);
+    const hashedPassword = await bcrypt.hash(OWNER.password, salt);
     const ownerDto = {
-      name: OWNER[0],
-      surname: OWNER[1],
-      phoneNumber: OWNER[2],
-      email: OWNER[3],
+      name: OWNER.name,
+      surname: OWNER.surname,
+      phoneNumber: OWNER.phoneNumber,
+      email: OWNER.email,
       password: hashedPassword,
       activationLink: v4(),
     };

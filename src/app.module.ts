@@ -50,6 +50,8 @@ import { Review } from './reviews/models/review.model';
 import { ProductReviews } from './reviews/models/product.reviews.model';
 import { BookmarksProducts } from './product/models/bookmark.products';
 import { WatchedProducts } from './product/models/watched.products.model';
+import { Currencies } from './owner/models/currencies.model';
+import { HttpModule, HttpService } from '@nestjs/axios';
 @Module({
   controllers: [AppController],
   providers: [
@@ -64,6 +66,7 @@ import { WatchedProducts } from './product/models/watched.products.model';
     },
   ],
   imports: [
+    HttpModule,
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
       expandVariables: true,
@@ -150,6 +153,7 @@ import { WatchedProducts } from './product/models/watched.products.model';
         Review,
         BookmarksProducts,
         WatchedProducts,
+        Currencies,
       ],
       autoLoadModels: true,
       synchronize: true,
