@@ -16,6 +16,7 @@ import { NextFunction, Request, Response } from 'express';
 import { randomBytes, scrypt, createCipheriv } from 'crypto';
 import { promisify } from 'util';
 import IP from 'ip';
+import axios from 'axios';
 @ApiTags('/')
 @Controller('/')
 export class AppController {
