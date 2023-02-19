@@ -60,8 +60,12 @@ export class AppController {
       try {
         const ipAddress = IP.address();
         const reader = await Reader.open(path.join(__dirname, 'GeoLite2-Country.mmdb'));
-        const res = reader.country(ipAddress);
-        return response.json(res.country.isoCode);
+        const res = reader.country('62.122.202.29');
+        const ip: any = await axios.get('http://ip-api.com/json/?fields=61439');
+        console.log(ip, request.headers['x-forwarded-for'], request.ip);
+        return response.json({
+          ...reader.country(ip.data.query)
+        });
       } catch (err) {
         this.Logger.error(err);
         next(err);
