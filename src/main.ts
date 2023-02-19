@@ -32,7 +32,6 @@ async function startServer(): Promise<INestApplication> {
   const httpAdapter = app.get(HttpAdapterHost);
   app.enableShutdownHooks();
   app.useGlobalPipes(
-    //new ParseJsonPipe(),
     new ValidationPipe({
       transform: true,
       whitelist: true,
@@ -45,7 +44,7 @@ async function startServer(): Promise<INestApplication> {
     new ApiExceptionFilter(),
   );
   app.set('trust proxy', true);
-  app.use(favicon(join(__dirname, 'static', 'favicon.svg')));
+  app.use(favicon(join(__dirname, 'static', 'favicon', 'favicon.ico')));
   app.useStaticAssets(join(__dirname, 'static'), {
     prefix: '/public',
     lastModified: true,

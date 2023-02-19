@@ -26,6 +26,7 @@ export class CorsMiddleware implements NestMiddleware {
     const isEmpty = this.isEmpty(headers);
     const ipAddress = IP.address();
     this.Logger.log(ipAddress);
+    this.Logger.log(req.headers['x-forwarded-for']);
     if (isEmpty) {
       throw new BadRequestException({
         message: 'No request headers were provided!',

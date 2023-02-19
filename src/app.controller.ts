@@ -58,10 +58,11 @@ export class AppController {
   ) {
     (async () => {
       try {
-        const ipAddress = IP.address();
+        const ipAddress = request.headers['x-forwarded-for'];
+        this.Logger.log(ipAddress);
         const reader = await Reader.open(path.join(__dirname, 'GeoLite2-Country.mmdb'));
-        const res = reader.country(ipAddress);
-        return response.json(res.country.isoCode);
+        const geoCountry = reader.country(request.ip);
+        return response.json({ ...geoCountry });
       } catch (err) {
         this.Logger.error(err);
         next(err);

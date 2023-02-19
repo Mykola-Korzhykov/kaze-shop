@@ -191,7 +191,6 @@ const error_handler_filter_1 = __webpack_require__(77);
 const api_exception_filter_1 = __webpack_require__(79);
 const path_1 = __webpack_require__(110);
 const body_parser_1 = __importDefault(__webpack_require__(169));
-const parse_json_pipe_1 = __webpack_require__(170);
 const PORT = Number(process.env.PORT) || 2222;
 function startServer() {
     var _a;
@@ -208,14 +207,14 @@ function startServer() {
         }
         const httpAdapter = app.get(core_1.HttpAdapterHost);
         app.enableShutdownHooks();
-        app.useGlobalPipes(new parse_json_pipe_1.ParseJsonPipe(), new common_1.ValidationPipe({
+        app.useGlobalPipes(new common_1.ValidationPipe({
             transform: true,
             whitelist: true,
             forbidNonWhitelisted: true,
         }));
         app.useGlobalFilters(new all_exceptions_filter_1.AllExceptionsFilter(httpAdapter), new error_handler_filter_1.ApiErrorExceptionFilter(), new api_exception_filter_1.ApiExceptionFilter());
         app.set('trust proxy', true);
-        app.use((0, serve_favicon_1.default)((0, path_1.join)(__dirname, 'static', 'favicon.svg')));
+        app.use((0, serve_favicon_1.default)((0, path_1.join)(__dirname, 'static', 'favicon', 'favicon.ico')));
         app.useStaticAssets((0, path_1.join)(__dirname, 'static'), {
             prefix: '/public',
             lastModified: true,
@@ -1063,6 +1062,7 @@ let AuthService = AuthService_1 = class AuthService {
                     path: '/',
                     httpOnly: true,
                     expires: tokens.expireDate,
+                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                 });
                 return response.json(Object.assign({}, this.setResponse(tokens, user)));
@@ -1088,7 +1088,6 @@ let AuthService = AuthService_1 = class AuthService {
                     path: '/',
                     httpOnly: true,
                     expires: tokens.expireDate,
-                    domain: process.env.CLIENT_DOMAIN.toString().trim(),
                     secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                 });
@@ -1148,6 +1147,7 @@ let AuthService = AuthService_1 = class AuthService {
                     path: '/',
                     httpOnly: true,
                     expires: tokens.expireDate,
+                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                 });
                 yield this.activateUser(dto.user, response);
@@ -1520,7 +1520,6 @@ let AuthService = AuthService_1 = class AuthService {
                     signed: true,
                     path: '/',
                     httpOnly: true,
-                    domain: process.env.CLIENT_DOMAIN.toString().trim(),
                     secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                 });
@@ -1539,6 +1538,7 @@ let AuthService = AuthService_1 = class AuthService {
                     maxAge: 30 * 24 * 60 * 60 * 1000,
                     signed: true,
                     httpOnly: true,
+                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                     path: '/',
                 });
@@ -13000,6 +13000,7 @@ let CorsMiddleware = CorsMiddleware_1 = class CorsMiddleware {
         const isEmpty = this.isEmpty(headers);
         const ipAddress = ip_1.default.address();
         this.Logger.log(ipAddress);
+        this.Logger.log(req.headers['x-forwarded-for']);
         if (isEmpty) {
             throw new common_1.BadRequestException({
                 message: 'No request headers were provided!',
@@ -13087,7 +13088,6 @@ const rxjs_1 = __webpack_require__(103);
 const express_1 = __webpack_require__(20);
 const crypto_1 = __webpack_require__(14);
 const util_1 = __webpack_require__(15);
-const ip_1 = __importDefault(__webpack_require__(152));
 let AppController = AppController_1 = class AppController {
     constructor() {
         this.Logger = new common_1.Logger(AppController_1.name);
@@ -13118,10 +13118,11 @@ let AppController = AppController_1 = class AppController {
     getLocation(request, response, next) {
         (() => __awaiter(this, void 0, void 0, function* () {
             try {
-                const ipAddress = ip_1.default.address();
+                const ipAddress = request.headers['x-forwarded-for'];
+                this.Logger.log(ipAddress);
                 const reader = yield geoip2_node_1.Reader.open(path_1.default.join(__dirname, 'GeoLite2-Country.mmdb'));
-                const res = reader.country(ipAddress);
-                return response.json(res.country.isoCode);
+                const geoCountry = reader.country(request.ip);
+                return response.json(Object.assign({}, geoCountry));
             }
             catch (err) {
                 this.Logger.error(err);
@@ -13689,47 +13690,6 @@ module.exports = require("serve-favicon");
 "use strict";
 module.exports = require("body-parser");
 
-/***/ }),
-/* 170 */
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ParseJsonPipe = void 0;
-const common_1 = __webpack_require__(7);
-let ParseJsonPipe = class ParseJsonPipe {
-    transform(value, metadata) {
-        const propertyName = metadata.data;
-        try {
-            return JSON.parse(value);
-        }
-        catch (e) {
-            throw new common_1.BadRequestException(`${propertyName} contains invalid JSON `);
-        }
-    }
-    static transform(value, metadata) {
-        const propertyName = metadata.data;
-        try {
-            return JSON.parse(value);
-        }
-        catch (e) {
-            throw new common_1.BadRequestException(`${propertyName} contains invalid JSON `);
-        }
-    }
-};
-ParseJsonPipe = __decorate([
-    (0, common_1.Injectable)()
-], ParseJsonPipe);
-exports.ParseJsonPipe = ParseJsonPipe;
-
-
 /***/ })
 /******/ 	]);
 /************************************************************************/
@@ -13792,7 +13752,7 @@ exports.ParseJsonPipe = ParseJsonPipe;
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("a8836dcf29786474d6ae")
+/******/ 		__webpack_require__.h = () => ("d77997f9d4e750552a50")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

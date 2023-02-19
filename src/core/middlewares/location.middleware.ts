@@ -17,11 +17,17 @@ export class LocationMiddleware implements NestMiddleware {
     (async () => {
       const ipAddress = IP.address();
       const reader = await Reader.open(path.join(__dirname, 'GeoLite2-Country.mmdb'));
-      const data = reader.country(ipAddress);
-      const geo = geoip.lookup(ipAddress);
+      const data = reader.country(req.ip);
+      const geo = geoip.lookup(req.headers['x-forwarded-for'][0]);
       console.log(geo, ipAddress);
-      req['location'] = data.country.isoCode;
-      res.setHeader('Location', `${req['location']}`);
+      req['countryIsoCode'] = data.country.isoCode;
+      req['CLient-IP'] = data.traits.ipAddress;
+      req['CLient-Network'] = data.traits.network;
+      req['user-type'] = data.traits.userType;
+      res.setHeader('Client-IP-Address', `${data.traits.ipAddress}`);
+      res.setHeader('Client-Network', `${data.traits.network}`);
+      res.setHeader('Client-Location', `${data.country.isoCode}`);
+      res.setHeader('Client-userType', `${data.traits.userType}`);
       return next();
     })();
   }
