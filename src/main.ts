@@ -32,7 +32,7 @@ async function startServer(): Promise<INestApplication> {
   const httpAdapter = app.get(HttpAdapterHost);
   app.enableShutdownHooks();
   app.useGlobalPipes(
-    //new ParseJsonPipe(),
+    ////new ParseJsonPipe(),
     new ValidationPipe({
       transform: true,
       whitelist: true,
