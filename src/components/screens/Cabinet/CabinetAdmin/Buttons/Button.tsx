@@ -19,7 +19,7 @@ export const Button: React.FC<ButtonProps> = ({ id, text, img_grey, img_white, c
     return (
 
         <div onClick={() => chengeDisplayOK(id)} className={s.wrapper}>
-            <button className={id === 7 ? `${s.button} ${s.button7}` : `${s.button}`}>
+            <button className={id === 6 ? `${s.button} ${s.button7}` : `${s.button}`}>
                 {/* <span className={`${s.img} ${s.img_id}`}></span> */}
                 <Image className={`${s.img_grey}`} src={img_grey} alt="My Image" />
                 <Image className={`${s.img_white}`} src={img_white} alt="My Image" />

@@ -4,6 +4,7 @@ import { ThunkAction, Action } from '@reduxjs/toolkit'
 import goods from './slices/goods'
 import user from './slices/user'
 import admin from './slices/admin'
+import main from './slices/main'
 
 export function makeStore() {
 	return configureStore({
@@ -11,6 +12,7 @@ export function makeStore() {
 			goods: goods,
 			user: user,
 			admin,
+			main
 		},
 	})
 }
@@ -26,5 +28,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 	unknown,
 	Action<string>
 >
+
 
 export const wrapper = createWrapper<RootStore>(makeStore, { debug: false })

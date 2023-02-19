@@ -17,19 +17,17 @@ interface UserProps {
 
 export const UserRole: React.FC<UserProps> = ({ setUserOpenOK, idUserOpen, id, }) => {
 
-    // const [openUserMy, setOpenUserMy] = React.useState<boolean>(false)
     const openUser = id === idUserOpen ? true : false
-
     const [activeCheckbox, setSctiveCheckbox] = React.useState<number | null>(null)
 
     return (
-        <div className={s.wrapper}>
+        <div onClick={() => { setUserOpenOK(idUserOpen === id ? -1 : id) }} className={s.wrapper}>
             <div className={s.info}>
                 <div className={s.user}>
                     <div className={s.user_id}>User {id}</div>
                     <Image onClick={() => {
                         setUserOpenOK(idUserOpen === id ? -1 : id)
-                        // setOpenUserMy(!openUserMy)
+
                     }} className={openUser ? `${s.ArrowUser_open}` : `${s.ArrowUser_close}`} src={ArrowUser} alt='user' />
                 </div>
 

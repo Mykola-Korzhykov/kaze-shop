@@ -32,16 +32,17 @@ import { ButtonType } from '../../../../types/auth'
 
 
 const buttonsObj: ButtonType[] = [
-    { id: 1, img_grey: icon1, img_white: icon_white1, text: 'Выдать роль', url: '/adminSettings/roleSettings' },
-    { id: 2, img_grey: icon2, img_white: icon_white2, text: 'Администраторы', url: '/adminSettings/adminSettings' },
+    { id: 1, img_grey: icon1, img_white: icon_white1, text: 'Выдать роль', url: '/admin-settings/role-settings' },
+    { id: 2, img_grey: icon2, img_white: icon_white2, text: 'Администраторы', url: '/admin-settings/admin-settings' },
     // { id: 3, img_grey: icon3, img_white: icon_white3, text: 'Редактировать сайт' },
-    { id: 4, img_grey: icon4, img_white: icon_white4, text: 'Добавить товар' },
-    { id: 5, img_grey: icon5, img_white: icon_white5, text: 'Редактировать товар' },
-    { id: 6, img_grey: icon6, img_white: icon_white6, text: 'Настройки' },
-    { id: 7, img_grey: icon7, img_white: icon_white7, text: 'Выход' }
+    { id: 3, img_grey: icon4, img_white: icon_white4, text: 'Добавить товар', url: '/admin-settings/add-product' },
+    { id: 4, img_grey: icon5, img_white: icon_white5, text: 'Редактировать товар' },
+    { id: 5, img_grey: icon6, img_white: icon_white6, text: 'Настройки' },
+    { id: 6, img_grey: icon7, img_white: icon_white7, text: 'Выход' }
 ]
 
 export const CabinetAdmin: React.FC = () => {
+
 
     const users = useSelector((state: RootState) => state.admin.users)
 
@@ -50,8 +51,11 @@ export const CabinetAdmin: React.FC = () => {
 
     const usersRole = users.map((el) => <UserRole key={el.id} setUserOpenOK={setUserOpen} idUserOpen={idUserOpen} id={el.id} />)
     const usersAdmin = users.map((el) => <UserAdmin key={el.id} setUserOpenOK={setUserOpen} idUserOpen={idUserOpen} id={el.id} />)
+
+
     return (
         <div className={s.wrapper}>
+
 
             <div className={s.nav_dekstop}>
                 {buttonsObj.map((obj, ind) => {

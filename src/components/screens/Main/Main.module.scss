@@ -1,0 +1,232 @@
+.wrapper{
+    height: 781px;
+    width: 100%;
+    background-color: aliceblue;
+    // margin-top: 40px;
+    background-image: url('../../../assets/images/main/main__backround_onlyphoto.svg');
+    background-position: center 0;
+    background-size: cover;
+    background-position: 50% 0;
+    
+}
+
+.inner__wrapper{
+    display: flex;
+   
+   
+}
+
+.inner_text{
+    position: relative;
+    flex-grow: 1;
+}
+
+.inner_nav {
+   
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 4vw;
+    height: 532px;
+    margin-top: 149px;
+    min-width: 170px;
+    justify-content: flex-end;
+    position: relative;
+   
+    .nav_text_1{
+        transform: rotate(-90deg);
+        position: absolute;
+        top: 0;
+        left: -76px;
+        top: 10px;
+
+        font-family: 'Georama', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+        cursor: pointer;
+        @media (max-width: 1200px) {
+            opacity: 0;
+            cursor: not-allowed;
+            pointer-events: none;
+            }
+      
+    }
+    .nav_text_2 {
+        transform: rotate(-90deg);
+        left: -47px;
+        top: 330px;
+        position: absolute;
+
+        font-family: 'Georama', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+        cursor: pointer;
+
+        @media (max-width: 1200px) {
+            opacity: 0;
+            cursor: not-allowed;
+            pointer-events: none;
+
+        }
+        
+    }
+
+    .nav_btn{
+        max-width: min-content;
+        padding: 16px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 30px;
+        background-color: black;
+
+        font-family: 'Georama', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+        color: #FFFFFF;
+
+        @media (max-width: 1200px) {
+        opacity: 0;
+        cursor: not-allowed;
+        pointer-events: none;
+
+    }
+
+        
+    }
+
+}
+
+.inner_collection{
+    flex-grow: 1;
+    display: flex;
+    align-items: end;
+    justify-content: flex-end;
+    height: 781px;
+    transition: 0.5s ease-in-out;
+
+    .collection_wrapper{
+        display: flex;
+        gap: 30px;
+        height: 781px;
+        width: 600px;
+        position: relative;
+        overflow: hidden;
+        transition: opacity 0.5s ease-in-out;
+           
+    }
+}
+
+ .btn {
+     background: none;
+     transform: translateX(530px);
+     position: relative;
+     bottom: 400px;
+     width: 32px;
+     height: 32px;
+     border: none;
+     cursor: pointer;
+     z-index: 2;
+
+    @media (max-width: 1500px) {
+            transform: translateX(540px);
+            //top: 420px;
+    }
+    @media (max-width: 1440px) {
+      transform: translateX(550px);
+    }
+    @media (max-width: 1370px) {
+            transform: translateX(560px);
+    }
+    @media (max-width: 1350px) {
+        transform: translateX(570px);
+    }
+    @media (max-width: 1310px) {
+        transform: translateX(580px);
+    }
+    @media (max-width: 1270px) {
+        transform: translateX(590px);
+    }
+    // @media (max-width: 1230px) {
+    //     transform: translateX(600px);
+    //     //top: 420px;
+    // }
+
+    //  @media (max-width: 1340px) {
+    //      transform: translateX(600px);
+    //      //top: 420px;
+    //  }
+
+     // @media (max-width: 1290px) {
+     //     transform: translateX(610px);
+     // }
+     // @media (max-width: 1255px) {
+     //     transform: translateX(620px);
+     // }
+     // @media (max-width: 1230px) {
+     //     transform: translateX(630px);
+     // }
+
+ }
+
+.products_wrapper{
+    display: flex;
+    gap: 30px;
+    height: 781px;
+    width: 600px;
+    // overflow: hidden;
+    position: absolute;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.text{
+        font-family: 'Russo One';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 143px;
+        line-height: 172px;  
+        width: 943px;
+        height: 172px;
+
+        position: absolute;
+        top: 345px;
+        left: 100%;
+        transform: translate(-50%, -50%);
+
+        @media (max-width: 1500px) {
+            left: 140%;
+        }
+        @media (max-width: 1340px) {
+            left: 180%;
+        }
+
+        @media (max-width: 1270px) {
+            left: 210%;
+        }
+        @media (max-width: 1270px) {
+            left: 230%;
+        }
+
+
+
+       .transparent_text{
+            -webkit-text-stroke: 2.5px white;
+            color: transparent;
+            user-select: none;
+            cursor: default;
+       }
+       .white_text{
+        color: #FFFFFF;
+        user-select: none;
+        cursor: default;
+       }
+       
+               
+          
+}

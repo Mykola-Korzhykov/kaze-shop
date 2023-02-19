@@ -1,0 +1,40 @@
+.wrapper {
+    // margin-top: 400px;
+    width: 100%;
+}
+
+.first_wrapper {
+    display: flex;
+
+    @media (max-width: 1050px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.first_wrapper_2 {
+    flex-grow: 1;
+
+    // margin-top: 30px;
+    @media (max-width: 1050px) {
+
+        display: flex;
+        flex-direction: column;
+
+    }
+
+}
+
+.first_wrapper_1 {
+    flex-grow: 1;
+
+    @media (max-width: 1050px) {
+        margin-bottom: 30px;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.second_wrapper {
+    margin-top: 30px;
+}

@@ -1,0 +1,151 @@
+.wrapper{
+    margin-left: 10px;
+    
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.wrapper + .wrapper{
+    margin-top: 30px;
+}
+
+.title{
+    // font-family: 'Neue Haas Grotesk Display Pro';
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    margin-bottom: 10px;
+
+    display: flex;
+    align-items: center;
+
+    color: #0B0B0B;
+    
+}
+
+.input{
+    flex-basis: 70%;
+    flex-shrink: 0;
+    flex-grow: 0;
+    background: none;
+    padding: 13px 15px;
+    border: 1.5px solid #9D9D9D;
+   
+    position: relative;
+}
+
+.input::placeholder{
+    font-family: 'Neue Haas Grotesk Display Pro';
+    // font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+   
+    font-family: 'Georama', sans-serif;
+
+
+    color: #9D9D9D;
+}
+
+.input:focus{
+    outline: none;
+}
+
+.select__wrapper{
+    flex-grow: 1;
+    position: relative;
+
+    .select_img{
+        position: absolute;
+        transform: translate(0%, 50% );
+        right: 16px;
+    }
+
+    .select::-ms-expand {
+        display: none;
+        appearance: none;
+    }
+}
+
+
+
+.select::-ms-expand {
+    appearance: none;
+//    display: none;
+// background-image: url('../../../../../../../assets/icons/cabinetAdmin/selectIcon.svg');
+// position: absolute;
+//     top: 50%;
+//     right: 10px;
+//     transform: translateY(-50%)
+}
+
+.select::before {
+    // display: none;
+    // background-image: url('../../../../../../../assets/icons/cabinetAdmin/selectIcon.svg');
+    // position: absolute;
+    //     top: 50%;
+    //     right: 10px;
+    //     transform: translateY(-50%)
+}
+
+.select::after{
+    // display: none;
+    // background-image: url('../../../../../../../assets/icons/cabinetAdmin/selectIcon.svg');
+    // position: absolute;
+    //     top: 50%;
+    //     right: 10px;
+    //     transform: translateY(-50%)
+}
+
+
+.select[name="categoruProduct"]{
+
+    font-family: 'Neue Haas Grotesk Display Pro';
+    // font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+
+    font-family: 'Georama', sans-serif;
+
+
+    color: #9D9D9D;
+
+
+}
+
+.select {
+    background: none;
+    padding: 13px 15px;
+    padding-right: 20px;
+    border: 1.5px solid #9D9D9D;
+    
+    width: 100%;
+
+   
+}
+
+.select:focus{
+    outline: none;
+}
+
+.select::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 350px;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+  
+}
+
+
+
+
+
