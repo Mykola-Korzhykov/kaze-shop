@@ -1,0 +1,52 @@
+
+.wrapper{
+    display: flex;
+    max-width: 600px;
+
+    @media (max-width: 1200px) {
+        max-width: 390px;
+    }
+}
+
+.btn_catalog{
+   
+    margin-top: 15px;
+    width: 194px;
+    height: 56px;
+    gap: 30px;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    padding-left: 24px; 
+    cursor: pointer;
+
+    display: none;
+
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+
+    color: #FFFFFF;
+
+
+    @media (max-width: 1200px) {
+        display: flex;
+    }
+
+    @media (max-width: 600px) {
+        margin-left: auto !important;
+        margin-right: 15px;
+        
+    }
+
+    .arrow_svg{
+        display: block;
+        width: 32px;
+        height: 32px;
+        background-color: aliceblue;
+        color: aliceblue;
+        
+    }
+}
