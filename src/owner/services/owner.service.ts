@@ -40,13 +40,13 @@ export class OwnerService {
     @InjectModel(Currencies) private readonly currenciesRepository: typeof Currencies,
     @InjectModel(Owner) private readonly ownerRepository: typeof Owner,
     private readonly roleService: RolesService,
-  ) { }
+  ) {}
   
    @Cron(CronExpression.EVERY_30_SECONDS, {
     name: 'setting-up',
     unrefTimeout: true,
     utcOffset: 1,
-    disabled: false
+    disabled: true,
   })
   async setUp() {
     this.Logger.warn(`time (${1}) second for job setting-up to run!`);

@@ -143,7 +143,9 @@ export class CurrencyService {
         return null;
     }
 
-    @Cron(CronExpression.EVERY_WEEK)
+    @Cron(CronExpression.EVERY_WEEK, {
+        disabled: true,
+    })
     async renewCurrenciesCron(): Promise<Currencies>{
         return this.renewCurrencies();
     }

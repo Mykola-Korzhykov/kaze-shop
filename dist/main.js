@@ -183,12 +183,12 @@ const helmet_1 = __importDefault(__webpack_require__(172));
 const compression_1 = __importDefault(__webpack_require__(173));
 const cookie_parser_1 = __importDefault(__webpack_require__(174));
 const serve_favicon_1 = __importDefault(__webpack_require__(175));
-const cluster_service_1 = __webpack_require__(110);
+const cluster_service_1 = __webpack_require__(108);
 const common_1 = __webpack_require__(7);
-const all_exceptions_filter_1 = __webpack_require__(107);
+const all_exceptions_filter_1 = __webpack_require__(105);
 const error_handler_filter_1 = __webpack_require__(83);
 const api_exception_filter_1 = __webpack_require__(85);
-const path_1 = __webpack_require__(115);
+const path_1 = __webpack_require__(113);
 const body_parser_1 = __importDefault(__webpack_require__(176));
 const PORT = Number(process.env.PORT) || 2222;
 function startServer() {
@@ -350,24 +350,24 @@ exports.AppModule = void 0;
 const common_1 = __webpack_require__(7);
 const sequelize_1 = __webpack_require__(8);
 const admin_module_1 = __webpack_require__(9);
-const config_1 = __webpack_require__(105);
+const config_1 = __webpack_require__(103);
 const admin_model_1 = __webpack_require__(28);
 const auth_module_1 = __webpack_require__(86);
-const cluster_service_1 = __webpack_require__(110);
+const cluster_service_1 = __webpack_require__(108);
 const throttler_1 = __webpack_require__(77);
-const path_1 = __importDefault(__webpack_require__(115));
+const path_1 = __importDefault(__webpack_require__(113));
 const admin_refresh_token_model_1 = __webpack_require__(47);
-const mail_module_1 = __webpack_require__(119);
+const mail_module_1 = __webpack_require__(117);
 const cors_middleware_1 = __webpack_require__(156);
 const core_1 = __webpack_require__(4);
-const all_exceptions_filter_1 = __webpack_require__(107);
-const global_interceptor_1 = __webpack_require__(108);
-const core_module_1 = __webpack_require__(106);
-const product_module_1 = __webpack_require__(128);
-const users_module_1 = __webpack_require__(120);
-const owner_module_1 = __webpack_require__(100);
-const orders_module_1 = __webpack_require__(148);
-const cart_module_1 = __webpack_require__(145);
+const all_exceptions_filter_1 = __webpack_require__(105);
+const global_interceptor_1 = __webpack_require__(106);
+const core_module_1 = __webpack_require__(104);
+const product_module_1 = __webpack_require__(126);
+const users_module_1 = __webpack_require__(118);
+const owner_module_1 = __webpack_require__(98);
+const orders_module_1 = __webpack_require__(147);
+const cart_module_1 = __webpack_require__(144);
 const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
 const user_model_1 = __webpack_require__(35);
@@ -377,7 +377,7 @@ const user_roles_model_1 = __webpack_require__(30);
 const app_controller_1 = __webpack_require__(158);
 const telegram_module_1 = __webpack_require__(160);
 const telegram_config_1 = __webpack_require__(165);
-const categories_module_1 = __webpack_require__(142);
+const categories_module_1 = __webpack_require__(141);
 const product_model_1 = __webpack_require__(32);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
@@ -385,8 +385,8 @@ const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
-const platform_express_1 = __webpack_require__(134);
-const bull_1 = __webpack_require__(116);
+const platform_express_1 = __webpack_require__(133);
+const bull_1 = __webpack_require__(114);
 const reviews_module_1 = __webpack_require__(166);
 const review_model_1 = __webpack_require__(43);
 const product_reviews_model_1 = __webpack_require__(44);
@@ -573,24 +573,24 @@ const auth_module_1 = __webpack_require__(86);
 const jwt_1 = __webpack_require__(16);
 const admin_refresh_token_model_1 = __webpack_require__(47);
 const jwt_refresh_service_1 = __webpack_require__(71);
-const owner_module_1 = __webpack_require__(100);
+const owner_module_1 = __webpack_require__(98);
 const mail_service_1 = __webpack_require__(21);
-const initialize_user_middleware_1 = __webpack_require__(126);
+const initialize_user_middleware_1 = __webpack_require__(124);
 const owner_service_1 = __webpack_require__(57);
 const owner_model_1 = __webpack_require__(31);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(101);
+const roles_module_1 = __webpack_require__(99);
 const owner_refresh_token_model_1 = __webpack_require__(45);
-const users_module_1 = __webpack_require__(120);
+const users_module_1 = __webpack_require__(118);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const user_admin_middleware_1 = __webpack_require__(154);
-const body_validator_pipe_1 = __importDefault(__webpack_require__(127));
+const body_validator_pipe_1 = __importDefault(__webpack_require__(125));
 const create_admin_dto_1 = __webpack_require__(73);
-const config_1 = __webpack_require__(105);
+const config_1 = __webpack_require__(103);
 const admin_user_middleware_1 = __webpack_require__(155);
-const core_module_1 = __webpack_require__(106);
+const core_module_1 = __webpack_require__(104);
 const scedule_service_1 = __webpack_require__(66);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
@@ -6342,7 +6342,7 @@ __decorate([
         name: 'setting-up',
         unrefTimeout: true,
         utcOffset: 1,
-        disabled: false
+        disabled: true,
     }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -6536,7 +6536,9 @@ let CurrencyService = CurrencyService_1 = class CurrencyService {
     }
 };
 __decorate([
-    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_WEEK),
+    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_WEEK, {
+        disabled: true,
+    }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
@@ -6967,9 +6969,7 @@ __decorate([
     __metadata("design:returntype", Array)
 ], TasksService.prototype, "getTimeouts", null);
 __decorate([
-    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_WEEK, {
-        disabled: true,
-    }),
+    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_WEEK),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
@@ -6979,7 +6979,6 @@ __decorate([
         name: 'setting-up',
         unrefTimeout: true,
         utcOffset: 1,
-        disabled: true
     }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -8244,17 +8243,17 @@ const admin_module_1 = __webpack_require__(9);
 const jwt_1 = __webpack_require__(16);
 const mail_service_1 = __webpack_require__(21);
 const core_1 = __webpack_require__(4);
-const http_exception_filter_1 = __webpack_require__(98);
-const auth_middleware_1 = __webpack_require__(99);
+const http_exception_filter_1 = __webpack_require__(96);
+const auth_middleware_1 = __webpack_require__(97);
 const throttler_1 = __webpack_require__(77);
-const owner_module_1 = __webpack_require__(100);
+const owner_module_1 = __webpack_require__(98);
 const jwt_refresh_service_1 = __webpack_require__(71);
 const jwt_refresh_service_2 = __webpack_require__(70);
-const users_module_1 = __webpack_require__(120);
-const initialize_user_middleware_1 = __webpack_require__(126);
-const initialize_email_middleware_1 = __webpack_require__(152);
-const activate_middleware_1 = __webpack_require__(153);
-const body_validator_pipe_1 = __importDefault(__webpack_require__(127));
+const users_module_1 = __webpack_require__(118);
+const initialize_user_middleware_1 = __webpack_require__(124);
+const initialize_email_middleware_1 = __webpack_require__(151);
+const activate_middleware_1 = __webpack_require__(152);
+const body_validator_pipe_1 = __importDefault(__webpack_require__(125));
 const login_dto_1 = __webpack_require__(89);
 const signup_dto_1 = __webpack_require__(17);
 const reset_password_dto_1 = __webpack_require__(90);
@@ -8268,10 +8267,10 @@ const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const config_1 = __webpack_require__(105);
+const config_1 = __webpack_require__(103);
 const scedule_service_1 = __webpack_require__(66);
-const core_module_1 = __webpack_require__(106);
-const events_service_1 = __webpack_require__(96);
+const core_module_1 = __webpack_require__(104);
+const events_service_1 = __webpack_require__(153);
 const currency_service_1 = __webpack_require__(60);
 const currencies_model_1 = __webpack_require__(46);
 const axios_1 = __webpack_require__(61);
@@ -8841,52 +8840,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var _a;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.AppListener = void 0;
-const common_1 = __webpack_require__(7);
-const interfaces_1 = __webpack_require__(97);
-const event_emitter_1 = __webpack_require__(67);
-const jwt_refresh_token_deleted_evet_1 = __webpack_require__(69);
-let AppListener = class AppListener {
-    handleTokenDeletedEvent(event) {
-        return event;
-    }
-};
-__decorate([
-    (0, event_emitter_1.OnEvent)('refreshtoken.deleted'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_a = typeof jwt_refresh_token_deleted_evet_1.JwtRefreshTokenDeletedEvent !== "undefined" && jwt_refresh_token_deleted_evet_1.JwtRefreshTokenDeletedEvent) === "function" ? _a : Object]),
-    __metadata("design:returntype", void 0)
-], AppListener.prototype, "handleTokenDeletedEvent", null);
-AppListener = __decorate([
-    (0, common_1.Injectable)({ scope: interfaces_1.Scope.DEFAULT })
-], AppListener);
-exports.AppListener = AppListener;
-
-
-/***/ }),
-/* 97 */
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("@nestjs/common/interfaces");
-
-/***/ }),
-/* 98 */
-/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
-
-"use strict";
-
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.HttpExceptionFilter = void 0;
 const common_1 = __webpack_require__(7);
@@ -8912,7 +8865,7 @@ exports.HttpExceptionFilter = HttpExceptionFilter;
 
 
 /***/ }),
-/* 99 */
+/* 97 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8964,7 +8917,7 @@ exports.AuthMiddleware = AuthMiddleware;
 
 
 /***/ }),
-/* 100 */
+/* 98 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8990,9 +8943,9 @@ const admin_module_1 = __webpack_require__(9);
 const mail_service_1 = __webpack_require__(21);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(101);
-const config_1 = __webpack_require__(105);
-const core_module_1 = __webpack_require__(106);
+const roles_module_1 = __webpack_require__(99);
+const config_1 = __webpack_require__(103);
+const core_module_1 = __webpack_require__(104);
 const scedule_service_1 = __webpack_require__(66);
 const admin_model_1 = __webpack_require__(28);
 const admin_refresh_token_model_1 = __webpack_require__(47);
@@ -9010,11 +8963,13 @@ const admin_service_1 = __webpack_require__(56);
 const currencies_model_1 = __webpack_require__(46);
 const currency_service_1 = __webpack_require__(60);
 const axios_1 = __webpack_require__(61);
+const schedule_1 = __webpack_require__(59);
 let OwnerModule = OwnerModule_1 = class OwnerModule {
 };
 OwnerModule = OwnerModule_1 = __decorate([
     (0, common_1.Module)({
         imports: [
+            schedule_1.ScheduleModule.forRoot(),
             axios_1.HttpModule,
             config_1.ConfigModule.forRoot({
                 envFilePath: `.${process.env.NODE_ENV}.env`,
@@ -9062,7 +9017,7 @@ exports.OwnerModule = OwnerModule;
 
 
 /***/ }),
-/* 101 */
+/* 99 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9077,13 +9032,13 @@ var RolesModule_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.RolesModule = void 0;
 const common_1 = __webpack_require__(7);
-const roles_controller_1 = __webpack_require__(102);
+const roles_controller_1 = __webpack_require__(100);
 const roles_service_1 = __webpack_require__(25);
 const sequelize_1 = __webpack_require__(8);
 const roles_model_1 = __webpack_require__(26);
 const user_model_1 = __webpack_require__(35);
 const user_roles_model_1 = __webpack_require__(30);
-const config_1 = __webpack_require__(105);
+const config_1 = __webpack_require__(103);
 const order_product_model_1 = __webpack_require__(40);
 const admin_model_1 = __webpack_require__(28);
 const admin_refresh_token_model_1 = __webpack_require__(47);
@@ -9099,14 +9054,14 @@ const user_refresh_token_model_1 = __webpack_require__(36);
 const auth_service_1 = __webpack_require__(13);
 const admin_module_1 = __webpack_require__(9);
 const auth_module_1 = __webpack_require__(86);
-const core_module_1 = __webpack_require__(106);
-const mail_module_1 = __webpack_require__(119);
-const owner_module_1 = __webpack_require__(100);
-const product_module_1 = __webpack_require__(128);
+const core_module_1 = __webpack_require__(104);
+const mail_module_1 = __webpack_require__(117);
+const owner_module_1 = __webpack_require__(98);
+const product_module_1 = __webpack_require__(126);
 const users_service_1 = __webpack_require__(24);
 const scedule_service_1 = __webpack_require__(66);
 const jwt_refresh_service_1 = __webpack_require__(65);
-const initialize_user_middleware_1 = __webpack_require__(126);
+const initialize_user_middleware_1 = __webpack_require__(124);
 const currency_service_1 = __webpack_require__(60);
 const currencies_model_1 = __webpack_require__(46);
 const axios_1 = __webpack_require__(61);
@@ -9173,7 +9128,7 @@ exports.RolesModule = RolesModule;
 
 
 /***/ }),
-/* 102 */
+/* 100 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9196,13 +9151,13 @@ exports.RolesController = void 0;
 const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
 const roles_auth_decorator_1 = __webpack_require__(78);
-const add_content_guard_1 = __webpack_require__(103);
+const add_content_guard_1 = __webpack_require__(101);
 const jw_refresh_guard_1 = __webpack_require__(81);
 const jwt_auth_guard_1 = __webpack_require__(11);
 const owner_admin_guard_1 = __webpack_require__(80);
 const roles_guard_1 = __webpack_require__(79);
 const error_handler_filter_1 = __webpack_require__(83);
-const create_role_dto_1 = __webpack_require__(104);
+const create_role_dto_1 = __webpack_require__(102);
 const roles_model_1 = __webpack_require__(26);
 const roles_service_1 = __webpack_require__(25);
 const throttler_1 = __webpack_require__(77);
@@ -9266,7 +9221,7 @@ exports.RolesController = RolesController;
 
 
 /***/ }),
-/* 103 */
+/* 101 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9330,7 +9285,7 @@ exports.AddContentGuard = AddContentGuard;
 
 
 /***/ }),
-/* 104 */
+/* 102 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9370,14 +9325,14 @@ exports.CreateRoleDto = CreateRoleDto;
 
 
 /***/ }),
-/* 105 */
+/* 103 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/config");
 
 /***/ }),
-/* 106 */
+/* 104 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9393,17 +9348,17 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CoreModule = void 0;
 const common_1 = __webpack_require__(7);
 const core_1 = __webpack_require__(4);
-const all_exceptions_filter_1 = __webpack_require__(107);
+const all_exceptions_filter_1 = __webpack_require__(105);
 const throttler_behind_proxy_guard_1 = __webpack_require__(76);
-const global_interceptor_1 = __webpack_require__(108);
-const cluster_service_1 = __webpack_require__(110);
-const file_service_1 = __webpack_require__(113);
-const config_1 = __webpack_require__(105);
+const global_interceptor_1 = __webpack_require__(106);
+const cluster_service_1 = __webpack_require__(108);
+const file_service_1 = __webpack_require__(111);
+const config_1 = __webpack_require__(103);
 const schedule_1 = __webpack_require__(59);
 const scedule_service_1 = __webpack_require__(66);
 const event_emitter_1 = __webpack_require__(67);
-const bull_1 = __webpack_require__(116);
-const garbage_processor_1 = __webpack_require__(117);
+const bull_1 = __webpack_require__(114);
+const garbage_processor_1 = __webpack_require__(115);
 const admin_model_1 = __webpack_require__(28);
 const admin_refresh_token_model_1 = __webpack_require__(47);
 const cart_product_model_1 = __webpack_require__(33);
@@ -9425,11 +9380,11 @@ const currencies_model_1 = __webpack_require__(46);
 const axios_1 = __webpack_require__(61);
 const admin_module_1 = __webpack_require__(9);
 const auth_module_1 = __webpack_require__(86);
-const mail_module_1 = __webpack_require__(119);
-const owner_module_1 = __webpack_require__(100);
-const product_module_1 = __webpack_require__(128);
-const roles_module_1 = __webpack_require__(101);
-const users_module_1 = __webpack_require__(120);
+const mail_module_1 = __webpack_require__(117);
+const owner_module_1 = __webpack_require__(98);
+const product_module_1 = __webpack_require__(126);
+const roles_module_1 = __webpack_require__(99);
+const users_module_1 = __webpack_require__(118);
 let CoreModule = CoreModule_1 = class CoreModule {
 };
 CoreModule = CoreModule_1 = __decorate([
@@ -9500,7 +9455,7 @@ exports.CoreModule = CoreModule;
 
 
 /***/ }),
-/* 107 */
+/* 105 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9547,7 +9502,7 @@ exports.AllExceptionsFilter = AllExceptionsFilter;
 
 
 /***/ }),
-/* 108 */
+/* 106 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9562,7 +9517,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GlobalInterceptor = void 0;
 const common_1 = __webpack_require__(7);
 const rxjs_1 = __webpack_require__(62);
-const operators_1 = __webpack_require__(109);
+const operators_1 = __webpack_require__(107);
 let GlobalInterceptor = class GlobalInterceptor {
     intercept(context, next) {
         return next.handle().pipe((0, operators_1.timeout)(5000), (0, operators_1.catchError)((err) => {
@@ -9580,14 +9535,14 @@ exports.GlobalInterceptor = GlobalInterceptor;
 
 
 /***/ }),
-/* 109 */
+/* 107 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("rxjs/operators");
 
 /***/ }),
-/* 110 */
+/* 108 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9613,8 +9568,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 var AppClusterService_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppClusterService = void 0;
-const cluster_1 = __importDefault(__webpack_require__(111));
-const os_1 = __webpack_require__(112);
+const cluster_1 = __importDefault(__webpack_require__(109));
+const os_1 = __webpack_require__(110);
 const common_1 = __webpack_require__(7);
 const numCPUs = (0, os_1.cpus)().length;
 let AppClusterService = AppClusterService_1 = class AppClusterService {
@@ -9681,21 +9636,21 @@ exports.AppClusterService = AppClusterService;
 
 
 /***/ }),
-/* 111 */
+/* 109 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("cluster");
 
 /***/ }),
-/* 112 */
+/* 110 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("os");
 
 /***/ }),
-/* 113 */
+/* 111 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9741,10 +9696,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FilesService = void 0;
 const common_1 = __webpack_require__(7);
-const fs = __importStar(__webpack_require__(114));
+const fs = __importStar(__webpack_require__(112));
 const uuid = __importStar(__webpack_require__(58));
-const path_1 = __importStar(__webpack_require__(115));
-const fs_1 = __webpack_require__(114);
+const path_1 = __importStar(__webpack_require__(113));
+const fs_1 = __webpack_require__(112);
 const uuid_1 = __webpack_require__(58);
 let FilesService = class FilesService {
     createFile(file) {
@@ -9806,28 +9761,28 @@ exports.FilesService = FilesService;
 
 
 /***/ }),
-/* 114 */
+/* 112 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("fs");
 
 /***/ }),
-/* 115 */
+/* 113 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("path");
 
 /***/ }),
-/* 116 */
+/* 114 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/bull");
 
 /***/ }),
-/* 117 */
+/* 115 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9845,9 +9800,9 @@ var GarbageCollectingProcessor_1;
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GarbageCollectingProcessor = void 0;
-const bull_1 = __webpack_require__(116);
+const bull_1 = __webpack_require__(114);
 const common_1 = __webpack_require__(7);
-const bull_2 = __webpack_require__(118);
+const bull_2 = __webpack_require__(116);
 let GarbageCollectingProcessor = GarbageCollectingProcessor_1 = class GarbageCollectingProcessor {
     constructor() {
         this.logger = new common_1.Logger(GarbageCollectingProcessor_1.name);
@@ -9871,14 +9826,14 @@ exports.GarbageCollectingProcessor = GarbageCollectingProcessor;
 
 
 /***/ }),
-/* 118 */
+/* 116 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("bull");
 
 /***/ }),
-/* 119 */
+/* 117 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9897,10 +9852,10 @@ const mail_service_1 = __webpack_require__(21);
 const mailer_1 = __webpack_require__(22);
 const admin_module_1 = __webpack_require__(9);
 const auth_module_1 = __webpack_require__(86);
-const owner_module_1 = __webpack_require__(100);
-const roles_module_1 = __webpack_require__(101);
-const users_module_1 = __webpack_require__(120);
-const config_1 = __webpack_require__(105);
+const owner_module_1 = __webpack_require__(98);
+const roles_module_1 = __webpack_require__(99);
+const users_module_1 = __webpack_require__(118);
+const config_1 = __webpack_require__(103);
 const users_service_1 = __webpack_require__(24);
 const owner_service_1 = __webpack_require__(57);
 const admin_service_1 = __webpack_require__(56);
@@ -9981,7 +9936,7 @@ exports.MailModule = MailModule;
 
 
 /***/ }),
-/* 120 */
+/* 118 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9999,31 +9954,31 @@ var UsersModule_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersModule = void 0;
 const common_1 = __webpack_require__(7);
-const users_controller_1 = __webpack_require__(121);
+const users_controller_1 = __webpack_require__(119);
 const users_service_1 = __webpack_require__(24);
 const sequelize_1 = __webpack_require__(8);
 const user_model_1 = __webpack_require__(35);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(101);
+const roles_module_1 = __webpack_require__(99);
 const auth_module_1 = __webpack_require__(86);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const jwt_1 = __webpack_require__(16);
 const jwt_refresh_service_1 = __webpack_require__(65);
-const user_middleware_1 = __webpack_require__(125);
-const initialize_user_middleware_1 = __webpack_require__(126);
+const user_middleware_1 = __webpack_require__(123);
+const initialize_user_middleware_1 = __webpack_require__(124);
 const admin_refresh_token_model_1 = __webpack_require__(47);
 const admin_model_1 = __webpack_require__(28);
 const admin_module_1 = __webpack_require__(9);
 const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
-const owner_module_1 = __webpack_require__(100);
-const body_validator_pipe_1 = __importDefault(__webpack_require__(127));
-const update_user_dto_1 = __webpack_require__(123);
-const config_1 = __webpack_require__(105);
+const owner_module_1 = __webpack_require__(98);
+const body_validator_pipe_1 = __importDefault(__webpack_require__(125));
+const update_user_dto_1 = __webpack_require__(121);
+const config_1 = __webpack_require__(103);
 const scedule_service_1 = __webpack_require__(66);
-const core_module_1 = __webpack_require__(106);
-const product_module_1 = __webpack_require__(128);
+const core_module_1 = __webpack_require__(104);
+const product_module_1 = __webpack_require__(126);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const category_model_1 = __webpack_require__(41);
@@ -10032,7 +9987,7 @@ const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
 const product_model_1 = __webpack_require__(32);
 const auth_service_1 = __webpack_require__(13);
-const mail_module_1 = __webpack_require__(119);
+const mail_module_1 = __webpack_require__(117);
 const bookmark_products_1 = __webpack_require__(37);
 const watched_products_model_1 = __webpack_require__(38);
 const currencies_model_1 = __webpack_require__(46);
@@ -10112,7 +10067,7 @@ exports.UsersModule = UsersModule;
 
 
 /***/ }),
-/* 121 */
+/* 119 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10148,15 +10103,15 @@ const jwt_auth_guard_1 = __webpack_require__(11);
 const user_model_1 = __webpack_require__(35);
 const users_service_1 = __webpack_require__(24);
 const roles_guard_1 = __webpack_require__(79);
-const ban_user_dto_1 = __webpack_require__(122);
+const ban_user_dto_1 = __webpack_require__(120);
 const throttler_1 = __webpack_require__(77);
 const throttler_behind_proxy_guard_1 = __webpack_require__(76);
 const auth_service_1 = __webpack_require__(13);
-const update_user_dto_1 = __webpack_require__(123);
+const update_user_dto_1 = __webpack_require__(121);
 const express_1 = __webpack_require__(20);
 const user_agent_decorator_1 = __webpack_require__(92);
 const user_id_decorator_1 = __webpack_require__(95);
-const user_guard_1 = __webpack_require__(124);
+const user_guard_1 = __webpack_require__(122);
 const owner_admin_guard_1 = __webpack_require__(80);
 const jw_refresh_guard_1 = __webpack_require__(81);
 const error_handler_filter_1 = __webpack_require__(83);
@@ -10250,7 +10205,7 @@ exports.UsersController = UsersController;
 
 
 /***/ }),
-/* 122 */
+/* 120 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10284,7 +10239,7 @@ exports.BanUserDto = BanUserDto;
 
 
 /***/ }),
-/* 123 */
+/* 121 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10359,7 +10314,7 @@ exports.UpdateUserDto = UpdateUserDto;
 
 
 /***/ }),
-/* 124 */
+/* 122 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10438,7 +10393,7 @@ exports.UserGuard = UserGuard;
 
 
 /***/ }),
-/* 125 */
+/* 123 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10491,7 +10446,7 @@ exports.UserMiddleware = UserMiddleware;
 
 
 /***/ }),
-/* 126 */
+/* 124 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10582,7 +10537,7 @@ exports.InitializeUserMiddleware = InitializeUserMiddleware;
 
 
 /***/ }),
-/* 127 */
+/* 125 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10627,7 +10582,7 @@ RequestValidator.validate = (classInstance) => {
 
 
 /***/ }),
-/* 128 */
+/* 126 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10641,8 +10596,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductModule = void 0;
 const common_1 = __webpack_require__(7);
-const product_service_1 = __webpack_require__(129);
-const product_controller_1 = __webpack_require__(133);
+const product_service_1 = __webpack_require__(127);
+const product_controller_1 = __webpack_require__(132);
 const sequelize_1 = __webpack_require__(8);
 const admin_module_1 = __webpack_require__(9);
 const admin_model_1 = __webpack_require__(28);
@@ -10650,32 +10605,32 @@ const admin_refresh_token_model_1 = __webpack_require__(47);
 const auth_module_1 = __webpack_require__(86);
 const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
-const owner_module_1 = __webpack_require__(100);
+const owner_module_1 = __webpack_require__(98);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(101);
+const roles_module_1 = __webpack_require__(99);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const users_module_1 = __webpack_require__(120);
-const config_1 = __webpack_require__(105);
+const users_module_1 = __webpack_require__(118);
+const config_1 = __webpack_require__(103);
 const product_model_1 = __webpack_require__(32);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
-const categories_module_1 = __webpack_require__(142);
-const cart_module_1 = __webpack_require__(145);
+const categories_module_1 = __webpack_require__(141);
+const cart_module_1 = __webpack_require__(144);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
-const orders_module_1 = __webpack_require__(148);
-const initialize_user_middleware_1 = __webpack_require__(126);
-const categories_service_1 = __webpack_require__(131);
-const file_service_1 = __webpack_require__(113);
-const product_middleware_1 = __webpack_require__(151);
+const orders_module_1 = __webpack_require__(147);
+const initialize_user_middleware_1 = __webpack_require__(124);
+const categories_service_1 = __webpack_require__(129);
+const file_service_1 = __webpack_require__(111);
+const product_middleware_1 = __webpack_require__(150);
 const product_reviews_model_1 = __webpack_require__(44);
 const bookmark_products_1 = __webpack_require__(37);
 const watched_products_model_1 = __webpack_require__(38);
-const user_middleware_1 = __webpack_require__(125);
+const user_middleware_1 = __webpack_require__(123);
 const axios_1 = __webpack_require__(61);
 const currencies_model_1 = __webpack_require__(46);
 let ProductModule = class ProductModule {
@@ -10739,7 +10694,7 @@ exports.ProductModule = ProductModule;
 
 
 /***/ }),
-/* 129 */
+/* 127 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10770,14 +10725,14 @@ var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductService = void 0;
 const common_1 = __webpack_require__(7);
-const product_constants_1 = __webpack_require__(130);
+const product_constants_1 = __webpack_require__(128);
 const sequelize_1 = __webpack_require__(8);
-const fs_1 = __webpack_require__(114);
-const path_1 = __webpack_require__(115);
+const fs_1 = __webpack_require__(112);
+const path_1 = __webpack_require__(113);
 const admin_service_1 = __webpack_require__(56);
 const api_exception_1 = __webpack_require__(50);
 const owner_service_1 = __webpack_require__(57);
-const categories_service_1 = __webpack_require__(131);
+const categories_service_1 = __webpack_require__(129);
 const product_model_1 = __webpack_require__(32);
 const users_service_1 = __webpack_require__(24);
 const user_constants_1 = __webpack_require__(48);
@@ -11559,7 +11514,7 @@ exports.ProductService = ProductService;
 
 
 /***/ }),
-/* 130 */
+/* 128 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -11599,7 +11554,7 @@ exports.FILE_NOT_FOUND = {
 
 
 /***/ }),
-/* 131 */
+/* 129 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -11628,10 +11583,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CategoriesService = void 0;
 const common_1 = __webpack_require__(7);
-const interfaces_1 = __webpack_require__(97);
+const interfaces_1 = __webpack_require__(130);
 const sequelize_1 = __webpack_require__(8);
 const api_exception_1 = __webpack_require__(50);
-const category_constants_1 = __webpack_require__(132);
+const category_constants_1 = __webpack_require__(131);
 const category_model_1 = __webpack_require__(41);
 let CategoriesService = class CategoriesService {
     constructor(categoryRepository) {
@@ -11766,7 +11721,14 @@ exports.CategoriesService = CategoriesService;
 
 
 /***/ }),
-/* 132 */
+/* 130 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("@nestjs/common/interfaces");
+
+/***/ }),
+/* 131 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -11788,7 +11750,7 @@ exports.ALREADY_EXIST = {
 
 
 /***/ }),
-/* 133 */
+/* 132 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -11828,38 +11790,39 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductController = void 0;
 const common_1 = __webpack_require__(7);
-const platform_express_1 = __webpack_require__(134);
+const express_1 = __webpack_require__(20);
+const platform_express_1 = __webpack_require__(133);
 const throttler_behind_proxy_guard_1 = __webpack_require__(76);
 const error_handler_filter_1 = __webpack_require__(83);
-const create_product_dto_1 = __webpack_require__(135);
+const create_product_dto_1 = __webpack_require__(134);
 const throttler_1 = __webpack_require__(77);
-const product_service_1 = __webpack_require__(129);
+const product_service_1 = __webpack_require__(127);
 const roles_auth_decorator_1 = __webpack_require__(78);
-const add_content_guard_1 = __webpack_require__(103);
+const add_content_guard_1 = __webpack_require__(101);
 const jw_refresh_guard_1 = __webpack_require__(81);
 const jwt_auth_guard_1 = __webpack_require__(11);
 const owner_admin_guard_1 = __webpack_require__(80);
 const roles_guard_1 = __webpack_require__(79);
-const multer_1 = __webpack_require__(136);
-const path_1 = __importStar(__webpack_require__(115));
-const update_product_dto_1 = __webpack_require__(137);
+const multer_1 = __webpack_require__(135);
+const path_1 = __importStar(__webpack_require__(113));
+const update_product_dto_1 = __webpack_require__(136);
 const user_type_decorator_1 = __webpack_require__(91);
 const user_id_decorator_1 = __webpack_require__(95);
 const api_exception_filter_1 = __webpack_require__(85);
-const fs_1 = __webpack_require__(114);
+const fs_1 = __webpack_require__(112);
 const uuid_1 = __webpack_require__(58);
-const edit_content_guard_1 = __webpack_require__(138);
-const formdata_pipe_1 = __webpack_require__(139);
-const user_guard_1 = __webpack_require__(124);
+const edit_content_guard_1 = __webpack_require__(137);
+const formdata_pipe_1 = __webpack_require__(138);
+const user_guard_1 = __webpack_require__(122);
 let ProductController = class ProductController {
     constructor(productService) {
         this.productService = productService;
     }
-    getProducts(page, pageSize) {
+    getProducts(response, request, next, page, pageSize) {
         try {
             return this.productService.getProducts(page, pageSize);
         }
@@ -11867,7 +11830,7 @@ let ProductController = class ProductController {
             throw err;
         }
     }
-    getProductsByIds(page, pageSize, productIds) {
+    getProductsByIds(response, request, next, page, pageSize, productIds) {
         try {
             return this.productService.getProductsByIds(productIds, page, pageSize);
         }
@@ -11875,7 +11838,7 @@ let ProductController = class ProductController {
             throw err;
         }
     }
-    filterProducts(page, pageSize, order, sizes, colours, categories) {
+    filterProducts(response, request, next, page, pageSize, order, sizes, colours, categories) {
         try {
             return this.productService.filterProducts(page, pageSize, order, sizes, colours, categories);
         }
@@ -11883,7 +11846,7 @@ let ProductController = class ProductController {
             throw err;
         }
     }
-    getById(productId) {
+    getById(response, request, next, productId) {
         try {
             return this.productService.getProductById(productId);
         }
@@ -11954,41 +11917,53 @@ let ProductController = class ProductController {
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
     (0, common_1.Get)('/'),
-    __param(0, (0, common_1.Query)('page', common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Next)()),
+    __param(3, (0, common_1.Query)('page', common_1.ParseIntPipe)),
+    __param(4, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number]),
-    __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
+    __metadata("design:paramtypes", [typeof (_b = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _b : Object, typeof (_c = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _c : Object, typeof (_d = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _d : Object, Number, Number]),
+    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
 ], ProductController.prototype, "getProducts", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
     (0, common_1.Get)('get'),
-    __param(0, (0, common_1.Query)('page', common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
-    __param(2, (0, common_1.Query)('productIds', common_1.ParseArrayPipe)),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Next)()),
+    __param(3, (0, common_1.Query)('page', common_1.ParseIntPipe)),
+    __param(4, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
+    __param(5, (0, common_1.Query)('productIds', common_1.ParseArrayPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number, Array]),
-    __metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+    __metadata("design:paramtypes", [typeof (_f = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _f : Object, typeof (_g = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _g : Object, typeof (_h = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _h : Object, Number, Number, Array]),
+    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], ProductController.prototype, "getProductsByIds", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
     (0, common_1.Get)('filter'),
-    __param(0, (0, common_1.Query)('page', common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
-    __param(2, (0, common_1.Query)('order')),
-    __param(3, (0, common_1.Query)('sizes', common_1.ParseArrayPipe)),
-    __param(4, (0, common_1.Query)('colours', common_1.ParseArrayPipe)),
-    __param(5, (0, common_1.Query)('categories', common_1.ParseArrayPipe)),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Next)()),
+    __param(3, (0, common_1.Query)('page', common_1.ParseIntPipe)),
+    __param(4, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
+    __param(5, (0, common_1.Query)('order')),
+    __param(6, (0, common_1.Query)('sizes', common_1.ParseArrayPipe)),
+    __param(7, (0, common_1.Query)('colours', common_1.ParseArrayPipe)),
+    __param(8, (0, common_1.Query)('categories', common_1.ParseArrayPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number, String, Array, Array, Array]),
-    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
+    __metadata("design:paramtypes", [typeof (_k = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _k : Object, typeof (_l = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _l : Object, typeof (_m = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _m : Object, Number, Number, String, Array, Array, Array]),
+    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
 ], ProductController.prototype, "filterProducts", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
     (0, common_1.Get)('/:productId'),
-    __param(0, (0, common_1.Param)('productId', common_1.ParseIntPipe)),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Next)()),
+    __param(3, (0, common_1.Param)('productId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [typeof (_p = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _p : Object, typeof (_q = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _q : Object, typeof (_r = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _r : Object, Number]),
     __metadata("design:returntype", void 0)
 ], ProductController.prototype, "getById", null);
 __decorate([
@@ -12092,8 +12067,8 @@ __decorate([
     __param(2, (0, user_id_decorator_1.UserId)('USER-ID')),
     __param(3, (0, user_type_decorator_1.Type)('REFRESHTOKEN')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_e = typeof create_product_dto_1.CreateProductDto !== "undefined" && create_product_dto_1.CreateProductDto) === "function" ? _e : Object, Object, Number, String]),
-    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
+    __metadata("design:paramtypes", [typeof (_s = typeof create_product_dto_1.CreateProductDto !== "undefined" && create_product_dto_1.CreateProductDto) === "function" ? _s : Object, Object, Number, String]),
+    __metadata("design:returntype", typeof (_t = typeof Promise !== "undefined" && Promise) === "function" ? _t : Object)
 ], ProductController.prototype, "createProduct", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
@@ -12151,8 +12126,8 @@ __decorate([
     __param(3, (0, user_type_decorator_1.Type)('REFRESHTOKEN')),
     __param(4, (0, common_1.UploadedFiles)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_g = typeof update_product_dto_1.UpdateProductDto !== "undefined" && update_product_dto_1.UpdateProductDto) === "function" ? _g : Object, Number, Number, String, Object]),
-    __metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
+    __metadata("design:paramtypes", [typeof (_u = typeof update_product_dto_1.UpdateProductDto !== "undefined" && update_product_dto_1.UpdateProductDto) === "function" ? _u : Object, Number, Number, String, Object]),
+    __metadata("design:returntype", typeof (_v = typeof Promise !== "undefined" && Promise) === "function" ? _v : Object)
 ], ProductController.prototype, "updateProduct", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
@@ -12174,7 +12149,7 @@ __decorate([
     __param(0, (0, common_1.Query)('filePath')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+    __metadata("design:returntype", typeof (_w = typeof Promise !== "undefined" && Promise) === "function" ? _w : Object)
 ], ProductController.prototype, "deleteFile", null);
 ProductController = __decorate([
     (0, common_1.UseGuards)(throttler_behind_proxy_guard_1.ThrottlerBehindProxyGuard),
@@ -12187,14 +12162,14 @@ exports.ProductController = ProductController;
 
 
 /***/ }),
-/* 134 */
+/* 133 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/platform-express");
 
 /***/ }),
-/* 135 */
+/* 134 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12282,14 +12257,14 @@ exports.CreateProductDto = CreateProductDto;
 
 
 /***/ }),
-/* 136 */
+/* 135 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("multer");
 
 /***/ }),
-/* 137 */
+/* 136 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12377,7 +12352,7 @@ exports.UpdateProductDto = UpdateProductDto;
 
 
 /***/ }),
-/* 138 */
+/* 137 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12441,7 +12416,7 @@ exports.EditContentGuard = EditContentGuard;
 
 
 /***/ }),
-/* 139 */
+/* 138 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12471,8 +12446,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ParseFormDataJsonPipe = void 0;
-const deep_parse_json_1 = __webpack_require__(140);
-const _ = __importStar(__webpack_require__(141));
+const deep_parse_json_1 = __webpack_require__(139);
+const _ = __importStar(__webpack_require__(140));
 class ParseFormDataJsonPipe {
     constructor(options) {
         this.options = options;
@@ -12493,21 +12468,21 @@ exports.ParseFormDataJsonPipe = ParseFormDataJsonPipe;
 
 
 /***/ }),
-/* 140 */
+/* 139 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("deep-parse-json");
 
 /***/ }),
-/* 141 */
+/* 140 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("lodash");
 
 /***/ }),
-/* 142 */
+/* 141 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12521,9 +12496,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CategoriesModule = void 0;
 const common_1 = __webpack_require__(7);
-const categories_service_1 = __webpack_require__(131);
-const categories_controller_1 = __webpack_require__(143);
-const config_1 = __webpack_require__(105);
+const categories_service_1 = __webpack_require__(129);
+const categories_controller_1 = __webpack_require__(142);
+const config_1 = __webpack_require__(103);
 const sequelize_1 = __webpack_require__(8);
 const admin_module_1 = __webpack_require__(9);
 const admin_model_1 = __webpack_require__(28);
@@ -12531,18 +12506,18 @@ const admin_refresh_token_model_1 = __webpack_require__(47);
 const auth_module_1 = __webpack_require__(86);
 const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
-const owner_module_1 = __webpack_require__(100);
+const owner_module_1 = __webpack_require__(98);
 const product_model_1 = __webpack_require__(32);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(101);
+const roles_module_1 = __webpack_require__(99);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const users_module_1 = __webpack_require__(120);
+const users_module_1 = __webpack_require__(118);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
-const product_module_1 = __webpack_require__(128);
-const initialize_user_middleware_1 = __webpack_require__(126);
+const product_module_1 = __webpack_require__(126);
+const initialize_user_middleware_1 = __webpack_require__(124);
 let CategoriesModule = class CategoriesModule {
     configure(consumer) {
         consumer
@@ -12586,7 +12561,7 @@ exports.CategoriesModule = CategoriesModule;
 
 
 /***/ }),
-/* 143 */
+/* 142 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12610,15 +12585,15 @@ const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
 const throttler_1 = __webpack_require__(77);
 const roles_auth_decorator_1 = __webpack_require__(78);
-const add_content_guard_1 = __webpack_require__(103);
+const add_content_guard_1 = __webpack_require__(101);
 const jw_refresh_guard_1 = __webpack_require__(81);
 const jwt_auth_guard_1 = __webpack_require__(11);
 const owner_admin_guard_1 = __webpack_require__(80);
 const roles_guard_1 = __webpack_require__(79);
 const throttler_behind_proxy_guard_1 = __webpack_require__(76);
 const error_handler_filter_1 = __webpack_require__(83);
-const categories_service_1 = __webpack_require__(131);
-const create_category_dto_1 = __webpack_require__(144);
+const categories_service_1 = __webpack_require__(129);
+const create_category_dto_1 = __webpack_require__(143);
 const category_model_1 = __webpack_require__(41);
 const api_exception_filter_1 = __webpack_require__(85);
 let CategoriesController = class CategoriesController {
@@ -12696,7 +12671,7 @@ exports.CategoriesController = CategoriesController;
 
 
 /***/ }),
-/* 144 */
+/* 143 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12747,7 +12722,7 @@ exports.CreateCategoryDto = CreateCategoryDto;
 
 
 /***/ }),
-/* 145 */
+/* 144 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12761,9 +12736,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CartModule = void 0;
 const common_1 = __webpack_require__(7);
-const cart_service_1 = __webpack_require__(146);
-const cart_controller_1 = __webpack_require__(147);
-const config_1 = __webpack_require__(105);
+const cart_service_1 = __webpack_require__(145);
+const cart_controller_1 = __webpack_require__(146);
+const config_1 = __webpack_require__(103);
 const sequelize_1 = __webpack_require__(8);
 const admin_model_1 = __webpack_require__(28);
 const admin_refresh_token_model_1 = __webpack_require__(47);
@@ -12771,21 +12746,21 @@ const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(101);
+const roles_module_1 = __webpack_require__(99);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const cart_model_1 = __webpack_require__(34);
 const auth_module_1 = __webpack_require__(86);
-const product_module_1 = __webpack_require__(128);
-const users_module_1 = __webpack_require__(120);
+const product_module_1 = __webpack_require__(126);
+const users_module_1 = __webpack_require__(118);
 const cart_product_model_1 = __webpack_require__(33);
-const categories_module_1 = __webpack_require__(142);
+const categories_module_1 = __webpack_require__(141);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
 const product_model_1 = __webpack_require__(32);
-const orders_module_1 = __webpack_require__(148);
+const orders_module_1 = __webpack_require__(147);
 let CartModule = class CartModule {
 };
 CartModule = __decorate([
@@ -12829,7 +12804,7 @@ exports.CartModule = CartModule;
 
 
 /***/ }),
-/* 146 */
+/* 145 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12852,7 +12827,7 @@ exports.CardService = CardService;
 
 
 /***/ }),
-/* 147 */
+/* 146 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12878,7 +12853,7 @@ exports.CardController = CardController;
 
 
 /***/ }),
-/* 148 */
+/* 147 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12892,21 +12867,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OrdersModule = void 0;
 const common_1 = __webpack_require__(7);
-const orders_service_1 = __webpack_require__(149);
-const orders_controller_1 = __webpack_require__(150);
+const orders_service_1 = __webpack_require__(148);
+const orders_controller_1 = __webpack_require__(149);
 const sequelize_1 = __webpack_require__(8);
 const auth_module_1 = __webpack_require__(86);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(101);
+const roles_module_1 = __webpack_require__(99);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const users_module_1 = __webpack_require__(120);
-const categories_module_1 = __webpack_require__(142);
-const config_1 = __webpack_require__(105);
+const users_module_1 = __webpack_require__(118);
+const categories_module_1 = __webpack_require__(141);
+const config_1 = __webpack_require__(103);
 const admin_model_1 = __webpack_require__(28);
 const admin_refresh_token_model_1 = __webpack_require__(47);
-const cart_module_1 = __webpack_require__(145);
+const cart_module_1 = __webpack_require__(144);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const category_model_1 = __webpack_require__(41);
@@ -12958,7 +12933,7 @@ exports.OrdersModule = OrdersModule;
 
 
 /***/ }),
-/* 149 */
+/* 148 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12981,7 +12956,7 @@ exports.OrdersService = OrdersService;
 
 
 /***/ }),
-/* 150 */
+/* 149 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13007,7 +12982,7 @@ exports.OrdersController = OrdersController;
 
 
 /***/ }),
-/* 151 */
+/* 150 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13060,7 +13035,7 @@ exports.ProductMiddleware = ProductMiddleware;
 
 
 /***/ }),
-/* 152 */
+/* 151 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13151,7 +13126,7 @@ exports.InitializeEmailMiddleware = InitializeEmailMiddleware;
 
 
 /***/ }),
-/* 153 */
+/* 152 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13251,6 +13226,45 @@ ActivateMiddleware = __decorate([
     __metadata("design:paramtypes", [Object, Object])
 ], ActivateMiddleware);
 exports.ActivateMiddleware = ActivateMiddleware;
+
+
+/***/ }),
+/* 153 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AppListener = void 0;
+const common_1 = __webpack_require__(7);
+const interfaces_1 = __webpack_require__(130);
+const event_emitter_1 = __webpack_require__(67);
+const jwt_refresh_token_deleted_evet_1 = __webpack_require__(69);
+let AppListener = class AppListener {
+    handleTokenDeletedEvent(event) {
+        return event;
+    }
+};
+__decorate([
+    (0, event_emitter_1.OnEvent)('refreshtoken.deleted'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_a = typeof jwt_refresh_token_deleted_evet_1.JwtRefreshTokenDeletedEvent !== "undefined" && jwt_refresh_token_deleted_evet_1.JwtRefreshTokenDeletedEvent) === "function" ? _a : Object]),
+    __metadata("design:returntype", void 0)
+], AppListener.prototype, "handleTokenDeletedEvent", null);
+AppListener = __decorate([
+    (0, common_1.Injectable)({ scope: interfaces_1.Scope.DEFAULT })
+], AppListener);
+exports.AppListener = AppListener;
 
 
 /***/ }),
@@ -13555,7 +13569,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppController = void 0;
 const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
-const path_1 = __importDefault(__webpack_require__(115));
+const path_1 = __importDefault(__webpack_require__(113));
 const geoip2_node_1 = __webpack_require__(159);
 const rxjs_1 = __webpack_require__(62);
 const express_1 = __webpack_require__(20);
@@ -13599,7 +13613,7 @@ let AppController = AppController_1 = class AppController {
                 const ipAddress = request.headers['x-forwarded-for'];
                 this.Logger.log(ipAddress);
                 const reader = yield geoip2_node_1.Reader.open(path_1.default.join(__dirname, 'GeoLite2-Country.mmdb'));
-                const geoCountry = reader.country('62.122.202.29');
+                const geoCountry = reader.country(request.ip);
                 return response.json({
                     geoLocation: Object.assign({ currency: request['currency'] }, geoCountry),
                 });
@@ -13869,40 +13883,40 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ReviewsModule = void 0;
 const common_1 = __webpack_require__(7);
-const config_1 = __webpack_require__(105);
+const config_1 = __webpack_require__(103);
 const sequelize_1 = __webpack_require__(8);
-const categories_service_1 = __webpack_require__(131);
-const initialize_user_middleware_1 = __webpack_require__(126);
+const categories_service_1 = __webpack_require__(129);
+const initialize_user_middleware_1 = __webpack_require__(124);
 const admin_module_1 = __webpack_require__(9);
 const admin_model_1 = __webpack_require__(28);
 const admin_refresh_token_model_1 = __webpack_require__(47);
 const auth_module_1 = __webpack_require__(86);
-const cart_module_1 = __webpack_require__(145);
+const cart_module_1 = __webpack_require__(144);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
-const categories_module_1 = __webpack_require__(142);
+const categories_module_1 = __webpack_require__(141);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
-const orders_module_1 = __webpack_require__(148);
+const orders_module_1 = __webpack_require__(147);
 const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
-const owner_module_1 = __webpack_require__(100);
+const owner_module_1 = __webpack_require__(98);
 const product_model_1 = __webpack_require__(32);
-const product_service_1 = __webpack_require__(129);
+const product_service_1 = __webpack_require__(127);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(101);
+const roles_module_1 = __webpack_require__(99);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const users_module_1 = __webpack_require__(120);
+const users_module_1 = __webpack_require__(118);
 const product_reviews_model_1 = __webpack_require__(44);
 const review_model_1 = __webpack_require__(43);
 const reviews_controller_1 = __webpack_require__(167);
 const reviews_service_1 = __webpack_require__(169);
 const create_review_dto_1 = __webpack_require__(168);
-const body_validator_pipe_1 = __importDefault(__webpack_require__(127));
+const body_validator_pipe_1 = __importDefault(__webpack_require__(125));
 let ReviewsModule = class ReviewsModule {
     configure(consumer) {
         consumer
@@ -13989,7 +14003,7 @@ const error_handler_filter_1 = __webpack_require__(83);
 const throttler_behind_proxy_guard_1 = __webpack_require__(76);
 const create_review_dto_1 = __webpack_require__(168);
 const reviews_service_1 = __webpack_require__(169);
-const edit_content_guard_1 = __webpack_require__(138);
+const edit_content_guard_1 = __webpack_require__(137);
 let ReviewsController = class ReviewsController {
     constructor(reviewsService) {
         this.reviewsService = reviewsService;
@@ -14114,7 +14128,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ReviewsService = void 0;
 const common_1 = __webpack_require__(7);
 const sequelize_1 = __webpack_require__(8);
-const product_service_1 = __webpack_require__(129);
+const product_service_1 = __webpack_require__(127);
 const review_model_1 = __webpack_require__(43);
 let ReviewsService = class ReviewsService {
     constructor(reviewRepository, productService) {
@@ -14204,7 +14218,7 @@ const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
 const geoip_lite_1 = __importDefault(__webpack_require__(171));
 const ip_1 = __importDefault(__webpack_require__(157));
-const path_1 = __importDefault(__webpack_require__(115));
+const path_1 = __importDefault(__webpack_require__(113));
 const geoip2_node_1 = __webpack_require__(159);
 const currency_service_1 = __webpack_require__(60);
 const currency_symbol_map_1 = __importDefault(__webpack_require__(64));
@@ -14219,7 +14233,7 @@ let LocationMiddleware = LocationMiddleware_1 = class LocationMiddleware {
             try {
                 const ipAddress = ip_1.default.address();
                 const reader = yield geoip2_node_1.Reader.open(path_1.default.join(__dirname, 'GeoLite2-Country.mmdb'));
-                const data = reader.country('62.122.202.29');
+                const data = reader.country(req.ip);
                 const geo = geoip_lite_1.default.lookup(req.ip);
                 this.Logger.log(geo, ipAddress);
                 req['countryIsoCode'] = data.country.isoCode;
@@ -14369,7 +14383,7 @@ module.exports = require("body-parser");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("e4e786b23c593d3fa801")
+/******/ 		__webpack_require__.h = () => ("b574288a285b0a67ef43")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

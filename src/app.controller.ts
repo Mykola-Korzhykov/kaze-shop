@@ -50,6 +50,14 @@ export class AppController {
           });
           return response.json({ _id: _id});
         }
+        response.cookie('_id', request.signedCookies['_id'], {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production' ? true : false,
+            sameSite: 'strict',
+            signed: true,
+            path: '/',
+            maxAge: 30 * 24 * 60 * 60 * 1000,
+        });
         return response.json({ _id: request.signedCookies['_id']});
       } catch (err: unknown) {
         this.Logger.error(err);

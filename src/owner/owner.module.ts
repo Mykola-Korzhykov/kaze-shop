@@ -30,8 +30,10 @@ import { AdminService } from '../admin/services/admin.service';
 import { Currencies } from './models/currencies.model';
 import { CurrencyService } from './services/currency.service';
 import { HttpModule, HttpService } from '@nestjs/axios';
+import { ScheduleModule } from '@nestjs/schedule';
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     HttpModule,
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,

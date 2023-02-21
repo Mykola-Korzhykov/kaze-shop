@@ -137,9 +137,7 @@ export class TasksService {
     return timeouts;
   }
 
-  @Cron(CronExpression.EVERY_WEEK, {
-    disabled: true,
-  })
+  @Cron(CronExpression.EVERY_WEEK)
   async renewCurrencies(): Promise<Currencies>{
     return this.currencyService.renewCurrencies();
   }
@@ -148,7 +146,6 @@ export class TasksService {
     name: 'setting-up',
     unrefTimeout: true,
     utcOffset: 1,
-    disabled: true
   })
   async setUp() {
     this.logger.warn(`time (${1}) second for job setting-up to run!`);
