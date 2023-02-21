@@ -2,9 +2,12 @@
 .wrapper{
     display: flex;
     max-width: 600px;
+    
 
     @media (max-width: 1200px) {
         max-width: 390px;
+        // position: absolute;
+        // bottom: -200px;
     }
 }
 
