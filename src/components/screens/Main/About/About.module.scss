@@ -15,7 +15,7 @@
     @media (max-width: 700px) {
         flex-direction: column;
         align-items: center;
-        // margin-top: -40px;
+        margin-top: 40px;
     }
 
 }
@@ -95,12 +95,20 @@
         opacity: 0.3;
 
         @media (max-width: 1160px) {
-           
-            margin-bottom: 15px;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 19px;
+            margin-bottom: 20px;
         }
+        @media (max-width: 834px) {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 19px;
+        }
+
+
         @media (max-width: 700px) {
-            margin-bottom: 50px;
-           margin-top: 10px;
+            
         }
         
     }

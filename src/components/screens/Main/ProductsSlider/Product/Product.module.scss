@@ -2,14 +2,14 @@
     display: flex;
     flex-direction: column;
     width: 285px;
-    // gap: 0px;
+    gap: 30px;
 
     .img {
-            width: 285px;
-            height: 360px;
+        width: 285px;
+        height: 360px;
+
     @media (max-width: 540px) {
         width: 250px;
-        
     }
         }
 }
@@ -18,8 +18,6 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
-
-    
 
     .description{
         font-family: 'Georama', sans-serif;

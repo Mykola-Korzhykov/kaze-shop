@@ -2,32 +2,35 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
     padding-bottom: 100px;
+    // @media (max-width: 930px) {
+    //     padding-bottom: 150px;
+    // }
+
+    @media (max-width: 1160px) {
+            padding-bottom: 0px;
+    }
+
+    // @media (max-width: 700) {
+    //     padding-bottom: 50px;
+    // }
+    
     @media (max-width: 660px) {
         padding-left: 30px;
     }
+   
     @media (max-width: 540px) {
-        padding-left: 0px;
-    }
-    @media (max-width: 700px) {
-        padding-bottom: 50px;
+         padding-left: 0px;
     }
 }
 
 .slick_wrapper{
     max-width: 1250px;
     overflow: hidden;
-    // display: flex;
-    // justify-content: center;
 
     @media (max-width: 1300px) {
-    
         max-width: 900px;
     }
-//    @media (max-width: 930px) {
-//         margin-left: 120px;
-//    }
     @media (max-width: 930px) {
         width: 700px;
     }
