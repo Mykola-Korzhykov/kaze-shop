@@ -29,14 +29,45 @@ import { v4 } from 'uuid';
 import { Role } from '../../roles/models/roles.model';
 import { ApiException } from '../../common/exceptions/api.exception';
 import { Currencies } from '../models/currencies.model';
+import { SchedulerRegistry, Cron, CronExpression } from '@nestjs/schedule';
+import { CurrencyService } from './currency.service';
 @Injectable({ scope: Scope.TRANSIENT })
 export class OwnerService {
   private readonly Logger = new Logger(OwnerService.name);
   constructor(
+    private readonly schedulerRegistry: SchedulerRegistry,
+    private readonly currencyService: CurrencyService,
     @InjectModel(Currencies) private readonly currenciesRepository: typeof Currencies,
     @InjectModel(Owner) private readonly ownerRepository: typeof Owner,
     private readonly roleService: RolesService,
-  ) {}
+  ) { }
+  
+   @Cron(CronExpression.EVERY_30_SECONDS, {
+    name: 'setting-up',
+    unrefTimeout: true,
+    utcOffset: 1,
+    disabled: false
+  })
+  async setUp() {
+    this.Logger.warn(`time (${1}) second for job setting-up to run!`);
+    const owner = await OwnerService.creatingOwner(<CreateOwnerDto>{
+      name: process.env.OWNER.toString().trim().split(',')[0],
+      surname: process.env.OWNER.toString().trim().split(',')[1],
+      phoneNumber: process.env.OWNER.toString().trim().split(',')[2],
+      email: process.env.OWNER.toString().trim().split(',')[3],
+      password: process.env.OWNER.toString().trim().split(',')[4],
+    });
+    if (owner) {
+      return this.currencyService.setCurrencies(owner.id);
+    }
+    return this.deleteCron('setting-up');
+   }
+  
+  private deleteCron(name: string): void {
+    this.schedulerRegistry.deleteCronJob(name);
+    this.Logger.warn(`job ${name} deleted!`);
+    return;
+  }
 
   static async creatingOwner(OWNER: CreateOwnerDto) {
     const [phoneNumber, email] = await Promise.all([
@@ -44,8 +75,7 @@ export class OwnerService {
       await Owner.findOne({ where: { email: OWNER.email }, include: { all: true } }),
     ]);
     if (phoneNumber || email) {
-      console.log(phoneNumber, email);
-      return;
+      return false;
     }
     const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
     const salt = await bcrypt.genSalt(SALT_ROUNDS || 10);

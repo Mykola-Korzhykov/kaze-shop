@@ -6,6 +6,7 @@ import {
   Delete,
   Get,
   HttpCode,
+  Next,
   Param,
   ParseArrayPipe,
   ParseIntPipe,
@@ -13,6 +14,8 @@ import {
   Post,
   Put,
   Query,
+  Req,
+  Res,
   UploadedFiles,
   UseFilters,
   UseGuards,
@@ -57,6 +60,9 @@ export class ProductController {
   @Throttle(70, 700)
   @Get('/')
   getProducts(
+    @Res() response: Response,
+    @Req() request: Request,
+    @Next() next: NextFunction,
     @Query('page', ParseIntPipe) page: number,
     @Query('pageSize', ParseIntPipe) pageSize: number,
   ): Promise<ReturnedProducts> {
@@ -70,6 +76,9 @@ export class ProductController {
   @Throttle(70, 700)
   @Get('get')
   getProductsByIds(
+    @Res() response: Response,
+    @Req() request: Request,
+    @Next() next: NextFunction,
     @Query('page', ParseIntPipe) page: number,
     @Query('pageSize', ParseIntPipe) pageSize: number,
     @Query('productIds', ParseArrayPipe) productIds: number[],
@@ -84,6 +93,9 @@ export class ProductController {
   @Throttle(70, 700)
   @Get('filter')
   filterProducts(
+    @Res() response: Response,
+    @Req() request: Request,
+    @Next() next: NextFunction,
     @Query('page', ParseIntPipe) page: number,
     @Query('pageSize', ParseIntPipe) pageSize: number,
     @Query('order') order: 'ASC' | 'DESC',
@@ -100,7 +112,12 @@ export class ProductController {
 
   @Throttle(70, 700)
   @Get('/:productId')
-  getById(@Param('productId', ParseIntPipe) productId: number) {
+  getById(
+    @Res() response: Response,
+    @Req() request: Request,
+    @Next() next: NextFunction,
+    @Param('productId', ParseIntPipe) productId: number
+  ) {
     try {
       return this.productService.getProductById(productId);
     } catch (err: unknown) {

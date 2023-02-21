@@ -37,7 +37,6 @@ import { AuthFerfershGuard } from '../common/guards/jw-refresh.guard';
 import { ChangeDto } from './dto/change.password.dto';
 import { UserId } from '../common/decorators/user.id.decorator';
 import { ApiErrorExceptionFilter } from '../common/filters/error-handler.filter';
-import { AppListener } from '../core/services/events.service';
 import { ApiExceptionFilter } from '../common/filters/api-exception.filter';
 @UseGuards(ThrottlerBehindProxyGuard)
 @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
@@ -47,7 +46,6 @@ import { ApiExceptionFilter } from '../common/filters/api-exception.filter';
 export class AuthController {
   constructor(
     private authService: AuthService,
-    private appListener: AppListener,
   ) {}
 
   @ApiOperation({ summary: 'Signing up users' })

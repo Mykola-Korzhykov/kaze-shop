@@ -2,14 +2,20 @@ import { Injectable, Logger, Scope } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Cron, CronExpression, SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
+import { OwnerService } from '../../owner/services/owner.service';
+import { Currencies } from '../../owner/models/currencies.model';
+import { CurrencyService } from '../../owner/services/currency.service';
 import { JwtRefreshTokenDeletedEvent } from '../events/jwt-refresh-token-deleted.evet';
+import { CreateOwnerDto } from 'src/owner/dto/create.owner.dto';
 
 @Injectable({ scope: Scope.DEFAULT })
 export class TasksService {
   private readonly logger = new Logger(TasksService.name);
   constructor(
-    private schedulerRegistry: SchedulerRegistry,
-    private eventEmitter: EventEmitter2,
+    private readonly schedulerRegistry: SchedulerRegistry,
+    private readonly eventEmitter: EventEmitter2,
+    private readonly currencyService: CurrencyService,
+    private readonly ownerService: OwnerService,
   ) {}
 
   addCronJob(
@@ -71,6 +77,7 @@ export class TasksService {
 
   @Cron(CronExpression.EVERY_HOUR)
   getIntervals(): string[] {
+    this.deleteCron('');
     const intervals = this.schedulerRegistry.getIntervals();
     intervals.forEach((key) => this.logger.log(`Interval: ${key}`));
     return intervals;
@@ -128,5 +135,33 @@ export class TasksService {
     const timeouts = this.schedulerRegistry.getTimeouts();
     timeouts.forEach((key) => this.logger.log(`Timeout: ${key}`));
     return timeouts;
+  }
+
+  @Cron(CronExpression.EVERY_WEEK, {
+    disabled: true,
+  })
+  async renewCurrencies(): Promise<Currencies>{
+    return this.currencyService.renewCurrencies();
+  }
+
+  @Cron(CronExpression.EVERY_30_SECONDS, {
+    name: 'setting-up',
+    unrefTimeout: true,
+    utcOffset: 1,
+    disabled: true
+  })
+  async setUp() {
+    this.logger.warn(`time (${1}) second for job setting-up to run!`);
+    const owner = await OwnerService.creatingOwner(<CreateOwnerDto>{
+      name: process.env.OWNER.toString().trim().split(',')[0],
+      surname: process.env.OWNER.toString().trim().split(',')[1],
+      phoneNumber: process.env.OWNER.toString().trim().split(',')[2],
+      email: process.env.OWNER.toString().trim().split(',')[3],
+      password: process.env.OWNER.toString().trim().split(',')[4],
+    });
+    if (owner) {
+      return this.currencyService.setCurrencies(owner.id);
+    }
+    return this.deleteCron('setting-up');
   }
 }

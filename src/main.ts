@@ -10,12 +10,11 @@ import { AppClusterService } from './core/services/cluster.service';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { AllExceptionsFilter } from './core/filters/all-exceptions.filter';
-import { OwnerService } from './owner/services/owner.service';
 import { ApiErrorExceptionFilter } from './common/filters/error-handler.filter';
 import { ApiExceptionFilter } from './common/filters/api-exception.filter';
 import { extname, join } from 'path';
 import bodyParser from 'body-parser';
-import { CreateOwnerDto } from './owner/dto/create.owner.dto';
+
 const PORT: number = Number(process.env.PORT) || 2222;
 declare const module: any;
 async function startServer(): Promise<INestApplication> {
@@ -25,15 +24,6 @@ async function startServer(): Promise<INestApplication> {
     autoFlushLogs: true,
     forceCloseConnections: true,
   });
-  if (process.env?.NODE_ENV === 'production') {
-    const owner = await OwnerService.creatingOwner(<CreateOwnerDto>{
-      name: process.env.OWNER.toString().trim().split(',')[0],
-      surname: process.env.OWNER.toString().trim().split(',')[1],
-      phoneNumber: process.env.OWNER.toString().trim().split(',')[2],
-      email: process.env.OWNER.toString().trim().split(',')[3],
-      password: process.env.OWNER.toString().trim().split(',')[4],
-    });
-  }
   const httpAdapter = app.get(HttpAdapterHost);
   app.enableShutdownHooks();
   app.useGlobalPipes(

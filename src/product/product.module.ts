@@ -40,9 +40,11 @@ import { ProductReviews } from '../reviews/models/product.reviews.model';
 import { BookmarksProducts } from './models/bookmark.products';
 import { WatchedProducts } from './models/watched.products.model';
 import { UserMiddleware } from 'src/common/middlewares/user.middleware';
+import { HttpModule } from '@nestjs/axios';
+import { Currencies } from 'src/owner/models/currencies.model';
 
 @Module({
-  providers: [ProductService, CategoriesService, FilesService],
+  providers: [ProductService, CategoriesService, FilesService, CategoriesService],
   controllers: [ProductController],
   imports: [
     ConfigModule.forRoot({
@@ -50,6 +52,7 @@ import { UserMiddleware } from 'src/common/middlewares/user.middleware';
       expandVariables: true,
       isGlobal: true,
     }),
+    HttpModule,
     SequelizeModule.forFeature([
       ProductReviews,
       Product,
@@ -69,6 +72,7 @@ import { UserMiddleware } from 'src/common/middlewares/user.middleware';
       UserRoles,
       Cart,
       CartProduct,
+      Currencies,
     ]),
     forwardRef(() => OrdersModule),
     forwardRef(() => CartModule),

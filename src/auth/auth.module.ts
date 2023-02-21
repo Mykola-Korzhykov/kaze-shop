@@ -39,8 +39,12 @@ import { ConfigModule } from '@nestjs/config';
 import { TasksService } from '../core/services/scedule.service';
 import { CoreModule } from '../core/core.module';
 import { AppListener } from '../core/services/events.service';
+import { CurrencyService } from '../owner/services/currency.service';
+import { Currencies } from 'src/owner/models/currencies.model';
+import { HttpModule } from '@nestjs/axios';
 @Module({
   providers: [
+    CurrencyService,
     AppListener,
     AuthService,
     JwtModule,
@@ -59,6 +63,7 @@ import { AppListener } from '../core/services/events.service';
   ],
   controllers: [AuthController],
   imports: [
+    HttpModule,
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
       expandVariables: true,
@@ -73,6 +78,7 @@ import { AppListener } from '../core/services/events.service';
       Role,
       UserRoles,
       OwnerRefreshToken,
+      Currencies,
     ]),
     forwardRef(() => CoreModule),
     forwardRef(() => AdminModule),

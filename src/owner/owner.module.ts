@@ -29,9 +29,10 @@ import { UsersService } from '../users/services/users.service';
 import { AdminService } from '../admin/services/admin.service';
 import { Currencies } from './models/currencies.model';
 import { CurrencyService } from './services/currency.service';
-import { HttpService } from '@nestjs/axios';
+import { HttpModule, HttpService } from '@nestjs/axios';
 @Module({
   imports: [
+    HttpModule,
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
       expandVariables: true,
@@ -72,6 +73,6 @@ import { HttpService } from '@nestjs/axios';
   ],
   providers: [OwnerService, OwnerJwtRefreshService, CurrencyService,
     MailService, TasksService, UsersService, AdminService],
-  exports: [OwnerService, OwnerJwtRefreshService],
+  exports: [OwnerService, OwnerJwtRefreshService, CurrencyService],
 })
 export class OwnerModule {}

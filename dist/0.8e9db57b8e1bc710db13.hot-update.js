@@ -3,7 +3,7 @@ exports.id = 0;
 exports.ids = null;
 exports.modules = {
 
-/***/ 156:
+/***/ 158:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -37,20 +37,22 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppController = void 0;
 const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
-const path_1 = __importDefault(__webpack_require__(111));
-const geoip2_node_1 = __webpack_require__(157);
-const rxjs_1 = __webpack_require__(104);
+const path_1 = __importDefault(__webpack_require__(115));
+const geoip2_node_1 = __webpack_require__(159);
+const rxjs_1 = __webpack_require__(62);
 const express_1 = __webpack_require__(20);
 const crypto_1 = __webpack_require__(14);
 const util_1 = __webpack_require__(15);
-const country_to_currency_1 = __importDefault(__webpack_require__(158));
-const axios_1 = __webpack_require__(159);
+const axios_1 = __webpack_require__(61);
+const decorators_1 = __webpack_require__(88);
+const throttler_behind_proxy_guard_1 = __webpack_require__(76);
+const throttler_1 = __webpack_require__(77);
 let AppController = AppController_1 = class AppController {
     constructor(httpService) {
         this.httpService = httpService;
         this.Logger = new common_1.Logger(AppController_1.name);
     }
-    set(request, response, next) {
+    setCookie(request, response, next) {
         (() => __awaiter(this, void 0, void 0, function* () {
             try {
                 if (!request.signedCookies['_id']) {
@@ -79,10 +81,9 @@ let AppController = AppController_1 = class AppController {
                 const ipAddress = request.headers['x-forwarded-for'];
                 this.Logger.log(ipAddress);
                 const reader = yield geoip2_node_1.Reader.open(path_1.default.join(__dirname, 'GeoLite2-Country.mmdb'));
-                const geoCountry = reader.country(request.ip);
+                const geoCountry = reader.country('62.122.202.29');
                 return response.json({
-                    currency: country_to_currency_1.default[`${geoCountry.country.isoCode}`],
-                    geoLocation: Object.assign({}, geoCountry),
+                    geoLocation: Object.assign({ currency: request['currency'] }, geoCountry),
                 });
             }
             catch (err) {
@@ -91,8 +92,26 @@ let AppController = AppController_1 = class AppController {
             }
         }))();
     }
+    getCurrency(base) {
+        try {
+            return this.getCurrencies(base);
+        }
+        catch (err) {
+            this.Logger.error(err);
+            throw err;
+        }
+    }
     sse() {
         return (0, rxjs_1.timeout)(1000).apply((0, rxjs_1.map)((_) => ({ data: { hello: 'world' } })));
+    }
+    getCurrencies(base) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const data = yield (0, rxjs_1.firstValueFrom)(this.httpService.get(`${process.env.API_CURRENCIES.trim()}/${!base ? process.env.BASE_CURRENCY.toLowerCase().trim() : base.toLowerCase().trim()}.json`, { headers: { 'Accept-Encoding': 'gzip,deflate,compress' } }).pipe((0, rxjs_1.map)(res => res.data)).pipe((0, rxjs_1.catchError)((error) => {
+                this.Logger.error(error.response.data);
+                throw error;
+            })));
+            return data;
+        });
     }
     generateEncryptedValue(value, bytes) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -105,7 +124,8 @@ let AppController = AppController_1 = class AppController {
     }
 };
 __decorate([
-    (0, common_1.Get)('set'),
+    (0, throttler_1.Throttle)(20, 500),
+    (0, common_1.Get)('set-user'),
     (0, common_1.HttpCode)(200),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Res)()),
@@ -113,9 +133,10 @@ __decorate([
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_b = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _b : Object, typeof (_c = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _c : Object, typeof (_d = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _d : Object]),
     __metadata("design:returntype", void 0)
-], AppController.prototype, "set", null);
+], AppController.prototype, "setCookie", null);
 __decorate([
-    (0, common_1.Get)('get'),
+    (0, throttler_1.Throttle)(20, 500),
+    (0, common_1.Get)('get-location'),
     (0, common_1.HttpCode)(200),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Res)()),
@@ -125,6 +146,15 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], AppController.prototype, "getLocation", null);
 __decorate([
+    (0, throttler_1.Throttle)(20, 500),
+    (0, common_1.Get)('get-currencies'),
+    (0, common_1.HttpCode)(200),
+    __param(0, (0, decorators_1.Query)('base')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], AppController.prototype, "getCurrency", null);
+__decorate([
     (0, common_1.Sse)('sse'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -132,6 +162,7 @@ __decorate([
 ], AppController.prototype, "sse", null);
 AppController = AppController_1 = __decorate([
     (0, swagger_1.ApiTags)('/'),
+    (0, decorators_1.UseGuards)(throttler_behind_proxy_guard_1.ThrottlerBehindProxyGuard),
     (0, common_1.Controller)('/'),
     __metadata("design:paramtypes", [typeof (_a = typeof axios_1.HttpService !== "undefined" && axios_1.HttpService) === "function" ? _a : Object])
 ], AppController);
@@ -145,7 +176,7 @@ exports.runtime =
 /******/ function(__webpack_require__) { // webpackRuntimeModules
 /******/ /* webpack/runtime/getFullHash */
 /******/ (() => {
-/******/ 	__webpack_require__.h = () => ("91f215d33eec609cae01")
+/******/ 	__webpack_require__.h = () => ("205e25912daefb6e1eaf")
 /******/ })();
 /******/ 
 /******/ }

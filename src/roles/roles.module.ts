@@ -36,6 +36,9 @@ import { UsersService } from '../users/services/users.service';
 import { TasksService } from '../core/services/scedule.service';
 import { UserJwtRefreshTokenService } from '../users/services/jwt-refresh.service';
 import { InitializeUserMiddleware } from '../common/middlewares/initialize-user.middleware';
+import { CurrencyService } from 'src/owner/services/currency.service';
+import { Currencies } from 'src/owner/models/currencies.model';
+import { HttpModule } from '@nestjs/axios';
 @Module({
   controllers: [RolesController],
   providers: [
@@ -44,8 +47,10 @@ import { InitializeUserMiddleware } from '../common/middlewares/initialize-user.
     UsersService,
     TasksService,
     UserJwtRefreshTokenService,
+    CurrencyService,
   ],
   imports: [
+    HttpModule,
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
       expandVariables: true,
@@ -72,6 +77,7 @@ import { InitializeUserMiddleware } from '../common/middlewares/initialize-user.
       UserRoles,
       Cart,
       CartProduct,
+      Currencies,
     ]),
     forwardRef(() => MailModule),
     forwardRef(() => ProductModule),

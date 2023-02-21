@@ -51,6 +51,9 @@ import { TOKEN_NOT_FOUND } from '../admin/constants/jwt-refresh.constants';
 import { OwnerRefreshToken } from '../owner/models/owner.refresh.token.model';
 import { AdminRefreshToken } from '../admin/models/admin.refresh.token.model';
 import { UserRefreshToken } from '../users/models/user.refresh.token.model';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { SchedulerRegistry } from '@nestjs/schedule';
+import { JwtRefreshTokenDeletedEvent } from 'src/core/events/jwt-refresh-token-deleted.evet';
 @Injectable({ scope: Scope.TRANSIENT })
 export class AuthService {
   private readonly Logger = new Logger(AuthService.name);
@@ -61,7 +64,8 @@ export class AuthService {
     private readonly adminService: AdminService,
     private readonly userService: UsersService,
     private readonly mailService: MailService,
-    private readonly sheduleService: TasksService,
+    private readonly schedulerRegistry: SchedulerRegistry,
+    private readonly eventEmitter: EventEmitter2,
     private readonly jwtService: JwtService,
     private readonly userJwtRefreshTokenService: UserJwtRefreshTokenService,
   ) {}
@@ -763,7 +767,7 @@ export class AuthService {
       if (!refreshData) {
          throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', TOKEN_NOT_FOUND);   
       }
-      return this.sheduleService.addTimeoutForTokens(
+      return this.addTimeoutForTokens(
         `delete-user-refresh-token,: ${v4()}`,
         Number(process.env.USER_DELAY),
         refreshData.id,
@@ -780,7 +784,7 @@ export class AuthService {
       if (!refreshData) {
          throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', TOKEN_NOT_FOUND);   
       }
-      return this.sheduleService.addTimeoutForTokens(
+      return this.addTimeoutForTokens(
         `delete-admin-refresh-token: ${v4()}`,
         Number(process.env.ADMIN_DELAY),
         refreshData.id,
@@ -797,7 +801,7 @@ export class AuthService {
       if (!refreshData) {
         throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', TOKEN_NOT_FOUND);   
       }
-      return this.sheduleService.addTimeoutForTokens(
+      return this.addTimeoutForTokens(
         `delete-owner-refresh-token: ${v4()}`,
         Number(process.env.OWNER_DELAY),
         refreshData.id,
@@ -806,4 +810,40 @@ export class AuthService {
       );
     }
   }
+
+  addTimeoutForTokens(
+    name: string,
+    milliseconds: number,
+    refreshTokenId: number,
+    identifier: string,
+    cb: (refreshTokenId: number, identifier: string) => Promise<number | false>,
+  ): NodeJS.Timeout {
+    const callback = async (): Promise<boolean | void> => {
+      this.Logger.log(`Timeout ${name} executing after (${milliseconds})!`);
+      const timeout = await cb(refreshTokenId, identifier);
+      if (!timeout) {
+        return this.deleteTimeout(name);
+      }
+      this.deleteTimeout(name);
+      const jwtRefreshTokenDeletedEvent = new JwtRefreshTokenDeletedEvent();
+      jwtRefreshTokenDeletedEvent.name = name;
+      jwtRefreshTokenDeletedEvent.userId = refreshTokenId;
+      jwtRefreshTokenDeletedEvent.description = `deleted user refresh token: ${refreshTokenId}`;
+      return this.eventEmitter.emit(
+        'refreshtoken.deleted',
+        jwtRefreshTokenDeletedEvent,
+      );
+    };
+    this.Logger.warn(`Timeout ${name} executing!`);
+    const timeout = setTimeout(callback, milliseconds);
+    this.schedulerRegistry.addTimeout(name, timeout);
+    return timeout;
+  }
+
+  deleteTimeout(name: string): void {
+    this.schedulerRegistry.deleteTimeout(name);
+    this.Logger.log(`Timeout ${name} deleted!`);
+    return;
+  }
+
 }

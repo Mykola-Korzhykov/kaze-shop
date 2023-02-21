@@ -41,9 +41,12 @@ import { OrderProduct } from '../orders/models/order.product.model';
 import { Product } from '../product/models/product.model';
 import { UsersService } from '../users/services/users.service';
 import { Currencies } from 'src/owner/models/currencies.model';
+import { HttpModule } from '@nestjs/axios';
+import { CurrencyService } from 'src/owner/services/currency.service';
 @Module({
   controllers: [AdminController],
   imports: [
+    HttpModule,
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
       expandVariables: true,
@@ -90,6 +93,7 @@ import { Currencies } from 'src/owner/models/currencies.model';
     OwnerService,
     AdminService,
     UsersService,
+    CurrencyService,
   ],
   exports: [AdminService, AdminJwtRefreshService],
 })

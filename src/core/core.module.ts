@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
 import { AllExceptionsFilter } from './filters/all-exceptions.filter';
 import { ThrottlerBehindProxyGuard } from '../common/guards/throttler-behind-proxy.guard';
@@ -27,6 +27,16 @@ import { UserRoles } from '../roles/models/user.roles.model';
 import { User } from '../users/models/user.model';
 import { UserRefreshToken } from '../users/models/user.refresh.token.model';
 import { SequelizeModule } from '@nestjs/sequelize';
+import { CurrencyService } from '../owner/services/currency.service';
+import { Currencies } from '../owner/models/currencies.model';
+import { HttpModule } from '@nestjs/axios';
+import { AdminModule } from '../admin/admin.module';
+import { AuthModule } from '../auth/auth.module';
+import { MailModule } from '../mail/mail.module';
+import { OwnerModule } from '../owner/owner.module';
+import { ProductModule } from '../product/product.module';
+import { RolesModule } from '../roles/roles.module';
+import { UsersModule } from '../users/users.module';
 @Module({
   providers: [
     { provide: APP_INTERCEPTOR, useClass: GlobalInterceptor },
@@ -35,12 +45,14 @@ import { SequelizeModule } from '@nestjs/sequelize';
       provide: APP_GUARD,
       useClass: ThrottlerBehindProxyGuard,
     },
+    CurrencyService,
     TasksService,
     AppClusterService,
     FilesService,
     GarbageCollectingProcessor,
   ],
   imports: [
+    HttpModule,
     BullModule.registerQueue({
       name: 'garbageCollecting',
     }),
@@ -75,7 +87,16 @@ import { SequelizeModule } from '@nestjs/sequelize';
       UserRoles,
       Cart,
       CartProduct,
+      Currencies,
     ]),
+    forwardRef(() => MailModule),
+    forwardRef(() => ProductModule),
+    forwardRef(() => CoreModule),
+    forwardRef(() => AdminModule),
+    forwardRef(() => RolesModule),
+    forwardRef(() => AuthModule),
+    forwardRef(() => OwnerModule),
+    forwardRef(() => UsersModule),
   ],
 })
 export class CoreModule {}

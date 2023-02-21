@@ -51,10 +51,14 @@ import { ProductReviews } from './reviews/models/product.reviews.model';
 import { BookmarksProducts } from './product/models/bookmark.products';
 import { WatchedProducts } from './product/models/watched.products.model';
 import { Currencies } from './owner/models/currencies.model';
-import { HttpModule, HttpService } from '@nestjs/axios';
+import { HttpModule } from '@nestjs/axios';
+import { LocationMiddleware } from './core/middlewares/location.middleware';
+import { TasksService } from './core/services/scedule.service';
 @Module({
   controllers: [AppController],
   providers: [
+    TasksService,
+    HttpModule,
     AppClusterService,
     {
       provide: APP_FILTER,
@@ -66,7 +70,11 @@ import { HttpModule, HttpService } from '@nestjs/axios';
     },
   ],
   imports: [
-    HttpModule,
+    HttpModule.register({
+      withCredentials: true,
+      responseEncoding: 'utf8',
+      responseType: 'json',
+    }),
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
       expandVariables: true,
@@ -175,7 +183,7 @@ import { HttpModule, HttpService } from '@nestjs/axios';
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(CorsMiddleware).forRoutes({
+    consumer.apply(CorsMiddleware, LocationMiddleware).forRoutes({
       path: '*',
       method: RequestMethod.ALL,
     });

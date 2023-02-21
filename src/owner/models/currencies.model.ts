@@ -60,6 +60,11 @@ export class Currencies extends Model<Currencies> {
         return this.owner;
     }
 
+    setAuthor(owner: Owner): Owner {
+        this.owner = owner;
+        return this.owner;
+    }
+
     getOwnerId(): number {
         return this.ownerId;
     }

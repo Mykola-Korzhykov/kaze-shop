@@ -26,12 +26,12 @@ export class AppClusterService {
     } else {
       AppClusterService.Logger.log(`Cluster server started on ${process.pid}`);
       const app = await callback();
-      process.on('SIGINT', () => app.close());
-      process.on('SIGTERM', () => app.close());
-      process.on('SIGUSR2', async () => app.close());
+      process.on('SIGINT', () => process.exit(1));
+      process.on('SIGTERM', () => process.exit(1));
+      process.on('SIGUSR2', async () => process.exit(1));
       process.on('message', (msg) => {
         if (msg === 'shutdown') {
-          app.close();
+          process.exit(1);
         }
       });
     }
