@@ -40,10 +40,11 @@ export class CurrencyService {
                 this.Logger.error(error.response.data);
                 throw error;
             })));
+            console.log(data);
             const currency = await Currencies.create({
-                base: data.data.base,
-                date: data.data.date,
-                rates: JSON.stringify(data.data.rates),
+                base: data.base,
+                date: data.date,
+                rates: JSON.stringify(data.rates),
             });
             currency.setOwnerId(ownerId);
             const owner = await Owner.findByPk(ownerId);
@@ -60,9 +61,9 @@ export class CurrencyService {
                 }))
             );
             const currency = await Currencies.create({
-                base: Object.keys(data.data)[1].toUpperCase().trim(),
-                date: data.data.date,
-                rates: JSON.stringify(data.data[process.env.BASE_CURRENCY.toLowerCase().trim()]),
+                base: Object.keys(data)[1].toUpperCase().trim(),
+                date: data.date,
+                rates: JSON.stringify(data[process.env.BASE_CURRENCY.toLowerCase().trim()]),
             });
             currency.setOwnerId(ownerId);
             const owner = await Owner.findByPk(ownerId);
@@ -90,9 +91,9 @@ export class CurrencyService {
                 this.Logger.error(error.response.data);
                 throw error;
             })));
-            currency.base = data.data.base;
-            currency.date = data.data.date;
-            currency.rates = JSON.stringify(data.data.rates);
+            currency.base = data.base;
+            currency.date = data.date;
+            currency.rates = JSON.stringify(data.rates);
             await currency.save();
         } catch (error) {
             this.Logger.error(error);
@@ -104,9 +105,9 @@ export class CurrencyService {
                     throw error;
                 }))
             );
-            currency.base = Object.keys(data.data)[1].toUpperCase().trim();
-            currency.date = data.data.date;
-            currency.rates = JSON.stringify(data.data[process.env.BASE_CURRENCY.toLowerCase().trim()]);
+            currency.base = Object.keys(data)[1].toUpperCase().trim();
+            currency.date = data.date;
+            currency.rates = JSON.stringify(data[process.env.BASE_CURRENCY.toLowerCase().trim()]);
             await currency.save();
             return currency;
         }   

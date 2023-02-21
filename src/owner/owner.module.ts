@@ -34,7 +34,11 @@ import { ScheduleModule } from '@nestjs/schedule';
 @Module({
   imports: [
     ScheduleModule.forRoot(),
-    HttpModule,
+    HttpModule.register({
+      withCredentials: true,
+      responseEncoding: 'utf8',
+      responseType: 'json',
+    }),
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
       expandVariables: true,

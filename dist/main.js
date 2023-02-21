@@ -183,7 +183,6 @@ const helmet_1 = __importDefault(__webpack_require__(172));
 const compression_1 = __importDefault(__webpack_require__(173));
 const cookie_parser_1 = __importDefault(__webpack_require__(174));
 const serve_favicon_1 = __importDefault(__webpack_require__(175));
-const cluster_service_1 = __webpack_require__(108);
 const common_1 = __webpack_require__(7);
 const all_exceptions_filter_1 = __webpack_require__(105);
 const error_handler_filter_1 = __webpack_require__(83);
@@ -308,7 +307,7 @@ if (((_a = process.env) === null || _a === void 0 ? void 0 : _a.NODE_ENV) === 'd
 }
 if (((_b = process.env) === null || _b === void 0 ? void 0 : _b.NODE_ENV) === 'production') {
     try {
-        cluster_service_1.AppClusterService.clusterize(startServer);
+        startServer();
     }
     catch (err) {
         console.log(err);
@@ -6439,10 +6438,11 @@ let CurrencyService = CurrencyService_1 = class CurrencyService {
                     this.Logger.error(error.response.data);
                     throw error;
                 })));
+                console.log(data);
                 const currency = yield currencies_model_1.Currencies.create({
-                    base: data.data.base,
-                    date: data.data.date,
-                    rates: JSON.stringify(data.data.rates),
+                    base: data.base,
+                    date: data.date,
+                    rates: JSON.stringify(data.rates),
                 });
                 currency.setOwnerId(ownerId);
                 const owner = yield owner_model_1.Owner.findByPk(ownerId);
@@ -6456,9 +6456,9 @@ let CurrencyService = CurrencyService_1 = class CurrencyService {
                     throw error;
                 })));
                 const currency = yield currencies_model_1.Currencies.create({
-                    base: Object.keys(data.data)[1].toUpperCase().trim(),
-                    date: data.data.date,
-                    rates: JSON.stringify(data.data[process.env.BASE_CURRENCY.toLowerCase().trim()]),
+                    base: Object.keys(data)[1].toUpperCase().trim(),
+                    date: data.date,
+                    rates: JSON.stringify(data[process.env.BASE_CURRENCY.toLowerCase().trim()]),
                 });
                 currency.setOwnerId(ownerId);
                 const owner = yield owner_model_1.Owner.findByPk(ownerId);
@@ -6484,9 +6484,9 @@ let CurrencyService = CurrencyService_1 = class CurrencyService {
                     this.Logger.error(error.response.data);
                     throw error;
                 })));
-                currency.base = data.data.base;
-                currency.date = data.data.date;
-                currency.rates = JSON.stringify(data.data.rates);
+                currency.base = data.base;
+                currency.date = data.date;
+                currency.rates = JSON.stringify(data.rates);
                 yield currency.save();
             }
             catch (error) {
@@ -6495,9 +6495,9 @@ let CurrencyService = CurrencyService_1 = class CurrencyService {
                     this.Logger.error(error.response.data);
                     throw error;
                 })));
-                currency.base = Object.keys(data.data)[1].toUpperCase().trim();
-                currency.date = data.data.date;
-                currency.rates = JSON.stringify(data.data[process.env.BASE_CURRENCY.toLowerCase().trim()]);
+                currency.base = Object.keys(data)[1].toUpperCase().trim();
+                currency.date = data.date;
+                currency.rates = JSON.stringify(data[process.env.BASE_CURRENCY.toLowerCase().trim()]);
                 yield currency.save();
                 return currency;
             }
@@ -8970,7 +8970,11 @@ OwnerModule = OwnerModule_1 = __decorate([
     (0, common_1.Module)({
         imports: [
             schedule_1.ScheduleModule.forRoot(),
-            axios_1.HttpModule,
+            axios_1.HttpModule.register({
+                withCredentials: true,
+                responseEncoding: 'utf8',
+                responseType: 'json',
+            }),
             config_1.ConfigModule.forRoot({
                 envFilePath: `.${process.env.NODE_ENV}.env`,
                 expandVariables: true,
@@ -14392,7 +14396,7 @@ module.exports = require("body-parser");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("bd6d351dab31334472bd")
+/******/ 		__webpack_require__.h = () => ("b8b15c5896adb2d4d512")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
