@@ -483,11 +483,11 @@ AppModule = __decorate([
             }),
             sequelize_1.SequelizeModule.forRoot({
                 dialect: 'postgres',
-                host: process.env.PG_HOST.toString(),
-                port: Number(process.env.PG_PORT),
-                username: process.env.PG_USER.toString(),
-                password: process.env.PG_PASSWORD.toString(),
-                database: process.env.PG_DATABASE.toString(),
+                host: process.env.PGHOST.toString(),
+                port: Number(process.env.PGPORT),
+                username: process.env.PGUSER.toString(),
+                password: process.env.PGPASSWORD.toString(),
+                database: process.env.PGDATABASE.toString(),
                 models: [
                     product_reviews_model_1.ProductReviews,
                     product_model_1.Product,
@@ -14397,7 +14397,7 @@ module.exports = require("body-parser");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("0ca32ad2989dbc056b29")
+/******/ 		__webpack_require__.h = () => ("017d0b748748e5d2f1f9")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
