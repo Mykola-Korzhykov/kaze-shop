@@ -136,11 +136,11 @@ import { TasksService } from './core/services/scedule.service';
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
-      host: process.env.PGHOST.toString(),
-      port: Number(process.env.PGPORT),
-      username: process.env.PGUSER.toString(),
-      password: process.env.PGPASSWORD.toString(),
-      database: process.env.PGDATABASE.toString(),
+      host: process.env.PG_HOST.toString(),
+      port: Number(process.env.PG_PORT),
+      username: process.env.PG_USER.toString(),
+      password: process.env.PG_PASSWORD.toString(),
+      database: process.env.PG_DATABASE.toString(),
       models: [
         ProductReviews,
         Product,

@@ -183,6 +183,7 @@ const helmet_1 = __importDefault(__webpack_require__(172));
 const compression_1 = __importDefault(__webpack_require__(173));
 const cookie_parser_1 = __importDefault(__webpack_require__(174));
 const serve_favicon_1 = __importDefault(__webpack_require__(175));
+const cluster_service_1 = __webpack_require__(108);
 const common_1 = __webpack_require__(7);
 const all_exceptions_filter_1 = __webpack_require__(105);
 const error_handler_filter_1 = __webpack_require__(83);
@@ -307,7 +308,7 @@ if (((_a = process.env) === null || _a === void 0 ? void 0 : _a.NODE_ENV) === 'd
 }
 if (((_b = process.env) === null || _b === void 0 ? void 0 : _b.NODE_ENV) === 'production') {
     try {
-        startServer();
+        cluster_service_1.AppClusterService.clusterize(startServer);
     }
     catch (err) {
         console.log(err);
@@ -482,11 +483,11 @@ AppModule = __decorate([
             }),
             sequelize_1.SequelizeModule.forRoot({
                 dialect: 'postgres',
-                host: process.env.PGHOST.toString(),
-                port: Number(process.env.PGPORT),
-                username: process.env.PGUSER.toString(),
-                password: process.env.PGPASSWORD.toString(),
-                database: process.env.PGDATABASE.toString(),
+                host: process.env.PG_HOST.toString(),
+                port: Number(process.env.PG_PORT),
+                username: process.env.PG_USER.toString(),
+                password: process.env.PG_PASSWORD.toString(),
+                database: process.env.PG_DATABASE.toString(),
                 models: [
                     product_reviews_model_1.ProductReviews,
                     product_model_1.Product,
@@ -14396,7 +14397,7 @@ module.exports = require("body-parser");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("b8b15c5896adb2d4d512")
+/******/ 		__webpack_require__.h = () => ("0ca32ad2989dbc056b29")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
