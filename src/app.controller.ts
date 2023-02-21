@@ -71,7 +71,7 @@ export class AppController {
         const ipAddress = request.headers['x-forwarded-for'];
         this.Logger.log(ipAddress);
         const reader = await Reader.open(path.join(__dirname, 'GeoLite2-Country.mmdb'));
-        const geoCountry = reader.country('62.122.202.29');
+        const geoCountry = reader.country(request.ip);
         return response.json({   
           geoLocation: {
             currency: request['currency'],
