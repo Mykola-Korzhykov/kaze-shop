@@ -30,7 +30,7 @@ services:
     env_file:
      - .production.env
     hostname: redis
-#   postgres:
+# /  postgres:
 #     container_name: postgres
 #     image: postgres:latest
 #     env_file:
