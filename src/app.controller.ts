@@ -83,6 +83,7 @@ export class AppController {
         return response.json({   
           geoLocation: {
             currency: request['currency'],
+            city: request['city'],
             ...geoCountry
           },
         });

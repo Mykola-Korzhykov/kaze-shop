@@ -13599,6 +13599,14 @@ let AppController = AppController_1 = class AppController {
                     });
                     return response.json({ _id: _id });
                 }
+                response.cookie('_id', request.signedCookies['_id'], {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === 'production' ? true : false,
+                    sameSite: 'strict',
+                    signed: true,
+                    path: '/',
+                    maxAge: 30 * 24 * 60 * 60 * 1000,
+                });
                 return response.json({ _id: request.signedCookies['_id'] });
             }
             catch (err) {
@@ -13615,7 +13623,7 @@ let AppController = AppController_1 = class AppController {
                 const reader = yield geoip2_node_1.Reader.open(path_1.default.join(__dirname, 'GeoLite2-Country.mmdb'));
                 const geoCountry = reader.country(request.ip);
                 return response.json({
-                    geoLocation: Object.assign({ currency: request['currency'] }, geoCountry),
+                    geoLocation: Object.assign({ currency: request['currency'], city: request['city'] }, geoCountry),
                 });
             }
             catch (err) {
@@ -14240,6 +14248,7 @@ let LocationMiddleware = LocationMiddleware_1 = class LocationMiddleware {
                 req['CLient-IP'] = data.traits.ipAddress;
                 req['CLient-Network'] = data.traits.network;
                 req['user-type'] = data.traits.userType;
+                req['city'] = geo.city;
                 res.setHeader('Client-IP-Address', `${data.traits.ipAddress}`);
                 res.setHeader('Client-Network', `${data.traits.network}`);
                 res.setHeader('Client-Location', `${data.country.isoCode}`);
@@ -14383,7 +14392,7 @@ module.exports = require("body-parser");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("b574288a285b0a67ef43")
+/******/ 		__webpack_require__.h = () => ("bd6d351dab31334472bd")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
