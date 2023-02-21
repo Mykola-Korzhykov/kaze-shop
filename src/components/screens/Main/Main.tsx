@@ -14,6 +14,7 @@ import product3 from '../../../assets/images/main/products/product3.svg'
 import BuyProducts from './BuyProducts';
 import ProductFitnes from './ProductFitnes'
 import About from './About'
+import ProductsAccessories from './ProductsAccessories'
 
 const Main = () => {
 
@@ -22,6 +23,7 @@ const Main = () => {
 			<BuyProducts />
 			<ProductFitnes />
 			<About />
+			<ProductsAccessories />
 		</div>
 
 	)

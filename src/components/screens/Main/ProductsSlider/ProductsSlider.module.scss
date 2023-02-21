@@ -58,7 +58,7 @@
 
 .tilte_wrapper{
     width: 1250px;
-    margin-top: 100px;
+    // margin-top: 100px;
     margin-bottom: 50px;
     display: flex;
     justify-content: space-between;
@@ -78,7 +78,7 @@
     }
     @media (max-width: 930px) {
         width: 650px;
-            margin-left: -30px;
+        margin-left: -30px;
     }
     @media (max-width: 810px) {
         width: 650px;
@@ -94,7 +94,7 @@
     }
     @media (max-width: 600px) {
         align-items: center;
-        margin-top: 190px;
+        // margin-top: 190px;
         margin-bottom: 10px;
         width:100%;
         margin-left: 20px;
