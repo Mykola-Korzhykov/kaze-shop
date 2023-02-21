@@ -1,0 +1,142 @@
+.wrapper{
+    height: 642px;
+    margin-bottom: 100px;
+    display: flex;
+    max-width: 100%;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 30px;
+
+    @media (max-width: 1160px) {
+        // margin-top: 20px;
+        height: 438px;
+    }
+    //переключаем на калом
+    @media (max-width: 700px) {
+        flex-direction: column;
+        align-items: center;
+        // margin-top: -40px;
+    }
+
+}
+
+.container {
+    padding-left: 105px;
+    padding-right: 105px;
+
+    @media (max-width: 1100px) {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+
+}
+
+.img_wrapper{
+    
+    .img{
+        margin-top: auto;
+        width: 495px;
+        height: 642px;
+    @media (max-width: 1160px) {
+        width: 296px;
+        height: 383.9px;
+    }
+    @media (max-width: 700px) {
+        width: 380px;
+        height: 416px;
+    }
+
+    }
+}
+
+
+
+.description_wrapper{
+    max-width: 705px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .title{
+        // margin-bottom: 20px;
+        margin-top: auto;
+        // margin-top: 184px;
+        font-family: 'Russo One';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 40px;
+        line-height: 48px;
+    
+        color: #0B0B0B;
+
+        @media (max-width: 1160px) {
+            font-weight: 400;
+            font-size: 32px;
+            line-height: 39px;
+        }
+        @media (max-width: 700px) {
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+    
+        }
+    }
+
+    .description{
+        margin-bottom: 50px;
+        font-family: 'Georama', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 29px;
+    
+        color: #0B0B0B;
+    
+        opacity: 0.3;
+
+        @media (max-width: 1160px) {
+           
+            margin-bottom: 15px;
+        }
+        @media (max-width: 700px) {
+            margin-bottom: 50px;
+           margin-top: 10px;
+        }
+        
+    }
+
+    .link{
+        text-decoration: none;
+    }
+
+    .btn{
+        background-color: #0B0B0B;
+        
+            background-color: #0B0B0B;
+            color: aliceblue;
+            width: 257px;
+            height: 56px;
+
+            display: flex;
+            align-items: center;
+            gap: 30px;
+
+        @media (max-width: 700px) {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn_title {
+                margin-left: 24px;
+                font-family: 'Georama', sans-serif;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 24px;
+        
+                color: #FFFFFF;
+            }
+    }
+
+}
+

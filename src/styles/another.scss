@@ -1,4 +1,16 @@
-//slick bottun
+//slick bottun main first section 
+
+.slider__wrapper{
+    display: flex;
+        max-width: 600px;
+    
+    
+        @media (max-width: 1200px) {
+            max-width: 390px;
+            // position: absolute;
+            // bottom: -200px;
+        }
+}
 
 .slick-slider button.slick-arrow {
     // position: absolute;
@@ -36,12 +48,12 @@
     // }
 
     @media (max-width: 1200px) {
-        margin-top: -220px;
+        margin-top: -260px; 
         transform: translateX(330px);
     }
 
     @media (max-width: 900px) {
-        margin-top: -210px;
+        margin-top: -240px; // -210 было , текущее может вызвать ошибку
         transform: translateX(350px);
     }
 
@@ -53,12 +65,12 @@
 .slick-prev:before {
     display: none !important;
     background: none;
-
-
 }
-
-
 
 .slick-next {
     display: none !important;
 }
+
+// .slide {
+//     margin-right: 40px !important;
+// }

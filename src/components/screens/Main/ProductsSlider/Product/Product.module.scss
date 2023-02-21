@@ -1,0 +1,44 @@
+.product {
+    display: flex;
+    flex-direction: column;
+    width: 285px;
+    // gap: 0px;
+
+    .img {
+            width: 285px;
+            height: 360px;
+    @media (max-width: 540px) {
+        width: 250px;
+        
+    }
+        }
+}
+
+.description_wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    
+
+    .description{
+        font-family: 'Georama', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 22px;
+        line-height: 26px;
+    
+        color: #0B0B0B;
+    }
+
+    .price{
+        font-family: 'Georama', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 22px;
+    
+        color: rgba(0, 0, 0, 0.6);
+    }
+   
+}

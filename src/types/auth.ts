@@ -80,3 +80,13 @@ export interface ButtonType {
 	url?: string,
 	// chengeDisplayOK: (n: number) => void
 }
+
+
+//product 
+
+export interface Product {
+	price: string,
+	description: string,
+	img: string
+	id: number
+}
