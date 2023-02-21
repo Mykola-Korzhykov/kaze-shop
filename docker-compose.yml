@@ -30,19 +30,19 @@ services:
     env_file:
      - .production.env
     hostname: redis
-  postgres:
-    container_name: postgres
-    image: postgres:latest
-    env_file:
-      - .production.env
-    environment:
-      PG_DATA: /var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./backups:/home/backups
-      - pgdata:/var/lib/postgresql/data
-    restart: always
+#   postgres:
+#     container_name: postgres
+#     image: postgres:latest
+#     env_file:
+#       - .production.env
+#     environment:
+#       PG_DATA: /var/lib/postgresql/data
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - ./backups:/home/backups
+#       - pgdata:/var/lib/postgresql/data
+#     restart: always
 
 volumes:
   pgdata:
