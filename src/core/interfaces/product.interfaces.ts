@@ -58,7 +58,7 @@ export interface ReturnedProduct {
 
 export interface ReturnedProducts {
   products: ReturnedProduct[];
-  totalItems: number;
+  totalProducts: number;
 }
 
 export interface ReturnedCategory {

@@ -3,7 +3,7 @@ exports.id = 0;
 exports.ids = null;
 exports.modules = {
 
-/***/ 170:
+/***/ 171:
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -37,12 +37,13 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LocationMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
-const geoip_lite_1 = __importDefault(__webpack_require__(171));
-const ip_1 = __importDefault(__webpack_require__(157));
-const path_1 = __importDefault(__webpack_require__(115));
-const geoip2_node_1 = __webpack_require__(159);
+const geoip_lite_1 = __importDefault(__webpack_require__(172));
+const ip_1 = __importDefault(__webpack_require__(158));
+const path_1 = __importDefault(__webpack_require__(113));
+const geoip2_node_1 = __webpack_require__(160);
 const currency_service_1 = __webpack_require__(60);
 const currency_symbol_map_1 = __importDefault(__webpack_require__(64));
+const country_to_currency_1 = __importDefault(__webpack_require__(63));
 let LocationMiddleware = LocationMiddleware_1 = class LocationMiddleware {
     constructor(currencyService) {
         this.currencyService = currencyService;
@@ -53,13 +54,15 @@ let LocationMiddleware = LocationMiddleware_1 = class LocationMiddleware {
             try {
                 const ipAddress = ip_1.default.address();
                 const reader = yield geoip2_node_1.Reader.open(path_1.default.join(__dirname, 'GeoLite2-Country.mmdb'));
-                const data = reader.country('62.122.202.29');
+                const data = reader.country(req.ip);
                 const geo = geoip_lite_1.default.lookup(req.ip);
                 this.Logger.log(geo, ipAddress);
                 req['countryIsoCode'] = data.country.isoCode;
                 req['CLient-IP'] = data.traits.ipAddress;
                 req['CLient-Network'] = data.traits.network;
                 req['user-type'] = data.traits.userType;
+                req['city'] = geo.city;
+                req['geo'] = geo;
                 res.setHeader('Client-IP-Address', `${data.traits.ipAddress}`);
                 res.setHeader('Client-Network', `${data.traits.network}`);
                 res.setHeader('Client-Location', `${data.country.isoCode}`);
@@ -70,7 +73,7 @@ let LocationMiddleware = LocationMiddleware_1 = class LocationMiddleware {
                     return next();
                 }
                 req['currency'] = {
-                    currencyCode: data.country.isoCode,
+                    currencyCode: country_to_currency_1.default[data.country.isoCode],
                     symbol: (0, currency_symbol_map_1.default)(process.env.BASE_CURRENCY.toUpperCase().trim()),
                     rate: 1,
                 };
@@ -106,7 +109,7 @@ exports.runtime =
 /******/ function(__webpack_require__) { // webpackRuntimeModules
 /******/ /* webpack/runtime/getFullHash */
 /******/ (() => {
-/******/ 	__webpack_require__.h = () => ("6b05af108adb17029d7b")
+/******/ 	__webpack_require__.h = () => ("2c5cbd7980be53d35753")
 /******/ })();
 /******/ 
 /******/ }

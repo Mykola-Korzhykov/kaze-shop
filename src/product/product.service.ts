@@ -14,6 +14,8 @@ import { UpdateProductDto } from './dto/update.product.dto';
 import { Product } from './models/product.model';
 import { UsersService } from '../users/services/users.service';
 import { USER_NOT_FOUND } from '../users/constants/user.constants';
+import { Request, Response } from 'express';
+import { QueryFilterDto } from './dto/query-filter.dto';
 @Injectable({ scope: Scope.TRANSIENT })
 export class ProductService {
     private readonly Logger = new Logger(ProductService.name);
@@ -25,11 +27,22 @@ export class ProductService {
         private readonly categoriesService: CategoriesService
     ) {}
 
-    async getBookmarks(page: number, productPerPage: number, userId: number) {
+    async getBookmarks(
+        request: Request,
+        response: Response,
+        page: number,
+        productPerPage: number,
+        userId: number
+    ) {
         const user = await this.userService.getUserById(userId);
         if (!user) {
             throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);   
         }
+        const currency: {
+            currencyCode: string;
+            symbol: string; 
+            rate: number,
+        } = request['currency'];
         const products = user.bookmarks
             .slice((page - 1) * productPerPage, productPerPage * page)
             .map(product => {
@@ -37,7 +50,7 @@ export class ProductService {
                     id: product.id,
                     title: product.getTitle(),
                     description: product.getDescription(),
-                    price: product.price,
+                    price: product.price * currency.rate + currency.symbol,
                     quantity: product.quantity,
                     images: product.images,
                     sizeChartImage: product.sizeChartImage,
@@ -66,21 +79,28 @@ export class ProductService {
                     })
                 };
             });
-        return {
+        return response.json({
             products: products,
-            totalItems: user.bookmarks.length,
-        };
+            totalProducts: user.bookmarks.length,
+        });
     }
 
     async getWatchedProducts(
+        request: Request,
+        response: Response,
         page: number,
         productPerPage: number,
         userId: number
-    ): Promise<ReturnedProducts> {
+    ) {
         const user = await this.userService.getUserById(userId);
         if (!user) {
             throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);   
         }
+        const currency: {
+            currencyCode: string;
+            symbol: string; 
+            rate: number,
+        } = request['currency'];
         const products = user.watched
             .slice((page - 1) * productPerPage, productPerPage * page)
             .map(product => {
@@ -88,7 +108,7 @@ export class ProductService {
                     id: product.id,
                     title: product.getTitle(),
                     description: product.getDescription(),
-                    price: product.price,
+                    price: product.price * currency.rate + currency.symbol,
                     quantity: product.quantity,
                     images: product.images,
                     sizeChartImage: product.sizeChartImage,
@@ -117,10 +137,321 @@ export class ProductService {
                     })
                 };
             });
-        return {
+        return response.json({
             products: products,
-            totalItems: user.watched.length,
-        };
+            totalProducts: user.bookmarks.length,
+        });
+    }
+
+    async getProductsByIds(
+        request: Request,
+        response: Response,
+        productIds: number[],
+        page: number,
+        productPerPage: number
+    ) {
+        const totalCount = await this.productRepository.count();
+        const products = await this.productRepository.findAll({
+            include: { all: true },
+            offset: (page - 1) * productPerPage,
+            limit: productPerPage,
+            attributes: [
+                'id',
+                'title',
+                'price',
+                'decription',
+                'quantity',
+                'colours',
+                'sizes',
+                'categories',
+                'images',
+                'sizeChartImage'
+            ],
+            where: {
+                id: productIds,
+            }
+        });
+        const currency: {
+            currencyCode: string;
+            symbol: string; 
+            rate: number,
+        } = request['currency'];
+        const returnedProducts = products.map(product => {
+            return {
+                id: product.id,
+                title: product.getTitle(),
+                description: product.getDescription(),
+                price: product.price * currency.rate + currency.symbol,
+                quantity: product.quantity,
+                images: product.images,
+                sizeChartImage: product.sizeChartImage,
+                sizes: product.sizes,
+                colours: product.colours,
+                categories: product.categories.map((category) => {
+                    return {
+                        id: category.id,
+                        ua: category.ua,
+                        en: category.en,
+                        rs: category.rs,
+                        ru: category.ru,
+                        createdAt: category.createdAt,
+                        updatedAt: category.updatedAt,
+                    };
+                }),
+                reviews: product.reviews.map((review) => {
+                    return {
+                        id: review.id,
+                        name: review.name,
+                        surname: review.surname,
+                        review: review.review,
+                        createdAt: review.createdAt,
+                        updatedAt: review.updatedAt,
+                    };
+                })
+            };
+        });
+        return response.json({
+            products: returnedProducts,
+            totalProducts: totalCount,
+        });
+    }
+    
+    async getProducts(
+        request: Request,
+        response: Response,
+        page: number,
+        productPerPage: number,
+    ){
+        try {
+            const totalCount = await this.productRepository.count();
+            const products = await this.productRepository.findAll({
+                include: { all: true },
+                offset: (page - 1) * productPerPage,
+                order: [['updatedAt', 'DESC']],
+                limit: productPerPage,
+                attributes: [
+                    'id',
+                    'title',
+                    'price',
+                    'decription',
+                    'quantity',
+                    'colours',
+                    'sizes',
+                    'categories',
+                    'images',
+                    'sizeChartImage'
+                ]
+            });
+            const currency: {
+                currencyCode: string;
+                symbol: string; 
+                rate: number,
+            } = request['currency'];
+            const returnedProducts = products.map(product => {
+                return {
+                    id: product.id,
+                    title: product.getTitle(),
+                    description: product.getDescription(),
+                    price: product.price * currency.rate + currency.symbol,
+                    quantity: product.quantity,
+                    images: product.images,
+                    sizeChartImage: product.sizeChartImage,
+                    sizes: product.sizes,
+                    colours: product.colours,
+                    categories: product.categories.map((category) => {
+                        return {
+                            id: category.id,
+                            ua: category.ua,
+                            en: category.en,
+                            rs: category.rs,
+                            ru: category.ru,
+                            createdAt: category.createdAt,
+                            updatedAt: category.updatedAt,
+                        };
+                    }),
+                    reviews: product.reviews.map((review) => {
+                        return {
+                            id: review.id,
+                            name: review.name,
+                            surname: review.surname,
+                            review: review.review,
+                            createdAt: review.createdAt,
+                            updatedAt: review.updatedAt,
+                        };
+                    })
+                };
+            });
+            return response.json({
+                products: returnedProducts,
+                totalProducts: totalCount,
+            });
+        } catch (error) {
+            this.Logger.error(error);
+            throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', PRODUCTS_NOT_FOUND);   
+        }
+    }
+
+    async getProductById(
+        request: Request,
+        response: Response,
+        productId: number
+    ): Promise<Response<any, Record<string, any>>>{
+        const product = await this.productRepository.findByPk(productId,
+            {
+                include: {
+                  all: true,
+                },
+                attributes: [
+                    'id',
+                    'title',
+                    'price',
+                    'description',
+                    'quantity',
+                    'colours',
+                    'sizes',
+                    'images',
+                    'sizeChartImage'
+                ],
+            }
+        );
+        if (!product) {
+            throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', PRODUCT_NOT_FOUND);   
+        }
+        const currency: {
+            currencyCode: string;
+            symbol: string; 
+            rate: number,
+        } = request['currency'];
+        return response.json({
+            id: product.id,
+            title: product.getTitle(),   
+            description: product.getDescription(),
+            price: product.price * currency.rate + currency.symbol,
+            quantity: product.quantity,
+            images: product.images,
+            sizeChartImage: product.sizeChartImage,
+            sizes: product.sizes,
+            colours: product.colours,
+            categories: product.categories.map((category) => {
+                return {
+                    id: category.id,
+                    ua: category.ua,
+                    en: category.en,
+                    rs: category.rs,
+                    ru: category.ru,
+                    createdAt: category.createdAt,
+                    updatedAt: category.updatedAt,
+                };
+            }),
+            reviews: product.reviews.map((review) => {
+                return {
+                    id: review.id,
+                    name: review.name,
+                    surname: review.surname,
+                    review: review.review,
+                    createdAt: review.createdAt,
+                    updatedAt: review.updatedAt,
+                };
+            })
+        });
+    }
+
+    async filterProducts(request: Request, response: Response, queryFilterDto: QueryFilterDto):
+        Promise<Response<any, Record<string, any>>>
+    {
+        try {
+            let products = await this.productRepository.findAll({
+                include: { all: true },
+            });
+            if (queryFilterDto.order && queryFilterDto.order === 'ASC') {
+                products.sort((firstProduct: Product, secondProduct) => {
+                    return firstProduct.price - secondProduct.price;
+                });
+            }       
+            if (queryFilterDto.order && queryFilterDto.order === 'DESC') {
+                products.sort((firstProduct: Product, secondProduct) => {
+                    return secondProduct.price - firstProduct.price;
+                });          
+            }
+            if (queryFilterDto.categories && queryFilterDto.categories.length > 0) {
+                products = products.filter((product: Product) => {
+                    if (
+                        product.categories.some((category: Category) =>
+                            queryFilterDto.categories.includes(category.id))
+                    ) {
+                        return product;
+                    }
+                });
+            }
+            if (queryFilterDto.sizes && queryFilterDto.sizes.length > 0) {
+                products = products.filter((product: Product) => {
+                    if (
+                        product.sizes.some((size: string) =>
+                            queryFilterDto.sizes.includes(size))
+                    ) {
+                        return product;
+                    }
+                });
+            }
+            if (queryFilterDto.colours && queryFilterDto.colours.length > 0) {
+                products = products.filter((product: Product) => {
+                    if (
+                        product.colours.some((colour: string) =>
+                            queryFilterDto.colours.includes(colour))
+                    ) {
+                        return product;
+                    }
+                });
+            }
+            const currency: {
+                currencyCode: string;
+                symbol: string; 
+                rate: number,
+            } = request['currency'];
+            return response.json({
+                products: products.map((product: Product) => {
+                    return {
+                        id: product.id,
+                        title: product.getTitle(),   
+                        description: product.getDescription(),
+                        price: product.price * currency.rate + currency.symbol,
+                        quantity: product.quantity,
+                        images: product.images,
+                        sizeChartImage: product.sizeChartImage,
+                        sizes: product.sizes,
+                        colours: product.colours,
+                        categories: product.categories.map((category) => {
+                            return {
+                                id: category.id,
+                                ua: category.ua,
+                                en: category.en,
+                                rs: category.rs,
+                                ru: category.ru,
+                                createdAt: category.createdAt,
+                                updatedAt: category.updatedAt,
+                            };
+                        }),
+                        reviews: product.reviews.map((review) => {
+                            return {
+                                id: review.id,
+                                name: review.name,
+                                surname: review.surname,
+                                review: review.review,
+                                createdAt: review.createdAt,
+                                updatedAt: review.updatedAt,
+                            };
+                        })
+                    };
+                }).slice(
+                    (queryFilterDto.page - 1) * queryFilterDto.pageSize,
+                    queryFilterDto.pageSize * queryFilterDto.page
+                ),
+                totalProducts: products.length,
+            });
+        } catch (error) {
+            this.Logger.error(error);
+            throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', PRODUCTS_NOT_FOUND);
+        }
     }
 
     async addWatchedProduct(productId: number, userId: number) {
@@ -153,325 +484,6 @@ export class ProductService {
         }
         await user.save();
         return productId;
-    }
-
-    async getProductsByIds(productIds: number[], page: number, productPerPage: number){
-        const totalCount = await this.productRepository.count();
-        const products = await this.productRepository.findAll({
-            include: { all: true },
-            offset: (page - 1) * productPerPage,
-            limit: productPerPage,
-            attributes: [
-                'id',
-                'title',
-                'price',
-                'decription',
-                'quantity',
-                'colours',
-                'sizes',
-                'categories',
-                'images',
-                'sizeChartImage'
-            ],
-            where: {
-                id: productIds,
-            }
-        });
-        const returnedProducts = products.map(product => {
-            return {
-                id: product.id,
-                title: product.getTitle(),
-                description: product.getDescription(),
-                price: product.price,
-                quantity: product.quantity,
-                images: product.images,
-                sizeChartImage: product.sizeChartImage,
-                sizes: product.sizes,
-                colours: product.colours,
-                categories: product.categories.map((category) => {
-                    return {
-                        id: category.id,
-                        ua: category.ua,
-                        en: category.en,
-                        rs: category.rs,
-                        ru: category.ru,
-                        createdAt: category.createdAt,
-                        updatedAt: category.updatedAt,
-                    };
-                }),
-                reviews: product.reviews.map((review) => {
-                    return {
-                        id: review.id,
-                        name: review.name,
-                        surname: review.surname,
-                        review: review.review,
-                        createdAt: review.createdAt,
-                        updatedAt: review.updatedAt,
-                    };
-                })
-            };
-        });
-        return {
-            products: returnedProducts,
-            totalItems: totalCount,
-        };
-    }
-    
-    async getProducts(
-        page: number,
-        productPerPage: number,
-    ): Promise<ReturnedProducts>{
-        try {
-            const totalCount = await this.productRepository.count();
-            const products = await this.productRepository.findAll({
-                include: { all: true },
-                offset: (page - 1) * productPerPage,
-                order: [['updatedAt', 'DESC']],
-                limit: productPerPage,
-                attributes: [
-                    'id',
-                    'title',
-                    'price',
-                    'decription',
-                    'quantity',
-                    'colours',
-                    'sizes',
-                    'categories',
-                    'images',
-                    'sizeChartImage'
-                ]
-            });
-            const returnedProducts = products.map(product => {
-                return {
-                    id: product.id,
-                    title: product.getTitle(),
-                    description: product.getDescription(),
-                    price: product.price,
-                    quantity: product.quantity,
-                    images: product.images,
-                    sizeChartImage: product.sizeChartImage,
-                    sizes: product.sizes,
-                    colours: product.colours,
-                    categories: product.categories.map((category) => {
-                        return {
-                            id: category.id,
-                            ua: category.ua,
-                            en: category.en,
-                            rs: category.rs,
-                            ru: category.ru,
-                            createdAt: category.createdAt,
-                            updatedAt: category.updatedAt,
-                        };
-                    }),
-                    reviews: product.reviews.map((review) => {
-                        return {
-                            id: review.id,
-                            name: review.name,
-                            surname: review.surname,
-                            review: review.review,
-                            createdAt: review.createdAt,
-                            updatedAt: review.updatedAt,
-                        };
-                    })
-                };
-            });
-            return {
-                products: returnedProducts,
-                totalItems: totalCount,
-            };
-        } catch (error) {
-            this.Logger.error(error);
-            throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', PRODUCTS_NOT_FOUND);   
-        }
-    }
-    
-    async filterProducts(
-        page: number,
-        productPerPage: number,
-        order: 'ASC' | 'DESC' | null,
-        sizes: string[],
-        colours: string[],
-        categories: number[],
-    ): Promise<ReturnedProducts> {
-        try {
-            const totalCount = await this.productRepository.count({
-                where: {
-                    sizes: sizes ? sizes : [],
-                    colours: colours ? colours : [],
-                }
-            });
-            const products = await this.productRepository.findAll({
-                include: { all: true },
-                offset: (page - 1) * productPerPage,
-                limit: productPerPage,
-                attributes: [
-                    'id',
-                    'title',
-                    'price',
-                    'decription',
-                    'quantity',
-                    'colours',
-                    'sizes',
-                    'categories',
-                    'images',
-                    'sizeChartImage'
-                ],
-                where: {
-                    sizes: { include: sizes },
-                    colours: { include: colours },
-                }
-            });
-            if (categories.length === 0 || !categories) {
-                const returnedProducts = products.map((product: Product) => {
-                    return {
-                        id: product.id,
-                        title: product.getTitle(),
-                        description: product.getDescription(),
-                        price: product.price,
-                        quantity: product.quantity,
-                        images: product.images,
-                        sizeChartImage: product.sizeChartImage,
-                        sizes: product.sizes,
-                        colours: product.colours,
-                        categories: product.categories.map((category) => {
-                            return {
-                                id: category.id,
-                                ua: category.ua,
-                                en: category.en,
-                                rs: category.rs,
-                                ru: category.ru,
-                                createdAt: category.createdAt,
-                                updatedAt: category.updatedAt,
-                            };
-                        }),
-                        reviews: product.reviews.map((review) => {
-                            return {
-                                id: review.id,
-                                name: review.name,
-                                surname: review.surname,
-                                review: review.review,
-                                createdAt: review.createdAt,
-                                updatedAt: review.updatedAt,
-                            };
-                        })
-                    };
-                });
-                return {
-                    products: returnedProducts,
-                    totalItems: totalCount,
-                };
-            }
-            const returnedProducts = products.map((product: Product) => {
-                if (
-                    product.categories.some((category: Category) =>
-                    categories.indexOf(category.id) >= 0)
-                ) {
-                    return {
-                        id: product.id,
-                        title: product.getTitle(),
-                        description: product.getDescription(),
-                        price: product.price,
-                        quantity: product.quantity,
-                        images: product.images,
-                        sizeChartImage: product.sizeChartImage,
-                        sizes: product.sizes,
-                        colours: product.colours,
-                        categories: product.categories.map((category) => {
-                            return {
-                                id: category.id,
-                                ua: category.ua,
-                                en: category.en,
-                                rs: category.rs,
-                                ru: category.ru,
-                                createdAt: category.createdAt,
-                                updatedAt: category.updatedAt,
-                            };
-                        }),
-                        reviews: product?.reviews?.map((review) => {
-                            return {
-                                id: review.id,
-                                name: review.name,
-                                surname: review.surname,
-                                review: review.review,
-                                createdAt: review.createdAt,
-                                updatedAt: review.updatedAt,
-                            };
-                        })
-                    };
-                }
-            });
-            return {
-                products: returnedProducts,
-                totalItems: totalCount,
-            };
-        } catch (error) {
-            this.Logger.error(error);
-            throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', PRODUCTS_NOT_FOUND);
-        }
-    }
-
-    async getProductById(productId: number): Promise<ReturnedProduct> {
-        const product = await this.productRepository.findByPk(productId,
-            {
-                include: {
-                  all: true,
-                },
-                attributes: [
-                    'id',
-                    'title',
-                    'price',
-                    'description',
-                    'quantity',
-                    'colours',
-                    'sizes',
-                    'images',
-                    'sizeChartImage'
-                ],
-            }
-        );
-        if (!product) {
-            throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', PRODUCT_NOT_FOUND);   
-        }
-        return {
-            id: product.id,
-            title: product.getTitle(),   
-            description: product.getDescription(),
-            price: product.price,
-            quantity: product.quantity,
-            images: product.images,
-            sizeChartImage: product.sizeChartImage,
-            sizes: product.sizes,
-            colours: product.colours,
-            categories: product.categories.map((category) => {
-                return {
-                    id: category.id,
-                    ua: category.ua,
-                    en: category.en,
-                    rs: category.rs,
-                    ru: category.ru,
-                    createdAt: category.createdAt,
-                    updatedAt: category.updatedAt,
-                };
-            }),
-            reviews: product.reviews.map((review) => {
-                return {
-                    id: review.id,
-                    name: review.name,
-                    surname: review.surname,
-                    review: review.review,
-                    createdAt: review.createdAt,
-                    updatedAt: review.updatedAt,
-                };
-            })
-        };
-    }
-    
-    async findById(productId: number): Promise<Product>{
-        const product = await this.productRepository.findByPk(productId);
-        if (!product) {
-            throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', PRODUCT_NOT_FOUND);   
-        }
-        return product;
     }
 
     async createProduct(
@@ -543,7 +555,7 @@ export class ProductService {
                     ]);
                 }, 0);
             }  
-            const dbProduct = await this.getProductById(product.id);
+            const dbProduct = await this.findById(product.id);
             const Product = {
                 id: dbProduct.id,
                 title: product.getTitle(),
@@ -669,11 +681,11 @@ export class ProductService {
                 existingProduct.sizeChartImage = sizeChartImagePath;   
             }
             await existingProduct.save();
-            const dbProduct = await this.getProductById(existingProduct.id);
+            const dbProduct = await this.findById(existingProduct.id);
             const Product = {
                 id: dbProduct?.id,
-                title: dbProduct?.title,
-                description: dbProduct?.description,
+                title: dbProduct?.getTitle(),
+                description: dbProduct?.getDescription(),
                 price: dbProduct?.price,
                 quantity: dbProduct?.quantity,
                 images: dbProduct?.images,
@@ -808,5 +820,13 @@ export class ProductService {
             this.Logger.error(error);
             throw error;
         }
+    }
+
+    async findById(productId: number): Promise<Product>{
+        const product = await this.productRepository.findByPk(productId);
+        if (!product) {
+            throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', PRODUCT_NOT_FOUND);   
+        }
+        return product;
     }
 }

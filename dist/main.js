@@ -179,17 +179,17 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(4);
 const swagger_1 = __webpack_require__(5);
 const app_module_1 = __webpack_require__(6);
-const helmet_1 = __importDefault(__webpack_require__(172));
-const compression_1 = __importDefault(__webpack_require__(173));
-const cookie_parser_1 = __importDefault(__webpack_require__(174));
-const serve_favicon_1 = __importDefault(__webpack_require__(175));
+const helmet_1 = __importDefault(__webpack_require__(173));
+const compression_1 = __importDefault(__webpack_require__(174));
+const cookie_parser_1 = __importDefault(__webpack_require__(175));
+const serve_favicon_1 = __importDefault(__webpack_require__(176));
 const cluster_service_1 = __webpack_require__(108);
 const common_1 = __webpack_require__(7);
 const all_exceptions_filter_1 = __webpack_require__(105);
 const error_handler_filter_1 = __webpack_require__(83);
 const api_exception_filter_1 = __webpack_require__(85);
 const path_1 = __webpack_require__(113);
-const body_parser_1 = __importDefault(__webpack_require__(176));
+const body_parser_1 = __importDefault(__webpack_require__(177));
 const PORT = Number(process.env.PORT) || 2222;
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -358,7 +358,7 @@ const throttler_1 = __webpack_require__(77);
 const path_1 = __importDefault(__webpack_require__(113));
 const admin_refresh_token_model_1 = __webpack_require__(47);
 const mail_module_1 = __webpack_require__(117);
-const cors_middleware_1 = __webpack_require__(156);
+const cors_middleware_1 = __webpack_require__(157);
 const core_1 = __webpack_require__(4);
 const all_exceptions_filter_1 = __webpack_require__(105);
 const global_interceptor_1 = __webpack_require__(106);
@@ -366,18 +366,18 @@ const core_module_1 = __webpack_require__(104);
 const product_module_1 = __webpack_require__(126);
 const users_module_1 = __webpack_require__(118);
 const owner_module_1 = __webpack_require__(98);
-const orders_module_1 = __webpack_require__(147);
-const cart_module_1 = __webpack_require__(144);
+const orders_module_1 = __webpack_require__(148);
+const cart_module_1 = __webpack_require__(145);
 const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const app_controller_1 = __webpack_require__(158);
-const telegram_module_1 = __webpack_require__(160);
-const telegram_config_1 = __webpack_require__(165);
-const categories_module_1 = __webpack_require__(141);
+const app_controller_1 = __webpack_require__(159);
+const telegram_module_1 = __webpack_require__(161);
+const telegram_config_1 = __webpack_require__(166);
+const categories_module_1 = __webpack_require__(142);
 const product_model_1 = __webpack_require__(32);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
@@ -387,14 +387,14 @@ const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
 const platform_express_1 = __webpack_require__(133);
 const bull_1 = __webpack_require__(114);
-const reviews_module_1 = __webpack_require__(166);
+const reviews_module_1 = __webpack_require__(167);
 const review_model_1 = __webpack_require__(43);
 const product_reviews_model_1 = __webpack_require__(44);
 const bookmark_products_1 = __webpack_require__(37);
 const watched_products_model_1 = __webpack_require__(38);
 const currencies_model_1 = __webpack_require__(46);
 const axios_1 = __webpack_require__(61);
-const location_middleware_1 = __webpack_require__(170);
+const location_middleware_1 = __webpack_require__(171);
 const scedule_service_1 = __webpack_require__(66);
 let AppModule = class AppModule {
     configure(consumer) {
@@ -585,11 +585,11 @@ const owner_refresh_token_model_1 = __webpack_require__(45);
 const users_module_1 = __webpack_require__(118);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const user_admin_middleware_1 = __webpack_require__(154);
+const user_admin_middleware_1 = __webpack_require__(155);
 const body_validator_pipe_1 = __importDefault(__webpack_require__(125));
 const create_admin_dto_1 = __webpack_require__(73);
 const config_1 = __webpack_require__(103);
-const admin_user_middleware_1 = __webpack_require__(155);
+const admin_user_middleware_1 = __webpack_require__(156);
 const core_module_1 = __webpack_require__(104);
 const scedule_service_1 = __webpack_require__(66);
 const cart_product_model_1 = __webpack_require__(33);
@@ -8252,8 +8252,8 @@ const jwt_refresh_service_1 = __webpack_require__(71);
 const jwt_refresh_service_2 = __webpack_require__(70);
 const users_module_1 = __webpack_require__(118);
 const initialize_user_middleware_1 = __webpack_require__(124);
-const initialize_email_middleware_1 = __webpack_require__(151);
-const activate_middleware_1 = __webpack_require__(152);
+const initialize_email_middleware_1 = __webpack_require__(152);
+const activate_middleware_1 = __webpack_require__(153);
 const body_validator_pipe_1 = __importDefault(__webpack_require__(125));
 const login_dto_1 = __webpack_require__(89);
 const signup_dto_1 = __webpack_require__(17);
@@ -8271,7 +8271,7 @@ const user_refresh_token_model_1 = __webpack_require__(36);
 const config_1 = __webpack_require__(103);
 const scedule_service_1 = __webpack_require__(66);
 const core_module_1 = __webpack_require__(104);
-const events_service_1 = __webpack_require__(153);
+const events_service_1 = __webpack_require__(154);
 const currency_service_1 = __webpack_require__(60);
 const currencies_model_1 = __webpack_require__(46);
 const axios_1 = __webpack_require__(61);
@@ -10621,17 +10621,17 @@ const config_1 = __webpack_require__(103);
 const product_model_1 = __webpack_require__(32);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
-const categories_module_1 = __webpack_require__(141);
-const cart_module_1 = __webpack_require__(144);
+const categories_module_1 = __webpack_require__(142);
+const cart_module_1 = __webpack_require__(145);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
-const orders_module_1 = __webpack_require__(147);
+const orders_module_1 = __webpack_require__(148);
 const initialize_user_middleware_1 = __webpack_require__(124);
 const categories_service_1 = __webpack_require__(129);
 const file_service_1 = __webpack_require__(111);
-const product_middleware_1 = __webpack_require__(150);
+const product_middleware_1 = __webpack_require__(151);
 const product_reviews_model_1 = __webpack_require__(44);
 const bookmark_products_1 = __webpack_require__(37);
 const watched_products_model_1 = __webpack_require__(38);
@@ -10750,12 +10750,13 @@ let ProductService = ProductService_1 = class ProductService {
         this.categoriesService = categoriesService;
         this.Logger = new common_1.Logger(ProductService_1.name);
     }
-    getBookmarks(page, productPerPage, userId) {
+    getBookmarks(request, response, page, productPerPage, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield this.userService.getUserById(userId);
             if (!user) {
                 throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', user_constants_1.USER_NOT_FOUND);
             }
+            const currency = request['currency'];
             const products = user.bookmarks
                 .slice((page - 1) * productPerPage, productPerPage * page)
                 .map(product => {
@@ -10763,7 +10764,7 @@ let ProductService = ProductService_1 = class ProductService {
                     id: product.id,
                     title: product.getTitle(),
                     description: product.getDescription(),
-                    price: product.price,
+                    price: product.price * currency.rate + currency.symbol,
                     quantity: product.quantity,
                     images: product.images,
                     sizeChartImage: product.sizeChartImage,
@@ -10792,18 +10793,19 @@ let ProductService = ProductService_1 = class ProductService {
                     })
                 };
             });
-            return {
+            return response.json({
                 products: products,
-                totalItems: user.bookmarks.length,
-            };
+                totalProducts: user.bookmarks.length,
+            });
         });
     }
-    getWatchedProducts(page, productPerPage, userId) {
+    getWatchedProducts(request, response, page, productPerPage, userId) {
         return __awaiter(this, void 0, void 0, function* () {
             const user = yield this.userService.getUserById(userId);
             if (!user) {
                 throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', user_constants_1.USER_NOT_FOUND);
             }
+            const currency = request['currency'];
             const products = user.watched
                 .slice((page - 1) * productPerPage, productPerPage * page)
                 .map(product => {
@@ -10811,7 +10813,7 @@ let ProductService = ProductService_1 = class ProductService {
                     id: product.id,
                     title: product.getTitle(),
                     description: product.getDescription(),
-                    price: product.price,
+                    price: product.price * currency.rate + currency.symbol,
                     quantity: product.quantity,
                     images: product.images,
                     sizeChartImage: product.sizeChartImage,
@@ -10840,10 +10842,280 @@ let ProductService = ProductService_1 = class ProductService {
                     })
                 };
             });
-            return {
+            return response.json({
                 products: products,
-                totalItems: user.watched.length,
-            };
+                totalProducts: user.bookmarks.length,
+            });
+        });
+    }
+    getProductsByIds(request, response, productIds, page, productPerPage) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const totalCount = yield this.productRepository.count();
+            const products = yield this.productRepository.findAll({
+                include: { all: true },
+                offset: (page - 1) * productPerPage,
+                limit: productPerPage,
+                attributes: [
+                    'id',
+                    'title',
+                    'price',
+                    'decription',
+                    'quantity',
+                    'colours',
+                    'sizes',
+                    'categories',
+                    'images',
+                    'sizeChartImage'
+                ],
+                where: {
+                    id: productIds,
+                }
+            });
+            const currency = request['currency'];
+            const returnedProducts = products.map(product => {
+                return {
+                    id: product.id,
+                    title: product.getTitle(),
+                    description: product.getDescription(),
+                    price: product.price * currency.rate + currency.symbol,
+                    quantity: product.quantity,
+                    images: product.images,
+                    sizeChartImage: product.sizeChartImage,
+                    sizes: product.sizes,
+                    colours: product.colours,
+                    categories: product.categories.map((category) => {
+                        return {
+                            id: category.id,
+                            ua: category.ua,
+                            en: category.en,
+                            rs: category.rs,
+                            ru: category.ru,
+                            createdAt: category.createdAt,
+                            updatedAt: category.updatedAt,
+                        };
+                    }),
+                    reviews: product.reviews.map((review) => {
+                        return {
+                            id: review.id,
+                            name: review.name,
+                            surname: review.surname,
+                            review: review.review,
+                            createdAt: review.createdAt,
+                            updatedAt: review.updatedAt,
+                        };
+                    })
+                };
+            });
+            return response.json({
+                products: returnedProducts,
+                totalProducts: totalCount,
+            });
+        });
+    }
+    getProducts(request, response, page, productPerPage) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const totalCount = yield this.productRepository.count();
+                const products = yield this.productRepository.findAll({
+                    include: { all: true },
+                    offset: (page - 1) * productPerPage,
+                    order: [['updatedAt', 'DESC']],
+                    limit: productPerPage,
+                    attributes: [
+                        'id',
+                        'title',
+                        'price',
+                        'decription',
+                        'quantity',
+                        'colours',
+                        'sizes',
+                        'categories',
+                        'images',
+                        'sizeChartImage'
+                    ]
+                });
+                const currency = request['currency'];
+                const returnedProducts = products.map(product => {
+                    return {
+                        id: product.id,
+                        title: product.getTitle(),
+                        description: product.getDescription(),
+                        price: product.price * currency.rate + currency.symbol,
+                        quantity: product.quantity,
+                        images: product.images,
+                        sizeChartImage: product.sizeChartImage,
+                        sizes: product.sizes,
+                        colours: product.colours,
+                        categories: product.categories.map((category) => {
+                            return {
+                                id: category.id,
+                                ua: category.ua,
+                                en: category.en,
+                                rs: category.rs,
+                                ru: category.ru,
+                                createdAt: category.createdAt,
+                                updatedAt: category.updatedAt,
+                            };
+                        }),
+                        reviews: product.reviews.map((review) => {
+                            return {
+                                id: review.id,
+                                name: review.name,
+                                surname: review.surname,
+                                review: review.review,
+                                createdAt: review.createdAt,
+                                updatedAt: review.updatedAt,
+                            };
+                        })
+                    };
+                });
+                return response.json({
+                    products: returnedProducts,
+                    totalProducts: totalCount,
+                });
+            }
+            catch (error) {
+                this.Logger.error(error);
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCTS_NOT_FOUND);
+            }
+        });
+    }
+    getProductById(request, response, productId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const product = yield this.productRepository.findByPk(productId, {
+                include: {
+                    all: true,
+                },
+                attributes: [
+                    'id',
+                    'title',
+                    'price',
+                    'description',
+                    'quantity',
+                    'colours',
+                    'sizes',
+                    'images',
+                    'sizeChartImage'
+                ],
+            });
+            if (!product) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCT_NOT_FOUND);
+            }
+            const currency = request['currency'];
+            return response.json({
+                id: product.id,
+                title: product.getTitle(),
+                description: product.getDescription(),
+                price: product.price * currency.rate + currency.symbol,
+                quantity: product.quantity,
+                images: product.images,
+                sizeChartImage: product.sizeChartImage,
+                sizes: product.sizes,
+                colours: product.colours,
+                categories: product.categories.map((category) => {
+                    return {
+                        id: category.id,
+                        ua: category.ua,
+                        en: category.en,
+                        rs: category.rs,
+                        ru: category.ru,
+                        createdAt: category.createdAt,
+                        updatedAt: category.updatedAt,
+                    };
+                }),
+                reviews: product.reviews.map((review) => {
+                    return {
+                        id: review.id,
+                        name: review.name,
+                        surname: review.surname,
+                        review: review.review,
+                        createdAt: review.createdAt,
+                        updatedAt: review.updatedAt,
+                    };
+                })
+            });
+        });
+    }
+    filterProducts(request, response, queryFilterDto) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                let products = yield this.productRepository.findAll({
+                    include: { all: true },
+                });
+                if (queryFilterDto.order && queryFilterDto.order === 'ASC') {
+                    products.sort((firstProduct, secondProduct) => {
+                        return firstProduct.price - secondProduct.price;
+                    });
+                }
+                if (queryFilterDto.order && queryFilterDto.order === 'DESC') {
+                    products.sort((firstProduct, secondProduct) => {
+                        return secondProduct.price - firstProduct.price;
+                    });
+                }
+                if (queryFilterDto.categories && queryFilterDto.categories.length > 0) {
+                    products = products.filter((product) => {
+                        if (product.categories.some((category) => queryFilterDto.categories.includes(category.id))) {
+                            return product;
+                        }
+                    });
+                }
+                if (queryFilterDto.sizes && queryFilterDto.sizes.length > 0) {
+                    products = products.filter((product) => {
+                        if (product.sizes.some((size) => queryFilterDto.sizes.includes(size))) {
+                            return product;
+                        }
+                    });
+                }
+                if (queryFilterDto.colours && queryFilterDto.colours.length > 0) {
+                    products = products.filter((product) => {
+                        if (product.colours.some((colour) => queryFilterDto.colours.includes(colour))) {
+                            return product;
+                        }
+                    });
+                }
+                const currency = request['currency'];
+                return response.json({
+                    products: products.map((product) => {
+                        return {
+                            id: product.id,
+                            title: product.getTitle(),
+                            description: product.getDescription(),
+                            price: product.price * currency.rate + currency.symbol,
+                            quantity: product.quantity,
+                            images: product.images,
+                            sizeChartImage: product.sizeChartImage,
+                            sizes: product.sizes,
+                            colours: product.colours,
+                            categories: product.categories.map((category) => {
+                                return {
+                                    id: category.id,
+                                    ua: category.ua,
+                                    en: category.en,
+                                    rs: category.rs,
+                                    ru: category.ru,
+                                    createdAt: category.createdAt,
+                                    updatedAt: category.updatedAt,
+                                };
+                            }),
+                            reviews: product.reviews.map((review) => {
+                                return {
+                                    id: review.id,
+                                    name: review.name,
+                                    surname: review.surname,
+                                    review: review.review,
+                                    createdAt: review.createdAt,
+                                    updatedAt: review.updatedAt,
+                                };
+                            })
+                        };
+                    }).slice((queryFilterDto.page - 1) * queryFilterDto.pageSize, queryFilterDto.pageSize * queryFilterDto.page),
+                    totalProducts: products.length,
+                });
+            }
+            catch (error) {
+                this.Logger.error(error);
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCTS_NOT_FOUND);
+            }
         });
     }
     addWatchedProduct(productId, userId) {
@@ -10880,318 +11152,6 @@ let ProductService = ProductService_1 = class ProductService {
             }
             yield user.save();
             return productId;
-        });
-    }
-    getProductsByIds(productIds, page, productPerPage) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const totalCount = yield this.productRepository.count();
-            const products = yield this.productRepository.findAll({
-                include: { all: true },
-                offset: (page - 1) * productPerPage,
-                limit: productPerPage,
-                attributes: [
-                    'id',
-                    'title',
-                    'price',
-                    'decription',
-                    'quantity',
-                    'colours',
-                    'sizes',
-                    'categories',
-                    'images',
-                    'sizeChartImage'
-                ],
-                where: {
-                    id: productIds,
-                }
-            });
-            const returnedProducts = products.map(product => {
-                return {
-                    id: product.id,
-                    title: product.getTitle(),
-                    description: product.getDescription(),
-                    price: product.price,
-                    quantity: product.quantity,
-                    images: product.images,
-                    sizeChartImage: product.sizeChartImage,
-                    sizes: product.sizes,
-                    colours: product.colours,
-                    categories: product.categories.map((category) => {
-                        return {
-                            id: category.id,
-                            ua: category.ua,
-                            en: category.en,
-                            rs: category.rs,
-                            ru: category.ru,
-                            createdAt: category.createdAt,
-                            updatedAt: category.updatedAt,
-                        };
-                    }),
-                    reviews: product.reviews.map((review) => {
-                        return {
-                            id: review.id,
-                            name: review.name,
-                            surname: review.surname,
-                            review: review.review,
-                            createdAt: review.createdAt,
-                            updatedAt: review.updatedAt,
-                        };
-                    })
-                };
-            });
-            return {
-                products: returnedProducts,
-                totalItems: totalCount,
-            };
-        });
-    }
-    getProducts(page, productPerPage) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const totalCount = yield this.productRepository.count();
-                const products = yield this.productRepository.findAll({
-                    include: { all: true },
-                    offset: (page - 1) * productPerPage,
-                    order: [['updatedAt', 'DESC']],
-                    limit: productPerPage,
-                    attributes: [
-                        'id',
-                        'title',
-                        'price',
-                        'decription',
-                        'quantity',
-                        'colours',
-                        'sizes',
-                        'categories',
-                        'images',
-                        'sizeChartImage'
-                    ]
-                });
-                const returnedProducts = products.map(product => {
-                    return {
-                        id: product.id,
-                        title: product.getTitle(),
-                        description: product.getDescription(),
-                        price: product.price,
-                        quantity: product.quantity,
-                        images: product.images,
-                        sizeChartImage: product.sizeChartImage,
-                        sizes: product.sizes,
-                        colours: product.colours,
-                        categories: product.categories.map((category) => {
-                            return {
-                                id: category.id,
-                                ua: category.ua,
-                                en: category.en,
-                                rs: category.rs,
-                                ru: category.ru,
-                                createdAt: category.createdAt,
-                                updatedAt: category.updatedAt,
-                            };
-                        }),
-                        reviews: product.reviews.map((review) => {
-                            return {
-                                id: review.id,
-                                name: review.name,
-                                surname: review.surname,
-                                review: review.review,
-                                createdAt: review.createdAt,
-                                updatedAt: review.updatedAt,
-                            };
-                        })
-                    };
-                });
-                return {
-                    products: returnedProducts,
-                    totalItems: totalCount,
-                };
-            }
-            catch (error) {
-                this.Logger.error(error);
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCTS_NOT_FOUND);
-            }
-        });
-    }
-    filterProducts(page, productPerPage, order, sizes, colours, categories) {
-        return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const totalCount = yield this.productRepository.count({
-                    where: {
-                        sizes: sizes ? sizes : [],
-                        colours: colours ? colours : [],
-                    }
-                });
-                const products = yield this.productRepository.findAll({
-                    include: { all: true },
-                    offset: (page - 1) * productPerPage,
-                    limit: productPerPage,
-                    attributes: [
-                        'id',
-                        'title',
-                        'price',
-                        'decription',
-                        'quantity',
-                        'colours',
-                        'sizes',
-                        'categories',
-                        'images',
-                        'sizeChartImage'
-                    ],
-                    where: {
-                        sizes: { include: sizes },
-                        colours: { include: colours },
-                    }
-                });
-                if (categories.length === 0 || !categories) {
-                    const returnedProducts = products.map((product) => {
-                        return {
-                            id: product.id,
-                            title: product.getTitle(),
-                            description: product.getDescription(),
-                            price: product.price,
-                            quantity: product.quantity,
-                            images: product.images,
-                            sizeChartImage: product.sizeChartImage,
-                            sizes: product.sizes,
-                            colours: product.colours,
-                            categories: product.categories.map((category) => {
-                                return {
-                                    id: category.id,
-                                    ua: category.ua,
-                                    en: category.en,
-                                    rs: category.rs,
-                                    ru: category.ru,
-                                    createdAt: category.createdAt,
-                                    updatedAt: category.updatedAt,
-                                };
-                            }),
-                            reviews: product.reviews.map((review) => {
-                                return {
-                                    id: review.id,
-                                    name: review.name,
-                                    surname: review.surname,
-                                    review: review.review,
-                                    createdAt: review.createdAt,
-                                    updatedAt: review.updatedAt,
-                                };
-                            })
-                        };
-                    });
-                    return {
-                        products: returnedProducts,
-                        totalItems: totalCount,
-                    };
-                }
-                const returnedProducts = products.map((product) => {
-                    var _a;
-                    if (product.categories.some((category) => categories.indexOf(category.id) >= 0)) {
-                        return {
-                            id: product.id,
-                            title: product.getTitle(),
-                            description: product.getDescription(),
-                            price: product.price,
-                            quantity: product.quantity,
-                            images: product.images,
-                            sizeChartImage: product.sizeChartImage,
-                            sizes: product.sizes,
-                            colours: product.colours,
-                            categories: product.categories.map((category) => {
-                                return {
-                                    id: category.id,
-                                    ua: category.ua,
-                                    en: category.en,
-                                    rs: category.rs,
-                                    ru: category.ru,
-                                    createdAt: category.createdAt,
-                                    updatedAt: category.updatedAt,
-                                };
-                            }),
-                            reviews: (_a = product === null || product === void 0 ? void 0 : product.reviews) === null || _a === void 0 ? void 0 : _a.map((review) => {
-                                return {
-                                    id: review.id,
-                                    name: review.name,
-                                    surname: review.surname,
-                                    review: review.review,
-                                    createdAt: review.createdAt,
-                                    updatedAt: review.updatedAt,
-                                };
-                            })
-                        };
-                    }
-                });
-                return {
-                    products: returnedProducts,
-                    totalItems: totalCount,
-                };
-            }
-            catch (error) {
-                this.Logger.error(error);
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCTS_NOT_FOUND);
-            }
-        });
-    }
-    getProductById(productId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const product = yield this.productRepository.findByPk(productId, {
-                include: {
-                    all: true,
-                },
-                attributes: [
-                    'id',
-                    'title',
-                    'price',
-                    'description',
-                    'quantity',
-                    'colours',
-                    'sizes',
-                    'images',
-                    'sizeChartImage'
-                ],
-            });
-            if (!product) {
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCT_NOT_FOUND);
-            }
-            return {
-                id: product.id,
-                title: product.getTitle(),
-                description: product.getDescription(),
-                price: product.price,
-                quantity: product.quantity,
-                images: product.images,
-                sizeChartImage: product.sizeChartImage,
-                sizes: product.sizes,
-                colours: product.colours,
-                categories: product.categories.map((category) => {
-                    return {
-                        id: category.id,
-                        ua: category.ua,
-                        en: category.en,
-                        rs: category.rs,
-                        ru: category.ru,
-                        createdAt: category.createdAt,
-                        updatedAt: category.updatedAt,
-                    };
-                }),
-                reviews: product.reviews.map((review) => {
-                    return {
-                        id: review.id,
-                        name: review.name,
-                        surname: review.surname,
-                        review: review.review,
-                        createdAt: review.createdAt,
-                        updatedAt: review.updatedAt,
-                    };
-                })
-            };
-        });
-    }
-    findById(productId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const product = yield this.productRepository.findByPk(productId);
-            if (!product) {
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCT_NOT_FOUND);
-            }
-            return product;
         });
     }
     createProduct(createProductDto, userId, type, images, sizeChartImage) {
@@ -11253,7 +11213,7 @@ let ProductService = ProductService_1 = class ProductService {
                         ]);
                     }), 0);
                 }
-                const dbProduct = yield this.getProductById(product.id);
+                const dbProduct = yield this.findById(product.id);
                 const Product = {
                     id: dbProduct.id,
                     title: product.getTitle(),
@@ -11376,11 +11336,11 @@ let ProductService = ProductService_1 = class ProductService {
                     existingProduct.sizeChartImage = sizeChartImagePath;
                 }
                 yield existingProduct.save();
-                const dbProduct = yield this.getProductById(existingProduct.id);
+                const dbProduct = yield this.findById(existingProduct.id);
                 const Product = {
                     id: dbProduct === null || dbProduct === void 0 ? void 0 : dbProduct.id,
-                    title: dbProduct === null || dbProduct === void 0 ? void 0 : dbProduct.title,
-                    description: dbProduct === null || dbProduct === void 0 ? void 0 : dbProduct.description,
+                    title: dbProduct === null || dbProduct === void 0 ? void 0 : dbProduct.getTitle(),
+                    description: dbProduct === null || dbProduct === void 0 ? void 0 : dbProduct.getDescription(),
                     price: dbProduct === null || dbProduct === void 0 ? void 0 : dbProduct.price,
                     quantity: dbProduct === null || dbProduct === void 0 ? void 0 : dbProduct.quantity,
                     images: dbProduct === null || dbProduct === void 0 ? void 0 : dbProduct.images,
@@ -11507,6 +11467,15 @@ let ProductService = ProductService_1 = class ProductService {
                 this.Logger.error(error);
                 throw error;
             }
+        });
+    }
+    findById(productId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const product = yield this.productRepository.findByPk(productId);
+            if (!product) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCT_NOT_FOUND);
+            }
+            return product;
         });
     }
 };
@@ -11795,7 +11764,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w;
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductController = void 0;
 const common_1 = __webpack_require__(7);
@@ -11823,72 +11801,85 @@ const uuid_1 = __webpack_require__(58);
 const edit_content_guard_1 = __webpack_require__(137);
 const formdata_pipe_1 = __webpack_require__(138);
 const user_guard_1 = __webpack_require__(122);
+const query_filter_dto_1 = __webpack_require__(141);
 let ProductController = class ProductController {
     constructor(productService) {
         this.productService = productService;
     }
     getProducts(response, request, next, page, pageSize) {
-        try {
-            return this.productService.getProducts(page, pageSize);
-        }
-        catch (err) {
-            throw err;
-        }
+        (() => __awaiter(this, void 0, void 0, function* () {
+            try {
+                return this.productService.getProducts(request, response, page, pageSize);
+            }
+            catch (err) {
+                return next(err);
+            }
+        }))();
     }
     getProductsByIds(response, request, next, page, pageSize, productIds) {
-        try {
-            return this.productService.getProductsByIds(productIds, page, pageSize);
-        }
-        catch (err) {
-            throw err;
-        }
+        (() => __awaiter(this, void 0, void 0, function* () {
+            try {
+                return this.productService.getProductsByIds(request, response, productIds, page, pageSize);
+            }
+            catch (err) {
+                return next(err);
+            }
+        }))();
     }
-    filterProducts(response, request, next, page, pageSize, order, sizes, colours, categories) {
-        try {
-            return this.productService.filterProducts(page, pageSize, order, sizes, colours, categories);
-        }
-        catch (err) {
-            throw err;
-        }
+    filterProducts(response, request, next, queryFilterDto) {
+        (() => __awaiter(this, void 0, void 0, function* () {
+            try {
+                return this.productService.filterProducts(request, response, queryFilterDto);
+            }
+            catch (err) {
+                return next(err);
+            }
+        }))();
     }
     getById(response, request, next, productId) {
+        (() => __awaiter(this, void 0, void 0, function* () {
+            try {
+                return this.productService.getProductById(request, response, productId);
+            }
+            catch (err) {
+                return next(err);
+            }
+        }))();
+    }
+    getBookmarkProducts(response, request, next, page, pageSize, userId) {
+        (() => __awaiter(this, void 0, void 0, function* () {
+            try {
+                return this.productService.getBookmarks(request, response, page, pageSize, userId);
+            }
+            catch (err) {
+                return next(err);
+            }
+        }))();
+    }
+    getWatchedProducts(response, request, next, page, pageSize, userId) {
+        (() => __awaiter(this, void 0, void 0, function* () {
+            try {
+                return this.productService.getWatchedProducts(request, response, page, pageSize, userId);
+            }
+            catch (err) {
+                return next(err);
+            }
+        }))();
+    }
+    addWatchedProduct(next, productId, userId) {
         try {
-            return this.productService.getProductById(productId);
+            return this.productService.addWatchedProduct(productId, userId);
         }
         catch (err) {
-            throw err;
+            return next(err);
         }
     }
-    getBookmarkProducts(page, pageSize, userId) {
+    addBookmark(next, productId, userId) {
         try {
-            return this.getBookmarkProducts(page, pageSize, userId);
+            return this.productService.addBookmarkProduct(productId, userId);
         }
         catch (err) {
-            throw err;
-        }
-    }
-    getWatchedProducts(page, pageSize, userId) {
-        try {
-            return this.getWatchedProducts(page, pageSize, userId);
-        }
-        catch (err) {
-            throw err;
-        }
-    }
-    addWatchedProduct(productId, userId) {
-        try {
-            return this.addWatchedProduct(productId, userId);
-        }
-        catch (err) {
-            throw err;
-        }
-    }
-    addBookmark(productId, userId) {
-        try {
-            return this.addBookmark(productId, userId);
-        }
-        catch (err) {
-            throw err;
+            return next(err);
         }
     }
     createProduct(createProductDto, files, userId, type) {
@@ -11929,7 +11920,7 @@ __decorate([
     __param(4, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [typeof (_b = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _b : Object, typeof (_c = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _c : Object, typeof (_d = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _d : Object, Number, Number]),
-    __metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+    __metadata("design:returntype", void 0)
 ], ProductController.prototype, "getProducts", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
@@ -11941,24 +11932,20 @@ __decorate([
     __param(4, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
     __param(5, (0, common_1.Query)('productIds', common_1.ParseArrayPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_f = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _f : Object, typeof (_g = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _g : Object, typeof (_h = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _h : Object, Number, Number, Array]),
-    __metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+    __metadata("design:paramtypes", [typeof (_e = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _e : Object, typeof (_f = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _f : Object, typeof (_g = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _g : Object, Number, Number, Array]),
+    __metadata("design:returntype", void 0)
 ], ProductController.prototype, "getProductsByIds", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
     (0, common_1.Get)('filter'),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Req)()),
     __param(2, (0, common_1.Next)()),
-    __param(3, (0, common_1.Query)('page', common_1.ParseIntPipe)),
-    __param(4, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
-    __param(5, (0, common_1.Query)('order')),
-    __param(6, (0, common_1.Query)('sizes', common_1.ParseArrayPipe)),
-    __param(7, (0, common_1.Query)('colours', common_1.ParseArrayPipe)),
-    __param(8, (0, common_1.Query)('categories', common_1.ParseArrayPipe)),
+    __param(3, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_k = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _k : Object, typeof (_l = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _l : Object, typeof (_m = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _m : Object, Number, Number, String, Array, Array, Array]),
-    __metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
+    __metadata("design:paramtypes", [typeof (_h = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _h : Object, typeof (_j = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _j : Object, typeof (_k = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _k : Object, typeof (_l = typeof query_filter_dto_1.QueryFilterDto !== "undefined" && query_filter_dto_1.QueryFilterDto) === "function" ? _l : Object]),
+    __metadata("design:returntype", void 0)
 ], ProductController.prototype, "filterProducts", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
@@ -11968,7 +11955,7 @@ __decorate([
     __param(2, (0, common_1.Next)()),
     __param(3, (0, common_1.Param)('productId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_p = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _p : Object, typeof (_q = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _q : Object, typeof (_r = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _r : Object, Number]),
+    __metadata("design:paramtypes", [typeof (_m = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _m : Object, typeof (_o = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _o : Object, typeof (_p = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _p : Object, Number]),
     __metadata("design:returntype", void 0)
 ], ProductController.prototype, "getById", null);
 __decorate([
@@ -11976,11 +11963,14 @@ __decorate([
     (0, roles_auth_decorator_1.Roles)('USER'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, user_guard_1.UserGuard),
     (0, common_1.Get)('bookmarkProducts'),
-    __param(0, (0, common_1.Query)('page', common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
-    __param(2, (0, user_id_decorator_1.UserId)('USER-ID')),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Next)()),
+    __param(3, (0, common_1.Query)('page', common_1.ParseIntPipe)),
+    __param(4, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
+    __param(5, (0, user_id_decorator_1.UserId)('USER-ID')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number, Number]),
+    __metadata("design:paramtypes", [typeof (_q = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _q : Object, typeof (_r = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _r : Object, typeof (_s = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _s : Object, Number, Number, Number]),
     __metadata("design:returntype", void 0)
 ], ProductController.prototype, "getBookmarkProducts", null);
 __decorate([
@@ -11988,11 +11978,14 @@ __decorate([
     (0, roles_auth_decorator_1.Roles)('USER'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, user_guard_1.UserGuard),
     (0, common_1.Get)('watchedProducts'),
-    __param(0, (0, common_1.Query)('page', common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
-    __param(2, (0, user_id_decorator_1.UserId)('USER-ID')),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Next)()),
+    __param(3, (0, common_1.Query)('page', common_1.ParseIntPipe)),
+    __param(4, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
+    __param(5, (0, user_id_decorator_1.UserId)('USER-ID')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number, Number]),
+    __metadata("design:paramtypes", [typeof (_t = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _t : Object, typeof (_u = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _u : Object, typeof (_v = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _v : Object, Number, Number, Number]),
     __metadata("design:returntype", void 0)
 ], ProductController.prototype, "getWatchedProducts", null);
 __decorate([
@@ -12000,22 +11993,24 @@ __decorate([
     (0, roles_auth_decorator_1.Roles)('USER'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, user_guard_1.UserGuard),
     (0, common_1.Post)('addWatchedProduct'),
-    __param(0, (0, common_1.Query)('productId', common_1.ParseIntPipe)),
-    __param(1, (0, user_id_decorator_1.UserId)('USER-ID')),
+    __param(0, (0, common_1.Next)()),
+    __param(1, (0, common_1.Query)('productId', common_1.ParseIntPipe)),
+    __param(2, (0, user_id_decorator_1.UserId)('USER-ID')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [typeof (_w = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _w : Object, Number, Number]),
+    __metadata("design:returntype", Object)
 ], ProductController.prototype, "addWatchedProduct", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
     (0, roles_auth_decorator_1.Roles)('USER'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, user_guard_1.UserGuard),
     (0, common_1.Post)('addBookmarkProduct'),
-    __param(0, (0, common_1.Query)('productId', common_1.ParseIntPipe)),
-    __param(1, (0, user_id_decorator_1.UserId)('USER-ID')),
+    __param(0, (0, common_1.Next)()),
+    __param(1, (0, common_1.Query)('productId', common_1.ParseIntPipe)),
+    __param(2, (0, user_id_decorator_1.UserId)('USER-ID')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [typeof (_y = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _y : Object, Number, Number]),
+    __metadata("design:returntype", Object)
 ], ProductController.prototype, "addBookmark", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
@@ -12072,8 +12067,8 @@ __decorate([
     __param(2, (0, user_id_decorator_1.UserId)('USER-ID')),
     __param(3, (0, user_type_decorator_1.Type)('REFRESHTOKEN')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_s = typeof create_product_dto_1.CreateProductDto !== "undefined" && create_product_dto_1.CreateProductDto) === "function" ? _s : Object, Object, Number, String]),
-    __metadata("design:returntype", typeof (_t = typeof Promise !== "undefined" && Promise) === "function" ? _t : Object)
+    __metadata("design:paramtypes", [typeof (_0 = typeof create_product_dto_1.CreateProductDto !== "undefined" && create_product_dto_1.CreateProductDto) === "function" ? _0 : Object, Object, Number, String]),
+    __metadata("design:returntype", typeof (_1 = typeof Promise !== "undefined" && Promise) === "function" ? _1 : Object)
 ], ProductController.prototype, "createProduct", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
@@ -12131,8 +12126,8 @@ __decorate([
     __param(3, (0, user_type_decorator_1.Type)('REFRESHTOKEN')),
     __param(4, (0, common_1.UploadedFiles)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_u = typeof update_product_dto_1.UpdateProductDto !== "undefined" && update_product_dto_1.UpdateProductDto) === "function" ? _u : Object, Number, Number, String, Object]),
-    __metadata("design:returntype", typeof (_v = typeof Promise !== "undefined" && Promise) === "function" ? _v : Object)
+    __metadata("design:paramtypes", [typeof (_2 = typeof update_product_dto_1.UpdateProductDto !== "undefined" && update_product_dto_1.UpdateProductDto) === "function" ? _2 : Object, Number, Number, String, Object]),
+    __metadata("design:returntype", typeof (_3 = typeof Promise !== "undefined" && Promise) === "function" ? _3 : Object)
 ], ProductController.prototype, "updateProduct", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
@@ -12143,7 +12138,7 @@ __decorate([
     __param(0, (0, common_1.Param)('productId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", typeof (_4 = typeof Promise !== "undefined" && Promise) === "function" ? _4 : Object)
 ], ProductController.prototype, "deleteProduct", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
@@ -12154,7 +12149,7 @@ __decorate([
     __param(0, (0, common_1.Query)('filePath')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", typeof (_w = typeof Promise !== "undefined" && Promise) === "function" ? _w : Object)
+    __metadata("design:returntype", typeof (_5 = typeof Promise !== "undefined" && Promise) === "function" ? _5 : Object)
 ], ProductController.prototype, "deleteFile", null);
 ProductController = __decorate([
     (0, common_1.UseGuards)(throttler_behind_proxy_guard_1.ThrottlerBehindProxyGuard),
@@ -12498,11 +12493,72 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.QueryFilterDto = void 0;
+const class_transformer_1 = __webpack_require__(29);
+const class_validator_1 = __webpack_require__(18);
+class QueryFilterDto {
+    constructor() {
+        this.page = 1;
+        this.pageSize = 5;
+    }
+}
+__decorate([
+    (0, class_validator_1.IsDefined)(),
+    (0, class_transformer_1.Type)(() => Number),
+    __metadata("design:type", Number)
+], QueryFilterDto.prototype, "page", void 0);
+__decorate([
+    (0, class_validator_1.IsDefined)(),
+    (0, class_transformer_1.Type)(() => Number),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], QueryFilterDto.prototype, "pageSize", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], QueryFilterDto.prototype, "order", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_transformer_1.Type)(() => Array),
+    (0, class_validator_1.IsString)({ each: true }),
+    __metadata("design:type", Array)
+], QueryFilterDto.prototype, "sizes", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_transformer_1.Type)(() => Array),
+    (0, class_validator_1.IsString)({ each: true }),
+    __metadata("design:type", Array)
+], QueryFilterDto.prototype, "colours", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_transformer_1.Type)(() => Array),
+    __metadata("design:type", Array)
+], QueryFilterDto.prototype, "categories", void 0);
+exports.QueryFilterDto = QueryFilterDto;
+
+
+/***/ }),
+/* 142 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CategoriesModule = void 0;
 const common_1 = __webpack_require__(7);
 const categories_service_1 = __webpack_require__(129);
-const categories_controller_1 = __webpack_require__(142);
+const categories_controller_1 = __webpack_require__(143);
 const config_1 = __webpack_require__(103);
 const sequelize_1 = __webpack_require__(8);
 const admin_module_1 = __webpack_require__(9);
@@ -12566,7 +12622,7 @@ exports.CategoriesModule = CategoriesModule;
 
 
 /***/ }),
-/* 142 */
+/* 143 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12598,7 +12654,7 @@ const roles_guard_1 = __webpack_require__(79);
 const throttler_behind_proxy_guard_1 = __webpack_require__(76);
 const error_handler_filter_1 = __webpack_require__(83);
 const categories_service_1 = __webpack_require__(129);
-const create_category_dto_1 = __webpack_require__(143);
+const create_category_dto_1 = __webpack_require__(144);
 const category_model_1 = __webpack_require__(41);
 const api_exception_filter_1 = __webpack_require__(85);
 let CategoriesController = class CategoriesController {
@@ -12676,7 +12732,7 @@ exports.CategoriesController = CategoriesController;
 
 
 /***/ }),
-/* 143 */
+/* 144 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12727,7 +12783,7 @@ exports.CreateCategoryDto = CreateCategoryDto;
 
 
 /***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12741,8 +12797,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CartModule = void 0;
 const common_1 = __webpack_require__(7);
-const cart_service_1 = __webpack_require__(145);
-const cart_controller_1 = __webpack_require__(146);
+const cart_service_1 = __webpack_require__(146);
+const cart_controller_1 = __webpack_require__(147);
 const config_1 = __webpack_require__(103);
 const sequelize_1 = __webpack_require__(8);
 const admin_model_1 = __webpack_require__(28);
@@ -12759,13 +12815,13 @@ const auth_module_1 = __webpack_require__(86);
 const product_module_1 = __webpack_require__(126);
 const users_module_1 = __webpack_require__(118);
 const cart_product_model_1 = __webpack_require__(33);
-const categories_module_1 = __webpack_require__(141);
+const categories_module_1 = __webpack_require__(142);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
 const product_model_1 = __webpack_require__(32);
-const orders_module_1 = __webpack_require__(147);
+const orders_module_1 = __webpack_require__(148);
 let CartModule = class CartModule {
 };
 CartModule = __decorate([
@@ -12809,7 +12865,7 @@ exports.CartModule = CartModule;
 
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12832,7 +12888,7 @@ exports.CardService = CardService;
 
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12858,7 +12914,7 @@ exports.CardController = CardController;
 
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12872,8 +12928,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OrdersModule = void 0;
 const common_1 = __webpack_require__(7);
-const orders_service_1 = __webpack_require__(148);
-const orders_controller_1 = __webpack_require__(149);
+const orders_service_1 = __webpack_require__(149);
+const orders_controller_1 = __webpack_require__(150);
 const sequelize_1 = __webpack_require__(8);
 const auth_module_1 = __webpack_require__(86);
 const roles_model_1 = __webpack_require__(26);
@@ -12882,11 +12938,11 @@ const roles_module_1 = __webpack_require__(99);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const users_module_1 = __webpack_require__(118);
-const categories_module_1 = __webpack_require__(141);
+const categories_module_1 = __webpack_require__(142);
 const config_1 = __webpack_require__(103);
 const admin_model_1 = __webpack_require__(28);
 const admin_refresh_token_model_1 = __webpack_require__(47);
-const cart_module_1 = __webpack_require__(144);
+const cart_module_1 = __webpack_require__(145);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const category_model_1 = __webpack_require__(41);
@@ -12938,7 +12994,7 @@ exports.OrdersModule = OrdersModule;
 
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12961,7 +13017,7 @@ exports.OrdersService = OrdersService;
 
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12987,7 +13043,7 @@ exports.OrdersController = OrdersController;
 
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13040,7 +13096,7 @@ exports.ProductMiddleware = ProductMiddleware;
 
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13131,7 +13187,7 @@ exports.InitializeEmailMiddleware = InitializeEmailMiddleware;
 
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13234,7 +13290,7 @@ exports.ActivateMiddleware = ActivateMiddleware;
 
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13273,7 +13329,7 @@ exports.AppListener = AppListener;
 
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13365,7 +13421,7 @@ exports.UserAdminMiddleware = UserAdminMiddleware;
 
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13456,7 +13512,7 @@ exports.AdminUserMiddleware = AdminUserMiddleware;
 
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13482,7 +13538,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CorsMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
-const ip_1 = __importDefault(__webpack_require__(157));
+const ip_1 = __importDefault(__webpack_require__(158));
 let CorsMiddleware = CorsMiddleware_1 = class CorsMiddleware {
     constructor() {
         this.Logger = new common_1.Logger(CorsMiddleware_1.name);
@@ -13532,14 +13588,14 @@ exports.CorsMiddleware = CorsMiddleware;
 
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("ip");
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13575,7 +13631,7 @@ exports.AppController = void 0;
 const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
 const path_1 = __importDefault(__webpack_require__(113));
-const geoip2_node_1 = __webpack_require__(159);
+const geoip2_node_1 = __webpack_require__(160);
 const rxjs_1 = __webpack_require__(62);
 const express_1 = __webpack_require__(20);
 const crypto_1 = __webpack_require__(14);
@@ -13715,14 +13771,14 @@ exports.AppController = AppController;
 
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@maxmind/geoip2-node");
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13746,8 +13802,8 @@ var TelegramModule_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TelegramModule = void 0;
 const common_1 = __webpack_require__(7);
-const telegram_constants_1 = __webpack_require__(161);
-const telegram_service_1 = __webpack_require__(162);
+const telegram_constants_1 = __webpack_require__(162);
+const telegram_service_1 = __webpack_require__(163);
 let TelegramModule = TelegramModule_1 = class TelegramModule {
     static forRootAsync(options) {
         const asyncOptions = TelegramModule_1.createAsyncOptionsProvider(options);
@@ -13777,7 +13833,7 @@ exports.TelegramModule = TelegramModule;
 
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -13788,7 +13844,7 @@ exports.TELEGRAM_MODULE_OPTIONS = 'TELEGRAM_MODULE_OPTIONS';
 
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13818,9 +13874,9 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TelegramService = void 0;
 const common_1 = __webpack_require__(7);
-const telegraf_1 = __webpack_require__(163);
-const telegram_constants_1 = __webpack_require__(161);
-const telegram_interface_1 = __webpack_require__(164);
+const telegraf_1 = __webpack_require__(164);
+const telegram_constants_1 = __webpack_require__(162);
+const telegram_interface_1 = __webpack_require__(165);
 let TelegramService = class TelegramService {
     constructor(options) {
         this.bot = new telegraf_1.Telegraf(options.token);
@@ -13841,14 +13897,14 @@ exports.TelegramService = TelegramService;
 
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("telegraf");
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -13857,7 +13913,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -13879,7 +13935,7 @@ exports.getTelegramConfig = getTelegramConfig;
 
 
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13904,15 +13960,15 @@ const admin_module_1 = __webpack_require__(9);
 const admin_model_1 = __webpack_require__(28);
 const admin_refresh_token_model_1 = __webpack_require__(47);
 const auth_module_1 = __webpack_require__(86);
-const cart_module_1 = __webpack_require__(144);
+const cart_module_1 = __webpack_require__(145);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
-const categories_module_1 = __webpack_require__(141);
+const categories_module_1 = __webpack_require__(142);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
-const orders_module_1 = __webpack_require__(147);
+const orders_module_1 = __webpack_require__(148);
 const owner_model_1 = __webpack_require__(31);
 const owner_refresh_token_model_1 = __webpack_require__(45);
 const owner_module_1 = __webpack_require__(98);
@@ -13926,9 +13982,9 @@ const user_refresh_token_model_1 = __webpack_require__(36);
 const users_module_1 = __webpack_require__(118);
 const product_reviews_model_1 = __webpack_require__(44);
 const review_model_1 = __webpack_require__(43);
-const reviews_controller_1 = __webpack_require__(167);
-const reviews_service_1 = __webpack_require__(169);
-const create_review_dto_1 = __webpack_require__(168);
+const reviews_controller_1 = __webpack_require__(168);
+const reviews_service_1 = __webpack_require__(170);
+const create_review_dto_1 = __webpack_require__(169);
 const body_validator_pipe_1 = __importDefault(__webpack_require__(125));
 let ReviewsModule = class ReviewsModule {
     configure(consumer) {
@@ -13984,7 +14040,7 @@ exports.ReviewsModule = ReviewsModule;
 
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -14014,8 +14070,8 @@ const roles_guard_1 = __webpack_require__(79);
 const api_exception_filter_1 = __webpack_require__(85);
 const error_handler_filter_1 = __webpack_require__(83);
 const throttler_behind_proxy_guard_1 = __webpack_require__(76);
-const create_review_dto_1 = __webpack_require__(168);
-const reviews_service_1 = __webpack_require__(169);
+const create_review_dto_1 = __webpack_require__(169);
+const reviews_service_1 = __webpack_require__(170);
 const edit_content_guard_1 = __webpack_require__(137);
 let ReviewsController = class ReviewsController {
     constructor(reviewsService) {
@@ -14069,7 +14125,7 @@ exports.ReviewsController = ReviewsController;
 
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -14110,7 +14166,7 @@ exports.CreateReviewDto = CreateReviewDto;
 
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -14194,7 +14250,7 @@ exports.ReviewsService = ReviewsService;
 
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -14229,10 +14285,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LocationMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
-const geoip_lite_1 = __importDefault(__webpack_require__(171));
-const ip_1 = __importDefault(__webpack_require__(157));
+const geoip_lite_1 = __importDefault(__webpack_require__(172));
+const ip_1 = __importDefault(__webpack_require__(158));
 const path_1 = __importDefault(__webpack_require__(113));
-const geoip2_node_1 = __webpack_require__(159);
+const geoip2_node_1 = __webpack_require__(160);
 const currency_service_1 = __webpack_require__(60);
 const currency_symbol_map_1 = __importDefault(__webpack_require__(64));
 const country_to_currency_1 = __importDefault(__webpack_require__(63));
@@ -14254,6 +14310,7 @@ let LocationMiddleware = LocationMiddleware_1 = class LocationMiddleware {
                 req['CLient-Network'] = data.traits.network;
                 req['user-type'] = data.traits.userType;
                 req['city'] = geo.city;
+                req['geo'] = geo;
                 res.setHeader('Client-IP-Address', `${data.traits.ipAddress}`);
                 res.setHeader('Client-Network', `${data.traits.network}`);
                 res.setHeader('Client-Location', `${data.country.isoCode}`);
@@ -14294,42 +14351,42 @@ exports.LocationMiddleware = LocationMiddleware;
 
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("geoip-lite");
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("helmet");
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("compression");
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("serve-favicon");
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ ((module) => {
 
 "use strict";
@@ -14397,7 +14454,7 @@ module.exports = require("body-parser");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("017d0b748748e5d2f1f9")
+/******/ 		__webpack_require__.h = () => ("2c5cbd7980be53d35753")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

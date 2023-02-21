@@ -48,6 +48,7 @@ import { EditContentGuard } from '../common/guards/edit-content.guard';
 import { ReturnedProduct, ReturnedProducts } from '../core/interfaces/product.interfaces';
 import { ParseFormDataJsonPipe } from '../common/pipes/formdata.pipe';
 import { UserGuard } from 'src/common/guards/user.guard';
+import { QueryFilterDto } from './dto/query-filter.dto';
 @UseGuards(ThrottlerBehindProxyGuard)
 @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
 @UseInterceptors(CacheInterceptor, ClassSerializerInterceptor)
@@ -65,12 +66,14 @@ export class ProductController {
     @Next() next: NextFunction,
     @Query('page', ParseIntPipe) page: number,
     @Query('pageSize', ParseIntPipe) pageSize: number,
-  ): Promise<ReturnedProducts> {
-    try {
-      return this.productService.getProducts(page, pageSize);
-    } catch (err: unknown) {
-      throw err;
-    }
+  ) {
+    (async () => {
+      try {
+        return this.productService.getProducts(request, response, page, pageSize);
+      } catch (err: unknown) {
+        return next(err);
+      }
+    })();
   }
 
   @Throttle(70, 700)
@@ -82,32 +85,32 @@ export class ProductController {
     @Query('page', ParseIntPipe) page: number,
     @Query('pageSize', ParseIntPipe) pageSize: number,
     @Query('productIds', ParseArrayPipe) productIds: number[],
-  ): Promise<ReturnedProducts> {
-    try {
-      return this.productService.getProductsByIds(productIds, page, pageSize);
-    } catch (err: unknown) {
-      throw err;
-    }
+  ) {
+    (async () => {
+      try {
+        return this.productService.getProductsByIds(request, response, productIds, page, pageSize);
+      } catch (err: unknown) {
+        return next(err);
+      }
+    })();
   }
 
   @Throttle(70, 700)
+  @UsePipes(ValidationPipe)
   @Get('filter')
   filterProducts(
     @Res() response: Response,
     @Req() request: Request,
     @Next() next: NextFunction,
-    @Query('page', ParseIntPipe) page: number,
-    @Query('pageSize', ParseIntPipe) pageSize: number,
-    @Query('order') order: 'ASC' | 'DESC',
-    @Query('sizes', ParseArrayPipe) sizes: string[],
-    @Query('colours', ParseArrayPipe) colours: string[],
-    @Query('categories', ParseArrayPipe) categories: number[],
-  ): Promise<ReturnedProducts> {
-    try{
-      return this.productService.filterProducts(page, pageSize, order, sizes, colours, categories);
-    } catch (err: unknown) {
-      throw err;
-    }
+    @Query() queryFilterDto: QueryFilterDto,
+  ) {
+    (async () => {
+      try {
+        return this.productService.filterProducts(request, response, queryFilterDto);
+      } catch (err: unknown) {
+        return next(err);
+      }
+    })();
   }    
 
   @Throttle(70, 700)
@@ -118,11 +121,13 @@ export class ProductController {
     @Next() next: NextFunction,
     @Param('productId', ParseIntPipe) productId: number
   ) {
-    try {
-      return this.productService.getProductById(productId);
-    } catch (err: unknown) {
-      throw err;
-    }
+    (async () => {
+      try {
+        return this.productService.getProductById(request, response, productId);
+      } catch (err: unknown) {
+        return next(err);
+      }
+    })();
   }
 
   @Throttle(70, 700)
@@ -130,15 +135,20 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RolesGuard, UserGuard)
   @Get('bookmarkProducts')
   getBookmarkProducts(
+    @Res() response: Response,
+    @Req() request: Request,
+    @Next() next: NextFunction,
     @Query('page', ParseIntPipe) page: number,
     @Query('pageSize', ParseIntPipe) pageSize: number,
     @UserId('USER-ID') userId: number,
   ) {
+    (async () => {
     try {
-      return this.getBookmarkProducts(page, pageSize, userId);
+      return this.productService.getBookmarks(request, response, page, pageSize, userId);
     } catch (err: unknown) {
-      throw err;
-    }
+        return next(err);
+      }
+    })();
   }
 
   @Throttle(70, 700)
@@ -146,15 +156,20 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RolesGuard, UserGuard)
   @Get('watchedProducts')
   getWatchedProducts(
+    @Res() response: Response,
+    @Req() request: Request,
+    @Next() next: NextFunction,
     @Query('page', ParseIntPipe) page: number,
     @Query('pageSize', ParseIntPipe) pageSize: number,
     @UserId('USER-ID') userId: number,
   ) {
-    try {
-      return this.getWatchedProducts(page, pageSize, userId);
-    } catch (err: unknown) {
-      throw err;
-    }
+    (async () => {
+      try {
+        return this.productService.getWatchedProducts(request, response, page, pageSize, userId);
+      } catch (err: unknown) {
+        return next(err);
+      }
+    })();
   }
 
   @Throttle(70, 700)
@@ -162,13 +177,14 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RolesGuard, UserGuard)
   @Post('addWatchedProduct')
   addWatchedProduct(
+    @Next() next: NextFunction,
     @Query('productId', ParseIntPipe) productId: number,
     @UserId('USER-ID') userId: number,
-  ) {
+  ): void | Promise<number> {
     try {
-      return this.addWatchedProduct(productId, userId);
+      return this.productService.addWatchedProduct(productId, userId);
     } catch (err: unknown) {
-      throw err;
+      return next(err);
     }
   }
 
@@ -177,13 +193,14 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RolesGuard, UserGuard)
   @Post('addBookmarkProduct')
   addBookmark(
+    @Next() next: NextFunction,
     @Query('productId', ParseIntPipe) productId: number,
     @UserId('USER-ID') userId: number,
-  ) {
+  ): void | Promise<number> {
     try {
-      return this.addBookmark(productId, userId);
+      return this.productService.addBookmarkProduct(productId, userId);
     } catch (err: unknown) {
-      throw err;
+      return next(err);
     }
   }
 
@@ -358,7 +375,9 @@ export class ProductController {
   @Roles('OWNER', 'ADMIN')
   @UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard, EditContentGuard)
   @HttpCode(202)
-  deleteProduct(@Param('productId', ParseIntPipe) productId: number) {
+  deleteProduct(
+    @Param('productId', ParseIntPipe) productId: number
+  ): Promise<number> {
     try {
       return this.productService.deleteProduct(productId);
     } catch (err: unknown) {

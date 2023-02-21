@@ -32,6 +32,7 @@ export class LocationMiddleware implements NestMiddleware {
         req['CLient-Network'] = data.traits.network;
         req['user-type'] = data.traits.userType;
         req['city'] = geo.city;
+        req['geo'] = geo;
         res.setHeader('Client-IP-Address', `${data.traits.ipAddress}`);
         res.setHeader('Client-Network', `${data.traits.network}`);
         res.setHeader('Client-Location', `${data.country.isoCode}`);
