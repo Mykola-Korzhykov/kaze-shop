@@ -2,22 +2,28 @@
     display: flex;
     flex-direction: column;
     width: 285px;
-    gap: 30px;
+   
+    // gap: 30px;
+
 
     .img {
         width: 285px;
         height: 360px;
+        margin-bottom: 30px;
 
     @media (max-width: 540px) {
         width: 250px;
     }
         }
+
+   
 }
 
 .description_wrapper{
     display: flex;
     flex-direction: column;
     gap: 8px;
+    margin-bottom: 15px;
 
     .description{
         font-family: 'Georama', sans-serif;
@@ -40,3 +46,29 @@
     }
    
 }
+
+ .btn_wrapper {
+     display: flex;
+     width: 100%;
+
+     .btn_cart {
+         flex-grow: 1;
+         background: none;
+         border: none;
+         outline: none;
+         border: #0B0B0B solid 1px;
+     }
+
+     .btn_save {
+         width: 43px;
+         height: 43px;
+         background: none;
+         background-image: url('../../../../../assets/images/main/save_black.svg');
+         background-position: center center;
+         background-repeat: no-repeat;
+         border: none;
+         outline: none;
+         border: #0B0B0B solid 1px;
+         border-left: none;
+     }
+ }
