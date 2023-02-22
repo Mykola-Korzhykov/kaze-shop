@@ -5,7 +5,6 @@ import {
   Model,
   ForeignKey,
   BelongsToMany,
-  BelongsTo,
 } from 'sequelize-typescript';
 import { ReviewCreationAtrb } from '../../core/interfaces/product.interfaces';
 import { Product } from '../../product/models/product.model';

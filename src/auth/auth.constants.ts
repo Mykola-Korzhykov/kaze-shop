@@ -21,13 +21,13 @@ export const ACTIVATION_EXPIRED = {
   en: 'Activation expired!',
   ru: 'Срок действия активации истек!',
   rs: 'Активација је истекла!',
-  ua: 'Термін активації минув!'
+  ua: 'Термін активації минув!',
 };
 export const LANGUAGE_NOT_PROVIDED = {
   en: 'No language provided!',
   ua: 'Немає мови!',
   ru: 'Язык не указан!',
-  rs: 'Није наведен језик!'
+  rs: 'Није наведен језик!',
 };
 export const USER_NOT_AUTHORIZIED = {
   en: 'User is not authorized, token is not valid!',
@@ -81,7 +81,7 @@ export const ACTIVTING_PARAMS_NOT_PROVIDED = {
   en: 'Activating params not provided!',
   ua: 'Параметри активації не надано!',
   ru: 'Параметры активации не указаны!',
-  rs: 'Параметри за активирање нису обезбеђени!'
+  rs: 'Параметри за активирање нису обезбеђени!',
 };
 export const ACCESS_TOKEN_NOT_PROVIDED = {
   en: 'Access token not provided!',

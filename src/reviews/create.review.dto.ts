@@ -1,4 +1,4 @@
-import { IsString, IsDefined, Matches, } from 'class-validator';
+import { IsString, IsDefined, Matches } from 'class-validator';
 
 export class CreateReviewDto {
   @IsDefined()

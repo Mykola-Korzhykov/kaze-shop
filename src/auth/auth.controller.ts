@@ -2,7 +2,6 @@ import {
   Controller,
   Post,
   Body,
-  Put,
   Req,
   Res,
   Next,
@@ -44,9 +43,7 @@ import { ApiExceptionFilter } from '../common/filters/api-exception.filter';
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private authService: AuthService,
-  ) {}
+  constructor(private authService: AuthService) {}
 
   @ApiOperation({ summary: 'Signing up users' })
   @ApiResponse({ status: 201 })
@@ -129,7 +126,7 @@ export class AuthController {
       return this.authService.logout(response, request, next, type);
     })();
   }
-  
+
   @ApiOperation({ summary: 'Getting code' })
   @ApiResponse({ status: 202 })
   @Throttle(40, 400)
@@ -155,7 +152,7 @@ export class AuthController {
   resetPassword(
     @Body(new ValidateDto()) resetDto: ResetDto,
     @Type('CODEDTO') codeDto: CodeDto,
-  ): Promise<string | void>{
+  ): Promise<string | void> {
     try {
       return this.authService.resetPassword(resetDto, codeDto);
     } catch (error: unknown) {

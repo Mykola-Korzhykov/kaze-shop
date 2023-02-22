@@ -168,7 +168,7 @@ export class Owner extends Model<Owner, OwnerCreationAttrbs> {
   private activationCode: number;
 
   @HasMany(() => Currencies)
-  public currencies: Currencies[];  
+  public currencies: Currencies[];
 
   @HasMany(() => Product)
   private products: Product[];
@@ -276,7 +276,7 @@ export class Owner extends Model<Owner, OwnerCreationAttrbs> {
     return this.ownerRefreshTokens;
   }
 
-  addProduct(product: Product): Product[]{
+  addProduct(product: Product): Product[] {
     this.products.push(product);
     return this.products;
   }

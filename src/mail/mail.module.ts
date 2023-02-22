@@ -15,8 +15,6 @@ import { Admin } from '../admin/models/admin.model';
 import { AdminRefreshToken } from '../admin/models/admin.refresh.token.model';
 import { CartProduct } from '../cart/models/cart.product.model';
 import { Cart } from '../cart/models/cart.model';
-import { Category } from '../categories/models/category.model';
-import { ProductCategories } from '../categories/models/product.categories.model';
 import { Order } from '../orders/models/order.model';
 import { OrderProduct } from '../orders/models/order.product.model';
 import { Owner } from '../owner/models/owner.model';
@@ -26,7 +24,6 @@ import { Role } from '../roles/models/roles.model';
 import { UserRoles } from '../roles/models/user.roles.model';
 import { User } from '../users/models/user.model';
 import { UserRefreshToken } from '../users/models/user.refresh.token.model';
-import { HttpService } from '@nestjs/axios';
 import { Currencies } from 'src/owner/models/currencies.model';
 
 @Module({
@@ -41,8 +38,6 @@ import { Currencies } from 'src/owner/models/currencies.model';
       Product,
       Order,
       OrderProduct,
-      Category,
-      ProductCategories,
       Admin,
       AdminRefreshToken,
       Owner,

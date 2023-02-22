@@ -1,7 +1,6 @@
 import {
   CanActivate,
   ExecutionContext,
-  HttpException,
   HttpStatus,
   Injectable,
   Scope,
@@ -35,29 +34,49 @@ export class RolesGuard implements CanActivate {
         const bearer = authHeader.split(' ')[0];
         const token = authHeader.split(' ')[1];
         if (bearer !== 'Bearer' || !token) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            'Unathorized!',
+            USER_NOT_AUTHORIZIED,
+          );
         }
         const decodedToken = Buffer.from(token, 'base64').toString('ascii');
         let payload: Payload;
         try {
           payload = await this.authService.validateAccessToken(decodedToken);
         } catch (err) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            'Unathorized!',
+            USER_NOT_AUTHORIZIED,
+          );
         }
         if (!payload) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            'Unathorized!',
+            USER_NOT_AUTHORIZIED,
+          );
         }
         req.payload = payload;
         if (
-          !payload.roles.some(
-          (role: { value: string; description: string }) =>
-            requiredRoles.includes(role.value))
+          !payload.roles.some((role: { value: string; description: string }) =>
+            requiredRoles.includes(role.value),
+          )
         ) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ACCESS_DENIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            'Unathorized!',
+            ACCESS_DENIED,
+          );
         }
         return true;
       } catch (err) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ACCESS_DENIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          'Unathorized!',
+          ACCESS_DENIED,
+        );
       }
     })();
   }

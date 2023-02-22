@@ -6,10 +6,10 @@ import {
   ForeignKey,
 } from 'sequelize-typescript';
 import { Product } from '../../product/models/product.model';
-import { Review } from './review.model';
+import { Colour } from './colours.model';
 
-@Table({ tableName: 'PRODUCT_Reviews', createdAt: false, updatedAt: false })
-export class ProductReviews extends Model<ProductReviews> {
+@Table({ tableName: 'PRODUCT_Colours', createdAt: false, updatedAt: false })
+export class ProductColours extends Model<ProductColours> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -20,12 +20,12 @@ export class ProductReviews extends Model<ProductReviews> {
   })
   public id: number;
 
-  @ForeignKey(() => Review)
+  @ForeignKey(() => Colour)
   @Column({
     type: DataType.INTEGER,
-    field: 'reviewId',
+    field: 'colourId',
   })
-  public reviewId: number;
+  public colourId: number;
 
   @ForeignKey(() => Product)
   @Column({

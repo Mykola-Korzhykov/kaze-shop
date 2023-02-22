@@ -83,10 +83,7 @@ export class TasksService {
     return intervals;
   }
 
-  garbageCollector(
-    name: string,
-    milliseconds: number
-  ) {
+  garbageCollector(name: string, milliseconds: number) {
     const callback = async () => {
       this.logger.warn(`Interval ${name} executing at time (${milliseconds})!`);
     };
@@ -138,7 +135,7 @@ export class TasksService {
   }
 
   @Cron(CronExpression.EVERY_WEEK)
-  async renewCurrencies(): Promise<Currencies>{
+  async renewCurrencies(): Promise<Currencies> {
     return this.currencyService.renewCurrencies();
   }
 

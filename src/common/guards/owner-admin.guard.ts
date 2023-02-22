@@ -1,7 +1,6 @@
 import {
   CanActivate,
   ExecutionContext,
-  HttpException,
   HttpStatus,
   Injectable,
   Scope,
@@ -12,7 +11,7 @@ import {
   ADMIN_NOT_AUTHORIZIED,
   OWNER_NOT_AUTHORIZIED,
   REFRESH_TOKEN_NOT_PROVIDED,
-  USER_NOT_DETECTED
+  USER_NOT_DETECTED,
 } from '../../auth/auth.constants';
 import { OwnerJwtRefreshService } from '../../owner/services/jwt-refresh.service';
 import { OwnerRefreshToken } from '../../owner/models/owner.refresh.token.model';
@@ -44,30 +43,50 @@ export class OwnerAdminGuard implements CanActivate {
       const req = context.switchToHttp().getRequest();
       const refreshToken = req?.cookies['refreshToken'];
       if (!refreshToken) {
-        throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request!', REFRESH_TOKEN_NOT_PROVIDED);
+        throw new ApiException(
+          HttpStatus.BAD_REQUEST,
+          'Bad request!',
+          REFRESH_TOKEN_NOT_PROVIDED,
+        );
       }
       const decodedToken = Buffer.from(refreshToken, 'base64').toString(
         'ascii',
       );
       const type: 'OWNER' | 'ADMIN' | null = req['type'];
       if (type === undefined) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_DETECTED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          'Unathorized!',
+          USER_NOT_DETECTED,
+        );
       }
       if (type && type === 'OWNER') {
         const userRefreshToken =
           await this.ownerJwtRefreshTokenService.findToken(decodedToken);
         if (!userRefreshToken) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', OWNER_NOT_AUTHORIZIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            'Unathorized!',
+            OWNER_NOT_AUTHORIZIED,
+          );
         }
         const payload: Payload = req?.payload;
         if (!payload) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', OWNER_NOT_AUTHORIZIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            'Unathorized!',
+            OWNER_NOT_AUTHORIZIED,
+          );
         }
         if (
           userRefreshToken instanceof OwnerRefreshToken &&
           payload.userId !== userRefreshToken.ownerId
         ) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', OWNER_NOT_AUTHORIZIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            'Unathorized!',
+            OWNER_NOT_AUTHORIZIED,
+          );
         }
         const refreshPayload =
           await this.ownerJwtRefreshTokenService.validateRefreshToken(
@@ -78,10 +97,15 @@ export class OwnerAdminGuard implements CanActivate {
         }
         if (
           !refreshPayload.roles.some(
-          (role: { value: string; description: string }) =>
-            requiredRoles.includes(role.value))
+            (role: { value: string; description: string }) =>
+              requiredRoles.includes(role.value),
+          )
         ) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ACCESS_DENIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            'Unathorized!',
+            ACCESS_DENIED,
+          );
         }
         return true;
       }
@@ -89,17 +113,29 @@ export class OwnerAdminGuard implements CanActivate {
         const userRefreshToken =
           await this.adminJwtRefreshTokenService.findToken(decodedToken);
         if (!userRefreshToken) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ADMIN_NOT_AUTHORIZIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            'Unathorized!',
+            ADMIN_NOT_AUTHORIZIED,
+          );
         }
         const payload: Payload = req?.payload;
         if (!payload) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ADMIN_NOT_AUTHORIZIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            'Unathorized!',
+            ADMIN_NOT_AUTHORIZIED,
+          );
         }
         if (
           userRefreshToken instanceof AdminRefreshToken &&
           payload.userId !== userRefreshToken.adminId
         ) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ADMIN_NOT_AUTHORIZIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            'Unathorized!',
+            ADMIN_NOT_AUTHORIZIED,
+          );
         }
         const refreshPayload =
           await this.adminJwtRefreshTokenService.validateRefreshToken(
@@ -107,14 +143,23 @@ export class OwnerAdminGuard implements CanActivate {
           );
         if (
           !refreshPayload.roles.some(
-          (role: { value: string; description: string }) =>
-            requiredRoles.includes(role.value))
+            (role: { value: string; description: string }) =>
+              requiredRoles.includes(role.value),
+          )
         ) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ACCESS_DENIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            'Unathorized!',
+            ACCESS_DENIED,
+          );
         }
         return true;
       }
-      throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ACCESS_DENIED);
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        'Unathorized!',
+        ACCESS_DENIED,
+      );
     })();
   }
 }

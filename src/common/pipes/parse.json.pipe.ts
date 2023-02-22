@@ -1,7 +1,14 @@
-import { ArgumentMetadata, BadRequestException, Injectable, PipeTransform } from '@nestjs/common';
+import {
+  ArgumentMetadata,
+  BadRequestException,
+  Injectable,
+  PipeTransform,
+} from '@nestjs/common';
 
 @Injectable()
-export class ParseJsonPipe implements PipeTransform<string, Record<string, any>> {
+export class ParseJsonPipe
+  implements PipeTransform<string, Record<string, any>>
+{
   transform(value: string, metadata: ArgumentMetadata): Record<string, any> {
     const propertyName = metadata.data;
     try {
@@ -10,7 +17,10 @@ export class ParseJsonPipe implements PipeTransform<string, Record<string, any>>
       throw new BadRequestException(`${propertyName} contains invalid JSON `);
     }
   }
-  static transform(value: string, metadata: ArgumentMetadata): Record<string, any> {
+  static transform(
+    value: string,
+    metadata: ArgumentMetadata,
+  ): Record<string, any> {
     const propertyName = metadata.data;
     try {
       return JSON.parse(value);

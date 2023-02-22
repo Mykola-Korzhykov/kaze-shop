@@ -23,5 +23,6 @@ export default class RequestValidator {
       res.setHeader('Passed-validation', 'true');
       next();
     };
+    // tslint:disable-next-line: semicolon
   };
 }

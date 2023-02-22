@@ -18,8 +18,10 @@ import { Admin } from '../admin/models/admin.model';
 import { AdminRefreshToken } from '../admin/models/admin.refresh.token.model';
 import { CartProduct } from '../cart/models/cart.product.model';
 import { Cart } from '../cart/models/cart.model';
-import { Category } from '../categories/models/category.model';
-import { ProductCategories } from '../categories/models/product.categories.model';
+import { Colour } from '../categories&colours/models/colours.model';
+import { ProductColours } from '../categories&colours/models/product.colour.model';
+import { Category } from '../categories&colours/models/category.model';
+import { ProductCategories } from '../categories&colours/models/product.categories.model';
 import { Order } from '../orders/models/order.model';
 import { OrderProduct } from '../orders/models/order.product.model';
 import { Product } from '../product/models/product.model';
@@ -29,7 +31,7 @@ import { UsersService } from '../users/services/users.service';
 import { AdminService } from '../admin/services/admin.service';
 import { Currencies } from './models/currencies.model';
 import { CurrencyService } from './services/currency.service';
-import { HttpModule, HttpService } from '@nestjs/axios';
+import { HttpModule } from '@nestjs/axios';
 import { ScheduleModule } from '@nestjs/schedule';
 @Module({
   imports: [
@@ -72,13 +74,22 @@ import { ScheduleModule } from '@nestjs/schedule';
       Cart,
       CartProduct,
       Currencies,
+      ProductColours,
+      Colour,
     ]),
     forwardRef(() => CoreModule),
     forwardRef(() => AuthModule),
     forwardRef(() => AdminModule),
   ],
-  providers: [OwnerService, OwnerJwtRefreshService, CurrencyService,
-    MailService, TasksService, UsersService, AdminService],
+  providers: [
+    OwnerService,
+    OwnerJwtRefreshService,
+    CurrencyService,
+    MailService,
+    TasksService,
+    UsersService,
+    AdminService,
+  ],
   exports: [OwnerService, OwnerJwtRefreshService, CurrencyService],
 })
 export class OwnerModule {}

@@ -66,7 +66,7 @@ async function startServer(): Promise<INestApplication> {
       );
       res.setHeader(
         'Content-Security-Policy',
-        'default-src \'self\'; font-src \'self\'; img-src \'self\'; script-src \'self\'; style-src \'self\'; frame-src \'self\'',
+        `default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'`,
       );
     },
   });
@@ -122,6 +122,7 @@ async function startServer(): Promise<INestApplication> {
   SwaggerModule.setup('/api/docs', app, document);
   process.on('unhandledRejection', (reason: Error) => {
     console.log(reason.name, reason.message);
+    console.log(reason);
     console.log('UNHANDLED REJECTION! 💥 Shutting down...');
     return process.exit(1), reason;
   });
@@ -133,7 +134,9 @@ async function startServer(): Promise<INestApplication> {
   try {
     await app.listen(PORT, async (): Promise<string> => {
       console.log(
-        `Directory: ${process.cwd()}, Process: ${process.pid}, URL: ${await app.getUrl()}, Server is being listened on port: ${PORT}`,
+        `Directory: ${process.cwd()}, Process: ${
+          process.pid
+        }, URL: ${await app.getUrl()}, Server is being listened on port: ${PORT}`,
       );
       return app.getUrl();
     });
@@ -155,7 +158,7 @@ if (process.env?.NODE_ENV === 'development') {
 }
 if (process.env?.NODE_ENV === 'production') {
   try {
-    /// startServer()
+    //startServer();
     AppClusterService.clusterize(startServer);
   } catch (err) {
     console.log(err);

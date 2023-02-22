@@ -48,10 +48,10 @@ export class Cart extends Model<Cart> {
   private user: User;
 
   @BelongsToMany(() => Product, () => CartProduct)
-  private products: Product[];
+  public products: Product[];
 
   @HasMany(() => CartProduct)
-  private cartProducts: CartProduct[];
+  public cartProducts: CartProduct[];
 
   getCartStatus(): string {
     return this.cartStatus;
@@ -71,6 +71,11 @@ export class Cart extends Model<Cart> {
   }
 
   getUser(): User {
+    return this.user;
+  }
+
+  setUser(user: User): User {
+    this.user = user;
     return this.user;
   }
 }

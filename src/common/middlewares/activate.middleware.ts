@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   HttpStatus,
   Injectable,
   NestMiddleware,
@@ -10,7 +9,10 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Request, Response, NextFunction } from 'express';
-import { ACTIVTING_PARAMS_NOT_PROVIDED, INVALID_PARAMS } from '../../auth/auth.constants';
+import {
+  ACTIVTING_PARAMS_NOT_PROVIDED,
+  INVALID_PARAMS,
+} from '../../auth/auth.constants';
 import { Admin } from '../../admin/models/admin.model';
 import { Owner } from '../../owner/models/owner.model';
 import { ApiException } from '../exceptions/api.exception';
@@ -30,7 +32,11 @@ export class ActivateMiddleware implements NestMiddleware {
       const activationLink: string = req.params?.link;
       const code = Number(req.query?.code);
       if (!activationLink || !code) {
-        throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request!', ACTIVTING_PARAMS_NOT_PROVIDED);
+        throw new ApiException(
+          HttpStatus.BAD_REQUEST,
+          'Bad request!',
+          ACTIVTING_PARAMS_NOT_PROVIDED,
+        );
       }
       res.setHeader('X-Content-Type-Options', 'nosniff');
       const owner = await this.ownerRepository.findOne({
@@ -63,7 +69,11 @@ export class ActivateMiddleware implements NestMiddleware {
         req['activationLink'] = admin.activationLink;
         return next();
       }
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request!', INVALID_PARAMS);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request!',
+        INVALID_PARAMS,
+      );
     } catch (err: unknown) {
       return next(err);
     }

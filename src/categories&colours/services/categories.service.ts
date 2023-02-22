@@ -1,15 +1,15 @@
-import {
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { Scope } from '@nestjs/common/interfaces';
 import { InjectModel } from '@nestjs/sequelize';
-import { ApiException } from '../common/exceptions/api.exception';
-import { ReturnedCategory } from '../core/interfaces/product.interfaces';
-import { ALREADY_EXIST, NOT_FOUND } from './category.constants';
-import { CreateCategoryDto } from './dto/create.category.dto';
-import { UpdateCategoryDto } from './dto/update.category.dto';
-import { Category } from './models/category.model';
+import { ApiException } from '../../common/exceptions/api.exception';
+import { ReturnedCategory } from '../../core/interfaces/product.interfaces';
+import {
+  ALREADY_EXIST_CATEGORY,
+  NOT_FOUND_CATEGORY,
+} from '../category.colour.constants';
+import { CreateCategoryDto } from '../dto/create.category.dto';
+import { UpdateCategoryDto } from '../dto/update.category.dto';
+import { Category } from '../models/category.model';
 
 @Injectable({ scope: Scope.REQUEST })
 export class CategoriesService {
@@ -18,19 +18,31 @@ export class CategoriesService {
   ) {}
 
   async getCategoryByValue(value: string): Promise<Category> {
-    const category = await this.categoryRepository.findOne({ where: { ua: value } });
+    const category = await this.categoryRepository.findOne({
+      where: { ua: value },
+    });
     if (!category) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', NOT_FOUND);   
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        NOT_FOUND_CATEGORY,
+      );
     }
     return category;
   }
 
   async getCategoriesByIds(categoryIds: number[]): Promise<Category[]> {
-    const category = await this.categoryRepository.findAll({ where: { 
-      id: categoryIds,
-    }});
+    const category = await this.categoryRepository.findAll({
+      where: {
+        id: categoryIds,
+      },
+    });
     if (category.length === 0 || !category) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', NOT_FOUND);
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        NOT_FOUND_CATEGORY,
+      );
     }
     return category;
   }
@@ -38,7 +50,11 @@ export class CategoriesService {
   async getCategoryById(categoryId: number): Promise<Category> {
     const category = await this.categoryRepository.findByPk(categoryId);
     if (!category) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', NOT_FOUND);
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        NOT_FOUND_CATEGORY,
+      );
     }
     return category;
   }
@@ -58,7 +74,9 @@ export class CategoriesService {
     });
   }
 
-  async createCategory(categoryDto: CreateCategoryDto): Promise<ReturnedCategory> {
+  async createCategory(
+    categoryDto: CreateCategoryDto,
+  ): Promise<ReturnedCategory> {
     const isExist = await this.categoryRepository.findOne({
       where: {
         ua: categoryDto.ua,
@@ -68,24 +86,32 @@ export class CategoriesService {
       },
     });
     if (isExist) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', ALREADY_EXIST);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        ALREADY_EXIST_CATEGORY,
+      );
     }
     const category = await this.categoryRepository.create({ ...categoryDto });
     return {
-        id: category.id,
-        ua: category.ua,
-        en: category.en,
-        rs: category.rs,
-        ru: category.ru,
-        createdAt: category.createdAt,
-        updatedAt: category.updatedAt,
+      id: category.id,
+      ua: category.ua,
+      en: category.en,
+      rs: category.rs,
+      ru: category.ru,
+      createdAt: category.createdAt,
+      updatedAt: category.updatedAt,
     };
   }
 
   async deleteCategory(categoryId: number): Promise<number> {
     const isExist = await this.categoryRepository.findByPk(categoryId);
     if (!isExist) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', NOT_FOUND);
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        NOT_FOUND_CATEGORY,
+      );
     }
     const deleted = await this.categoryRepository.destroy({
       where: {
@@ -99,10 +125,17 @@ export class CategoriesService {
     return deleted;
   }
 
-  async updateCategory(categoryId: number, updateDto: UpdateCategoryDto): Promise<ReturnedCategory> {
+  async updateCategory(
+    categoryId: number,
+    updateDto: UpdateCategoryDto,
+  ): Promise<ReturnedCategory> {
     const isExist = await this.categoryRepository.findByPk(categoryId);
     if (!isExist) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', NOT_FOUND);
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        NOT_FOUND_CATEGORY,
+      );
     }
     isExist.ua = updateDto.ua;
     isExist.ru = updateDto.ru;
@@ -116,16 +149,16 @@ export class CategoriesService {
         en: isExist.en,
         rs: isExist.rs,
         ru: isExist.ru,
-      }
+      },
     });
     return {
-        id: category.id,
-        ua: category.ua,
-        en: category.en,
-        rs: category.rs,
-        ru: category.ru,
-        createdAt: category.createdAt,
-        updatedAt: category.updatedAt,
+      id: category.id,
+      ua: category.ua,
+      en: category.en,
+      rs: category.rs,
+      ru: category.ru,
+      createdAt: category.createdAt,
+      updatedAt: category.updatedAt,
     };
   }
 }

@@ -1,9 +1,4 @@
-import {
-  HttpStatus,
-  Injectable,
-  Logger,
-  Scope,
-} from '@nestjs/common';
+import { HttpStatus, Injectable, Logger, Scope } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import {
   TOKEN_INVALID,
@@ -47,8 +42,8 @@ export class AdminJwtRefreshService {
       throw new ApiException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Internal Server Error',
-        ERROR_WHILE_SIGNING_TOKEN
-      );   
+        ERROR_WHILE_SIGNING_TOKEN,
+      );
     }
   }
 
@@ -58,15 +53,19 @@ export class AdminJwtRefreshService {
     try {
       const adminData = this.jwtService.verify(adminRefreshToken);
       if (!adminData) {
-        throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', TOKEN_INVALID);
+        throw new ApiException(
+          HttpStatus.BAD_REQUEST,
+          'Bad request',
+          TOKEN_INVALID,
+        );
       }
       return adminData;
     } catch (err: unknown) {
       throw new ApiException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Internal Server Error',
-        ERROR_WHILE_VALIDATING_TOKEN
-      );   
+        ERROR_WHILE_VALIDATING_TOKEN,
+      );
     }
   }
 
@@ -78,10 +77,14 @@ export class AdminJwtRefreshService {
     phoneNumber: string,
     expireDate: Date,
   ) {
-    try{
+    try {
       const admin = await this.adminService.getAdminById(adminId);
-        if (!admin) {
-          throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', ADMIN_NOT_FOUND);
+      if (!admin) {
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          ADMIN_NOT_FOUND,
+        );
       }
       const token = await this.adminRefreshTokenRepository.create({
         adminRefreshToken: adminRefreshToken,
@@ -94,9 +97,12 @@ export class AdminJwtRefreshService {
       await token.save();
       if (!token.getExpireDate()) {
         token.setExpireDate(expireDate);
-        await token.save(); 
+        await token.save();
       }
-      if (!admin.getAdminRefreshTokens() || admin.getAdminRefreshTokens().length === 0) {
+      if (
+        !admin.getAdminRefreshTokens() ||
+        admin.getAdminRefreshTokens().length === 0
+      ) {
         admin.$set('adminRefreshTokens', token.id);
         admin.adminRefreshTokens = [token];
       } else {
@@ -108,8 +114,8 @@ export class AdminJwtRefreshService {
       throw new ApiException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Internal Server Error',
-        ERROR_WHILE_SAVING_TOKEN
-      );   
+        ERROR_WHILE_SAVING_TOKEN,
+      );
     }
   }
 
@@ -125,7 +131,11 @@ export class AdminJwtRefreshService {
     try {
       const admin = await this.adminService.getAdminById(adminId);
       if (!admin) {
-        throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', ADMIN_NOT_FOUND);
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          ADMIN_NOT_FOUND,
+        );
       }
       const tokenData = await this.adminRefreshTokenRepository.findOne({
         where: {
@@ -135,24 +145,34 @@ export class AdminJwtRefreshService {
       });
       if (tokenData && admin.getAdminAgent() === 'null') {
         admin.setAdminAgent(adminAgent);
-        tokenData.setAdminAgent(adminAgent); 
+        tokenData.setAdminAgent(adminAgent);
         await admin.save();
-        await tokenData.save(); 
+        await tokenData.save();
       }
       if (tokenData) {
         tokenData.adminRefreshToken = adminRefreshToken;
-        if (admin.getAdminAgent() && admin.getAdminAgent().trim() !== adminAgent) {
+        if (
+          admin.getAdminAgent() &&
+          admin.getAdminAgent().trim() !== adminAgent
+        ) {
           admin.setIsActivated(false);
           const link = await this.generateEncryptedValue('ADMIN', 16);
           const code = this.generateActivationCode();
-          admin.setResetToken(link.replace('/', `${v4()}`).replace('=', `${v4()}`));
+          admin.setResetToken(
+            link.replace('/', `${v4()}`).replace('=', `${v4()}`),
+          );
           admin.setActivationCode(code);
           admin.setResetTokenExpiration(Number(Date.now() + 3600000));
           await admin.save();
-          this.Logger.log(`checking owner with email ${admin.email}`, admin.getAdminAgent() !== adminAgent);
+          this.Logger.log(
+            `checking owner with email ${admin.email}`,
+            admin.getAdminAgent() !== adminAgent,
+          );
           this.mailService.sendActivationMailToAdmin(
             admin.email,
-            `${process.env.API_URL}/auth/activate/${admin.getResetToken().trim()}?code=${code}`,
+            `${process.env.API_URL}/auth/activate/${admin
+              .getResetToken()
+              .trim()}?code=${code}`,
           );
         }
         await tokenData.save();
@@ -167,15 +187,15 @@ export class AdminJwtRefreshService {
       });
       if (!token.getExpireDate()) {
         token.setExpireDate(expireDate);
-        await token.save(); 
+        await token.save();
       }
       return token;
     } catch (err: unknown) {
       throw new ApiException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Internal Server Error',
-        ERROR_WHILE_SAVING_TOKEN
-      );   
+        ERROR_WHILE_SAVING_TOKEN,
+      );
     }
   }
 
@@ -183,7 +203,11 @@ export class AdminJwtRefreshService {
     try {
       const token = await this.findToken(adminRefreshToken);
       if (!token) {
-        throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', TOKEN_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          TOKEN_NOT_FOUND,
+        );
       }
       const admin = await this.adminService.getAdminById(token.adminId);
       admin.$remove('adminRefreshTokens', token.token.id);
@@ -196,17 +220,18 @@ export class AdminJwtRefreshService {
       throw new ApiException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Internal Server Error',
-        ERROR_WHILE_REMOVING_TOKEN
-      );   
+        ERROR_WHILE_REMOVING_TOKEN,
+      );
     }
   }
 
-  async findToken(
-    adminRefreshToken: string,
-  ): Promise<false | {
-    token: AdminRefreshToken;
-    adminId: number;
-  }> {
+  async findToken(adminRefreshToken: string): Promise<
+    | false
+    | {
+        token: AdminRefreshToken;
+        adminId: number;
+      }
+  > {
     const token = await this.adminRefreshTokenRepository.findOne({
       where: { adminRefreshToken: adminRefreshToken },
     });
@@ -224,7 +249,11 @@ export class AdminJwtRefreshService {
       where: { adminRefreshToken: adminRefreshToken, identifier: identifier },
     });
     if (!token) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', TOKEN_NOT_FOUND);   
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        TOKEN_NOT_FOUND,
+      );
     }
     return token;
   }
@@ -238,7 +267,11 @@ export class AdminJwtRefreshService {
       where: { email: email, phoneNumber: phoneNumber, identifier: identifier },
     });
     if (!token) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', TOKEN_INVALID);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        TOKEN_INVALID,
+      );
     }
     return token;
   }
@@ -251,7 +284,7 @@ export class AdminJwtRefreshService {
       where: {
         id: adminRefreshTokenId,
         identifier: identifier,
-      }
+      },
     });
     if (!token) {
       return false;

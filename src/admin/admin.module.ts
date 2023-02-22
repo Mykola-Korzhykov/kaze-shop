@@ -34,8 +34,10 @@ import { CoreModule } from '../core/core.module';
 import { TasksService } from '../core/services/scedule.service';
 import { CartProduct } from '../cart/models/cart.product.model';
 import { Cart } from '../cart/models/cart.model';
-import { Category } from '../categories/models/category.model';
-import { ProductCategories } from '../categories/models/product.categories.model';
+import { Colour } from '../categories&colours/models/colours.model';
+import { ProductColours } from '../categories&colours/models/product.colour.model';
+import { Category } from '../categories&colours/models/category.model';
+import { ProductCategories } from '../categories&colours/models/product.categories.model';
 import { Order } from '../orders/models/order.model';
 import { OrderProduct } from '../orders/models/order.product.model';
 import { Product } from '../product/models/product.model';
@@ -69,6 +71,8 @@ import { CurrencyService } from 'src/owner/services/currency.service';
       Cart,
       CartProduct,
       Currencies,
+      Colour,
+      ProductColours,
     ]),
     JwtModule.register({
       secret:

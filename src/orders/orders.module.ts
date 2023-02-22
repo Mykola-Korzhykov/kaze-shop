@@ -9,20 +9,20 @@ import { RolesModule } from '../roles/roles.module';
 import { User } from '../users/models/user.model';
 import { UserRefreshToken } from '../users/models/user.refresh.token.model';
 import { UsersModule } from '../users/users.module';
-import { CategoriesModule } from '../categories/categories.module';
 import { ConfigModule } from '@nestjs/config';
 import { Admin } from '../admin/models/admin.model';
 import { AdminRefreshToken } from '../admin/models/admin.refresh.token.model';
 import { CartModule } from '../cart/cart.module';
 import { CartProduct } from '../cart/models/cart.product.model';
 import { Cart } from '../cart/models/cart.model';
-import { Category } from '../categories/models/category.model';
-import { ProductCategories } from '../categories/models/product.categories.model';
+import { Category } from '../categories&colours/models/category.model';
+import { ProductCategories } from '../categories&colours/models/product.categories.model';
 import { Owner } from '../owner/models/owner.model';
 import { OwnerRefreshToken } from '../owner/models/owner.refresh.token.model';
 import { Product } from '../product/models/product.model';
 import { Order } from './models/order.model';
 import { OrderProduct } from './models/order.product.model';
+import { CategoriesColoursModule } from 'src/categories&colours/categories&colours.module';
 
 @Module({
   providers: [OrdersService],
@@ -52,7 +52,7 @@ import { OrderProduct } from './models/order.product.model';
       CartProduct,
     ]),
     forwardRef(() => CartModule),
-    forwardRef(() => CategoriesModule),
+    forwardRef(() => CategoriesColoursModule),
     forwardRef(() => RolesModule),
     forwardRef(() => AuthModule),
     forwardRef(() => UsersModule),

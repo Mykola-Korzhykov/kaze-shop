@@ -15,6 +15,7 @@ export class AppClusterService {
       AppClusterService.Logger.log(`Master server started on ${process.pid}`);
       for (let i = 0; i < numCPUs; i++) {
         const worker = cluster.fork();
+        console.info(worker);
       }
       cluster.on('exit', (worker, code, signal) => {
         AppClusterService.Logger.log(
@@ -26,6 +27,7 @@ export class AppClusterService {
     } else {
       AppClusterService.Logger.log(`Cluster server started on ${process.pid}`);
       const app = await callback();
+      console.info(app);
       process.on('SIGINT', () => process.exit(1));
       process.on('SIGTERM', () => process.exit(1));
       process.on('SIGUSR2', async () => process.exit(1));
@@ -54,7 +56,8 @@ export class AppClusterService {
 
   private static setTimeouts(worker: any) {
     let timeout: NodeJS.Timeout;
-    worker.on('listening', (address) => {
+    worker.on('listening', (address: any) => {
+      Logger.log(address);
       worker.send('shutdown');
       worker.disconnect();
       timeout = setTimeout(() => {

@@ -1,12 +1,4 @@
-import {
-  BadRequestException,
-  HttpException,
-  HttpStatus,
-  Injectable,
-  NotFoundException,
-  Scope,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { HttpStatus, Injectable, Scope } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { RolesService } from '../../roles/roles.service';
 import { AddRoleDto } from '../dto/add-role.dto';
@@ -91,10 +83,18 @@ export class UsersService {
       await this.getUserByPhoneNumber(userDto.phoneNumber),
     ]);
     if (email) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', USER_WITH_EMAIL_EXIST);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        USER_WITH_EMAIL_EXIST,
+      );
     }
     if (phoneNumber) {
-       throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', USER_WITH_PHONENUMBER_EXIST);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        USER_WITH_PHONENUMBER_EXIST,
+      );
     }
     const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
     const salt = await bcrypt.genSalt(SALT_ROUNDS);
@@ -109,7 +109,11 @@ export class UsersService {
   async updateUser(userDto: UpdateUserDto, userId: number): Promise<User> {
     const user = await this.getUserById(userId);
     if (!user) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        USER_NOT_FOUND,
+      );
     }
     user.setName(userDto.name);
     user.setSurname(userDto.surname);
@@ -176,7 +180,11 @@ export class UsersService {
       include: { all: true },
     });
     if (!user) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);   
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        USER_NOT_FOUND,
+      );
     }
     return user;
   }
@@ -206,13 +214,21 @@ export class UsersService {
       await user.$add('role', role.id);
       return dto;
     }
-    throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_OR_ROLE_NOT_FOUND);   
+    throw new ApiException(
+      HttpStatus.NOT_FOUND,
+      'Not found!',
+      USER_OR_ROLE_NOT_FOUND,
+    );
   }
 
   async banUser(dto: BanUserDto): Promise<User> {
     const user = await this.userRepository.findByPk(dto.userId);
     if (!user) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);   
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        USER_NOT_FOUND,
+      );
     }
     user.banned = true;
     user.banReason = dto.banReason;
@@ -223,7 +239,11 @@ export class UsersService {
   async validateUser(userDto: ValidateUser): Promise<User> {
     const user = await this.getUserByEmail(userDto.email);
     if (!user) {
-     throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', USER_WITH_EMAIL_DOESNT_EXIST);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        USER_WITH_EMAIL_DOESNT_EXIST,
+      );
     }
     const passwordEquals = await bcrypt.compare(
       userDto.password,
@@ -232,7 +252,11 @@ export class UsersService {
     if (passwordEquals) {
       return user;
     }
-    throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', INVALID_EMAIL_OR_PASSWORD);   
+    throw new ApiException(
+      HttpStatus.UNAUTHORIZED,
+      'Unathorized!',
+      INVALID_EMAIL_OR_PASSWORD,
+    );
   }
 
   async setConfirmCode(codeDto: CodeDto, code: number): Promise<string> {
@@ -246,13 +270,25 @@ export class UsersService {
   async resetPassword(resetDto: ResetDto): Promise<string> {
     const user = await this.getUserByEmail(resetDto.email);
     if (resetDto.email !== user.email) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', INVALID_EMAIL);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        INVALID_EMAIL,
+      );
     }
     if (Number(Date.now()) >= user.getResetTokenExpiration()) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', RESET_TIME_EXPIRED);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        RESET_TIME_EXPIRED,
+      );
     }
     if (Number(resetDto.code) !== user.getConfirmCode()) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', INVALID_CODE);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        INVALID_CODE,
+      );
     }
     await this.rewritePassword(user.id, resetDto.password);
     return user.email;
@@ -261,15 +297,26 @@ export class UsersService {
   async changePassword(userId: number, password: string): Promise<void | User> {
     const user = await this.getUserById(userId);
     if (!user) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);  
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        USER_NOT_FOUND,
+      );
     }
     return this.rewritePassword(user.id, password);
   }
 
-  async rewritePassword(userId: number, password: string): Promise<User | void> {
+  async rewritePassword(
+    userId: number,
+    password: string,
+  ): Promise<User | void> {
     const user = await this.getUserById(userId);
     if (!user) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);   
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        USER_NOT_FOUND,
+      );
     }
     const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
     const salt = await bcrypt.genSalt(SALT_ROUNDS);

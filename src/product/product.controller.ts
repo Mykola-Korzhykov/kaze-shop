@@ -45,7 +45,7 @@ import { ApiExceptionFilter } from '../common/filters/api-exception.filter';
 import { existsSync, mkdirSync } from 'fs';
 import { v4 } from 'uuid';
 import { EditContentGuard } from '../common/guards/edit-content.guard';
-import { ReturnedProduct, ReturnedProducts } from '../core/interfaces/product.interfaces';
+import { ReturnedProduct } from '../core/interfaces/product.interfaces';
 import { ParseFormDataJsonPipe } from '../common/pipes/formdata.pipe';
 import { UserGuard } from 'src/common/guards/user.guard';
 import { QueryFilterDto } from './dto/query-filter.dto';
@@ -54,10 +54,8 @@ import { QueryFilterDto } from './dto/query-filter.dto';
 @UseInterceptors(CacheInterceptor, ClassSerializerInterceptor)
 @Controller('product')
 export class ProductController {
-  constructor(
-    private readonly productService: ProductService,
-  ) {}
-  
+  constructor(private readonly productService: ProductService) {}
+
   @Throttle(70, 700)
   @Get('/')
   getProducts(
@@ -69,7 +67,12 @@ export class ProductController {
   ) {
     (async () => {
       try {
-        return this.productService.getProducts(request, response, page, pageSize);
+        return this.productService.getProducts(
+          request,
+          response,
+          page,
+          pageSize,
+        );
       } catch (err: unknown) {
         return next(err);
       }
@@ -88,7 +91,13 @@ export class ProductController {
   ) {
     (async () => {
       try {
-        return this.productService.getProductsByIds(request, response, productIds, page, pageSize);
+        return this.productService.getProductsByIds(
+          request,
+          response,
+          productIds,
+          page,
+          pageSize,
+        );
       } catch (err: unknown) {
         return next(err);
       }
@@ -106,12 +115,16 @@ export class ProductController {
   ) {
     (async () => {
       try {
-        return this.productService.filterProducts(request, response, queryFilterDto);
+        return this.productService.filterProducts(
+          request,
+          response,
+          queryFilterDto,
+        );
       } catch (err: unknown) {
         return next(err);
       }
     })();
-  }    
+  }
 
   @Throttle(70, 700)
   @Get('/:productId')
@@ -119,7 +132,7 @@ export class ProductController {
     @Res() response: Response,
     @Req() request: Request,
     @Next() next: NextFunction,
-    @Param('productId', ParseIntPipe) productId: number
+    @Param('productId', ParseIntPipe) productId: number,
   ) {
     (async () => {
       try {
@@ -143,9 +156,15 @@ export class ProductController {
     @UserId('USER-ID') userId: number,
   ) {
     (async () => {
-    try {
-      return this.productService.getBookmarks(request, response, page, pageSize, userId);
-    } catch (err: unknown) {
+      try {
+        return this.productService.getBookmarks(
+          request,
+          response,
+          page,
+          pageSize,
+          userId,
+        );
+      } catch (err: unknown) {
         return next(err);
       }
     })();
@@ -165,7 +184,13 @@ export class ProductController {
   ) {
     (async () => {
       try {
-        return this.productService.getWatchedProducts(request, response, page, pageSize, userId);
+        return this.productService.getWatchedProducts(
+          request,
+          response,
+          page,
+          pageSize,
+          userId,
+        );
       } catch (err: unknown) {
         return next(err);
       }
@@ -208,66 +233,88 @@ export class ProductController {
   @Put('create_product')
   @Roles('OWNER', 'ADMIN')
   @UsePipes(new ValidationPipe({ transform: true }))
-  @UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard, AddContentGuard)
+  @UseGuards(
+    JwtAuthGuard,
+    RolesGuard,
+    OwnerAdminGuard,
+    AuthFerfershGuard,
+    AddContentGuard,
+  )
   @HttpCode(201)
   @UseInterceptors(
-    FileFieldsInterceptor([
-      { name: 'images', maxCount: 20 },
-      { name: 'sizeChartImage', maxCount: 1 },
-    ], {
-      fileFilter: (
-        req: Request,
-        file: Express.Multer.File,
-        callback: (error: Error, acceptFile: boolean) => void
-      ) => {
-        const filetypes = /jpeg|jpg|png|gif|svg/;
-        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-        const mimetype = filetypes.test(file.mimetype);
-        if (mimetype && extname) {
-          return callback(null, true);
-        } else {
-          return callback(new Error('Only image files are allowed!'), false);
-        }
+    FileFieldsInterceptor(
+      [
+        { name: 'images', maxCount: 20 },
+        { name: 'sizeChartImage', maxCount: 1 },
+      ],
+      {
+        fileFilter: (
+          req: Request,
+          file: Express.Multer.File,
+          callback: (error: Error, acceptFile: boolean) => void,
+        ) => {
+          const filetypes = /jpeg|jpg|png|gif|svg/;
+          const extname = filetypes.test(
+            path.extname(file.originalname).toLowerCase(),
+          );
+          const mimetype = filetypes.test(file.mimetype);
+          if (mimetype && extname) {
+            return callback(null, true);
+          } else {
+            return callback(new Error('Only image files are allowed!'), false);
+          }
+        },
+        storage: diskStorage({
+          destination: (
+            req,
+            file: Express.Multer.File,
+            callback: (error: Error, destination: string) => void,
+          ) => {
+            if (!JSON.parse(req.body.title)?.en) {
+              return callback(new Error('Invalid params!'), null);
+            }
+            const destination = path.join(
+              __dirname,
+              'static',
+              'products',
+              `${JSON.parse(req.body.title)?.en.split(' ').join('_')}`,
+            );
+            const imagesPath = path.join(
+              __dirname,
+              'static',
+              'products',
+              `${JSON.parse(req.body.title)?.en.split(' ').join('_')}`,
+              file.fieldname,
+            );
+            if (!existsSync(destination)) {
+              mkdirSync(destination, { recursive: true });
+            }
+            if (!existsSync(imagesPath)) {
+              mkdirSync(imagesPath, { recursive: true });
+            }
+            callback(null, imagesPath);
+          },
+          filename: (req, file: Express.Multer.File, callback: any) => {
+            if (!JSON.parse(req.body.title)?.en) {
+              return callback(new Error('Invalid params!'), null);
+            }
+            const name = file.originalname.split('.')[0];
+            const ext = extname(file.originalname);
+            const randomName = v4();
+            callback(
+              null,
+              `${randomName}--${JSON.parse(req.body.title)
+                ?.en.split(' ')
+                .join('_')}--${name}${ext}`,
+            );
+          },
+        }),
       },
-      storage: diskStorage({
-        destination: (
-          req, file: Express.Multer.File,
-          callback: (error: Error, destination: string) => void
-        ) => {
-          if (!JSON.parse(req.body.title)?.en) {
-            return callback(new Error('Invalid params!'), null);
-          }
-          const destination = path.join(
-            __dirname, 'static', 'products', `${JSON.parse(req.body.title)?.en.split(' ').join('_')}`
-          );
-          const imagesPath = path.join(
-            __dirname, 'static', 'products', `${JSON.parse(req.body.title)?.en.split(' ').join('_')}`, file.fieldname
-          );
-          if (!existsSync(destination)) {
-            mkdirSync(destination, { recursive: true });
-          }
-          if (!existsSync(imagesPath)) {
-            mkdirSync(imagesPath, { recursive: true });
-          }
-          callback(null, imagesPath);
-        },
-        filename: (
-          req, file: Express.Multer.File,
-          callback: any,
-        ) => {
-          if (!JSON.parse(req.body.title)?.en) {
-            return callback(new Error('Invalid params!'), null);
-          }
-          const name = file.originalname.split('.')[0];
-          const ext = extname(file.originalname);
-          const randomName = v4();
-          callback(null, `${randomName}--${JSON.parse(req.body.title)?.en.split(' ').join('_')}--${name}${ext}`);
-        },
-      })
-    }),
+    ),
   )
   createProduct(
-    @Body(new ParseFormDataJsonPipe({except: ['images', 'sizeChartImage']})) createProductDto: CreateProductDto,
+    @Body(new ParseFormDataJsonPipe({ except: ['images', 'sizeChartImage'] }))
+    createProductDto: CreateProductDto,
     @UploadedFiles()
     files: {
       images?: Express.Multer.File[];
@@ -277,7 +324,13 @@ export class ProductController {
     @Type('REFRESHTOKEN') type: 'OWNER' | 'ADMIN' | null,
   ): Promise<ReturnedProduct> {
     try {
-      return this.productService.createProduct(createProductDto, userId, type, files.images, files.sizeChartImage);
+      return this.productService.createProduct(
+        createProductDto,
+        userId,
+        type,
+        files.images,
+        files.sizeChartImage,
+      );
     } catch (error: unknown) {
       throw error;
     }
@@ -287,66 +340,88 @@ export class ProductController {
   @Patch('update_product/:productId')
   @Roles('OWNER', 'ADMIN')
   @UsePipes(new ValidationPipe({ transform: true }))
-  @UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard, EditContentGuard)
+  @UseGuards(
+    JwtAuthGuard,
+    RolesGuard,
+    OwnerAdminGuard,
+    AuthFerfershGuard,
+    EditContentGuard,
+  )
   @HttpCode(202)
   @UseInterceptors(
-    FileFieldsInterceptor([
-      { name: 'images', maxCount: 20 },
-      { name: 'sizeChartImage', maxCount: 1 },
-    ], {
-      fileFilter: (
-        req: Request,
-        file: Express.Multer.File,
-        callback: (error: Error, acceptFile: boolean) => void
-      ) => {
-        const filetypes = /jpeg|jpg|png|gif|svg/;
-        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-        const mimetype = filetypes.test(file.mimetype);
-        if (mimetype && extname) {
-          return callback(null, true);
-        } else {
-          return callback(new Error('Only image files are allowed!'), false);
-        }
+    FileFieldsInterceptor(
+      [
+        { name: 'images', maxCount: 20 },
+        { name: 'sizeChartImage', maxCount: 1 },
+      ],
+      {
+        fileFilter: (
+          req: Request,
+          file: Express.Multer.File,
+          callback: (error: Error, acceptFile: boolean) => void,
+        ) => {
+          const filetypes = /jpeg|jpg|png|gif|svg/;
+          const extname = filetypes.test(
+            path.extname(file.originalname).toLowerCase(),
+          );
+          const mimetype = filetypes.test(file.mimetype);
+          if (mimetype && extname) {
+            return callback(null, true);
+          } else {
+            return callback(new Error('Only image files are allowed!'), false);
+          }
+        },
+        storage: diskStorage({
+          destination: (
+            req,
+            file: Express.Multer.File,
+            callback: (error: Error, destination: string) => void,
+          ) => {
+            if (!JSON.parse(req.body.title)?.en) {
+              return callback(new Error('Invalid params!'), null);
+            }
+            const destination = path.join(
+              __dirname,
+              'static',
+              'products',
+              `${JSON.parse(req.body.title)?.en.split(' ').join('_')}`,
+            );
+            const imagesPath = path.join(
+              __dirname,
+              'static',
+              'products',
+              `${JSON.parse(req.body.title)?.en.split(' ').join('_')}`,
+              file.fieldname,
+            );
+            if (!existsSync(destination)) {
+              mkdirSync(destination, { recursive: true });
+            }
+            if (!existsSync(imagesPath)) {
+              mkdirSync(imagesPath, { recursive: true });
+            }
+            callback(null, imagesPath);
+          },
+          filename: (req, file: Express.Multer.File, callback: any) => {
+            if (!JSON.parse(req.body.title)?.en) {
+              return callback(new Error('Invalid params!'), null);
+            }
+            const name = file.originalname.split('.')[0];
+            const ext = extname(file.originalname);
+            const randomName = v4();
+            callback(
+              null,
+              `${randomName}--${JSON.parse(req.body.title)
+                ?.en.split(' ')
+                .join('_')}--${name}${ext}`,
+            );
+          },
+        }),
       },
-      storage: diskStorage({
-        destination: (
-          req, file: Express.Multer.File,
-          callback: (error: Error, destination: string) => void
-        ) => {
-          if (!JSON.parse(req.body.title)?.en) {
-            return callback(new Error('Invalid params!'), null);
-          }
-          const destination = path.join(
-            __dirname, 'static', 'products', `${JSON.parse(req.body.title)?.en.split(' ').join('_')}`
-          );
-          const imagesPath = path.join(
-            __dirname, 'static', 'products', `${JSON.parse(req.body.title)?.en.split(' ').join('_')}`, file.fieldname
-          );
-          if (!existsSync(destination)) {
-            mkdirSync(destination, { recursive: true });
-          }
-          if (!existsSync(imagesPath)) {
-            mkdirSync(imagesPath, { recursive: true });
-          }
-          callback(null, imagesPath);
-        },
-        filename: (
-          req, file: Express.Multer.File,
-          callback: any,
-        ) => {
-          if (!JSON.parse(req.body.title)?.en) {
-            return callback(new Error('Invalid params!'), null);
-          }
-          const name = file.originalname.split('.')[0];
-          const ext = extname(file.originalname);
-          const randomName = v4();
-          callback(null, `${randomName}--${JSON.parse(req.body.title)?.en.split(' ').join('_')}--${name}${ext}`);
-        },
-      })
-    }),
+    ),
   )
   updateProduct(
-    @Body(new ParseFormDataJsonPipe({except: ['images', 'sizeChartImage']})) updateProductDto: UpdateProductDto,
+    @Body(new ParseFormDataJsonPipe({ except: ['images', 'sizeChartImage'] }))
+    updateProductDto: UpdateProductDto,
     @Param('productId', ParseIntPipe) productId: number,
     @UserId('USER-ID') userId: number,
     @Type('REFRESHTOKEN') type: 'OWNER' | 'ADMIN' | null,
@@ -363,7 +438,7 @@ export class ProductController {
         userId,
         type,
         files.images,
-        files.sizeChartImage
+        files.sizeChartImage,
       );
     } catch (err: unknown) {
       throw err;
@@ -373,10 +448,16 @@ export class ProductController {
   @Throttle(70, 700)
   @Delete('delete_product/:productId')
   @Roles('OWNER', 'ADMIN')
-  @UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard, EditContentGuard)
+  @UseGuards(
+    JwtAuthGuard,
+    RolesGuard,
+    OwnerAdminGuard,
+    AuthFerfershGuard,
+    EditContentGuard,
+  )
   @HttpCode(202)
   deleteProduct(
-    @Param('productId', ParseIntPipe) productId: number
+    @Param('productId', ParseIntPipe) productId: number,
   ): Promise<number> {
     try {
       return this.productService.deleteProduct(productId);
@@ -388,11 +469,15 @@ export class ProductController {
   @Throttle(70, 700)
   @Delete('delete_image')
   @Roles('OWNER', 'ADMIN')
-  @UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard, EditContentGuard)
+  @UseGuards(
+    JwtAuthGuard,
+    RolesGuard,
+    OwnerAdminGuard,
+    AuthFerfershGuard,
+    EditContentGuard,
+  )
   @HttpCode(200)
-  deleteFile(
-    @Query('filePath') filePath: string,
-  ): Promise<string> {
-      return this.productService.deleteImage(filePath);
+  deleteFile(@Query('filePath') filePath: string): Promise<string> {
+    return this.productService.deleteImage(filePath);
   }
 }

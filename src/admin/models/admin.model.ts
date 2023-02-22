@@ -345,7 +345,7 @@ export class Admin extends Model<Admin, AdmincreationAttrbs> {
     return this.activationCode;
   }
 
-  getAdminRefreshTokens(): AdminRefreshToken[]{
+  getAdminRefreshTokens(): AdminRefreshToken[] {
     return this.adminRefreshTokens;
   }
 
@@ -353,7 +353,7 @@ export class Admin extends Model<Admin, AdmincreationAttrbs> {
     return this.user;
   }
 
-  addProduct(product: Product): Product[]{
+  addProduct(product: Product): Product[] {
     this.products.push(product);
     return this.products;
   }

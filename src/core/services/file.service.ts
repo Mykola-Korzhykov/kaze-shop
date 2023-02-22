@@ -40,12 +40,7 @@ export class FilesService {
     });
   }
 
-
-  createfileName(
-    req: Request,
-    file: Express.Multer.File,
-    callback: any,  
-  ){
+  createfileName(req: Request, file: Express.Multer.File, callback: any) {
     const name = file.originalname.split('.')[0];
     const ext = extname(file.originalname);
     const randomName = v4();
@@ -55,29 +50,42 @@ export class FilesService {
   fileFilter(
     req: Request,
     file: Express.Multer.File,
-    callback: (error: Error, acceptFile: boolean) => void
-  ){
+    callback: (error: Error, acceptFile: boolean) => void,
+  ) {
     const filetypes = /\.(jpg|jpeg|png|gif)$/;
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const extname = filetypes.test(
+      path.extname(file.originalname).toLowerCase(),
+    );
     const mimetype = filetypes.test(file.mimetype);
-    if(mimetype && extname){
-        return callback(null, true);
-    } 
+    if (mimetype && extname) {
+      return callback(null, true);
+    }
     return callback(new Error('Only image files are allowed!'), false);
-  }  
+  }
 
-  destination (
-    req: Request, 
-    file: Express.Multer.File, 
-    callback: (error: Error, destination: string) => void
-  ){
-    const destination = path.join(__dirname, 'static', 'products', `${req?.body?.title}`);
-    const imagesPath = path.join(__dirname, 'static', 'products', `${req?.body?.title}`, file.fieldname);
+  destination(
+    req: Request,
+    file: Express.Multer.File,
+    callback: (error: Error, destination: string) => void,
+  ) {
+    const destination = path.join(
+      __dirname,
+      'static',
+      'products',
+      `${req?.body?.title}`,
+    );
+    const imagesPath = path.join(
+      __dirname,
+      'static',
+      'products',
+      `${req?.body?.title}`,
+      file.fieldname,
+    );
     if (!existsSync(destination)) {
-        mkdirSync(destination, { recursive: true });
+      mkdirSync(destination, { recursive: true });
     }
     if (!existsSync(imagesPath)) {
-        mkdirSync(imagesPath, { recursive: true });
+      mkdirSync(imagesPath, { recursive: true });
     }
     callback(null, imagesPath);
   }

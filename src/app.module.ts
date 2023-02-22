@@ -12,7 +12,6 @@ import { Admin } from './admin/models/admin.model';
 import { AuthModule } from './auth/auth.module';
 import { AppClusterService } from './core/services/cluster.service';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { ServeStaticModule } from '@nestjs/serve-static';
 import path from 'path';
 import { AdminRefreshToken } from './admin/models/admin.refresh.token.model';
 import { MailModule } from './mail/mail.module';
@@ -35,10 +34,10 @@ import { UserRoles } from './roles/models/user.roles.model';
 import { AppController } from './app.controller';
 import { TelegramModule } from './telegram/telegram.module';
 import { getTelegramConfig } from './telegram/telegram.config';
-import { CategoriesModule } from './categories/categories.module';
+import { CategoriesColoursModule } from './categories&colours/categories&colours.module';
 import { Product } from './product/models/product.model';
-import { Category } from './categories/models/category.model';
-import { ProductCategories } from './categories/models/product.categories.model';
+import { Category } from './categories&colours/models/category.model';
+import { ProductCategories } from './categories&colours/models/product.categories.model';
 import { CartProduct } from './cart/models/cart.product.model';
 import { Cart } from './cart/models/cart.model';
 import { Order } from './orders/models/order.model';
@@ -54,6 +53,8 @@ import { Currencies } from './owner/models/currencies.model';
 import { HttpModule } from '@nestjs/axios';
 import { LocationMiddleware } from './core/middlewares/location.middleware';
 import { TasksService } from './core/services/scedule.service';
+import { Colour } from './categories&colours/models/colours.model';
+import { ProductColours } from './categories&colours/models/product.colour.model';
 @Module({
   controllers: [AppController],
   providers: [
@@ -105,14 +106,14 @@ import { TasksService } from './core/services/scedule.service';
         password: process.env.REDIS_PASSWORD.toString(),
       },
       settings: {
-        lockDuration: 30000, 
-        lockRenewTime: 15000, 
-        stalledInterval: 30000, 
-        maxStalledCount: 1, 
-        guardInterval: 5000, 
-        retryProcessDelay: 5000, 
-        drainDelay: 5, 
-      }
+        lockDuration: 30000,
+        lockRenewTime: 15000,
+        stalledInterval: 30000,
+        maxStalledCount: 1,
+        guardInterval: 5000,
+        retryProcessDelay: 5000,
+        drainDelay: 5,
+      },
     }),
     // ServeStaticModule.forRoot({
     //   rootPath: path.join(__dirname, 'static'),
@@ -122,7 +123,9 @@ import { TasksService } from './core/services/scedule.service';
       dest: './static',
       fileFilter(req, file, callback) {
         const filetypes = /\.(jpg|jpeg|png|gif)$/;
-        const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+        const extname = filetypes.test(
+          path.extname(file.originalname).toLowerCase(),
+        );
         const mimetype = filetypes.test(file.mimetype);
         if (mimetype && extname) {
           return callback(null, true);
@@ -132,7 +135,7 @@ import { TasksService } from './core/services/scedule.service';
       preservePath: true,
       limits: {
         fileSize: 12282810,
-      }
+      },
     }),
     SequelizeModule.forRoot({
       dialect: 'postgres',
@@ -162,6 +165,8 @@ import { TasksService } from './core/services/scedule.service';
         BookmarksProducts,
         WatchedProducts,
         Currencies,
+        Colour,
+        ProductColours,
       ],
       autoLoadModels: true,
       synchronize: true,
@@ -177,7 +182,7 @@ import { TasksService } from './core/services/scedule.service';
     OwnerModule,
     OrdersModule,
     CartModule,
-    CategoriesModule,
+    CategoriesColoursModule,
     ReviewsModule,
   ],
 })

@@ -179,17 +179,17 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(4);
 const swagger_1 = __webpack_require__(5);
 const app_module_1 = __webpack_require__(6);
-const helmet_1 = __importDefault(__webpack_require__(173));
-const compression_1 = __importDefault(__webpack_require__(174));
-const cookie_parser_1 = __importDefault(__webpack_require__(175));
-const serve_favicon_1 = __importDefault(__webpack_require__(176));
-const cluster_service_1 = __webpack_require__(108);
+const helmet_1 = __importDefault(__webpack_require__(178));
+const compression_1 = __importDefault(__webpack_require__(179));
+const cookie_parser_1 = __importDefault(__webpack_require__(180));
+const serve_favicon_1 = __importDefault(__webpack_require__(181));
+const cluster_service_1 = __webpack_require__(110);
 const common_1 = __webpack_require__(7);
-const all_exceptions_filter_1 = __webpack_require__(105);
-const error_handler_filter_1 = __webpack_require__(83);
-const api_exception_filter_1 = __webpack_require__(85);
-const path_1 = __webpack_require__(113);
-const body_parser_1 = __importDefault(__webpack_require__(177));
+const all_exceptions_filter_1 = __webpack_require__(107);
+const error_handler_filter_1 = __webpack_require__(85);
+const api_exception_filter_1 = __webpack_require__(87);
+const path_1 = __webpack_require__(115);
+const body_parser_1 = __importDefault(__webpack_require__(182));
 const PORT = Number(process.env.PORT) || 2222;
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -224,7 +224,7 @@ function startServer() {
                 res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, PATCH, DELETE');
                 res.setHeader('Access-Control-Allow-Credentials', 'true');
                 res.setHeader('Access-Control-Allow-Headers', 'imageType, Authorization, X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
-                res.setHeader('Content-Security-Policy', 'default-src \'self\'; font-src \'self\'; img-src \'self\'; script-src \'self\'; style-src \'self\'; frame-src \'self\'');
+                res.setHeader('Content-Security-Policy', `default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'`);
             },
         });
         app.use(body_parser_1.default.urlencoded({ extended: false }));
@@ -274,6 +274,7 @@ function startServer() {
         swagger_1.SwaggerModule.setup('/api/docs', app, document);
         process.on('unhandledRejection', (reason) => {
             console.log(reason.name, reason.message);
+            console.log(reason);
             console.log('UNHANDLED REJECTION! 💥 Shutting down...');
             return process.exit(1), reason;
         });
@@ -350,34 +351,34 @@ exports.AppModule = void 0;
 const common_1 = __webpack_require__(7);
 const sequelize_1 = __webpack_require__(8);
 const admin_module_1 = __webpack_require__(9);
-const config_1 = __webpack_require__(103);
+const config_1 = __webpack_require__(105);
 const admin_model_1 = __webpack_require__(28);
-const auth_module_1 = __webpack_require__(86);
-const cluster_service_1 = __webpack_require__(108);
-const throttler_1 = __webpack_require__(77);
-const path_1 = __importDefault(__webpack_require__(113));
-const admin_refresh_token_model_1 = __webpack_require__(47);
-const mail_module_1 = __webpack_require__(117);
-const cors_middleware_1 = __webpack_require__(157);
+const auth_module_1 = __webpack_require__(88);
+const cluster_service_1 = __webpack_require__(110);
+const throttler_1 = __webpack_require__(79);
+const path_1 = __importDefault(__webpack_require__(115));
+const admin_refresh_token_model_1 = __webpack_require__(49);
+const mail_module_1 = __webpack_require__(119);
+const cors_middleware_1 = __webpack_require__(162);
 const core_1 = __webpack_require__(4);
-const all_exceptions_filter_1 = __webpack_require__(105);
-const global_interceptor_1 = __webpack_require__(106);
-const core_module_1 = __webpack_require__(104);
-const product_module_1 = __webpack_require__(126);
-const users_module_1 = __webpack_require__(118);
-const owner_module_1 = __webpack_require__(98);
-const orders_module_1 = __webpack_require__(148);
-const cart_module_1 = __webpack_require__(145);
+const all_exceptions_filter_1 = __webpack_require__(107);
+const global_interceptor_1 = __webpack_require__(108);
+const core_module_1 = __webpack_require__(106);
+const product_module_1 = __webpack_require__(128);
+const users_module_1 = __webpack_require__(120);
+const owner_module_1 = __webpack_require__(100);
+const orders_module_1 = __webpack_require__(153);
+const cart_module_1 = __webpack_require__(150);
 const owner_model_1 = __webpack_require__(31);
-const owner_refresh_token_model_1 = __webpack_require__(45);
+const owner_refresh_token_model_1 = __webpack_require__(47);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const app_controller_1 = __webpack_require__(159);
-const telegram_module_1 = __webpack_require__(161);
-const telegram_config_1 = __webpack_require__(166);
-const categories_module_1 = __webpack_require__(142);
+const app_controller_1 = __webpack_require__(165);
+const telegram_module_1 = __webpack_require__(167);
+const telegram_config_1 = __webpack_require__(172);
+const categories_colours_module_1 = __webpack_require__(145);
 const product_model_1 = __webpack_require__(32);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
@@ -385,17 +386,19 @@ const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
-const platform_express_1 = __webpack_require__(133);
-const bull_1 = __webpack_require__(114);
-const reviews_module_1 = __webpack_require__(167);
+const platform_express_1 = __webpack_require__(136);
+const bull_1 = __webpack_require__(116);
+const reviews_module_1 = __webpack_require__(173);
 const review_model_1 = __webpack_require__(43);
 const product_reviews_model_1 = __webpack_require__(44);
 const bookmark_products_1 = __webpack_require__(37);
 const watched_products_model_1 = __webpack_require__(38);
-const currencies_model_1 = __webpack_require__(46);
-const axios_1 = __webpack_require__(61);
-const location_middleware_1 = __webpack_require__(171);
-const scedule_service_1 = __webpack_require__(66);
+const currencies_model_1 = __webpack_require__(48);
+const axios_1 = __webpack_require__(63);
+const location_middleware_1 = __webpack_require__(177);
+const scedule_service_1 = __webpack_require__(68);
+const colours_model_1 = __webpack_require__(45);
+const product_colour_model_1 = __webpack_require__(46);
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(cors_middleware_1.CorsMiddleware, location_middleware_1.LocationMiddleware).forRoutes({
@@ -463,7 +466,7 @@ AppModule = __decorate([
                     guardInterval: 5000,
                     retryProcessDelay: 5000,
                     drainDelay: 5,
-                }
+                },
             }),
             platform_express_1.MulterModule.register({
                 dest: './static',
@@ -479,7 +482,7 @@ AppModule = __decorate([
                 preservePath: true,
                 limits: {
                     fileSize: 12282810,
-                }
+                },
             }),
             sequelize_1.SequelizeModule.forRoot({
                 dialect: 'postgres',
@@ -509,6 +512,8 @@ AppModule = __decorate([
                     bookmark_products_1.BookmarksProducts,
                     watched_products_model_1.WatchedProducts,
                     currencies_model_1.Currencies,
+                    colours_model_1.Colour,
+                    product_colour_model_1.ProductColours,
                 ],
                 autoLoadModels: true,
                 synchronize: true,
@@ -524,7 +529,7 @@ AppModule = __decorate([
             owner_module_1.OwnerModule,
             orders_module_1.OrdersModule,
             cart_module_1.CartModule,
-            categories_module_1.CategoriesModule,
+            categories_colours_module_1.CategoriesColoursModule,
             reviews_module_1.ReviewsModule,
         ],
     })
@@ -566,43 +571,45 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AdminModule = void 0;
 const common_1 = __webpack_require__(7);
 const admin_controller_1 = __webpack_require__(10);
-const admin_service_1 = __webpack_require__(56);
+const admin_service_1 = __webpack_require__(58);
 const sequelize_1 = __webpack_require__(8);
 const admin_model_1 = __webpack_require__(28);
-const auth_module_1 = __webpack_require__(86);
+const auth_module_1 = __webpack_require__(88);
 const jwt_1 = __webpack_require__(16);
-const admin_refresh_token_model_1 = __webpack_require__(47);
-const jwt_refresh_service_1 = __webpack_require__(71);
-const owner_module_1 = __webpack_require__(98);
+const admin_refresh_token_model_1 = __webpack_require__(49);
+const jwt_refresh_service_1 = __webpack_require__(73);
+const owner_module_1 = __webpack_require__(100);
 const mail_service_1 = __webpack_require__(21);
-const initialize_user_middleware_1 = __webpack_require__(124);
-const owner_service_1 = __webpack_require__(57);
+const initialize_user_middleware_1 = __webpack_require__(126);
+const owner_service_1 = __webpack_require__(59);
 const owner_model_1 = __webpack_require__(31);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(99);
-const owner_refresh_token_model_1 = __webpack_require__(45);
-const users_module_1 = __webpack_require__(118);
+const roles_module_1 = __webpack_require__(101);
+const owner_refresh_token_model_1 = __webpack_require__(47);
+const users_module_1 = __webpack_require__(120);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const user_admin_middleware_1 = __webpack_require__(155);
-const body_validator_pipe_1 = __importDefault(__webpack_require__(125));
-const create_admin_dto_1 = __webpack_require__(73);
-const config_1 = __webpack_require__(103);
-const admin_user_middleware_1 = __webpack_require__(156);
-const core_module_1 = __webpack_require__(104);
-const scedule_service_1 = __webpack_require__(66);
+const user_admin_middleware_1 = __webpack_require__(160);
+const body_validator_pipe_1 = __importDefault(__webpack_require__(127));
+const create_admin_dto_1 = __webpack_require__(75);
+const config_1 = __webpack_require__(105);
+const admin_user_middleware_1 = __webpack_require__(161);
+const core_module_1 = __webpack_require__(106);
+const scedule_service_1 = __webpack_require__(68);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
+const colours_model_1 = __webpack_require__(45);
+const product_colour_model_1 = __webpack_require__(46);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
 const product_model_1 = __webpack_require__(32);
 const users_service_1 = __webpack_require__(24);
-const currencies_model_1 = __webpack_require__(46);
-const axios_1 = __webpack_require__(61);
-const currency_service_1 = __webpack_require__(60);
+const currencies_model_1 = __webpack_require__(48);
+const axios_1 = __webpack_require__(63);
+const currency_service_1 = __webpack_require__(62);
 let AdminModule = AdminModule_1 = class AdminModule {
     configure(consumer) {
         consumer
@@ -649,6 +656,8 @@ AdminModule = AdminModule_1 = __decorate([
                 cart_model_1.Cart,
                 cart_product_model_1.CartProduct,
                 currencies_model_1.Currencies,
+                colours_model_1.Colour,
+                product_colour_model_1.ProductColours,
             ]),
             jwt_1.JwtModule.register({
                 secret: process.env.JWT_REFRESH_ADMIN_SECRET.toString().trim() ||
@@ -704,19 +713,19 @@ exports.AdminController = void 0;
 const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
 const jwt_auth_guard_1 = __webpack_require__(11);
-const create_admin_dto_1 = __webpack_require__(73);
+const create_admin_dto_1 = __webpack_require__(75);
 const admin_model_1 = __webpack_require__(28);
-const admin_service_1 = __webpack_require__(56);
-const validation_pipe_1 = __webpack_require__(74);
-const throttler_behind_proxy_guard_1 = __webpack_require__(76);
-const roles_auth_decorator_1 = __webpack_require__(78);
-const roles_guard_1 = __webpack_require__(79);
-const owner_admin_guard_1 = __webpack_require__(80);
-const jw_refresh_guard_1 = __webpack_require__(81);
-const throttler_1 = __webpack_require__(77);
-const pipes_1 = __webpack_require__(82);
-const error_handler_filter_1 = __webpack_require__(83);
-const api_exception_filter_1 = __webpack_require__(85);
+const admin_service_1 = __webpack_require__(58);
+const validation_pipe_1 = __webpack_require__(76);
+const throttler_behind_proxy_guard_1 = __webpack_require__(78);
+const roles_auth_decorator_1 = __webpack_require__(80);
+const roles_guard_1 = __webpack_require__(81);
+const owner_admin_guard_1 = __webpack_require__(82);
+const jw_refresh_guard_1 = __webpack_require__(83);
+const throttler_1 = __webpack_require__(79);
+const pipes_1 = __webpack_require__(84);
+const error_handler_filter_1 = __webpack_require__(85);
+const api_exception_filter_1 = __webpack_require__(87);
 let AdminController = class AdminController {
     constructor(adminService) {
         this.adminService = adminService;
@@ -829,7 +838,7 @@ exports.JwtAuthGuard = void 0;
 const common_1 = __webpack_require__(7);
 const auth_constants_1 = __webpack_require__(12);
 const auth_service_1 = __webpack_require__(13);
-const api_exception_1 = __webpack_require__(50);
+const api_exception_1 = __webpack_require__(52);
 let JwtAuthGuard = class JwtAuthGuard {
     constructor(authService) {
         this.authService = authService;
@@ -892,13 +901,13 @@ exports.ACTIVATION_EXPIRED = {
     en: 'Activation expired!',
     ru: 'Срок действия активации истек!',
     rs: 'Активација је истекла!',
-    ua: 'Термін активації минув!'
+    ua: 'Термін активації минув!',
 };
 exports.LANGUAGE_NOT_PROVIDED = {
     en: 'No language provided!',
     ua: 'Немає мови!',
     ru: 'Язык не указан!',
-    rs: 'Није наведен језик!'
+    rs: 'Није наведен језик!',
 };
 exports.USER_NOT_AUTHORIZIED = {
     en: 'User is not authorized, token is not valid!',
@@ -952,7 +961,7 @@ exports.ACTIVTING_PARAMS_NOT_PROVIDED = {
     en: 'Activating params not provided!',
     ua: 'Параметри активації не надано!',
     ru: 'Параметры активации не указаны!',
-    rs: 'Параметри за активирање нису обезбеђени!'
+    rs: 'Параметри за активирање нису обезбеђени!',
 };
 exports.ACCESS_TOKEN_NOT_PROVIDED = {
     en: 'Access token not provided!',
@@ -1031,23 +1040,23 @@ const jwt_1 = __webpack_require__(16);
 const signup_dto_1 = __webpack_require__(17);
 const express_1 = __webpack_require__(20);
 const mail_service_1 = __webpack_require__(21);
-const admin_service_1 = __webpack_require__(56);
-const owner_service_1 = __webpack_require__(57);
-const jwt_refresh_service_1 = __webpack_require__(65);
+const admin_service_1 = __webpack_require__(58);
+const owner_service_1 = __webpack_require__(59);
+const jwt_refresh_service_1 = __webpack_require__(67);
 const users_service_1 = __webpack_require__(24);
-const jwt_refresh_service_2 = __webpack_require__(70);
-const jwt_refresh_service_3 = __webpack_require__(71);
+const jwt_refresh_service_2 = __webpack_require__(72);
+const jwt_refresh_service_3 = __webpack_require__(73);
 const user_model_1 = __webpack_require__(35);
 const owner_model_1 = __webpack_require__(31);
 const admin_model_1 = __webpack_require__(28);
-const user_constants_1 = __webpack_require__(48);
-const change_password_dto_1 = __webpack_require__(72);
-const uuid_1 = __webpack_require__(58);
-const api_exception_1 = __webpack_require__(50);
-const jwt_refresh_constants_1 = __webpack_require__(53);
-const event_emitter_1 = __webpack_require__(67);
-const schedule_1 = __webpack_require__(59);
-const jwt_refresh_token_deleted_evet_1 = __webpack_require__(69);
+const user_constants_1 = __webpack_require__(50);
+const change_password_dto_1 = __webpack_require__(74);
+const uuid_1 = __webpack_require__(60);
+const api_exception_1 = __webpack_require__(52);
+const jwt_refresh_constants_1 = __webpack_require__(55);
+const event_emitter_1 = __webpack_require__(69);
+const schedule_1 = __webpack_require__(61);
+const jwt_refresh_token_deleted_evet_1 = __webpack_require__(71);
 let AuthService = AuthService_1 = class AuthService {
     constructor(ownerJwtRefreshTokenService, adminJwtRefreshTokenService, ownerService, adminService, userService, mailService, schedulerRegistry, eventEmitter, jwtService, userJwtRefreshTokenService) {
         this.ownerJwtRefreshTokenService = ownerJwtRefreshTokenService;
@@ -1077,7 +1086,6 @@ let AuthService = AuthService_1 = class AuthService {
                     path: '/',
                     httpOnly: true,
                     expires: tokens.expireDate,
-                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                 });
                 return response.json(Object.assign({}, this.setResponse(tokens, user)));
@@ -1103,7 +1111,6 @@ let AuthService = AuthService_1 = class AuthService {
                     path: '/',
                     httpOnly: true,
                     expires: tokens.expireDate,
-                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                 });
                 return response.json(Object.assign({}, this.setResponse(tokens, user)));
@@ -1162,7 +1169,6 @@ let AuthService = AuthService_1 = class AuthService {
                     path: '/',
                     httpOnly: true,
                     expires: tokens.expireDate,
-                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                 });
                 yield this.activateUser(dto.user, response);
@@ -1535,7 +1541,6 @@ let AuthService = AuthService_1 = class AuthService {
                     signed: true,
                     path: '/',
                     httpOnly: true,
-                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                 });
             }
@@ -1546,14 +1551,15 @@ let AuthService = AuthService_1 = class AuthService {
                 user.setActivationCode(code);
                 user.setResetTokenExpiration(Number(Date.now() + 3600000));
                 yield user.save();
-                return this.mailService.sendActivationMailToAdmin(user.email, `${process.env.API_URL}/auth/activate/${user.getResetToken().trim()}?code=${code}`);
+                return this.mailService.sendActivationMailToAdmin(user.email, `${process.env.API_URL}/auth/activate/${user
+                    .getResetToken()
+                    .trim()}?code=${code}`);
             }
             if (user instanceof owner_model_1.Owner) {
                 response.cookie('user-id', user.activationLink, {
                     maxAge: 30 * 24 * 60 * 60 * 1000,
                     signed: true,
                     httpOnly: true,
-                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                     path: '/',
                 });
@@ -1566,7 +1572,9 @@ let AuthService = AuthService_1 = class AuthService {
                 user.setResetTokenExpiration(Number(Date.now() + 3600000));
                 yield user.save();
                 this.Logger.log(`activating owner with email ${user.email}`);
-                return this.mailService.sendActivationMailToOwner(user.email, `${process.env.API_URL}/auth/activate/${user.getResetToken().trim()}?code=${code}`);
+                return this.mailService.sendActivationMailToOwner(user.email, `${process.env.API_URL}/auth/activate/${user
+                    .getResetToken()
+                    .trim()}?code=${code}`);
             }
             return;
         });
@@ -1886,12 +1894,12 @@ const common_1 = __webpack_require__(7);
 const mailer_1 = __webpack_require__(22);
 const mail_constants_1 = __webpack_require__(23);
 const users_service_1 = __webpack_require__(24);
-const admin_service_1 = __webpack_require__(56);
-const owner_service_1 = __webpack_require__(57);
-const api_exception_1 = __webpack_require__(50);
-const owner_constants_1 = __webpack_require__(52);
-const admin_constants_1 = __webpack_require__(51);
-const user_constants_1 = __webpack_require__(48);
+const admin_service_1 = __webpack_require__(58);
+const owner_service_1 = __webpack_require__(59);
+const api_exception_1 = __webpack_require__(52);
+const owner_constants_1 = __webpack_require__(54);
+const admin_constants_1 = __webpack_require__(53);
+const user_constants_1 = __webpack_require__(50);
 let MailService = MailService_1 = class MailService {
     constructor(mailerService, userService, adminService, ownerService) {
         this.mailerService = mailerService;
@@ -1928,7 +1936,7 @@ let MailService = MailService_1 = class MailService {
 </tr></table></td></tr></table></td></tr></table></td></tr></table></td>
 </tr></table><table class="es-content" cellspacing="0" cellpadding="0" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"><tr style="border-collapse:collapse"><td align="center" style="padding:0;Margin:0"><table class="es-content-body" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px" cellspacing="0" cellpadding="0" align="center"><tr style="border-collapse:collapse"><td align="left" style="padding:0;Margin:0"><table width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"><tr style="border-collapse:collapse"><td valign="top" align="center" style="padding:0;Margin:0;width:600px"><table style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;background-color:#c0ede0;border-radius:4px" width="100%" cellspacing="0" cellpadding="0" bgcolor="#c0ede0"><tr style="border-collapse:collapse"><td align="center" bgcolor="#ffffff" style="padding:0;Margin:0;padding-top:30px;padding-left:30px;padding-right:30px"><h3 style="Margin:0;line-height:24px;mso-line-height-rule:exactly;font-family:lato, 'helvetica neue', helvetica, arial, sans-serif;font-size:20px;font-style:normal;font-weight:normal;color:#111111">Need more help?</h3>
 </td></tr><tr style="border-collapse:collapse"><td esdev-links-color="#66bb7f" align="center" bgcolor="#333333" style="padding:0;Margin:0;padding-bottom:30px;padding-left:30px;padding-right:30px"><a style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#fefafa;font-size:18px" href="">KAZE_SHOP</a></td></tr></table></td></tr></table></td></tr></table></td></tr></table></td></tr></table></div></body></html> 
-        `
+        `,
                 });
                 this.Logger.log('Message sent: %s', info.messageId);
             }
@@ -2046,13 +2054,13 @@ exports.TROUBLE_SIGNING = {
     en: 'Trouble signing in?',
     ru: 'Проблемы со входом?',
     ua: 'Проблеми з входом?',
-    rs: 'Проблеми са пријављивањем?'
+    rs: 'Проблеми са пријављивањем?',
 };
 exports.RESETTING = {
     en: `Resetting your password is easy. Just  enter the code below to reset your password. We'll have you up and running in no time.`,
     ua: `Скинути пароль легко. Просто введіть код нижче, щоб скинути пароль. Ми підготуємо вас до роботи в найкоротші терміни.`,
     ru: `Сбросить пароль легко. Просто введите код ниже, чтобы сбросить пароль. Мы подготовим вас в кратчайшие сроки.`,
-    rs: `Ресетовање лозинке је једноставно. Само унесите код испод да бисте ресетовали лозинку. Оспособићемо вас за кратко време.`
+    rs: `Ресетовање лозинке је једноставно. Само унесите код испод да бисте ресетовали лозинку. Оспособићемо вас за кратко време.`,
 };
 
 
@@ -2112,10 +2120,10 @@ exports.UsersService = void 0;
 const common_1 = __webpack_require__(7);
 const sequelize_1 = __webpack_require__(8);
 const roles_service_1 = __webpack_require__(25);
-const user_constants_1 = __webpack_require__(48);
+const user_constants_1 = __webpack_require__(50);
 const user_model_1 = __webpack_require__(35);
-const bcrypt = __importStar(__webpack_require__(49));
-const api_exception_1 = __webpack_require__(50);
+const bcrypt = __importStar(__webpack_require__(51));
+const api_exception_1 = __webpack_require__(52);
 let UsersService = class UsersService {
     constructor(userRepository, roleService) {
         this.userRepository = userRepository;
@@ -2539,7 +2547,7 @@ const class_transformer_1 = __webpack_require__(29);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
 const user_model_1 = __webpack_require__(35);
-const admin_refresh_token_model_1 = __webpack_require__(47);
+const admin_refresh_token_model_1 = __webpack_require__(49);
 const product_model_1 = __webpack_require__(32);
 let Admin = class Admin extends sequelize_typescript_1.Model {
     getName() {
@@ -2983,8 +2991,8 @@ const sequelize_typescript_1 = __webpack_require__(27);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
 const product_model_1 = __webpack_require__(32);
-const owner_refresh_token_model_1 = __webpack_require__(45);
-const currencies_model_1 = __webpack_require__(46);
+const owner_refresh_token_model_1 = __webpack_require__(47);
+const currencies_model_1 = __webpack_require__(48);
 let Owner = class Owner extends sequelize_typescript_1.Model {
     getName() {
         return this.name;
@@ -3275,6 +3283,8 @@ const owner_model_1 = __webpack_require__(31);
 const admin_model_1 = __webpack_require__(28);
 const review_model_1 = __webpack_require__(43);
 const product_reviews_model_1 = __webpack_require__(44);
+const colours_model_1 = __webpack_require__(45);
+const product_colour_model_1 = __webpack_require__(46);
 let Product = class Product extends sequelize_typescript_1.Model {
     getTitle() {
         return JSON.parse(this.title);
@@ -3289,6 +3299,13 @@ let Product = class Product extends sequelize_typescript_1.Model {
     setDescription(description) {
         this.description = JSON.stringify(description);
         return this.description;
+    }
+    getColours() {
+        return this.colours;
+    }
+    setColours(colours) {
+        this.colours = colours;
+        return this.colours;
     }
     getCategories() {
         return this.categories;
@@ -3391,10 +3408,10 @@ __decorate([
         type: sequelize_typescript_1.DataType.ARRAY(sequelize_typescript_1.DataType.STRING),
         unique: false,
         allowNull: true,
-        field: 'colours',
+        field: 'hexes',
     }),
     __metadata("design:type", Array)
-], Product.prototype, "colours", void 0);
+], Product.prototype, "hexes", void 0);
 __decorate([
     sequelize_typescript_1.IsInt,
     (0, sequelize_typescript_1.Column)({
@@ -3429,6 +3446,10 @@ __decorate([
     (0, sequelize_typescript_1.BelongsToMany)(() => category_model_1.Category, () => product_categories_model_1.ProductCategories),
     __metadata("design:type", Array)
 ], Product.prototype, "categories", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsToMany)(() => colours_model_1.Colour, () => product_colour_model_1.ProductColours),
+    __metadata("design:type", Array)
+], Product.prototype, "colours", void 0);
 __decorate([
     (0, sequelize_typescript_1.BelongsToMany)(() => cart_model_1.Cart, () => cart_product_model_1.CartProduct),
     __metadata("design:type", Array)
@@ -3569,6 +3590,10 @@ let Cart = class Cart extends sequelize_typescript_1.Model {
         return this.cartProducts;
     }
     getUser() {
+        return this.user;
+    }
+    setUser(user) {
+        this.user = user;
         return this.user;
     }
 };
@@ -4731,6 +4756,151 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Colour = void 0;
+const sequelize_typescript_1 = __webpack_require__(27);
+const product_model_1 = __webpack_require__(32);
+const product_colour_model_1 = __webpack_require__(46);
+let Colour = class Colour extends sequelize_typescript_1.Model {
+    getProducts() {
+        return this.products;
+    }
+};
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        unique: true,
+        autoIncrement: true,
+        primaryKey: true,
+        field: 'id',
+    }),
+    __metadata("design:type", Number)
+], Colour.prototype, "id", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: false,
+        unique: false,
+        field: 'ua-locale',
+    }),
+    __metadata("design:type", String)
+], Colour.prototype, "ua", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: false,
+        unique: false,
+        field: 'ru-locale',
+    }),
+    __metadata("design:type", String)
+], Colour.prototype, "ru", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: false,
+        unique: false,
+        field: 'en-locale',
+    }),
+    __metadata("design:type", String)
+], Colour.prototype, "en", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: false,
+        unique: false,
+        field: 'rs-locale',
+    }),
+    __metadata("design:type", String)
+], Colour.prototype, "rs", void 0);
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.STRING,
+        allowNull: false,
+        unique: false,
+        field: 'hex',
+    }),
+    __metadata("design:type", String)
+], Colour.prototype, "hex", void 0);
+__decorate([
+    (0, sequelize_typescript_1.BelongsToMany)(() => product_model_1.Product, () => product_colour_model_1.ProductColours),
+    __metadata("design:type", Array)
+], Colour.prototype, "products", void 0);
+Colour = __decorate([
+    (0, sequelize_typescript_1.Table)({ tableName: 'COLOURS' })
+], Colour);
+exports.Colour = Colour;
+
+
+/***/ }),
+/* 46 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ProductColours = void 0;
+const sequelize_typescript_1 = __webpack_require__(27);
+const product_model_1 = __webpack_require__(32);
+const colours_model_1 = __webpack_require__(45);
+let ProductColours = class ProductColours extends sequelize_typescript_1.Model {
+};
+__decorate([
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        unique: true,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false,
+        field: 'id',
+    }),
+    __metadata("design:type", Number)
+], ProductColours.prototype, "id", void 0);
+__decorate([
+    (0, sequelize_typescript_1.ForeignKey)(() => colours_model_1.Colour),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        field: 'colourId',
+    }),
+    __metadata("design:type", Number)
+], ProductColours.prototype, "colourId", void 0);
+__decorate([
+    (0, sequelize_typescript_1.ForeignKey)(() => product_model_1.Product),
+    (0, sequelize_typescript_1.Column)({
+        type: sequelize_typescript_1.DataType.INTEGER,
+        field: 'productId',
+    }),
+    __metadata("design:type", Number)
+], ProductColours.prototype, "productId", void 0);
+ProductColours = __decorate([
+    (0, sequelize_typescript_1.Table)({ tableName: 'PRODUCT_Colours', createdAt: false, updatedAt: false })
+], ProductColours);
+exports.ProductColours = ProductColours;
+
+
+/***/ }),
+/* 47 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OwnerRefreshToken = void 0;
@@ -4871,7 +5041,7 @@ exports.OwnerRefreshToken = OwnerRefreshToken;
 
 
 /***/ }),
-/* 46 */
+/* 48 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -4963,7 +5133,7 @@ exports.Currencies = Currencies;
 
 
 /***/ }),
-/* 47 */
+/* 49 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -5112,7 +5282,7 @@ exports.AdminRefreshToken = AdminRefreshToken;
 
 
 /***/ }),
-/* 48 */
+/* 50 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5128,85 +5298,85 @@ exports.USER_OR_ROLE_NOT_FOUND = {
     en: 'User or Role not found!',
     ua: 'Користувач або роль не знайдено!',
     ru: 'Пользователь или роль не найдены!',
-    rs: 'Корисник или улога нису пронађени!'
+    rs: 'Корисник или улога нису пронађени!',
 };
 exports.INVALID_CODE = {
     en: 'Invalid confirm code!',
     ua: 'Недійсний код підтвердження!',
     ru: 'Неверный код подтверждения!',
-    rs: 'Неважећи код за потврду!'
+    rs: 'Неважећи код за потврду!',
 };
 exports.RESET_TIME_EXPIRED = {
     en: 'Reset time expired!',
     ua: 'Час скидання минув!',
     ru: 'Время сброса истекло!',
-    rs: 'Време ресетовања је истекло!'
+    rs: 'Време ресетовања је истекло!',
 };
 exports.INVALID_EMAIL = {
     en: 'Invalid email!',
     ua: 'Недійсна електронна адреса!',
     ru: 'Неверный адрес электронной почты!',
-    rs: 'Корисник није пронађен!'
+    rs: 'Корисник није пронађен!',
 };
 exports.USER_WITH_EMAIL_EXIST = {
     en: 'User with this email already exist, pick different one.',
     ua: 'Користувач з такою поштою вже існує, оберіть іншу',
     ru: 'Пользователь с такой почтой уже существует, выберите другую',
-    rs: 'Корисник са овом е-поштом већ постоји, изаберите другог'
+    rs: 'Корисник са овом е-поштом већ постоји, изаберите другог',
 };
 exports.USER_WITH_PHONENUMBER_EXIST = {
     en: 'User with this phone number already exist, pick different one.',
     ua: 'Користувач із таким номером телефону вже існує, виберіть інший.',
     ru: 'Пользователь с таким номером телефона уже существует, выберите другой.',
-    rs: 'Корисник са овим бројем телефона већ постоји, изаберите други.'
+    rs: 'Корисник са овим бројем телефона већ постоји, изаберите други.',
 };
 exports.USER_WITH_EMAIL_DOESNT_EXIST = {
     en: 'User with this email doesn`t exist, pick different one.',
     ua: 'Користувача з цією електронною адресою не існує, виберіть іншу.',
     ru: 'Пользователь с таким адресом электронной почты не существует, выберите другого.',
-    rs: 'Корисник са овом е-поштом не постоји, изаберите други.'
+    rs: 'Корисник са овом е-поштом не постоји, изаберите други.',
 };
 exports.USER_WITH_EMAIL_NOT_FOUND = {
     en: 'User with this email not found!',
     ua: 'Користувача з цією електронною адресою не знайдено!',
     ru: 'Пользователь с таким адресом электронной почты не найден!',
-    rs: 'Корисник са овом е-поштом није пронађен!'
+    rs: 'Корисник са овом е-поштом није пронађен!',
 };
 exports.INVALID_EMAIL_OR_PASSWORD = {
     en: 'Invalid entered email or password',
     ua: 'Неправильна введена адреса електронної пошти або пароль',
     ru: 'Неверно введенный адрес электронной почты или пароль',
-    rs: 'Неважећа унета адреса е-поште или лозинка'
+    rs: 'Неважећа унета адреса е-поште или лозинка',
 };
 exports.USER_NOT_FOUND = {
     en: 'User not found!',
     ua: 'Користувач не знайдений!',
     ru: 'Пользователь не найден!',
-    rs: 'Корисник није пронађен!'
+    rs: 'Корисник није пронађен!',
 };
 exports.INVALID_LINK = {
     en: 'Invalid activation link! User doesn`t exist.',
     ua: 'Користувач не знайдений!',
     ru: 'Пользователь не найден!',
-    rs: 'Корисник није пронађен!'
+    rs: 'Корисник није пронађен!',
 };
 exports.INVALID_PHONE_NUMBER = {
     en: 'Phone number is not valid!',
     ua: 'Користувач не знайдений!',
     ru: 'Пользователь не найден!',
-    rs: 'Корисник није пронађен!'
+    rs: 'Корисник није пронађен!',
 };
 
 
 /***/ }),
-/* 49 */
+/* 51 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("bcrypt");
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -5214,12 +5384,12 @@ module.exports = require("bcrypt");
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ApiException = void 0;
 const common_1 = __webpack_require__(7);
-const admin_constants_1 = __webpack_require__(51);
-const owner_constants_1 = __webpack_require__(52);
-const jwt_refresh_constants_1 = __webpack_require__(53);
-const jwt_refresh_constants_2 = __webpack_require__(54);
-const jwt_refresh_constants_3 = __webpack_require__(55);
-const user_constants_1 = __webpack_require__(48);
+const admin_constants_1 = __webpack_require__(53);
+const owner_constants_1 = __webpack_require__(54);
+const jwt_refresh_constants_1 = __webpack_require__(55);
+const jwt_refresh_constants_2 = __webpack_require__(56);
+const jwt_refresh_constants_3 = __webpack_require__(57);
+const user_constants_1 = __webpack_require__(50);
 class ApiException extends Error {
     constructor(status, message, errors) {
         super(message);
@@ -5232,99 +5402,99 @@ class ApiException extends Error {
         ];
     }
     static BadRequest(type) {
-        if (type = 'USER_WITH_EMAIL_EXIST') {
+        if ((type = 'USER_WITH_EMAIL_EXIST')) {
             throw new ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', user_constants_1.USER_WITH_EMAIL_EXIST);
         }
-        if (type = 'USER_WITH_PHONENUMBER_EXIST') {
+        if ((type = 'USER_WITH_PHONENUMBER_EXIST')) {
             throw new ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', user_constants_1.USER_WITH_PHONENUMBER_EXIST);
         }
-        if (type = 'USER_WITH_EMAIL_DOESNT_EXIST') {
+        if ((type = 'USER_WITH_EMAIL_DOESNT_EXIST')) {
             throw new ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', user_constants_1.USER_WITH_EMAIL_DOESNT_EXIST);
         }
-        if (type = 'ADMIN_WITH_EMAIL_EXIST') {
+        if ((type = 'ADMIN_WITH_EMAIL_EXIST')) {
             throw new ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', admin_constants_1.ADMIN_WITH_EMAIL_EXIST);
         }
-        if (type = 'ADMIN_WITH_PHONENUMBER_EXIST') {
+        if ((type = 'ADMIN_WITH_PHONENUMBER_EXIST')) {
             throw new ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', admin_constants_1.ADMIN_WITH_PHONENUMBER_EXIST);
         }
-        if (type = 'ADMIN_WITH_EMAIL_DOESNT_EXIST') {
+        if ((type = 'ADMIN_WITH_EMAIL_DOESNT_EXIST')) {
             throw new ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', admin_constants_1.ADMIN_WITH_EMAIL_DOESNT_EXIST);
         }
-        if (type = 'OWNER_WITH_EMAIL_EXIST') {
+        if ((type = 'OWNER_WITH_EMAIL_EXIST')) {
             throw new ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', owner_constants_1.OWNER_WITH_EMAIL_EXIST);
         }
-        if (type = 'OWNER_WITH_PHONENUMBER_EXIST') {
+        if ((type = 'OWNER_WITH_PHONENUMBER_EXIST')) {
             throw new ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', owner_constants_1.OWNER_WITH_PHONENUMBER_EXIST);
         }
-        if (type = 'OWNER_WITH_EMAIL_DOESNT_EXIST') {
+        if ((type = 'OWNER_WITH_EMAIL_DOESNT_EXIST')) {
             throw new ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', owner_constants_1.OWNER_WITH_EMAIL_DOESNT_EXIST);
         }
-        if (type = 'INVALID_EMAIL') {
+        if ((type = 'INVALID_EMAIL')) {
             throw new ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', user_constants_1.INVALID_EMAIL);
         }
-        if (type = 'RESET_TIME_EXPIRED') {
+        if ((type = 'RESET_TIME_EXPIRED')) {
             throw new ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', user_constants_1.RESET_TIME_EXPIRED);
         }
-        if (type = 'INVALID_CODE') {
+        if ((type = 'INVALID_CODE')) {
             throw new ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', user_constants_1.INVALID_CODE);
         }
-        if (type = 'TOKEN_INVALID') {
+        if ((type = 'TOKEN_INVALID')) {
             throw new ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', jwt_refresh_constants_3.TOKEN_INVALID);
         }
     }
     static UserNotFound(type) {
-        if (type = 'USER_NOT_FOUND') {
+        if ((type = 'USER_NOT_FOUND')) {
             throw new ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', user_constants_1.USER_NOT_FOUND);
         }
-        if (type = 'USER_OR_ROLE_NOT_FOUND') {
+        if ((type = 'USER_OR_ROLE_NOT_FOUND')) {
             throw new ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', user_constants_1.USER_OR_ROLE_NOT_FOUND);
         }
-        if (type = 'TOKEN_NOT_FOUND') {
+        if ((type = 'TOKEN_NOT_FOUND')) {
             throw new ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_3.TOKEN_NOT_FOUND);
         }
-        if (type = 'OWNER_NOT_FOUND') {
+        if ((type = 'OWNER_NOT_FOUND')) {
             throw new ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_2.OWNER_NOT_FOUND);
         }
-        if (type = 'ADMIN_NOT_FOUND') {
+        if ((type = 'ADMIN_NOT_FOUND')) {
             throw new ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', jwt_refresh_constants_1.ADMIN_NOT_FOUND);
         }
-        if (type = 'OWNER_OR_ROLE_NOT_FOUND') {
+        if ((type = 'OWNER_OR_ROLE_NOT_FOUND')) {
             throw new ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', owner_constants_1.OWNER_OR_ROLE_NOT_FOUND);
         }
-        if (type = 'ADMIN_OR_ROLE_NOT_FOUND') {
+        if ((type = 'ADMIN_OR_ROLE_NOT_FOUND')) {
             throw new ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', admin_constants_1.ADMIN_OR_ROLE_NOT_FOUND);
         }
     }
     static UnauthorizedError(type) {
-        if (type = 'INVALID_EMAIL_OR_PASSWORD') {
+        if ((type = 'INVALID_EMAIL_OR_PASSWORD')) {
             throw new ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', user_constants_1.INVALID_EMAIL_OR_PASSWORD);
         }
-        if (type = 'OWNER_ID_NOT_PROVIDED') {
+        if ((type = 'OWNER_ID_NOT_PROVIDED')) {
             throw new ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', owner_constants_1.OWNER_ID_NOT_PROVIDED);
         }
-        if (type = 'ADMIN_ID_NOT_FOUND') {
+        if ((type = 'ADMIN_ID_NOT_FOUND')) {
             throw new ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', admin_constants_1.ADMIN_ID_NOT_PROVIDED);
         }
     }
     static InternalServerError(type) {
-        if (type = 'ERROR_WHILE_SIGNING_TOKEN') {
+        if ((type = 'ERROR_WHILE_SIGNING_TOKEN')) {
             throw new ApiException(common_1.HttpStatus.INTERNAL_SERVER_ERROR, 'Internal Server Error', jwt_refresh_constants_3.ERROR_WHILE_SIGNING_TOKEN);
         }
-        if (type = 'ERROR_WHILE_VALIDATING_TOKEN') {
+        if ((type = 'ERROR_WHILE_VALIDATING_TOKEN')) {
             throw new ApiException(common_1.HttpStatus.INTERNAL_SERVER_ERROR, 'Internal Server Error', jwt_refresh_constants_3.ERROR_WHILE_VALIDATING_TOKEN);
         }
-        if (type = 'ERROR_WHILE_SAVING_TOKEN') {
+        if ((type = 'ERROR_WHILE_SAVING_TOKEN')) {
             throw new ApiException(common_1.HttpStatus.INTERNAL_SERVER_ERROR, 'Internal Server Error', jwt_refresh_constants_3.ERROR_WHILE_SAVING_TOKEN);
         }
-        if (type = 'ERROR_WHILE_REMOVING_TOKEN') {
+        if ((type = 'ERROR_WHILE_REMOVING_TOKEN')) {
             throw new ApiException(common_1.HttpStatus.INTERNAL_SERVER_ERROR, 'Internal Server Error', jwt_refresh_constants_3.ERROR_WHILE_REMOVING_TOKEN);
         }
     }
     static ForbiddenException(type) {
-        if (type = 'NOT_ACTIVATED') {
+        if ((type = 'NOT_ACTIVATED')) {
             throw new ApiException(common_1.HttpStatus.FORBIDDEN, 'Forbidden!', owner_constants_1.NOT_ACTIVATED);
         }
-        if (type = 'ACCESS_DENIED') {
+        if ((type = 'ACCESS_DENIED')) {
             throw new ApiException(common_1.HttpStatus.FORBIDDEN, 'Forbidden!', owner_constants_1.ACCESS_DENIED);
         }
     }
@@ -5333,7 +5503,7 @@ exports.ApiException = ApiException;
 
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5348,97 +5518,97 @@ exports.ACCESS_DENIED = {
     en: 'Access denied!',
     ua: 'Доступ заборонено!',
     ru: 'Доступ запрещен!',
-    rs: 'Приступ забрањен!'
+    rs: 'Приступ забрањен!',
 };
 exports.NOT_ACTIVATED = {
     en: 'Access denied, because you are not activated!',
     ua: 'Доступ заборонено, тому що ви не активовані!',
     ru: 'Доступ запрещен, так как вы не активированы!',
-    rs: 'Приступ одбијен, јер нисте активирани!'
+    rs: 'Приступ одбијен, јер нисте активирани!',
 };
 exports.ADMIN_ID_NOT_PROVIDED = {
     en: 'User-id token not provided!',
     ua: 'Токен ідентифікатора користувача не надано!',
     ru: 'Токен идентификатора пользователя не предоставлен!',
-    rs: 'Токен корисничког ИД-а није обезбеђен!'
+    rs: 'Токен корисничког ИД-а није обезбеђен!',
 };
 exports.ADMIN_OR_ROLE_NOT_FOUND = {
     en: 'ADMIN or Role not found!',
     ua: 'Користувач або роль не знайдено!',
     ru: 'Пользователь или роль не найдены!',
-    rs: 'Корисник или улога нису пронађени!'
+    rs: 'Корисник или улога нису пронађени!',
 };
 exports.INVALID_CODE = {
     en: 'Invalid confirm code!',
     ua: 'Недійсний код підтвердження!',
     ru: 'Неверный код подтверждения!',
-    rs: 'Неважећи код за потврду!'
+    rs: 'Неважећи код за потврду!',
 };
 exports.RESET_TIME_EXPIRED = {
     en: 'Reset time expired!',
     ua: 'Час скидання минув!',
     ru: 'Время сброса истекло!',
-    rs: 'Време ресетовања је истекло!'
+    rs: 'Време ресетовања је истекло!',
 };
 exports.INVALID_EMAIL = {
     en: 'Invalid email!',
     ua: 'Недійсна електронна адреса!',
     ru: 'Неверный адрес электронной почты!',
-    rs: 'Корисник није пронађен!'
+    rs: 'Корисник није пронађен!',
 };
 exports.ADMIN_WITH_EMAIL_EXIST = {
     en: 'ADMIN with this email already exist, pick different one.',
     ua: 'Користувач з такою поштою вже існує, оберіть іншу',
     ru: 'Пользователь с такой почтой уже существует, выберите другую',
-    rs: 'Корисник са овом е-поштом већ постоји, изаберите другог'
+    rs: 'Корисник са овом е-поштом већ постоји, изаберите другог',
 };
 exports.ADMIN_WITH_PHONENUMBER_EXIST = {
     en: 'ADMIN with this phone number already exist, pick different one.',
     ua: 'Користувач із таким номером телефону вже існує, виберіть інший.',
     ru: 'Пользователь с таким номером телефона уже существует, выберите другой.',
-    rs: 'Корисник са овим бројем телефона већ постоји, изаберите други.'
+    rs: 'Корисник са овим бројем телефона већ постоји, изаберите други.',
 };
 exports.ADMIN_WITH_EMAIL_DOESNT_EXIST = {
     en: 'ADMIN with this email doesn`t exist, pick different one.',
     ua: 'Користувача з цією електронною адресою не існує, виберіть іншу.',
     ru: 'Пользователь с таким адресом электронной почты не существует, выберите другого.',
-    rs: 'Корисник са овом е-поштом не постоји, изаберите други.'
+    rs: 'Корисник са овом е-поштом не постоји, изаберите други.',
 };
 exports.ADMIN_WITH_EMAIL_NOT_FOUND = {
     en: 'ADMIN with this email not found!',
     ua: 'Користувача з цією електронною адресою не знайдено!',
     ru: 'Пользователь с таким адресом электронной почты не найден!',
-    rs: 'Корисник са овом е-поштом није пронађен!'
+    rs: 'Корисник са овом е-поштом није пронађен!',
 };
 exports.INVALID_EMAIL_OR_PASSWORD = {
     en: 'Invalid entered email or password',
     ua: 'Неправильна введена адреса електронної пошти або пароль',
     ru: 'Неверно введенный адрес электронной почты или пароль',
-    rs: 'Неважећа унета адреса е-поште или лозинка'
+    rs: 'Неважећа унета адреса е-поште или лозинка',
 };
 exports.ADMIN_NOT_FOUND = {
     en: 'ADMIN not found!',
     ua: 'Користувач не знайдений!',
     ru: 'Пользователь не найден!',
-    rs: 'Корисник није пронађен!'
+    rs: 'Корисник није пронађен!',
 };
 exports.INVALID_LINK = {
     en: 'Invalid activation link! ADMIN doesn`t exist.',
     ua: 'Користувач не знайдений!',
     ru: 'Пользователь не найден!',
-    rs: 'Корисник није пронађен!'
+    rs: 'Корисник није пронађен!',
 };
 exports.INVALID_PHONE_NUMBER = {
     en: 'Phone number is not valid!',
     ua: 'Користувач не знайдений!',
     ru: 'Пользователь не найден!',
-    rs: 'Корисник није пронађен!'
+    rs: 'Корисник није пронађен!',
 };
 exports.PHONENUMBER_VALIDATION = 'Provided phoneNumber is incorrect!';
 
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -5454,195 +5624,91 @@ exports.ACCESS_DENIED = {
     en: 'Access denied!',
     ua: 'Доступ заборонено!',
     ru: 'Доступ запрещен!',
-    rs: 'Приступ забрањен!'
+    rs: 'Приступ забрањен!',
 };
 exports.NOT_ACTIVATED = {
     en: 'Access denied, because you are not activated!',
     ua: 'Доступ заборонено, тому що ви не активовані!',
     ru: 'Доступ запрещен, так как вы не активированы!',
-    rs: 'Приступ одбијен, јер нисте активирани!'
+    rs: 'Приступ одбијен, јер нисте активирани!',
 };
 exports.OWNER_ID_NOT_PROVIDED = {
     en: 'User-id token not provided!',
     ua: 'Токен ідентифікатора користувача не надано!',
     ru: 'Токен идентификатора пользователя не предоставлен!',
-    rs: 'Токен корисничког ИД-а није обезбеђен!'
+    rs: 'Токен корисничког ИД-а није обезбеђен!',
 };
 exports.OWNER_OR_ROLE_NOT_FOUND = {
     en: 'OWNER or Role not found!',
     ua: 'Користувач або роль не знайдено!',
     ru: 'Пользователь или роль не найдены!',
-    rs: 'Корисник или улога нису пронађени!'
+    rs: 'Корисник или улога нису пронађени!',
 };
 exports.INVALID_CODE = {
     en: 'Invalid confirm code!',
     ua: 'Недійсний код підтвердження!',
     ru: 'Неверный код подтверждения!',
-    rs: 'Неважећи код за потврду!'
+    rs: 'Неважећи код за потврду!',
 };
 exports.RESET_TIME_EXPIRED = {
     en: 'Reset time expired!',
     ua: 'Час скидання минув!',
     ru: 'Время сброса истекло!',
-    rs: 'Време ресетовања је истекло!'
+    rs: 'Време ресетовања је истекло!',
 };
 exports.INVALID_EMAIL = {
     en: 'Invalid email!',
     ua: 'Недійсна електронна адреса!',
     ru: 'Неверный адрес электронной почты!',
-    rs: 'Корисник није пронађен!'
+    rs: 'Корисник није пронађен!',
 };
 exports.OWNER_WITH_EMAIL_EXIST = {
     en: 'OWNER with this email already exist, pick different one.',
     ua: 'Користувач з такою поштою вже існує, оберіть іншу',
     ru: 'Пользователь с такой почтой уже существует, выберите другую',
-    rs: 'Корисник са овом е-поштом већ постоји, изаберите другог'
+    rs: 'Корисник са овом е-поштом већ постоји, изаберите другог',
 };
 exports.OWNER_WITH_PHONENUMBER_EXIST = {
     en: 'OWNER with this phone number already exist, pick different one.',
     ua: 'Користувач із таким номером телефону вже існує, виберіть інший.',
     ru: 'Пользователь с таким номером телефона уже существует, выберите другой.',
-    rs: 'Корисник са овим бројем телефона већ постоји, изаберите други.'
+    rs: 'Корисник са овим бројем телефона већ постоји, изаберите други.',
 };
 exports.OWNER_WITH_EMAIL_DOESNT_EXIST = {
     en: 'OWNER with this email doesn`t exist, pick different one.',
     ua: 'Користувача з цією електронною адресою не існує, виберіть іншу.',
     ru: 'Пользователь с таким адресом электронной почты не существует, выберите другого.',
-    rs: 'Корисник са овом е-поштом не постоји, изаберите други.'
+    rs: 'Корисник са овом е-поштом не постоји, изаберите други.',
 };
 exports.OWNER_WITH_EMAIL_NOT_FOUND = {
     en: 'OWNER with this email not found!',
     ua: 'Користувача з цією електронною адресою не знайдено!',
     ru: 'Пользователь с таким адресом электронной почты не найден!',
-    rs: 'Корисник са овом е-поштом није пронађен!'
+    rs: 'Корисник са овом е-поштом није пронађен!',
 };
 exports.INVALID_EMAIL_OR_PASSWORD = {
     en: 'Invalid entered email or password',
     ua: 'Неправильна введена адреса електронної пошти або пароль',
     ru: 'Неверно введенный адрес электронной почты или пароль',
-    rs: 'Неважећа унета адреса е-поште или лозинка'
+    rs: 'Неважећа унета адреса е-поште или лозинка',
 };
 exports.OWNER_NOT_FOUND = {
     en: 'OWNER not found!',
     ua: 'Користувач не знайдений!',
     ru: 'Пользователь не найден!',
-    rs: 'Корисник није пронађен!'
+    rs: 'Корисник није пронађен!',
 };
 exports.INVALID_LINK = {
     en: 'Invalid activation link! OWNER doesn`t exist.',
     ua: 'Користувач не знайдений!',
     ru: 'Пользователь не найден!',
-    rs: 'Корисник није пронађен!'
+    rs: 'Корисник није пронађен!',
 };
 exports.INVALID_PHONE_NUMBER = {
     en: 'Phone number is not valid!',
     ua: 'Користувач не знайдений!',
     ru: 'Пользователь не найден!',
-    rs: 'Корисник није пронађен!'
-};
-
-
-/***/ }),
-/* 53 */
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ERROR_WHILE_REMOVING_TOKEN = exports.ERROR_WHILE_SAVING_TOKEN = exports.ERROR_WHILE_VALIDATING_TOKEN = exports.ERROR_WHILE_SIGNING_TOKEN = exports.TOKEN_INVALID = exports.ADMIN_NOT_FOUND = exports.TOKEN_NOT_FOUND = void 0;
-exports.TOKEN_NOT_FOUND = {
-    en: 'The refresh token not found!',
-    ua: 'Користувач не знайдений!',
-    ru: 'Токен оновлення не знайдено!',
-    rs: 'Токен за освежавање није пронађен!'
-};
-exports.ADMIN_NOT_FOUND = {
-    en: 'Admin not found!',
-    ua: 'Адміністратора не знайдено!',
-    ru: 'Админ не найден!',
-    rs: 'Администратор није пронађен!'
-};
-exports.TOKEN_INVALID = {
-    en: 'The refresh token is invalid!',
-    ua: 'Токен оновлення недійсний!',
-    ru: 'Токен обновления недействителен!',
-    rs: 'Токен за освежавање је неважећи!'
-};
-exports.ERROR_WHILE_SIGNING_TOKEN = {
-    en: 'Unexpected error occur while signing token',
-    ua: 'Під час записання токену сталася неочікувана помилка!',
-    ru: 'Непредвиденная ошибка при подписании токена!',
-    rs: 'Дошло је до неочекиване грешке при писању токена!'
-};
-exports.ERROR_WHILE_VALIDATING_TOKEN = {
-    en: 'Unexpected error occur while validating token!',
-    ua: 'Під час перевірки токена сталася неочікувана помилка!',
-    ru: 'Непредвиденная ошибка при проверке токена!',
-    rs: 'Дошло је до неочекиване грешке приликом провере токена!'
-};
-exports.ERROR_WHILE_SAVING_TOKEN = {
-    en: 'Unexpected error occur while saving token!',
-    ua: 'Під час збереження токена сталася неочікувана помилка!',
-    ru: 'Непредвиденная ошибка при сохранении токена!',
-    rs: 'Дошло је до неочекиване грешке приликом чувања токена!'
-};
-exports.ERROR_WHILE_REMOVING_TOKEN = {
-    en: 'Unexpected error occur while removing token!',
-    ua: 'Під час видалення токена сталася неочікувана помилка!',
-    ru: 'Непредвиденная ошибка при удалении токена!',
-    rs: 'Дошло је до неочекиване грешке приликом уклањања токена!'
-};
-
-
-/***/ }),
-/* 54 */
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ERROR_WHILE_REMOVING_TOKEN = exports.ERROR_WHILE_SAVING_TOKEN = exports.ERROR_WHILE_VALIDATING_TOKEN = exports.ERROR_WHILE_SIGNING_TOKEN = exports.TOKEN_INVALID = exports.OWNER_NOT_FOUND = exports.TOKEN_NOT_FOUND = void 0;
-exports.TOKEN_NOT_FOUND = {
-    en: 'The refresh token not found!',
-    ua: 'Користувач не знайдений!',
-    ru: 'Токен оновлення не знайдено!',
-    rs: 'Токен за освежавање није пронађен!'
-};
-exports.OWNER_NOT_FOUND = {
-    en: 'Owner not found!',
-    ua: 'Власника не знайдено!',
-    ru: 'Хозяин не найден!',
-    rs: 'Власник није пронађен!'
-};
-exports.TOKEN_INVALID = {
-    en: 'The refresh token is invalid!',
-    ua: 'Токен оновлення недійсний!',
-    ru: 'Токен обновления недействителен!',
-    rs: 'Токен за освежавање је неважећи!'
-};
-exports.ERROR_WHILE_SIGNING_TOKEN = {
-    en: 'Unexpected error occur while signing token',
-    ua: 'Під час записання токену сталася неочікувана помилка!',
-    ru: 'Непредвиденная ошибка при подписании токена!',
-    rs: 'Дошло је до неочекиване грешке при писању токена!'
-};
-exports.ERROR_WHILE_VALIDATING_TOKEN = {
-    en: 'Unexpected error occur while validating token!',
-    ua: 'Під час перевірки токена сталася неочікувана помилка!',
-    ru: 'Непредвиденная ошибка при проверке токена!',
-    rs: 'Дошло је до неочекиване грешке приликом провере токена!'
-};
-exports.ERROR_WHILE_SAVING_TOKEN = {
-    en: 'Unexpected error occur while saving token!',
-    ua: 'Під час збереження токена сталася неочікувана помилка!',
-    ru: 'Непредвиденная ошибка при сохранении токена!',
-    rs: 'Дошло је до неочекиване грешке приликом чувања токена!'
-};
-exports.ERROR_WHILE_REMOVING_TOKEN = {
-    en: 'Unexpected error occur while removing token!',
-    ua: 'Під час видалення токена сталася неочікувана помилка!',
-    ru: 'Непредвиденная ошибка при удалении токена!',
-    rs: 'Дошло је до неочекиване грешке приликом уклањања токена!'
+    rs: 'Корисник није пронађен!',
 };
 
 
@@ -5653,53 +5719,157 @@ exports.ERROR_WHILE_REMOVING_TOKEN = {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ERROR_WHILE_REMOVING_TOKEN = exports.ERROR_WHILE_SAVING_TOKEN = exports.ERROR_WHILE_VALIDATING_TOKEN = exports.ERROR_WHILE_SIGNING_TOKEN = exports.TOKEN_INVALID = exports.USER_NOT_FOUND = exports.TOKEN_NOT_FOUND = void 0;
+exports.ERROR_WHILE_REMOVING_TOKEN = exports.ERROR_WHILE_SAVING_TOKEN = exports.ERROR_WHILE_VALIDATING_TOKEN = exports.ERROR_WHILE_SIGNING_TOKEN = exports.TOKEN_INVALID = exports.ADMIN_NOT_FOUND = exports.TOKEN_NOT_FOUND = void 0;
 exports.TOKEN_NOT_FOUND = {
     en: 'The refresh token not found!',
     ua: 'Користувач не знайдений!',
     ru: 'Токен оновлення не знайдено!',
-    rs: 'Токен за освежавање није пронађен!'
+    rs: 'Токен за освежавање није пронађен!',
 };
-exports.USER_NOT_FOUND = {
-    en: 'User not found!',
-    ua: 'Користувач не знайдений!',
-    ru: 'Пользователь не найден!',
-    rs: 'Корисник није пронађен!'
+exports.ADMIN_NOT_FOUND = {
+    en: 'Admin not found!',
+    ua: 'Адміністратора не знайдено!',
+    ru: 'Админ не найден!',
+    rs: 'Администратор није пронађен!',
 };
 exports.TOKEN_INVALID = {
     en: 'The refresh token is invalid!',
     ua: 'Токен оновлення недійсний!',
     ru: 'Токен обновления недействителен!',
-    rs: 'Токен за освежавање је неважећи!'
+    rs: 'Токен за освежавање је неважећи!',
 };
 exports.ERROR_WHILE_SIGNING_TOKEN = {
     en: 'Unexpected error occur while signing token',
     ua: 'Під час записання токену сталася неочікувана помилка!',
     ru: 'Непредвиденная ошибка при подписании токена!',
-    rs: 'Дошло је до неочекиване грешке при писању токена!'
+    rs: 'Дошло је до неочекиване грешке при писању токена!',
 };
 exports.ERROR_WHILE_VALIDATING_TOKEN = {
     en: 'Unexpected error occur while validating token!',
     ua: 'Під час перевірки токена сталася неочікувана помилка!',
     ru: 'Непредвиденная ошибка при проверке токена!',
-    rs: 'Дошло је до неочекиване грешке приликом провере токена!'
+    rs: 'Дошло је до неочекиване грешке приликом провере токена!',
 };
 exports.ERROR_WHILE_SAVING_TOKEN = {
     en: 'Unexpected error occur while saving token!',
     ua: 'Під час збереження токена сталася неочікувана помилка!',
     ru: 'Непредвиденная ошибка при сохранении токена!',
-    rs: 'Дошло је до неочекиване грешке приликом чувања токена!'
+    rs: 'Дошло је до неочекиване грешке приликом чувања токена!',
 };
 exports.ERROR_WHILE_REMOVING_TOKEN = {
     en: 'Unexpected error occur while removing token!',
     ua: 'Під час видалення токена сталася неочікувана помилка!',
     ru: 'Непредвиденная ошибка при удалении токена!',
-    rs: 'Дошло је до неочекиване грешке приликом уклањања токена!'
+    rs: 'Дошло је до неочекиване грешке приликом уклањања токена!',
 };
 
 
 /***/ }),
 /* 56 */
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ERROR_WHILE_REMOVING_TOKEN = exports.ERROR_WHILE_SAVING_TOKEN = exports.ERROR_WHILE_VALIDATING_TOKEN = exports.ERROR_WHILE_SIGNING_TOKEN = exports.TOKEN_INVALID = exports.OWNER_NOT_FOUND = exports.TOKEN_NOT_FOUND = void 0;
+exports.TOKEN_NOT_FOUND = {
+    en: 'The refresh token not found!',
+    ua: 'Користувач не знайдений!',
+    ru: 'Токен оновлення не знайдено!',
+    rs: 'Токен за освежавање није пронађен!',
+};
+exports.OWNER_NOT_FOUND = {
+    en: 'Owner not found!',
+    ua: 'Власника не знайдено!',
+    ru: 'Хозяин не найден!',
+    rs: 'Власник није пронађен!',
+};
+exports.TOKEN_INVALID = {
+    en: 'The refresh token is invalid!',
+    ua: 'Токен оновлення недійсний!',
+    ru: 'Токен обновления недействителен!',
+    rs: 'Токен за освежавање је неважећи!',
+};
+exports.ERROR_WHILE_SIGNING_TOKEN = {
+    en: 'Unexpected error occur while signing token',
+    ua: 'Під час записання токену сталася неочікувана помилка!',
+    ru: 'Непредвиденная ошибка при подписании токена!',
+    rs: 'Дошло је до неочекиване грешке при писању токена!',
+};
+exports.ERROR_WHILE_VALIDATING_TOKEN = {
+    en: 'Unexpected error occur while validating token!',
+    ua: 'Під час перевірки токена сталася неочікувана помилка!',
+    ru: 'Непредвиденная ошибка при проверке токена!',
+    rs: 'Дошло је до неочекиване грешке приликом провере токена!',
+};
+exports.ERROR_WHILE_SAVING_TOKEN = {
+    en: 'Unexpected error occur while saving token!',
+    ua: 'Під час збереження токена сталася неочікувана помилка!',
+    ru: 'Непредвиденная ошибка при сохранении токена!',
+    rs: 'Дошло је до неочекиване грешке приликом чувања токена!',
+};
+exports.ERROR_WHILE_REMOVING_TOKEN = {
+    en: 'Unexpected error occur while removing token!',
+    ua: 'Під час видалення токена сталася неочікувана помилка!',
+    ru: 'Непредвиденная ошибка при удалении токена!',
+    rs: 'Дошло је до неочекиване грешке приликом уклањања токена!',
+};
+
+
+/***/ }),
+/* 57 */
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ERROR_WHILE_REMOVING_TOKEN = exports.ERROR_WHILE_SAVING_TOKEN = exports.ERROR_WHILE_VALIDATING_TOKEN = exports.ERROR_WHILE_SIGNING_TOKEN = exports.TOKEN_INVALID = exports.USER_NOT_FOUND = exports.TOKEN_NOT_FOUND = void 0;
+exports.TOKEN_NOT_FOUND = {
+    en: 'The refresh token not found!',
+    ua: 'Користувач не знайдений!',
+    ru: 'Токен оновлення не знайдено!',
+    rs: 'Токен за освежавање није пронађен!',
+};
+exports.USER_NOT_FOUND = {
+    en: 'User not found!',
+    ua: 'Користувач не знайдений!',
+    ru: 'Пользователь не найден!',
+    rs: 'Корисник није пронађен!',
+};
+exports.TOKEN_INVALID = {
+    en: 'The refresh token is invalid!',
+    ua: 'Токен оновлення недійсний!',
+    ru: 'Токен обновления недействителен!',
+    rs: 'Токен за освежавање је неважећи!',
+};
+exports.ERROR_WHILE_SIGNING_TOKEN = {
+    en: 'Unexpected error occur while signing token',
+    ua: 'Під час записання токену сталася неочікувана помилка!',
+    ru: 'Непредвиденная ошибка при подписании токена!',
+    rs: 'Дошло је до неочекиване грешке при писању токена!',
+};
+exports.ERROR_WHILE_VALIDATING_TOKEN = {
+    en: 'Unexpected error occur while validating token!',
+    ua: 'Під час перевірки токена сталася неочікувана помилка!',
+    ru: 'Непредвиденная ошибка при проверке токена!',
+    rs: 'Дошло је до неочекиване грешке приликом провере токена!',
+};
+exports.ERROR_WHILE_SAVING_TOKEN = {
+    en: 'Unexpected error occur while saving token!',
+    ua: 'Під час збереження токена сталася неочікувана помилка!',
+    ru: 'Непредвиденная ошибка при сохранении токена!',
+    rs: 'Дошло је до неочекиване грешке приликом чувања токена!',
+};
+exports.ERROR_WHILE_REMOVING_TOKEN = {
+    en: 'Unexpected error occur while removing token!',
+    ua: 'Під час видалення токена сталася неочікувана помилка!',
+    ru: 'Непредвиденная ошибка при удалении токена!',
+    rs: 'Дошло је до неочекиване грешке приликом уклањања токена!',
+};
+
+
+/***/ }),
+/* 58 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -5753,12 +5923,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AdminService = void 0;
 const common_1 = __webpack_require__(7);
 const sequelize_1 = __webpack_require__(8);
-const bcrypt = __importStar(__webpack_require__(49));
-const admin_constants_1 = __webpack_require__(51);
+const bcrypt = __importStar(__webpack_require__(51));
+const admin_constants_1 = __webpack_require__(53);
 const admin_model_1 = __webpack_require__(28);
 const users_service_1 = __webpack_require__(24);
 const roles_service_1 = __webpack_require__(25);
-const api_exception_1 = __webpack_require__(50);
+const api_exception_1 = __webpack_require__(52);
 let AdminService = class AdminService {
     constructor(adminRepository, userService, roleService) {
         this.adminRepository = adminRepository;
@@ -6051,7 +6221,7 @@ exports.AdminService = AdminService;
 
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -6106,16 +6276,16 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OwnerService = void 0;
 const common_1 = __webpack_require__(7);
 const sequelize_1 = __webpack_require__(8);
-const owner_constants_1 = __webpack_require__(52);
+const owner_constants_1 = __webpack_require__(54);
 const owner_model_1 = __webpack_require__(31);
 const roles_service_1 = __webpack_require__(25);
-const bcrypt = __importStar(__webpack_require__(49));
-const uuid_1 = __webpack_require__(58);
+const bcrypt = __importStar(__webpack_require__(51));
+const uuid_1 = __webpack_require__(60);
 const roles_model_1 = __webpack_require__(26);
-const api_exception_1 = __webpack_require__(50);
-const currencies_model_1 = __webpack_require__(46);
-const schedule_1 = __webpack_require__(59);
-const currency_service_1 = __webpack_require__(60);
+const api_exception_1 = __webpack_require__(52);
+const currencies_model_1 = __webpack_require__(48);
+const schedule_1 = __webpack_require__(61);
+const currency_service_1 = __webpack_require__(62);
 let OwnerService = OwnerService_1 = class OwnerService {
     constructor(schedulerRegistry, currencyService, currenciesRepository, ownerRepository, roleService) {
         this.schedulerRegistry = schedulerRegistry;
@@ -6149,8 +6319,14 @@ let OwnerService = OwnerService_1 = class OwnerService {
     static creatingOwner(OWNER) {
         return __awaiter(this, void 0, void 0, function* () {
             const [phoneNumber, email] = yield Promise.all([
-                yield owner_model_1.Owner.findOne({ where: { phoneNumber: OWNER.phoneNumber }, include: { all: true } }),
-                yield owner_model_1.Owner.findOne({ where: { email: OWNER.email }, include: { all: true } }),
+                yield owner_model_1.Owner.findOne({
+                    where: { phoneNumber: OWNER.phoneNumber },
+                    include: { all: true },
+                }),
+                yield owner_model_1.Owner.findOne({
+                    where: { email: OWNER.email },
+                    include: { all: true },
+                }),
             ]);
             if (phoneNumber || email) {
                 return false;
@@ -6358,21 +6534,21 @@ exports.OwnerService = OwnerService;
 
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("uuid");
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/schedule");
 
 /***/ }),
-/* 60 */
+/* 62 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -6408,12 +6584,12 @@ exports.CurrencyService = void 0;
 const common_1 = __webpack_require__(7);
 const sequelize_1 = __webpack_require__(8);
 const owner_model_1 = __webpack_require__(31);
-const currencies_model_1 = __webpack_require__(46);
-const axios_1 = __webpack_require__(61);
-const rxjs_1 = __webpack_require__(62);
-const country_to_currency_1 = __importDefault(__webpack_require__(63));
-const schedule_1 = __webpack_require__(59);
-const currency_symbol_map_1 = __importDefault(__webpack_require__(64));
+const currencies_model_1 = __webpack_require__(48);
+const axios_1 = __webpack_require__(63);
+const rxjs_1 = __webpack_require__(64);
+const country_to_currency_1 = __importDefault(__webpack_require__(65));
+const schedule_1 = __webpack_require__(61);
+const currency_symbol_map_1 = __importDefault(__webpack_require__(66));
 let CurrencyService = CurrencyService_1 = class CurrencyService {
     constructor(currenciesRepository, ownerRepository, httpService) {
         this.currenciesRepository = currenciesRepository;
@@ -6430,12 +6606,15 @@ let CurrencyService = CurrencyService_1 = class CurrencyService {
             }
             let data;
             try {
-                data = yield (0, rxjs_1.firstValueFrom)(this.httpService.get(`${process.env.CURRENCIES_URL.trim()}/latest?base=${process.env.BASE_CURRENCY.trim()}`, {
+                data = yield (0, rxjs_1.firstValueFrom)(this.httpService
+                    .get(`${process.env.CURRENCIES_URL.trim()}/latest?base=${process.env.BASE_CURRENCY.trim()}`, {
                     headers: {
-                        'apikey': process.env.CURRENCIES_API_KEY.trim(),
+                        apikey: process.env.CURRENCIES_API_KEY.trim(),
                         'Accept-Encoding': 'gzip,deflate,compress',
                     },
-                }).pipe((0, rxjs_1.map)(res => res.data)).pipe((0, rxjs_1.catchError)((error) => {
+                })
+                    .pipe((0, rxjs_1.map)((res) => res.data))
+                    .pipe((0, rxjs_1.catchError)((error) => {
                     this.Logger.error(error.response.data);
                     throw error;
                 })));
@@ -6452,7 +6631,10 @@ let CurrencyService = CurrencyService_1 = class CurrencyService {
             }
             catch (error) {
                 this.Logger.error(error);
-                data = yield (0, rxjs_1.firstValueFrom)(this.httpService.get(`${process.env.API_CURRENCIES.trim()}/${process.env.BASE_CURRENCY.trim()}.json`, { headers: { 'Accept-Encoding': 'gzip,deflate,compress' } }).pipe((0, rxjs_1.map)(res => res.data)).pipe((0, rxjs_1.catchError)((error) => {
+                data = yield (0, rxjs_1.firstValueFrom)(this.httpService
+                    .get(`${process.env.API_CURRENCIES.trim()}/${process.env.BASE_CURRENCY.trim()}.json`, { headers: { 'Accept-Encoding': 'gzip,deflate,compress' } })
+                    .pipe((0, rxjs_1.map)((res) => res.data))
+                    .pipe((0, rxjs_1.catchError)((error) => {
                     this.Logger.error(error.response.data);
                     throw error;
                 })));
@@ -6476,12 +6658,15 @@ let CurrencyService = CurrencyService_1 = class CurrencyService {
             const currency = currencies[0];
             let data;
             try {
-                data = yield (0, rxjs_1.firstValueFrom)(this.httpService.get(`${process.env.CURRENCIES_URL.trim()}/latest?base=${process.env.BASE_CURRENCY.trim()}`, {
+                data = yield (0, rxjs_1.firstValueFrom)(this.httpService
+                    .get(`${process.env.CURRENCIES_URL.trim()}/latest?base=${process.env.BASE_CURRENCY.trim()}`, {
                     headers: {
-                        'apikey': process.env.CURRENCIES_API_KEY.trim(),
+                        apikey: process.env.CURRENCIES_API_KEY.trim(),
                         'Accept-Encoding': 'gzip,deflate,compress',
                     },
-                }).pipe((0, rxjs_1.map)(res => res.data)).pipe((0, rxjs_1.catchError)((error) => {
+                })
+                    .pipe((0, rxjs_1.map)((res) => res.data))
+                    .pipe((0, rxjs_1.catchError)((error) => {
                     this.Logger.error(error.response.data);
                     throw error;
                 })));
@@ -6492,7 +6677,10 @@ let CurrencyService = CurrencyService_1 = class CurrencyService {
             }
             catch (error) {
                 this.Logger.error(error);
-                data = yield (0, rxjs_1.firstValueFrom)(this.httpService.get(`${process.env.API_CURRENCIES.trim()}/${process.env.BASE_CURRENCY.trim()}.json`, { headers: { 'Accept-Encoding': 'gzip,deflate,compress' } }).pipe((0, rxjs_1.map)(res => res.data)).pipe((0, rxjs_1.catchError)((error) => {
+                data = yield (0, rxjs_1.firstValueFrom)(this.httpService
+                    .get(`${process.env.API_CURRENCIES.trim()}/${process.env.BASE_CURRENCY.trim()}.json`, { headers: { 'Accept-Encoding': 'gzip,deflate,compress' } })
+                    .pipe((0, rxjs_1.map)((res) => res.data))
+                    .pipe((0, rxjs_1.catchError)((error) => {
                     this.Logger.error(error.response.data);
                     throw error;
                 })));
@@ -6554,35 +6742,35 @@ exports.CurrencyService = CurrencyService;
 
 
 /***/ }),
-/* 61 */
+/* 63 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/axios");
 
 /***/ }),
-/* 62 */
+/* 64 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("rxjs");
 
 /***/ }),
-/* 63 */
+/* 65 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("country-to-currency");
 
 /***/ }),
-/* 64 */
+/* 66 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("currency-symbol-map");
 
 /***/ }),
-/* 65 */
+/* 67 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -6613,13 +6801,13 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserJwtRefreshTokenService = void 0;
 const common_1 = __webpack_require__(7);
 const jwt_1 = __webpack_require__(16);
-const jwt_refresh_constants_1 = __webpack_require__(55);
+const jwt_refresh_constants_1 = __webpack_require__(57);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const users_service_1 = __webpack_require__(24);
 const sequelize_1 = __webpack_require__(8);
-const scedule_service_1 = __webpack_require__(66);
-const api_exception_1 = __webpack_require__(50);
-const uuid_1 = __webpack_require__(58);
+const scedule_service_1 = __webpack_require__(68);
+const api_exception_1 = __webpack_require__(52);
+const uuid_1 = __webpack_require__(60);
 let UserJwtRefreshTokenService = class UserJwtRefreshTokenService {
     constructor(jwtService, userService, sheduleService, userRefreshTokenRepository) {
         this.jwtService = jwtService;
@@ -6672,7 +6860,8 @@ let UserJwtRefreshTokenService = class UserJwtRefreshTokenService {
                     token.setExpireDate(expireDate);
                     yield token.save();
                 }
-                if (!user.getUserRefreshTokens() || user.getUserRefreshTokens().length === 0) {
+                if (!user.getUserRefreshTokens() ||
+                    user.getUserRefreshTokens().length === 0) {
                     user.$set('userRefreshTokens', token.id);
                     user.userRefreshTokens = [token];
                 }
@@ -6801,7 +6990,7 @@ exports.UserJwtRefreshTokenService = UserJwtRefreshTokenService;
 
 
 /***/ }),
-/* 66 */
+/* 68 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -6829,12 +7018,12 @@ var _a, _b, _c, _d, _e, _f;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TasksService = void 0;
 const common_1 = __webpack_require__(7);
-const event_emitter_1 = __webpack_require__(67);
-const schedule_1 = __webpack_require__(59);
-const cron_1 = __webpack_require__(68);
-const owner_service_1 = __webpack_require__(57);
-const currency_service_1 = __webpack_require__(60);
-const jwt_refresh_token_deleted_evet_1 = __webpack_require__(69);
+const event_emitter_1 = __webpack_require__(69);
+const schedule_1 = __webpack_require__(61);
+const cron_1 = __webpack_require__(70);
+const owner_service_1 = __webpack_require__(59);
+const currency_service_1 = __webpack_require__(62);
+const jwt_refresh_token_deleted_evet_1 = __webpack_require__(71);
 let TasksService = TasksService_1 = class TasksService {
     constructor(schedulerRegistry, eventEmitter, currencyService, ownerService) {
         this.schedulerRegistry = schedulerRegistry;
@@ -6993,21 +7182,21 @@ exports.TasksService = TasksService;
 
 
 /***/ }),
-/* 67 */
+/* 69 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/event-emitter");
 
 /***/ }),
-/* 68 */
+/* 70 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("cron");
 
 /***/ }),
-/* 69 */
+/* 71 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -7025,7 +7214,7 @@ exports.JwtRefreshTokenDeletedEvent = JwtRefreshTokenDeletedEvent;
 
 
 /***/ }),
-/* 70 */
+/* 72 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7060,14 +7249,14 @@ const jwt_1 = __webpack_require__(16);
 const sequelize_1 = __webpack_require__(8);
 const crypto_1 = __webpack_require__(14);
 const util_1 = __webpack_require__(15);
-const uuid_1 = __webpack_require__(58);
-const api_exception_1 = __webpack_require__(50);
-const scedule_service_1 = __webpack_require__(66);
+const uuid_1 = __webpack_require__(60);
+const api_exception_1 = __webpack_require__(52);
+const scedule_service_1 = __webpack_require__(68);
 const mail_service_1 = __webpack_require__(21);
-const jwt_refresh_constants_1 = __webpack_require__(54);
-const owner_constants_1 = __webpack_require__(52);
-const owner_refresh_token_model_1 = __webpack_require__(45);
-const owner_service_1 = __webpack_require__(57);
+const jwt_refresh_constants_1 = __webpack_require__(56);
+const owner_constants_1 = __webpack_require__(54);
+const owner_refresh_token_model_1 = __webpack_require__(47);
+const owner_service_1 = __webpack_require__(59);
 let OwnerJwtRefreshService = OwnerJwtRefreshService_1 = class OwnerJwtRefreshService {
     constructor(jwtService, ownerService, mailService, sheduleService, ownerRefreshTokenRepository) {
         this.jwtService = jwtService;
@@ -7122,7 +7311,8 @@ let OwnerJwtRefreshService = OwnerJwtRefreshService_1 = class OwnerJwtRefreshSer
                     token.setExpireDate(expireDate);
                     yield token.save();
                 }
-                if (!owner.getOwnerRefreshTokens() || owner.getOwnerRefreshTokens().length === 0) {
+                if (!owner.getOwnerRefreshTokens() ||
+                    owner.getOwnerRefreshTokens().length === 0) {
                     owner.$set('ownerRefreshTokens', token.id);
                     owner.ownerRefreshTokens = [token];
                 }
@@ -7158,7 +7348,8 @@ let OwnerJwtRefreshService = OwnerJwtRefreshService_1 = class OwnerJwtRefreshSer
                 }
                 if (tokenData) {
                     tokenData.ownerRefreshToken = ownerRefreshToken;
-                    if (owner.getOwnerAgent() && owner.getOwnerAgent().trim() !== ownerAgent) {
+                    if (owner.getOwnerAgent() &&
+                        owner.getOwnerAgent().trim() !== ownerAgent) {
                         owner.setIsActivated(false);
                         const link = yield this.generateEncryptedValue('OWNER', 16);
                         const code = this.generateActivationCode();
@@ -7167,7 +7358,9 @@ let OwnerJwtRefreshService = OwnerJwtRefreshService_1 = class OwnerJwtRefreshSer
                         owner.setResetTokenExpiration(Number(Date.now() + 3600000));
                         yield owner.save();
                         this.Logger.log(`checking owner with email ${owner.email}`, owner.getOwnerAgent() !== ownerAgent);
-                        this.mailService.sendActivationMailToOwner(owner.email, `${process.env.API_URL}/auth/activate/${owner.getResetToken().trim()}?code=${code}`);
+                        this.mailService.sendActivationMailToOwner(owner.email, `${process.env.API_URL}/auth/activate/${owner
+                            .getResetToken()
+                            .trim()}?code=${code}`);
                     }
                     return tokenData.save();
                 }
@@ -7251,7 +7444,7 @@ let OwnerJwtRefreshService = OwnerJwtRefreshService_1 = class OwnerJwtRefreshSer
                 where: {
                     id: ownerRefreshTokenId,
                     identifier: identifier,
-                }
+                },
             });
             if (!token) {
                 return false;
@@ -7291,7 +7484,7 @@ exports.OwnerJwtRefreshService = OwnerJwtRefreshService;
 
 
 /***/ }),
-/* 71 */
+/* 73 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7323,16 +7516,16 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AdminJwtRefreshService = void 0;
 const common_1 = __webpack_require__(7);
 const jwt_1 = __webpack_require__(16);
-const jwt_refresh_constants_1 = __webpack_require__(53);
-const admin_refresh_token_model_1 = __webpack_require__(47);
-const admin_service_1 = __webpack_require__(56);
+const jwt_refresh_constants_1 = __webpack_require__(55);
+const admin_refresh_token_model_1 = __webpack_require__(49);
+const admin_service_1 = __webpack_require__(58);
 const mail_service_1 = __webpack_require__(21);
 const sequelize_1 = __webpack_require__(8);
-const scedule_service_1 = __webpack_require__(66);
-const api_exception_1 = __webpack_require__(50);
+const scedule_service_1 = __webpack_require__(68);
+const api_exception_1 = __webpack_require__(52);
 const crypto_1 = __webpack_require__(14);
 const util_1 = __webpack_require__(15);
-const uuid_1 = __webpack_require__(58);
+const uuid_1 = __webpack_require__(60);
 let AdminJwtRefreshService = AdminJwtRefreshService_1 = class AdminJwtRefreshService {
     constructor(jwtService, adminService, sheduleService, mailService, adminRefreshTokenRepository) {
         this.jwtService = jwtService;
@@ -7387,7 +7580,8 @@ let AdminJwtRefreshService = AdminJwtRefreshService_1 = class AdminJwtRefreshSer
                     token.setExpireDate(expireDate);
                     yield token.save();
                 }
-                if (!admin.getAdminRefreshTokens() || admin.getAdminRefreshTokens().length === 0) {
+                if (!admin.getAdminRefreshTokens() ||
+                    admin.getAdminRefreshTokens().length === 0) {
                     admin.$set('adminRefreshTokens', token.id);
                     admin.adminRefreshTokens = [token];
                 }
@@ -7423,7 +7617,8 @@ let AdminJwtRefreshService = AdminJwtRefreshService_1 = class AdminJwtRefreshSer
                 }
                 if (tokenData) {
                     tokenData.adminRefreshToken = adminRefreshToken;
-                    if (admin.getAdminAgent() && admin.getAdminAgent().trim() !== adminAgent) {
+                    if (admin.getAdminAgent() &&
+                        admin.getAdminAgent().trim() !== adminAgent) {
                         admin.setIsActivated(false);
                         const link = yield this.generateEncryptedValue('ADMIN', 16);
                         const code = this.generateActivationCode();
@@ -7432,7 +7627,9 @@ let AdminJwtRefreshService = AdminJwtRefreshService_1 = class AdminJwtRefreshSer
                         admin.setResetTokenExpiration(Number(Date.now() + 3600000));
                         yield admin.save();
                         this.Logger.log(`checking owner with email ${admin.email}`, admin.getAdminAgent() !== adminAgent);
-                        this.mailService.sendActivationMailToAdmin(admin.email, `${process.env.API_URL}/auth/activate/${admin.getResetToken().trim()}?code=${code}`);
+                        this.mailService.sendActivationMailToAdmin(admin.email, `${process.env.API_URL}/auth/activate/${admin
+                            .getResetToken()
+                            .trim()}?code=${code}`);
                     }
                     yield tokenData.save();
                     return tokenData;
@@ -7514,7 +7711,7 @@ let AdminJwtRefreshService = AdminJwtRefreshService_1 = class AdminJwtRefreshSer
                 where: {
                     id: adminRefreshTokenId,
                     identifier: identifier,
-                }
+                },
             });
             if (!token) {
                 return false;
@@ -7554,7 +7751,7 @@ exports.AdminJwtRefreshService = AdminJwtRefreshService;
 
 
 /***/ }),
-/* 72 */
+/* 74 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7603,7 +7800,7 @@ exports.ChangeDto = ChangeDto;
 
 
 /***/ }),
-/* 73 */
+/* 75 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7621,7 +7818,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CreateAdminDto = void 0;
 const swagger_1 = __webpack_require__(5);
 const class_validator_1 = __webpack_require__(18);
-const admin_constants_1 = __webpack_require__(51);
+const admin_constants_1 = __webpack_require__(53);
 class CreateAdminDto {
 }
 __decorate([
@@ -7712,7 +7909,7 @@ exports.CreateAdminDto = CreateAdminDto;
 
 
 /***/ }),
-/* 74 */
+/* 76 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7737,7 +7934,7 @@ exports.ValidateDto = void 0;
 const common_1 = __webpack_require__(7);
 const class_transformer_1 = __webpack_require__(29);
 const class_validator_1 = __webpack_require__(18);
-const validation_excetion_1 = __webpack_require__(75);
+const validation_excetion_1 = __webpack_require__(77);
 let ValidateDto = class ValidateDto {
     transform(value, metadata) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -7760,7 +7957,7 @@ exports.ValidateDto = ValidateDto;
 
 
 /***/ }),
-/* 75 */
+/* 77 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -7778,7 +7975,7 @@ exports.ValidationException = ValidationException;
 
 
 /***/ }),
-/* 76 */
+/* 78 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7791,7 +7988,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ThrottlerBehindProxyGuard = void 0;
-const throttler_1 = __webpack_require__(77);
+const throttler_1 = __webpack_require__(79);
 const common_1 = __webpack_require__(7);
 let ThrottlerBehindProxyGuard = class ThrottlerBehindProxyGuard extends throttler_1.ThrottlerGuard {
     getTracker(req) {
@@ -7805,14 +8002,14 @@ exports.ThrottlerBehindProxyGuard = ThrottlerBehindProxyGuard;
 
 
 /***/ }),
-/* 77 */
+/* 79 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/throttler");
 
 /***/ }),
-/* 78 */
+/* 80 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -7826,7 +8023,7 @@ exports.Roles = Roles;
 
 
 /***/ }),
-/* 79 */
+/* 81 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7855,10 +8052,10 @@ exports.RolesGuard = void 0;
 const common_1 = __webpack_require__(7);
 const core_1 = __webpack_require__(4);
 const auth_service_1 = __webpack_require__(13);
-const roles_auth_decorator_1 = __webpack_require__(78);
+const roles_auth_decorator_1 = __webpack_require__(80);
 const auth_constants_1 = __webpack_require__(12);
-const api_exception_1 = __webpack_require__(50);
-const admin_constants_1 = __webpack_require__(51);
+const api_exception_1 = __webpack_require__(52);
+const admin_constants_1 = __webpack_require__(53);
 let RolesGuard = class RolesGuard {
     constructor(authService, reflector) {
         this.authService = authService;
@@ -7909,7 +8106,7 @@ exports.RolesGuard = RolesGuard;
 
 
 /***/ }),
-/* 80 */
+/* 82 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -7937,14 +8134,14 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OwnerAdminGuard = void 0;
 const common_1 = __webpack_require__(7);
 const auth_constants_1 = __webpack_require__(12);
-const jwt_refresh_service_1 = __webpack_require__(70);
-const owner_refresh_token_model_1 = __webpack_require__(45);
-const roles_auth_decorator_1 = __webpack_require__(78);
+const jwt_refresh_service_1 = __webpack_require__(72);
+const owner_refresh_token_model_1 = __webpack_require__(47);
+const roles_auth_decorator_1 = __webpack_require__(80);
 const core_1 = __webpack_require__(4);
-const jwt_refresh_service_2 = __webpack_require__(71);
-const admin_refresh_token_model_1 = __webpack_require__(47);
-const api_exception_1 = __webpack_require__(50);
-const admin_constants_1 = __webpack_require__(51);
+const jwt_refresh_service_2 = __webpack_require__(73);
+const admin_refresh_token_model_1 = __webpack_require__(49);
+const api_exception_1 = __webpack_require__(52);
+const admin_constants_1 = __webpack_require__(53);
 let OwnerAdminGuard = class OwnerAdminGuard {
     constructor(ownerJwtRefreshTokenService, adminJwtRefreshTokenService, reflector) {
         this.ownerJwtRefreshTokenService = ownerJwtRefreshTokenService;
@@ -8020,7 +8217,7 @@ exports.OwnerAdminGuard = OwnerAdminGuard;
 
 
 /***/ }),
-/* 81 */
+/* 83 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8047,11 +8244,11 @@ var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthFerfershGuard = void 0;
 const common_1 = __webpack_require__(7);
-const admin_service_1 = __webpack_require__(56);
-const owner_service_1 = __webpack_require__(57);
+const admin_service_1 = __webpack_require__(58);
+const owner_service_1 = __webpack_require__(59);
 const users_service_1 = __webpack_require__(24);
-const user_constants_1 = __webpack_require__(48);
-const api_exception_1 = __webpack_require__(50);
+const user_constants_1 = __webpack_require__(50);
+const api_exception_1 = __webpack_require__(52);
 const auth_constants_1 = __webpack_require__(12);
 let AuthFerfershGuard = class AuthFerfershGuard {
     constructor(ownerService, adminService, userService) {
@@ -8100,14 +8297,14 @@ exports.AuthFerfershGuard = AuthFerfershGuard;
 
 
 /***/ }),
-/* 82 */
+/* 84 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/common/pipes");
 
 /***/ }),
-/* 83 */
+/* 85 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8120,7 +8317,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ApiErrorExceptionFilter = void 0;
-const validate_dto_exception_error_1 = __webpack_require__(84);
+const validate_dto_exception_error_1 = __webpack_require__(86);
 const common_1 = __webpack_require__(7);
 let ApiErrorExceptionFilter = class ApiErrorExceptionFilter {
     catch(exception, host) {
@@ -8147,7 +8344,7 @@ exports.ApiErrorExceptionFilter = ApiErrorExceptionFilter;
 
 
 /***/ }),
-/* 84 */
+/* 86 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -8182,7 +8379,7 @@ exports.BadRequestError = BadRequestError;
 
 
 /***/ }),
-/* 85 */
+/* 87 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8196,7 +8393,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ApiExceptionFilter = void 0;
 const common_1 = __webpack_require__(7);
-const api_exception_1 = __webpack_require__(50);
+const api_exception_1 = __webpack_require__(52);
 let ApiExceptionFilter = class ApiExceptionFilter {
     catch(exception, host) {
         const ctx = host.switchToHttp();
@@ -8221,7 +8418,7 @@ exports.ApiExceptionFilter = ApiExceptionFilter;
 
 
 /***/ }),
-/* 86 */
+/* 88 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8239,42 +8436,42 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthModule = void 0;
 const common_1 = __webpack_require__(7);
 const auth_service_1 = __webpack_require__(13);
-const auth_controller_1 = __webpack_require__(87);
+const auth_controller_1 = __webpack_require__(89);
 const admin_module_1 = __webpack_require__(9);
 const jwt_1 = __webpack_require__(16);
 const mail_service_1 = __webpack_require__(21);
 const core_1 = __webpack_require__(4);
-const http_exception_filter_1 = __webpack_require__(96);
-const auth_middleware_1 = __webpack_require__(97);
-const throttler_1 = __webpack_require__(77);
-const owner_module_1 = __webpack_require__(98);
-const jwt_refresh_service_1 = __webpack_require__(71);
-const jwt_refresh_service_2 = __webpack_require__(70);
-const users_module_1 = __webpack_require__(118);
-const initialize_user_middleware_1 = __webpack_require__(124);
-const initialize_email_middleware_1 = __webpack_require__(152);
-const activate_middleware_1 = __webpack_require__(153);
-const body_validator_pipe_1 = __importDefault(__webpack_require__(125));
-const login_dto_1 = __webpack_require__(89);
+const http_exception_filter_1 = __webpack_require__(98);
+const auth_middleware_1 = __webpack_require__(99);
+const throttler_1 = __webpack_require__(79);
+const owner_module_1 = __webpack_require__(100);
+const jwt_refresh_service_1 = __webpack_require__(73);
+const jwt_refresh_service_2 = __webpack_require__(72);
+const users_module_1 = __webpack_require__(120);
+const initialize_user_middleware_1 = __webpack_require__(126);
+const initialize_email_middleware_1 = __webpack_require__(157);
+const activate_middleware_1 = __webpack_require__(158);
+const body_validator_pipe_1 = __importDefault(__webpack_require__(127));
+const login_dto_1 = __webpack_require__(91);
 const signup_dto_1 = __webpack_require__(17);
-const reset_password_dto_1 = __webpack_require__(90);
-const change_password_dto_1 = __webpack_require__(72);
+const reset_password_dto_1 = __webpack_require__(92);
+const change_password_dto_1 = __webpack_require__(74);
 const sequelize_1 = __webpack_require__(8);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(47);
+const admin_refresh_token_model_1 = __webpack_require__(49);
 const owner_model_1 = __webpack_require__(31);
-const owner_refresh_token_model_1 = __webpack_require__(45);
+const owner_refresh_token_model_1 = __webpack_require__(47);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const config_1 = __webpack_require__(103);
-const scedule_service_1 = __webpack_require__(66);
-const core_module_1 = __webpack_require__(104);
-const events_service_1 = __webpack_require__(154);
-const currency_service_1 = __webpack_require__(60);
-const currencies_model_1 = __webpack_require__(46);
-const axios_1 = __webpack_require__(61);
+const config_1 = __webpack_require__(105);
+const scedule_service_1 = __webpack_require__(68);
+const core_module_1 = __webpack_require__(106);
+const events_service_1 = __webpack_require__(159);
+const currency_service_1 = __webpack_require__(62);
+const currencies_model_1 = __webpack_require__(48);
+const axios_1 = __webpack_require__(63);
 let AuthModule = class AuthModule {
     configure(consumer) {
         consumer
@@ -8366,7 +8563,7 @@ exports.AuthModule = AuthModule;
 
 
 /***/ }),
-/* 87 */
+/* 89 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8396,26 +8593,26 @@ var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthController = void 0;
 const common_1 = __webpack_require__(7);
-const decorators_1 = __webpack_require__(88);
+const decorators_1 = __webpack_require__(90);
 const auth_service_1 = __webpack_require__(13);
-const login_dto_1 = __webpack_require__(89);
-const reset_password_dto_1 = __webpack_require__(90);
+const login_dto_1 = __webpack_require__(91);
+const reset_password_dto_1 = __webpack_require__(92);
 const signup_dto_1 = __webpack_require__(17);
 const swagger_1 = __webpack_require__(5);
 const express_1 = __webpack_require__(20);
 const jwt_auth_guard_1 = __webpack_require__(11);
-const throttler_1 = __webpack_require__(77);
-const throttler_behind_proxy_guard_1 = __webpack_require__(76);
-const user_type_decorator_1 = __webpack_require__(91);
-const user_agent_decorator_1 = __webpack_require__(92);
-const validation_pipe_1 = __webpack_require__(74);
-const refresh_guard_1 = __webpack_require__(93);
-const auth_interfaces_1 = __webpack_require__(94);
-const jw_refresh_guard_1 = __webpack_require__(81);
-const change_password_dto_1 = __webpack_require__(72);
-const user_id_decorator_1 = __webpack_require__(95);
-const error_handler_filter_1 = __webpack_require__(83);
-const api_exception_filter_1 = __webpack_require__(85);
+const throttler_1 = __webpack_require__(79);
+const throttler_behind_proxy_guard_1 = __webpack_require__(78);
+const user_type_decorator_1 = __webpack_require__(93);
+const user_agent_decorator_1 = __webpack_require__(94);
+const validation_pipe_1 = __webpack_require__(76);
+const refresh_guard_1 = __webpack_require__(95);
+const auth_interfaces_1 = __webpack_require__(96);
+const jw_refresh_guard_1 = __webpack_require__(83);
+const change_password_dto_1 = __webpack_require__(74);
+const user_id_decorator_1 = __webpack_require__(97);
+const error_handler_filter_1 = __webpack_require__(85);
+const api_exception_filter_1 = __webpack_require__(87);
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -8599,14 +8796,14 @@ exports.AuthController = AuthController;
 
 
 /***/ }),
-/* 88 */
+/* 90 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/common/decorators");
 
 /***/ }),
-/* 89 */
+/* 91 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8651,7 +8848,7 @@ exports.LoginDto = LoginDto;
 
 
 /***/ }),
-/* 90 */
+/* 92 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8715,7 +8912,7 @@ exports.ResetDto = ResetDto;
 
 
 /***/ }),
-/* 91 */
+/* 93 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -8741,7 +8938,7 @@ exports.Type = (0, common_1.createParamDecorator)((data, ctx) => {
 
 
 /***/ }),
-/* 92 */
+/* 94 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -8757,7 +8954,7 @@ exports.UserAgent = (0, common_1.createParamDecorator)((data, ctx) => {
 
 
 /***/ }),
-/* 93 */
+/* 95 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8777,7 +8974,7 @@ exports.RefreshAuthGuard = void 0;
 const common_1 = __webpack_require__(7);
 const auth_constants_1 = __webpack_require__(12);
 const auth_service_1 = __webpack_require__(13);
-const api_exception_1 = __webpack_require__(50);
+const api_exception_1 = __webpack_require__(52);
 let RefreshAuthGuard = class RefreshAuthGuard {
     constructor(authService) {
         this.authService = authService;
@@ -8804,7 +9001,7 @@ exports.RefreshAuthGuard = RefreshAuthGuard;
 
 
 /***/ }),
-/* 94 */
+/* 96 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -8813,7 +9010,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 
 /***/ }),
-/* 95 */
+/* 97 */
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
@@ -8830,7 +9027,7 @@ exports.UserId = (0, common_1.createParamDecorator)((data, ctx) => {
 
 
 /***/ }),
-/* 96 */
+/* 98 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8866,7 +9063,7 @@ exports.HttpExceptionFilter = HttpExceptionFilter;
 
 
 /***/ }),
-/* 97 */
+/* 99 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8918,7 +9115,7 @@ exports.AuthMiddleware = AuthMiddleware;
 
 
 /***/ }),
-/* 98 */
+/* 100 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -8933,25 +9130,27 @@ var OwnerModule_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OwnerModule = void 0;
 const common_1 = __webpack_require__(7);
-const owner_service_1 = __webpack_require__(57);
+const owner_service_1 = __webpack_require__(59);
 const jwt_1 = __webpack_require__(16);
 const sequelize_1 = __webpack_require__(8);
-const auth_module_1 = __webpack_require__(86);
+const auth_module_1 = __webpack_require__(88);
 const owner_model_1 = __webpack_require__(31);
-const owner_refresh_token_model_1 = __webpack_require__(45);
-const jwt_refresh_service_1 = __webpack_require__(70);
+const owner_refresh_token_model_1 = __webpack_require__(47);
+const jwt_refresh_service_1 = __webpack_require__(72);
 const admin_module_1 = __webpack_require__(9);
 const mail_service_1 = __webpack_require__(21);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(99);
-const config_1 = __webpack_require__(103);
-const core_module_1 = __webpack_require__(104);
-const scedule_service_1 = __webpack_require__(66);
+const roles_module_1 = __webpack_require__(101);
+const config_1 = __webpack_require__(105);
+const core_module_1 = __webpack_require__(106);
+const scedule_service_1 = __webpack_require__(68);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(47);
+const admin_refresh_token_model_1 = __webpack_require__(49);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
+const colours_model_1 = __webpack_require__(45);
+const product_colour_model_1 = __webpack_require__(46);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
 const order_model_1 = __webpack_require__(39);
@@ -8960,11 +9159,11 @@ const product_model_1 = __webpack_require__(32);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const users_service_1 = __webpack_require__(24);
-const admin_service_1 = __webpack_require__(56);
-const currencies_model_1 = __webpack_require__(46);
-const currency_service_1 = __webpack_require__(60);
-const axios_1 = __webpack_require__(61);
-const schedule_1 = __webpack_require__(59);
+const admin_service_1 = __webpack_require__(58);
+const currencies_model_1 = __webpack_require__(48);
+const currency_service_1 = __webpack_require__(62);
+const axios_1 = __webpack_require__(63);
+const schedule_1 = __webpack_require__(61);
 let OwnerModule = OwnerModule_1 = class OwnerModule {
 };
 OwnerModule = OwnerModule_1 = __decorate([
@@ -9008,13 +9207,22 @@ OwnerModule = OwnerModule_1 = __decorate([
                 cart_model_1.Cart,
                 cart_product_model_1.CartProduct,
                 currencies_model_1.Currencies,
+                product_colour_model_1.ProductColours,
+                colours_model_1.Colour,
             ]),
             (0, common_1.forwardRef)(() => core_module_1.CoreModule),
             (0, common_1.forwardRef)(() => auth_module_1.AuthModule),
             (0, common_1.forwardRef)(() => admin_module_1.AdminModule),
         ],
-        providers: [owner_service_1.OwnerService, jwt_refresh_service_1.OwnerJwtRefreshService, currency_service_1.CurrencyService,
-            mail_service_1.MailService, scedule_service_1.TasksService, users_service_1.UsersService, admin_service_1.AdminService],
+        providers: [
+            owner_service_1.OwnerService,
+            jwt_refresh_service_1.OwnerJwtRefreshService,
+            currency_service_1.CurrencyService,
+            mail_service_1.MailService,
+            scedule_service_1.TasksService,
+            users_service_1.UsersService,
+            admin_service_1.AdminService,
+        ],
         exports: [owner_service_1.OwnerService, jwt_refresh_service_1.OwnerJwtRefreshService, currency_service_1.CurrencyService],
     })
 ], OwnerModule);
@@ -9022,7 +9230,7 @@ exports.OwnerModule = OwnerModule;
 
 
 /***/ }),
-/* 99 */
+/* 101 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9037,39 +9245,42 @@ var RolesModule_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.RolesModule = void 0;
 const common_1 = __webpack_require__(7);
-const roles_controller_1 = __webpack_require__(100);
+const roles_controller_1 = __webpack_require__(102);
 const roles_service_1 = __webpack_require__(25);
 const sequelize_1 = __webpack_require__(8);
 const roles_model_1 = __webpack_require__(26);
 const user_model_1 = __webpack_require__(35);
 const user_roles_model_1 = __webpack_require__(30);
-const config_1 = __webpack_require__(103);
+const config_1 = __webpack_require__(105);
 const order_product_model_1 = __webpack_require__(40);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(47);
+const admin_refresh_token_model_1 = __webpack_require__(49);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
+const colours_model_1 = __webpack_require__(45);
+const product_colour_model_1 = __webpack_require__(46);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
 const order_model_1 = __webpack_require__(39);
 const owner_model_1 = __webpack_require__(31);
-const owner_refresh_token_model_1 = __webpack_require__(45);
+const owner_refresh_token_model_1 = __webpack_require__(47);
 const product_model_1 = __webpack_require__(32);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const auth_service_1 = __webpack_require__(13);
 const admin_module_1 = __webpack_require__(9);
-const auth_module_1 = __webpack_require__(86);
-const core_module_1 = __webpack_require__(104);
-const mail_module_1 = __webpack_require__(117);
-const owner_module_1 = __webpack_require__(98);
-const product_module_1 = __webpack_require__(126);
+const auth_module_1 = __webpack_require__(88);
+const core_module_1 = __webpack_require__(106);
+const mail_module_1 = __webpack_require__(119);
+const owner_module_1 = __webpack_require__(100);
+const product_module_1 = __webpack_require__(128);
+const users_module_1 = __webpack_require__(120);
 const users_service_1 = __webpack_require__(24);
-const scedule_service_1 = __webpack_require__(66);
-const jwt_refresh_service_1 = __webpack_require__(65);
-const initialize_user_middleware_1 = __webpack_require__(124);
-const currency_service_1 = __webpack_require__(60);
-const currencies_model_1 = __webpack_require__(46);
-const axios_1 = __webpack_require__(61);
+const scedule_service_1 = __webpack_require__(68);
+const jwt_refresh_service_1 = __webpack_require__(67);
+const initialize_user_middleware_1 = __webpack_require__(126);
+const currency_service_1 = __webpack_require__(62);
+const currencies_model_1 = __webpack_require__(48);
+const axios_1 = __webpack_require__(63);
 let RolesModule = RolesModule_1 = class RolesModule {
     configure(consumer) {
         consumer
@@ -9117,6 +9328,8 @@ RolesModule = RolesModule_1 = __decorate([
                 cart_model_1.Cart,
                 cart_product_model_1.CartProduct,
                 currencies_model_1.Currencies,
+                colours_model_1.Colour,
+                product_colour_model_1.ProductColours,
             ]),
             (0, common_1.forwardRef)(() => mail_module_1.MailModule),
             (0, common_1.forwardRef)(() => product_module_1.ProductModule),
@@ -9125,6 +9338,7 @@ RolesModule = RolesModule_1 = __decorate([
             (0, common_1.forwardRef)(() => RolesModule_1),
             (0, common_1.forwardRef)(() => auth_module_1.AuthModule),
             (0, common_1.forwardRef)(() => owner_module_1.OwnerModule),
+            (0, common_1.forwardRef)(() => users_module_1.UsersModule),
         ],
         exports: [roles_service_1.RolesService],
     })
@@ -9133,7 +9347,7 @@ exports.RolesModule = RolesModule;
 
 
 /***/ }),
-/* 100 */
+/* 102 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9155,19 +9369,19 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.RolesController = void 0;
 const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
-const roles_auth_decorator_1 = __webpack_require__(78);
-const add_content_guard_1 = __webpack_require__(101);
-const jw_refresh_guard_1 = __webpack_require__(81);
+const roles_auth_decorator_1 = __webpack_require__(80);
+const add_content_guard_1 = __webpack_require__(103);
+const jw_refresh_guard_1 = __webpack_require__(83);
 const jwt_auth_guard_1 = __webpack_require__(11);
-const owner_admin_guard_1 = __webpack_require__(80);
-const roles_guard_1 = __webpack_require__(79);
-const error_handler_filter_1 = __webpack_require__(83);
-const create_role_dto_1 = __webpack_require__(102);
+const owner_admin_guard_1 = __webpack_require__(82);
+const roles_guard_1 = __webpack_require__(81);
+const error_handler_filter_1 = __webpack_require__(85);
+const create_role_dto_1 = __webpack_require__(104);
 const roles_model_1 = __webpack_require__(26);
 const roles_service_1 = __webpack_require__(25);
-const throttler_1 = __webpack_require__(77);
-const api_exception_filter_1 = __webpack_require__(85);
-const throttler_behind_proxy_guard_1 = __webpack_require__(76);
+const throttler_1 = __webpack_require__(79);
+const api_exception_filter_1 = __webpack_require__(87);
+const throttler_behind_proxy_guard_1 = __webpack_require__(78);
 let RolesController = class RolesController {
     constructor(roleService) {
         this.roleService = roleService;
@@ -9226,7 +9440,7 @@ exports.RolesController = RolesController;
 
 
 /***/ }),
-/* 101 */
+/* 103 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9254,8 +9468,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AddContentGuard = void 0;
 const common_1 = __webpack_require__(7);
 const auth_constants_1 = __webpack_require__(12);
-const admin_service_1 = __webpack_require__(56);
-const api_exception_1 = __webpack_require__(50);
+const admin_service_1 = __webpack_require__(58);
+const api_exception_1 = __webpack_require__(52);
 let AddContentGuard = class AddContentGuard {
     constructor(adminService) {
         this.adminService = adminService;
@@ -9290,7 +9504,7 @@ exports.AddContentGuard = AddContentGuard;
 
 
 /***/ }),
-/* 102 */
+/* 104 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9330,14 +9544,14 @@ exports.CreateRoleDto = CreateRoleDto;
 
 
 /***/ }),
-/* 103 */
+/* 105 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/config");
 
 /***/ }),
-/* 104 */
+/* 106 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9353,43 +9567,45 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CoreModule = void 0;
 const common_1 = __webpack_require__(7);
 const core_1 = __webpack_require__(4);
-const all_exceptions_filter_1 = __webpack_require__(105);
-const throttler_behind_proxy_guard_1 = __webpack_require__(76);
-const global_interceptor_1 = __webpack_require__(106);
-const cluster_service_1 = __webpack_require__(108);
-const file_service_1 = __webpack_require__(111);
-const config_1 = __webpack_require__(103);
-const schedule_1 = __webpack_require__(59);
-const scedule_service_1 = __webpack_require__(66);
-const event_emitter_1 = __webpack_require__(67);
-const bull_1 = __webpack_require__(114);
-const garbage_processor_1 = __webpack_require__(115);
+const all_exceptions_filter_1 = __webpack_require__(107);
+const throttler_behind_proxy_guard_1 = __webpack_require__(78);
+const global_interceptor_1 = __webpack_require__(108);
+const cluster_service_1 = __webpack_require__(110);
+const file_service_1 = __webpack_require__(113);
+const config_1 = __webpack_require__(105);
+const schedule_1 = __webpack_require__(61);
+const scedule_service_1 = __webpack_require__(68);
+const event_emitter_1 = __webpack_require__(69);
+const bull_1 = __webpack_require__(116);
+const garbage_processor_1 = __webpack_require__(117);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(47);
+const admin_refresh_token_model_1 = __webpack_require__(49);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
+const colours_model_1 = __webpack_require__(45);
+const product_colour_model_1 = __webpack_require__(46);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
 const owner_model_1 = __webpack_require__(31);
-const owner_refresh_token_model_1 = __webpack_require__(45);
+const owner_refresh_token_model_1 = __webpack_require__(47);
 const product_model_1 = __webpack_require__(32);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const sequelize_1 = __webpack_require__(8);
-const currency_service_1 = __webpack_require__(60);
-const currencies_model_1 = __webpack_require__(46);
-const axios_1 = __webpack_require__(61);
+const currency_service_1 = __webpack_require__(62);
+const currencies_model_1 = __webpack_require__(48);
+const axios_1 = __webpack_require__(63);
 const admin_module_1 = __webpack_require__(9);
-const auth_module_1 = __webpack_require__(86);
-const mail_module_1 = __webpack_require__(117);
-const owner_module_1 = __webpack_require__(98);
-const product_module_1 = __webpack_require__(126);
-const roles_module_1 = __webpack_require__(99);
-const users_module_1 = __webpack_require__(118);
+const auth_module_1 = __webpack_require__(88);
+const mail_module_1 = __webpack_require__(119);
+const owner_module_1 = __webpack_require__(100);
+const product_module_1 = __webpack_require__(128);
+const roles_module_1 = __webpack_require__(101);
+const users_module_1 = __webpack_require__(120);
 let CoreModule = CoreModule_1 = class CoreModule {
 };
 CoreModule = CoreModule_1 = __decorate([
@@ -9444,6 +9660,8 @@ CoreModule = CoreModule_1 = __decorate([
                 cart_model_1.Cart,
                 cart_product_model_1.CartProduct,
                 currencies_model_1.Currencies,
+                colours_model_1.Colour,
+                product_colour_model_1.ProductColours,
             ]),
             (0, common_1.forwardRef)(() => mail_module_1.MailModule),
             (0, common_1.forwardRef)(() => product_module_1.ProductModule),
@@ -9460,7 +9678,7 @@ exports.CoreModule = CoreModule;
 
 
 /***/ }),
-/* 105 */
+/* 107 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9507,7 +9725,7 @@ exports.AllExceptionsFilter = AllExceptionsFilter;
 
 
 /***/ }),
-/* 106 */
+/* 108 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9521,8 +9739,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GlobalInterceptor = void 0;
 const common_1 = __webpack_require__(7);
-const rxjs_1 = __webpack_require__(62);
-const operators_1 = __webpack_require__(107);
+const rxjs_1 = __webpack_require__(64);
+const operators_1 = __webpack_require__(109);
 let GlobalInterceptor = class GlobalInterceptor {
     intercept(context, next) {
         return next.handle().pipe((0, operators_1.timeout)(5000), (0, operators_1.catchError)((err) => {
@@ -9540,14 +9758,14 @@ exports.GlobalInterceptor = GlobalInterceptor;
 
 
 /***/ }),
-/* 107 */
+/* 109 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("rxjs/operators");
 
 /***/ }),
-/* 108 */
+/* 110 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9573,8 +9791,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 var AppClusterService_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppClusterService = void 0;
-const cluster_1 = __importDefault(__webpack_require__(109));
-const os_1 = __webpack_require__(110);
+const cluster_1 = __importDefault(__webpack_require__(111));
+const os_1 = __webpack_require__(112);
 const common_1 = __webpack_require__(7);
 const numCPUs = (0, os_1.cpus)().length;
 let AppClusterService = AppClusterService_1 = class AppClusterService {
@@ -9585,6 +9803,7 @@ let AppClusterService = AppClusterService_1 = class AppClusterService {
                 AppClusterService_1.Logger.log(`Master server started on ${process.pid}`);
                 for (let i = 0; i < numCPUs; i++) {
                     const worker = cluster_1.default.fork();
+                    console.info(worker);
                 }
                 cluster_1.default.on('exit', (worker, code, signal) => {
                     AppClusterService_1.Logger.log(`Worker ${worker.process.pid} died. Restarting`, signal || code);
@@ -9594,6 +9813,7 @@ let AppClusterService = AppClusterService_1 = class AppClusterService {
             else {
                 AppClusterService_1.Logger.log(`Cluster server started on ${process.pid}`);
                 const app = yield callback();
+                console.info(app);
                 process.on('SIGINT', () => process.exit(1));
                 process.on('SIGTERM', () => process.exit(1));
                 process.on('SIGUSR2', () => __awaiter(this, void 0, void 0, function* () { return process.exit(1); }));
@@ -9622,6 +9842,7 @@ let AppClusterService = AppClusterService_1 = class AppClusterService {
     static setTimeouts(worker) {
         let timeout;
         worker.on('listening', (address) => {
+            common_1.Logger.log(address);
             worker.send('shutdown');
             worker.disconnect();
             timeout = setTimeout(() => {
@@ -9641,21 +9862,21 @@ exports.AppClusterService = AppClusterService;
 
 
 /***/ }),
-/* 109 */
+/* 111 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("cluster");
 
 /***/ }),
-/* 110 */
+/* 112 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("os");
 
 /***/ }),
-/* 111 */
+/* 113 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9701,11 +9922,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.FilesService = void 0;
 const common_1 = __webpack_require__(7);
-const fs = __importStar(__webpack_require__(112));
-const uuid = __importStar(__webpack_require__(58));
-const path_1 = __importStar(__webpack_require__(113));
-const fs_1 = __webpack_require__(112);
-const uuid_1 = __webpack_require__(58);
+const fs = __importStar(__webpack_require__(114));
+const uuid = __importStar(__webpack_require__(60));
+const path_1 = __importStar(__webpack_require__(115));
+const fs_1 = __webpack_require__(114);
+const uuid_1 = __webpack_require__(60);
 let FilesService = class FilesService {
     createFile(file) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -9766,28 +9987,28 @@ exports.FilesService = FilesService;
 
 
 /***/ }),
-/* 112 */
+/* 114 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("fs");
 
 /***/ }),
-/* 113 */
+/* 115 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("path");
 
 /***/ }),
-/* 114 */
+/* 116 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/bull");
 
 /***/ }),
-/* 115 */
+/* 117 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9805,9 +10026,9 @@ var GarbageCollectingProcessor_1;
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.GarbageCollectingProcessor = void 0;
-const bull_1 = __webpack_require__(114);
+const bull_1 = __webpack_require__(116);
 const common_1 = __webpack_require__(7);
-const bull_2 = __webpack_require__(116);
+const bull_2 = __webpack_require__(118);
 let GarbageCollectingProcessor = GarbageCollectingProcessor_1 = class GarbageCollectingProcessor {
     constructor() {
         this.logger = new common_1.Logger(GarbageCollectingProcessor_1.name);
@@ -9831,14 +10052,14 @@ exports.GarbageCollectingProcessor = GarbageCollectingProcessor;
 
 
 /***/ }),
-/* 116 */
+/* 118 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("bull");
 
 /***/ }),
-/* 117 */
+/* 119 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9856,31 +10077,29 @@ const common_1 = __webpack_require__(7);
 const mail_service_1 = __webpack_require__(21);
 const mailer_1 = __webpack_require__(22);
 const admin_module_1 = __webpack_require__(9);
-const auth_module_1 = __webpack_require__(86);
-const owner_module_1 = __webpack_require__(98);
-const roles_module_1 = __webpack_require__(99);
-const users_module_1 = __webpack_require__(118);
-const config_1 = __webpack_require__(103);
+const auth_module_1 = __webpack_require__(88);
+const owner_module_1 = __webpack_require__(100);
+const roles_module_1 = __webpack_require__(101);
+const users_module_1 = __webpack_require__(120);
+const config_1 = __webpack_require__(105);
 const users_service_1 = __webpack_require__(24);
-const owner_service_1 = __webpack_require__(57);
-const admin_service_1 = __webpack_require__(56);
+const owner_service_1 = __webpack_require__(59);
+const admin_service_1 = __webpack_require__(58);
 const sequelize_1 = __webpack_require__(8);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(47);
+const admin_refresh_token_model_1 = __webpack_require__(49);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
-const category_model_1 = __webpack_require__(41);
-const product_categories_model_1 = __webpack_require__(42);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
 const owner_model_1 = __webpack_require__(31);
-const owner_refresh_token_model_1 = __webpack_require__(45);
+const owner_refresh_token_model_1 = __webpack_require__(47);
 const product_model_1 = __webpack_require__(32);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const currencies_model_1 = __webpack_require__(46);
+const currencies_model_1 = __webpack_require__(48);
 let MailModule = class MailModule {
 };
 MailModule = __decorate([
@@ -9896,8 +10115,6 @@ MailModule = __decorate([
                 product_model_1.Product,
                 order_model_1.Order,
                 order_product_model_1.OrderProduct,
-                category_model_1.Category,
-                product_categories_model_1.ProductCategories,
                 admin_model_1.Admin,
                 admin_refresh_token_model_1.AdminRefreshToken,
                 owner_model_1.Owner,
@@ -9941,7 +10158,7 @@ exports.MailModule = MailModule;
 
 
 /***/ }),
-/* 118 */
+/* 120 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -9959,45 +10176,47 @@ var UsersModule_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersModule = void 0;
 const common_1 = __webpack_require__(7);
-const users_controller_1 = __webpack_require__(119);
+const users_controller_1 = __webpack_require__(121);
 const users_service_1 = __webpack_require__(24);
 const sequelize_1 = __webpack_require__(8);
 const user_model_1 = __webpack_require__(35);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(99);
-const auth_module_1 = __webpack_require__(86);
+const roles_module_1 = __webpack_require__(101);
+const auth_module_1 = __webpack_require__(88);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const jwt_1 = __webpack_require__(16);
-const jwt_refresh_service_1 = __webpack_require__(65);
-const user_middleware_1 = __webpack_require__(123);
-const initialize_user_middleware_1 = __webpack_require__(124);
-const admin_refresh_token_model_1 = __webpack_require__(47);
+const jwt_refresh_service_1 = __webpack_require__(67);
+const user_middleware_1 = __webpack_require__(125);
+const initialize_user_middleware_1 = __webpack_require__(126);
+const admin_refresh_token_model_1 = __webpack_require__(49);
 const admin_model_1 = __webpack_require__(28);
 const admin_module_1 = __webpack_require__(9);
 const owner_model_1 = __webpack_require__(31);
-const owner_refresh_token_model_1 = __webpack_require__(45);
-const owner_module_1 = __webpack_require__(98);
-const body_validator_pipe_1 = __importDefault(__webpack_require__(125));
-const update_user_dto_1 = __webpack_require__(121);
-const config_1 = __webpack_require__(103);
-const scedule_service_1 = __webpack_require__(66);
-const core_module_1 = __webpack_require__(104);
-const product_module_1 = __webpack_require__(126);
+const owner_refresh_token_model_1 = __webpack_require__(47);
+const owner_module_1 = __webpack_require__(100);
+const body_validator_pipe_1 = __importDefault(__webpack_require__(127));
+const update_user_dto_1 = __webpack_require__(123);
+const config_1 = __webpack_require__(105);
+const scedule_service_1 = __webpack_require__(68);
+const core_module_1 = __webpack_require__(106);
+const product_module_1 = __webpack_require__(128);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
+const colours_model_1 = __webpack_require__(45);
+const product_colour_model_1 = __webpack_require__(46);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
 const product_model_1 = __webpack_require__(32);
 const auth_service_1 = __webpack_require__(13);
-const mail_module_1 = __webpack_require__(117);
+const mail_module_1 = __webpack_require__(119);
 const bookmark_products_1 = __webpack_require__(37);
 const watched_products_model_1 = __webpack_require__(38);
-const currencies_model_1 = __webpack_require__(46);
-const axios_1 = __webpack_require__(61);
-const currency_service_1 = __webpack_require__(60);
+const currencies_model_1 = __webpack_require__(48);
+const axios_1 = __webpack_require__(63);
+const currency_service_1 = __webpack_require__(62);
 let UsersModule = UsersModule_1 = class UsersModule {
     configure(consumer) {
         consumer
@@ -10041,6 +10260,8 @@ UsersModule = UsersModule_1 = __decorate([
                 bookmark_products_1.BookmarksProducts,
                 watched_products_model_1.WatchedProducts,
                 currencies_model_1.Currencies,
+                colours_model_1.Colour,
+                product_colour_model_1.ProductColours,
             ]),
             jwt_1.JwtModule.register({
                 secret: process.env.JWT_REFRESH_USER_SECRET.toString().trim() ||
@@ -10072,7 +10293,7 @@ exports.UsersModule = UsersModule;
 
 
 /***/ }),
-/* 119 */
+/* 121 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10103,24 +10324,24 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UsersController = void 0;
 const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
-const roles_auth_decorator_1 = __webpack_require__(78);
+const roles_auth_decorator_1 = __webpack_require__(80);
 const jwt_auth_guard_1 = __webpack_require__(11);
 const user_model_1 = __webpack_require__(35);
 const users_service_1 = __webpack_require__(24);
-const roles_guard_1 = __webpack_require__(79);
-const ban_user_dto_1 = __webpack_require__(120);
-const throttler_1 = __webpack_require__(77);
-const throttler_behind_proxy_guard_1 = __webpack_require__(76);
+const roles_guard_1 = __webpack_require__(81);
+const ban_user_dto_1 = __webpack_require__(122);
+const throttler_1 = __webpack_require__(79);
+const throttler_behind_proxy_guard_1 = __webpack_require__(78);
 const auth_service_1 = __webpack_require__(13);
-const update_user_dto_1 = __webpack_require__(121);
+const update_user_dto_1 = __webpack_require__(123);
 const express_1 = __webpack_require__(20);
-const user_agent_decorator_1 = __webpack_require__(92);
-const user_id_decorator_1 = __webpack_require__(95);
-const user_guard_1 = __webpack_require__(122);
-const owner_admin_guard_1 = __webpack_require__(80);
-const jw_refresh_guard_1 = __webpack_require__(81);
-const error_handler_filter_1 = __webpack_require__(83);
-const api_exception_filter_1 = __webpack_require__(85);
+const user_agent_decorator_1 = __webpack_require__(94);
+const user_id_decorator_1 = __webpack_require__(97);
+const user_guard_1 = __webpack_require__(124);
+const owner_admin_guard_1 = __webpack_require__(82);
+const jw_refresh_guard_1 = __webpack_require__(83);
+const error_handler_filter_1 = __webpack_require__(85);
+const api_exception_filter_1 = __webpack_require__(87);
 let UsersController = class UsersController {
     constructor(userService, authService) {
         this.userService = userService;
@@ -10210,7 +10431,7 @@ exports.UsersController = UsersController;
 
 
 /***/ }),
-/* 120 */
+/* 122 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10244,7 +10465,7 @@ exports.BanUserDto = BanUserDto;
 
 
 /***/ }),
-/* 121 */
+/* 123 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10262,7 +10483,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UpdateUserDto = void 0;
 const swagger_1 = __webpack_require__(5);
 const class_validator_1 = __webpack_require__(18);
-const user_constants_1 = __webpack_require__(48);
+const user_constants_1 = __webpack_require__(50);
 class UpdateUserDto {
 }
 __decorate([
@@ -10319,7 +10540,7 @@ exports.UpdateUserDto = UpdateUserDto;
 
 
 /***/ }),
-/* 122 */
+/* 124 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10342,22 +10563,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var _a, _b, _c;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserGuard = void 0;
 const common_1 = __webpack_require__(7);
-const jwt_refresh_service_1 = __webpack_require__(65);
+const jwt_refresh_service_1 = __webpack_require__(67);
 const auth_constants_1 = __webpack_require__(12);
 const core_1 = __webpack_require__(4);
-const roles_auth_decorator_1 = __webpack_require__(78);
-const auth_service_1 = __webpack_require__(13);
-const api_exception_1 = __webpack_require__(50);
-const admin_constants_1 = __webpack_require__(51);
+const roles_auth_decorator_1 = __webpack_require__(80);
+const api_exception_1 = __webpack_require__(52);
+const admin_constants_1 = __webpack_require__(53);
 let UserGuard = class UserGuard {
-    constructor(userJwtRefreshTokenService, reflector, authService) {
+    constructor(userJwtRefreshTokenService, reflector) {
         this.userJwtRefreshTokenService = userJwtRefreshTokenService;
         this.reflector = reflector;
-        this.authService = authService;
     }
     canActivate(context) {
         return (() => __awaiter(this, void 0, void 0, function* () {
@@ -10392,13 +10611,13 @@ let UserGuard = class UserGuard {
 };
 UserGuard = __decorate([
     (0, common_1.Injectable)({ scope: common_1.Scope.REQUEST }),
-    __metadata("design:paramtypes", [typeof (_a = typeof jwt_refresh_service_1.UserJwtRefreshTokenService !== "undefined" && jwt_refresh_service_1.UserJwtRefreshTokenService) === "function" ? _a : Object, typeof (_b = typeof core_1.Reflector !== "undefined" && core_1.Reflector) === "function" ? _b : Object, typeof (_c = typeof auth_service_1.AuthService !== "undefined" && auth_service_1.AuthService) === "function" ? _c : Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof jwt_refresh_service_1.UserJwtRefreshTokenService !== "undefined" && jwt_refresh_service_1.UserJwtRefreshTokenService) === "function" ? _a : Object, typeof (_b = typeof core_1.Reflector !== "undefined" && core_1.Reflector) === "function" ? _b : Object])
 ], UserGuard);
 exports.UserGuard = UserGuard;
 
 
 /***/ }),
-/* 123 */
+/* 125 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10451,7 +10670,7 @@ exports.UserMiddleware = UserMiddleware;
 
 
 /***/ }),
-/* 124 */
+/* 126 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10482,12 +10701,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.InitializeUserMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
-const jwt_refresh_service_1 = __webpack_require__(70);
-const jwt_refresh_service_2 = __webpack_require__(71);
-const jwt_refresh_service_3 = __webpack_require__(65);
-const decorators_1 = __webpack_require__(88);
+const jwt_refresh_service_1 = __webpack_require__(72);
+const jwt_refresh_service_2 = __webpack_require__(73);
+const jwt_refresh_service_3 = __webpack_require__(67);
+const decorators_1 = __webpack_require__(90);
 const auth_constants_1 = __webpack_require__(12);
-const api_exception_1 = __webpack_require__(50);
+const api_exception_1 = __webpack_require__(52);
 let InitializeUserMiddleware = class InitializeUserMiddleware {
     constructor(ownerJwtRefreshTokenService, adminJwtRefreshTokenService, userJwtRefreshTokenService) {
         this.ownerJwtRefreshTokenService = ownerJwtRefreshTokenService;
@@ -10542,7 +10761,7 @@ exports.InitializeUserMiddleware = InitializeUserMiddleware;
 
 
 /***/ }),
-/* 125 */
+/* 127 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10560,7 +10779,7 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const class_transformer_1 = __webpack_require__(29);
 const class_validator_1 = __webpack_require__(18);
-const validate_dto_exception_error_1 = __webpack_require__(84);
+const validate_dto_exception_error_1 = __webpack_require__(86);
 class RequestValidator {
 }
 exports["default"] = RequestValidator;
@@ -10587,7 +10806,7 @@ RequestValidator.validate = (classInstance) => {
 
 
 /***/ }),
-/* 126 */
+/* 128 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10601,43 +10820,46 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductModule = void 0;
 const common_1 = __webpack_require__(7);
-const product_service_1 = __webpack_require__(127);
-const product_controller_1 = __webpack_require__(132);
+const product_service_1 = __webpack_require__(129);
+const product_controller_1 = __webpack_require__(135);
 const sequelize_1 = __webpack_require__(8);
 const admin_module_1 = __webpack_require__(9);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(47);
-const auth_module_1 = __webpack_require__(86);
+const admin_refresh_token_model_1 = __webpack_require__(49);
+const auth_module_1 = __webpack_require__(88);
 const owner_model_1 = __webpack_require__(31);
-const owner_refresh_token_model_1 = __webpack_require__(45);
-const owner_module_1 = __webpack_require__(98);
+const owner_refresh_token_model_1 = __webpack_require__(47);
+const owner_module_1 = __webpack_require__(100);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(99);
+const roles_module_1 = __webpack_require__(101);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const users_module_1 = __webpack_require__(118);
-const config_1 = __webpack_require__(103);
+const users_module_1 = __webpack_require__(120);
+const config_1 = __webpack_require__(105);
 const product_model_1 = __webpack_require__(32);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
-const categories_module_1 = __webpack_require__(142);
-const cart_module_1 = __webpack_require__(145);
+const categories_colours_module_1 = __webpack_require__(145);
+const cart_module_1 = __webpack_require__(150);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
-const orders_module_1 = __webpack_require__(148);
-const initialize_user_middleware_1 = __webpack_require__(124);
-const categories_service_1 = __webpack_require__(129);
-const file_service_1 = __webpack_require__(111);
-const product_middleware_1 = __webpack_require__(151);
+const orders_module_1 = __webpack_require__(153);
+const initialize_user_middleware_1 = __webpack_require__(126);
+const categories_service_1 = __webpack_require__(131);
+const file_service_1 = __webpack_require__(113);
+const product_middleware_1 = __webpack_require__(156);
 const product_reviews_model_1 = __webpack_require__(44);
 const bookmark_products_1 = __webpack_require__(37);
 const watched_products_model_1 = __webpack_require__(38);
-const user_middleware_1 = __webpack_require__(123);
-const axios_1 = __webpack_require__(61);
-const currencies_model_1 = __webpack_require__(46);
+const user_middleware_1 = __webpack_require__(125);
+const axios_1 = __webpack_require__(63);
+const currencies_model_1 = __webpack_require__(48);
+const colours_service_1 = __webpack_require__(134);
+const colours_model_1 = __webpack_require__(45);
+const product_colour_model_1 = __webpack_require__(46);
 let ProductModule = class ProductModule {
     configure(consumer) {
         consumer.apply(product_middleware_1.ProductMiddleware).forRoutes({
@@ -10654,7 +10876,7 @@ let ProductModule = class ProductModule {
 };
 ProductModule = __decorate([
     (0, common_1.Module)({
-        providers: [product_service_1.ProductService, categories_service_1.CategoriesService, file_service_1.FilesService, categories_service_1.CategoriesService],
+        providers: [product_service_1.ProductService, file_service_1.FilesService, categories_service_1.CategoriesService, colours_service_1.ColoursService],
         controllers: [product_controller_1.ProductController],
         imports: [
             config_1.ConfigModule.forRoot({
@@ -10681,12 +10903,14 @@ ProductModule = __decorate([
                 watched_products_model_1.WatchedProducts,
                 user_roles_model_1.UserRoles,
                 cart_model_1.Cart,
+                colours_model_1.Colour,
+                product_colour_model_1.ProductColours,
                 cart_product_model_1.CartProduct,
                 currencies_model_1.Currencies,
             ]),
             (0, common_1.forwardRef)(() => orders_module_1.OrdersModule),
             (0, common_1.forwardRef)(() => cart_module_1.CartModule),
-            (0, common_1.forwardRef)(() => categories_module_1.CategoriesModule),
+            (0, common_1.forwardRef)(() => categories_colours_module_1.CategoriesColoursModule),
             (0, common_1.forwardRef)(() => admin_module_1.AdminModule),
             (0, common_1.forwardRef)(() => roles_module_1.RolesModule),
             (0, common_1.forwardRef)(() => auth_module_1.AuthModule),
@@ -10699,7 +10923,7 @@ exports.ProductModule = ProductModule;
 
 
 /***/ }),
-/* 127 */
+/* 129 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -10726,29 +10950,85 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var ProductService_1;
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductService = void 0;
 const common_1 = __webpack_require__(7);
-const product_constants_1 = __webpack_require__(128);
+const product_constants_1 = __webpack_require__(130);
 const sequelize_1 = __webpack_require__(8);
-const fs_1 = __webpack_require__(112);
-const path_1 = __webpack_require__(113);
-const admin_service_1 = __webpack_require__(56);
-const api_exception_1 = __webpack_require__(50);
-const owner_service_1 = __webpack_require__(57);
-const categories_service_1 = __webpack_require__(129);
+const fs_1 = __webpack_require__(114);
+const path_1 = __webpack_require__(115);
+const admin_service_1 = __webpack_require__(58);
+const api_exception_1 = __webpack_require__(52);
+const owner_service_1 = __webpack_require__(59);
+const categories_service_1 = __webpack_require__(131);
 const product_model_1 = __webpack_require__(32);
 const users_service_1 = __webpack_require__(24);
-const user_constants_1 = __webpack_require__(48);
+const user_constants_1 = __webpack_require__(50);
+const colours_service_1 = __webpack_require__(134);
 let ProductService = ProductService_1 = class ProductService {
-    constructor(productRepository, userService, ownerService, adminService, categoriesService) {
+    constructor(productRepository, userService, ownerService, adminService, categoriesService, coloursService) {
         this.productRepository = productRepository;
         this.userService = userService;
         this.ownerService = ownerService;
         this.adminService = adminService;
         this.categoriesService = categoriesService;
+        this.coloursService = coloursService;
         this.Logger = new common_1.Logger(ProductService_1.name);
+    }
+    getProductsByCategory(request, response, page, pageSize, categories) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const currency = request['currency'];
+            let products = yield this.productRepository.findAll({
+                include: { all: true },
+            });
+            if (categories && categories.length > 0) {
+                products = products.filter((product) => {
+                    if (product.categories.some((category) => categories.includes(category.id))) {
+                        return product;
+                    }
+                });
+            }
+            return response.json({
+                products: products
+                    .map((product) => {
+                    return {
+                        id: product.id,
+                        title: product.getTitle(),
+                        description: product.getDescription(),
+                        price: Math.round(product.price * currency.rate) + currency.symbol,
+                        quantity: product.quantity,
+                        images: product.images,
+                        sizeChartImage: product.sizeChartImage,
+                        sizes: product.sizes,
+                        colours: product.colours,
+                        categories: product.categories.map((category) => {
+                            return {
+                                id: category.id,
+                                ua: category.ua,
+                                en: category.en,
+                                rs: category.rs,
+                                ru: category.ru,
+                                createdAt: category.createdAt,
+                                updatedAt: category.updatedAt,
+                            };
+                        }),
+                        reviews: product.reviews.map((review) => {
+                            return {
+                                id: review.id,
+                                name: review.name,
+                                surname: review.surname,
+                                review: review.review,
+                                createdAt: review.createdAt,
+                                updatedAt: review.updatedAt,
+                            };
+                        }),
+                    };
+                })
+                    .slice((page - 1) * pageSize, pageSize * page),
+                totalProducts: products.length,
+            });
+        });
     }
     getBookmarks(request, response, page, productPerPage, userId) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -10759,7 +11039,7 @@ let ProductService = ProductService_1 = class ProductService {
             const currency = request['currency'];
             const products = user.bookmarks
                 .slice((page - 1) * productPerPage, productPerPage * page)
-                .map(product => {
+                .map((product) => {
                 return {
                     id: product.id,
                     title: product.getTitle(),
@@ -10790,7 +11070,7 @@ let ProductService = ProductService_1 = class ProductService {
                             createdAt: review.createdAt,
                             updatedAt: review.updatedAt,
                         };
-                    })
+                    }),
                 };
             });
             return response.json({
@@ -10808,7 +11088,7 @@ let ProductService = ProductService_1 = class ProductService {
             const currency = request['currency'];
             const products = user.watched
                 .slice((page - 1) * productPerPage, productPerPage * page)
-                .map(product => {
+                .map((product) => {
                 return {
                     id: product.id,
                     title: product.getTitle(),
@@ -10839,7 +11119,7 @@ let ProductService = ProductService_1 = class ProductService {
                             createdAt: review.createdAt,
                             updatedAt: review.updatedAt,
                         };
-                    })
+                    }),
                 };
             });
             return response.json({
@@ -10865,14 +11145,14 @@ let ProductService = ProductService_1 = class ProductService {
                     'sizes',
                     'categories',
                     'images',
-                    'sizeChartImage'
+                    'sizeChartImage',
                 ],
                 where: {
                     id: productIds,
-                }
+                },
             });
             const currency = request['currency'];
-            const returnedProducts = products.map(product => {
+            const returnedProducts = products.map((product) => {
                 return {
                     id: product.id,
                     title: product.getTitle(),
@@ -10903,7 +11183,7 @@ let ProductService = ProductService_1 = class ProductService {
                             createdAt: review.createdAt,
                             updatedAt: review.updatedAt,
                         };
-                    })
+                    }),
                 };
             });
             return response.json({
@@ -10931,11 +11211,11 @@ let ProductService = ProductService_1 = class ProductService {
                         'sizes',
                         'categories',
                         'images',
-                        'sizeChartImage'
-                    ]
+                        'sizeChartImage',
+                    ],
                 });
                 const currency = request['currency'];
-                const returnedProducts = products.map(product => {
+                const returnedProducts = products.map((product) => {
                     return {
                         id: product.id,
                         title: product.getTitle(),
@@ -10966,7 +11246,7 @@ let ProductService = ProductService_1 = class ProductService {
                                 createdAt: review.createdAt,
                                 updatedAt: review.updatedAt,
                             };
-                        })
+                        }),
                     };
                 });
                 return response.json({
@@ -10995,7 +11275,7 @@ let ProductService = ProductService_1 = class ProductService {
                     'colours',
                     'sizes',
                     'images',
-                    'sizeChartImage'
+                    'sizeChartImage',
                 ],
             });
             if (!product) {
@@ -11032,7 +11312,7 @@ let ProductService = ProductService_1 = class ProductService {
                         createdAt: review.createdAt,
                         updatedAt: review.updatedAt,
                     };
-                })
+                }),
             });
         });
     }
@@ -11068,19 +11348,20 @@ let ProductService = ProductService_1 = class ProductService {
                 }
                 if (queryFilterDto.colours && queryFilterDto.colours.length > 0) {
                     products = products.filter((product) => {
-                        if (product.colours.some((colour) => queryFilterDto.colours.includes(colour))) {
+                        if (product.colours.some((colour) => queryFilterDto.colours.includes(colour.id))) {
                             return product;
                         }
                     });
                 }
                 const currency = request['currency'];
                 return response.json({
-                    products: products.map((product) => {
+                    products: products
+                        .map((product) => {
                         return {
                             id: product.id,
                             title: product.getTitle(),
                             description: product.getDescription(),
-                            price: product.price * currency.rate + currency.symbol,
+                            price: Math.round(product.price * currency.rate) + currency.symbol,
                             quantity: product.quantity,
                             images: product.images,
                             sizeChartImage: product.sizeChartImage,
@@ -11106,9 +11387,10 @@ let ProductService = ProductService_1 = class ProductService {
                                     createdAt: review.createdAt,
                                     updatedAt: review.updatedAt,
                                 };
-                            })
+                            }),
                         };
-                    }).slice((queryFilterDto.page - 1) * queryFilterDto.pageSize, queryFilterDto.pageSize * queryFilterDto.page),
+                    })
+                        .slice((queryFilterDto.page - 1) * queryFilterDto.pageSize, queryFilterDto.pageSize * queryFilterDto.page),
                     totalProducts: products.length,
                 });
             }
@@ -11160,19 +11442,24 @@ let ProductService = ProductService_1 = class ProductService {
                 if (!type && !userId) {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.UNAUTHORIZED, 'Unathorized!', product_constants_1.NOT_AUTHORIZED);
                 }
-                if (!images || images.length === 0 || !sizeChartImage || sizeChartImage.length === 0) {
+                if (!images ||
+                    images.length === 0 ||
+                    !sizeChartImage ||
+                    sizeChartImage.length === 0) {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', product_constants_1.NO_IMAGES_PROVIDED);
                 }
                 const imagesPaths = images.map((image) => {
-                    return '/' + image
-                        .path.split('\\')
-                        .slice(image.path.split('\\')
-                        .indexOf('products'))
-                        .join('/');
+                    return ('/' +
+                        image.path
+                            .split('\\')
+                            .slice(image.path.split('\\').indexOf('products'))
+                            .join('/'));
                 });
-                const sizeChartImagePath = '/' + sizeChartImage[0].path
-                    .split('\\').slice(sizeChartImage[0]
-                    .path.split('\\').indexOf('products')).join('/');
+                const sizeChartImagePath = '/' +
+                    sizeChartImage[0].path
+                        .split('\\')
+                        .slice(sizeChartImage[0].path.split('\\').indexOf('products'))
+                        .join('/');
                 const product = yield this.productRepository.create(Object.assign(Object.assign({}, createProductDto), { title: JSON.stringify(createProductDto.title), description: JSON.stringify(createProductDto.description), images: imagesPaths, sizeChartImage: sizeChartImagePath }));
                 for (const category of createProductDto.categories) {
                     const productCategory = yield this.categoriesService.getCategoryById(Number(category));
@@ -11185,6 +11472,23 @@ let ProductService = ProductService_1 = class ProductService {
                     }
                     yield product.save();
                 }
+                for (const colour of createProductDto.categories) {
+                    const productColour = yield this.coloursService.getColourById(Number(colour));
+                    if (!product.colours) {
+                        product.$set('colours', productColour.id);
+                        product.colours = [productColour];
+                    }
+                    else {
+                        product.$add('colours', productColour.id);
+                    }
+                    if (!product.hexes) {
+                        product.hexes = [productColour.hex];
+                    }
+                    else {
+                        product.hexes.push(productColour.hex);
+                    }
+                    yield product.save();
+                }
                 if (type && type === 'OWNER') {
                     setTimeout(() => __awaiter(this, void 0, void 0, function* () {
                         const owner = yield this.ownerService.getOwnerById(userId);
@@ -11193,10 +11497,7 @@ let ProductService = ProductService_1 = class ProductService {
                         product.owner = owner;
                         owner.$add('products', product.id);
                         owner.addProduct(product);
-                        yield Promise.all([
-                            yield product.save(),
-                            yield owner.save(),
-                        ]);
+                        yield Promise.all([yield product.save(), yield owner.save()]);
                     }), 0);
                 }
                 if (type && type === 'ADMIN') {
@@ -11207,10 +11508,7 @@ let ProductService = ProductService_1 = class ProductService {
                         product.admin = admin;
                         admin.$add('products', product.id);
                         admin.addProduct(product);
-                        yield Promise.all([
-                            yield product.save(),
-                            yield admin.save(),
-                        ]);
+                        yield Promise.all([yield product.save(), yield admin.save()]);
                     }), 0);
                 }
                 const dbProduct = yield this.findById(product.id);
@@ -11223,7 +11521,18 @@ let ProductService = ProductService_1 = class ProductService {
                     images: dbProduct.images,
                     sizeChartImage: dbProduct.sizeChartImage,
                     sizes: dbProduct.sizes,
-                    colours: dbProduct.colours,
+                    colours: dbProduct.colours.map((colour) => {
+                        return {
+                            id: colour.id,
+                            ua: colour.ua,
+                            en: colour.en,
+                            rs: colour.rs,
+                            ru: colour.ru,
+                            hex: colour.hex,
+                            createdAt: colour.createdAt,
+                            updatedAt: colour.updatedAt,
+                        };
+                    }),
                     categories: dbProduct.categories.map((category) => {
                         return {
                             id: category.id,
@@ -11262,7 +11571,7 @@ let ProductService = ProductService_1 = class ProductService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const existingProduct = yield this.productRepository.findByPk(productId, {
-                    include: { all: true }
+                    include: { all: true },
                 });
                 if (!existingProduct) {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCT_NOT_FOUND);
@@ -11278,10 +11587,7 @@ let ProductService = ProductService_1 = class ProductService {
                         existingProduct.admin = admin;
                         admin.$add('products', existingProduct.id);
                         admin.addProduct(existingProduct);
-                        yield Promise.all([
-                            yield existingProduct.save(),
-                            yield admin.save(),
-                        ]);
+                        yield Promise.all([yield existingProduct.save(), yield admin.save()]);
                     }), 0);
                 }
                 existingProduct.setTitle(updateProductDto.title);
@@ -11289,7 +11595,7 @@ let ProductService = ProductService_1 = class ProductService {
                 existingProduct.quantity = updateProductDto.quantity;
                 existingProduct.price = updateProductDto.price;
                 existingProduct.sizes = [...updateProductDto.sizes];
-                existingProduct.colours = [...updateProductDto.colours];
+                existingProduct.sizes = [];
                 for (const category of existingProduct.categories) {
                     existingProduct.$remove('categories', category.id);
                     yield existingProduct.save();
@@ -11305,6 +11611,27 @@ let ProductService = ProductService_1 = class ProductService {
                     }
                     yield existingProduct.save();
                 }
+                for (const colour of existingProduct.colours) {
+                    existingProduct.$remove('colours', colour.id);
+                    yield existingProduct.save();
+                }
+                for (const colour of existingProduct.colours) {
+                    const productColour = yield this.coloursService.getColourById(Number(colour));
+                    if (existingProduct.colours.length === 0) {
+                        existingProduct.$set('colours', productColour.id);
+                        existingProduct.colours = [productColour];
+                    }
+                    else {
+                        existingProduct.$add('colours', productColour.id);
+                    }
+                    if (existingProduct.hexes.length === 0) {
+                        existingProduct.hexes = [productColour.hex];
+                    }
+                    else {
+                        existingProduct.hexes.push(productColour.hex);
+                    }
+                    yield existingProduct.save();
+                }
                 if (images && images.length > 0) {
                     for (const image of existingProduct.images) {
                         const file = (0, path_1.join)(__dirname, 'static' + image);
@@ -11315,16 +11642,20 @@ let ProductService = ProductService_1 = class ProductService {
                         });
                     }
                     const imagesPaths = images.map((image) => {
-                        return '/' + image.path.split('\\')
-                            .slice(image.path.split('\\')
-                            .indexOf('products')).join('/');
+                        return ('/' +
+                            image.path
+                                .split('\\')
+                                .slice(image.path.split('\\').indexOf('products'))
+                                .join('/'));
                     });
                     existingProduct.images = [...imagesPaths];
                 }
                 if (sizeChartImage && sizeChartImage.length > 0) {
-                    const sizeChartImagePath = '/' + sizeChartImage[0].path
-                        .split('\\').slice(sizeChartImage[0].path
-                        .split('\\').indexOf('products')).join('/');
+                    const sizeChartImagePath = '/' +
+                        sizeChartImage[0].path
+                            .split('\\')
+                            .slice(sizeChartImage[0].path.split('\\').indexOf('products'))
+                            .join('/');
                     const file = (0, path_1.join)(__dirname, 'static' + existingProduct.sizeChartImage);
                     if ((0, fs_1.existsSync)(file)) {
                         (0, fs_1.unlink)(file, (err) => {
@@ -11346,7 +11677,18 @@ let ProductService = ProductService_1 = class ProductService {
                     images: dbProduct === null || dbProduct === void 0 ? void 0 : dbProduct.images,
                     sizeChartImage: dbProduct === null || dbProduct === void 0 ? void 0 : dbProduct.sizeChartImage,
                     sizes: dbProduct === null || dbProduct === void 0 ? void 0 : dbProduct.sizes,
-                    colours: dbProduct === null || dbProduct === void 0 ? void 0 : dbProduct.colours,
+                    colours: dbProduct.colours.map((colour) => {
+                        return {
+                            id: colour.id,
+                            ua: colour.ua,
+                            en: colour.en,
+                            rs: colour.rs,
+                            ru: colour.ru,
+                            hex: colour.hex,
+                            createdAt: colour.createdAt,
+                            updatedAt: colour.updatedAt,
+                        };
+                    }),
                     categories: (_a = dbProduct === null || dbProduct === void 0 ? void 0 : dbProduct.categories) === null || _a === void 0 ? void 0 : _a.map((category) => {
                         return {
                             id: category.id,
@@ -11384,7 +11726,7 @@ let ProductService = ProductService_1 = class ProductService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const existingProduct = yield this.productRepository.findByPk(productId, {
-                    include: { all: true }
+                    include: { all: true },
                 });
                 if (!existingProduct) {
                     throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCTS_NOT_FOUND);
@@ -11403,12 +11745,15 @@ let ProductService = ProductService_1 = class ProductService {
                         this.Logger.error(err.message);
                     }
                 });
-                const folderPath = (0, path_1.join)(__dirname, 'static', ...existingProduct.images[0].split('/')
+                const folderPath = (0, path_1.join)(__dirname, 'static', ...existingProduct.images[0]
+                    .split('/')
                     .slice(0, existingProduct.images[0].split('/').length - 2));
-                const imagesFolder = (0, path_1.join)(__dirname, 'static', ...existingProduct.images[0].split('/')
+                const imagesFolder = (0, path_1.join)(__dirname, 'static', ...existingProduct.images[0]
+                    .split('/')
                     .slice(0, existingProduct.images[0].split('/').length - 1));
                 const sizeChartImageFolder = (0, path_1.join)(__dirname, 'static', ...existingProduct.sizeChartImage
-                    .split('/').slice(0, existingProduct.sizeChartImage.split('/').length - 1));
+                    .split('/')
+                    .slice(0, existingProduct.sizeChartImage.split('/').length - 1));
                 if ((0, fs_1.readdirSync)(imagesFolder).length === 0 &&
                     (0, fs_1.readdirSync)(sizeChartImageFolder).length === 0) {
                     (0, fs_1.rmSync)(folderPath, { recursive: true, force: true });
@@ -11445,7 +11790,9 @@ let ProductService = ProductService_1 = class ProductService {
                 });
                 const [productsImages, sizeChartImageProducts] = yield Promise.all([
                     yield this.productRepository.findAll({ where: { images: [filePath] } }),
-                    yield this.productRepository.findAll({ where: { sizeChartImage: filePath } }),
+                    yield this.productRepository.findAll({
+                        where: { sizeChartImage: filePath },
+                    }),
                 ]);
                 if ((productsImages === null || productsImages === void 0 ? void 0 : productsImages.length) !== 0) {
                     for (const product of productsImages) {
@@ -11482,13 +11829,13 @@ let ProductService = ProductService_1 = class ProductService {
 ProductService = ProductService_1 = __decorate([
     (0, common_1.Injectable)({ scope: common_1.Scope.TRANSIENT }),
     __param(0, (0, sequelize_1.InjectModel)(product_model_1.Product)),
-    __metadata("design:paramtypes", [Object, typeof (_a = typeof users_service_1.UsersService !== "undefined" && users_service_1.UsersService) === "function" ? _a : Object, typeof (_b = typeof owner_service_1.OwnerService !== "undefined" && owner_service_1.OwnerService) === "function" ? _b : Object, typeof (_c = typeof admin_service_1.AdminService !== "undefined" && admin_service_1.AdminService) === "function" ? _c : Object, typeof (_d = typeof categories_service_1.CategoriesService !== "undefined" && categories_service_1.CategoriesService) === "function" ? _d : Object])
+    __metadata("design:paramtypes", [Object, typeof (_a = typeof users_service_1.UsersService !== "undefined" && users_service_1.UsersService) === "function" ? _a : Object, typeof (_b = typeof owner_service_1.OwnerService !== "undefined" && owner_service_1.OwnerService) === "function" ? _b : Object, typeof (_c = typeof admin_service_1.AdminService !== "undefined" && admin_service_1.AdminService) === "function" ? _c : Object, typeof (_d = typeof categories_service_1.CategoriesService !== "undefined" && categories_service_1.CategoriesService) === "function" ? _d : Object, typeof (_e = typeof colours_service_1.ColoursService !== "undefined" && colours_service_1.ColoursService) === "function" ? _e : Object])
 ], ProductService);
 exports.ProductService = ProductService;
 
 
 /***/ }),
-/* 128 */
+/* 130 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -11499,36 +11846,36 @@ exports.PRODUCTS_NOT_FOUND = {
     en: `Products not found!`,
     ua: 'Товарів не знайдено!',
     ru: 'Товар не найден!',
-    rs: 'Производи нису пронађени!'
+    rs: 'Производи нису пронађени!',
 };
 exports.PRODUCT_NOT_FOUND = {
     en: 'Product not found!',
     ua: 'Товар не знайдено!',
     ru: 'Товар не найден!',
-    rs: 'Производ није пронађен!'
+    rs: 'Производ није пронађен!',
 };
 exports.NO_IMAGES_PROVIDED = {
     en: 'No images provided!',
     ua: 'Немає зображень!',
     ru: 'Изображения не предоставлены!',
-    rs: 'Слике нису обезбеђене!'
+    rs: 'Слике нису обезбеђене!',
 };
 exports.NOT_AUTHORIZED = {
     en: 'User is not authorized to create product!',
     ua: 'Користувач не авторизований для створення товару!',
     ru: 'Пользователь не авторизован для создания товара!',
-    rs: 'Корисник није овлашћен да креира производ!'
+    rs: 'Корисник није овлашћен да креира производ!',
 };
 exports.FILE_NOT_FOUND = {
     en: 'File not found! Invalid path.',
     ua: 'Файл не знайдено! Недійсний шлях.',
     ru: 'Файл не найден! Неверный путь.',
-    rs: 'Фајл није пронађен! Неважећи пут.'
+    rs: 'Фајл није пронађен! Неважећи пут.',
 };
 
 
 /***/ }),
-/* 129 */
+/* 131 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -11557,10 +11904,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CategoriesService = void 0;
 const common_1 = __webpack_require__(7);
-const interfaces_1 = __webpack_require__(130);
+const interfaces_1 = __webpack_require__(132);
 const sequelize_1 = __webpack_require__(8);
-const api_exception_1 = __webpack_require__(50);
-const category_constants_1 = __webpack_require__(131);
+const api_exception_1 = __webpack_require__(52);
+const category_colour_constants_1 = __webpack_require__(133);
 const category_model_1 = __webpack_require__(41);
 let CategoriesService = class CategoriesService {
     constructor(categoryRepository) {
@@ -11568,20 +11915,24 @@ let CategoriesService = class CategoriesService {
     }
     getCategoryByValue(value) {
         return __awaiter(this, void 0, void 0, function* () {
-            const category = yield this.categoryRepository.findOne({ where: { ua: value } });
+            const category = yield this.categoryRepository.findOne({
+                where: { ua: value },
+            });
             if (!category) {
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_constants_1.NOT_FOUND);
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_colour_constants_1.NOT_FOUND_CATEGORY);
             }
             return category;
         });
     }
     getCategoriesByIds(categoryIds) {
         return __awaiter(this, void 0, void 0, function* () {
-            const category = yield this.categoryRepository.findAll({ where: {
+            const category = yield this.categoryRepository.findAll({
+                where: {
                     id: categoryIds,
-                } });
+                },
+            });
             if (category.length === 0 || !category) {
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_constants_1.NOT_FOUND);
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_colour_constants_1.NOT_FOUND_CATEGORY);
             }
             return category;
         });
@@ -11590,7 +11941,7 @@ let CategoriesService = class CategoriesService {
         return __awaiter(this, void 0, void 0, function* () {
             const category = yield this.categoryRepository.findByPk(categoryId);
             if (!category) {
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_constants_1.NOT_FOUND);
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_colour_constants_1.NOT_FOUND_CATEGORY);
             }
             return category;
         });
@@ -11622,7 +11973,7 @@ let CategoriesService = class CategoriesService {
                 },
             });
             if (isExist) {
-                throw new api_exception_1.ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', category_constants_1.ALREADY_EXIST);
+                throw new api_exception_1.ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', category_colour_constants_1.ALREADY_EXIST_CATEGORY);
             }
             const category = yield this.categoryRepository.create(Object.assign({}, categoryDto));
             return {
@@ -11640,7 +11991,7 @@ let CategoriesService = class CategoriesService {
         return __awaiter(this, void 0, void 0, function* () {
             const isExist = yield this.categoryRepository.findByPk(categoryId);
             if (!isExist) {
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_constants_1.NOT_FOUND);
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_colour_constants_1.NOT_FOUND_CATEGORY);
             }
             const deleted = yield this.categoryRepository.destroy({
                 where: {
@@ -11658,7 +12009,7 @@ let CategoriesService = class CategoriesService {
         return __awaiter(this, void 0, void 0, function* () {
             const isExist = yield this.categoryRepository.findByPk(categoryId);
             if (!isExist) {
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_constants_1.NOT_FOUND);
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_colour_constants_1.NOT_FOUND_CATEGORY);
             }
             isExist.ua = updateDto.ua;
             isExist.ru = updateDto.ru;
@@ -11672,7 +12023,7 @@ let CategoriesService = class CategoriesService {
                     en: isExist.en,
                     rs: isExist.rs,
                     ru: isExist.ru,
-                }
+                },
             });
             return {
                 id: category.id,
@@ -11695,27 +12046,39 @@ exports.CategoriesService = CategoriesService;
 
 
 /***/ }),
-/* 130 */
+/* 132 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/common/interfaces");
 
 /***/ }),
-/* 131 */
+/* 133 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.ALREADY_EXIST = exports.NOT_FOUND = void 0;
-exports.NOT_FOUND = {
+exports.ALREADY_EXIST_COLOUR = exports.NOT_FOUND_COLOUR = exports.ALREADY_EXIST_CATEGORY = exports.NOT_FOUND_CATEGORY = void 0;
+exports.NOT_FOUND_CATEGORY = {
     ua: 'Категорію не знайдено!',
     en: 'Category not found!',
     ru: 'Категория не найдена!',
     rs: 'Категорија није пронађена!',
 };
-exports.ALREADY_EXIST = {
+exports.ALREADY_EXIST_CATEGORY = {
+    ua: 'Категорія вже існує!',
+    en: 'Category already exist!',
+    ru: 'Категория уже существует!',
+    rs: 'Категорија већ постоји!',
+};
+exports.NOT_FOUND_COLOUR = {
+    ua: 'Категорію не знайдено!',
+    en: 'Category not found!',
+    ru: 'Категория не найдена!',
+    rs: 'Категорија није пронађена!',
+};
+exports.ALREADY_EXIST_COLOUR = {
     ua: 'Категорія вже існує!',
     en: 'Category already exist!',
     ru: 'Категория уже существует!',
@@ -11724,7 +12087,184 @@ exports.ALREADY_EXIST = {
 
 
 /***/ }),
-/* 132 */
+/* 134 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ColoursService = void 0;
+const common_1 = __webpack_require__(7);
+const interfaces_1 = __webpack_require__(132);
+const sequelize_1 = __webpack_require__(8);
+const api_exception_1 = __webpack_require__(52);
+const category_colour_constants_1 = __webpack_require__(133);
+const colours_model_1 = __webpack_require__(45);
+let ColoursService = class ColoursService {
+    constructor(colourRepository) {
+        this.colourRepository = colourRepository;
+    }
+    getColourByValue(value) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const colour = yield this.colourRepository.findOne({
+                where: { ua: value },
+            });
+            if (!colour) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_colour_constants_1.NOT_FOUND_COLOUR);
+            }
+            return colour;
+        });
+    }
+    getColoursByIds(colourIds) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const colour = yield this.colourRepository.findAll({
+                where: {
+                    id: colourIds,
+                },
+            });
+            if (colour.length === 0 || !colour) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_colour_constants_1.NOT_FOUND_COLOUR);
+            }
+            return colour;
+        });
+    }
+    getColourById(colourId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const colour = yield this.colourRepository.findByPk(colourId);
+            if (!colour) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_colour_constants_1.NOT_FOUND_COLOUR);
+            }
+            return colour;
+        });
+    }
+    getColours() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const categories = yield this.colourRepository.findAll();
+            return categories.map((colour) => {
+                return {
+                    id: colour.id,
+                    ua: colour.ua,
+                    en: colour.en,
+                    rs: colour.rs,
+                    ru: colour.ru,
+                    hex: colour.hex,
+                    createdAt: colour.createdAt,
+                    updatedAt: colour.updatedAt,
+                };
+            });
+        });
+    }
+    createColour(colourDto) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const isExist = yield this.colourRepository.findOne({
+                where: {
+                    ua: colourDto.ua,
+                    en: colourDto.en,
+                    rs: colourDto.rs,
+                    ru: colourDto.ru,
+                    hex: colourDto.hex,
+                },
+            });
+            if (isExist) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.BAD_REQUEST, 'Bad request', category_colour_constants_1.ALREADY_EXIST_COLOUR);
+            }
+            const colour = yield this.colourRepository.create(Object.assign({}, colourDto));
+            return {
+                id: colour.id,
+                ua: colour.ua,
+                en: colour.en,
+                rs: colour.rs,
+                ru: colour.ru,
+                hex: colour.hex,
+                createdAt: colour.createdAt,
+                updatedAt: colour.updatedAt,
+            };
+        });
+    }
+    deleteColour(colourId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const isExist = yield this.colourRepository.findByPk(colourId);
+            if (!isExist) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_colour_constants_1.NOT_FOUND_COLOUR);
+            }
+            const deleted = yield this.colourRepository.destroy({
+                where: {
+                    id: isExist.id,
+                    ua: isExist.ua,
+                    en: isExist.en,
+                    rs: isExist.rs,
+                    ru: isExist.ru,
+                    hex: isExist.hex,
+                },
+            });
+            return deleted;
+        });
+    }
+    updateColour(colourId, updateDto) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const isExist = yield this.colourRepository.findByPk(colourId);
+            if (!isExist) {
+                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', category_colour_constants_1.NOT_FOUND_COLOUR);
+            }
+            isExist.ua = updateDto.ua;
+            isExist.ru = updateDto.ru;
+            isExist.rs = updateDto.rs;
+            isExist.en = updateDto.en;
+            isExist.hex = updateDto.hex;
+            yield isExist.save();
+            const colour = yield this.colourRepository.findOne({
+                where: {
+                    id: isExist.id,
+                    ua: isExist.ua,
+                    en: isExist.en,
+                    rs: isExist.rs,
+                    ru: isExist.ru,
+                },
+            });
+            return {
+                id: colour.id,
+                ua: colour.ua,
+                en: colour.en,
+                rs: colour.rs,
+                ru: colour.ru,
+                hex: colour.hex,
+                createdAt: colour.createdAt,
+                updatedAt: colour.updatedAt,
+            };
+        });
+    }
+};
+ColoursService = __decorate([
+    (0, common_1.Injectable)({ scope: interfaces_1.Scope.REQUEST }),
+    __param(0, (0, sequelize_1.InjectModel)(colours_model_1.Colour)),
+    __metadata("design:paramtypes", [Object])
+], ColoursService);
+exports.ColoursService = ColoursService;
+
+
+/***/ }),
+/* 135 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -11778,30 +12318,30 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductController = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
-const platform_express_1 = __webpack_require__(133);
-const throttler_behind_proxy_guard_1 = __webpack_require__(76);
-const error_handler_filter_1 = __webpack_require__(83);
-const create_product_dto_1 = __webpack_require__(134);
-const throttler_1 = __webpack_require__(77);
-const product_service_1 = __webpack_require__(127);
-const roles_auth_decorator_1 = __webpack_require__(78);
-const add_content_guard_1 = __webpack_require__(101);
-const jw_refresh_guard_1 = __webpack_require__(81);
+const platform_express_1 = __webpack_require__(136);
+const throttler_behind_proxy_guard_1 = __webpack_require__(78);
+const error_handler_filter_1 = __webpack_require__(85);
+const create_product_dto_1 = __webpack_require__(137);
+const throttler_1 = __webpack_require__(79);
+const product_service_1 = __webpack_require__(129);
+const roles_auth_decorator_1 = __webpack_require__(80);
+const add_content_guard_1 = __webpack_require__(103);
+const jw_refresh_guard_1 = __webpack_require__(83);
 const jwt_auth_guard_1 = __webpack_require__(11);
-const owner_admin_guard_1 = __webpack_require__(80);
-const roles_guard_1 = __webpack_require__(79);
-const multer_1 = __webpack_require__(135);
-const path_1 = __importStar(__webpack_require__(113));
-const update_product_dto_1 = __webpack_require__(136);
-const user_type_decorator_1 = __webpack_require__(91);
-const user_id_decorator_1 = __webpack_require__(95);
-const api_exception_filter_1 = __webpack_require__(85);
-const fs_1 = __webpack_require__(112);
-const uuid_1 = __webpack_require__(58);
-const edit_content_guard_1 = __webpack_require__(137);
-const formdata_pipe_1 = __webpack_require__(138);
-const user_guard_1 = __webpack_require__(122);
-const query_filter_dto_1 = __webpack_require__(141);
+const owner_admin_guard_1 = __webpack_require__(82);
+const roles_guard_1 = __webpack_require__(81);
+const multer_1 = __webpack_require__(138);
+const path_1 = __importStar(__webpack_require__(115));
+const update_product_dto_1 = __webpack_require__(139);
+const user_type_decorator_1 = __webpack_require__(93);
+const user_id_decorator_1 = __webpack_require__(97);
+const api_exception_filter_1 = __webpack_require__(87);
+const fs_1 = __webpack_require__(114);
+const uuid_1 = __webpack_require__(60);
+const edit_content_guard_1 = __webpack_require__(140);
+const formdata_pipe_1 = __webpack_require__(141);
+const user_guard_1 = __webpack_require__(124);
+const query_filter_dto_1 = __webpack_require__(144);
 let ProductController = class ProductController {
     constructor(productService) {
         this.productService = productService;
@@ -12060,7 +12600,7 @@ __decorate([
                 const randomName = (0, uuid_1.v4)();
                 callback(null, `${randomName}--${(_b = JSON.parse(req.body.title)) === null || _b === void 0 ? void 0 : _b.en.split(' ').join('_')}--${name}${ext}`);
             },
-        })
+        }),
     })),
     __param(0, (0, common_1.Body)(new formdata_pipe_1.ParseFormDataJsonPipe({ except: ['images', 'sizeChartImage'] }))),
     __param(1, (0, common_1.UploadedFiles)()),
@@ -12118,7 +12658,7 @@ __decorate([
                 const randomName = (0, uuid_1.v4)();
                 callback(null, `${randomName}--${(_b = JSON.parse(req.body.title)) === null || _b === void 0 ? void 0 : _b.en.split(' ').join('_')}--${name}${ext}`);
             },
-        })
+        }),
     })),
     __param(0, (0, common_1.Body)(new formdata_pipe_1.ParseFormDataJsonPipe({ except: ['images', 'sizeChartImage'] }))),
     __param(1, (0, common_1.Param)('productId', common_1.ParseIntPipe)),
@@ -12162,14 +12702,14 @@ exports.ProductController = ProductController;
 
 
 /***/ }),
-/* 133 */
+/* 136 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/platform-express");
 
 /***/ }),
-/* 134 */
+/* 137 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12257,14 +12797,14 @@ exports.CreateProductDto = CreateProductDto;
 
 
 /***/ }),
-/* 135 */
+/* 138 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("multer");
 
 /***/ }),
-/* 136 */
+/* 139 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12352,7 +12892,7 @@ exports.UpdateProductDto = UpdateProductDto;
 
 
 /***/ }),
-/* 137 */
+/* 140 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12380,8 +12920,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.EditContentGuard = void 0;
 const common_1 = __webpack_require__(7);
 const auth_constants_1 = __webpack_require__(12);
-const admin_service_1 = __webpack_require__(56);
-const api_exception_1 = __webpack_require__(50);
+const admin_service_1 = __webpack_require__(58);
+const api_exception_1 = __webpack_require__(52);
 let EditContentGuard = class EditContentGuard {
     constructor(adminService) {
         this.adminService = adminService;
@@ -12416,7 +12956,7 @@ exports.EditContentGuard = EditContentGuard;
 
 
 /***/ }),
-/* 138 */
+/* 141 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12446,8 +12986,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ParseFormDataJsonPipe = void 0;
-const deep_parse_json_1 = __webpack_require__(139);
-const _ = __importStar(__webpack_require__(140));
+const deep_parse_json_1 = __webpack_require__(142);
+const _ = __importStar(__webpack_require__(143));
 class ParseFormDataJsonPipe {
     constructor(options) {
         this.options = options;
@@ -12460,7 +13000,7 @@ class ParseFormDataJsonPipe {
             _.merge(originProperties, _.pick(serializedValue, ...except));
         }
         const deserializedValue = (0, deep_parse_json_1.deepParseJson)(value);
-        console.log(`deserializedValue`, deserializedValue);
+        console.log(`deserializedValue`, deserializedValue, _metadata);
         return Object.assign(Object.assign({}, deserializedValue), originProperties);
     }
 }
@@ -12468,21 +13008,21 @@ exports.ParseFormDataJsonPipe = ParseFormDataJsonPipe;
 
 
 /***/ }),
-/* 139 */
+/* 142 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("deep-parse-json");
 
 /***/ }),
-/* 140 */
+/* 143 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("lodash");
 
 /***/ }),
-/* 141 */
+/* 144 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12531,7 +13071,6 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_transformer_1.Type)(() => Array),
-    (0, class_validator_1.IsString)({ each: true }),
     __metadata("design:type", Array)
 ], QueryFilterDto.prototype, "colours", void 0);
 __decorate([
@@ -12543,7 +13082,7 @@ exports.QueryFilterDto = QueryFilterDto;
 
 
 /***/ }),
-/* 142 */
+/* 145 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12555,41 +13094,45 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.CategoriesModule = void 0;
+exports.CategoriesColoursModule = void 0;
 const common_1 = __webpack_require__(7);
-const categories_service_1 = __webpack_require__(129);
-const categories_controller_1 = __webpack_require__(143);
-const config_1 = __webpack_require__(103);
+const categories_service_1 = __webpack_require__(131);
+const categories_controller_1 = __webpack_require__(146);
+const config_1 = __webpack_require__(105);
 const sequelize_1 = __webpack_require__(8);
 const admin_module_1 = __webpack_require__(9);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(47);
-const auth_module_1 = __webpack_require__(86);
+const admin_refresh_token_model_1 = __webpack_require__(49);
+const auth_module_1 = __webpack_require__(88);
 const owner_model_1 = __webpack_require__(31);
-const owner_refresh_token_model_1 = __webpack_require__(45);
-const owner_module_1 = __webpack_require__(98);
+const owner_refresh_token_model_1 = __webpack_require__(47);
+const owner_module_1 = __webpack_require__(100);
 const product_model_1 = __webpack_require__(32);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(99);
+const roles_module_1 = __webpack_require__(101);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const users_module_1 = __webpack_require__(118);
+const users_module_1 = __webpack_require__(120);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
-const product_module_1 = __webpack_require__(126);
-const initialize_user_middleware_1 = __webpack_require__(124);
-let CategoriesModule = class CategoriesModule {
+const product_module_1 = __webpack_require__(128);
+const initialize_user_middleware_1 = __webpack_require__(126);
+const colours_service_1 = __webpack_require__(134);
+const colours_controller_1 = __webpack_require__(148);
+const colours_model_1 = __webpack_require__(45);
+const product_colour_model_1 = __webpack_require__(46);
+let CategoriesColoursModule = class CategoriesColoursModule {
     configure(consumer) {
         consumer
             .apply(initialize_user_middleware_1.InitializeUserMiddleware)
-            .forRoutes({ path: 'categories/create_category', method: common_1.RequestMethod.PUT }, { path: 'categories/delete_category', method: common_1.RequestMethod.DELETE }, { path: '*', method: common_1.RequestMethod.PATCH });
+            .forRoutes({ path: 'categories/create_category', method: common_1.RequestMethod.PUT }, { path: 'categories/delete_category', method: common_1.RequestMethod.DELETE }, { path: 'categories/create_colour', method: common_1.RequestMethod.PUT }, { path: 'categories/delete_colour', method: common_1.RequestMethod.DELETE }, { path: '*', method: common_1.RequestMethod.PATCH });
     }
 };
-CategoriesModule = __decorate([
+CategoriesColoursModule = __decorate([
     (0, common_1.Module)({
-        providers: [categories_service_1.CategoriesService],
-        controllers: [categories_controller_1.CategoriesController],
+        providers: [categories_service_1.CategoriesService, colours_service_1.ColoursService],
+        controllers: [categories_controller_1.CategoriesController, colours_controller_1.ColoursController],
         imports: [
             config_1.ConfigModule.forRoot({
                 envFilePath: `.${process.env.NODE_ENV}.env`,
@@ -12608,6 +13151,8 @@ CategoriesModule = __decorate([
                 user_refresh_token_model_1.UserRefreshToken,
                 roles_model_1.Role,
                 user_roles_model_1.UserRoles,
+                colours_model_1.Colour,
+                product_colour_model_1.ProductColours,
             ]),
             (0, common_1.forwardRef)(() => product_module_1.ProductModule),
             (0, common_1.forwardRef)(() => admin_module_1.AdminModule),
@@ -12616,13 +13161,14 @@ CategoriesModule = __decorate([
             (0, common_1.forwardRef)(() => owner_module_1.OwnerModule),
             (0, common_1.forwardRef)(() => users_module_1.UsersModule),
         ],
+        exports: [categories_service_1.CategoriesService, colours_service_1.ColoursService],
     })
-], CategoriesModule);
-exports.CategoriesModule = CategoriesModule;
+], CategoriesColoursModule);
+exports.CategoriesColoursModule = CategoriesColoursModule;
 
 
 /***/ }),
-/* 143 */
+/* 146 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12644,19 +13190,19 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CategoriesController = void 0;
 const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
-const throttler_1 = __webpack_require__(77);
-const roles_auth_decorator_1 = __webpack_require__(78);
-const add_content_guard_1 = __webpack_require__(101);
-const jw_refresh_guard_1 = __webpack_require__(81);
+const throttler_1 = __webpack_require__(79);
+const roles_auth_decorator_1 = __webpack_require__(80);
+const add_content_guard_1 = __webpack_require__(103);
+const jw_refresh_guard_1 = __webpack_require__(83);
 const jwt_auth_guard_1 = __webpack_require__(11);
-const owner_admin_guard_1 = __webpack_require__(80);
-const roles_guard_1 = __webpack_require__(79);
-const throttler_behind_proxy_guard_1 = __webpack_require__(76);
-const error_handler_filter_1 = __webpack_require__(83);
-const categories_service_1 = __webpack_require__(129);
-const create_category_dto_1 = __webpack_require__(144);
+const owner_admin_guard_1 = __webpack_require__(82);
+const roles_guard_1 = __webpack_require__(81);
+const throttler_behind_proxy_guard_1 = __webpack_require__(78);
+const error_handler_filter_1 = __webpack_require__(85);
+const categories_service_1 = __webpack_require__(131);
+const create_category_dto_1 = __webpack_require__(147);
 const category_model_1 = __webpack_require__(41);
-const api_exception_filter_1 = __webpack_require__(85);
+const api_exception_filter_1 = __webpack_require__(87);
 let CategoriesController = class CategoriesController {
     constructor(categoriesService) {
         this.categoriesService = categoriesService;
@@ -12732,7 +13278,7 @@ exports.CategoriesController = CategoriesController;
 
 
 /***/ }),
-/* 144 */
+/* 147 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12783,7 +13329,175 @@ exports.CreateCategoryDto = CreateCategoryDto;
 
 
 /***/ }),
-/* 145 */
+/* 148 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var _a, _b, _c, _d, _e, _f, _g;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ColoursController = void 0;
+const common_1 = __webpack_require__(7);
+const swagger_1 = __webpack_require__(5);
+const throttler_1 = __webpack_require__(79);
+const roles_auth_decorator_1 = __webpack_require__(80);
+const add_content_guard_1 = __webpack_require__(103);
+const jw_refresh_guard_1 = __webpack_require__(83);
+const jwt_auth_guard_1 = __webpack_require__(11);
+const owner_admin_guard_1 = __webpack_require__(82);
+const roles_guard_1 = __webpack_require__(81);
+const throttler_behind_proxy_guard_1 = __webpack_require__(78);
+const error_handler_filter_1 = __webpack_require__(85);
+const create_colour_dto_1 = __webpack_require__(149);
+const colours_model_1 = __webpack_require__(45);
+const api_exception_filter_1 = __webpack_require__(87);
+const colours_service_1 = __webpack_require__(134);
+let ColoursController = class ColoursController {
+    constructor(coloursService) {
+        this.coloursService = coloursService;
+    }
+    getcolours() {
+        return this.coloursService.getColours();
+    }
+    createcolour(colourDto) {
+        return this.coloursService.createColour(colourDto);
+    }
+    updatecolour(colourId, colourDto) {
+        return this.coloursService.updateColour(colourId, colourDto);
+    }
+    deletecolour(colourId) {
+        return this.coloursService.deleteColour(colourId);
+    }
+};
+__decorate([
+    (0, throttler_1.Throttle)(700, 7000),
+    (0, common_1.CacheTTL)(200),
+    (0, common_1.Get)('get_categoties'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
+], ColoursController.prototype, "getcolours", null);
+__decorate([
+    (0, throttler_1.Throttle)(70, 700),
+    (0, swagger_1.ApiOperation)({ summary: 'Creating colours' }),
+    (0, swagger_1.ApiResponse)({ status: 201, type: colours_model_1.Colour }),
+    (0, common_1.HttpCode)(201),
+    (0, roles_auth_decorator_1.Roles)('OWNER', 'ADMIN'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, owner_admin_guard_1.OwnerAdminGuard, jw_refresh_guard_1.AuthFerfershGuard, add_content_guard_1.AddContentGuard),
+    (0, common_1.Put)('create_colour'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_c = typeof create_colour_dto_1.CreateColourDto !== "undefined" && create_colour_dto_1.CreateColourDto) === "function" ? _c : Object]),
+    __metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
+], ColoursController.prototype, "createcolour", null);
+__decorate([
+    (0, throttler_1.Throttle)(70, 700),
+    (0, swagger_1.ApiOperation)({ summary: 'Creating colours' }),
+    (0, swagger_1.ApiResponse)({ status: 201, type: colours_model_1.Colour }),
+    (0, common_1.HttpCode)(201),
+    (0, roles_auth_decorator_1.Roles)('OWNER', 'ADMIN'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, owner_admin_guard_1.OwnerAdminGuard, jw_refresh_guard_1.AuthFerfershGuard, add_content_guard_1.AddContentGuard),
+    (0, common_1.Patch)('update_colour/:colourId'),
+    __param(0, (0, common_1.Param)('colourId', common_1.ParseIntPipe)),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number, typeof (_e = typeof create_colour_dto_1.CreateColourDto !== "undefined" && create_colour_dto_1.CreateColourDto) === "function" ? _e : Object]),
+    __metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
+], ColoursController.prototype, "updatecolour", null);
+__decorate([
+    (0, throttler_1.Throttle)(70, 700),
+    (0, common_1.HttpCode)(200),
+    (0, roles_auth_decorator_1.Roles)('OWNER', 'ADMIN'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, owner_admin_guard_1.OwnerAdminGuard, jw_refresh_guard_1.AuthFerfershGuard, add_content_guard_1.AddContentGuard),
+    (0, common_1.Delete)('delete_colour/:colourId'),
+    __param(0, (0, common_1.Param)('colourId', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", typeof (_g = typeof Promise !== "undefined" && Promise) === "function" ? _g : Object)
+], ColoursController.prototype, "deletecolour", null);
+ColoursController = __decorate([
+    (0, common_1.UseGuards)(throttler_behind_proxy_guard_1.ThrottlerBehindProxyGuard),
+    (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
+    (0, common_1.UseInterceptors)(common_1.ClassSerializerInterceptor),
+    (0, common_1.UseInterceptors)(common_1.CacheInterceptor),
+    (0, common_1.Controller)('categories'),
+    __metadata("design:paramtypes", [typeof (_a = typeof colours_service_1.ColoursService !== "undefined" && colours_service_1.ColoursService) === "function" ? _a : Object])
+], ColoursController);
+exports.ColoursController = ColoursController;
+
+
+/***/ }),
+/* 149 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateColourDto = void 0;
+const class_validator_1 = __webpack_require__(18);
+class CreateColourDto {
+}
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(2),
+    (0, class_validator_1.MaxLength)(30),
+    (0, class_validator_1.Matches)(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/),
+    __metadata("design:type", String)
+], CreateColourDto.prototype, "ua", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(2),
+    (0, class_validator_1.MaxLength)(30),
+    (0, class_validator_1.Matches)(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/),
+    __metadata("design:type", String)
+], CreateColourDto.prototype, "ru", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(2),
+    (0, class_validator_1.MaxLength)(30),
+    (0, class_validator_1.Matches)(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/),
+    __metadata("design:type", String)
+], CreateColourDto.prototype, "rs", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(2),
+    (0, class_validator_1.MaxLength)(30),
+    (0, class_validator_1.Matches)(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/),
+    __metadata("design:type", String)
+], CreateColourDto.prototype, "en", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.MinLength)(2),
+    (0, class_validator_1.MaxLength)(30),
+    (0, class_validator_1.Matches)(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/),
+    __metadata("design:type", String)
+], CreateColourDto.prototype, "hex", void 0);
+exports.CreateColourDto = CreateColourDto;
+
+
+/***/ }),
+/* 150 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12797,31 +13511,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CartModule = void 0;
 const common_1 = __webpack_require__(7);
-const cart_service_1 = __webpack_require__(146);
-const cart_controller_1 = __webpack_require__(147);
-const config_1 = __webpack_require__(103);
+const cart_service_1 = __webpack_require__(151);
+const cart_controller_1 = __webpack_require__(152);
+const config_1 = __webpack_require__(105);
 const sequelize_1 = __webpack_require__(8);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(47);
+const admin_refresh_token_model_1 = __webpack_require__(49);
 const owner_model_1 = __webpack_require__(31);
-const owner_refresh_token_model_1 = __webpack_require__(45);
+const owner_refresh_token_model_1 = __webpack_require__(47);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(99);
+const roles_module_1 = __webpack_require__(101);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
 const cart_model_1 = __webpack_require__(34);
-const auth_module_1 = __webpack_require__(86);
-const product_module_1 = __webpack_require__(126);
-const users_module_1 = __webpack_require__(118);
+const auth_module_1 = __webpack_require__(88);
+const product_module_1 = __webpack_require__(128);
+const users_module_1 = __webpack_require__(120);
 const cart_product_model_1 = __webpack_require__(33);
-const categories_module_1 = __webpack_require__(142);
+const colours_model_1 = __webpack_require__(45);
+const product_colour_model_1 = __webpack_require__(46);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
 const product_model_1 = __webpack_require__(32);
-const orders_module_1 = __webpack_require__(148);
+const orders_module_1 = __webpack_require__(153);
+const categories_colours_module_1 = __webpack_require__(145);
 let CartModule = class CartModule {
 };
 CartModule = __decorate([
@@ -12851,10 +13567,12 @@ CartModule = __decorate([
                 user_roles_model_1.UserRoles,
                 cart_model_1.Cart,
                 cart_product_model_1.CartProduct,
+                colours_model_1.Colour,
+                product_colour_model_1.ProductColours,
             ]),
             (0, common_1.forwardRef)(() => product_module_1.ProductModule),
             (0, common_1.forwardRef)(() => orders_module_1.OrdersModule),
-            (0, common_1.forwardRef)(() => categories_module_1.CategoriesModule),
+            (0, common_1.forwardRef)(() => categories_colours_module_1.CategoriesColoursModule),
             (0, common_1.forwardRef)(() => roles_module_1.RolesModule),
             (0, common_1.forwardRef)(() => auth_module_1.AuthModule),
             (0, common_1.forwardRef)(() => users_module_1.UsersModule),
@@ -12865,7 +13583,7 @@ exports.CartModule = CartModule;
 
 
 /***/ }),
-/* 146 */
+/* 151 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12888,7 +13606,7 @@ exports.CardService = CardService;
 
 
 /***/ }),
-/* 147 */
+/* 152 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12902,8 +13620,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CardController = void 0;
 const common_1 = __webpack_require__(7);
-const api_exception_filter_1 = __webpack_require__(85);
-const error_handler_filter_1 = __webpack_require__(83);
+const api_exception_filter_1 = __webpack_require__(87);
+const error_handler_filter_1 = __webpack_require__(85);
 let CardController = class CardController {
 };
 CardController = __decorate([
@@ -12914,7 +13632,7 @@ exports.CardController = CardController;
 
 
 /***/ }),
-/* 148 */
+/* 153 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -12928,30 +13646,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OrdersModule = void 0;
 const common_1 = __webpack_require__(7);
-const orders_service_1 = __webpack_require__(149);
-const orders_controller_1 = __webpack_require__(150);
+const orders_service_1 = __webpack_require__(154);
+const orders_controller_1 = __webpack_require__(155);
 const sequelize_1 = __webpack_require__(8);
-const auth_module_1 = __webpack_require__(86);
+const auth_module_1 = __webpack_require__(88);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(99);
+const roles_module_1 = __webpack_require__(101);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const users_module_1 = __webpack_require__(118);
-const categories_module_1 = __webpack_require__(142);
-const config_1 = __webpack_require__(103);
+const users_module_1 = __webpack_require__(120);
+const config_1 = __webpack_require__(105);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(47);
-const cart_module_1 = __webpack_require__(145);
+const admin_refresh_token_model_1 = __webpack_require__(49);
+const cart_module_1 = __webpack_require__(150);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
 const owner_model_1 = __webpack_require__(31);
-const owner_refresh_token_model_1 = __webpack_require__(45);
+const owner_refresh_token_model_1 = __webpack_require__(47);
 const product_model_1 = __webpack_require__(32);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
+const categories_colours_module_1 = __webpack_require__(145);
 let OrdersModule = class OrdersModule {
 };
 OrdersModule = __decorate([
@@ -12983,7 +13701,7 @@ OrdersModule = __decorate([
                 cart_product_model_1.CartProduct,
             ]),
             (0, common_1.forwardRef)(() => cart_module_1.CartModule),
-            (0, common_1.forwardRef)(() => categories_module_1.CategoriesModule),
+            (0, common_1.forwardRef)(() => categories_colours_module_1.CategoriesColoursModule),
             (0, common_1.forwardRef)(() => roles_module_1.RolesModule),
             (0, common_1.forwardRef)(() => auth_module_1.AuthModule),
             (0, common_1.forwardRef)(() => users_module_1.UsersModule),
@@ -12994,7 +13712,7 @@ exports.OrdersModule = OrdersModule;
 
 
 /***/ }),
-/* 149 */
+/* 154 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13017,7 +13735,7 @@ exports.OrdersService = OrdersService;
 
 
 /***/ }),
-/* 150 */
+/* 155 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13031,8 +13749,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OrdersController = void 0;
 const common_1 = __webpack_require__(7);
-const api_exception_filter_1 = __webpack_require__(85);
-const error_handler_filter_1 = __webpack_require__(83);
+const api_exception_filter_1 = __webpack_require__(87);
+const error_handler_filter_1 = __webpack_require__(85);
 let OrdersController = class OrdersController {
 };
 OrdersController = __decorate([
@@ -13043,7 +13761,7 @@ exports.OrdersController = OrdersController;
 
 
 /***/ }),
-/* 151 */
+/* 156 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13096,7 +13814,7 @@ exports.ProductMiddleware = ProductMiddleware;
 
 
 /***/ }),
-/* 152 */
+/* 157 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13127,12 +13845,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.InitializeEmailMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
-const decorators_1 = __webpack_require__(88);
-const admin_service_1 = __webpack_require__(56);
-const owner_service_1 = __webpack_require__(57);
+const decorators_1 = __webpack_require__(90);
+const admin_service_1 = __webpack_require__(58);
+const owner_service_1 = __webpack_require__(59);
 const users_service_1 = __webpack_require__(24);
 const auth_constants_1 = __webpack_require__(12);
-const api_exception_1 = __webpack_require__(50);
+const api_exception_1 = __webpack_require__(52);
 let InitializeEmailMiddleware = class InitializeEmailMiddleware {
     constructor(ownerService, adminService, userService) {
         this.ownerService = ownerService;
@@ -13187,7 +13905,7 @@ exports.InitializeEmailMiddleware = InitializeEmailMiddleware;
 
 
 /***/ }),
-/* 153 */
+/* 158 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13222,7 +13940,7 @@ const express_1 = __webpack_require__(20);
 const auth_constants_1 = __webpack_require__(12);
 const admin_model_1 = __webpack_require__(28);
 const owner_model_1 = __webpack_require__(31);
-const api_exception_1 = __webpack_require__(50);
+const api_exception_1 = __webpack_require__(52);
 let ActivateMiddleware = class ActivateMiddleware {
     constructor(adminRepository, ownerRepository) {
         this.adminRepository = adminRepository;
@@ -13290,7 +14008,7 @@ exports.ActivateMiddleware = ActivateMiddleware;
 
 
 /***/ }),
-/* 154 */
+/* 159 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13308,9 +14026,9 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppListener = void 0;
 const common_1 = __webpack_require__(7);
-const interfaces_1 = __webpack_require__(130);
-const event_emitter_1 = __webpack_require__(67);
-const jwt_refresh_token_deleted_evet_1 = __webpack_require__(69);
+const interfaces_1 = __webpack_require__(132);
+const event_emitter_1 = __webpack_require__(69);
+const jwt_refresh_token_deleted_evet_1 = __webpack_require__(71);
 let AppListener = class AppListener {
     handleTokenDeletedEvent(event) {
         return event;
@@ -13329,7 +14047,7 @@ exports.AppListener = AppListener;
 
 
 /***/ }),
-/* 155 */
+/* 160 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13361,10 +14079,10 @@ exports.UserAdminMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
 const auth_constants_1 = __webpack_require__(12);
-const user_constants_1 = __webpack_require__(48);
-const uuid_1 = __webpack_require__(58);
+const user_constants_1 = __webpack_require__(50);
+const uuid_1 = __webpack_require__(60);
 const users_service_1 = __webpack_require__(24);
-const api_exception_1 = __webpack_require__(50);
+const api_exception_1 = __webpack_require__(52);
 let UserAdminMiddleware = class UserAdminMiddleware {
     constructor(userService) {
         this.userService = userService;
@@ -13421,7 +14139,7 @@ exports.UserAdminMiddleware = UserAdminMiddleware;
 
 
 /***/ }),
-/* 156 */
+/* 161 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13452,10 +14170,10 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AdminUserMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
-const admin_constants_1 = __webpack_require__(51);
+const admin_constants_1 = __webpack_require__(53);
 const auth_constants_1 = __webpack_require__(12);
-const admin_service_1 = __webpack_require__(56);
-const api_exception_1 = __webpack_require__(50);
+const admin_service_1 = __webpack_require__(58);
+const api_exception_1 = __webpack_require__(52);
 let AdminUserMiddleware = class AdminUserMiddleware {
     constructor(adminService) {
         this.adminService = adminService;
@@ -13512,7 +14230,7 @@ exports.AdminUserMiddleware = AdminUserMiddleware;
 
 
 /***/ }),
-/* 157 */
+/* 162 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13538,7 +14256,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CorsMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
-const ip_1 = __importDefault(__webpack_require__(158));
+const geoip_lite_1 = __importDefault(__webpack_require__(163));
+const ip_1 = __importDefault(__webpack_require__(164));
 let CorsMiddleware = CorsMiddleware_1 = class CorsMiddleware {
     constructor() {
         this.Logger = new common_1.Logger(CorsMiddleware_1.name);
@@ -13546,7 +14265,9 @@ let CorsMiddleware = CorsMiddleware_1 = class CorsMiddleware {
     use(req, res, next) {
         const headers = JSON.parse(JSON.stringify(req.headers));
         const isEmpty = this.isEmpty(headers);
+        const geo = geoip_lite_1.default.reloadDataSync();
         const ipAddress = ip_1.default.address();
+        this.Logger.log(geo);
         this.Logger.log(ipAddress);
         this.Logger.log(req.headers['x-forwarded-for']);
         if (isEmpty) {
@@ -13558,7 +14279,19 @@ let CorsMiddleware = CorsMiddleware_1 = class CorsMiddleware {
         res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, PUT, PATCH, DELETE');
         res.setHeader('Access-Control-Allow-Credentials', 'true');
         res.header('Access-Control-Allow-Headers', 'imageType, Authorization, X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
-        res.setHeader('Content-Security-Policy', 'default-src \'self\'; font-src \'self\'; img-src \'self\'; script-src \'self\'; style-src \'self\'; frame-src \'self\'');
+        res.setHeader('X-Frame-Options', 'deny');
+        res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0, s-maxage=0');
+        res.setHeader('Expires', '0');
+        res.setHeader('Strict-Transport-Security', 'max-age=5184000,preload');
+        res.setHeader('Content-Security-Policy', `default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'`);
+        res.setHeader('X-Content-Security-Policy', `default-src 'self'; script-src 'self'; object-src 'self'; style-src 'self'; img - src 'self' data:; media - src 'self'; frame - src 'self'; font - src 'self'; connect - src 'self'`);
+        res.setHeader('X-Permitted-Cross-Domain-Policies', 'none');
+        res.setHeader('X-DNS-Prefetch-Control', 'off');
+        res.setHeader('X-XSS-Protection', '1; mode=block');
+        res.setHeader('X-WebKit-CSP', `default-src 'self'; script-src 'self'; object-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self'; frame-src 'self'; font-src 'self'; connect-src 'self'`);
+        res.removeHeader('server');
+        res.removeHeader('X-Powered-By');
+        res.setHeader('X-XSS-Protection', '1; mode=block');
         if (req.method === 'OPTIONS') {
             return res.status(204).end();
         }
@@ -13588,14 +14321,21 @@ exports.CorsMiddleware = CorsMiddleware;
 
 
 /***/ }),
-/* 158 */
+/* 163 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("geoip-lite");
+
+/***/ }),
+/* 164 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("ip");
 
 /***/ }),
-/* 159 */
+/* 165 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13630,16 +14370,16 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppController = void 0;
 const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
-const path_1 = __importDefault(__webpack_require__(113));
-const geoip2_node_1 = __webpack_require__(160);
-const rxjs_1 = __webpack_require__(62);
+const path_1 = __importDefault(__webpack_require__(115));
+const geoip2_node_1 = __webpack_require__(166);
+const rxjs_1 = __webpack_require__(64);
 const express_1 = __webpack_require__(20);
 const crypto_1 = __webpack_require__(14);
 const util_1 = __webpack_require__(15);
-const axios_1 = __webpack_require__(61);
-const decorators_1 = __webpack_require__(88);
-const throttler_behind_proxy_guard_1 = __webpack_require__(76);
-const throttler_1 = __webpack_require__(77);
+const axios_1 = __webpack_require__(63);
+const decorators_1 = __webpack_require__(90);
+const throttler_behind_proxy_guard_1 = __webpack_require__(78);
+const throttler_1 = __webpack_require__(79);
 let AppController = AppController_1 = class AppController {
     constructor(httpService) {
         this.httpService = httpService;
@@ -13707,7 +14447,12 @@ let AppController = AppController_1 = class AppController {
     }
     getCurrencies(base) {
         return __awaiter(this, void 0, void 0, function* () {
-            const data = yield (0, rxjs_1.firstValueFrom)(this.httpService.get(`${process.env.API_CURRENCIES.trim()}/${!base ? process.env.BASE_CURRENCY.toLowerCase().trim() : base.toLowerCase().trim()}.json`, { headers: { 'Accept-Encoding': 'gzip,deflate,compress' } }).pipe((0, rxjs_1.map)(res => res.data)).pipe((0, rxjs_1.catchError)((error) => {
+            const data = yield (0, rxjs_1.firstValueFrom)(this.httpService
+                .get(`${process.env.API_CURRENCIES.trim()}/${!base
+                ? process.env.BASE_CURRENCY.toLowerCase().trim()
+                : base.toLowerCase().trim()}.json`, { headers: { 'Accept-Encoding': 'gzip,deflate,compress' } })
+                .pipe((0, rxjs_1.map)((res) => res.data))
+                .pipe((0, rxjs_1.catchError)((error) => {
                 this.Logger.error(error.response.data);
                 throw error;
             })));
@@ -13771,14 +14516,14 @@ exports.AppController = AppController;
 
 
 /***/ }),
-/* 160 */
+/* 166 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@maxmind/geoip2-node");
 
 /***/ }),
-/* 161 */
+/* 167 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13802,8 +14547,8 @@ var TelegramModule_1;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TelegramModule = void 0;
 const common_1 = __webpack_require__(7);
-const telegram_constants_1 = __webpack_require__(162);
-const telegram_service_1 = __webpack_require__(163);
+const telegram_constants_1 = __webpack_require__(168);
+const telegram_service_1 = __webpack_require__(169);
 let TelegramModule = TelegramModule_1 = class TelegramModule {
     static forRootAsync(options) {
         const asyncOptions = TelegramModule_1.createAsyncOptionsProvider(options);
@@ -13833,7 +14578,7 @@ exports.TelegramModule = TelegramModule;
 
 
 /***/ }),
-/* 162 */
+/* 168 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -13844,7 +14589,7 @@ exports.TELEGRAM_MODULE_OPTIONS = 'TELEGRAM_MODULE_OPTIONS';
 
 
 /***/ }),
-/* 163 */
+/* 169 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13874,9 +14619,9 @@ var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.TelegramService = void 0;
 const common_1 = __webpack_require__(7);
-const telegraf_1 = __webpack_require__(164);
-const telegram_constants_1 = __webpack_require__(162);
-const telegram_interface_1 = __webpack_require__(165);
+const telegraf_1 = __webpack_require__(170);
+const telegram_constants_1 = __webpack_require__(168);
+const telegram_interface_1 = __webpack_require__(171);
 let TelegramService = class TelegramService {
     constructor(options) {
         this.bot = new telegraf_1.Telegraf(options.token);
@@ -13897,14 +14642,14 @@ exports.TelegramService = TelegramService;
 
 
 /***/ }),
-/* 164 */
+/* 170 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("telegraf");
 
 /***/ }),
-/* 165 */
+/* 171 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -13913,7 +14658,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 
 /***/ }),
-/* 166 */
+/* 172 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -13935,7 +14680,7 @@ exports.getTelegramConfig = getTelegramConfig;
 
 
 /***/ }),
-/* 167 */
+/* 173 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -13952,48 +14697,52 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ReviewsModule = void 0;
 const common_1 = __webpack_require__(7);
-const config_1 = __webpack_require__(103);
+const config_1 = __webpack_require__(105);
 const sequelize_1 = __webpack_require__(8);
-const categories_service_1 = __webpack_require__(129);
-const initialize_user_middleware_1 = __webpack_require__(124);
+const categories_service_1 = __webpack_require__(131);
+const initialize_user_middleware_1 = __webpack_require__(126);
 const admin_module_1 = __webpack_require__(9);
 const admin_model_1 = __webpack_require__(28);
-const admin_refresh_token_model_1 = __webpack_require__(47);
-const auth_module_1 = __webpack_require__(86);
-const cart_module_1 = __webpack_require__(145);
+const admin_refresh_token_model_1 = __webpack_require__(49);
+const auth_module_1 = __webpack_require__(88);
+const cart_module_1 = __webpack_require__(150);
 const cart_product_model_1 = __webpack_require__(33);
 const cart_model_1 = __webpack_require__(34);
-const categories_module_1 = __webpack_require__(142);
+const colours_model_1 = __webpack_require__(45);
+const product_colour_model_1 = __webpack_require__(46);
 const category_model_1 = __webpack_require__(41);
 const product_categories_model_1 = __webpack_require__(42);
 const order_model_1 = __webpack_require__(39);
 const order_product_model_1 = __webpack_require__(40);
-const orders_module_1 = __webpack_require__(148);
+const orders_module_1 = __webpack_require__(153);
 const owner_model_1 = __webpack_require__(31);
-const owner_refresh_token_model_1 = __webpack_require__(45);
-const owner_module_1 = __webpack_require__(98);
+const owner_refresh_token_model_1 = __webpack_require__(47);
+const owner_module_1 = __webpack_require__(100);
 const product_model_1 = __webpack_require__(32);
-const product_service_1 = __webpack_require__(127);
+const product_service_1 = __webpack_require__(129);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const roles_module_1 = __webpack_require__(99);
+const roles_module_1 = __webpack_require__(101);
 const user_model_1 = __webpack_require__(35);
 const user_refresh_token_model_1 = __webpack_require__(36);
-const users_module_1 = __webpack_require__(118);
+const users_module_1 = __webpack_require__(120);
 const product_reviews_model_1 = __webpack_require__(44);
 const review_model_1 = __webpack_require__(43);
-const reviews_controller_1 = __webpack_require__(168);
-const reviews_service_1 = __webpack_require__(170);
-const create_review_dto_1 = __webpack_require__(169);
-const body_validator_pipe_1 = __importDefault(__webpack_require__(125));
+const reviews_controller_1 = __webpack_require__(174);
+const reviews_service_1 = __webpack_require__(176);
+const create_review_dto_1 = __webpack_require__(175);
+const body_validator_pipe_1 = __importDefault(__webpack_require__(127));
+const categories_colours_module_1 = __webpack_require__(145);
 let ReviewsModule = class ReviewsModule {
     configure(consumer) {
-        consumer
-            .apply(body_validator_pipe_1.default.validate(create_review_dto_1.CreateReviewDto))
-            .forRoutes({ path: 'reviews/create_review', method: common_1.RequestMethod.DELETE });
-        consumer
-            .apply(initialize_user_middleware_1.InitializeUserMiddleware)
-            .forRoutes({ path: 'reviews/delete_review', method: common_1.RequestMethod.DELETE });
+        consumer.apply(body_validator_pipe_1.default.validate(create_review_dto_1.CreateReviewDto)).forRoutes({
+            path: 'reviews/create_review',
+            method: common_1.RequestMethod.DELETE,
+        });
+        consumer.apply(initialize_user_middleware_1.InitializeUserMiddleware).forRoutes({
+            path: 'reviews/delete_review',
+            method: common_1.RequestMethod.DELETE,
+        });
     }
 };
 ReviewsModule = __decorate([
@@ -14010,6 +14759,8 @@ ReviewsModule = __decorate([
                 product_reviews_model_1.ProductReviews,
                 review_model_1.Review,
                 product_model_1.Product,
+                colours_model_1.Colour,
+                product_colour_model_1.ProductColours,
                 order_model_1.Order,
                 order_product_model_1.OrderProduct,
                 category_model_1.Category,
@@ -14027,7 +14778,7 @@ ReviewsModule = __decorate([
             ]),
             (0, common_1.forwardRef)(() => orders_module_1.OrdersModule),
             (0, common_1.forwardRef)(() => cart_module_1.CartModule),
-            (0, common_1.forwardRef)(() => categories_module_1.CategoriesModule),
+            (0, common_1.forwardRef)(() => categories_colours_module_1.CategoriesColoursModule),
             (0, common_1.forwardRef)(() => admin_module_1.AdminModule),
             (0, common_1.forwardRef)(() => roles_module_1.RolesModule),
             (0, common_1.forwardRef)(() => auth_module_1.AuthModule),
@@ -14040,7 +14791,7 @@ exports.ReviewsModule = ReviewsModule;
 
 
 /***/ }),
-/* 168 */
+/* 174 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -14061,18 +14812,18 @@ var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ReviewsController = void 0;
 const common_1 = __webpack_require__(7);
-const throttler_1 = __webpack_require__(77);
-const roles_auth_decorator_1 = __webpack_require__(78);
-const jw_refresh_guard_1 = __webpack_require__(81);
+const throttler_1 = __webpack_require__(79);
+const roles_auth_decorator_1 = __webpack_require__(80);
+const jw_refresh_guard_1 = __webpack_require__(83);
 const jwt_auth_guard_1 = __webpack_require__(11);
-const owner_admin_guard_1 = __webpack_require__(80);
-const roles_guard_1 = __webpack_require__(79);
-const api_exception_filter_1 = __webpack_require__(85);
-const error_handler_filter_1 = __webpack_require__(83);
-const throttler_behind_proxy_guard_1 = __webpack_require__(76);
-const create_review_dto_1 = __webpack_require__(169);
-const reviews_service_1 = __webpack_require__(170);
-const edit_content_guard_1 = __webpack_require__(137);
+const owner_admin_guard_1 = __webpack_require__(82);
+const roles_guard_1 = __webpack_require__(81);
+const api_exception_filter_1 = __webpack_require__(87);
+const error_handler_filter_1 = __webpack_require__(85);
+const throttler_behind_proxy_guard_1 = __webpack_require__(78);
+const create_review_dto_1 = __webpack_require__(175);
+const reviews_service_1 = __webpack_require__(176);
+const edit_content_guard_1 = __webpack_require__(140);
 let ReviewsController = class ReviewsController {
     constructor(reviewsService) {
         this.reviewsService = reviewsService;
@@ -14125,7 +14876,7 @@ exports.ReviewsController = ReviewsController;
 
 
 /***/ }),
-/* 169 */
+/* 175 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -14166,7 +14917,7 @@ exports.CreateReviewDto = CreateReviewDto;
 
 
 /***/ }),
-/* 170 */
+/* 176 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -14197,7 +14948,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ReviewsService = void 0;
 const common_1 = __webpack_require__(7);
 const sequelize_1 = __webpack_require__(8);
-const product_service_1 = __webpack_require__(127);
+const product_service_1 = __webpack_require__(129);
 const review_model_1 = __webpack_require__(43);
 let ReviewsService = class ReviewsService {
     constructor(reviewRepository, productService) {
@@ -14235,7 +14986,7 @@ let ReviewsService = class ReviewsService {
                     name: review.name,
                     surname: review.surname,
                     review: review.review,
-                }
+                },
             });
             return deleted;
         });
@@ -14250,7 +15001,7 @@ exports.ReviewsService = ReviewsService;
 
 
 /***/ }),
-/* 171 */
+/* 177 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -14285,13 +15036,13 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LocationMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
-const geoip_lite_1 = __importDefault(__webpack_require__(172));
-const ip_1 = __importDefault(__webpack_require__(158));
-const path_1 = __importDefault(__webpack_require__(113));
-const geoip2_node_1 = __webpack_require__(160);
-const currency_service_1 = __webpack_require__(60);
-const currency_symbol_map_1 = __importDefault(__webpack_require__(64));
-const country_to_currency_1 = __importDefault(__webpack_require__(63));
+const geoip_lite_1 = __importDefault(__webpack_require__(163));
+const ip_1 = __importDefault(__webpack_require__(164));
+const path_1 = __importDefault(__webpack_require__(115));
+const geoip2_node_1 = __webpack_require__(166);
+const currency_service_1 = __webpack_require__(62);
+const currency_symbol_map_1 = __importDefault(__webpack_require__(66));
+const country_to_currency_1 = __importDefault(__webpack_require__(65));
 let LocationMiddleware = LocationMiddleware_1 = class LocationMiddleware {
     constructor(currencyService) {
         this.currencyService = currencyService;
@@ -14302,8 +15053,8 @@ let LocationMiddleware = LocationMiddleware_1 = class LocationMiddleware {
             try {
                 const ipAddress = ip_1.default.address();
                 const reader = yield geoip2_node_1.Reader.open(path_1.default.join(__dirname, 'GeoLite2-Country.mmdb'));
-                const data = reader.country(req.ip);
-                const geo = geoip_lite_1.default.lookup(req.ip);
+                const data = reader.country('62.122.202.29');
+                const geo = geoip_lite_1.default.lookup('62.122.202.29');
                 this.Logger.log(geo, ipAddress);
                 req['countryIsoCode'] = data.country.isoCode;
                 req['CLient-IP'] = data.traits.ipAddress;
@@ -14351,42 +15102,35 @@ exports.LocationMiddleware = LocationMiddleware;
 
 
 /***/ }),
-/* 172 */
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("geoip-lite");
-
-/***/ }),
-/* 173 */
+/* 178 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("helmet");
 
 /***/ }),
-/* 174 */
+/* 179 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("compression");
 
 /***/ }),
-/* 175 */
+/* 180 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 176 */
+/* 181 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("serve-favicon");
 
 /***/ }),
-/* 177 */
+/* 182 */
 /***/ ((module) => {
 
 "use strict";
@@ -14454,7 +15198,7 @@ module.exports = require("body-parser");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("2c5cbd7980be53d35753")
+/******/ 		__webpack_require__.h = () => ("bfb3df7140e5ffe235ff")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

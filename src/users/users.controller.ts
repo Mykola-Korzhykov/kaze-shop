@@ -37,7 +37,6 @@ import { UserAgent } from '../common/decorators/user-agent.decorator';
 import { UserId } from '../common/decorators/user.id.decorator';
 import { UserGuard } from '../common/guards/user.guard';
 import { UserInterface } from '../core/interfaces/user.interfaces';
-import { ValidateDto } from '../common/pipes/validation.pipe';
 import { OwnerAdminGuard } from '../common/guards/owner-admin.guard';
 import { AuthFerfershGuard } from '../common/guards/jw-refresh.guard';
 import { ApiErrorExceptionFilter } from '../common/filters/error-handler.filter';

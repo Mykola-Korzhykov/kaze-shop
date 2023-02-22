@@ -7,7 +7,6 @@ export interface ProductCreationAttrs {
   price: number;
   sizeChartImage: string;
   sizes: string[];
-  colours: string[];
 }
 
 export interface ReviewCreationAtrb {
@@ -32,6 +31,14 @@ export interface CategoryCreationAtrb {
   en: string;
 }
 
+export interface ColourCreationAtrb {
+  ua: string;
+  ru: string;
+  rs: string;
+  en: string;
+  hex: string;
+}
+
 export interface ReturnedProduct {
   id: number;
   title: {
@@ -51,8 +58,8 @@ export interface ReturnedProduct {
   images: string[];
   sizeChartImage: string;
   sizes: string[];
-  colours: string[];
-  categories: ReturnedCategory[];  
+  colours: ReturnedColour[];
+  categories: ReturnedCategory[];
   reviews: ReturnedReview[] | [];
 }
 
@@ -67,6 +74,17 @@ export interface ReturnedCategory {
   en: string;
   rs: string;
   ru: string;
+  createdAt: any;
+  updatedAt: any;
+}
+
+export interface ReturnedColour {
+  id: number;
+  ua: string;
+  en: string;
+  rs: string;
+  ru: string;
+  hex: string;
   createdAt: any;
   updatedAt: any;
 }

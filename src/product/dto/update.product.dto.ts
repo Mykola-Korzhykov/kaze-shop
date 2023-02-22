@@ -3,10 +3,10 @@ import { IsDefined, IsNumber, IsString, Matches } from 'class-validator';
 class Nested {
   @IsDefined()
   @IsString()
-  @Matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-яzžitisšte_-]/gi)  
+  @Matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-яzžitisšte_-]/gi)
   ua: string;
   @IsDefined()
-  @IsString() 
+  @IsString()
   @Matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-яzžitisšte_-]/gi)
   ru: string;
   @IsDefined()
@@ -19,7 +19,7 @@ class Nested {
   en: string;
 }
 export class UpdateProductDto {
- @IsDefined()
+  @IsDefined()
   @Type(() => Nested)
   readonly title: {
     ua: string;
@@ -38,7 +38,7 @@ export class UpdateProductDto {
   };
 
   @IsDefined()
-  @Type(()=> Number)
+  @Type(() => Number)
   @IsNumber()
   readonly price: number;
 
@@ -47,22 +47,22 @@ export class UpdateProductDto {
   // @Transform((value) => ParseJsonPipe.transform(value.value, value.obj))
   // @IsArray()
   // @ArrayNotEmpty()
-  // @IsString({ each: true }) 
+  // @IsString({ each: true })
   // @MaxLength(15, { each: true })
   readonly sizes: string[];
 
   @IsDefined()
-  @Type(() => Array<string>)
+  @Type(() => Array<number>)
   // @Transform((value) => JSON.parse(value.value))
   // @IsArray()
   // @ArrayNotEmpty()
-  // @IsString({ each: true }) 
+  // @IsString({ each: true })
   // @MaxLength(15, { each: true })
-  readonly colours: string[];
+  readonly colours: number[];
 
   @IsDefined()
   @Transform((value: any) => Number(value.value))
-  @Type(()=> Number)
+  @Type(() => Number)
   @IsNumber()
   readonly quantity: number;
 

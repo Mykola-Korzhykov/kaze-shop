@@ -1,7 +1,13 @@
-import { forwardRef, MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import {
+  forwardRef,
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { CategoriesService } from '../categories/categories.service';
+import { CategoriesService } from '../categories&colours/services/categories.service';
 import { InitializeUserMiddleware } from '../common/middlewares/initialize-user.middleware';
 import { AdminModule } from '../admin/admin.module';
 import { Admin } from '../admin/models/admin.model';
@@ -10,9 +16,10 @@ import { AuthModule } from '../auth/auth.module';
 import { CartModule } from '../cart/cart.module';
 import { CartProduct } from '../cart/models/cart.product.model';
 import { Cart } from '../cart/models/cart.model';
-import { CategoriesModule } from '../categories/categories.module';
-import { Category } from '../categories/models/category.model';
-import { ProductCategories } from '../categories/models/product.categories.model';
+import { Colour } from '../categories&colours/models/colours.model';
+import { ProductColours } from '../categories&colours/models/product.colour.model';
+import { Category } from '../categories&colours/models/category.model';
+import { ProductCategories } from '../categories&colours/models/product.categories.model';
 import { Order } from '../orders/models/order.model';
 import { OrderProduct } from '../orders/models/order.product.model';
 import { OrdersModule } from '../orders/orders.module';
@@ -33,6 +40,7 @@ import { ReviewsController } from './reviews.controller';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './create.review.dto';
 import RequestValidator from '../common/pipes/body-validator.pipe';
+import { CategoriesColoursModule } from 'src/categories&colours/categories&colours.module';
 
 @Module({
   controllers: [ReviewsController],
@@ -47,6 +55,8 @@ import RequestValidator from '../common/pipes/body-validator.pipe';
       ProductReviews,
       Review,
       Product,
+      Colour,
+      ProductColours,
       Order,
       OrderProduct,
       Category,
@@ -64,7 +74,7 @@ import RequestValidator from '../common/pipes/body-validator.pipe';
     ]),
     forwardRef(() => OrdersModule),
     forwardRef(() => CartModule),
-    forwardRef(() => CategoriesModule),
+    forwardRef(() => CategoriesColoursModule),
     forwardRef(() => AdminModule),
     forwardRef(() => RolesModule),
     forwardRef(() => AuthModule),
@@ -72,17 +82,15 @@ import RequestValidator from '../common/pipes/body-validator.pipe';
     forwardRef(() => UsersModule),
   ],
 })
-export class ReviewsModule implements NestModule{
+export class ReviewsModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(RequestValidator.validate(CreateReviewDto))
-      .forRoutes(
-        { path: 'reviews/create_review', method: RequestMethod.DELETE },
-      );
-    consumer
-      .apply(InitializeUserMiddleware)
-      .forRoutes(
-        { path: 'reviews/delete_review', method: RequestMethod.DELETE },
-      );
+    consumer.apply(RequestValidator.validate(CreateReviewDto)).forRoutes({
+      path: 'reviews/create_review',
+      method: RequestMethod.DELETE,
+    });
+    consumer.apply(InitializeUserMiddleware).forRoutes({
+      path: 'reviews/delete_review',
+      method: RequestMethod.DELETE,
+    });
   }
 }

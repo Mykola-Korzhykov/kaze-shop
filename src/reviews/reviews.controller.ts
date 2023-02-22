@@ -1,16 +1,16 @@
 import {
-    Body,
-    CacheInterceptor,
-    ClassSerializerInterceptor,
-    Controller,
-    Delete,
-    HttpCode,
-    ParseIntPipe,
-    Put,
-    Query,
-    UseFilters,
-    UseGuards,
-    UseInterceptors
+  Body,
+  CacheInterceptor,
+  ClassSerializerInterceptor,
+  Controller,
+  Delete,
+  HttpCode,
+  ParseIntPipe,
+  Put,
+  Query,
+  UseFilters,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import { Roles } from '../common/decorators/roles-auth.decorator';
@@ -30,35 +30,37 @@ import { EditContentGuard } from '../common/guards/edit-content.guard';
 @UseInterceptors(CacheInterceptor, ClassSerializerInterceptor)
 @Controller('reviews')
 export class ReviewsController {
-    constructor(
-        private readonly reviewsService: ReviewsService,
-    ) {}
-    
-    @Throttle(70, 700)
-    @Put('create_review')
-    createReview(
-        @Body() createReviewDto: CreateReviewDto,
-        @Query('productId', ParseIntPipe) productId: number
-    ) {
-        try {
-            return this.reviewsService.createReview(createReviewDto, productId);
-        } catch (error) {
-            throw error;
-        }
-    }
+  constructor(private readonly reviewsService: ReviewsService) {}
 
-    @Throttle(70, 700)
-    @Delete('delete_review')
-    @Roles('OWNER', 'ADMIN')
-    @UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard, EditContentGuard)
-    @HttpCode(201)
-    deleteReview(
-        @Query('reviewId', ParseIntPipe) reviewId: number
-    ) {
-        try {
-            return this.reviewsService.deleteReview(reviewId);
-        } catch (error) {
-            throw error;
-        }
+  @Throttle(70, 700)
+  @Put('create_review')
+  createReview(
+    @Body() createReviewDto: CreateReviewDto,
+    @Query('productId', ParseIntPipe) productId: number,
+  ) {
+    try {
+      return this.reviewsService.createReview(createReviewDto, productId);
+    } catch (error) {
+      throw error;
     }
+  }
+
+  @Throttle(70, 700)
+  @Delete('delete_review')
+  @Roles('OWNER', 'ADMIN')
+  @UseGuards(
+    JwtAuthGuard,
+    RolesGuard,
+    OwnerAdminGuard,
+    AuthFerfershGuard,
+    EditContentGuard,
+  )
+  @HttpCode(201)
+  deleteReview(@Query('reviewId', ParseIntPipe) reviewId: number) {
+    try {
+      return this.reviewsService.deleteReview(reviewId);
+    } catch (error) {
+      throw error;
+    }
+  }
 }

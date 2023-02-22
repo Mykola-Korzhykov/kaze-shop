@@ -6,7 +6,11 @@ import {
   Scope,
 } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
-import { ERORR_WHILE_SENDING_EMAIL, RESETTING, TROUBLE_SIGNING } from './mail.constants';
+import {
+  ERORR_WHILE_SENDING_EMAIL,
+  RESETTING,
+  TROUBLE_SIGNING,
+} from './mail.constants';
 import { UsersService } from '../users/services/users.service';
 import { AdminService } from '../admin/services/admin.service';
 import { OwnerService } from '../owner/services/owner.service';
@@ -23,12 +27,16 @@ export class MailService {
     private readonly adminService: AdminService,
     private readonly ownerService: OwnerService,
   ) {}
-  
+
   async sendActivationMailToOwner(toMail: string, link: string) {
     try {
       const owner = await this.ownerService.getOwnerByEmail(toMail);
       if (!owner) {
-        throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', OWNER_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          OWNER_NOT_FOUND,
+        );
       }
       const info = await this.mailerService.sendMail({
         from: process.env.MAILER_USER,
@@ -51,19 +59,23 @@ export class MailService {
 </tr></table></td></tr></table></td></tr></table></td></tr></table></td>
 </tr></table><table class="es-content" cellspacing="0" cellpadding="0" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"><tr style="border-collapse:collapse"><td align="center" style="padding:0;Margin:0"><table class="es-content-body" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;width:600px" cellspacing="0" cellpadding="0" align="center"><tr style="border-collapse:collapse"><td align="left" style="padding:0;Margin:0"><table width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"><tr style="border-collapse:collapse"><td valign="top" align="center" style="padding:0;Margin:0;width:600px"><table style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:separate;border-spacing:0px;background-color:#c0ede0;border-radius:4px" width="100%" cellspacing="0" cellpadding="0" bgcolor="#c0ede0"><tr style="border-collapse:collapse"><td align="center" bgcolor="#ffffff" style="padding:0;Margin:0;padding-top:30px;padding-left:30px;padding-right:30px"><h3 style="Margin:0;line-height:24px;mso-line-height-rule:exactly;font-family:lato, 'helvetica neue', helvetica, arial, sans-serif;font-size:20px;font-style:normal;font-weight:normal;color:#111111">Need more help?</h3>
 </td></tr><tr style="border-collapse:collapse"><td esdev-links-color="#66bb7f" align="center" bgcolor="#333333" style="padding:0;Margin:0;padding-bottom:30px;padding-left:30px;padding-right:30px"><a style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#fefafa;font-size:18px" href="">KAZE_SHOP</a></td></tr></table></td></tr></table></td></tr></table></td></tr></table></td></tr></table></div></body></html> 
-        `
+        `,
       });
       this.Logger.log('Message sent: %s', info.messageId);
     } catch (err) {
       throw new InternalServerErrorException(ERORR_WHILE_SENDING_EMAIL);
     }
-  } 
+  }
 
   async sendActivationMailToAdmin(toMail: string, link: string) {
     try {
       const admin = await this.adminService.getAdminByEmail(toMail);
       if (!admin) {
-        throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', ADMIN_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          ADMIN_NOT_FOUND,
+        );
       }
       const info = await this.mailerService.sendMail({
         from: process.env.MAILER_USER,
@@ -94,11 +106,19 @@ export class MailService {
     }
   }
 
-  async sendCode(toMail: string, code: number, locale: 'ua' | 'ru' | 'rs' | 'en',) {
+  async sendCode(
+    toMail: string,
+    code: number,
+    locale: 'ua' | 'ru' | 'rs' | 'en',
+  ) {
     try {
       const user = await this.userService.getUserByEmail(toMail);
       if (!user) {
-        throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          USER_NOT_FOUND,
+        );
       }
       const info = await this.mailerService.sendMail({
         from: process.env.MAILER_USER,

@@ -17,8 +17,10 @@ import { Admin } from '../admin/models/admin.model';
 import { AdminRefreshToken } from '../admin/models/admin.refresh.token.model';
 import { CartProduct } from '../cart/models/cart.product.model';
 import { Cart } from '../cart/models/cart.model';
-import { Category } from '../categories/models/category.model';
-import { ProductCategories } from '../categories/models/product.categories.model';
+import { Colour } from '../categories&colours/models/colours.model';
+import { ProductColours } from '../categories&colours/models/product.colour.model';
+import { Category } from '../categories&colours/models/category.model';
+import { ProductCategories } from '../categories&colours/models/product.categories.model';
 import { Order } from '../orders/models/order.model';
 import { Owner } from '../owner/models/owner.model';
 import { OwnerRefreshToken } from '../owner/models/owner.refresh.token.model';
@@ -78,6 +80,8 @@ import { HttpModule } from '@nestjs/axios';
       Cart,
       CartProduct,
       Currencies,
+      Colour,
+      ProductColours,
     ]),
     forwardRef(() => MailModule),
     forwardRef(() => ProductModule),
@@ -86,6 +90,7 @@ import { HttpModule } from '@nestjs/axios';
     forwardRef(() => RolesModule),
     forwardRef(() => AuthModule),
     forwardRef(() => OwnerModule),
+    forwardRef(() => UsersModule),
   ],
   exports: [RolesService],
 })

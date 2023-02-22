@@ -45,7 +45,6 @@ import { USER_NOT_FOUND } from '../users/constants/user.constants';
 import { ResetDto } from './dto/reset.password.dto';
 import { ChangeDto } from './dto/change.password.dto';
 import { v4 } from 'uuid';
-import { TasksService } from '../core/services/scedule.service';
 import { ApiException } from '../common/exceptions/api.exception';
 import { TOKEN_NOT_FOUND } from '../admin/constants/jwt-refresh.constants';
 import { OwnerRefreshToken } from '../owner/models/owner.refresh.token.model';
@@ -80,7 +79,11 @@ export class AuthService {
     try {
       const authHeader = request.headers.authorization;
       if (!authHeader) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          'Unathorized!',
+          USER_NOT_AUTHORIZIED,
+        );
       }
       const user = await this.authenticateUser(userDto, userAgent, false);
       const tokens = await this.generateTokens(user, userAgent);
@@ -91,7 +94,7 @@ export class AuthService {
         httpOnly: true,
         expires: tokens.expireDate,
         // domain: process.env.CLIENT_DOMAIN.toString().trim(),
-        secure: process.env.NODE_ENV === 'production' ? true : false,
+        // secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'strict',
       });
       return response.json({ ...this.setResponse(tokens, user) });
@@ -111,7 +114,11 @@ export class AuthService {
       const authHeader = request.headers.authorization;
       const bearer = authHeader.split(' ')[0];
       if (!authHeader || bearer !== 'Bearer') {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          'Unathorized!',
+          USER_NOT_AUTHORIZIED,
+        );
       }
       const user = await this.authenticateUser(userDto, userAgent, true);
       const tokens = await this.generateTokens(user, userAgent);
@@ -122,7 +129,7 @@ export class AuthService {
         httpOnly: true,
         expires: tokens.expireDate,
         // domain: process.env.CLIENT_DOMAIN.toString().trim(),
-        secure: process.env.NODE_ENV === 'production' ? true : false,
+        // secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'strict',
       });
       return response.json({ ...this.setResponse(tokens, user) });
@@ -141,10 +148,16 @@ export class AuthService {
       const authHeader = request.headers.authorization;
       const bearer = authHeader.split(' ')[0];
       if (!authHeader || bearer !== 'Bearer') {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          'Unathorized!',
+          USER_NOT_AUTHORIZIED,
+        );
       }
       const refreshToken = request?.cookies['refreshToken'];
-      const decodedToken = Buffer.from(refreshToken, 'base64').toString('ascii');
+      const decodedToken = Buffer.from(refreshToken, 'base64').toString(
+        'ascii',
+      );
       let logout: number;
       if (type && type === 'OWNER') {
         response.clearCookie('user-id');
@@ -164,7 +177,7 @@ export class AuthService {
       }
       logout = await this.userJwtRefreshTokenService.removeToken(decodedToken);
       response.clearCookie('refreshToken');
-      return response.json({ logout }); 
+      return response.json({ logout });
     } catch (error: unknown) {
       return next(error);
     }
@@ -180,20 +193,32 @@ export class AuthService {
     try {
       const refreshToken = request?.cookies['refreshToken'];
       if (!refreshToken) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          'Unathorized!',
+          USER_NOT_AUTHORIZIED,
+        );
       }
       const dto = await this.validateRefreshToken(refreshToken, type);
       if (!dto.user) {
-        throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          USER_NOT_FOUND,
+        );
       }
-      const tokens = await this.refreshTokens(dto.user, userAgent, dto.identifier);
+      const tokens = await this.refreshTokens(
+        dto.user,
+        userAgent,
+        dto.identifier,
+      );
       response.cookie('refreshToken', tokens.refreshToken, {
         maxAge: Number(tokens.expireDate),
         path: '/',
         httpOnly: true,
         expires: tokens.expireDate,
         // domain: process.env.CLIENT_DOMAIN.toString().trim(),
-        secure: process.env.NODE_ENV === 'production' ? true : false,
+        // secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'strict',
       });
       await this.activateUser(dto.user, response);
@@ -231,7 +256,11 @@ export class AuthService {
     locale: 'ua' | 'ru' | 'rs' | 'en',
   ): Promise<string> {
     if (!locale) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request!', LANGUAGE_NOT_PROVIDED);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request!',
+        LANGUAGE_NOT_PROVIDED,
+      );
     }
     const code = this.generateConfirmCode();
     if (codeDto?.type && codeDto?.type === 'OWNER') {
@@ -249,7 +278,10 @@ export class AuthService {
     return email;
   }
 
-  async resetPassword(resetDto: ResetDto, codeDto: CodeDto): Promise<string | void> {
+  async resetPassword(
+    resetDto: ResetDto,
+    codeDto: CodeDto,
+  ): Promise<string | void> {
     if (codeDto?.type && codeDto?.type === 'OWNER') {
       return this.ownerService.resetPassword(resetDto);
     }
@@ -343,7 +375,7 @@ export class AuthService {
 
   private async generateTokens(
     user: User | Admin | Owner,
-    userAgent: string
+    userAgent: string,
   ): Promise<Tokens> {
     let accessToken: string;
     let refreshToken: string;
@@ -396,7 +428,7 @@ export class AuthService {
         new Date(new Date().setDate(new Date().getDate() + 2)),
       );
     }
-     if (user instanceof Owner) {
+    if (user instanceof Owner) {
       accessToken = this.generateAccessToken({
         userId: user.id,
         isUserActivated: user.getIsActivated(),
@@ -427,7 +459,7 @@ export class AuthService {
     const encodedAccessToken = Buffer.from(accessToken, 'utf8').toString(
       'base64',
     );
-    this.setTimeouts(user, refreshToken, dbToken.identifier); 
+    this.setTimeouts(user, refreshToken, dbToken.identifier);
     return {
       expireDate: dbToken.getExpireDate(),
       refreshToken: encodedRefreshToken,
@@ -493,7 +525,7 @@ export class AuthService {
         identifier,
       );
     }
-     if (user instanceof Owner) {
+    if (user instanceof Owner) {
       accessToken = this.generateAccessToken({
         userId: user.id,
         isUserActivated: user.getIsActivated(),
@@ -577,22 +609,26 @@ export class AuthService {
     if (user instanceof User) {
       return user;
     }
-    throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);   
+    throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);
   }
 
   private async validateRefreshToken(
     refreshToken: string,
     type: 'OWNER' | 'ADMIN' | null,
-  ): Promise<{
-    user: Owner;
-    identifier: string;
-  } | {
-    user: Admin;
-    identifier: string;
-  } | {
-    user: User;
-    identifier: string;
-  }> {
+  ): Promise<
+    | {
+        user: Owner;
+        identifier: string;
+      }
+    | {
+        user: Admin;
+        identifier: string;
+      }
+    | {
+        user: User;
+        identifier: string;
+      }
+  > {
     const decodedToken = Buffer.from(refreshToken, 'base64').toString('ascii');
     if (type && type === 'OWNER') {
       const ownerData =
@@ -600,12 +636,22 @@ export class AuthService {
           decodedToken,
         );
       if (!ownerData) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', OWNER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          'Unathorized!',
+          OWNER_NOT_AUTHORIZIED,
+        );
       }
       const owner = await this.ownerService.getOwnerById(ownerData.ownerId);
-      const dbToken = await this.ownerJwtRefreshTokenService.findToken(decodedToken);
+      const dbToken = await this.ownerJwtRefreshTokenService.findToken(
+        decodedToken,
+      );
       if (!dbToken) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', OWNER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          'Unathorized!',
+          OWNER_NOT_AUTHORIZIED,
+        );
       }
       return {
         user: owner,
@@ -618,12 +664,22 @@ export class AuthService {
           decodedToken,
         );
       if (!adminData) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ADMIN_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          'Unathorized!',
+          ADMIN_NOT_AUTHORIZIED,
+        );
       }
       const admin = await this.adminService.getAdminById(adminData.adminId);
-      const dbToken = await this.adminJwtRefreshTokenService.findToken(decodedToken);
+      const dbToken = await this.adminJwtRefreshTokenService.findToken(
+        decodedToken,
+      );
       if (!dbToken) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', OWNER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          'Unathorized!',
+          OWNER_NOT_AUTHORIZIED,
+        );
       }
       return {
         user: admin,
@@ -634,16 +690,30 @@ export class AuthService {
       decodedToken,
     );
     if (!userData) {
-      throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_AUTHORIZIED);
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        'Unathorized!',
+        USER_NOT_AUTHORIZIED,
+      );
     }
     const user = await this.userService.getUserById(userData.userId);
     if (!user) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        USER_NOT_FOUND,
+      );
     }
-    const dbToken = await this.userJwtRefreshTokenService.findToken(decodedToken);
-      if (!dbToken) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', OWNER_NOT_AUTHORIZIED);
-      }
+    const dbToken = await this.userJwtRefreshTokenService.findToken(
+      decodedToken,
+    );
+    if (!dbToken) {
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        'Unathorized!',
+        OWNER_NOT_AUTHORIZIED,
+      );
+    }
     return {
       user: user,
       identifier: dbToken.token.getIdentifier(),
@@ -677,10 +747,10 @@ export class AuthService {
         path: '/',
         httpOnly: true,
         // domain: process.env.CLIENT_DOMAIN.toString().trim(),
-        secure: process.env.NODE_ENV === 'production' ? true : false,
+        // secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'strict',
       });
-    } 
+    }
     if (user instanceof Admin && !user.getIsActivated()) {
       const link = await this.generateEncryptedValue('ADMIN', 16);
       const code = this.generateConfirmCode();
@@ -690,7 +760,9 @@ export class AuthService {
       await user.save();
       return this.mailService.sendActivationMailToAdmin(
         user.email,
-        `${process.env.API_URL}/auth/activate/${user.getResetToken().trim()}?code=${code}`,
+        `${process.env.API_URL}/auth/activate/${user
+          .getResetToken()
+          .trim()}?code=${code}`,
       );
     }
     if (user instanceof Owner) {
@@ -699,7 +771,7 @@ export class AuthService {
         signed: true,
         httpOnly: true,
         // domain: process.env.CLIENT_DOMAIN.toString().trim(),
-        secure: process.env.NODE_ENV === 'production' ? true : false,
+        // secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'strict',
         path: '/',
       });
@@ -714,7 +786,9 @@ export class AuthService {
       this.Logger.log(`activating owner with email ${user.email}`);
       return this.mailService.sendActivationMailToOwner(
         user.email,
-        `${process.env.API_URL}/auth/activate/${user.getResetToken().trim()}?code=${code}`,
+        `${process.env.API_URL}/auth/activate/${user
+          .getResetToken()
+          .trim()}?code=${code}`,
       );
     }
     return;
@@ -742,13 +816,21 @@ export class AuthService {
       await user.save();
     }
     if (!user || activationLink !== user.resetToken) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        USER_NOT_FOUND,
+      );
     }
     if (
       Number(Date.now()) >= user.getResetTokenExpiration() &&
       code !== user.getActivationCode()
     ) {
-      throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ACTIVATION_EXPIRED);
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        'Unathorized!',
+        ACTIVATION_EXPIRED,
+      );
     }
     user.setIsActivated(true);
     return user.save();
@@ -760,12 +842,17 @@ export class AuthService {
     identifier: string,
   ): Promise<NodeJS.Timeout | void> {
     if (user instanceof User) {
-      const refreshData = await this.userJwtRefreshTokenService.findTokenByToken(
-        refreshToken,
-        identifier,
-      );
+      const refreshData =
+        await this.userJwtRefreshTokenService.findTokenByToken(
+          refreshToken,
+          identifier,
+        );
       if (!refreshData) {
-         throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', TOKEN_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          TOKEN_NOT_FOUND,
+        );
       }
       return this.addTimeoutForTokens(
         `delete-user-refresh-token,: ${v4()}`,
@@ -782,7 +869,11 @@ export class AuthService {
           identifier,
         );
       if (!refreshData) {
-         throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', TOKEN_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          TOKEN_NOT_FOUND,
+        );
       }
       return this.addTimeoutForTokens(
         `delete-admin-refresh-token: ${v4()}`,
@@ -799,7 +890,11 @@ export class AuthService {
           identifier,
         );
       if (!refreshData) {
-        throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', TOKEN_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          TOKEN_NOT_FOUND,
+        );
       }
       return this.addTimeoutForTokens(
         `delete-owner-refresh-token: ${v4()}`,
@@ -845,5 +940,4 @@ export class AuthService {
     this.Logger.log(`Timeout ${name} deleted!`);
     return;
   }
-
 }

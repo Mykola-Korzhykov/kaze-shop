@@ -1,9 +1,4 @@
-import {
-  HttpStatus,
-  Injectable,
-  Logger,
-  Scope,
-} from '@nestjs/common';
+import { HttpStatus, Injectable, Logger, Scope } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { LoginDto } from '../../auth/dto/login.dto';
 import {
@@ -37,12 +32,13 @@ export class OwnerService {
   constructor(
     private readonly schedulerRegistry: SchedulerRegistry,
     private readonly currencyService: CurrencyService,
-    @InjectModel(Currencies) private readonly currenciesRepository: typeof Currencies,
+    @InjectModel(Currencies)
+    private readonly currenciesRepository: typeof Currencies,
     @InjectModel(Owner) private readonly ownerRepository: typeof Owner,
     private readonly roleService: RolesService,
   ) {}
-  
-   @Cron(CronExpression.EVERY_30_SECONDS, {
+
+  @Cron(CronExpression.EVERY_30_SECONDS, {
     name: 'setting-up',
     unrefTimeout: true,
     utcOffset: 1,
@@ -61,8 +57,8 @@ export class OwnerService {
       return this.currencyService.setCurrencies(owner.id);
     }
     return this.deleteCron('setting-up');
-   }
-  
+  }
+
   private deleteCron(name: string): void {
     this.schedulerRegistry.deleteCronJob(name);
     this.Logger.warn(`job ${name} deleted!`);
@@ -71,8 +67,14 @@ export class OwnerService {
 
   static async creatingOwner(OWNER: CreateOwnerDto) {
     const [phoneNumber, email] = await Promise.all([
-      await Owner.findOne({ where: { phoneNumber: OWNER.phoneNumber }, include: { all: true } }),
-      await Owner.findOne({ where: { email: OWNER.email }, include: { all: true } }),
+      await Owner.findOne({
+        where: { phoneNumber: OWNER.phoneNumber },
+        include: { all: true },
+      }),
+      await Owner.findOne({
+        where: { email: OWNER.email },
+        include: { all: true },
+      }),
     ]);
     if (phoneNumber || email) {
       return false;
@@ -113,10 +115,18 @@ export class OwnerService {
       await this.getOwnerByEmail(dto.email),
     ]);
     if (phoneNumber) {
-       throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', OWNER_WITH_PHONENUMBER_EXIST);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        OWNER_WITH_PHONENUMBER_EXIST,
+      );
     }
     if (email) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', OWNER_WITH_EMAIL_EXIST);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        OWNER_WITH_EMAIL_EXIST,
+      );
     }
     const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
     const salt = await bcrypt.genSalt(SALT_ROUNDS);
@@ -154,7 +164,11 @@ export class OwnerService {
       where: { activationLink: activationLink },
     });
     if (!owner) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', INVALID_LINK);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        INVALID_LINK,
+      );
     }
     return owner;
   }
@@ -164,7 +178,11 @@ export class OwnerService {
       include: { all: true },
     });
     if (!owner) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', OWNER_NOT_FOUND);   
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        OWNER_NOT_FOUND,
+      );
     }
     return owner;
   }
@@ -202,16 +220,20 @@ export class OwnerService {
 
   async checkOwner(payload: Payload, activationLink: string | undefined) {
     if (!activationLink) {
-      throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', OWNER_ID_NOT_PROVIDED); 
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        'Unathorized!',
+        OWNER_ID_NOT_PROVIDED,
+      );
     }
     const owner = await this.getOwnerById(payload.userId);
     if (owner instanceof Owner && !owner.getIsActivated()) {
-      throw new ApiException(HttpStatus.FORBIDDEN, 'Forbidden!', NOT_ACTIVATED); 
+      throw new ApiException(HttpStatus.FORBIDDEN, 'Forbidden!', NOT_ACTIVATED);
     }
     if (owner instanceof Owner && owner.activationLink === activationLink) {
       return true;
     }
-    throw new ApiException(HttpStatus.FORBIDDEN, 'Forbidden!', ACCESS_DENIED); 
+    throw new ApiException(HttpStatus.FORBIDDEN, 'Forbidden!', ACCESS_DENIED);
   }
 
   async setConfirmCode(codeDto: CodeDto, code: number): Promise<string> {
@@ -225,22 +247,41 @@ export class OwnerService {
   async resetPassword(resetDto: ResetDto): Promise<string> {
     const owner = await this.getOwnerByEmail(resetDto.email);
     if (resetDto.email !== owner.email) {
-       throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', INVALID_EMAIL);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        INVALID_EMAIL,
+      );
     }
     if (Number(Date.now()) >= owner.getResetTokenExpiration()) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', RESET_TIME_EXPIRED);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        RESET_TIME_EXPIRED,
+      );
     }
     if (Number(resetDto.code) !== owner.getConfirmCode()) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', INVALID_CODE);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        INVALID_CODE,
+      );
     }
     await this.rewritePassword(owner, resetDto.password);
     return owner.email;
   }
 
-  async changePassword(ownerId: number, password: string): Promise<Owner | void> {
+  async changePassword(
+    ownerId: number,
+    password: string,
+  ): Promise<Owner | void> {
     const owner = await this.getOwnerById(ownerId);
     if (!owner) {
-       throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', OWNER_NOT_FOUND);   
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        OWNER_NOT_FOUND,
+      );
     }
     return this.rewritePassword(owner, password);
   }

@@ -5,12 +5,12 @@ import {
   Model,
   BelongsToMany,
 } from 'sequelize-typescript';
-import { CategoryCreationAtrb } from '../../core/interfaces/product.interfaces';
+import { ColourCreationAtrb } from '../../core/interfaces/product.interfaces';
 import { Product } from '../../product/models/product.model';
-import { ProductCategories } from './product.categories.model';
+import { ProductColours } from './product.colour.model';
 
-@Table({ tableName: 'CATEGORIES' })
-export class Category extends Model<Category, CategoryCreationAtrb> {
+@Table({ tableName: 'COLOURS' })
+export class Colour extends Model<Colour, ColourCreationAtrb> {
   @Column({
     type: DataType.INTEGER,
     unique: true,
@@ -35,7 +35,7 @@ export class Category extends Model<Category, CategoryCreationAtrb> {
     field: 'ru-locale',
   })
   public ru: string;
-   
+
   @Column({
     type: DataType.STRING,
     allowNull: false,
@@ -52,7 +52,15 @@ export class Category extends Model<Category, CategoryCreationAtrb> {
   })
   public rs: string;
 
-  @BelongsToMany(() => Product, () => ProductCategories)
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+    unique: false,
+    field: 'hex',
+  })
+  public hex: string;
+
+  @BelongsToMany(() => Product, () => ProductColours)
   private products: Product[];
 
   getProducts(): Product[] {

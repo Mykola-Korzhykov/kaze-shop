@@ -23,9 +23,9 @@ import { UserRefreshToken } from '../users/models/user.refresh.token.model';
 import { UsersModule } from '../users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { Product } from './models/product.model';
-import { Category } from '../categories/models/category.model';
-import { ProductCategories } from '../categories/models/product.categories.model';
-import { CategoriesModule } from '../categories/categories.module';
+import { Category } from '../categories&colours/models/category.model';
+import { ProductCategories } from '../categories&colours/models/product.categories.model';
+import { CategoriesColoursModule } from '../categories&colours/categories&colours.module';
 import { CartModule } from '../cart/cart.module';
 import { CartProduct } from '../cart/models/cart.product.model';
 import { Cart } from '../cart/models/cart.model';
@@ -33,7 +33,7 @@ import { Order } from '../orders/models/order.model';
 import { OrderProduct } from '../orders/models/order.product.model';
 import { OrdersModule } from '../orders/orders.module';
 import { InitializeUserMiddleware } from '../common/middlewares/initialize-user.middleware';
-import { CategoriesService } from '../categories/categories.service';
+import { CategoriesService } from '../categories&colours/services/categories.service';
 import { FilesService } from '../core/services/file.service';
 import { ProductMiddleware } from '../common/middlewares/product.middleware';
 import { ProductReviews } from '../reviews/models/product.reviews.model';
@@ -42,9 +42,12 @@ import { WatchedProducts } from './models/watched.products.model';
 import { UserMiddleware } from 'src/common/middlewares/user.middleware';
 import { HttpModule } from '@nestjs/axios';
 import { Currencies } from 'src/owner/models/currencies.model';
+import { ColoursService } from 'src/categories&colours/services/colours.service';
+import { Colour } from 'src/categories&colours/models/colours.model';
+import { ProductColours } from 'src/categories&colours/models/product.colour.model';
 
 @Module({
-  providers: [ProductService, CategoriesService, FilesService, CategoriesService],
+  providers: [ProductService, FilesService, CategoriesService, ColoursService],
   controllers: [ProductController],
   imports: [
     ConfigModule.forRoot({
@@ -71,12 +74,14 @@ import { Currencies } from 'src/owner/models/currencies.model';
       WatchedProducts,
       UserRoles,
       Cart,
+      Colour,
+      ProductColours,
       CartProduct,
       Currencies,
     ]),
     forwardRef(() => OrdersModule),
     forwardRef(() => CartModule),
-    forwardRef(() => CategoriesModule),
+    forwardRef(() => CategoriesColoursModule),
     forwardRef(() => AdminModule),
     forwardRef(() => RolesModule),
     forwardRef(() => AuthModule),
@@ -96,15 +101,15 @@ export class ProductModule implements NestModule {
         { path: 'product/addBookmark', method: RequestMethod.POST },
         { path: 'product/addWatchedProduct', method: RequestMethod.POST },
         { path: 'product/watchedProducts', method: RequestMethod.GET },
-        { path: 'product/bookmarkProducts', method: RequestMethod.GET }
+        { path: 'product/bookmarkProducts', method: RequestMethod.GET },
       );
     consumer
-        .apply(InitializeUserMiddleware)
-        .forRoutes(
-          { path: 'product/create_product', method: RequestMethod.PUT },
-          { path: '*', method: RequestMethod.PATCH },
-          { path: '*', method: RequestMethod.DELETE },
-          { path: 'product/delete_image', method: RequestMethod.DELETE }
-        );
+      .apply(InitializeUserMiddleware)
+      .forRoutes(
+        { path: 'product/create_product', method: RequestMethod.PUT },
+        { path: '*', method: RequestMethod.PATCH },
+        { path: '*', method: RequestMethod.DELETE },
+        { path: 'product/delete_image', method: RequestMethod.DELETE },
+      );
   }
 }

@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   HttpStatus,
   Injectable,
   NestMiddleware,
@@ -11,7 +10,10 @@ import { OwnerJwtRefreshService } from '../../owner/services/jwt-refresh.service
 import { AdminJwtRefreshService } from '../../admin/services/jwt-refresh.service';
 import { UserJwtRefreshTokenService } from '../../users/services/jwt-refresh.service';
 import { Next, Res } from '@nestjs/common/decorators';
-import { REFRESH_TOKEN_NOT_PROVIDED, INVALID_REFRESH_TOKEN } from '../../auth/auth.constants';
+import {
+  REFRESH_TOKEN_NOT_PROVIDED,
+  INVALID_REFRESH_TOKEN,
+} from '../../auth/auth.constants';
 import { ApiException } from '../exceptions/api.exception';
 @Injectable({ scope: Scope.REQUEST })
 export class InitializeUserMiddleware implements NestMiddleware {
@@ -27,7 +29,11 @@ export class InitializeUserMiddleware implements NestMiddleware {
   ) {
     const refreshToken = req?.cookies['refreshToken'];
     if (!refreshToken) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request!', REFRESH_TOKEN_NOT_PROVIDED);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request!',
+        REFRESH_TOKEN_NOT_PROVIDED,
+      );
     }
     const decodedToken = Buffer.from(refreshToken, 'base64').toString('ascii');
     try {
@@ -51,7 +57,11 @@ export class InitializeUserMiddleware implements NestMiddleware {
         decodedToken,
       );
       if (!userRefreshToken) {
-        throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request!', INVALID_REFRESH_TOKEN);
+        throw new ApiException(
+          HttpStatus.BAD_REQUEST,
+          'Bad request!',
+          INVALID_REFRESH_TOKEN,
+        );
       }
       req['type'] = null;
       return next();

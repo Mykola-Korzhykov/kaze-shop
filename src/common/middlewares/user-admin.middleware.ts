@@ -7,10 +7,6 @@ import {
   Res,
   Scope,
 } from '@nestjs/common';
-import {
-  BadRequestException,
-  NotFoundException,
-} from '@nestjs/common/exceptions';
 import { Request, Response, NextFunction } from 'express';
 import { INVALID_PARAMS } from '../../auth/auth.constants';
 import { USER_NOT_FOUND } from '../../users/constants/user.constants';
@@ -45,7 +41,11 @@ export class UserAdminMiddleware implements NestMiddleware {
         !editContent.toString() ||
         !editWebSite.toString()
       ) {
-        throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request!', INVALID_PARAMS);
+        throw new ApiException(
+          HttpStatus.BAD_REQUEST,
+          'Bad request!',
+          INVALID_PARAMS,
+        );
       }
       const user = await this.userService.getUserByEmail(email);
       if (user.phoneNumber === phoneNumber) {
@@ -53,7 +53,11 @@ export class UserAdminMiddleware implements NestMiddleware {
         req.body.activationLink = v4();
         return next();
       }
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);  
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        USER_NOT_FOUND,
+      );
     } catch (err: unknown) {
       return next(err);
     }

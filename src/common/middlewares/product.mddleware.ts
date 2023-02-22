@@ -23,4 +23,4 @@ export class UserMiddleware implements NestMiddleware {
       return next(err);
     }
   }
-};
+}

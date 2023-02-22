@@ -8,8 +8,9 @@ import { plainToClass } from 'class-transformer';
 
 export function ValidateNested(
   schema: new () => any,
-  validationOptions?: ValidationOptions
+  validationOptions?: ValidationOptions,
 ) {
+  // eslint-disable-next-line @typescript-eslint/ban-types
   return function (object: Object, propertyName: string) {
     registerDecorator({
       name: 'ValidateNested',

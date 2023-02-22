@@ -6,21 +6,21 @@ import {
   IsInt,
   BelongsTo,
   ForeignKey,
-  IsArray,
-  HasMany,
   BelongsToMany,
 } from 'sequelize-typescript';
 import { CartProduct } from '../../cart/models/cart.product.model';
 import { Cart } from '../../cart/models/cart.model';
 import { Order } from '../../orders/models/order.model';
 import { OrderProduct } from '../../orders/models/order.product.model';
-import { Category } from '../../categories/models/category.model';
-import { ProductCategories } from '../../categories/models/product.categories.model';
+import { Category } from '../../categories&colours/models/category.model';
+import { ProductCategories } from '../../categories&colours/models/product.categories.model';
 import { ProductCreationAttrs } from '../../core/interfaces/product.interfaces';
 import { Owner } from '../../owner/models/owner.model';
 import { Admin } from '../../admin/models/admin.model';
 import { Review } from '../../reviews/models/review.model';
 import { ProductReviews } from '../../reviews/models/product.reviews.model';
+import { Colour } from 'src/categories&colours/models/colours.model';
+import { ProductColours } from 'src/categories&colours/models/product.colour.model';
 
 @Table({ tableName: 'PRODUCTS' })
 export class Product extends Model<Product, ProductCreationAttrs> {
@@ -41,7 +41,7 @@ export class Product extends Model<Product, ProductCreationAttrs> {
   })
   public title: string;
 
-  getTitle():{
+  getTitle(): {
     ua: string;
     ru: string;
     rs: string;
@@ -50,12 +50,7 @@ export class Product extends Model<Product, ProductCreationAttrs> {
     return JSON.parse(this.title);
   }
 
-  setTitle(title: {
-    ua: string;
-    ru: string;
-    rs: string;
-    en: string;
-  }) {
+  setTitle(title: { ua: string; ru: string; rs: string; en: string }) {
     this.title = JSON.stringify(title);
     return this.title;
   }
@@ -68,7 +63,7 @@ export class Product extends Model<Product, ProductCreationAttrs> {
   })
   public description: string;
 
-  getDescription():{
+  getDescription(): {
     ua: string;
     ru: string;
     rs: string;
@@ -113,7 +108,9 @@ export class Product extends Model<Product, ProductCreationAttrs> {
   public sizeChartImage: string;
 
   @Column({
-    type: DataType.ARRAY(DataType.ENUM('S', 'XXS', 'XS', 'M', 'L', 'XL', 'XXL')),
+    type: DataType.ARRAY(
+      DataType.ENUM('S', 'XXS', 'XS', 'M', 'L', 'XL', 'XXL'),
+    ),
     unique: false,
     allowNull: true,
     field: 'sizes',
@@ -124,9 +121,9 @@ export class Product extends Model<Product, ProductCreationAttrs> {
     type: DataType.ARRAY(DataType.STRING),
     unique: false,
     allowNull: true,
-    field: 'colours',
+    field: 'hexes',
   })
-  public colours: string[];
+  public hexes: string[];
 
   @IsInt
   @Column({
@@ -156,6 +153,9 @@ export class Product extends Model<Product, ProductCreationAttrs> {
   @BelongsToMany(() => Category, () => ProductCategories)
   public categories: Category[];
 
+  @BelongsToMany(() => Colour, () => ProductColours)
+  public colours: Colour[];
+
   @BelongsToMany(() => Cart, () => CartProduct)
   private carts: Cart[];
 
@@ -164,6 +164,15 @@ export class Product extends Model<Product, ProductCreationAttrs> {
 
   @BelongsToMany(() => Review, () => ProductReviews)
   public reviews: Review[];
+
+  getColours(): Colour[] {
+    return this.colours;
+  }
+
+  setColours(colours: Colour[]): Colour[] {
+    this.colours = colours;
+    return this.colours;
+  }
 
   getCategories(): Category[] {
     return this.categories;

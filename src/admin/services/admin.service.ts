@@ -1,12 +1,4 @@
-import {
-  BadRequestException,
-  ForbiddenException,
-  HttpStatus,
-  Injectable,
-  NotFoundException,
-  Scope,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { HttpStatus, Injectable, Scope } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateAdminDto } from '../dto/create-admin.dto';
 import * as bcrypt from 'bcrypt';
@@ -111,10 +103,18 @@ export class AdminService {
       await this.getAdminByEmail(dto.email),
     ]);
     if (phoneNumber) {
-       throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', ADMIN_WITH_PHONENUMBER_EXIST);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        ADMIN_WITH_PHONENUMBER_EXIST,
+      );
     }
     if (email) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', ADMIN_WITH_EMAIL_EXIST);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        ADMIN_WITH_EMAIL_EXIST,
+      );
     }
     const [admin] = await Promise.all([await this.adminRepository.create(dto)]);
     const role = await this.roleService.getRoleByValue('ADMIN');
@@ -187,7 +187,11 @@ export class AdminService {
       where: { activationLink: activationLink },
     });
     if (!admin) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', INVALID_LINK);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        INVALID_LINK,
+      );
     }
     return admin;
   }
@@ -225,7 +229,11 @@ export class AdminService {
       include: { all: true },
     });
     if (!admin) {
-       throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', ADMIN_NOT_FOUND);  
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        ADMIN_NOT_FOUND,
+      );
     }
     return admin;
   }
@@ -240,11 +248,15 @@ export class AdminService {
 
   async checkAdmin(payload: Payload, activationLink: string | undefined) {
     if (!activationLink) {
-      throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', ADMIN_ID_NOT_PROVIDED); 
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        'Unathorized!',
+        ADMIN_ID_NOT_PROVIDED,
+      );
     }
     const admin = await this.getAdminById(payload.userId);
     if (!admin.getIsActivated()) {
-      throw new ApiException(HttpStatus.FORBIDDEN, 'Forbidden!', NOT_ACTIVATED); 
+      throw new ApiException(HttpStatus.FORBIDDEN, 'Forbidden!', NOT_ACTIVATED);
     }
     if (
       admin.activationLink === activationLink &&
@@ -289,13 +301,25 @@ export class AdminService {
   async resetPassword(resetDto: ResetDto): Promise<string> {
     const admin = await this.getAdminByEmail(resetDto.email);
     if (resetDto.email !== admin.email) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', INVALID_EMAIL);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        INVALID_EMAIL,
+      );
     }
     if (Number(Date.now()) >= admin.getResetTokenExpiration()) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', RESET_TIME_EXPIRED);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        RESET_TIME_EXPIRED,
+      );
     }
     if (Number(resetDto.code) !== admin.getConfirmCode()) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', INVALID_CODE);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        INVALID_CODE,
+      );
     }
     await this.userService.rewritePassword(admin.userId, resetDto.password);
     await this.rewritePassword(admin, resetDto.password);

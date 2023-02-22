@@ -1,11 +1,4 @@
-import {
-  BadRequestException,
-  HttpStatus,
-  Injectable,
-  InternalServerErrorException,
-  NotFoundException,
-  Scope,
-} from '@nestjs/common';
+import { HttpStatus, Injectable, Scope } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import {
   ERROR_WHILE_REMOVING_TOKEN,
@@ -44,8 +37,8 @@ export class UserJwtRefreshTokenService {
       throw new ApiException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Internal Server Error',
-        ERROR_WHILE_SIGNING_TOKEN
-      );   
+        ERROR_WHILE_SIGNING_TOKEN,
+      );
     }
   }
 
@@ -55,15 +48,19 @@ export class UserJwtRefreshTokenService {
     try {
       const userData = this.jwtService.verify(userRefreshToken);
       if (!userData) {
-        throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', TOKEN_INVALID);
-      } 
+        throw new ApiException(
+          HttpStatus.BAD_REQUEST,
+          'Bad request',
+          TOKEN_INVALID,
+        );
+      }
       return userData;
     } catch (err: unknown) {
-       throw new ApiException(
+      throw new ApiException(
         HttpStatus.INTERNAL_SERVER_ERROR,
-          'Internal Server Error',
-          ERROR_WHILE_VALIDATING_TOKEN
-        );  
+        'Internal Server Error',
+        ERROR_WHILE_VALIDATING_TOKEN,
+      );
     }
   }
 
@@ -77,7 +74,11 @@ export class UserJwtRefreshTokenService {
     try {
       const user = await this.userService.getUserById(userId);
       if (!user) {
-         throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          USER_NOT_FOUND,
+        );
       }
       const token = await this.userRefreshTokenRepository.create({
         userRefreshToken: userRefreshToken,
@@ -91,9 +92,12 @@ export class UserJwtRefreshTokenService {
       await token.save();
       if (!token.getExpireDate()) {
         token.setExpireDate(expireDate);
-        await token.save(); 
+        await token.save();
       }
-      if (!user.getUserRefreshTokens() || user.getUserRefreshTokens().length === 0) {
+      if (
+        !user.getUserRefreshTokens() ||
+        user.getUserRefreshTokens().length === 0
+      ) {
         user.$set('userRefreshTokens', token.id);
         user.userRefreshTokens = [token];
       } else {
@@ -105,8 +109,8 @@ export class UserJwtRefreshTokenService {
       throw new ApiException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Internal Server Error',
-        ERROR_WHILE_SAVING_TOKEN
-      );   
+        ERROR_WHILE_SAVING_TOKEN,
+      );
     }
   }
 
@@ -121,7 +125,11 @@ export class UserJwtRefreshTokenService {
     try {
       const user = await this.userService.getUserById(userId);
       if (!user) {
-         throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          USER_NOT_FOUND,
+        );
       }
       const tokenData = await this.userRefreshTokenRepository.findOne({
         where: {
@@ -143,15 +151,15 @@ export class UserJwtRefreshTokenService {
       });
       if (!token.getExpireDate()) {
         token.setExpireDate(expireDate);
-        await token.save(); 
+        await token.save();
       }
       return token;
     } catch (err: unknown) {
-       throw new ApiException(
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          'Internal Server Error',
-          ERROR_WHILE_SAVING_TOKEN
-        );   
+      throw new ApiException(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        'Internal Server Error',
+        ERROR_WHILE_SAVING_TOKEN,
+      );
     }
   }
 
@@ -159,7 +167,11 @@ export class UserJwtRefreshTokenService {
     try {
       const token = await this.findToken(userRefreshToken);
       if (!token) {
-        throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', TOKEN_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          TOKEN_NOT_FOUND,
+        );
       }
       const user = await this.userService.getUserById(token.userId);
       user.$remove('userRefreshTokens', token.token.id);
@@ -172,8 +184,8 @@ export class UserJwtRefreshTokenService {
       throw new ApiException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Internal Server Error',
-        ERROR_WHILE_REMOVING_TOKEN
-      );   
+        ERROR_WHILE_REMOVING_TOKEN,
+      );
     }
   }
 
@@ -188,24 +200,30 @@ export class UserJwtRefreshTokenService {
       },
     });
     if (!token) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', TOKEN_NOT_FOUND);   
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        TOKEN_NOT_FOUND,
+      );
     }
     return token;
   }
 
-  async findToken(
-    userRefreshToken: string,
-  ): Promise<{
+  async findToken(userRefreshToken: string): Promise<{
     token: UserRefreshToken;
     userId: number;
-  }>{
+  }> {
     const token = await UserRefreshToken.findOne({
       where: {
         userRefreshToken: userRefreshToken,
       },
     });
     if (!token) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', TOKEN_NOT_FOUND);   
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        TOKEN_NOT_FOUND,
+      );
     }
     return {
       token: token,

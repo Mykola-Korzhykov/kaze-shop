@@ -1,12 +1,4 @@
-import {
-  BadRequestException,
-  HttpStatus,
-  Injectable,
-  InternalServerErrorException,
-  Logger,
-  NotFoundException,
-  Scope,
-} from '@nestjs/common';
+import { HttpStatus, Injectable, Logger, Scope } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectModel } from '@nestjs/sequelize';
 import { randomBytes, scrypt, createCipheriv } from 'crypto';
@@ -47,11 +39,11 @@ export class OwnerJwtRefreshService {
       const ownerRefreshToken = this.jwtService.sign(payload);
       return ownerRefreshToken;
     } catch (err) {
-       throw new ApiException(
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          'Internal Server Error',
-          ERROR_WHILE_SIGNING_TOKEN
-        );   
+      throw new ApiException(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        'Internal Server Error',
+        ERROR_WHILE_SIGNING_TOKEN,
+      );
     }
   }
 
@@ -61,15 +53,19 @@ export class OwnerJwtRefreshService {
     try {
       const ownerData = this.jwtService.verify(ownerRefreshToken);
       if (!ownerData) {
-        throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', TOKEN_INVALID);
+        throw new ApiException(
+          HttpStatus.BAD_REQUEST,
+          'Bad request',
+          TOKEN_INVALID,
+        );
       }
       return ownerData;
     } catch (err: unknown) {
-       throw new ApiException(
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          'Internal Server Error',
-          ERROR_WHILE_VALIDATING_TOKEN
-        );   
+      throw new ApiException(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        'Internal Server Error',
+        ERROR_WHILE_VALIDATING_TOKEN,
+      );
     }
   }
 
@@ -81,10 +77,14 @@ export class OwnerJwtRefreshService {
     phoneNumber: string,
     expireDate: Date,
   ) {
-    try{
+    try {
       const owner = await this.ownerService.getOwnerById(ownerId);
       if (!owner) {
-        throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', OWNER_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          OWNER_NOT_FOUND,
+        );
       }
       const token = await this.ownerRefreshTokenRepository.create({
         ownerRefreshToken: ownerRefreshToken,
@@ -97,9 +97,12 @@ export class OwnerJwtRefreshService {
       await token.save();
       if (!token.getExpireDate()) {
         token.setExpireDate(expireDate);
-        await token.save(); 
+        await token.save();
       }
-      if (!owner.getOwnerRefreshTokens() || owner.getOwnerRefreshTokens().length === 0) {
+      if (
+        !owner.getOwnerRefreshTokens() ||
+        owner.getOwnerRefreshTokens().length === 0
+      ) {
         owner.$set('ownerRefreshTokens', token.id);
         owner.ownerRefreshTokens = [token];
       } else {
@@ -111,8 +114,8 @@ export class OwnerJwtRefreshService {
       throw new ApiException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Internal Server Error',
-        ERROR_WHILE_SAVING_TOKEN
-      );   
+        ERROR_WHILE_SAVING_TOKEN,
+      );
     }
   }
 
@@ -128,7 +131,11 @@ export class OwnerJwtRefreshService {
     try {
       const owner = await this.ownerService.getOwnerById(ownerId);
       if (!owner) {
-       throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', OWNER_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          OWNER_NOT_FOUND,
+        );
       }
       const tokenData = await this.ownerRefreshTokenRepository.findOne({
         where: {
@@ -138,24 +145,34 @@ export class OwnerJwtRefreshService {
       });
       if (tokenData && !owner.getOwnerAgent()) {
         owner.setOwnerAgent(ownerAgent);
-        tokenData.setownerAgent(ownerAgent); 
+        tokenData.setownerAgent(ownerAgent);
         await owner.save();
-        await tokenData.save(); 
+        await tokenData.save();
       }
       if (tokenData) {
         tokenData.ownerRefreshToken = ownerRefreshToken;
-        if (owner.getOwnerAgent() && owner.getOwnerAgent().trim() !== ownerAgent) {
+        if (
+          owner.getOwnerAgent() &&
+          owner.getOwnerAgent().trim() !== ownerAgent
+        ) {
           owner.setIsActivated(false);
           const link = await this.generateEncryptedValue('OWNER', 16);
           const code = this.generateActivationCode();
-          owner.setResetToken(link.replace('/', `${v4()}`).replace('=', `${v4()}`));
+          owner.setResetToken(
+            link.replace('/', `${v4()}`).replace('=', `${v4()}`),
+          );
           owner.setActivationCode(code);
           owner.setResetTokenExpiration(Number(Date.now() + 3600000));
           await owner.save();
-          this.Logger.log(`checking owner with email ${owner.email}`, owner.getOwnerAgent() !== ownerAgent);
+          this.Logger.log(
+            `checking owner with email ${owner.email}`,
+            owner.getOwnerAgent() !== ownerAgent,
+          );
           this.mailService.sendActivationMailToOwner(
             owner.email,
-            `${process.env.API_URL}/auth/activate/${owner.getResetToken().trim()}?code=${code}`,
+            `${process.env.API_URL}/auth/activate/${owner
+              .getResetToken()
+              .trim()}?code=${code}`,
           );
         }
         return tokenData.save();
@@ -169,15 +186,15 @@ export class OwnerJwtRefreshService {
       });
       if (!token.getExpireDate()) {
         token.setExpireDate(expireDate);
-        await token.save(); 
+        await token.save();
       }
       return token;
     } catch (err: unknown) {
       throw new ApiException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Internal Server Error',
-        ERROR_WHILE_SAVING_TOKEN
-      );   
+        ERROR_WHILE_SAVING_TOKEN,
+      );
     }
   }
 
@@ -185,7 +202,11 @@ export class OwnerJwtRefreshService {
     try {
       const token = await this.findToken(ownerRefreshToken);
       if (!token) {
-        throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', TOKEN_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          TOKEN_NOT_FOUND,
+        );
       }
       const owner = await this.ownerService.getOwnerById(token.ownerId);
       owner.$remove('ownerRefreshTokens', token.token.id);
@@ -195,11 +216,11 @@ export class OwnerJwtRefreshService {
       });
       return tokenData;
     } catch (err: unknown) {
-       throw new ApiException(
-          HttpStatus.INTERNAL_SERVER_ERROR,
-          'Internal Server Error',
-          ERROR_WHILE_REMOVING_TOKEN
-        );   
+      throw new ApiException(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        'Internal Server Error',
+        ERROR_WHILE_REMOVING_TOKEN,
+      );
     }
   }
 
@@ -214,17 +235,22 @@ export class OwnerJwtRefreshService {
       },
     });
     if (!token) {
-      throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', TOKEN_NOT_FOUND);   
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        TOKEN_NOT_FOUND,
+      );
     }
     return token;
   }
 
-  async findToken(
-    ownerRefreshToken: string,
-  ): Promise<false | {
-    token: OwnerRefreshToken;
-    ownerId: number;
-  }> {
+  async findToken(ownerRefreshToken: string): Promise<
+    | false
+    | {
+        token: OwnerRefreshToken;
+        ownerId: number;
+      }
+  > {
     const token = await this.ownerRefreshTokenRepository.findOne({
       where: { ownerRefreshToken: ownerRefreshToken },
     });
@@ -243,20 +269,24 @@ export class OwnerJwtRefreshService {
       where: { email: email, phoneNumber: phoneNumber, identifier: identifier },
     });
     if (!token) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, 'Bad request', TOKEN_INVALID);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        'Bad request',
+        TOKEN_INVALID,
+      );
     }
     return token;
   }
 
   async removeTokenInTime(
     ownerRefreshTokenId: number,
-    identifier: string
+    identifier: string,
   ): Promise<number | false> {
     const token = await OwnerRefreshToken.findOne({
       where: {
         id: ownerRefreshTokenId,
         identifier: identifier,
-      }
+      },
     });
     if (!token) {
       return false;

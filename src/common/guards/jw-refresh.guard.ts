@@ -12,7 +12,11 @@ import { UsersService } from '../../users/services/users.service';
 import { Payload } from '../../core/interfaces/auth.interfaces';
 import { USER_NOT_FOUND } from '../../users/constants/user.constants';
 import { ApiException } from '../exceptions/api.exception';
-import { INVALID_REQUEST, NO_LINK_PROVIDED, USER_NOT_DETECTED } from '../../auth/auth.constants';
+import {
+  INVALID_REQUEST,
+  NO_LINK_PROVIDED,
+  USER_NOT_DETECTED,
+} from '../../auth/auth.constants';
 
 @Injectable({ scope: Scope.REQUEST })
 export class AuthFerfershGuard implements CanActivate {
@@ -30,28 +34,48 @@ export class AuthFerfershGuard implements CanActivate {
       const payload: Payload = req?.payload;
       const type: 'OWNER' | 'ADMIN' | null = req['type'];
       if (!payload) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', INVALID_REQUEST);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          'Unathorized!',
+          INVALID_REQUEST,
+        );
       }
       if (type === undefined) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, 'Unathorized!', USER_NOT_DETECTED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          'Unathorized!',
+          USER_NOT_DETECTED,
+        );
       }
       if (type && type === 'OWNER') {
         const activationLink: string = req?.signedCookies['user-id'];
         if (!activationLink) {
-          throw new ApiException(HttpStatus.FORBIDDEN, 'Forbidden!', NO_LINK_PROVIDED);
+          throw new ApiException(
+            HttpStatus.FORBIDDEN,
+            'Forbidden!',
+            NO_LINK_PROVIDED,
+          );
         }
         return this.ownerService.checkOwner(payload, activationLink);
       }
       if (type && type === 'ADMIN') {
         const activationLink: string = req?.signedCookies['user-id'];
         if (!activationLink) {
-          throw new ApiException(HttpStatus.FORBIDDEN, 'Forbidden!', NO_LINK_PROVIDED);
+          throw new ApiException(
+            HttpStatus.FORBIDDEN,
+            'Forbidden!',
+            NO_LINK_PROVIDED,
+          );
         }
         return this.adminService.checkAdmin(payload, activationLink);
       }
       const user = await this.userService.getUserById(payload.userId);
       if (!user) {
-        throw new ApiException(HttpStatus.NOT_FOUND, 'Not found!', USER_NOT_FOUND);  
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          USER_NOT_FOUND,
+        );
       }
       return true;
     })();

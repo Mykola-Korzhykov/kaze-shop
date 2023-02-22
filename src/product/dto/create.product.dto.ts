@@ -1,14 +1,12 @@
 import { Transform, Type } from 'class-transformer';
-import { IsString, IsNumber, IsDefined, Matches, ArrayNotEmpty, IsArray, MaxLength} from 'class-validator';
-import { ParseFormDataJsonPipe } from '../../common/pipes/formdata.pipe';
-import { ParseJsonPipe } from '../../common/pipes/parse.json.pipe';
+import { IsString, IsNumber, IsDefined, Matches } from 'class-validator';
 class Nested {
   @IsDefined()
   @IsString()
-  @Matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-яzžitisšte_-]/gi)  
+  @Matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-яzžitisšte_-]/gi)
   ua: string;
   @IsDefined()
-  @IsString() 
+  @IsString()
   @Matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-яzžitisšte_-]/gi)
   ru: string;
   @IsDefined()
@@ -40,7 +38,7 @@ export class CreateProductDto {
   };
 
   @IsDefined()
-  @Type(()=> Number)
+  @Type(() => Number)
   @IsNumber()
   readonly price: number;
 
@@ -49,22 +47,22 @@ export class CreateProductDto {
   // @Transform((value) => ParseJsonPipe.transform(value.value, value.obj))
   // @IsArray()
   // @ArrayNotEmpty()
-  // @IsString({ each: true }) 
+  // @IsString({ each: true })
   // @MaxLength(15, { each: true })
   readonly sizes: string[];
 
   @IsDefined()
-  @Type(() => Array<string>)
+  @Type(() => Array<number>)
   // @Transform((value) => JSON.parse(value.value))
   // @IsArray()
   // @ArrayNotEmpty()
-  // @IsString({ each: true }) 
+  // @IsString({ each: true })
   // @MaxLength(15, { each: true })
-  readonly colours: string[];
+  readonly colours: number[];
 
   @IsDefined()
   @Transform((value: any) => Number(value.value))
-  @Type(()=> Number)
+  @Type(() => Number)
   @IsNumber()
   readonly quantity: number;
 

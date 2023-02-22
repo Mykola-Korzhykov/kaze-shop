@@ -24,9 +24,7 @@ import { Throttle } from '@nestjs/throttler';
 @Controller('/')
 export class AppController {
   private readonly Logger = new Logger(AppController.name);
-  constructor(
-    private readonly httpService: HttpService,
-  ) {}
+  constructor(private readonly httpService: HttpService) {}
 
   @Throttle(20, 500)
   @Get('set-user')
@@ -48,17 +46,17 @@ export class AppController {
             path: '/',
             maxAge: 30 * 24 * 60 * 60 * 1000,
           });
-          return response.json({ _id: _id});
+          return response.json({ _id: _id });
         }
         response.cookie('_id', request.signedCookies['_id'], {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production' ? true : false,
-            sameSite: 'strict',
-            signed: true,
-            path: '/',
-            maxAge: 30 * 24 * 60 * 60 * 1000,
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production' ? true : false,
+          sameSite: 'strict',
+          signed: true,
+          path: '/',
+          maxAge: 30 * 24 * 60 * 60 * 1000,
         });
-        return response.json({ _id: request.signedCookies['_id']});
+        return response.json({ _id: request.signedCookies['_id'] });
       } catch (err: unknown) {
         this.Logger.error(err);
         next(err);
@@ -72,19 +70,21 @@ export class AppController {
   getLocation(
     @Req() request: Request,
     @Res() response: Response,
-    @Next() next: NextFunction
+    @Next() next: NextFunction,
   ) {
     (async () => {
       try {
         const ipAddress = request.headers['x-forwarded-for'];
         this.Logger.log(ipAddress);
-        const reader = await Reader.open(path.join(__dirname, 'GeoLite2-Country.mmdb'));
+        const reader = await Reader.open(
+          path.join(__dirname, 'GeoLite2-Country.mmdb'),
+        );
         const geoCountry = reader.country(request.ip);
-        return response.json({   
+        return response.json({
           geoLocation: {
             currency: request['currency'],
             city: request['city'],
-            ...geoCountry
+            ...geoCountry,
           },
         });
       } catch (err) {
@@ -97,9 +97,7 @@ export class AppController {
   @Throttle(20, 500)
   @Get('get-currencies')
   @HttpCode(200)
-  getCurrency(
-    @Query('base') base: string,
-  ) {
+  getCurrency(@Query('base') base: string) {
     try {
       return this.getCurrencies(base);
     } catch (err) {
@@ -111,18 +109,29 @@ export class AppController {
   @Sse('sse')
   sse(): Observable<MessageEvent> {
     return timeout(1000).apply(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       map((_) => ({ data: { hello: 'world' } } as MessageEvent)),
     );
   }
 
   private async getCurrencies(base: string | undefined): Promise<any> {
-    const data = await firstValueFrom(this.httpService.get(
-      `${process.env.API_CURRENCIES.trim()}/${!base ? process.env.BASE_CURRENCY.toLowerCase().trim() : base.toLowerCase().trim()}.json`,
-      { headers: { 'Accept-Encoding': 'gzip,deflate,compress' } }
-    ).pipe(map(res => res.data)).pipe(catchError((error) => {
-        this.Logger.error(error.response.data);
-        throw error;
-      }))
+    const data = await firstValueFrom(
+      this.httpService
+        .get(
+          `${process.env.API_CURRENCIES.trim()}/${
+            !base
+              ? process.env.BASE_CURRENCY.toLowerCase().trim()
+              : base.toLowerCase().trim()
+          }.json`,
+          { headers: { 'Accept-Encoding': 'gzip,deflate,compress' } },
+        )
+        .pipe(map((res) => res.data))
+        .pipe(
+          catchError((error) => {
+            this.Logger.error(error.response.data);
+            throw error;
+          }),
+        ),
     );
     return data;
   }

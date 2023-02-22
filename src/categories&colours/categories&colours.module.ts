@@ -5,8 +5,8 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { CategoriesService } from './categories.service';
-import { CategoriesController } from './categories.controller';
+import { CategoriesService } from './services/categories.service';
+import { CategoriesController } from './controllers/categories.controller';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { AdminModule } from '../admin/admin.module';
@@ -27,10 +27,14 @@ import { Category } from './models/category.model';
 import { ProductCategories } from './models/product.categories.model';
 import { ProductModule } from '../product/product.module';
 import { InitializeUserMiddleware } from '../common/middlewares/initialize-user.middleware';
+import { ColoursService } from './services/colours.service';
+import { ColoursController } from './controllers/colours.controller';
+import { Colour } from './models/colours.model';
+import { ProductColours } from './models/product.colour.model';
 
 @Module({
-  providers: [CategoriesService],
-  controllers: [CategoriesController],
+  providers: [CategoriesService, ColoursService],
+  controllers: [CategoriesController, ColoursController],
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
@@ -49,6 +53,8 @@ import { InitializeUserMiddleware } from '../common/middlewares/initialize-user.
       UserRefreshToken,
       Role,
       UserRoles,
+      Colour,
+      ProductColours,
     ]),
     forwardRef(() => ProductModule),
     forwardRef(() => AdminModule),
@@ -57,15 +63,18 @@ import { InitializeUserMiddleware } from '../common/middlewares/initialize-user.
     forwardRef(() => OwnerModule),
     forwardRef(() => UsersModule),
   ],
+  exports: [CategoriesService, ColoursService],
 })
-export class CategoriesModule implements NestModule {
+export class CategoriesColoursModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(InitializeUserMiddleware)
       .forRoutes(
         { path: 'categories/create_category', method: RequestMethod.PUT },
         { path: 'categories/delete_category', method: RequestMethod.DELETE },
-        { path: '*', method: RequestMethod.PATCH }
+        { path: 'categories/create_colour', method: RequestMethod.PUT },
+        { path: 'categories/delete_colour', method: RequestMethod.DELETE },
+        { path: '*', method: RequestMethod.PATCH },
       );
   }
 }
