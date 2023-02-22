@@ -1,6 +1,7 @@
 .wrapper{
-    height: 642px;
-    margin-bottom: 90px;
+    margin-top: 100px;
+    // height: 642px;
+    margin-bottom: 144px;
     display: flex;
     max-width: 100%;
     justify-content: center;
@@ -9,13 +10,18 @@
    
     @media (max-width: 1160px) {
         
-        height: 438px;
+        
     }
     //переключаем на калом
     @media (max-width: 700px) {
+        margin-top: 50px;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 310px;
+        margin-bottom: 58px;
+    }
+    @media (max-width: 700px) {
+        margin-top: 38px;
+
     }
 
 }
@@ -37,7 +43,7 @@
         margin-top: auto;
         width: 495px;
         height: 642px;
-    @media (max-width: 1160px) {
+        @media (max-width: 1160px) {
         width: 296px;
         height: 383.9px;
     }
@@ -58,7 +64,7 @@
     justify-content: center;
 
     .title{
-        // margin-bottom: 20px;
+        margin-bottom: 10px;
         margin-top: auto;
         // margin-top: 184px;
         font-family: 'Russo One';
@@ -101,7 +107,7 @@
             font-weight: 400;
             font-size: 20px;
             line-height: 19px;
-            margin-bottom: 20px;
+            margin-bottom: 45px;
         }
         @media (max-width: 834px) {
             font-weight: 400;

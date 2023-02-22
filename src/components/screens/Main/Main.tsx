@@ -22,7 +22,7 @@ const Main = () => {
 		<div className={s.wrapper}>
 			<BuyProducts />
 			<ProductFitnes />
-			{/* <About /> */}
+			<About />
 			<ProductsAccessories />
 		</div>
 
