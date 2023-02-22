@@ -35,6 +35,8 @@ export const AddProduct = () => {
                         return <InputTextItem key={obj.id} id={obj.id} type={obj.type} text={obj.text} placeholder={obj.placeholder} />
                     })}
                 </div>
+
+
             </div>
         </div>
     )

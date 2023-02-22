@@ -36,6 +36,8 @@ const Cabinet: FC = () => {
 				<div className='page_coordinator'>
 					<Link href='#'>Главная</Link> | <span>Личный кабинет</span>
 				</div>
+
+
 				{/* <CabinetTabs /> */}
 				<CabinetAdmin />
 			</div>

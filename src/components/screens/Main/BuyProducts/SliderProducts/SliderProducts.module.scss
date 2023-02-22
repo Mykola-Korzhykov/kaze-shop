@@ -2,12 +2,13 @@
 .wrapper{
     display: flex;
     max-width: 600px;
-    
+    flex-direction: column;
 
     @media (max-width: 1200px) {
         max-width: 390px;
         // position: absolute;
-        // bottom: -200px;
+        // bottom: 0;
+       
     }
 }
 
@@ -40,9 +41,13 @@
 
     @media (max-width: 600px) {
         margin-left: auto !important;
-        margin-right: 15px;
-        
+        margin-right: 15px; 
     }
+    @media (max-width: 428px) {
+           
+            margin-right: 42px;
+    
+        }
 
     .arrow_svg{
         display: block;

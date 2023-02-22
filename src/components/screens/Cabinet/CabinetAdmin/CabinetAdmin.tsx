@@ -82,12 +82,14 @@ export const CabinetAdmin: React.FC = () => {
 
                 </label>
 
+
+                {/* <div style={{ backround-color: `${props.color}`}}></div> */}
                 {displayActive === 1 ? usersRole : ''}
                 {displayActive === 2 ? usersAdmin : ''}
                 {displayActive === 3 ? <AddProduct /> : ''}
             </div>
 
-        </div>
+        </div >
     )
 }
 

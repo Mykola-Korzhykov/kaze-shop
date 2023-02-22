@@ -77,7 +77,17 @@ const BuyProducts = () => {
                         </div>
 
                     </div>
+
                 </div>
+            </div>
+
+            <div className={s.wrapper_slider_mobile}>
+                <div className={s.inner_slider}>
+                    <div className={s.slider}>
+                        <SliderProducts />
+                    </div>
+                </div>
+
             </div>
         </div>
 

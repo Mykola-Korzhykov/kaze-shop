@@ -35,9 +35,9 @@ const SliderProducts = () => {
 
 
     return (
-        <div>
+        <div className={s.wrapper}>
 
-            <Slider className={`slider__wrapper`} {...settings}>
+            <Slider className={s.wrapper} {...settings}>
 
                 {/* <button className={s.btn}>
                 click
