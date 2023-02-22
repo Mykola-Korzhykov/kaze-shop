@@ -11,10 +11,18 @@
         height: 360px;
         margin-bottom: 30px;
 
-    @media (max-width: 540px) {
-        width: 250px;
+    @media (max-width: 834px) {
+        width: 235px;
+        height: 308px;
+        margin-bottom: 25px;
+
     }
+
         }
+    @media (max-width: 834px) {
+        padding-right: 48px;
+    }
+   
 
    
 }
@@ -33,6 +41,16 @@
         line-height: 26px;
     
         color: #0B0B0B;
+
+    @media (max-width: 834px) {
+        font-size: 20px;
+        line-height: 24px;
+    }
+    @media (max-width: 428px) {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
     }
 
     .price{
@@ -43,6 +61,15 @@
         line-height: 22px;
     
         color: rgba(0, 0, 0, 0.6);
+    }
+
+    @media (max-width: 834px) {
+        font-size: 16px;
+        line-height: 19px;
+    }
+    @media (max-width: 428px) {
+        font-size: 18px;
+        line-height: 22px;
     }
    
 }
@@ -57,6 +84,15 @@
          border: none;
          outline: none;
          border: #0B0B0B solid 1px;
+
+        font-family: 'Georama', sans-serif;
+        text-align: center;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;
+        
+        color: #0B0B0B;
      }
 
      .btn_save {

@@ -42,6 +42,7 @@ const ProductSlider = ({ products, title }: ProductSliderProps) => {
         dots: false,
         infinite: true,
         speed: 500,
+        arrows: false,
         slidesToShow: 4,
         slidesToScroll: 1,
     });
@@ -49,12 +50,13 @@ const ProductSlider = ({ products, title }: ProductSliderProps) => {
     React.useEffect(() => {
         const updateSettings = () => {
             const width = window.innerWidth;
-            // if (width < 540) {
+            // if (width < 560) {
             //     setSettings({
             //         ...settings,
-            //         slidesToShow: 1,
+            //         slidesToShow: 3,
             //     });
-            // } else if (width < 810) {
+            // }
+            // else if (width < 810) {
             //     setSettings({
             //         ...settings,
             //         slidesToShow: 2,
