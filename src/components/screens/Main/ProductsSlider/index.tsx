@@ -49,32 +49,32 @@ const ProductSlider = ({ products, title }: ProductSliderProps) => {
     React.useEffect(() => {
         const updateSettings = () => {
             const width = window.innerWidth;
-            if (width < 540) {
-                setSettings({
-                    ...settings,
-                    slidesToShow: 1,
-                });
-            } else if (width < 810) {
-                setSettings({
-                    ...settings,
-                    slidesToShow: 2,
-                });
-            } else if (width < 930) {
-                setSettings({
-                    ...settings,
-                    slidesToShow: 2,
-                });
-            } else if (width < 1300) {
-                setSettings({
-                    ...settings,
-                    slidesToShow: 3,
-                });
-            } else {
-                setSettings({
-                    ...settings,
-                    slidesToShow: 4,
-                });
-            }
+            // if (width < 540) {
+            //     setSettings({
+            //         ...settings,
+            //         slidesToShow: 1,
+            //     });
+            // } else if (width < 810) {
+            //     setSettings({
+            //         ...settings,
+            //         slidesToShow: 2,
+            //     });
+            // } else if (width < 930) {
+            //     setSettings({
+            //         ...settings,
+            //         slidesToShow: 2,
+            //     });
+            // } else if (width < 1300) {
+            //     setSettings({
+            //         ...settings,
+            //         slidesToShow: 3,
+            //     });
+            // } else {
+            //     setSettings({
+            //         ...settings,
+            //         slidesToShow: 4,
+            //     });
+            // }
         };
 
         updateSettings();
@@ -120,12 +120,14 @@ const ProductSlider = ({ products, title }: ProductSliderProps) => {
                 </div>
             </div>
 
+            <div className={s.slider_wrapper}>
+                <Slider ref={sliderRef} className={s.slick_wrapper} {...settings}>
+                    {products.map((obj) => {
+                        return <ProductComponent key={obj.id} product={obj} />
+                    })}
+                </Slider>
+            </div>
 
-            <Slider ref={sliderRef} className={s.slick_wrapper} {...settings}>
-                {products.map((obj) => {
-                    return <ProductComponent key={obj.id} product={obj} />
-                })}
-            </Slider>
 
 
         </div>
