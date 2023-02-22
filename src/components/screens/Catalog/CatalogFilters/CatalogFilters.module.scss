@@ -1,0 +1,44 @@
+.filters_wrapper {
+	margin-bottom: 30px;
+}
+
+.colors_wrapper {
+	margin-bottom: 30px;
+}
+
+.filters_title {
+	font-family: 'Georama';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	color: #0b0b0b;
+	margin-bottom: 30px;
+}
+
+.filters_body {
+	display: flex;
+	gap: 30px;
+	flex-wrap: wrap;
+}
+.filters_buttonWrapper {
+	text-align: right;
+}
+
+.filters_btn {
+	display: inline-block;
+	margin-top: 30px;
+	background: #0b0b0b;
+	font-family: 'Georama';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	color: #ffffff;
+	padding: 16px 24px;
+	outline: none;
+	border: none;
+	@media (max-width: 428px) {
+		width: 100%;
+	}
+}

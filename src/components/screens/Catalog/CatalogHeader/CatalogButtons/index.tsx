@@ -1,11 +1,12 @@
 import React from 'react'
-import CatalogButton from './CatalogButton'
+import FilterButton from './FilterButton'
+import SortButton from './SortButton'
 import s from './CatalogButtons.module.scss'
 const CatalogButtons = () => {
 	return (
 		<div className={s.buttonsWrapper}>
-			<CatalogButton needIcon={true} text={'Сортировать по'} />
-			<CatalogButton text='Фильтр' />
+			<SortButton text='Сортировать по' />
+			<FilterButton text='Фильтр' />
 		</div>
 	)
 }

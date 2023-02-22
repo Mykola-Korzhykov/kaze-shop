@@ -4,7 +4,7 @@ type Props = {
 	needIcon?: boolean
 	text: string
 }
-const CatalogButton: FC<Props> = ({ needIcon, text }) => {
+const FilterButton: FC<Props> = ({ needIcon, text }) => {
 	return (
 		<button className={needIcon ? `${s.buttonSort}` : `${s.button}`}>
 			{text}
@@ -12,4 +12,4 @@ const CatalogButton: FC<Props> = ({ needIcon, text }) => {
 	)
 }
 
-export default CatalogButton
+export default FilterButton

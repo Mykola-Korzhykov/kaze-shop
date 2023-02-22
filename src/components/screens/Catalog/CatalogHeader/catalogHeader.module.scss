@@ -3,19 +3,22 @@
 	justify-content: space-between;
 	align-items: center;
 	margin-bottom: 30px;
-	@media(max-width: 640px) {
-		justify-content: center;
+	@media (max-width: 660px) {
+		justify-content: right;
+	}
+	@media (max-width: 428px) {
+		display: block;
 	}
 }
 
 .goodsCount {
-	font-family: "Georama", sans-serif;
+	font-family: 'Georama', sans-serif;
 	font-style: normal;
 	font-weight: 500;
 	font-size: 18px;
 	line-height: 130%;
 	color: #0b0b0b;
-	@media(max-width: 640px) {
+	@media (max-width: 660px) {
 		display: none;
 	}
 }

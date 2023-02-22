@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import Link from 'next/link'
 import CatalogHeader from './CatalogHeader'
 import CatalogItems from './CatalogItems'
+import CatalogFilters from './CatalogFilters'
 const Catalog: FC = () => {
 	return (
 		<main className='content'>
@@ -10,6 +11,7 @@ const Catalog: FC = () => {
 					<Link href='/'>Главная</Link> | <span>Каталог</span>
 				</div>
 				<CatalogHeader />
+				<CatalogFilters/>
 				<CatalogItems />
 			</div>
 		</main>

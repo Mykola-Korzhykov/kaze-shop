@@ -18,6 +18,11 @@
 	}
 	@media (max-width: 428px) {
 		padding: 14px 19px;
+		flex: 1 1 45%;
+		font-size: 18px;
+	}
+	@media (max-width: 390px) {
+		font-size: 16px;
 	}
 }
 .buttonSort {
@@ -59,15 +64,27 @@
 		}
 		padding: 14px 40px;
 	}
-	@media (max-width: 450px) {
+	@media (max-width: 490px) {
 		padding: 14px 19px;
+		font-size: 18px;
+	}
+	@media (max-width: 392px) {
+		font-size: 16px;
 	}
 }
+
 .buttonsWrapper {
+	position: relative;
 	display: flex;
 	gap: 30px;
-	// @media (max-width: 640px) {
-	// 	justify-content: space-between;
-	// 	gap: 0px;
-	// }
+}
+.sortBtn_wrapper {
+	position: relative;
+}
+.dropList {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	bottom: -200%;
+	width: 100%;
 }
