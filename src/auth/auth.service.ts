@@ -93,8 +93,8 @@ export class AuthService {
         path: '/',
         httpOnly: true,
         expires: tokens.expireDate,
-        // domain: process.env.CLIENT_DOMAIN.toString().trim(),
-        // secure: process.env.NODE_ENV === 'production' ? true : false,
+        domain: process.env.CLIENT_DOMAIN.toString().trim(),
+        secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'strict',
       });
       return response.json({ ...this.setResponse(tokens, user) });
@@ -128,8 +128,8 @@ export class AuthService {
         path: '/',
         httpOnly: true,
         expires: tokens.expireDate,
-        // domain: process.env.CLIENT_DOMAIN.toString().trim(),
-        // secure: process.env.NODE_ENV === 'production' ? true : false,
+        domain: process.env.CLIENT_DOMAIN.toString().trim(),
+        secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'strict',
       });
       return response.json({ ...this.setResponse(tokens, user) });
@@ -217,8 +217,8 @@ export class AuthService {
         path: '/',
         httpOnly: true,
         expires: tokens.expireDate,
-        // domain: process.env.CLIENT_DOMAIN.toString().trim(),
-        // secure: process.env.NODE_ENV === 'production' ? true : false,
+        domain: process.env.CLIENT_DOMAIN.toString().trim(),
+        secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'strict',
       });
       await this.activateUser(dto.user, response);
@@ -746,8 +746,8 @@ export class AuthService {
         signed: true,
         path: '/',
         httpOnly: true,
-        // domain: process.env.CLIENT_DOMAIN.toString().trim(),
-        // secure: process.env.NODE_ENV === 'production' ? true : false,
+        domain: process.env.CLIENT_DOMAIN.toString().trim(),
+        secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'strict',
       });
     }
@@ -770,8 +770,8 @@ export class AuthService {
         maxAge: 30 * 24 * 60 * 60 * 1000,
         signed: true,
         httpOnly: true,
-        // domain: process.env.CLIENT_DOMAIN.toString().trim(),
-        // secure: process.env.NODE_ENV === 'production' ? true : false,
+        domain: process.env.CLIENT_DOMAIN.toString().trim(),
+        secure: process.env.NODE_ENV === 'production' ? true : false,
         sameSite: 'strict',
         path: '/',
       });
