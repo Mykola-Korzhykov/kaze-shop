@@ -1,7 +1,8 @@
 import React from 'react'
 import SpinnerLayout from '../layouts/SpinnerLayout'
 import Catalog from '@/components/screens/Catalog/Catalog'
-const catalog = () => {
+import { NextPage } from 'next'
+const CatalogPage:NextPage = () => {
 	return (
 		<SpinnerLayout>
 			<Catalog />
@@ -9,4 +10,4 @@ const catalog = () => {
 	)
 }
 
-export default catalog
+export default CatalogPage

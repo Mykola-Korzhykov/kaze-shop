@@ -8,22 +8,25 @@ const RussoOne = Russo_One({
 	subsets: ['latin', 'cyrillic'],
 })
 const DefaultLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
-	const [isSticky, setIsSticky] = useState<boolean>(false);
-    const [headerHeight, setHeaderHeight] = useState<number | undefined>(0);
+	const [isSticky, setIsSticky] = useState<boolean>(false)
+	const [headerHeight, setHeaderHeight] = useState<number | undefined>(0)
 
-	const headerRef = useRef<HTMLElement>(null);
+	const headerRef = useRef<HTMLElement>(null)
 
 	useEffect(() => {
-        window.addEventListener('scroll', () => {
-            setHeaderHeight(headerRef.current?.offsetHeight);
-            
-            if(window.scrollY > 0) {
-                setIsSticky(true);
-            } else {
-                setIsSticky(false);
-            }
-        });
-    }, []);
+		window.addEventListener('scroll', () => {
+			setHeaderHeight(headerRef.current?.offsetHeight)
+
+			if (window.scrollY > 0) {
+				setIsSticky(true)
+			} else {
+				setIsSticky(false)
+			}
+		})
+		;() => {
+			window.removeEventListener('scroll')
+		}
+	}, [])
 
 	return (
 		<>
@@ -43,7 +46,7 @@ const DefaultLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
 					rel='stylesheet'
 				></link>
 			</Head>
-			
+
 			<div className='wrapper'>
 				<Header isSticky={isSticky} headerRef={headerRef} />
 				{children}

@@ -5,16 +5,16 @@ const FiltersColors = () => {
 	const COLORS = [
 		{ label: 'Бежевый', color: '#FFE4C4' },
 		{ label: 'Капучинный', color: '#9F8E84' },
-		{ label: 'Синий', color: '#000080' },
+		{ label: 'Синий', color: '#0000FF' },
 		{ label: 'Бежевый', color: '#FFE4C4' },
 		{ label: 'Капучинный', color: '#9F8E84' },
-		{ label: 'Синий', color: '#000080' },
+		{ label: 'Синий', color: '#0000FF' },
 		{ label: 'Бежевый', color: '#FFE4C4' },
 		{ label: 'Капучинный', color: '#9F8E84' },
-		{ label: 'Синий', color: '#000080' },
+		{ label: 'Синий', color: '#0000FF' },
 		{ label: 'Бежевый', color: '#FFE4C4' },
 		{ label: 'Капучинный', color: '#9F8E84' },
-		{ label: 'Синий', color: '#000080' },
+		{ label: 'Синий', color: '#0000FF' },
 	]
 	return (
 		<div className={s.colors_wrapper}>

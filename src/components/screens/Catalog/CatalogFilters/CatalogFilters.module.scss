@@ -38,6 +38,12 @@
 	padding: 16px 24px;
 	outline: none;
 	border: none;
+	transition: 0.3s linear background;
+	&:hover {
+		background-color: #9d9d9d;
+		color: #ffffff;
+		transition: 0.3s linear background;
+	}
 	@media (max-width: 428px) {
 		width: 100%;
 	}

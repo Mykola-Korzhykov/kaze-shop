@@ -578,16 +578,6 @@
 			transition: all 0.2s ease;
 		}
 	}
-	// Треба розібратись з розміром іконки тут
-	// &[data-checked='true'] {
-	// 	& .checkbox__icon {
-	// 		background-image: url('../assets/icons/catalog/checkboxMark.svg');
-	// 		background-position: center center;
-	// 		background-repeat: no-repeat;
-	// 		background-size: contain;
-	// 		transition: all 0.2s ease;
-	// 	}
-	// }
 }
 
 .checkbox__icon {
@@ -631,6 +621,7 @@
 	@media (max-width: 350px) {
 		width: 28px;
 		height: 22px;
+		// heigth: 28px це фіксить
 	}
 
 	@media (hover: none) {
@@ -639,6 +630,96 @@
 }
 
 .checkbox__text {
+	font-family: 'Georama', sans-serif;
+	font-size: 18px;
+	font-weight: 500;
+	color: #9d9d9d;
+	margin-left: 10px;
+
+	@media (max-width: 945px) {
+		font-size: 16px;
+	}
+
+	@media (max-width: 500px) {
+		font-size: 14px;
+	}
+}
+
+.filter_checkbox {
+	display: flex;
+	align-items: center;
+
+	&[data-checked='true'] {
+		& .filter_checkbox__icon {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			&::after {
+				content: '';
+				width: 15.75px;
+				height: 10.5px;
+				// top: 33%;
+				// left: 50%;
+				// transform: translate(-50%);
+				background: url('../assets/icons/catalog/checkboxMark.svg') no-repeat
+					center top / cover !important;
+			}
+			transition: all 0.2s ease;
+		}
+	}
+}
+
+.filter_checkbox__icon {
+	display: block;
+	width: 30px;
+	height: 30px;
+	// background: url('../assets/icons/checkbox.svg') no-repeat center top / cover;
+	border: 1.5px solid #0b0b0b;
+	cursor: pointer;
+	transition: all 0.2s ease;
+
+	&:hover {
+		opacity: 0.7;
+		transition: all 0.2s ease;
+	}
+
+	@media (max-width: 945px) {
+		width: 24px;
+		height: 24px;
+	}
+
+	@media (max-width: 800px) {
+		width: 35px;
+		height: 24px;
+	}
+
+	@media (max-width: 800px) {
+		width: 32px;
+		height: 32px;
+	}
+
+	@media (max-width: 500px) {
+		width: 28px;
+		height: 28px;
+	}
+
+	//@media (max-width: 400px) {
+	// width: 30px;
+	//height: 25px;
+	//}
+
+	@media (max-width: 350px) {
+		width: 28px;
+		height: 28px;
+		// heigth: 28px це фіксить
+	}
+
+	@media (hover: none) {
+		opacity: 1 !important;
+	}
+}
+
+.filter_checkbox__text {
 	font-family: 'Georama', sans-serif;
 	font-size: 18px;
 	font-weight: 500;
