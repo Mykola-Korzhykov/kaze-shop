@@ -15,6 +15,8 @@ import BuyProducts from './BuyProducts';
 import ProductFitnes from './ProductFitnes'
 import About from './About'
 import ProductsAccessories from './ProductsAccessories'
+import Reviews from './Reviews'
+import FAQ from './FAQ/FAQ'
 
 const Main = () => {
 
@@ -24,6 +26,9 @@ const Main = () => {
 			<ProductFitnes />
 			<About />
 			<ProductsAccessories />
+			{/* <Reviews /> */}
+			<FAQ />
+
 		</div>
 
 	)
