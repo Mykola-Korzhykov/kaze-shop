@@ -2,10 +2,12 @@ import Cookies, { parseCookies } from 'nookies'
 import axios from 'axios'
 import { GetServerSidePropsContext, NextPageContext } from 'next'
 import { UserApi } from './UserService'
+import { GoodsApi } from './CatalogService'
 import { AuthResponse } from '@/types/auth'
 import { setCookie } from 'nookies'
 export type ApiReturnType = {
 	user: ReturnType<typeof UserApi>
+	goods: ReturnType<typeof GoodsApi>
 }
 export const API_URL = 'https://api.kaze-shop.online'
 
@@ -57,6 +59,7 @@ export const Api = (
 
 	const apis = {
 		user: UserApi,
+		goods: GoodsApi,
 	}
 
 	const result = Object.entries(apis).reduce((prev, [key, f]) => {
