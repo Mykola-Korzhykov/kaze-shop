@@ -7,8 +7,8 @@ const FiltersSizes = () => {
 		<>
 			<p className={s.filters_title}>Размеры:</p>
 			<div className={s.filters_body}>
-				{SIZES.map(el => {
-					return <FiltersCheckbox label={el} color={'white'} />
+				{SIZES.map((el, id) => {
+					return <FiltersCheckbox key={id} label={el} color={'white'} />
 				})}
 			</div>
 		</>

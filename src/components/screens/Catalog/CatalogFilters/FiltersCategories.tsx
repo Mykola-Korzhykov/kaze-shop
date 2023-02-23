@@ -14,8 +14,8 @@ const FiltersCategories = () => {
 		<div className={s.colors_wrapper}>
 			<p className={s.filters_title}>Категории:</p>
 			<div className={s.filters_body}>
-				{CATEGORIES.map(el => {
-					return <FiltersCheckbox label={el} color={'white'} />
+				{CATEGORIES.map((el, id) => {
+					return <FiltersCheckbox key={id} label={el} color={'white'} />
 				})}
 			</div>
 		</div>

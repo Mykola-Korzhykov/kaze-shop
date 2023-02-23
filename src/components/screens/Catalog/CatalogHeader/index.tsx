@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { FC } from 'react'
 import CatalogButtons from './CatalogButtons'
 import s from './catalogHeader.module.scss'
-const CatalogHeader = () => {
+
+const CatalogHeader: FC = () => {
 	return (
 		<div className={s.header}>
 			<span className={s.goodsCount}>26 товаров найдено</span>

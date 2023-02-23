@@ -21,6 +21,6 @@
 			"@/*": ["./src/*"]
 		}
 	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/cabinet.tsx"],
+	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/pages/cabinet.tsx", "src/context/CatalogContext.ts"],
 	"exclude": ["node_modules"]
 }
