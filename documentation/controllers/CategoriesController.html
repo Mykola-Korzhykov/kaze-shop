@@ -55,7 +55,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/categories/categories.controller.ts</code>
+            <code>src/categories&amp;colours/controllers/categories.controller.ts</code>
         </p>
 
             <p class="comment">
@@ -139,8 +139,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="64"
-                            class="link-to-prism">src/categories/categories.controller.ts:64</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="61"
+                            class="link-to-prism">src/categories&amp;colours/controllers/categories.controller.ts:61</a></div>
                 </td>
             </tr>
 
@@ -215,8 +215,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="103"
-                            class="link-to-prism">src/categories/categories.controller.ts:103</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="98"
+                            class="link-to-prism">src/categories&amp;colours/controllers/categories.controller.ts:98</a></div>
                 </td>
             </tr>
 
@@ -291,8 +291,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="47"
-                            class="link-to-prism">src/categories/categories.controller.ts:47</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="44"
+                            class="link-to-prism">src/categories&amp;colours/controllers/categories.controller.ts:44</a></div>
                 </td>
             </tr>
 
@@ -335,8 +335,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="84"
-                            class="link-to-prism">src/categories/categories.controller.ts:84</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="80"
+                            class="link-to-prism">src/categories&amp;colours/controllers/categories.controller.ts:80</a></div>
                 </td>
             </tr>
 
@@ -404,7 +404,6 @@
   Body,
   CacheInterceptor,
   CacheTTL,
-  CACHE_MANAGER,
   ClassSerializerInterceptor,
   Controller,
   Delete,
@@ -420,28 +419,26 @@
 } from &#x27;@nestjs/common&#x27;;
 import { ApiOperation, ApiResponse } from &#x27;@nestjs/swagger&#x27;;
 import { Throttle } from &#x27;@nestjs/throttler&#x27;;
-import { Roles } from &#x27;../common/decorators/roles-auth.decorator&#x27;;
-import { AddContentGuard } from &#x27;../common/guards/add-content.guard&#x27;;
-import { AuthFerfershGuard } from &#x27;../common/guards/jw-refresh.guard&#x27;;
-import { JwtAuthGuard } from &#x27;../common/guards/jwt-auth.guard&#x27;;
-import { OwnerAdminGuard } from &#x27;../common/guards/owner-admin.guard&#x27;;
-import { RolesGuard } from &#x27;../common/guards/roles.guard&#x27;;
-import { ThrottlerBehindProxyGuard } from &#x27;../common/guards/throttler-behind-proxy.guard&#x27;;
-import { ApiErrorExceptionFilter } from &#x27;../common/filters/error-handler.filter&#x27;;
-import { CategoriesService } from &#x27;./categories.service&#x27;;
-import { CreateCategoryDto } from &#x27;./dto/create.category.dto&#x27;;
-import { Category } from &#x27;./models/category.model&#x27;;
-import { ApiExceptionFilter } from &#x27;../common/filters/api-exception.filter&#x27;;
-import { ReturnedCategory } from &#x27;../core/interfaces/product.interfaces&#x27;;
+import { Roles } from &#x27;../../common/decorators/roles-auth.decorator&#x27;;
+import { AddContentGuard } from &#x27;../../common/guards/add-content.guard&#x27;;
+import { AuthFerfershGuard } from &#x27;../../common/guards/jw-refresh.guard&#x27;;
+import { JwtAuthGuard } from &#x27;../../common/guards/jwt-auth.guard&#x27;;
+import { OwnerAdminGuard } from &#x27;../../common/guards/owner-admin.guard&#x27;;
+import { RolesGuard } from &#x27;../../common/guards/roles.guard&#x27;;
+import { ThrottlerBehindProxyGuard } from &#x27;../../common/guards/throttler-behind-proxy.guard&#x27;;
+import { ApiErrorExceptionFilter } from &#x27;../../common/filters/error-handler.filter&#x27;;
+import { CategoriesService } from &#x27;../services/categories.service&#x27;;
+import { CreateCategoryDto } from &#x27;../dto/create.category.dto&#x27;;
+import { Category } from &#x27;../models/category.model&#x27;;
+import { ApiExceptionFilter } from &#x27;../../common/filters/api-exception.filter&#x27;;
+import { ReturnedCategory } from &#x27;../../core/interfaces/product.interfaces&#x27;;
 @UseGuards(ThrottlerBehindProxyGuard)
 @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
 @UseInterceptors(ClassSerializerInterceptor)
 @UseInterceptors(CacheInterceptor)
 @Controller(&#x27;categories&#x27;)
 export class CategoriesController {
-  constructor(
-    private readonly categoriesService: CategoriesService,
-  ) {}
+  constructor(private readonly categoriesService: CategoriesService) {}
 
   @Throttle(700, 7000)
   @CacheTTL(200)
@@ -464,11 +461,10 @@ export class CategoriesController {
   )
   @Put(&#x27;create_category&#x27;)
   createCategory(
-    @Body() categoryDto: CreateCategoryDto
-  ): Promise&lt;ReturnedCategory&gt;{
+    @Body() categoryDto: CreateCategoryDto,
+  ): Promise&lt;ReturnedCategory&gt; {
     return this.categoriesService.createCategory(categoryDto);
   }
-
 
   @Throttle(70, 700)
   @ApiOperation({ summary: &#x27;Creating Categories&#x27; })
@@ -485,11 +481,10 @@ export class CategoriesController {
   @Patch(&#x27;update_category/:categoryId&#x27;)
   updateCategory(
     @Param(&#x27;categoryId&#x27;, ParseIntPipe) categoryId: number,
-    @Body() categoryDto: CreateCategoryDto
-  ): Promise&lt;ReturnedCategory&gt;{
+    @Body() categoryDto: CreateCategoryDto,
+  ): Promise&lt;ReturnedCategory&gt; {
     return this.categoriesService.updateCategory(categoryId, categoryDto);
   }
-
 
   @Throttle(70, 700)
   @HttpCode(200)
@@ -502,7 +497,9 @@ export class CategoriesController {
     AddContentGuard,
   )
   @Delete(&#x27;delete_category/:categoryId&#x27;)
-  deleteCategory(@Param(&#x27;categoryId&#x27;, ParseIntPipe) categoryId: number): Promise&lt;number&gt; {
+  deleteCategory(
+    @Param(&#x27;categoryId&#x27;, ParseIntPipe) categoryId: number,
+  ): Promise&lt;number&gt; {
     return this.categoriesService.deleteCategory(categoryId);
   }
 }

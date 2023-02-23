@@ -19,6 +19,7 @@ import { HttpService } from '@nestjs/axios';
 import { Query, UseGuards } from '@nestjs/common/decorators';
 import { ThrottlerBehindProxyGuard } from './common/guards/throttler-behind-proxy.guard';
 import { Throttle } from '@nestjs/throttler';
+import { v4 } from 'uuid';
 @ApiTags('/')
 @UseGuards(ThrottlerBehindProxyGuard)
 @Controller('/')
@@ -142,10 +143,11 @@ export class AppController {
   ): Promise<string> {
     const iv = randomBytes(bytes);
     const API_KEY = process.env.API_KEY.toString();
-    const key = (await promisify(scrypt)(API_KEY, 'salt', 32)) as Buffer;
+    const key = (await promisify(scrypt)(API_KEY, 'salt', 16)) as Buffer;
     const cipher = createCipheriv('aes-256-ctr', key, iv);
-    return Buffer.concat([cipher.update(value), cipher.final()]).toString(
-      'base64',
-    );
+    return Buffer.concat([cipher.update(value), cipher.final()])
+      .toString('base64')
+      .replace('/', `${v4()}`)
+      .replace('=', `${v4()}`);
   }
 }

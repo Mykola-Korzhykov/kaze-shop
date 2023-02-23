@@ -149,7 +149,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/common/exceptions/api.exception.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/common/exceptions/api.exception.ts:42</a></div>
                             </td>
                         </tr>
 
@@ -235,7 +235,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/common/exceptions/api.exception.ts:41</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/common/exceptions/api.exception.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -261,7 +261,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/common/exceptions/api.exception.ts:40</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">src/common/exceptions/api.exception.ts:41</a></div>
                         </td>
                     </tr>
 
@@ -297,8 +297,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="63"
-                            class="link-to-prism">src/common/exceptions/api.exception.ts:63</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="64"
+                            class="link-to-prism">src/common/exceptions/api.exception.ts:64</a></div>
                 </td>
             </tr>
 
@@ -368,8 +368,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="203"
-                            class="link-to-prism">src/common/exceptions/api.exception.ts:203</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="300"
+                            class="link-to-prism">src/common/exceptions/api.exception.ts:300</a></div>
                 </td>
             </tr>
 
@@ -439,8 +439,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="167"
-                            class="link-to-prism">src/common/exceptions/api.exception.ts:167</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="263"
+                            class="link-to-prism">src/common/exceptions/api.exception.ts:263</a></div>
                 </td>
             </tr>
 
@@ -510,8 +510,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="151"
-                            class="link-to-prism">src/common/exceptions/api.exception.ts:151</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="234"
+                            class="link-to-prism">src/common/exceptions/api.exception.ts:234</a></div>
                 </td>
             </tr>
 
@@ -581,8 +581,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="119"
-                            class="link-to-prism">src/common/exceptions/api.exception.ts:119</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="173"
+                            class="link-to-prism">src/common/exceptions/api.exception.ts:173</a></div>
                 </td>
             </tr>
 
@@ -641,219 +641,314 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpStatus } from &#x27;@nestjs/common&#x27;;
-import { 
-    ADMIN_ID_NOT_PROVIDED,
-    ADMIN_OR_ROLE_NOT_FOUND,
-     ADMIN_WITH_EMAIL_DOESNT_EXIST, 
-     ADMIN_WITH_EMAIL_EXIST, 
-     ADMIN_WITH_PHONENUMBER_EXIST 
+import {
+  ADMIN_ID_NOT_PROVIDED,
+  ADMIN_OR_ROLE_NOT_FOUND,
+  ADMIN_WITH_EMAIL_DOESNT_EXIST,
+  ADMIN_WITH_EMAIL_EXIST,
+  ADMIN_WITH_PHONENUMBER_EXIST,
 } from &#x27;../../admin/constants/admin.constants&#x27;;
 import {
-    ACCESS_DENIED,
-    NOT_ACTIVATED,
-    OWNER_ID_NOT_PROVIDED,
-    OWNER_OR_ROLE_NOT_FOUND, 
-    OWNER_WITH_EMAIL_DOESNT_EXIST, 
-    OWNER_WITH_EMAIL_EXIST, 
-    OWNER_WITH_PHONENUMBER_EXIST 
+  ACCESS_DENIED,
+  NOT_ACTIVATED,
+  OWNER_ID_NOT_PROVIDED,
+  OWNER_OR_ROLE_NOT_FOUND,
+  OWNER_WITH_EMAIL_DOESNT_EXIST,
+  OWNER_WITH_EMAIL_EXIST,
+  OWNER_WITH_PHONENUMBER_EXIST,
 } from &#x27;../../owner/constants/owner.constants&#x27;;
 import { ADMIN_NOT_FOUND } from &#x27;../../admin/constants/jwt-refresh.constants&#x27;;
 import { OWNER_NOT_FOUND } from &#x27;../../owner/constants/jwt-refresh.constants&#x27;;
 import {
-    ERROR_WHILE_REMOVING_TOKEN,
-    ERROR_WHILE_SAVING_TOKEN,
-    ERROR_WHILE_SIGNING_TOKEN,
-    ERROR_WHILE_VALIDATING_TOKEN,
-    TOKEN_INVALID, TOKEN_NOT_FOUND
+  ERROR_WHILE_REMOVING_TOKEN,
+  ERROR_WHILE_SAVING_TOKEN,
+  ERROR_WHILE_SIGNING_TOKEN,
+  ERROR_WHILE_VALIDATING_TOKEN,
+  TOKEN_INVALID,
+  TOKEN_NOT_FOUND,
 } from &#x27;../../users/constants/jwt-refresh.constants&#x27;;
 import {
-    INVALID_CODE,
-    INVALID_EMAIL,
-    INVALID_EMAIL_OR_PASSWORD,
-    RESET_TIME_EXPIRED,
-    USER_NOT_FOUND,
-    USER_OR_ROLE_NOT_FOUND,
-    USER_WITH_EMAIL_DOESNT_EXIST,
-    USER_WITH_EMAIL_EXIST,
-    USER_WITH_PHONENUMBER_EXIST
+  INVALID_CODE,
+  INVALID_EMAIL,
+  INVALID_EMAIL_OR_PASSWORD,
+  RESET_TIME_EXPIRED,
+  USER_NOT_FOUND,
+  USER_OR_ROLE_NOT_FOUND,
+  USER_WITH_EMAIL_DOESNT_EXIST,
+  USER_WITH_EMAIL_EXIST,
+  USER_WITH_PHONENUMBER_EXIST,
 } from &#x27;../../users/constants/user.constants&#x27;;
 
 export class ApiException extends Error {
-    status: number;
-    errors: { locale: string, error: string }[];
-   
-    constructor(
-        status: number,
-        message: string,
-        errors: {
-            ua: string,
-            ru: string,
-            en: string,
-            rs: string
-        }
-    ) {
-        super(message);
-        this.status &#x3D; status;
-        this.errors &#x3D; [
-            { locale: &#x27;ua&#x27;, error: errors.ua },
-            { locale: &#x27;ru&#x27;, error: errors.ru },
-            { locale: &#x27;en&#x27;, error: errors.en },
-            { locale: &#x27;rs&#x27;, error: errors.rs },
-        ];
-    }
+  status: number;
+  errors: { locale: string; error: string }[];
 
-    static BadRequest(type:
-        &#x27;USER_WITH_EMAIL_EXIST&#x27; |
-        &#x27;USER_WITH_PHONENUMBER_EXIST&#x27; |
-        &#x27;USER_WITH_EMAIL_DOESNT_EXIST&#x27; |
-        &#x27;INVALID_EMAIL&#x27; |
-        &#x27;RESET_TIME_EXPIRED&#x27; |
-        &#x27;ADMIN_WITH_EMAIL_EXIST&#x27; |
-        &#x27;ADMIN_WITH_PHONENUMBER_EXIST&#x27; |
-        &#x27;ADMIN_WITH_EMAIL_DOESNT_EXIST&#x27; |
-        &#x27;OWNER_WITH_EMAIL_EXIST&#x27; |
-        &#x27;OWNER_WITH_PHONENUMBER_EXIST&#x27; |
-        &#x27;OWNER_WITH_EMAIL_DOESNT_EXIST&#x27; |
-        &#x27;INVALID_CODE&#x27; |
-        &#x27;TOKEN_INVALID&#x27; 
-    ) {
-        if (type &#x3D; &#x27;USER_WITH_EMAIL_EXIST&#x27;) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, USER_WITH_EMAIL_EXIST);
-        }
-        if (type &#x3D; &#x27;USER_WITH_PHONENUMBER_EXIST&#x27;) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, USER_WITH_PHONENUMBER_EXIST);
-        }
-        if (type &#x3D; &#x27;USER_WITH_EMAIL_DOESNT_EXIST&#x27;) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, USER_WITH_EMAIL_DOESNT_EXIST);
-        }
-        if (type &#x3D; &#x27;ADMIN_WITH_EMAIL_EXIST&#x27;) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, ADMIN_WITH_EMAIL_EXIST);
-        }
-        if (type &#x3D; &#x27;ADMIN_WITH_PHONENUMBER_EXIST&#x27;) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, ADMIN_WITH_PHONENUMBER_EXIST);
-        }
-        if (type &#x3D; &#x27;ADMIN_WITH_EMAIL_DOESNT_EXIST&#x27;) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, ADMIN_WITH_EMAIL_DOESNT_EXIST);
-        }
-        if (type &#x3D; &#x27;OWNER_WITH_EMAIL_EXIST&#x27;) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, OWNER_WITH_EMAIL_EXIST);
-        }
-        if (type &#x3D; &#x27;OWNER_WITH_PHONENUMBER_EXIST&#x27;) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, OWNER_WITH_PHONENUMBER_EXIST);
-        }
-        if (type &#x3D; &#x27;OWNER_WITH_EMAIL_DOESNT_EXIST&#x27;) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, OWNER_WITH_EMAIL_DOESNT_EXIST);
-        }
-        if (type &#x3D; &#x27;INVALID_EMAIL&#x27;) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, INVALID_EMAIL);
-        }
-        if (type &#x3D; &#x27;RESET_TIME_EXPIRED&#x27;) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, RESET_TIME_EXPIRED);
-        }
-        if (type &#x3D; &#x27;INVALID_CODE&#x27;) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, INVALID_CODE);
-        }
-        if (type &#x3D; &#x27;TOKEN_INVALID&#x27;) {
-            throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, TOKEN_INVALID);
-        }
-    }
+  constructor(
+    status: number,
+    message: string,
+    errors: {
+      ua: string;
+      ru: string;
+      en: string;
+      rs: string;
+    },
+  ) {
+    super(message);
+    this.status &#x3D; status;
+    this.errors &#x3D; [
+      { locale: &#x27;ua&#x27;, error: errors.ua },
+      { locale: &#x27;ru&#x27;, error: errors.ru },
+      { locale: &#x27;en&#x27;, error: errors.en },
+      { locale: &#x27;rs&#x27;, error: errors.rs },
+    ];
+  }
 
-    static UserNotFound(type:
-        &#x27;USER_NOT_FOUND&#x27; |
-        &#x27;USER_OR_ROLE_NOT_FOUND&#x27; |
-        &#x27;TOKEN_NOT_FOUND&#x27; |
-        &#x27;OWNER_NOT_FOUND&#x27; |
-        &#x27;ADMIN_NOT_FOUND&#x27; |
-        &#x27;OWNER_OR_ROLE_NOT_FOUND&#x27; |
-        &#x27;ADMIN_OR_ROLE_NOT_FOUND&#x27;
-    ) {
-        if (type &#x3D; &#x27;USER_NOT_FOUND&#x27;) {
-            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);   
-        }
-        if (type &#x3D; &#x27;USER_OR_ROLE_NOT_FOUND&#x27;) {
-            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_OR_ROLE_NOT_FOUND);   
-        }
-        if (type &#x3D; &#x27;TOKEN_NOT_FOUND&#x27;) {
-            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, TOKEN_NOT_FOUND);   
-        }
-        if (type &#x3D; &#x27;OWNER_NOT_FOUND&#x27;) {
-            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, OWNER_NOT_FOUND);   
-        }
-        if (type &#x3D; &#x27;ADMIN_NOT_FOUND&#x27;) {
-            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, ADMIN_NOT_FOUND);   
-        }
-        if (type &#x3D; &#x27;OWNER_OR_ROLE_NOT_FOUND&#x27;) {
-            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, OWNER_OR_ROLE_NOT_FOUND);   
-        }
-        if (type &#x3D; &#x27;ADMIN_OR_ROLE_NOT_FOUND&#x27;) {
-            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, ADMIN_OR_ROLE_NOT_FOUND);   
-        }
+  static BadRequest(
+    type:
+      | &#x27;USER_WITH_EMAIL_EXIST&#x27;
+      | &#x27;USER_WITH_PHONENUMBER_EXIST&#x27;
+      | &#x27;USER_WITH_EMAIL_DOESNT_EXIST&#x27;
+      | &#x27;INVALID_EMAIL&#x27;
+      | &#x27;RESET_TIME_EXPIRED&#x27;
+      | &#x27;ADMIN_WITH_EMAIL_EXIST&#x27;
+      | &#x27;ADMIN_WITH_PHONENUMBER_EXIST&#x27;
+      | &#x27;ADMIN_WITH_EMAIL_DOESNT_EXIST&#x27;
+      | &#x27;OWNER_WITH_EMAIL_EXIST&#x27;
+      | &#x27;OWNER_WITH_PHONENUMBER_EXIST&#x27;
+      | &#x27;OWNER_WITH_EMAIL_DOESNT_EXIST&#x27;
+      | &#x27;INVALID_CODE&#x27;
+      | &#x27;TOKEN_INVALID&#x27;,
+  ) {
+    if ((type &#x3D; &#x27;USER_WITH_EMAIL_EXIST&#x27;)) {
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        USER_WITH_EMAIL_EXIST,
+      );
     }
+    if ((type &#x3D; &#x27;USER_WITH_PHONENUMBER_EXIST&#x27;)) {
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        USER_WITH_PHONENUMBER_EXIST,
+      );
+    }
+    if ((type &#x3D; &#x27;USER_WITH_EMAIL_DOESNT_EXIST&#x27;)) {
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        USER_WITH_EMAIL_DOESNT_EXIST,
+      );
+    }
+    if ((type &#x3D; &#x27;ADMIN_WITH_EMAIL_EXIST&#x27;)) {
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        ADMIN_WITH_EMAIL_EXIST,
+      );
+    }
+    if ((type &#x3D; &#x27;ADMIN_WITH_PHONENUMBER_EXIST&#x27;)) {
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        ADMIN_WITH_PHONENUMBER_EXIST,
+      );
+    }
+    if ((type &#x3D; &#x27;ADMIN_WITH_EMAIL_DOESNT_EXIST&#x27;)) {
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        ADMIN_WITH_EMAIL_DOESNT_EXIST,
+      );
+    }
+    if ((type &#x3D; &#x27;OWNER_WITH_EMAIL_EXIST&#x27;)) {
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        OWNER_WITH_EMAIL_EXIST,
+      );
+    }
+    if ((type &#x3D; &#x27;OWNER_WITH_PHONENUMBER_EXIST&#x27;)) {
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        OWNER_WITH_PHONENUMBER_EXIST,
+      );
+    }
+    if ((type &#x3D; &#x27;OWNER_WITH_EMAIL_DOESNT_EXIST&#x27;)) {
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        OWNER_WITH_EMAIL_DOESNT_EXIST,
+      );
+    }
+    if ((type &#x3D; &#x27;INVALID_EMAIL&#x27;)) {
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        INVALID_EMAIL,
+      );
+    }
+    if ((type &#x3D; &#x27;RESET_TIME_EXPIRED&#x27;)) {
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        RESET_TIME_EXPIRED,
+      );
+    }
+    if ((type &#x3D; &#x27;INVALID_CODE&#x27;)) {
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        INVALID_CODE,
+      );
+    }
+    if ((type &#x3D; &#x27;TOKEN_INVALID&#x27;)) {
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        TOKEN_INVALID,
+      );
+    }
+  }
 
-    static UnauthorizedError(
-        type: &#x27;INVALID_EMAIL_OR_PASSWORD&#x27; |
-            &#x27;OWNER_ID_NOT_PROVIDED&#x27; |
-            &#x27;ADMIN_ID_NOT_FOUND&#x27;
-    ) {
-        if (type &#x3D; &#x27;INVALID_EMAIL_OR_PASSWORD&#x27;) {
-            throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, INVALID_EMAIL_OR_PASSWORD);   
-        }
-        if (type &#x3D; &#x27;OWNER_ID_NOT_PROVIDED&#x27;) {
-            throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, OWNER_ID_NOT_PROVIDED); 
-        }
-        if (type &#x3D; &#x27;ADMIN_ID_NOT_FOUND&#x27;) {
-            throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, ADMIN_ID_NOT_PROVIDED); 
-        }
+  static UserNotFound(
+    type:
+      | &#x27;USER_NOT_FOUND&#x27;
+      | &#x27;USER_OR_ROLE_NOT_FOUND&#x27;
+      | &#x27;TOKEN_NOT_FOUND&#x27;
+      | &#x27;OWNER_NOT_FOUND&#x27;
+      | &#x27;ADMIN_NOT_FOUND&#x27;
+      | &#x27;OWNER_OR_ROLE_NOT_FOUND&#x27;
+      | &#x27;ADMIN_OR_ROLE_NOT_FOUND&#x27;,
+  ) {
+    if ((type &#x3D; &#x27;USER_NOT_FOUND&#x27;)) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        USER_NOT_FOUND,
+      );
     }
+    if ((type &#x3D; &#x27;USER_OR_ROLE_NOT_FOUND&#x27;)) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        USER_OR_ROLE_NOT_FOUND,
+      );
+    }
+    if ((type &#x3D; &#x27;TOKEN_NOT_FOUND&#x27;)) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        TOKEN_NOT_FOUND,
+      );
+    }
+    if ((type &#x3D; &#x27;OWNER_NOT_FOUND&#x27;)) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        OWNER_NOT_FOUND,
+      );
+    }
+    if ((type &#x3D; &#x27;ADMIN_NOT_FOUND&#x27;)) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        ADMIN_NOT_FOUND,
+      );
+    }
+    if ((type &#x3D; &#x27;OWNER_OR_ROLE_NOT_FOUND&#x27;)) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        OWNER_OR_ROLE_NOT_FOUND,
+      );
+    }
+    if ((type &#x3D; &#x27;ADMIN_OR_ROLE_NOT_FOUND&#x27;)) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        ADMIN_OR_ROLE_NOT_FOUND,
+      );
+    }
+  }
 
-    static InternalServerError(type:
-        &#x27;ERROR_WHILE_SIGNING_TOKEN&#x27; |
-        &#x27;ERROR_WHILE_VALIDATING_TOKEN&#x27; |
-        &#x27;ERROR_WHILE_SAVING_TOKEN&#x27; |
-        &#x27;ERROR_WHILE_REMOVING_TOKEN&#x27;
-    ) {
-        if (type &#x3D; &#x27;ERROR_WHILE_SIGNING_TOKEN&#x27;) {
-            throw new ApiException(
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                &#x27;Internal Server Error&#x27;,
-                ERROR_WHILE_SIGNING_TOKEN
-            );
-        }
-        if (type &#x3D; &#x27;ERROR_WHILE_VALIDATING_TOKEN&#x27;) {
-            throw new ApiException(
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                &#x27;Internal Server Error&#x27;,
-                ERROR_WHILE_VALIDATING_TOKEN
-            );
-        }
-        if (type &#x3D; &#x27;ERROR_WHILE_SAVING_TOKEN&#x27;) {
-            throw new ApiException(
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                &#x27;Internal Server Error&#x27;,
-                ERROR_WHILE_SAVING_TOKEN
-            );
-        }
-        if (type &#x3D; &#x27;ERROR_WHILE_REMOVING_TOKEN&#x27;) {
-            throw new ApiException(
-                HttpStatus.INTERNAL_SERVER_ERROR,
-                &#x27;Internal Server Error&#x27;,
-                ERROR_WHILE_REMOVING_TOKEN
-            );
-        }
+  static UnauthorizedError(
+    type:
+      | &#x27;INVALID_EMAIL_OR_PASSWORD&#x27;
+      | &#x27;OWNER_ID_NOT_PROVIDED&#x27;
+      | &#x27;ADMIN_ID_NOT_FOUND&#x27;,
+  ) {
+    if ((type &#x3D; &#x27;INVALID_EMAIL_OR_PASSWORD&#x27;)) {
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        &#x27;Unathorized!&#x27;,
+        INVALID_EMAIL_OR_PASSWORD,
+      );
     }
-     
-    static ForbiddenException(
-        type: &#x27;NOT_ACTIVATED&#x27; | 
-        &#x27;ACCESS_DENIED&#x27;
-    ) {
-        if (type &#x3D; &#x27;NOT_ACTIVATED&#x27;) {
-            throw new ApiException(HttpStatus.FORBIDDEN, &#x27;Forbidden!&#x27;, NOT_ACTIVATED); 
-        }
-        if (type &#x3D; &#x27;ACCESS_DENIED&#x27;) {
-            throw new ApiException(HttpStatus.FORBIDDEN, &#x27;Forbidden!&#x27;, ACCESS_DENIED); 
-        }
-    }  
-}</code></pre>
+    if ((type &#x3D; &#x27;OWNER_ID_NOT_PROVIDED&#x27;)) {
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        &#x27;Unathorized!&#x27;,
+        OWNER_ID_NOT_PROVIDED,
+      );
+    }
+    if ((type &#x3D; &#x27;ADMIN_ID_NOT_FOUND&#x27;)) {
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        &#x27;Unathorized!&#x27;,
+        ADMIN_ID_NOT_PROVIDED,
+      );
+    }
+  }
+
+  static InternalServerError(
+    type:
+      | &#x27;ERROR_WHILE_SIGNING_TOKEN&#x27;
+      | &#x27;ERROR_WHILE_VALIDATING_TOKEN&#x27;
+      | &#x27;ERROR_WHILE_SAVING_TOKEN&#x27;
+      | &#x27;ERROR_WHILE_REMOVING_TOKEN&#x27;,
+  ) {
+    if ((type &#x3D; &#x27;ERROR_WHILE_SIGNING_TOKEN&#x27;)) {
+      throw new ApiException(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        &#x27;Internal Server Error&#x27;,
+        ERROR_WHILE_SIGNING_TOKEN,
+      );
+    }
+    if ((type &#x3D; &#x27;ERROR_WHILE_VALIDATING_TOKEN&#x27;)) {
+      throw new ApiException(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        &#x27;Internal Server Error&#x27;,
+        ERROR_WHILE_VALIDATING_TOKEN,
+      );
+    }
+    if ((type &#x3D; &#x27;ERROR_WHILE_SAVING_TOKEN&#x27;)) {
+      throw new ApiException(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        &#x27;Internal Server Error&#x27;,
+        ERROR_WHILE_SAVING_TOKEN,
+      );
+    }
+    if ((type &#x3D; &#x27;ERROR_WHILE_REMOVING_TOKEN&#x27;)) {
+      throw new ApiException(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        &#x27;Internal Server Error&#x27;,
+        ERROR_WHILE_REMOVING_TOKEN,
+      );
+    }
+  }
+
+  static ForbiddenException(type: &#x27;NOT_ACTIVATED&#x27; | &#x27;ACCESS_DENIED&#x27;) {
+    if ((type &#x3D; &#x27;NOT_ACTIVATED&#x27;)) {
+      throw new ApiException(HttpStatus.FORBIDDEN, &#x27;Forbidden!&#x27;, NOT_ACTIVATED);
+    }
+    if ((type &#x3D; &#x27;ACCESS_DENIED&#x27;)) {
+      throw new ApiException(HttpStatus.FORBIDDEN, &#x27;Forbidden!&#x27;, ACCESS_DENIED);
+    }
+  }
+}
+</code></pre>
     </div>
 </div>
 

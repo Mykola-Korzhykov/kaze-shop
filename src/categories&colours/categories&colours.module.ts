@@ -72,8 +72,8 @@ export class CategoriesColoursModule implements NestModule {
       .forRoutes(
         { path: 'categories/create_category', method: RequestMethod.PUT },
         { path: 'categories/delete_category', method: RequestMethod.DELETE },
-        { path: 'categories/create_colour', method: RequestMethod.PUT },
-        { path: 'categories/delete_colour', method: RequestMethod.DELETE },
+        { path: 'colours/create_colour', method: RequestMethod.PUT },
+        { path: 'colours/delete_colour', method: RequestMethod.DELETE },
         { path: '*', method: RequestMethod.PATCH },
       );
   }

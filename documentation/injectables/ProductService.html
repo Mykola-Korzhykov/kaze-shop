@@ -136,6 +136,10 @@
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
+                                <a href="#getProductsByCategory" >getProductsByCategory</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#getProductsByIds" >getProductsByIds</a>
                             </li>
                             <li>
@@ -164,12 +168,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(productRepository, userService: <a href="../injectables/UsersService.html" target="_self">UsersService</a>, ownerService: <a href="../injectables/OwnerService.html" target="_self">OwnerService</a>, adminService: <a href="../injectables/AdminService.html" target="_self">AdminService</a>, categoriesService: <a href="../injectables/CategoriesService.html" target="_self">CategoriesService</a>)</code>
+<code>constructor(productRepository, userService: <a href="../injectables/UsersService.html" target="_self">UsersService</a>, ownerService: <a href="../injectables/OwnerService.html" target="_self">OwnerService</a>, adminService: <a href="../injectables/AdminService.html" target="_self">AdminService</a>, categoriesService: <a href="../injectables/CategoriesService.html" target="_self">CategoriesService</a>, coloursService: <a href="../injectables/ColoursService.html" target="_self">ColoursService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/product/product.service.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/product/product.service.ts:29</a></div>
                             </td>
                         </tr>
 
@@ -245,6 +249,18 @@
                                                     </td>
                                                     
                                                 </tr>
+                                                <tr>
+                                                        <td>coloursService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ColoursService.html" target="_self" >ColoursService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                         </tbody>
                                     </table>
                             </div>
@@ -281,8 +297,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="142"
-                            class="link-to-prism">src/product/product.service.ts:142</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="579"
+                            class="link-to-prism">src/product/product.service.ts:579</a></div>
                 </td>
             </tr>
 
@@ -364,8 +380,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="126"
-                            class="link-to-prism">src/product/product.service.ts:126</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="559"
+                            class="link-to-prism">src/product/product.service.ts:559</a></div>
                 </td>
             </tr>
 
@@ -447,8 +463,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="477"
-                            class="link-to-prism">src/product/product.service.ts:477</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="599"
+                            class="link-to-prism">src/product/product.service.ts:599</a></div>
                 </td>
             </tr>
 
@@ -566,8 +582,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="776"
-                            class="link-to-prism">src/product/product.service.ts:776</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="996"
+                            class="link-to-prism">src/product/product.service.ts:996</a></div>
                 </td>
             </tr>
 
@@ -637,8 +653,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="715"
-                            class="link-to-prism">src/product/product.service.ts:715</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="923"
+                            class="link-to-prism">src/product/product.service.ts:923</a></div>
                 </td>
             </tr>
 
@@ -701,15 +717,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>filterProducts(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, order: "ASC" | "DESC" | null, sizes: string[], colours: string[], categories: number[])</code>
+                    <code>filterProducts(request: Request, response: Response, queryFilterDto: <a href="../classes/QueryFilterDto.html" target="_self">QueryFilterDto</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="288"
-                            class="link-to-prism">src/product/product.service.ts:288</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="449"
+                            class="link-to-prism">src/product/product.service.ts:449</a></div>
                 </td>
             </tr>
 
@@ -730,9 +746,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>page</td>
+                                    <td>request</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            <code>Request</code>
                                     </td>
 
                                     <td>
@@ -742,9 +758,9 @@
 
                                 </tr>
                                 <tr>
-                                    <td>productPerPage</td>
+                                    <td>response</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            <code>Response</code>
                                     </td>
 
                                     <td>
@@ -754,45 +770,9 @@
 
                                 </tr>
                                 <tr>
-                                    <td>order</td>
+                                    <td>queryFilterDto</td>
                                     <td>
-                                            <code>&quot;ASC&quot; | &quot;DESC&quot; | null</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>sizes</td>
-                                    <td>
-                                            <code>string[]</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>colours</td>
-                                    <td>
-                                            <code>string[]</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>categories</td>
-                                    <td>
-                                            <code>number[]</code>
+                                                <code><a href="../classes/QueryFilterDto.html" target="_self" >QueryFilterDto</a></code>
                                     </td>
 
                                     <td>
@@ -807,7 +787,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;ReturnedProducts&gt;</code>
+                        <b>Returns : </b>    <code>Promise&lt;Response&lt;any, Record&lt;string, any&gt;&gt;&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -839,8 +819,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="469"
-                            class="link-to-prism">src/product/product.service.ts:469</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="1039"
+                            class="link-to-prism">src/product/product.service.ts:1039</a></div>
                 </td>
             </tr>
 
@@ -878,7 +858,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;Product&gt;</code>
+                        <b>Returns : </b>        <code><a href="../classes/Product.html" target="_self" >Promise&lt;Product&gt;</a></code>
 
                     </div>
                     <div class="io-description">
@@ -903,15 +883,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getBookmarks(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    <code>getBookmarks(request: Request, response: Response, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="28"
-                            class="link-to-prism">src/product/product.service.ts:28</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="106"
+                            class="link-to-prism">src/product/product.service.ts:106</a></div>
                 </td>
             </tr>
 
@@ -931,6 +911,30 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td>request</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>response</td>
+                                    <td>
+                                            <code>Response</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
                                 <tr>
                                     <td>page</td>
                                     <td>
@@ -998,15 +1002,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getProductById(productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    <code>getProductById(request: Request, response: Response, productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="413"
-                            class="link-to-prism">src/product/product.service.ts:413</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="382"
+                            class="link-to-prism">src/product/product.service.ts:382</a></div>
                 </td>
             </tr>
 
@@ -1027,6 +1031,30 @@
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td>request</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>response</td>
+                                    <td>
+                                            <code>Response</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
                                     <td>productId</td>
                                     <td>
                                                 <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
@@ -1044,7 +1072,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="../interfaces/ReturnedProduct.html" target="_self" >Promise&lt;ReturnedProduct&gt;</a></code>
+                        <b>Returns : </b>    <code>Promise&lt;Response&lt;any, Record&lt;string, any&gt;&gt;&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -1069,15 +1097,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getProducts(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    <code>getProducts(request: Request, response: Response, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="220"
-                            class="link-to-prism">src/product/product.service.ts:220</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="303"
+                            class="link-to-prism">src/product/product.service.ts:303</a></div>
                 </td>
             </tr>
 
@@ -1097,6 +1125,30 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td>request</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>response</td>
+                                    <td>
+                                            <code>Response</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
                                 <tr>
                                     <td>page</td>
                                     <td>
@@ -1127,7 +1179,126 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;ReturnedProducts&gt;</code>
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getProductsByCategory"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>getProductsByCategory</b></span>
+                        <a href="#getProductsByCategory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getProductsByCategory(request: Request, response: Response, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, pageSize: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, categories: number[] | undefined)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">src/product/product.service.ts:39</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>request</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>response</td>
+                                    <td>
+                                            <code>Response</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>page</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>pageSize</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>categories</td>
+                                    <td>
+                                            <code>number[] | undefined</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
 
                     </div>
                     <div class="io-description">
@@ -1152,15 +1323,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getProductsByIds(productIds: number[], page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    <code>getProductsByIds(request: Request, response: Response, productIds: number[], page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="158"
-                            class="link-to-prism">src/product/product.service.ts:158</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="230"
+                            class="link-to-prism">src/product/product.service.ts:230</a></div>
                 </td>
             </tr>
 
@@ -1180,6 +1351,30 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td>request</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>response</td>
+                                    <td>
+                                            <code>Response</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
                                 <tr>
                                     <td>productIds</td>
                                     <td>
@@ -1247,15 +1442,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>getWatchedProducts(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                    <code>getWatchedProducts(request: Request, response: Response, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productPerPage: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="75"
-                            class="link-to-prism">src/product/product.service.ts:75</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="168"
+                            class="link-to-prism">src/product/product.service.ts:168</a></div>
                 </td>
             </tr>
 
@@ -1275,6 +1470,30 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td>request</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>response</td>
+                                    <td>
+                                            <code>Response</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
                                 <tr>
                                     <td>page</td>
                                     <td>
@@ -1317,7 +1536,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;ReturnedProducts&gt;</code>
+                        <b>Returns : </b>    <code>unknown</code>
 
                     </div>
                     <div class="io-description">
@@ -1349,8 +1568,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="589"
-                            class="link-to-prism">src/product/product.service.ts:589</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="753"
+                            class="link-to-prism">src/product/product.service.ts:753</a></div>
                 </td>
             </tr>
 
@@ -1484,7 +1703,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/product/product.service.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/product/product.service.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -1498,816 +1717,1054 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpStatus, Injectable, Logger, Scope } from &#x27;@nestjs/common&#x27;;
-import { FILE_NOT_FOUND, NOT_AUTHORIZED, NO_IMAGES_PROVIDED, PRODUCTS_NOT_FOUND, PRODUCT_NOT_FOUND } from &#x27;./product.constants&#x27;;
+import {
+  FILE_NOT_FOUND,
+  NOT_AUTHORIZED,
+  NO_IMAGES_PROVIDED,
+  PRODUCTS_NOT_FOUND,
+  PRODUCT_NOT_FOUND,
+} from &#x27;./product.constants&#x27;;
 import { InjectModel } from &#x27;@nestjs/sequelize&#x27;;
 import { unlink, existsSync, readdirSync, rmSync } from &#x27;fs&#x27;;
 import { join } from &#x27;path&#x27;;
 import { AdminService } from &#x27;../admin/services/admin.service&#x27;;
-import { Category } from &#x27;../categories/models/category.model&#x27;;
+import { Category } from &#x27;../categories&amp;colours/models/category.model&#x27;;
 import { ApiException } from &#x27;../common/exceptions/api.exception&#x27;;
-import { ReturnedProduct, ReturnedProducts } from &#x27;../core/interfaces/product.interfaces&#x27;;
+import { ReturnedProduct } from &#x27;../core/interfaces/product.interfaces&#x27;;
 import { OwnerService } from &#x27;../owner/services/owner.service&#x27;;
-import { CategoriesService } from &#x27;../categories/categories.service&#x27;;
+import { CategoriesService } from &#x27;../categories&amp;colours/services/categories.service&#x27;;
 import { CreateProductDto } from &#x27;./dto/create.product.dto&#x27;;
 import { UpdateProductDto } from &#x27;./dto/update.product.dto&#x27;;
 import { Product } from &#x27;./models/product.model&#x27;;
 import { UsersService } from &#x27;../users/services/users.service&#x27;;
 import { USER_NOT_FOUND } from &#x27;../users/constants/user.constants&#x27;;
+import { Request, Response } from &#x27;express&#x27;;
+import { QueryFilterDto } from &#x27;./dto/query-filter.dto&#x27;;
+import { Colour } from &#x27;src/categories&amp;colours/models/colours.model&#x27;;
+import { ColoursService } from &#x27;src/categories&amp;colours/services/colours.service&#x27;;
 @Injectable({ scope: Scope.TRANSIENT })
 export class ProductService {
-    private readonly Logger &#x3D; new Logger(ProductService.name);
-    constructor(
-        @InjectModel(Product) private readonly productRepository: typeof Product,
-        private readonly userService: UsersService,
-        private readonly ownerService: OwnerService,
-        private readonly adminService: AdminService,
-        private readonly categoriesService: CategoriesService
-    ) {}
+  private readonly Logger &#x3D; new Logger(ProductService.name);
+  constructor(
+    @InjectModel(Product) private readonly productRepository: typeof Product,
+    private readonly userService: UsersService,
+    private readonly ownerService: OwnerService,
+    private readonly adminService: AdminService,
+    private readonly categoriesService: CategoriesService,
+    private readonly coloursService: ColoursService,
+  ) {}
 
-    async getBookmarks(page: number, productPerPage: number, userId: number) {
-        const user &#x3D; await this.userService.getUserById(userId);
-        if (!user) {
-            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);   
+  async getProductsByCategory(
+    request: Request,
+    response: Response,
+    page: number,
+    pageSize: number,
+    categories: number[] | undefined,
+  ) {
+    const currency: {
+      currencyCode: string;
+      symbol: string;
+      rate: number;
+    } &#x3D; request[&#x27;currency&#x27;];
+    let products &#x3D; await this.productRepository.findAll({
+      include: { all: true },
+    });
+    if (categories &amp;&amp; categories.length &gt; 0) {
+      products &#x3D; products.filter((product: Product) &#x3D;&gt; {
+        if (
+          product.categories.some((category: Category) &#x3D;&gt;
+            categories.includes(category.id),
+          )
+        ) {
+          return product;
         }
-        const products &#x3D; user.bookmarks
-            .slice((page - 1) * productPerPage, productPerPage * page)
-            .map(product &#x3D;&gt; {
-                return {
-                    id: product.id,
-                    title: product.getTitle(),
-                    description: product.getDescription(),
-                    price: product.price,
-                    quantity: product.quantity,
-                    images: product.images,
-                    sizeChartImage: product.sizeChartImage,
-                    sizes: product.sizes,
-                    colours: product.colours,
-                    categories: product.categories.map((category) &#x3D;&gt; {
-                        return {
-                            id: category.id,
-                            ua: category.ua,
-                            en: category.en,
-                            rs: category.rs,
-                            ru: category.ru,
-                            createdAt: category.createdAt,
-                            updatedAt: category.updatedAt,
-                        };
-                    }),
-                    reviews: product.reviews.map((review) &#x3D;&gt; {
-                        return {
-                            id: review.id,
-                            name: review.name,
-                            surname: review.surname,
-                            review: review.review,
-                            createdAt: review.createdAt,
-                            updatedAt: review.updatedAt,
-                        };
-                    })
-                };
-            });
-        return {
-            products: products,
-            totalItems: user.bookmarks.length,
-        };
+      });
     }
-
-    async getWatchedProducts(
-        page: number,
-        productPerPage: number,
-        userId: number
-    ): Promise&lt;ReturnedProducts&gt; {
-        const user &#x3D; await this.userService.getUserById(userId);
-        if (!user) {
-            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);   
-        }
-        const products &#x3D; user.watched
-            .slice((page - 1) * productPerPage, productPerPage * page)
-            .map(product &#x3D;&gt; {
-                return {
-                    id: product.id,
-                    title: product.getTitle(),
-                    description: product.getDescription(),
-                    price: product.price,
-                    quantity: product.quantity,
-                    images: product.images,
-                    sizeChartImage: product.sizeChartImage,
-                    sizes: product.sizes,
-                    colours: product.colours,
-                    categories: product.categories.map((category) &#x3D;&gt; {
-                        return {
-                            id: category.id,
-                            ua: category.ua,
-                            en: category.en,
-                            rs: category.rs,
-                            ru: category.ru,
-                            createdAt: category.createdAt,
-                            updatedAt: category.updatedAt,
-                        };
-                    }),
-                    reviews: product.reviews.map((review) &#x3D;&gt; {
-                        return {
-                            id: review.id,
-                            name: review.name,
-                            surname: review.surname,
-                            review: review.review,
-                            createdAt: review.createdAt,
-                            updatedAt: review.updatedAt,
-                        };
-                    })
-                };
-            });
-        return {
-            products: products,
-            totalItems: user.watched.length,
-        };
-    }
-
-    async addWatchedProduct(productId: number, userId: number) {
-        const user &#x3D; await this.userService.getUserById(userId);
-        if (!user) {
-            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);   
-        }
-        const product &#x3D; await this.findById(productId);
-        if (!user.watched || user.watched.length &#x3D;&#x3D;&#x3D; 0) {
-            user.$set(&#x27;watched&#x27;, product.id);
-            user.watched &#x3D; [product];
-        } else {
-            user.$add(&#x27;watched&#x27;, product.id);
-        }
-        await user.save();
-        return productId;
-    }
-
-    async addBookmarkProduct(productId: number, userId: number) {
-        const user &#x3D; await this.userService.getUserById(userId);
-        if (!user) {
-            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);   
-        }
-        const product &#x3D; await this.findById(productId);
-        if (!user.bookmarks || user.bookmarks.length &#x3D;&#x3D;&#x3D; 0) {
-            user.$set(&#x27;bookmarks&#x27;, product.id);
-            user.bookmarks &#x3D; [product];
-        } else {
-            user.$add(&#x27;bookmarks&#x27;, product.id);
-        }
-        await user.save();
-        return productId;
-    }
-
-    async getProductsByIds(productIds: number[], page: number, productPerPage: number){
-        const totalCount &#x3D; await this.productRepository.count();
-        const products &#x3D; await this.productRepository.findAll({
-            include: { all: true },
-            offset: (page - 1) * productPerPage,
-            limit: productPerPage,
-            attributes: [
-                &#x27;id&#x27;,
-                &#x27;title&#x27;,
-                &#x27;price&#x27;,
-                &#x27;decription&#x27;,
-                &#x27;quantity&#x27;,
-                &#x27;colours&#x27;,
-                &#x27;sizes&#x27;,
-                &#x27;categories&#x27;,
-                &#x27;images&#x27;,
-                &#x27;sizeChartImage&#x27;
-            ],
-            where: {
-                id: productIds,
-            }
-        });
-        const returnedProducts &#x3D; products.map(product &#x3D;&gt; {
-            return {
-                id: product.id,
-                title: product.getTitle(),
-                description: product.getDescription(),
-                price: product.price,
-                quantity: product.quantity,
-                images: product.images,
-                sizeChartImage: product.sizeChartImage,
-                sizes: product.sizes,
-                colours: product.colours,
-                categories: product.categories.map((category) &#x3D;&gt; {
-                    return {
-                        id: category.id,
-                        ua: category.ua,
-                        en: category.en,
-                        rs: category.rs,
-                        ru: category.ru,
-                        createdAt: category.createdAt,
-                        updatedAt: category.updatedAt,
-                    };
-                }),
-                reviews: product.reviews.map((review) &#x3D;&gt; {
-                    return {
-                        id: review.id,
-                        name: review.name,
-                        surname: review.surname,
-                        review: review.review,
-                        createdAt: review.createdAt,
-                        updatedAt: review.updatedAt,
-                    };
-                })
-            };
-        });
-        return {
-            products: returnedProducts,
-            totalItems: totalCount,
-        };
-    }
-    
-    async getProducts(
-        page: number,
-        productPerPage: number,
-    ): Promise&lt;ReturnedProducts&gt;{
-        try {
-            const totalCount &#x3D; await this.productRepository.count();
-            const products &#x3D; await this.productRepository.findAll({
-                include: { all: true },
-                offset: (page - 1) * productPerPage,
-                order: [[&#x27;updatedAt&#x27;, &#x27;DESC&#x27;]],
-                limit: productPerPage,
-                attributes: [
-                    &#x27;id&#x27;,
-                    &#x27;title&#x27;,
-                    &#x27;price&#x27;,
-                    &#x27;decription&#x27;,
-                    &#x27;quantity&#x27;,
-                    &#x27;colours&#x27;,
-                    &#x27;sizes&#x27;,
-                    &#x27;categories&#x27;,
-                    &#x27;images&#x27;,
-                    &#x27;sizeChartImage&#x27;
-                ]
-            });
-            const returnedProducts &#x3D; products.map(product &#x3D;&gt; {
-                return {
-                    id: product.id,
-                    title: product.getTitle(),
-                    description: product.getDescription(),
-                    price: product.price,
-                    quantity: product.quantity,
-                    images: product.images,
-                    sizeChartImage: product.sizeChartImage,
-                    sizes: product.sizes,
-                    colours: product.colours,
-                    categories: product.categories.map((category) &#x3D;&gt; {
-                        return {
-                            id: category.id,
-                            ua: category.ua,
-                            en: category.en,
-                            rs: category.rs,
-                            ru: category.ru,
-                            createdAt: category.createdAt,
-                            updatedAt: category.updatedAt,
-                        };
-                    }),
-                    reviews: product.reviews.map((review) &#x3D;&gt; {
-                        return {
-                            id: review.id,
-                            name: review.name,
-                            surname: review.surname,
-                            review: review.review,
-                            createdAt: review.createdAt,
-                            updatedAt: review.updatedAt,
-                        };
-                    })
-                };
-            });
-            return {
-                products: returnedProducts,
-                totalItems: totalCount,
-            };
-        } catch (error) {
-            this.Logger.error(error);
-            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, PRODUCTS_NOT_FOUND);   
-        }
-    }
-    
-    async filterProducts(
-        page: number,
-        productPerPage: number,
-        order: &#x27;ASC&#x27; | &#x27;DESC&#x27; | null,
-        sizes: string[],
-        colours: string[],
-        categories: number[],
-    ): Promise&lt;ReturnedProducts&gt; {
-        try {
-            const totalCount &#x3D; await this.productRepository.count({
-                where: {
-                    sizes: sizes ? sizes : [],
-                    colours: colours ? colours : [],
-                }
-            });
-            const products &#x3D; await this.productRepository.findAll({
-                include: { all: true },
-                offset: (page - 1) * productPerPage,
-                limit: productPerPage,
-                attributes: [
-                    &#x27;id&#x27;,
-                    &#x27;title&#x27;,
-                    &#x27;price&#x27;,
-                    &#x27;decription&#x27;,
-                    &#x27;quantity&#x27;,
-                    &#x27;colours&#x27;,
-                    &#x27;sizes&#x27;,
-                    &#x27;categories&#x27;,
-                    &#x27;images&#x27;,
-                    &#x27;sizeChartImage&#x27;
-                ],
-                where: {
-                    sizes: { include: sizes },
-                    colours: { include: colours },
-                }
-            });
-            if (categories.length &#x3D;&#x3D;&#x3D; 0 || !categories) {
-                const returnedProducts &#x3D; products.map((product: Product) &#x3D;&gt; {
-                    return {
-                        id: product.id,
-                        title: product.getTitle(),
-                        description: product.getDescription(),
-                        price: product.price,
-                        quantity: product.quantity,
-                        images: product.images,
-                        sizeChartImage: product.sizeChartImage,
-                        sizes: product.sizes,
-                        colours: product.colours,
-                        categories: product.categories.map((category) &#x3D;&gt; {
-                            return {
-                                id: category.id,
-                                ua: category.ua,
-                                en: category.en,
-                                rs: category.rs,
-                                ru: category.ru,
-                                createdAt: category.createdAt,
-                                updatedAt: category.updatedAt,
-                            };
-                        }),
-                        reviews: product.reviews.map((review) &#x3D;&gt; {
-                            return {
-                                id: review.id,
-                                name: review.name,
-                                surname: review.surname,
-                                review: review.review,
-                                createdAt: review.createdAt,
-                                updatedAt: review.updatedAt,
-                            };
-                        })
-                    };
-                });
-                return {
-                    products: returnedProducts,
-                    totalItems: totalCount,
-                };
-            }
-            const returnedProducts &#x3D; products.map((product: Product) &#x3D;&gt; {
-                if (
-                    product.categories.some((category: Category) &#x3D;&gt;
-                    categories.indexOf(category.id) &gt;&#x3D; 0)
-                ) {
-                    return {
-                        id: product.id,
-                        title: product.getTitle(),
-                        description: product.getDescription(),
-                        price: product.price,
-                        quantity: product.quantity,
-                        images: product.images,
-                        sizeChartImage: product.sizeChartImage,
-                        sizes: product.sizes,
-                        colours: product.colours,
-                        categories: product.categories.map((category) &#x3D;&gt; {
-                            return {
-                                id: category.id,
-                                ua: category.ua,
-                                en: category.en,
-                                rs: category.rs,
-                                ru: category.ru,
-                                createdAt: category.createdAt,
-                                updatedAt: category.updatedAt,
-                            };
-                        }),
-                        reviews: product?.reviews?.map((review) &#x3D;&gt; {
-                            return {
-                                id: review.id,
-                                name: review.name,
-                                surname: review.surname,
-                                review: review.review,
-                                createdAt: review.createdAt,
-                                updatedAt: review.updatedAt,
-                            };
-                        })
-                    };
-                }
-            });
-            return {
-                products: returnedProducts,
-                totalItems: totalCount,
-            };
-        } catch (error) {
-            this.Logger.error(error);
-            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, PRODUCTS_NOT_FOUND);
-        }
-    }
-
-    async getProductById(productId: number): Promise&lt;ReturnedProduct&gt; {
-        const product &#x3D; await this.productRepository.findByPk(productId,
-            {
-                include: {
-                  all: true,
-                },
-                attributes: [
-                    &#x27;id&#x27;,
-                    &#x27;title&#x27;,
-                    &#x27;price&#x27;,
-                    &#x27;description&#x27;,
-                    &#x27;quantity&#x27;,
-                    &#x27;colours&#x27;,
-                    &#x27;sizes&#x27;,
-                    &#x27;images&#x27;,
-                    &#x27;sizeChartImage&#x27;
-                ],
-            }
-        );
-        if (!product) {
-            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, PRODUCT_NOT_FOUND);   
-        }
-        return {
+    return response.json({
+      products: products
+        .map((product: Product) &#x3D;&gt; {
+          return {
             id: product.id,
-            title: product.getTitle(),   
+            title: product.getTitle(),
             description: product.getDescription(),
-            price: product.price,
+            price: Math.round(product.price * currency.rate) + currency.symbol,
             quantity: product.quantity,
             images: product.images,
             sizeChartImage: product.sizeChartImage,
             sizes: product.sizes,
             colours: product.colours,
             categories: product.categories.map((category) &#x3D;&gt; {
-                return {
-                    id: category.id,
-                    ua: category.ua,
-                    en: category.en,
-                    rs: category.rs,
-                    ru: category.ru,
-                    createdAt: category.createdAt,
-                    updatedAt: category.updatedAt,
-                };
+              return {
+                id: category.id,
+                ua: category.ua,
+                en: category.en,
+                rs: category.rs,
+                ru: category.ru,
+                createdAt: category.createdAt,
+                updatedAt: category.updatedAt,
+              };
             }),
             reviews: product.reviews.map((review) &#x3D;&gt; {
-                return {
-                    id: review.id,
-                    name: review.name,
-                    surname: review.surname,
-                    review: review.review,
-                    createdAt: review.createdAt,
-                    updatedAt: review.updatedAt,
-                };
-            })
+              return {
+                id: review.id,
+                name: review.name,
+                surname: review.surname,
+                review: review.review,
+                createdAt: review.createdAt,
+                updatedAt: review.updatedAt,
+              };
+            }),
+          };
+        })
+        .slice((page - 1) * pageSize, pageSize * page),
+      totalProducts: products.length,
+    });
+  }
+
+  async getBookmarks(
+    request: Request,
+    response: Response,
+    page: number,
+    productPerPage: number,
+    userId: number,
+  ) {
+    const user &#x3D; await this.userService.getUserById(userId);
+    if (!user) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        USER_NOT_FOUND,
+      );
+    }
+    const currency: {
+      currencyCode: string;
+      symbol: string;
+      rate: number;
+    } &#x3D; request[&#x27;currency&#x27;];
+    const products &#x3D; user.bookmarks
+      .slice((page - 1) * productPerPage, productPerPage * page)
+      .map((product) &#x3D;&gt; {
+        return {
+          id: product.id,
+          title: product.getTitle(),
+          description: product.getDescription(),
+          price: product.price * currency.rate + currency.symbol,
+          quantity: product.quantity,
+          images: product.images,
+          sizeChartImage: product.sizeChartImage,
+          sizes: product.sizes,
+          colours: product.colours,
+          categories: product.categories.map((category) &#x3D;&gt; {
+            return {
+              id: category.id,
+              ua: category.ua,
+              en: category.en,
+              rs: category.rs,
+              ru: category.ru,
+              createdAt: category.createdAt,
+              updatedAt: category.updatedAt,
+            };
+          }),
+          reviews: product.reviews.map((review) &#x3D;&gt; {
+            return {
+              id: review.id,
+              name: review.name,
+              surname: review.surname,
+              review: review.review,
+              createdAt: review.createdAt,
+              updatedAt: review.updatedAt,
+            };
+          }),
         };
-    }
-    
-    async findById(productId: number): Promise&lt;Product&gt;{
-        const product &#x3D; await this.productRepository.findByPk(productId);
-        if (!product) {
-            throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, PRODUCT_NOT_FOUND);   
-        }
-        return product;
-    }
+      });
+    return response.json({
+      products: products,
+      totalProducts: user.bookmarks.length,
+    });
+  }
 
-    async createProduct(
-        createProductDto: CreateProductDto,
-        userId: number,
-        type: &#x27;OWNER&#x27; | &#x27;ADMIN&#x27; | null,
-        images: Express.Multer.File[],
-        sizeChartImage: Express.Multer.File[]
-    ): Promise&lt;ReturnedProduct&gt; {
-        try {
-            if (!type &amp;&amp; !userId) {
-                throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, NOT_AUTHORIZED);   
-            }
-            if (!images || images.length &#x3D;&#x3D;&#x3D; 0 || !sizeChartImage || sizeChartImage.length &#x3D;&#x3D;&#x3D; 0) {
-                 throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, NO_IMAGES_PROVIDED);
-            }
-            const imagesPaths: string[] &#x3D; images.map((image: Express.Multer.File) &#x3D;&gt; {
-                return &#x27;/&#x27; + image
-                .path.split(&#x27;\\&#x27;)
-                .slice(image.path.split(&#x27;\\&#x27;)
-                    .indexOf(&#x27;products&#x27;))
-                .join(&#x27;/&#x27;); 
-            });
-            const sizeChartImagePath &#x3D; &#x27;/&#x27; + sizeChartImage[0].path
-                .split(&#x27;\\&#x27;).slice(sizeChartImage[0]
-                .path.split(&#x27;\\&#x27;).indexOf(&#x27;products&#x27;)).join(&#x27;/&#x27;);
-            const product &#x3D; await this.productRepository.create({
-                ...createProductDto,
-                title: JSON.stringify(createProductDto.title),
-                description: JSON.stringify(createProductDto.description),
-                images: imagesPaths,
-                sizeChartImage: sizeChartImagePath,
-            });
-            for(const category of createProductDto.categories) {
-                const productCategory &#x3D; await this.categoriesService.getCategoryById(Number(category));
-                if (!product.categories) {
-                    product.$set(&#x27;categories&#x27;, productCategory.id);
-                    product.categories &#x3D; [productCategory];
-                } else {
-                    product.$add(&#x27;categories&#x27;, productCategory.id);
-                }
-                await product.save();
-            }
-            if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;OWNER&#x27;) {
-                setTimeout(async () &#x3D;&gt; { 
-                    const owner &#x3D; await this.ownerService.getOwnerById(userId);
-                    product.setOwnerId(userId);
-                    product.$set(&#x27;owner&#x27;, userId);
-                    product.owner &#x3D; owner;
-                    owner.$add(&#x27;products&#x27;, product.id);
-                    owner.addProduct(product);
-                    await Promise.all([
-                        await product.save(),
-                        await owner.save(),
-                    ]);
-                }, 0);
-            }
-            if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;ADMIN&#x27;) {
-                setTimeout(async () &#x3D;&gt; { 
-                    product.setAdminId(userId);
-                    product.$set(&#x27;admin&#x27;, userId);
-                    const admin &#x3D; await this.adminService.getAdminById(userId);
-                    product.admin &#x3D; admin;
-                    admin.$add(&#x27;products&#x27;, product.id);
-                    admin.addProduct(product);
-                    await Promise.all([
-                        await product.save(),
-                        await admin.save(),
-                    ]);
-                }, 0);
-            }  
-            const dbProduct &#x3D; await this.getProductById(product.id);
-            const Product &#x3D; {
-                id: dbProduct.id,
-                title: product.getTitle(),
-                description: product.getDescription(),
-                price: dbProduct.price,
-                quantity: dbProduct.quantity,
-                images: dbProduct.images,
-                sizeChartImage: dbProduct.sizeChartImage,
-                sizes: dbProduct.sizes,
-                colours: dbProduct.colours,
-                categories: dbProduct.categories.map((category) &#x3D;&gt; {
-                    return {
-                        id: category.id,
-                        ua: category.ua,
-                        en: category.en,
-                        rs: category.rs,
-                        ru: category.ru,
-                        createdAt: category.createdAt,
-                        updatedAt: category.updatedAt,
-                    };
-                }),
-                reviews: [],
+  async getWatchedProducts(
+    request: Request,
+    response: Response,
+    page: number,
+    productPerPage: number,
+    userId: number,
+  ) {
+    const user &#x3D; await this.userService.getUserById(userId);
+    if (!user) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        USER_NOT_FOUND,
+      );
+    }
+    const currency: {
+      currencyCode: string;
+      symbol: string;
+      rate: number;
+    } &#x3D; request[&#x27;currency&#x27;];
+    const products &#x3D; user.watched
+      .slice((page - 1) * productPerPage, productPerPage * page)
+      .map((product) &#x3D;&gt; {
+        return {
+          id: product.id,
+          title: product.getTitle(),
+          description: product.getDescription(),
+          price: product.price * currency.rate + currency.symbol,
+          quantity: product.quantity,
+          images: product.images,
+          sizeChartImage: product.sizeChartImage,
+          sizes: product.sizes,
+          colours: product.colours,
+          categories: product.categories.map((category) &#x3D;&gt; {
+            return {
+              id: category.id,
+              ua: category.ua,
+              en: category.en,
+              rs: category.rs,
+              ru: category.ru,
+              createdAt: category.createdAt,
+              updatedAt: category.updatedAt,
             };
-            if (dbProduct.reviews.length !&#x3D;&#x3D; 0) {
-                Product.reviews &#x3D; dbProduct.reviews.map((review) &#x3D;&gt; {
-                    return {
-                        id: review.id,
-                        name: review.name,
-                        surname: review.surname,
-                        review: review.review,
-                        createdAt: review.createdAt,
-                        updatedAt: review.updatedAt,
-                    };
-                });
-            }
-            return Product;
-        } catch (error) {
-            this.Logger.error(error);
-            throw error;
-        }
-    }
-
-    async updateProduct(
-        updateProductDto: UpdateProductDto,
-        productId: number,
-        userId: number,
-        type: &#x27;OWNER&#x27; | &#x27;ADMIN&#x27; | null,
-        images: Express.Multer.File[],
-        sizeChartImage: Express.Multer.File[]
-    ): Promise&lt;ReturnedProduct&gt; {
-        try{
-            const existingProduct &#x3D; await this.productRepository.findByPk(productId, {
-                include: { all: true }
-            });
-            if (!existingProduct) {
-                throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, PRODUCT_NOT_FOUND);   
-            } 
-            if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;OWNER&#x27;) {
-                existingProduct.setOwnerId(userId);
-            }
-            if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;ADMIN&#x27; &amp;&amp; !existingProduct.getAdminId()) {
-                setTimeout(async () &#x3D;&gt; { 
-                    existingProduct.setAdminId(userId);
-                    existingProduct.$set(&#x27;admin&#x27;, userId);
-                    const admin &#x3D; await this.adminService.getAdminById(userId);
-                    existingProduct.admin &#x3D; admin;
-                    admin.$add(&#x27;products&#x27;, existingProduct.id);
-                    admin.addProduct(existingProduct);
-                    await Promise.all([
-                        await existingProduct.save(),
-                        await admin.save(),
-                    ]);
-                }, 0);
-            }
-            existingProduct.setTitle(updateProductDto.title);
-            existingProduct.setDescription(updateProductDto.description);
-            existingProduct.quantity &#x3D; updateProductDto.quantity;
-            existingProduct.price &#x3D; updateProductDto.price;
-            existingProduct.sizes &#x3D; [ ...updateProductDto.sizes ];
-            existingProduct.colours &#x3D; [...updateProductDto.colours];
-            for(const category of existingProduct.categories) {
-                existingProduct.$remove(&#x27;categories&#x27;, category.id);
-                await existingProduct.save();
-            }
-            for (const category of updateProductDto.categories) {
-                const productCategory &#x3D; await this.categoriesService.getCategoryById(Number(category));
-                if (existingProduct.categories.length &#x3D;&#x3D;&#x3D; 0) {
-                    existingProduct.$set(&#x27;categories&#x27;, productCategory.id);
-                    existingProduct.categories &#x3D; [productCategory];
-                } else {
-                    existingProduct.$add(&#x27;categories&#x27;, productCategory.id);
-                }
-                await existingProduct.save();
-            }
-            if (images &amp;&amp; images.length &gt; 0) { 
-                for(const image of existingProduct.images) {
-                    const file &#x3D; join(__dirname, &#x27;static&#x27; + image);
-                    unlink(file, (err) &#x3D;&gt; {
-                        if (err) {
-                            this.Logger.error(err.message);
-                        }
-                    });   
-                }
-                const imagesPaths: string[] &#x3D; images.map((image: Express.Multer.File) &#x3D;&gt; {
-                    return &#x27;/&#x27; + image.path.split(&#x27;\\&#x27;)
-                        .slice(image.path.split(&#x27;\\&#x27;)
-                            .indexOf(&#x27;products&#x27;)).join(&#x27;/&#x27;); 
-                });
-                existingProduct.images &#x3D; [...imagesPaths];
-            }
-            if (sizeChartImage &amp;&amp; sizeChartImage.length &gt; 0) {
-                const sizeChartImagePath &#x3D; &#x27;/&#x27; + sizeChartImage[0].path
-                    .split(&#x27;\\&#x27;).slice(sizeChartImage[0].path
-                        .split(&#x27;\\&#x27;).indexOf(&#x27;products&#x27;)).join(&#x27;/&#x27;); 
-                const file &#x3D; join(__dirname, &#x27;static&#x27; + existingProduct.sizeChartImage);
-                if (existsSync(file)) {
-                    unlink(file, (err) &#x3D;&gt; {
-                        if (err) {
-                            this.Logger.error(err.message);
-                        }
-                    });   
-                }
-                existingProduct.sizeChartImage &#x3D; sizeChartImagePath;   
-            }
-            await existingProduct.save();
-            const dbProduct &#x3D; await this.getProductById(existingProduct.id);
-            const Product &#x3D; {
-                id: dbProduct?.id,
-                title: dbProduct?.title,
-                description: dbProduct?.description,
-                price: dbProduct?.price,
-                quantity: dbProduct?.quantity,
-                images: dbProduct?.images,
-                sizeChartImage: dbProduct?.sizeChartImage,
-                sizes: dbProduct?.sizes,
-                colours: dbProduct?.colours,
-                categories: dbProduct?.categories?.map((category) &#x3D;&gt; {
-                    return {
-                        id: category.id,
-                        ua: category.ua,
-                        en: category.en,
-                        rs: category.rs,
-                        ru: category.ru,
-                        createdAt: category.createdAt,
-                        updatedAt: category.updatedAt,
-                    };
-                }),
-                reviews: [],
+          }),
+          reviews: product.reviews.map((review) &#x3D;&gt; {
+            return {
+              id: review.id,
+              name: review.name,
+              surname: review.surname,
+              review: review.review,
+              createdAt: review.createdAt,
+              updatedAt: review.updatedAt,
             };
-            if (dbProduct.reviews.length !&#x3D;&#x3D; 0) {
-                Product.reviews &#x3D; dbProduct.reviews.map((review) &#x3D;&gt; {
-                    return {
-                        id: review.id,
-                        name: review.name,
-                        surname: review.surname,
-                        review: review.review,
-                        createdAt: review.createdAt,
-                        updatedAt: review.updatedAt,
-                    };
-                });
-            }
-            return Product;
-        } catch (error) {
-            this.Logger.error(error);
-            throw error;
-        }
-    }
+          }),
+        };
+      });
+    return response.json({
+      products: products,
+      totalProducts: user.bookmarks.length,
+    });
+  }
 
-    async deleteProduct(productId: number): Promise&lt;number&gt; {
-        try{
-            const existingProduct &#x3D; await this.productRepository.findByPk(productId, {
-                include: { all: true }
-            });
-            if (!existingProduct) {
-                throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, PRODUCTS_NOT_FOUND);   
-            }
-            for(const image of existingProduct.images){
-                const file &#x3D; join(__dirname, &#x27;static&#x27; + image);
-                unlink(file, (err) &#x3D;&gt; {
-                    if (err) {
-                        this.Logger.error(err.message);
-                    }
-                });
-            }
-            const sizeChartImage &#x3D; join(__dirname, &#x27;static&#x27;, ...existingProduct.sizeChartImage.split(&#x27;/&#x27;));
-            unlink(sizeChartImage, (err) &#x3D;&gt; {
-                if (err) {
-                    this.Logger.error(err.message);
-                }
-            });
-            const folderPath &#x3D; join(
-                __dirname,
-                &#x27;static&#x27;,
-                ...existingProduct.images[0].split(&#x27;/&#x27;)
-                .slice(0, existingProduct.images[0].split(&#x27;/&#x27;).length - 2)
-            );
-            const imagesFolder &#x3D; join(
-                 __dirname,
-                &#x27;static&#x27;,
-                ...existingProduct.images[0].split(&#x27;/&#x27;)
-                .slice(0, existingProduct.images[0].split(&#x27;/&#x27;).length - 1)
-            );
-            const sizeChartImageFolder &#x3D; join(
-                __dirname, &#x27;static&#x27;,
-                ...existingProduct.sizeChartImage
-                .split(&#x27;/&#x27;).slice(0, existingProduct.sizeChartImage.split(&#x27;/&#x27;).length - 1)
-            );
-            if (
-                readdirSync(imagesFolder).length &#x3D;&#x3D;&#x3D; 0 &amp;&amp;
-                readdirSync(sizeChartImageFolder).length &#x3D;&#x3D;&#x3D; 0)
-            {
-                rmSync(folderPath, { recursive: true, force: true });
-            }
-            const product &#x3D; await this.productRepository.destroy({
-                where: {
-                    id: existingProduct?.id,
-                    quantity: existingProduct?.quantity,
-                    price: existingProduct?.price,
-                    sizes: existingProduct?.sizes,
-                    images: existingProduct?.images,
-                },
-            });
+  async getProductsByIds(
+    request: Request,
+    response: Response,
+    productIds: number[],
+    page: number,
+    productPerPage: number,
+  ) {
+    const totalCount &#x3D; await this.productRepository.count();
+    const products &#x3D; await this.productRepository.findAll({
+      include: { all: true },
+      offset: (page - 1) * productPerPage,
+      limit: productPerPage,
+      attributes: [
+        &#x27;id&#x27;,
+        &#x27;title&#x27;,
+        &#x27;price&#x27;,
+        &#x27;decription&#x27;,
+        &#x27;quantity&#x27;,
+        &#x27;colours&#x27;,
+        &#x27;sizes&#x27;,
+        &#x27;categories&#x27;,
+        &#x27;images&#x27;,
+        &#x27;sizeChartImage&#x27;,
+      ],
+      where: {
+        id: productIds,
+      },
+    });
+    const currency: {
+      currencyCode: string;
+      symbol: string;
+      rate: number;
+    } &#x3D; request[&#x27;currency&#x27;];
+    const returnedProducts &#x3D; products.map((product) &#x3D;&gt; {
+      return {
+        id: product.id,
+        title: product.getTitle(),
+        description: product.getDescription(),
+        price: product.price * currency.rate + currency.symbol,
+        quantity: product.quantity,
+        images: product.images,
+        sizeChartImage: product.sizeChartImage,
+        sizes: product.sizes,
+        colours: product.colours,
+        categories: product.categories.map((category) &#x3D;&gt; {
+          return {
+            id: category.id,
+            ua: category.ua,
+            en: category.en,
+            rs: category.rs,
+            ru: category.ru,
+            createdAt: category.createdAt,
+            updatedAt: category.updatedAt,
+          };
+        }),
+        reviews: product.reviews.map((review) &#x3D;&gt; {
+          return {
+            id: review.id,
+            name: review.name,
+            surname: review.surname,
+            review: review.review,
+            createdAt: review.createdAt,
+            updatedAt: review.updatedAt,
+          };
+        }),
+      };
+    });
+    return response.json({
+      products: returnedProducts,
+      totalProducts: totalCount,
+    });
+  }
+
+  async getProducts(
+    request: Request,
+    response: Response,
+    page: number,
+    productPerPage: number,
+  ) {
+    try {
+      const totalCount &#x3D; await this.productRepository.count();
+      const products &#x3D; await this.productRepository.findAll({
+        include: { all: true },
+        offset: (page - 1) * productPerPage,
+        order: [[&#x27;updatedAt&#x27;, &#x27;DESC&#x27;]],
+        limit: productPerPage,
+        attributes: [
+          &#x27;id&#x27;,
+          &#x27;title&#x27;,
+          &#x27;price&#x27;,
+          &#x27;decription&#x27;,
+          &#x27;quantity&#x27;,
+          &#x27;colours&#x27;,
+          &#x27;sizes&#x27;,
+          &#x27;categories&#x27;,
+          &#x27;images&#x27;,
+          &#x27;sizeChartImage&#x27;,
+        ],
+      });
+      const currency: {
+        currencyCode: string;
+        symbol: string;
+        rate: number;
+      } &#x3D; request[&#x27;currency&#x27;];
+      const returnedProducts &#x3D; products.map((product) &#x3D;&gt; {
+        return {
+          id: product.id,
+          title: product.getTitle(),
+          description: product.getDescription(),
+          price: product.price * currency.rate + currency.symbol,
+          quantity: product.quantity,
+          images: product.images,
+          sizeChartImage: product.sizeChartImage,
+          sizes: product.sizes,
+          colours: product.colours,
+          categories: product.categories.map((category) &#x3D;&gt; {
+            return {
+              id: category.id,
+              ua: category.ua,
+              en: category.en,
+              rs: category.rs,
+              ru: category.ru,
+              createdAt: category.createdAt,
+              updatedAt: category.updatedAt,
+            };
+          }),
+          reviews: product.reviews.map((review) &#x3D;&gt; {
+            return {
+              id: review.id,
+              name: review.name,
+              surname: review.surname,
+              review: review.review,
+              createdAt: review.createdAt,
+              updatedAt: review.updatedAt,
+            };
+          }),
+        };
+      });
+      return response.json({
+        products: returnedProducts,
+        totalProducts: totalCount,
+      });
+    } catch (error) {
+      this.Logger.error(error);
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        PRODUCTS_NOT_FOUND,
+      );
+    }
+  }
+
+  async getProductById(
+    request: Request,
+    response: Response,
+    productId: number,
+  ): Promise&lt;Response&lt;any, Record&lt;string, any&gt;&gt;&gt; {
+    const product &#x3D; await this.productRepository.findByPk(productId, {
+      include: {
+        all: true,
+      },
+      attributes: [
+        &#x27;id&#x27;,
+        &#x27;title&#x27;,
+        &#x27;price&#x27;,
+        &#x27;description&#x27;,
+        &#x27;quantity&#x27;,
+        &#x27;colours&#x27;,
+        &#x27;sizes&#x27;,
+        &#x27;images&#x27;,
+        &#x27;sizeChartImage&#x27;,
+      ],
+    });
+    if (!product) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        PRODUCT_NOT_FOUND,
+      );
+    }
+    const currency: {
+      currencyCode: string;
+      symbol: string;
+      rate: number;
+    } &#x3D; request[&#x27;currency&#x27;];
+    return response.json({
+      id: product.id,
+      title: product.getTitle(),
+      description: product.getDescription(),
+      price: product.price * currency.rate + currency.symbol,
+      quantity: product.quantity,
+      images: product.images,
+      sizeChartImage: product.sizeChartImage,
+      sizes: product.sizes,
+      colours: product.colours,
+      categories: product.categories.map((category) &#x3D;&gt; {
+        return {
+          id: category.id,
+          ua: category.ua,
+          en: category.en,
+          rs: category.rs,
+          ru: category.ru,
+          createdAt: category.createdAt,
+          updatedAt: category.updatedAt,
+        };
+      }),
+      reviews: product.reviews.map((review) &#x3D;&gt; {
+        return {
+          id: review.id,
+          name: review.name,
+          surname: review.surname,
+          review: review.review,
+          createdAt: review.createdAt,
+          updatedAt: review.updatedAt,
+        };
+      }),
+    });
+  }
+
+  async filterProducts(
+    request: Request,
+    response: Response,
+    queryFilterDto: QueryFilterDto,
+  ): Promise&lt;Response&lt;any, Record&lt;string, any&gt;&gt;&gt; {
+    try {
+      let products &#x3D; await this.productRepository.findAll({
+        include: { all: true },
+      });
+      if (queryFilterDto.order &amp;&amp; queryFilterDto.order &#x3D;&#x3D;&#x3D; &#x27;ASC&#x27;) {
+        products.sort((firstProduct: Product, secondProduct) &#x3D;&gt; {
+          return firstProduct.price - secondProduct.price;
+        });
+      }
+      if (queryFilterDto.order &amp;&amp; queryFilterDto.order &#x3D;&#x3D;&#x3D; &#x27;DESC&#x27;) {
+        products.sort((firstProduct: Product, secondProduct) &#x3D;&gt; {
+          return secondProduct.price - firstProduct.price;
+        });
+      }
+      if (queryFilterDto.categories &amp;&amp; queryFilterDto.categories.length &gt; 0) {
+        products &#x3D; products.filter((product: Product) &#x3D;&gt; {
+          if (
+            product.categories.some((category: Category) &#x3D;&gt;
+              queryFilterDto.categories.includes(category.id),
+            )
+          ) {
             return product;
-        } catch (error) {
-            this.Logger.error(error);
-            throw error;
-        }
+          }
+        });
+      }
+      if (queryFilterDto.sizes &amp;&amp; queryFilterDto.sizes.length &gt; 0) {
+        products &#x3D; products.filter((product: Product) &#x3D;&gt; {
+          if (
+            product.sizes.some((size: string) &#x3D;&gt;
+              queryFilterDto.sizes.includes(size),
+            )
+          ) {
+            return product;
+          }
+        });
+      }
+      if (queryFilterDto.colours &amp;&amp; queryFilterDto.colours.length &gt; 0) {
+        products &#x3D; products.filter((product: Product) &#x3D;&gt; {
+          if (
+            product.colours.some((colour: Colour) &#x3D;&gt;
+              queryFilterDto.colours.includes(colour.id),
+            )
+          ) {
+            return product;
+          }
+        });
+      }
+      const currency: {
+        currencyCode: string;
+        symbol: string;
+        rate: number;
+      } &#x3D; request[&#x27;currency&#x27;];
+      return response.json({
+        products: products
+          .map((product: Product) &#x3D;&gt; {
+            return {
+              id: product.id,
+              title: product.getTitle(),
+              description: product.getDescription(),
+              price:
+                Math.round(product.price * currency.rate) + currency.symbol,
+              quantity: product.quantity,
+              images: product.images,
+              sizeChartImage: product.sizeChartImage,
+              sizes: product.sizes,
+              colours: product.colours,
+              categories: product.categories.map((category) &#x3D;&gt; {
+                return {
+                  id: category.id,
+                  ua: category.ua,
+                  en: category.en,
+                  rs: category.rs,
+                  ru: category.ru,
+                  createdAt: category.createdAt,
+                  updatedAt: category.updatedAt,
+                };
+              }),
+              reviews: product.reviews.map((review) &#x3D;&gt; {
+                return {
+                  id: review.id,
+                  name: review.name,
+                  surname: review.surname,
+                  review: review.review,
+                  createdAt: review.createdAt,
+                  updatedAt: review.updatedAt,
+                };
+              }),
+            };
+          })
+          .slice(
+            (queryFilterDto.page - 1) * queryFilterDto.pageSize,
+            queryFilterDto.pageSize * queryFilterDto.page,
+          ),
+        totalProducts: products.length,
+      });
+    } catch (error) {
+      this.Logger.error(error);
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        PRODUCTS_NOT_FOUND,
+      );
     }
+  }
 
-    async deleteImage(filePath: string): Promise&lt;string&gt;{
-        try{
-            const file &#x3D; join(__dirname, &#x27;static&#x27; + filePath);
-            this.Logger.log(file);
-            if (!existsSync(file)) {
-                throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, FILE_NOT_FOUND);   
-            }
-            unlink(file, (err) &#x3D;&gt; {
-                if (err) {
-                    this.Logger.error(err.message);
-                }
-            });
-            const [productsImages, sizeChartImageProducts] &#x3D; await Promise.all([
-                await this.productRepository.findAll({ where: { images: [ filePath ] } }),
-                await this.productRepository.findAll({ where: { sizeChartImage: filePath } }),
-            ]);
-            if(productsImages?.length !&#x3D;&#x3D; 0){
-                for(const product of productsImages){
-                    const index &#x3D; product.images.indexOf(filePath);
-                    product.images.splice(index, 1);
-                    await product.save();
-                }
-            }
-            if (sizeChartImageProducts?.length !&#x3D;&#x3D; 0) {
-                for(const product of sizeChartImageProducts){
-                    product.sizeChartImage &#x3D; null;
-                    await product.save();
-                }
-            }
-            return filePath;
-        } catch (error) {
-            console.log(error);
-            this.Logger.error(error);
-            throw error;
-        }
+  async addWatchedProduct(productId: number, userId: number) {
+    const user &#x3D; await this.userService.getUserById(userId);
+    if (!user) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        USER_NOT_FOUND,
+      );
     }
+    const product &#x3D; await this.findById(productId);
+    if (!user.watched || user.watched.length &#x3D;&#x3D;&#x3D; 0) {
+      user.$set(&#x27;watched&#x27;, product.id);
+      user.watched &#x3D; [product];
+    } else {
+      user.$add(&#x27;watched&#x27;, product.id);
+    }
+    await user.save();
+    return productId;
+  }
+
+  async addBookmarkProduct(productId: number, userId: number) {
+    const user &#x3D; await this.userService.getUserById(userId);
+    if (!user) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        USER_NOT_FOUND,
+      );
+    }
+    const product &#x3D; await this.findById(productId);
+    if (!user.bookmarks || user.bookmarks.length &#x3D;&#x3D;&#x3D; 0) {
+      user.$set(&#x27;bookmarks&#x27;, product.id);
+      user.bookmarks &#x3D; [product];
+    } else {
+      user.$add(&#x27;bookmarks&#x27;, product.id);
+    }
+    await user.save();
+    return productId;
+  }
+
+  async createProduct(
+    createProductDto: CreateProductDto,
+    userId: number,
+    type: &#x27;OWNER&#x27; | &#x27;ADMIN&#x27; | null,
+    images: Express.Multer.File[],
+    sizeChartImage: Express.Multer.File[],
+  ): Promise&lt;ReturnedProduct&gt; {
+    try {
+      if (!type &amp;&amp; !userId) {
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          NOT_AUTHORIZED,
+        );
+      }
+      if (
+        !images ||
+        images.length &#x3D;&#x3D;&#x3D; 0 ||
+        !sizeChartImage ||
+        sizeChartImage.length &#x3D;&#x3D;&#x3D; 0
+      ) {
+        throw new ApiException(
+          HttpStatus.BAD_REQUEST,
+          &#x27;Bad request&#x27;,
+          NO_IMAGES_PROVIDED,
+        );
+      }
+      const imagesPaths: string[] &#x3D; images.map((image: Express.Multer.File) &#x3D;&gt; {
+        return (
+          &#x27;/&#x27; +
+          image.path
+            .split(&#x27;\\&#x27;)
+            .slice(image.path.split(&#x27;\\&#x27;).indexOf(&#x27;products&#x27;))
+            .join(&#x27;/&#x27;)
+        );
+      });
+      const sizeChartImagePath &#x3D;
+        &#x27;/&#x27; +
+        sizeChartImage[0].path
+          .split(&#x27;\\&#x27;)
+          .slice(sizeChartImage[0].path.split(&#x27;\\&#x27;).indexOf(&#x27;products&#x27;))
+          .join(&#x27;/&#x27;);
+      const product &#x3D; await this.productRepository.create({
+        ...createProductDto,
+        title: JSON.stringify(createProductDto.title),
+        description: JSON.stringify(createProductDto.description),
+        images: imagesPaths,
+        sizeChartImage: sizeChartImagePath,
+      });
+      for (const category of createProductDto.categories) {
+        const productCategory &#x3D; await this.categoriesService.getCategoryById(
+          Number(category),
+        );
+        if (!product.categories) {
+          product.$set(&#x27;categories&#x27;, productCategory.id);
+          product.categories &#x3D; [productCategory];
+        } else {
+          product.$add(&#x27;categories&#x27;, productCategory.id);
+        }
+        await product.save();
+      }
+      for (const colour of createProductDto.categories) {
+        const productColour &#x3D; await this.coloursService.getColourById(
+          Number(colour),
+        );
+        if (!product.colours) {
+          product.$set(&#x27;colours&#x27;, productColour.id);
+          product.colours &#x3D; [productColour];
+        } else {
+          product.$add(&#x27;colours&#x27;, productColour.id);
+        }
+        if (!product.hexes) {
+          product.hexes &#x3D; [productColour.hex];
+        } else {
+          product.hexes.push(productColour.hex);
+        }
+        await product.save();
+      }
+      if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;OWNER&#x27;) {
+        setTimeout(async () &#x3D;&gt; {
+          const owner &#x3D; await this.ownerService.getOwnerById(userId);
+          product.setOwnerId(userId);
+          product.$set(&#x27;owner&#x27;, userId);
+          product.owner &#x3D; owner;
+          owner.$add(&#x27;products&#x27;, product.id);
+          owner.addProduct(product);
+          await Promise.all([await product.save(), await owner.save()]);
+        }, 0);
+      }
+      if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;ADMIN&#x27;) {
+        setTimeout(async () &#x3D;&gt; {
+          product.setAdminId(userId);
+          product.$set(&#x27;admin&#x27;, userId);
+          const admin &#x3D; await this.adminService.getAdminById(userId);
+          product.admin &#x3D; admin;
+          admin.$add(&#x27;products&#x27;, product.id);
+          admin.addProduct(product);
+          await Promise.all([await product.save(), await admin.save()]);
+        }, 0);
+      }
+      const dbProduct &#x3D; await this.findById(product.id);
+      const Product &#x3D; {
+        id: dbProduct.id,
+        title: product.getTitle(),
+        description: product.getDescription(),
+        price: dbProduct.price,
+        quantity: dbProduct.quantity,
+        images: dbProduct.images,
+        sizeChartImage: dbProduct.sizeChartImage,
+        sizes: dbProduct.sizes,
+        colours: dbProduct.colours.map((colour) &#x3D;&gt; {
+          return {
+            id: colour.id,
+            ua: colour.ua,
+            en: colour.en,
+            rs: colour.rs,
+            ru: colour.ru,
+            hex: colour.hex,
+            createdAt: colour.createdAt,
+            updatedAt: colour.updatedAt,
+          };
+        }),
+        categories: dbProduct.categories.map((category) &#x3D;&gt; {
+          return {
+            id: category.id,
+            ua: category.ua,
+            en: category.en,
+            rs: category.rs,
+            ru: category.ru,
+            createdAt: category.createdAt,
+            updatedAt: category.updatedAt,
+          };
+        }),
+        reviews: [],
+      };
+      if (dbProduct.reviews.length !&#x3D;&#x3D; 0) {
+        Product.reviews &#x3D; dbProduct.reviews.map((review) &#x3D;&gt; {
+          return {
+            id: review.id,
+            name: review.name,
+            surname: review.surname,
+            review: review.review,
+            createdAt: review.createdAt,
+            updatedAt: review.updatedAt,
+          };
+        });
+      }
+      return Product;
+    } catch (error) {
+      this.Logger.error(error);
+      throw error;
+    }
+  }
+
+  async updateProduct(
+    updateProductDto: UpdateProductDto,
+    productId: number,
+    userId: number,
+    type: &#x27;OWNER&#x27; | &#x27;ADMIN&#x27; | null,
+    images: Express.Multer.File[],
+    sizeChartImage: Express.Multer.File[],
+  ): Promise&lt;ReturnedProduct&gt; {
+    try {
+      const existingProduct &#x3D; await this.productRepository.findByPk(productId, {
+        include: { all: true },
+      });
+      if (!existingProduct) {
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          &#x27;Not found!&#x27;,
+          PRODUCT_NOT_FOUND,
+        );
+      }
+      if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;OWNER&#x27;) {
+        existingProduct.setOwnerId(userId);
+      }
+      if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;ADMIN&#x27; &amp;&amp; !existingProduct.getAdminId()) {
+        setTimeout(async () &#x3D;&gt; {
+          existingProduct.setAdminId(userId);
+          existingProduct.$set(&#x27;admin&#x27;, userId);
+          const admin &#x3D; await this.adminService.getAdminById(userId);
+          existingProduct.admin &#x3D; admin;
+          admin.$add(&#x27;products&#x27;, existingProduct.id);
+          admin.addProduct(existingProduct);
+          await Promise.all([await existingProduct.save(), await admin.save()]);
+        }, 0);
+      }
+      existingProduct.setTitle(updateProductDto.title);
+      existingProduct.setDescription(updateProductDto.description);
+      existingProduct.quantity &#x3D; updateProductDto.quantity;
+      existingProduct.price &#x3D; updateProductDto.price;
+      existingProduct.sizes &#x3D; [...updateProductDto.sizes];
+      existingProduct.sizes &#x3D; [];
+      for (const category of existingProduct.categories) {
+        existingProduct.$remove(&#x27;categories&#x27;, category.id);
+        await existingProduct.save();
+      }
+      for (const category of updateProductDto.categories) {
+        const productCategory &#x3D; await this.categoriesService.getCategoryById(
+          Number(category),
+        );
+        if (existingProduct.categories.length &#x3D;&#x3D;&#x3D; 0) {
+          existingProduct.$set(&#x27;categories&#x27;, productCategory.id);
+          existingProduct.categories &#x3D; [productCategory];
+        } else {
+          existingProduct.$add(&#x27;categories&#x27;, productCategory.id);
+        }
+        await existingProduct.save();
+      }
+      for (const colour of existingProduct.colours) {
+        existingProduct.$remove(&#x27;colours&#x27;, colour.id);
+        await existingProduct.save();
+      }
+      for (const colour of existingProduct.colours) {
+        const productColour &#x3D; await this.coloursService.getColourById(
+          Number(colour),
+        );
+        if (existingProduct.colours.length &#x3D;&#x3D;&#x3D; 0) {
+          existingProduct.$set(&#x27;colours&#x27;, productColour.id);
+          existingProduct.colours &#x3D; [productColour];
+        } else {
+          existingProduct.$add(&#x27;colours&#x27;, productColour.id);
+        }
+        if (existingProduct.hexes.length &#x3D;&#x3D;&#x3D; 0) {
+          existingProduct.hexes &#x3D; [productColour.hex];
+        } else {
+          existingProduct.hexes.push(productColour.hex);
+        }
+        await existingProduct.save();
+      }
+      if (images &amp;&amp; images.length &gt; 0) {
+        for (const image of existingProduct.images) {
+          const file &#x3D; join(__dirname, &#x27;static&#x27; + image);
+          unlink(file, (err) &#x3D;&gt; {
+            if (err) {
+              this.Logger.error(err.message);
+            }
+          });
+        }
+        const imagesPaths: string[] &#x3D; images.map(
+          (image: Express.Multer.File) &#x3D;&gt; {
+            return (
+              &#x27;/&#x27; +
+              image.path
+                .split(&#x27;\\&#x27;)
+                .slice(image.path.split(&#x27;\\&#x27;).indexOf(&#x27;products&#x27;))
+                .join(&#x27;/&#x27;)
+            );
+          },
+        );
+        existingProduct.images &#x3D; [...imagesPaths];
+      }
+      if (sizeChartImage &amp;&amp; sizeChartImage.length &gt; 0) {
+        const sizeChartImagePath &#x3D;
+          &#x27;/&#x27; +
+          sizeChartImage[0].path
+            .split(&#x27;\\&#x27;)
+            .slice(sizeChartImage[0].path.split(&#x27;\\&#x27;).indexOf(&#x27;products&#x27;))
+            .join(&#x27;/&#x27;);
+        const file &#x3D; join(__dirname, &#x27;static&#x27; + existingProduct.sizeChartImage);
+        if (existsSync(file)) {
+          unlink(file, (err) &#x3D;&gt; {
+            if (err) {
+              this.Logger.error(err.message);
+            }
+          });
+        }
+        existingProduct.sizeChartImage &#x3D; sizeChartImagePath;
+      }
+      await existingProduct.save();
+      const dbProduct &#x3D; await this.findById(existingProduct.id);
+      const Product &#x3D; {
+        id: dbProduct?.id,
+        title: dbProduct?.getTitle(),
+        description: dbProduct?.getDescription(),
+        price: dbProduct?.price,
+        quantity: dbProduct?.quantity,
+        images: dbProduct?.images,
+        sizeChartImage: dbProduct?.sizeChartImage,
+        sizes: dbProduct?.sizes,
+        colours: dbProduct.colours.map((colour) &#x3D;&gt; {
+          return {
+            id: colour.id,
+            ua: colour.ua,
+            en: colour.en,
+            rs: colour.rs,
+            ru: colour.ru,
+            hex: colour.hex,
+            createdAt: colour.createdAt,
+            updatedAt: colour.updatedAt,
+          };
+        }),
+        categories: dbProduct?.categories?.map((category) &#x3D;&gt; {
+          return {
+            id: category.id,
+            ua: category.ua,
+            en: category.en,
+            rs: category.rs,
+            ru: category.ru,
+            createdAt: category.createdAt,
+            updatedAt: category.updatedAt,
+          };
+        }),
+        reviews: [],
+      };
+      if (dbProduct.reviews.length !&#x3D;&#x3D; 0) {
+        Product.reviews &#x3D; dbProduct.reviews.map((review) &#x3D;&gt; {
+          return {
+            id: review.id,
+            name: review.name,
+            surname: review.surname,
+            review: review.review,
+            createdAt: review.createdAt,
+            updatedAt: review.updatedAt,
+          };
+        });
+      }
+      return Product;
+    } catch (error) {
+      this.Logger.error(error);
+      throw error;
+    }
+  }
+
+  async deleteProduct(productId: number): Promise&lt;number&gt; {
+    try {
+      const existingProduct &#x3D; await this.productRepository.findByPk(productId, {
+        include: { all: true },
+      });
+      if (!existingProduct) {
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          &#x27;Not found!&#x27;,
+          PRODUCTS_NOT_FOUND,
+        );
+      }
+      for (const image of existingProduct.images) {
+        const file &#x3D; join(__dirname, &#x27;static&#x27; + image);
+        unlink(file, (err) &#x3D;&gt; {
+          if (err) {
+            this.Logger.error(err.message);
+          }
+        });
+      }
+      const sizeChartImage &#x3D; join(
+        __dirname,
+        &#x27;static&#x27;,
+        ...existingProduct.sizeChartImage.split(&#x27;/&#x27;),
+      );
+      unlink(sizeChartImage, (err) &#x3D;&gt; {
+        if (err) {
+          this.Logger.error(err.message);
+        }
+      });
+      const folderPath &#x3D; join(
+        __dirname,
+        &#x27;static&#x27;,
+        ...existingProduct.images[0]
+          .split(&#x27;/&#x27;)
+          .slice(0, existingProduct.images[0].split(&#x27;/&#x27;).length - 2),
+      );
+      const imagesFolder &#x3D; join(
+        __dirname,
+        &#x27;static&#x27;,
+        ...existingProduct.images[0]
+          .split(&#x27;/&#x27;)
+          .slice(0, existingProduct.images[0].split(&#x27;/&#x27;).length - 1),
+      );
+      const sizeChartImageFolder &#x3D; join(
+        __dirname,
+        &#x27;static&#x27;,
+        ...existingProduct.sizeChartImage
+          .split(&#x27;/&#x27;)
+          .slice(0, existingProduct.sizeChartImage.split(&#x27;/&#x27;).length - 1),
+      );
+      if (
+        readdirSync(imagesFolder).length &#x3D;&#x3D;&#x3D; 0 &amp;&amp;
+        readdirSync(sizeChartImageFolder).length &#x3D;&#x3D;&#x3D; 0
+      ) {
+        rmSync(folderPath, { recursive: true, force: true });
+      }
+      const product &#x3D; await this.productRepository.destroy({
+        where: {
+          id: existingProduct?.id,
+          quantity: existingProduct?.quantity,
+          price: existingProduct?.price,
+          sizes: existingProduct?.sizes,
+          images: existingProduct?.images,
+        },
+      });
+      return product;
+    } catch (error) {
+      this.Logger.error(error);
+      throw error;
+    }
+  }
+
+  async deleteImage(filePath: string): Promise&lt;string&gt; {
+    try {
+      const file &#x3D; join(__dirname, &#x27;static&#x27; + filePath);
+      this.Logger.log(file);
+      if (!existsSync(file)) {
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          &#x27;Not found!&#x27;,
+          FILE_NOT_FOUND,
+        );
+      }
+      unlink(file, (err) &#x3D;&gt; {
+        if (err) {
+          this.Logger.error(err.message);
+        }
+      });
+      const [productsImages, sizeChartImageProducts] &#x3D; await Promise.all([
+        await this.productRepository.findAll({ where: { images: [filePath] } }),
+        await this.productRepository.findAll({
+          where: { sizeChartImage: filePath },
+        }),
+      ]);
+      if (productsImages?.length !&#x3D;&#x3D; 0) {
+        for (const product of productsImages) {
+          const index &#x3D; product.images.indexOf(filePath);
+          product.images.splice(index, 1);
+          await product.save();
+        }
+      }
+      if (sizeChartImageProducts?.length !&#x3D;&#x3D; 0) {
+        for (const product of sizeChartImageProducts) {
+          product.sizeChartImage &#x3D; null;
+          await product.save();
+        }
+      }
+      return filePath;
+    } catch (error) {
+      console.log(error);
+      this.Logger.error(error);
+      throw error;
+    }
+  }
+
+  async findById(productId: number): Promise&lt;Product&gt; {
+    const product &#x3D; await this.productRepository.findByPk(productId);
+    if (!product) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        PRODUCT_NOT_FOUND,
+      );
+    }
+    return product;
+  }
 }
 </code></pre>
     </div>

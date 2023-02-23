@@ -263,7 +263,6 @@ import { HttpAdapterHost } from &#x27;@nestjs/core&#x27;;
 export class AllExceptionsFilter implements ExceptionFilter {
   constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
   catch(exception: HttpException, host: ArgumentsHost): void {
-    console.log(exception);
     const { httpAdapter } &#x3D; this.httpAdapterHost;
     const ctx &#x3D; host.switchToHttp();
     const message &#x3D; exception.message;

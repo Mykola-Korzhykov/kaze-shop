@@ -107,7 +107,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/common/guards/refresh.guard.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/common/guards/refresh.guard.ts:16</a></div>
                             </td>
                         </tr>
 
@@ -170,8 +170,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="18"
-                            class="link-to-prism">src/common/guards/refresh.guard.ts:18</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="19"
+                            class="link-to-prism">src/common/guards/refresh.guard.ts:19</a></div>
                 </td>
             </tr>
 
@@ -225,15 +225,16 @@
 
         <div class="tab-pane fade  tab-source-code" id="c-source">
             <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-  BadRequestException,
   CanActivate,
   ExecutionContext,
   HttpStatus,
   Injectable,
-  UnauthorizedException,
 } from &#x27;@nestjs/common&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
-import { ACCESS_TOKEN_NOT_PROVIDED, INVALID_HEADER, NO_TOKEN_PROVIDED } from &#x27;../../auth/auth.constants&#x27;;
+import {
+  ACCESS_TOKEN_NOT_PROVIDED,
+  INVALID_HEADER,
+} from &#x27;../../auth/auth.constants&#x27;;
 import { AuthService } from &#x27;../../auth/auth.service&#x27;;
 import { ApiException } from &#x27;../exceptions/api.exception&#x27;;
 
@@ -247,12 +248,20 @@ export class RefreshAuthGuard implements CanActivate {
     const req &#x3D; context.switchToHttp().getRequest();
     const authHeader &#x3D; req.headers.authorization;
     if (!authHeader) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request!&#x27;, INVALID_HEADER);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request!&#x27;,
+        INVALID_HEADER,
+      );
     }
     const bearer &#x3D; authHeader.split(&#x27; &#x27;)[0];
     const accessToken &#x3D; authHeader.split(&#x27; &#x27;)[1];
     if (bearer !&#x3D;&#x3D; &#x27;Bearer&#x27; || !accessToken) {
-      throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, ACCESS_TOKEN_NOT_PROVIDED);
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        &#x27;Unathorized!&#x27;,
+        ACCESS_TOKEN_NOT_PROVIDED,
+      );
     }
     return true;
   }

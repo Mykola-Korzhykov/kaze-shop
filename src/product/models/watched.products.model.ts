@@ -8,7 +8,7 @@ import {
 import { User } from '../../users/models/user.model';
 import { Product } from '../../product/models/product.model';
 
-@Table({ tableName: 'PRODUCT_Categories', createdAt: false, updatedAt: false })
+@Table({ tableName: 'PRODUCT_Watched', createdAt: false, updatedAt: false })
 export class WatchedProducts extends Model<WatchedProducts> {
   @Column({
     type: DataType.INTEGER,

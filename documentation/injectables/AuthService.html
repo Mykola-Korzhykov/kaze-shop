@@ -104,6 +104,9 @@
                                 <a href="#activateUser" >activateUser</a>
                             </li>
                             <li>
+                                <a href="#addTimeoutForTokens" >addTimeoutForTokens</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Private</span>
                                     <span class="modifier">Async</span>
                                 <a href="#authenticateUser" >authenticateUser</a>
@@ -111,6 +114,9 @@
                             <li>
                                     <span class="modifier">Async</span>
                                 <a href="#changePassword" >changePassword</a>
+                            </li>
+                            <li>
+                                <a href="#deleteTimeout" >deleteTimeout</a>
                             </li>
                             <li>
                                     <span class="modifier">Private</span>
@@ -199,12 +205,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(ownerJwtRefreshTokenService: <a href="../injectables/OwnerJwtRefreshService.html" target="_self">OwnerJwtRefreshService</a>, adminJwtRefreshTokenService: <a href="../injectables/AdminJwtRefreshService.html" target="_self">AdminJwtRefreshService</a>, ownerService: <a href="../injectables/OwnerService.html" target="_self">OwnerService</a>, adminService: <a href="../injectables/AdminService.html" target="_self">AdminService</a>, userService: <a href="../injectables/UsersService.html" target="_self">UsersService</a>, mailService: <a href="../injectables/MailService.html" target="_self">MailService</a>, sheduleService: <a href="../injectables/TasksService.html" target="_self">TasksService</a>, jwtService: JwtService, userJwtRefreshTokenService: <a href="../injectables/UserJwtRefreshTokenService.html" target="_self">UserJwtRefreshTokenService</a>)</code>
+<code>constructor(ownerJwtRefreshTokenService: <a href="../injectables/OwnerJwtRefreshService.html" target="_self">OwnerJwtRefreshService</a>, adminJwtRefreshTokenService: <a href="../injectables/AdminJwtRefreshService.html" target="_self">AdminJwtRefreshService</a>, ownerService: <a href="../injectables/OwnerService.html" target="_self">OwnerService</a>, adminService: <a href="../injectables/AdminService.html" target="_self">AdminService</a>, userService: <a href="../injectables/UsersService.html" target="_self">UsersService</a>, mailService: <a href="../injectables/MailService.html" target="_self">MailService</a>, schedulerRegistry: SchedulerRegistry, eventEmitter: EventEmitter2, jwtService: JwtService, userJwtRefreshTokenService: <a href="../injectables/UserJwtRefreshTokenService.html" target="_self">UserJwtRefreshTokenService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/auth/auth.service.ts:56</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/auth/auth.service.ts:58</a></div>
                             </td>
                         </tr>
 
@@ -294,10 +300,22 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>sheduleService</td>
+                                                        <td>schedulerRegistry</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/TasksService.html" target="_self" >TasksService</a></code>
+                                                                    <code>SchedulerRegistry</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>eventEmitter</td>
+                                                  
+                                                        <td>
+                                                                    <code>EventEmitter2</code>
                                                         </td>
                                                   
                                                     <td>
@@ -365,8 +383,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="204"
-                            class="link-to-prism">src/auth/auth.service.ts:204</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="231"
+                            class="link-to-prism">src/auth/auth.service.ts:231</a></div>
                 </td>
             </tr>
 
@@ -509,8 +527,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="664"
-                            class="link-to-prism">src/auth/auth.service.ts:664</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="736"
+                            class="link-to-prism">src/auth/auth.service.ts:736</a></div>
                 </td>
             </tr>
 
@@ -574,6 +592,123 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="addTimeoutForTokens"></a>
+                    <span class="name">
+                        <span ><b>addTimeoutForTokens</b></span>
+                        <a href="#addTimeoutForTokens"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addTimeoutForTokens(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, milliseconds: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, refreshTokenId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, identifier: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, cb: (refreshTokenId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>,identifier: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>) => void)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="909"
+                            class="link-to-prism">src/auth/auth.service.ts:909</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>name</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>milliseconds</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>refreshTokenId</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>identifier</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>cb</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>NodeJS.Timeout</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="authenticateUser"></a>
                     <span class="name">
                         <span class="modifier">Private</span>
@@ -593,8 +728,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="533"
-                            class="link-to-prism">src/auth/auth.service.ts:533</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="567"
+                            class="link-to-prism">src/auth/auth.service.ts:567</a></div>
                 </td>
             </tr>
 
@@ -688,8 +823,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="260"
-                            class="link-to-prism">src/auth/auth.service.ts:260</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="294"
+                            class="link-to-prism">src/auth/auth.service.ts:294</a></div>
                 </td>
             </tr>
 
@@ -801,6 +936,75 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="deleteTimeout"></a>
+                    <span class="name">
+                        <span ><b>deleteTimeout</b></span>
+                        <a href="#deleteTimeout"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>deleteTimeout(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="938"
+                            class="link-to-prism">src/auth/auth.service.ts:938</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>name</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="generateAccessToken"></a>
                     <span class="name">
                         <span class="modifier">Private</span>
@@ -819,8 +1023,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="294"
-                            class="link-to-prism">src/auth/auth.service.ts:294</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="328"
+                            class="link-to-prism">src/auth/auth.service.ts:328</a></div>
                 </td>
             </tr>
 
@@ -890,8 +1094,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="289"
-                            class="link-to-prism">src/auth/auth.service.ts:289</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="323"
+                            class="link-to-prism">src/auth/auth.service.ts:323</a></div>
                 </td>
             </tr>
 
@@ -930,8 +1134,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="651"
-                            class="link-to-prism">src/auth/auth.service.ts:651</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="723"
+                            class="link-to-prism">src/auth/auth.service.ts:723</a></div>
                 </td>
             </tr>
 
@@ -1014,8 +1218,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="342"
-                            class="link-to-prism">src/auth/auth.service.ts:342</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="376"
+                            class="link-to-prism">src/auth/auth.service.ts:376</a></div>
                 </td>
             </tr>
 
@@ -1097,8 +1301,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="69"
-                            class="link-to-prism">src/auth/auth.service.ts:69</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="72"
+                            class="link-to-prism">src/auth/auth.service.ts:72</a></div>
                 </td>
             </tr>
 
@@ -1216,8 +1420,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="130"
-                            class="link-to-prism">src/auth/auth.service.ts:130</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="141"
+                            class="link-to-prism">src/auth/auth.service.ts:141</a></div>
                 </td>
             </tr>
 
@@ -1323,8 +1527,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="171"
-                            class="link-to-prism">src/auth/auth.service.ts:171</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="186"
+                            class="link-to-prism">src/auth/auth.service.ts:186</a></div>
                 </td>
             </tr>
 
@@ -1443,8 +1647,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="436"
-                            class="link-to-prism">src/auth/auth.service.ts:436</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="470"
+                            class="link-to-prism">src/auth/auth.service.ts:470</a></div>
                 </td>
             </tr>
 
@@ -1538,8 +1742,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="250"
-                            class="link-to-prism">src/auth/auth.service.ts:250</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="281"
+                            class="link-to-prism">src/auth/auth.service.ts:281</a></div>
                 </td>
             </tr>
 
@@ -1621,8 +1825,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="227"
-                            class="link-to-prism">src/auth/auth.service.ts:227</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="254"
+                            class="link-to-prism">src/auth/auth.service.ts:254</a></div>
                 </td>
             </tr>
 
@@ -1705,8 +1909,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="721"
-                            class="link-to-prism">src/auth/auth.service.ts:721</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="797"
+                            class="link-to-prism">src/auth/auth.service.ts:797</a></div>
                 </td>
             </tr>
 
@@ -1812,8 +2016,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="299"
-                            class="link-to-prism">src/auth/auth.service.ts:299</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="333"
+                            class="link-to-prism">src/auth/auth.service.ts:333</a></div>
                 </td>
             </tr>
 
@@ -1895,8 +2099,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="755"
-                            class="link-to-prism">src/auth/auth.service.ts:755</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="839"
+                            class="link-to-prism">src/auth/auth.service.ts:839</a></div>
                 </td>
             </tr>
 
@@ -1990,8 +2194,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="99"
-                            class="link-to-prism">src/auth/auth.service.ts:99</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="106"
+                            class="link-to-prism">src/auth/auth.service.ts:106</a></div>
                 </td>
             </tr>
 
@@ -2109,8 +2313,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="280"
-                            class="link-to-prism">src/auth/auth.service.ts:280</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="314"
+                            class="link-to-prism">src/auth/auth.service.ts:314</a></div>
                 </td>
             </tr>
 
@@ -2181,8 +2385,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="581"
-                            class="link-to-prism">src/auth/auth.service.ts:581</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="615"
+                            class="link-to-prism">src/auth/auth.service.ts:615</a></div>
                 </td>
             </tr>
 
@@ -2268,7 +2472,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="56" class="link-to-prism">src/auth/auth.service.ts:56</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="58" class="link-to-prism">src/auth/auth.service.ts:58</a></div>
                         </td>
                     </tr>
 
@@ -2328,12 +2532,14 @@ import { USER_NOT_FOUND } from &#x27;../users/constants/user.constants&#x27;;
 import { ResetDto } from &#x27;./dto/reset.password.dto&#x27;;
 import { ChangeDto } from &#x27;./dto/change.password.dto&#x27;;
 import { v4 } from &#x27;uuid&#x27;;
-import { TasksService } from &#x27;../core/services/scedule.service&#x27;;
 import { ApiException } from &#x27;../common/exceptions/api.exception&#x27;;
 import { TOKEN_NOT_FOUND } from &#x27;../admin/constants/jwt-refresh.constants&#x27;;
 import { OwnerRefreshToken } from &#x27;../owner/models/owner.refresh.token.model&#x27;;
 import { AdminRefreshToken } from &#x27;../admin/models/admin.refresh.token.model&#x27;;
 import { UserRefreshToken } from &#x27;../users/models/user.refresh.token.model&#x27;;
+import { EventEmitter2 } from &#x27;@nestjs/event-emitter&#x27;;
+import { SchedulerRegistry } from &#x27;@nestjs/schedule&#x27;;
+import { JwtRefreshTokenDeletedEvent } from &#x27;src/core/events/jwt-refresh-token-deleted.evet&#x27;;
 @Injectable({ scope: Scope.TRANSIENT })
 export class AuthService {
   private readonly Logger &#x3D; new Logger(AuthService.name);
@@ -2344,7 +2550,8 @@ export class AuthService {
     private readonly adminService: AdminService,
     private readonly userService: UsersService,
     private readonly mailService: MailService,
-    private readonly sheduleService: TasksService,
+    private readonly schedulerRegistry: SchedulerRegistry,
+    private readonly eventEmitter: EventEmitter2,
     private readonly jwtService: JwtService,
     private readonly userJwtRefreshTokenService: UserJwtRefreshTokenService,
   ) {}
@@ -2359,7 +2566,11 @@ export class AuthService {
     try {
       const authHeader &#x3D; request.headers.authorization;
       if (!authHeader) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, USER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          USER_NOT_AUTHORIZIED,
+        );
       }
       const user &#x3D; await this.authenticateUser(userDto, userAgent, false);
       const tokens &#x3D; await this.generateTokens(user, userAgent);
@@ -2390,7 +2601,11 @@ export class AuthService {
       const authHeader &#x3D; request.headers.authorization;
       const bearer &#x3D; authHeader.split(&#x27; &#x27;)[0];
       if (!authHeader || bearer !&#x3D;&#x3D; &#x27;Bearer&#x27;) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, USER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          USER_NOT_AUTHORIZIED,
+        );
       }
       const user &#x3D; await this.authenticateUser(userDto, userAgent, true);
       const tokens &#x3D; await this.generateTokens(user, userAgent);
@@ -2400,8 +2615,8 @@ export class AuthService {
         path: &#x27;/&#x27;,
         httpOnly: true,
         expires: tokens.expireDate,
-        domain: process.env.CLIENT_DOMAIN.toString().trim(),
-        secure: process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &#x27;production&#x27; ? true : false,
+        // domain: process.env.CLIENT_DOMAIN.toString().trim(),
+        // secure: process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &#x27;production&#x27; ? true : false,
         sameSite: &#x27;strict&#x27;,
       });
       return response.json({ ...this.setResponse(tokens, user) });
@@ -2420,7 +2635,11 @@ export class AuthService {
       const authHeader &#x3D; request.headers.authorization;
       const bearer &#x3D; authHeader.split(&#x27; &#x27;)[0];
       if (!authHeader || bearer !&#x3D;&#x3D; &#x27;Bearer&#x27;) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, USER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          USER_NOT_AUTHORIZIED,
+        );
       }
       const refreshToken &#x3D; request?.cookies[&#x27;refreshToken&#x27;];
       const decodedToken &#x3D; Buffer.from(refreshToken, &#x27;base64&#x27;).toString(
@@ -2445,7 +2664,7 @@ export class AuthService {
       }
       logout &#x3D; await this.userJwtRefreshTokenService.removeToken(decodedToken);
       response.clearCookie(&#x27;refreshToken&#x27;);
-      return response.json({ logout }); 
+      return response.json({ logout });
     } catch (error: unknown) {
       return next(error);
     }
@@ -2461,13 +2680,25 @@ export class AuthService {
     try {
       const refreshToken &#x3D; request?.cookies[&#x27;refreshToken&#x27;];
       if (!refreshToken) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, USER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          USER_NOT_AUTHORIZIED,
+        );
       }
       const dto &#x3D; await this.validateRefreshToken(refreshToken, type);
       if (!dto.user) {
-        throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          &#x27;Not found!&#x27;,
+          USER_NOT_FOUND,
+        );
       }
-      const tokens &#x3D; await this.refreshTokens(dto.user, userAgent, dto.identifier);
+      const tokens &#x3D; await this.refreshTokens(
+        dto.user,
+        userAgent,
+        dto.identifier,
+      );
       response.cookie(&#x27;refreshToken&#x27;, tokens.refreshToken, {
         maxAge: Number(tokens.expireDate),
         path: &#x27;/&#x27;,
@@ -2512,7 +2743,11 @@ export class AuthService {
     locale: &#x27;ua&#x27; | &#x27;ru&#x27; | &#x27;rs&#x27; | &#x27;en&#x27;,
   ): Promise&lt;string&gt; {
     if (!locale) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request!&#x27;, LANGUAGE_NOT_PROVIDED);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request!&#x27;,
+        LANGUAGE_NOT_PROVIDED,
+      );
     }
     const code &#x3D; this.generateConfirmCode();
     if (codeDto?.type &amp;&amp; codeDto?.type &#x3D;&#x3D;&#x3D; &#x27;OWNER&#x27;) {
@@ -2530,7 +2765,10 @@ export class AuthService {
     return email;
   }
 
-  async resetPassword(resetDto: ResetDto, codeDto: CodeDto): Promise&lt;string | void&gt; {
+  async resetPassword(
+    resetDto: ResetDto,
+    codeDto: CodeDto,
+  ): Promise&lt;string | void&gt; {
     if (codeDto?.type &amp;&amp; codeDto?.type &#x3D;&#x3D;&#x3D; &#x27;OWNER&#x27;) {
       return this.ownerService.resetPassword(resetDto);
     }
@@ -2624,7 +2862,7 @@ export class AuthService {
 
   private async generateTokens(
     user: User | Admin | Owner,
-    userAgent: string
+    userAgent: string,
   ): Promise&lt;Tokens&gt; {
     let accessToken: string;
     let refreshToken: string;
@@ -2677,7 +2915,7 @@ export class AuthService {
         new Date(new Date().setDate(new Date().getDate() + 2)),
       );
     }
-     if (user instanceof Owner) {
+    if (user instanceof Owner) {
       accessToken &#x3D; this.generateAccessToken({
         userId: user.id,
         isUserActivated: user.getIsActivated(),
@@ -2708,7 +2946,7 @@ export class AuthService {
     const encodedAccessToken &#x3D; Buffer.from(accessToken, &#x27;utf8&#x27;).toString(
       &#x27;base64&#x27;,
     );
-    this.setTimeouts(user, refreshToken, dbToken.identifier); 
+    this.setTimeouts(user, refreshToken, dbToken.identifier);
     return {
       expireDate: dbToken.getExpireDate(),
       refreshToken: encodedRefreshToken,
@@ -2774,7 +3012,7 @@ export class AuthService {
         identifier,
       );
     }
-     if (user instanceof Owner) {
+    if (user instanceof Owner) {
       accessToken &#x3D; this.generateAccessToken({
         userId: user.id,
         isUserActivated: user.getIsActivated(),
@@ -2858,22 +3096,26 @@ export class AuthService {
     if (user instanceof User) {
       return user;
     }
-    throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);   
+    throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);
   }
 
   private async validateRefreshToken(
     refreshToken: string,
     type: &#x27;OWNER&#x27; | &#x27;ADMIN&#x27; | null,
-  ): Promise&lt;{
-    user: Owner;
-    identifier: string;
-  } | {
-    user: Admin;
-    identifier: string;
-  } | {
-    user: User;
-    identifier: string;
-  }&gt; {
+  ): Promise&lt;
+    | {
+        user: Owner;
+        identifier: string;
+      }
+    | {
+        user: Admin;
+        identifier: string;
+      }
+    | {
+        user: User;
+        identifier: string;
+      }
+  &gt; {
     const decodedToken &#x3D; Buffer.from(refreshToken, &#x27;base64&#x27;).toString(&#x27;ascii&#x27;);
     if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;OWNER&#x27;) {
       const ownerData &#x3D;
@@ -2881,12 +3123,22 @@ export class AuthService {
           decodedToken,
         );
       if (!ownerData) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, OWNER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          OWNER_NOT_AUTHORIZIED,
+        );
       }
       const owner &#x3D; await this.ownerService.getOwnerById(ownerData.ownerId);
-      const dbToken &#x3D; await this.ownerJwtRefreshTokenService.findToken(decodedToken);
+      const dbToken &#x3D; await this.ownerJwtRefreshTokenService.findToken(
+        decodedToken,
+      );
       if (!dbToken) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, OWNER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          OWNER_NOT_AUTHORIZIED,
+        );
       }
       return {
         user: owner,
@@ -2899,12 +3151,22 @@ export class AuthService {
           decodedToken,
         );
       if (!adminData) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, ADMIN_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          ADMIN_NOT_AUTHORIZIED,
+        );
       }
       const admin &#x3D; await this.adminService.getAdminById(adminData.adminId);
-      const dbToken &#x3D; await this.adminJwtRefreshTokenService.findToken(decodedToken);
+      const dbToken &#x3D; await this.adminJwtRefreshTokenService.findToken(
+        decodedToken,
+      );
       if (!dbToken) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, OWNER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          OWNER_NOT_AUTHORIZIED,
+        );
       }
       return {
         user: admin,
@@ -2915,16 +3177,30 @@ export class AuthService {
       decodedToken,
     );
     if (!userData) {
-      throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, USER_NOT_AUTHORIZIED);
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        &#x27;Unathorized!&#x27;,
+        USER_NOT_AUTHORIZIED,
+      );
     }
     const user &#x3D; await this.userService.getUserById(userData.userId);
     if (!user) {
-      throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        USER_NOT_FOUND,
+      );
     }
-    const dbToken &#x3D; await this.userJwtRefreshTokenService.findToken(decodedToken);
-      if (!dbToken) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, OWNER_NOT_AUTHORIZIED);
-      }
+    const dbToken &#x3D; await this.userJwtRefreshTokenService.findToken(
+      decodedToken,
+    );
+    if (!dbToken) {
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        &#x27;Unathorized!&#x27;,
+        OWNER_NOT_AUTHORIZIED,
+      );
+    }
     return {
       user: user,
       identifier: dbToken.token.getIdentifier(),
@@ -2957,11 +3233,11 @@ export class AuthService {
         signed: true,
         path: &#x27;/&#x27;,
         httpOnly: true,
-        domain: process.env.CLIENT_DOMAIN.toString().trim(),
-        secure: process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &#x27;production&#x27; ? true : false,
+        // domain: process.env.CLIENT_DOMAIN.toString().trim(),
+        // secure: process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &#x27;production&#x27; ? true : false,
         sameSite: &#x27;strict&#x27;,
       });
-    } 
+    }
     if (user instanceof Admin &amp;&amp; !user.getIsActivated()) {
       const link &#x3D; await this.generateEncryptedValue(&#x27;ADMIN&#x27;, 16);
       const code &#x3D; this.generateConfirmCode();
@@ -2971,7 +3247,9 @@ export class AuthService {
       await user.save();
       return this.mailService.sendActivationMailToAdmin(
         user.email,
-        &#x60;${process.env.API_URL}/auth/activate/${user.getResetToken().trim()}?code&#x3D;${code}&#x60;,
+        &#x60;${process.env.API_URL}/auth/activate/${user
+          .getResetToken()
+          .trim()}?code&#x3D;${code}&#x60;,
       );
     }
     if (user instanceof Owner) {
@@ -2995,7 +3273,9 @@ export class AuthService {
       this.Logger.log(&#x60;activating owner with email ${user.email}&#x60;);
       return this.mailService.sendActivationMailToOwner(
         user.email,
-        &#x60;${process.env.API_URL}/auth/activate/${user.getResetToken().trim()}?code&#x3D;${code}&#x60;,
+        &#x60;${process.env.API_URL}/auth/activate/${user
+          .getResetToken()
+          .trim()}?code&#x3D;${code}&#x60;,
       );
     }
     return;
@@ -3023,13 +3303,21 @@ export class AuthService {
       await user.save();
     }
     if (!user || activationLink !&#x3D;&#x3D; user.resetToken) {
-      throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        USER_NOT_FOUND,
+      );
     }
     if (
       Number(Date.now()) &gt;&#x3D; user.getResetTokenExpiration() &amp;&amp;
       code !&#x3D;&#x3D; user.getActivationCode()
     ) {
-      throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, ACTIVATION_EXPIRED);
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        &#x27;Unathorized!&#x27;,
+        ACTIVATION_EXPIRED,
+      );
     }
     user.setIsActivated(true);
     return user.save();
@@ -3041,14 +3329,19 @@ export class AuthService {
     identifier: string,
   ): Promise&lt;NodeJS.Timeout | void&gt; {
     if (user instanceof User) {
-      const refreshData &#x3D; await this.userJwtRefreshTokenService.findTokenByToken(
-        refreshToken,
-        identifier,
-      );
+      const refreshData &#x3D;
+        await this.userJwtRefreshTokenService.findTokenByToken(
+          refreshToken,
+          identifier,
+        );
       if (!refreshData) {
-         throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, TOKEN_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          &#x27;Not found!&#x27;,
+          TOKEN_NOT_FOUND,
+        );
       }
-      return this.sheduleService.addTimeoutForTokens(
+      return this.addTimeoutForTokens(
         &#x60;delete-user-refresh-token,: ${v4()}&#x60;,
         Number(process.env.USER_DELAY),
         refreshData.id,
@@ -3063,9 +3356,13 @@ export class AuthService {
           identifier,
         );
       if (!refreshData) {
-         throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, TOKEN_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          &#x27;Not found!&#x27;,
+          TOKEN_NOT_FOUND,
+        );
       }
-      return this.sheduleService.addTimeoutForTokens(
+      return this.addTimeoutForTokens(
         &#x60;delete-admin-refresh-token: ${v4()}&#x60;,
         Number(process.env.ADMIN_DELAY),
         refreshData.id,
@@ -3080,9 +3377,13 @@ export class AuthService {
           identifier,
         );
       if (!refreshData) {
-        throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, TOKEN_NOT_FOUND);   
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          &#x27;Not found!&#x27;,
+          TOKEN_NOT_FOUND,
+        );
       }
-      return this.sheduleService.addTimeoutForTokens(
+      return this.addTimeoutForTokens(
         &#x60;delete-owner-refresh-token: ${v4()}&#x60;,
         Number(process.env.OWNER_DELAY),
         refreshData.id,
@@ -3090,6 +3391,41 @@ export class AuthService {
         this.ownerJwtRefreshTokenService.removeTokenInTime,
       );
     }
+  }
+
+  addTimeoutForTokens(
+    name: string,
+    milliseconds: number,
+    refreshTokenId: number,
+    identifier: string,
+    cb: (refreshTokenId: number, identifier: string) &#x3D;&gt; Promise&lt;number | false&gt;,
+  ): NodeJS.Timeout {
+    const callback &#x3D; async (): Promise&lt;boolean | void&gt; &#x3D;&gt; {
+      this.Logger.log(&#x60;Timeout ${name} executing after (${milliseconds})!&#x60;);
+      const timeout &#x3D; await cb(refreshTokenId, identifier);
+      if (!timeout) {
+        return this.deleteTimeout(name);
+      }
+      this.deleteTimeout(name);
+      const jwtRefreshTokenDeletedEvent &#x3D; new JwtRefreshTokenDeletedEvent();
+      jwtRefreshTokenDeletedEvent.name &#x3D; name;
+      jwtRefreshTokenDeletedEvent.userId &#x3D; refreshTokenId;
+      jwtRefreshTokenDeletedEvent.description &#x3D; &#x60;deleted user refresh token: ${refreshTokenId}&#x60;;
+      return this.eventEmitter.emit(
+        &#x27;refreshtoken.deleted&#x27;,
+        jwtRefreshTokenDeletedEvent,
+      );
+    };
+    this.Logger.warn(&#x60;Timeout ${name} executing!&#x60;);
+    const timeout &#x3D; setTimeout(callback, milliseconds);
+    this.schedulerRegistry.addTimeout(name, timeout);
+    return timeout;
+  }
+
+  deleteTimeout(name: string): void {
+    this.schedulerRegistry.deleteTimeout(name);
+    this.Logger.log(&#x60;Timeout ${name} deleted!&#x60;);
+    return;
   }
 }
 </code></pre>

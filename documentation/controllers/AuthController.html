@@ -151,8 +151,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="199"
-                            class="link-to-prism">src/auth/auth.controller.ts:199</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="194"
+                            class="link-to-prism">src/auth/auth.controller.ts:194</a></div>
                 </td>
             </tr>
 
@@ -299,8 +299,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="174"
-                            class="link-to-prism">src/auth/auth.controller.ts:174</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="169"
+                            class="link-to-prism">src/auth/auth.controller.ts:169</a></div>
                 </td>
             </tr>
 
@@ -435,8 +435,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="140"
-                            class="link-to-prism">src/auth/auth.controller.ts:140</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="135"
+                            class="link-to-prism">src/auth/auth.controller.ts:135</a></div>
                 </td>
             </tr>
 
@@ -523,8 +523,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="82"
-                            class="link-to-prism">src/auth/auth.controller.ts:82</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="77"
+                            class="link-to-prism">src/auth/auth.controller.ts:77</a></div>
                 </td>
             </tr>
 
@@ -647,8 +647,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="124"
-                            class="link-to-prism">src/auth/auth.controller.ts:124</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="119"
+                            class="link-to-prism">src/auth/auth.controller.ts:119</a></div>
                 </td>
             </tr>
 
@@ -759,8 +759,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="106"
-                            class="link-to-prism">src/auth/auth.controller.ts:106</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="101"
+                            class="link-to-prism">src/auth/auth.controller.ts:101</a></div>
                 </td>
             </tr>
 
@@ -883,8 +883,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="157"
-                            class="link-to-prism">src/auth/auth.controller.ts:157</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="152"
+                            class="link-to-prism">src/auth/auth.controller.ts:152</a></div>
                 </td>
             </tr>
 
@@ -971,8 +971,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="58"
-                            class="link-to-prism">src/auth/auth.controller.ts:58</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="53"
+                            class="link-to-prism">src/auth/auth.controller.ts:53</a></div>
                 </td>
             </tr>
 
@@ -1076,7 +1076,6 @@
   Controller,
   Post,
   Body,
-  Put,
   Req,
   Res,
   Next,
@@ -1111,7 +1110,6 @@ import { AuthFerfershGuard } from &#x27;../common/guards/jw-refresh.guard&#x27;;
 import { ChangeDto } from &#x27;./dto/change.password.dto&#x27;;
 import { UserId } from &#x27;../common/decorators/user.id.decorator&#x27;;
 import { ApiErrorExceptionFilter } from &#x27;../common/filters/error-handler.filter&#x27;;
-import { AppListener } from &#x27;../core/services/events.service&#x27;;
 import { ApiExceptionFilter } from &#x27;../common/filters/api-exception.filter&#x27;;
 @UseGuards(ThrottlerBehindProxyGuard)
 @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
@@ -1119,10 +1117,7 @@ import { ApiExceptionFilter } from &#x27;../common/filters/api-exception.filter&
 @ApiTags(&#x27;auth&#x27;)
 @Controller(&#x27;auth&#x27;)
 export class AuthController {
-  constructor(
-    private authService: AuthService,
-    private appListener: AppListener,
-  ) {}
+  constructor(private authService: AuthService) {}
 
   @ApiOperation({ summary: &#x27;Signing up users&#x27; })
   @ApiResponse({ status: 201 })
@@ -1205,7 +1200,7 @@ export class AuthController {
       return this.authService.logout(response, request, next, type);
     })();
   }
-  
+
   @ApiOperation({ summary: &#x27;Getting code&#x27; })
   @ApiResponse({ status: 202 })
   @Throttle(40, 400)
@@ -1231,7 +1226,7 @@ export class AuthController {
   resetPassword(
     @Body(new ValidateDto()) resetDto: ResetDto,
     @Type(&#x27;CODEDTO&#x27;) codeDto: CodeDto,
-  ): Promise&lt;string | void&gt;{
+  ): Promise&lt;string | void&gt; {
     try {
       return this.authService.resetPassword(resetDto, codeDto);
     } catch (error: unknown) {

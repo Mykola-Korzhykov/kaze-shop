@@ -105,7 +105,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/common/middlewares/initialize-user.middleware.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/common/middlewares/initialize-user.middleware.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -194,8 +194,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="23"
-                            class="link-to-prism">src/common/middlewares/initialize-user.middleware.ts:23</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="25"
+                            class="link-to-prism">src/common/middlewares/initialize-user.middleware.ts:25</a></div>
                 </td>
             </tr>
 
@@ -274,7 +274,6 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-  BadRequestException,
   HttpStatus,
   Injectable,
   NestMiddleware,
@@ -286,7 +285,10 @@ import { OwnerJwtRefreshService } from &#x27;../../owner/services/jwt-refresh.se
 import { AdminJwtRefreshService } from &#x27;../../admin/services/jwt-refresh.service&#x27;;
 import { UserJwtRefreshTokenService } from &#x27;../../users/services/jwt-refresh.service&#x27;;
 import { Next, Res } from &#x27;@nestjs/common/decorators&#x27;;
-import { REFRESH_TOKEN_NOT_PROVIDED, INVALID_REFRESH_TOKEN } from &#x27;../../auth/auth.constants&#x27;;
+import {
+  REFRESH_TOKEN_NOT_PROVIDED,
+  INVALID_REFRESH_TOKEN,
+} from &#x27;../../auth/auth.constants&#x27;;
 import { ApiException } from &#x27;../exceptions/api.exception&#x27;;
 @Injectable({ scope: Scope.REQUEST })
 export class InitializeUserMiddleware implements NestMiddleware {
@@ -302,7 +304,11 @@ export class InitializeUserMiddleware implements NestMiddleware {
   ) {
     const refreshToken &#x3D; req?.cookies[&#x27;refreshToken&#x27;];
     if (!refreshToken) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request!&#x27;, REFRESH_TOKEN_NOT_PROVIDED);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request!&#x27;,
+        REFRESH_TOKEN_NOT_PROVIDED,
+      );
     }
     const decodedToken &#x3D; Buffer.from(refreshToken, &#x27;base64&#x27;).toString(&#x27;ascii&#x27;);
     try {
@@ -326,7 +332,11 @@ export class InitializeUserMiddleware implements NestMiddleware {
         decodedToken,
       );
       if (!userRefreshToken) {
-        throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request!&#x27;, INVALID_REFRESH_TOKEN);
+        throw new ApiException(
+          HttpStatus.BAD_REQUEST,
+          &#x27;Bad request!&#x27;,
+          INVALID_REFRESH_TOKEN,
+        );
       }
       req[&#x27;type&#x27;] &#x3D; null;
       return next();

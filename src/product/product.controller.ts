@@ -57,6 +57,7 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Throttle(70, 700)
+  @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
   @Get('/')
   getProducts(
     @Res() response: Response,
@@ -66,20 +67,41 @@ export class ProductController {
     @Query('pageSize', ParseIntPipe) pageSize: number,
   ) {
     (async () => {
-      try {
-        return this.productService.getProducts(
-          request,
-          response,
-          page,
-          pageSize,
-        );
-      } catch (err: unknown) {
-        return next(err);
-      }
+      return this.productService.getProducts(
+        request,
+        response,
+        next,
+        page,
+        pageSize,
+      );
     })();
   }
 
   @Throttle(70, 700)
+  @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
+  @Get('/categories')
+  getProductsByCategory(
+    @Res() response: Response,
+    @Req() request: Request,
+    @Next() next: NextFunction,
+    @Query('page', ParseIntPipe) page: number,
+    @Query('pageSize', ParseIntPipe) pageSize: number,
+    @Query('categories', ParseArrayPipe) categories: number[] | undefined,
+  ) {
+    (async () => {
+      return this.productService.getProductsByCategory(
+        request,
+        response,
+        next,
+        page,
+        pageSize,
+        categories,
+      );
+    })();
+  }
+
+  @Throttle(70, 700)
+  @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
   @Get('get')
   getProductsByIds(
     @Res() response: Response,
@@ -90,22 +112,20 @@ export class ProductController {
     @Query('productIds', ParseArrayPipe) productIds: number[],
   ) {
     (async () => {
-      try {
-        return this.productService.getProductsByIds(
-          request,
-          response,
-          productIds,
-          page,
-          pageSize,
-        );
-      } catch (err: unknown) {
-        return next(err);
-      }
+      return this.productService.getProductsByIds(
+        request,
+        response,
+        next,
+        productIds,
+        page,
+        pageSize,
+      );
     })();
   }
 
   @Throttle(70, 700)
   @UsePipes(ValidationPipe)
+  @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
   @Get('filter')
   filterProducts(
     @Res() response: Response,
@@ -114,20 +134,18 @@ export class ProductController {
     @Query() queryFilterDto: QueryFilterDto,
   ) {
     (async () => {
-      try {
-        return this.productService.filterProducts(
-          request,
-          response,
-          queryFilterDto,
-        );
-      } catch (err: unknown) {
-        return next(err);
-      }
+      return this.productService.filterProducts(
+        request,
+        response,
+        next,
+        queryFilterDto,
+      );
     })();
   }
 
   @Throttle(70, 700)
   @Get('/:productId')
+  @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
   getById(
     @Res() response: Response,
     @Req() request: Request,
@@ -135,16 +153,18 @@ export class ProductController {
     @Param('productId', ParseIntPipe) productId: number,
   ) {
     (async () => {
-      try {
-        return this.productService.getProductById(request, response, productId);
-      } catch (err: unknown) {
-        return next(err);
-      }
+      return this.productService.getProductById(
+        request,
+        response,
+        next,
+        productId,
+      );
     })();
   }
 
   @Throttle(70, 700)
   @Roles('USER')
+  @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
   @UseGuards(JwtAuthGuard, RolesGuard, UserGuard)
   @Get('bookmarkProducts')
   getBookmarkProducts(
@@ -156,22 +176,20 @@ export class ProductController {
     @UserId('USER-ID') userId: number,
   ) {
     (async () => {
-      try {
-        return this.productService.getBookmarks(
-          request,
-          response,
-          page,
-          pageSize,
-          userId,
-        );
-      } catch (err: unknown) {
-        return next(err);
-      }
+      return this.productService.getBookmarks(
+        request,
+        response,
+        next,
+        page,
+        pageSize,
+        userId,
+      );
     })();
   }
 
   @Throttle(70, 700)
   @Roles('USER')
+  @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
   @UseGuards(JwtAuthGuard, RolesGuard, UserGuard)
   @Get('watchedProducts')
   getWatchedProducts(
@@ -183,54 +201,52 @@ export class ProductController {
     @UserId('USER-ID') userId: number,
   ) {
     (async () => {
-      try {
-        return this.productService.getWatchedProducts(
-          request,
-          response,
-          page,
-          pageSize,
-          userId,
-        );
-      } catch (err: unknown) {
-        return next(err);
-      }
+      return this.productService.getWatchedProducts(
+        request,
+        response,
+        next,
+        page,
+        pageSize,
+        userId,
+      );
     })();
   }
 
   @Throttle(70, 700)
   @Roles('USER')
+  @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
   @UseGuards(JwtAuthGuard, RolesGuard, UserGuard)
   @Post('addWatchedProduct')
   addWatchedProduct(
-    @Next() next: NextFunction,
     @Query('productId', ParseIntPipe) productId: number,
     @UserId('USER-ID') userId: number,
   ): void | Promise<number> {
     try {
       return this.productService.addWatchedProduct(productId, userId);
     } catch (err: unknown) {
-      return next(err);
+      throw err;
     }
   }
 
   @Throttle(70, 700)
   @Roles('USER')
+  @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
   @UseGuards(JwtAuthGuard, RolesGuard, UserGuard)
   @Post('addBookmarkProduct')
   addBookmark(
-    @Next() next: NextFunction,
     @Query('productId', ParseIntPipe) productId: number,
     @UserId('USER-ID') userId: number,
   ): void | Promise<number> {
     try {
       return this.productService.addBookmarkProduct(productId, userId);
     } catch (err: unknown) {
-      return next(err);
+      throw err;
     }
   }
 
   @Throttle(70, 700)
   @Put('create_product')
+  @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
   @Roles('OWNER', 'ADMIN')
   @UsePipes(new ValidationPipe({ transform: true }))
   @UseGuards(
@@ -337,6 +353,7 @@ export class ProductController {
   }
 
   @Throttle(70, 700)
+  @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
   @Patch('update_product/:productId')
   @Roles('OWNER', 'ADMIN')
   @UsePipes(new ValidationPipe({ transform: true }))
@@ -446,6 +463,7 @@ export class ProductController {
   }
 
   @Throttle(70, 700)
+  @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
   @Delete('delete_product/:productId')
   @Roles('OWNER', 'ADMIN')
   @UseGuards(
@@ -467,6 +485,7 @@ export class ProductController {
   }
 
   @Throttle(70, 700)
+  @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
   @Delete('delete_image')
   @Roles('OWNER', 'ADMIN')
   @UseGuards(

@@ -155,7 +155,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/product/dto/create.product.dto.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/product/dto/create.product.dto.ts:33</a></div>
                         </td>
                     </tr>
 
@@ -191,7 +191,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/product/dto/create.product.dto.ts:45</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">src/product/dto/create.product.dto.ts:43</a></div>
                         </td>
                     </tr>
 
@@ -227,7 +227,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="69" class="link-to-prism">src/product/dto/create.product.dto.ts:69</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="67" class="link-to-prism">src/product/dto/create.product.dto.ts:67</a></div>
                         </td>
                     </tr>
 
@@ -263,7 +263,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/product/dto/create.product.dto.ts:26</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/product/dto/create.product.dto.ts:24</a></div>
                         </td>
                     </tr>
 
@@ -292,7 +292,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/product/dto/create.product.dto.ts:54</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="52" class="link-to-prism">src/product/dto/create.product.dto.ts:52</a></div>
                         </td>
                     </tr>
 
@@ -321,7 +321,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="63" class="link-to-prism">src/product/dto/create.product.dto.ts:63</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/product/dto/create.product.dto.ts:61</a></div>
                         </td>
                     </tr>
 
@@ -350,7 +350,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="76" class="link-to-prism">src/product/dto/create.product.dto.ts:76</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/product/dto/create.product.dto.ts:74</a></div>
                         </td>
                     </tr>
 
@@ -370,16 +370,14 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Transform, Type } from &#x27;class-transformer&#x27;;
-import { IsString, IsNumber, IsDefined, Matches, ArrayNotEmpty, IsArray, MaxLength} from &#x27;class-validator&#x27;;
-import { ParseFormDataJsonPipe } from &#x27;../../common/pipes/formdata.pipe&#x27;;
-import { ParseJsonPipe } from &#x27;../../common/pipes/parse.json.pipe&#x27;;
+import { IsString, IsNumber, IsDefined, Matches } from &#x27;class-validator&#x27;;
 class Nested {
   @IsDefined()
   @IsString()
-  @Matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-яzžitisšte_-]/gi)  
+  @Matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-яzžitisšte_-]/gi)
   ua: string;
   @IsDefined()
-  @IsString() 
+  @IsString()
   @Matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-яzžitisšte_-]/gi)
   ru: string;
   @IsDefined()
@@ -411,7 +409,7 @@ export class CreateProductDto {
   };
 
   @IsDefined()
-  @Type(()&#x3D;&gt; Number)
+  @Type(() &#x3D;&gt; Number)
   @IsNumber()
   readonly price: number;
 
@@ -420,22 +418,22 @@ export class CreateProductDto {
   // @Transform((value) &#x3D;&gt; ParseJsonPipe.transform(value.value, value.obj))
   // @IsArray()
   // @ArrayNotEmpty()
-  // @IsString({ each: true }) 
+  // @IsString({ each: true })
   // @MaxLength(15, { each: true })
   readonly sizes: string[];
 
   @IsDefined()
-  @Type(() &#x3D;&gt; Array&lt;string&gt;)
+  @Type(() &#x3D;&gt; Array&lt;number&gt;)
   // @Transform((value) &#x3D;&gt; JSON.parse(value.value))
   // @IsArray()
   // @ArrayNotEmpty()
-  // @IsString({ each: true }) 
+  // @IsString({ each: true })
   // @MaxLength(15, { each: true })
-  readonly colours: string[];
+  readonly colours: number[];
 
   @IsDefined()
   @Transform((value: any) &#x3D;&gt; Number(value.value))
-  @Type(()&#x3D;&gt; Number)
+  @Type(() &#x3D;&gt; Number)
   @IsNumber()
   readonly quantity: number;
 

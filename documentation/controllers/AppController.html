@@ -89,10 +89,18 @@
                                 <a href="#generateEncryptedValue" >generateEncryptedValue</a>
                             </li>
                             <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#getCurrencies" >getCurrencies</a>
+                            </li>
+                            <li>
+                                <a href="#getCurrency" >getCurrency</a>
+                            </li>
+                            <li>
                                 <a href="#getLocation" >getLocation</a>
                             </li>
                             <li>
-                                <a href="#set" >set</a>
+                                <a href="#setCookie" >setCookie</a>
                             </li>
                             <li>
                                 <a href="#sse" >sse</a>
@@ -137,8 +145,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="80"
-                            class="link-to-prism">src/app.controller.ts:80</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="140"
+                            class="link-to-prism">src/app.controller.ts:140</a></div>
                 </td>
             </tr>
 
@@ -202,6 +210,154 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="getCurrencies"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span class="modifier">Async</span>
+                        <span ><b>getCurrencies</b></span>
+                        <a href="#getCurrencies"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getCurrencies(base: string | undefined)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="118"
+                            class="link-to-prism">src/app.controller.ts:118</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>base</td>
+                                    <td>
+                                            <code>string | undefined</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getCurrency"></a>
+                    <span class="name">
+                        <span ><b>getCurrency</b></span>
+                        <a href="#getCurrency"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getCurrency(base: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Throttle(20, 500)<br />@Get(&#x27;get-currencies&#x27;)<br />@HttpCode(200)<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="101"
+                            class="link-to-prism">src/app.controller.ts:101</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>base</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>Promise&lt;any&gt;</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="getLocation"></a>
                     <span class="name">
                         <span ><b>getLocation</b></span>
@@ -219,14 +375,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;get&#x27;)<br />@HttpCode(200)<br /></code>
+                    <code>@Throttle(20, 500)<br />@Get(&#x27;get-location&#x27;)<br />@HttpCode(200)<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="54"
-                            class="link-to-prism">src/app.controller.ts:54</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="71"
+                            class="link-to-prism">src/app.controller.ts:71</a></div>
                 </td>
             </tr>
 
@@ -302,16 +458,16 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="set"></a>
+                    <a name="setCookie"></a>
                     <span class="name">
-                        <span ><b>set</b></span>
-                        <a href="#set"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>setCookie</b></span>
+                        <a href="#setCookie"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>set(request: Request, response: Response, next: NextFunction)</code>
+<code>setCookie(request: Request, response: Response, next: NextFunction)</code>
                 </td>
             </tr>
 
@@ -319,14 +475,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Get(&#x27;set&#x27;)<br />@HttpCode(200)<br /></code>
+                    <code>@Throttle(20, 500)<br />@Get(&#x27;set-user&#x27;)<br />@HttpCode(200)<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="25"
-                            class="link-to-prism">src/app.controller.ts:25</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="33"
+                            class="link-to-prism">src/app.controller.ts:33</a></div>
                 </td>
             </tr>
 
@@ -425,8 +581,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="74"
-                            class="link-to-prism">src/app.controller.ts:74</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="111"
+                            class="link-to-prism">src/app.controller.ts:111</a></div>
                 </td>
             </tr>
 
@@ -459,21 +615,29 @@
 import { ApiTags } from &#x27;@nestjs/swagger&#x27;;
 import path from &#x27;path&#x27;;
 import { Reader } from &#x27;@maxmind/geoip2-node&#x27;;
-import { Observable, map, timeout } from &#x27;rxjs&#x27;;
+import { Observable, map, timeout, firstValueFrom, catchError } from &#x27;rxjs&#x27;;
 import { NextFunction, Request, Response } from &#x27;express&#x27;;
 import { randomBytes, scrypt, createCipheriv } from &#x27;crypto&#x27;;
 import { promisify } from &#x27;util&#x27;;
-import IP from &#x27;ip&#x27;;
+import { HttpService } from &#x27;@nestjs/axios&#x27;;
+import { Query, UseGuards } from &#x27;@nestjs/common/decorators&#x27;;
+import { ThrottlerBehindProxyGuard } from &#x27;./common/guards/throttler-behind-proxy.guard&#x27;;
+import { Throttle } from &#x27;@nestjs/throttler&#x27;;
+import { v4 } from &#x27;uuid&#x27;;
 @ApiTags(&#x27;/&#x27;)
+@UseGuards(ThrottlerBehindProxyGuard)
 @Controller(&#x27;/&#x27;)
 export class AppController {
   private readonly Logger &#x3D; new Logger(AppController.name);
-  @Get(&#x27;set&#x27;)
+  constructor(private readonly httpService: HttpService) {}
+
+  @Throttle(20, 500)
+  @Get(&#x27;set-user&#x27;)
   @HttpCode(200)
-  set(
+  setCookie(
     @Req() request: Request,
     @Res() response: Response,
-    @Next() next: NextFunction
+    @Next() next: NextFunction,
   ) {
     (async () &#x3D;&gt; {
       try {
@@ -487,9 +651,17 @@ export class AppController {
             path: &#x27;/&#x27;,
             maxAge: 30 * 24 * 60 * 60 * 1000,
           });
-          return response.json({ _id: _id});
+          return response.json({ _id: _id });
         }
-        return response.json({ _id: request.signedCookies[&#x27;_id&#x27;]});
+        response.cookie(&#x27;_id&#x27;, request.signedCookies[&#x27;_id&#x27;], {
+          httpOnly: true,
+          secure: process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &#x27;production&#x27; ? true : false,
+          sameSite: &#x27;strict&#x27;,
+          signed: true,
+          path: &#x27;/&#x27;,
+          maxAge: 30 * 24 * 60 * 60 * 1000,
+        });
+        return response.json({ _id: request.signedCookies[&#x27;_id&#x27;] });
       } catch (err: unknown) {
         this.Logger.error(err);
         next(err);
@@ -497,19 +669,29 @@ export class AppController {
     })();
   }
 
-  @Get(&#x27;get&#x27;)
+  @Throttle(20, 500)
+  @Get(&#x27;get-location&#x27;)
   @HttpCode(200)
   getLocation(
     @Req() request: Request,
     @Res() response: Response,
-    @Next() next: NextFunction
+    @Next() next: NextFunction,
   ) {
     (async () &#x3D;&gt; {
       try {
-        const ipAddress &#x3D; IP.address();
-        const reader &#x3D; await Reader.open(path.join(__dirname, &#x27;GeoLite2-Country.mmdb&#x27;));
-        const res &#x3D; reader.country(ipAddress);
-        return response.json(res.country.isoCode);
+        const ipAddress &#x3D; request.headers[&#x27;x-forwarded-for&#x27;];
+        this.Logger.log(ipAddress);
+        const reader &#x3D; await Reader.open(
+          path.join(__dirname, &#x27;GeoLite2-Country.mmdb&#x27;),
+        );
+        const geoCountry &#x3D; reader.country(request.ip);
+        return response.json({
+          geoLocation: {
+            currency: request[&#x27;currency&#x27;],
+            city: request[&#x27;city&#x27;],
+            ...geoCountry,
+          },
+        });
       } catch (err) {
         this.Logger.error(err);
         next(err);
@@ -517,12 +699,46 @@ export class AppController {
     })();
   }
 
+  @Throttle(20, 500)
+  @Get(&#x27;get-currencies&#x27;)
+  @HttpCode(200)
+  getCurrency(@Query(&#x27;base&#x27;) base: string) {
+    try {
+      return this.getCurrencies(base);
+    } catch (err) {
+      this.Logger.error(err);
+      throw err;
+    }
+  }
 
   @Sse(&#x27;sse&#x27;)
   sse(): Observable&lt;MessageEvent&gt; {
     return timeout(1000).apply(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       map((_) &#x3D;&gt; ({ data: { hello: &#x27;world&#x27; } } as MessageEvent)),
     );
+  }
+
+  private async getCurrencies(base: string | undefined): Promise&lt;any&gt; {
+    const data &#x3D; await firstValueFrom(
+      this.httpService
+        .get(
+          &#x60;${process.env.API_CURRENCIES.trim()}/${
+            !base
+              ? process.env.BASE_CURRENCY.toLowerCase().trim()
+              : base.toLowerCase().trim()
+          }.json&#x60;,
+          { headers: { &#x27;Accept-Encoding&#x27;: &#x27;gzip,deflate,compress&#x27; } },
+        )
+        .pipe(map((res) &#x3D;&gt; res.data))
+        .pipe(
+          catchError((error) &#x3D;&gt; {
+            this.Logger.error(error.response.data);
+            throw error;
+          }),
+        ),
+    );
+    return data;
   }
 
   private async generateEncryptedValue(
@@ -531,11 +747,12 @@ export class AppController {
   ): Promise&lt;string&gt; {
     const iv &#x3D; randomBytes(bytes);
     const API_KEY &#x3D; process.env.API_KEY.toString();
-    const key &#x3D; (await promisify(scrypt)(API_KEY, &#x27;salt&#x27;, 32)) as Buffer;
+    const key &#x3D; (await promisify(scrypt)(API_KEY, &#x27;salt&#x27;, 16)) as Buffer;
     const cipher &#x3D; createCipheriv(&#x27;aes-256-ctr&#x27;, key, iv);
-    return Buffer.concat([cipher.update(value), cipher.final()]).toString(
-      &#x27;base64&#x27;,
-    );
+    return Buffer.concat([cipher.update(value), cipher.final()])
+      .toString(&#x27;base64&#x27;)
+      .replace(&#x27;/&#x27;, &#x60;${v4()}&#x60;)
+      .replace(&#x27;&#x3D;&#x27;, &#x60;${v4()}&#x60;);
   }
 }
 </code></pre>

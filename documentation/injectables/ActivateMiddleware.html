@@ -105,7 +105,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/common/middlewares/activate.middleware.ts:19</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/common/middlewares/activate.middleware.ts:21</a></div>
                             </td>
                         </tr>
 
@@ -175,8 +175,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="24"
-                            class="link-to-prism">src/common/middlewares/activate.middleware.ts:24</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="26"
+                            class="link-to-prism">src/common/middlewares/activate.middleware.ts:26</a></div>
                 </td>
             </tr>
 
@@ -255,7 +255,6 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-  BadRequestException,
   HttpStatus,
   Injectable,
   NestMiddleware,
@@ -266,7 +265,10 @@
 } from &#x27;@nestjs/common&#x27;;
 import { InjectModel } from &#x27;@nestjs/sequelize&#x27;;
 import { Request, Response, NextFunction } from &#x27;express&#x27;;
-import { ACTIVTING_PARAMS_NOT_PROVIDED, INVALID_PARAMS } from &#x27;../../auth/auth.constants&#x27;;
+import {
+  ACTIVTING_PARAMS_NOT_PROVIDED,
+  INVALID_PARAMS,
+} from &#x27;../../auth/auth.constants&#x27;;
 import { Admin } from &#x27;../../admin/models/admin.model&#x27;;
 import { Owner } from &#x27;../../owner/models/owner.model&#x27;;
 import { ApiException } from &#x27;../exceptions/api.exception&#x27;;
@@ -286,7 +288,11 @@ export class ActivateMiddleware implements NestMiddleware {
       const activationLink: string &#x3D; req.params?.link;
       const code &#x3D; Number(req.query?.code);
       if (!activationLink || !code) {
-        throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request!&#x27;, ACTIVTING_PARAMS_NOT_PROVIDED);
+        throw new ApiException(
+          HttpStatus.BAD_REQUEST,
+          &#x27;Bad request!&#x27;,
+          ACTIVTING_PARAMS_NOT_PROVIDED,
+        );
       }
       res.setHeader(&#x27;X-Content-Type-Options&#x27;, &#x27;nosniff&#x27;);
       const owner &#x3D; await this.ownerRepository.findOne({
@@ -319,7 +325,11 @@ export class ActivateMiddleware implements NestMiddleware {
         req[&#x27;activationLink&#x27;] &#x3D; admin.activationLink;
         return next();
       }
-      throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request!&#x27;, INVALID_PARAMS);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request!&#x27;,
+        INVALID_PARAMS,
+      );
     } catch (err: unknown) {
       return next(err);
     }

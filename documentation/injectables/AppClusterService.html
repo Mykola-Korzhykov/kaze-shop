@@ -222,8 +222,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="55"
-                            class="link-to-prism">src/core/services/cluster.service.ts:55</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">src/core/services/cluster.service.ts:57</a></div>
                 </td>
             </tr>
 
@@ -294,8 +294,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="40"
-                            class="link-to-prism">src/core/services/cluster.service.ts:40</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="42"
+                            class="link-to-prism">src/core/services/cluster.service.ts:42</a></div>
                 </td>
             </tr>
 
@@ -367,6 +367,7 @@ export class AppClusterService {
       AppClusterService.Logger.log(&#x60;Master server started on ${process.pid}&#x60;);
       for (let i &#x3D; 0; i &lt; numCPUs; i++) {
         const worker &#x3D; cluster.fork();
+        console.info(worker);
       }
       cluster.on(&#x27;exit&#x27;, (worker, code, signal) &#x3D;&gt; {
         AppClusterService.Logger.log(
@@ -378,12 +379,13 @@ export class AppClusterService {
     } else {
       AppClusterService.Logger.log(&#x60;Cluster server started on ${process.pid}&#x60;);
       const app &#x3D; await callback();
-      process.on(&#x27;SIGINT&#x27;, () &#x3D;&gt; app.close());
-      process.on(&#x27;SIGTERM&#x27;, () &#x3D;&gt; app.close());
-      process.on(&#x27;SIGUSR2&#x27;, async () &#x3D;&gt; app.close());
+      console.info(app);
+      process.on(&#x27;SIGINT&#x27;, () &#x3D;&gt; process.exit(1));
+      process.on(&#x27;SIGTERM&#x27;, () &#x3D;&gt; process.exit(1));
+      process.on(&#x27;SIGUSR2&#x27;, async () &#x3D;&gt; process.exit(1));
       process.on(&#x27;message&#x27;, (msg) &#x3D;&gt; {
         if (msg &#x3D;&#x3D;&#x3D; &#x27;shutdown&#x27;) {
-          app.close();
+          process.exit(1);
         }
       });
     }
@@ -406,7 +408,8 @@ export class AppClusterService {
 
   private static setTimeouts(worker: any) {
     let timeout: NodeJS.Timeout;
-    worker.on(&#x27;listening&#x27;, (address) &#x3D;&gt; {
+    worker.on(&#x27;listening&#x27;, (address: any) &#x3D;&gt; {
+      Logger.log(address);
       worker.send(&#x27;shutdown&#x27;);
       worker.disconnect();
       timeout &#x3D; setTimeout(() &#x3D;&gt; {

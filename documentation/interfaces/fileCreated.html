@@ -219,12 +219,7 @@ export class FilesService {
     });
   }
 
-
-  createfileName(
-    req: Request,
-    file: Express.Multer.File,
-    callback: any,  
-  ){
+  createfileName(req: Request, file: Express.Multer.File, callback: any) {
     const name &#x3D; file.originalname.split(&#x27;.&#x27;)[0];
     const ext &#x3D; extname(file.originalname);
     const randomName &#x3D; v4();
@@ -234,29 +229,42 @@ export class FilesService {
   fileFilter(
     req: Request,
     file: Express.Multer.File,
-    callback: (error: Error, acceptFile: boolean) &#x3D;&gt; void
-  ){
+    callback: (error: Error, acceptFile: boolean) &#x3D;&gt; void,
+  ) {
     const filetypes &#x3D; /\.(jpg|jpeg|png|gif)$/;
-    const extname &#x3D; filetypes.test(path.extname(file.originalname).toLowerCase());
+    const extname &#x3D; filetypes.test(
+      path.extname(file.originalname).toLowerCase(),
+    );
     const mimetype &#x3D; filetypes.test(file.mimetype);
-    if(mimetype &amp;&amp; extname){
-        return callback(null, true);
-    } 
+    if (mimetype &amp;&amp; extname) {
+      return callback(null, true);
+    }
     return callback(new Error(&#x27;Only image files are allowed!&#x27;), false);
-  }  
+  }
 
-  destination (
-    req: Request, 
-    file: Express.Multer.File, 
-    callback: (error: Error, destination: string) &#x3D;&gt; void
-  ){
-    const destination &#x3D; path.join(__dirname, &#x27;static&#x27;, &#x27;products&#x27;, &#x60;${req?.body?.title}&#x60;);
-    const imagesPath &#x3D; path.join(__dirname, &#x27;static&#x27;, &#x27;products&#x27;, &#x60;${req?.body?.title}&#x60;, file.fieldname);
+  destination(
+    req: Request,
+    file: Express.Multer.File,
+    callback: (error: Error, destination: string) &#x3D;&gt; void,
+  ) {
+    const destination &#x3D; path.join(
+      __dirname,
+      &#x27;static&#x27;,
+      &#x27;products&#x27;,
+      &#x60;${req?.body?.title}&#x60;,
+    );
+    const imagesPath &#x3D; path.join(
+      __dirname,
+      &#x27;static&#x27;,
+      &#x27;products&#x27;,
+      &#x60;${req?.body?.title}&#x60;,
+      file.fieldname,
+    );
     if (!existsSync(destination)) {
-        mkdirSync(destination, { recursive: true });
+      mkdirSync(destination, { recursive: true });
     }
     if (!existsSync(imagesPath)) {
-        mkdirSync(imagesPath, { recursive: true });
+      mkdirSync(imagesPath, { recursive: true });
     }
     callback(null, imagesPath);
   }

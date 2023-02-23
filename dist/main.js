@@ -230,6 +230,10 @@ function startServer() {
         app.use(body_parser_1.default.urlencoded({ extended: false }));
         app.use(body_parser_1.default.json());
         app.use((0, helmet_1.default)());
+        app.use(helmet_1.default.xssFilter());
+        app.use(helmet_1.default.hsts({
+            maxAge: 2629746000,
+        }));
         app.use(helmet_1.default.crossOriginResourcePolicy({ policy: 'cross-origin' }));
         app.use(helmet_1.default.referrerPolicy({ policy: 'same-origin' }));
         app.use((0, cookie_parser_1.default)(process.env.SECRET_KEY.toString().trim()));
@@ -1086,6 +1090,8 @@ let AuthService = AuthService_1 = class AuthService {
                     path: '/',
                     httpOnly: true,
                     expires: tokens.expireDate,
+                    domain: process.env.CLIENT_DOMAIN.toString().trim(),
+                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                 });
                 return response.json(Object.assign({}, this.setResponse(tokens, user)));
@@ -1111,6 +1117,8 @@ let AuthService = AuthService_1 = class AuthService {
                     path: '/',
                     httpOnly: true,
                     expires: tokens.expireDate,
+                    domain: process.env.CLIENT_DOMAIN.toString().trim(),
+                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                 });
                 return response.json(Object.assign({}, this.setResponse(tokens, user)));
@@ -1169,6 +1177,8 @@ let AuthService = AuthService_1 = class AuthService {
                     path: '/',
                     httpOnly: true,
                     expires: tokens.expireDate,
+                    domain: process.env.CLIENT_DOMAIN.toString().trim(),
+                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                 });
                 yield this.activateUser(dto.user, response);
@@ -1541,6 +1551,8 @@ let AuthService = AuthService_1 = class AuthService {
                     signed: true,
                     path: '/',
                     httpOnly: true,
+                    domain: process.env.CLIENT_DOMAIN.toString().trim(),
+                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                 });
             }
@@ -1560,6 +1572,8 @@ let AuthService = AuthService_1 = class AuthService {
                     maxAge: 30 * 24 * 60 * 60 * 1000,
                     signed: true,
                     httpOnly: true,
+                    domain: process.env.CLIENT_DOMAIN.toString().trim(),
+                    secure: process.env.NODE_ENV === 'production' ? true : false,
                     sameSite: 'strict',
                     path: '/',
                 });
@@ -4290,7 +4304,7 @@ __decorate([
     __metadata("design:type", Number)
 ], WatchedProducts.prototype, "productId", void 0);
 WatchedProducts = __decorate([
-    (0, sequelize_typescript_1.Table)({ tableName: 'PRODUCT_Categories', createdAt: false, updatedAt: false })
+    (0, sequelize_typescript_1.Table)({ tableName: 'PRODUCT_Watched', createdAt: false, updatedAt: false })
 ], WatchedProducts);
 exports.WatchedProducts = WatchedProducts;
 
@@ -10976,29 +10990,88 @@ let ProductService = ProductService_1 = class ProductService {
         this.coloursService = coloursService;
         this.Logger = new common_1.Logger(ProductService_1.name);
     }
-    getProductsByCategory(request, response, page, pageSize, categories) {
+    getProductsByCategory(request, response, next, page, pageSize, categories) {
         return __awaiter(this, void 0, void 0, function* () {
-            const currency = request['currency'];
-            let products = yield this.productRepository.findAll({
-                include: { all: true },
-            });
-            if (categories && categories.length > 0) {
-                products = products.filter((product) => {
-                    if (product.categories.some((category) => categories.includes(category.id))) {
-                        return product;
-                    }
+            try {
+                const currency = request['currency'];
+                let products = yield this.productRepository.findAll({
+                    include: { all: true },
+                });
+                if (categories && categories.length > 0) {
+                    products = products.filter((product) => {
+                        if (product.categories.some((category) => categories
+                            .map((category) => Number(category))
+                            .includes(category.id))) {
+                            return product;
+                        }
+                    });
+                }
+                return response.json({
+                    products: products
+                        .map((product) => {
+                        return {
+                            id: product.id,
+                            title: product.getTitle(),
+                            description: product.getDescription(),
+                            price: Math.round(product.price * currency.rate) + currency.symbol,
+                            quantity: product.quantity,
+                            images: product.images,
+                            hexes: product.hexes,
+                            sizeChartImage: product.sizeChartImage,
+                            sizes: product.sizes,
+                            colours: product.colours,
+                            categories: product.categories.map((category) => {
+                                return {
+                                    id: category.id,
+                                    ua: category.ua,
+                                    en: category.en,
+                                    rs: category.rs,
+                                    ru: category.ru,
+                                    createdAt: category.createdAt,
+                                    updatedAt: category.updatedAt,
+                                };
+                            }),
+                            reviews: product.reviews.map((review) => {
+                                return {
+                                    id: review.id,
+                                    name: review.name,
+                                    surname: review.surname,
+                                    review: review.review,
+                                    createdAt: review.createdAt,
+                                    updatedAt: review.updatedAt,
+                                };
+                            }),
+                        };
+                    })
+                        .slice((page - 1) * pageSize, pageSize * page),
+                    totalProducts: products.length,
                 });
             }
-            return response.json({
-                products: products
+            catch (err) {
+                this.Logger.error(err);
+                return next(err);
+            }
+        });
+    }
+    getBookmarks(request, response, next, page, productPerPage, userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const user = yield this.userService.getUserById(userId);
+                if (!user) {
+                    throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', user_constants_1.USER_NOT_FOUND);
+                }
+                const currency = request['currency'];
+                const products = user.bookmarks
+                    .slice((page - 1) * productPerPage, productPerPage * page)
                     .map((product) => {
                     return {
                         id: product.id,
                         title: product.getTitle(),
                         description: product.getDescription(),
-                        price: Math.round(product.price * currency.rate) + currency.symbol,
+                        price: product.price * currency.rate + currency.symbol,
                         quantity: product.quantity,
                         images: product.images,
+                        hexes: product.hexes,
                         sizeChartImage: product.sizeChartImage,
                         sizes: product.sizes,
                         colours: product.colours,
@@ -11024,195 +11097,85 @@ let ProductService = ProductService_1 = class ProductService {
                             };
                         }),
                     };
-                })
-                    .slice((page - 1) * pageSize, pageSize * page),
-                totalProducts: products.length,
-            });
-        });
-    }
-    getBookmarks(request, response, page, productPerPage, userId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const user = yield this.userService.getUserById(userId);
-            if (!user) {
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', user_constants_1.USER_NOT_FOUND);
+                });
+                return response.json({
+                    products: products,
+                    totalProducts: user.bookmarks.length,
+                });
             }
-            const currency = request['currency'];
-            const products = user.bookmarks
-                .slice((page - 1) * productPerPage, productPerPage * page)
-                .map((product) => {
-                return {
-                    id: product.id,
-                    title: product.getTitle(),
-                    description: product.getDescription(),
-                    price: product.price * currency.rate + currency.symbol,
-                    quantity: product.quantity,
-                    images: product.images,
-                    sizeChartImage: product.sizeChartImage,
-                    sizes: product.sizes,
-                    colours: product.colours,
-                    categories: product.categories.map((category) => {
-                        return {
-                            id: category.id,
-                            ua: category.ua,
-                            en: category.en,
-                            rs: category.rs,
-                            ru: category.ru,
-                            createdAt: category.createdAt,
-                            updatedAt: category.updatedAt,
-                        };
-                    }),
-                    reviews: product.reviews.map((review) => {
-                        return {
-                            id: review.id,
-                            name: review.name,
-                            surname: review.surname,
-                            review: review.review,
-                            createdAt: review.createdAt,
-                            updatedAt: review.updatedAt,
-                        };
-                    }),
-                };
-            });
-            return response.json({
-                products: products,
-                totalProducts: user.bookmarks.length,
-            });
-        });
-    }
-    getWatchedProducts(request, response, page, productPerPage, userId) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const user = yield this.userService.getUserById(userId);
-            if (!user) {
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', user_constants_1.USER_NOT_FOUND);
+            catch (err) {
+                this.Logger.error(err);
+                return next(err);
             }
-            const currency = request['currency'];
-            const products = user.watched
-                .slice((page - 1) * productPerPage, productPerPage * page)
-                .map((product) => {
-                return {
-                    id: product.id,
-                    title: product.getTitle(),
-                    description: product.getDescription(),
-                    price: product.price * currency.rate + currency.symbol,
-                    quantity: product.quantity,
-                    images: product.images,
-                    sizeChartImage: product.sizeChartImage,
-                    sizes: product.sizes,
-                    colours: product.colours,
-                    categories: product.categories.map((category) => {
-                        return {
-                            id: category.id,
-                            ua: category.ua,
-                            en: category.en,
-                            rs: category.rs,
-                            ru: category.ru,
-                            createdAt: category.createdAt,
-                            updatedAt: category.updatedAt,
-                        };
-                    }),
-                    reviews: product.reviews.map((review) => {
-                        return {
-                            id: review.id,
-                            name: review.name,
-                            surname: review.surname,
-                            review: review.review,
-                            createdAt: review.createdAt,
-                            updatedAt: review.updatedAt,
-                        };
-                    }),
-                };
-            });
-            return response.json({
-                products: products,
-                totalProducts: user.bookmarks.length,
-            });
         });
     }
-    getProductsByIds(request, response, productIds, page, productPerPage) {
+    getWatchedProducts(request, response, next, page, productPerPage, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const totalCount = yield this.productRepository.count();
-            const products = yield this.productRepository.findAll({
-                include: { all: true },
-                offset: (page - 1) * productPerPage,
-                limit: productPerPage,
-                attributes: [
-                    'id',
-                    'title',
-                    'price',
-                    'decription',
-                    'quantity',
-                    'colours',
-                    'sizes',
-                    'categories',
-                    'images',
-                    'sizeChartImage',
-                ],
-                where: {
-                    id: productIds,
-                },
-            });
-            const currency = request['currency'];
-            const returnedProducts = products.map((product) => {
-                return {
-                    id: product.id,
-                    title: product.getTitle(),
-                    description: product.getDescription(),
-                    price: product.price * currency.rate + currency.symbol,
-                    quantity: product.quantity,
-                    images: product.images,
-                    sizeChartImage: product.sizeChartImage,
-                    sizes: product.sizes,
-                    colours: product.colours,
-                    categories: product.categories.map((category) => {
-                        return {
-                            id: category.id,
-                            ua: category.ua,
-                            en: category.en,
-                            rs: category.rs,
-                            ru: category.ru,
-                            createdAt: category.createdAt,
-                            updatedAt: category.updatedAt,
-                        };
-                    }),
-                    reviews: product.reviews.map((review) => {
-                        return {
-                            id: review.id,
-                            name: review.name,
-                            surname: review.surname,
-                            review: review.review,
-                            createdAt: review.createdAt,
-                            updatedAt: review.updatedAt,
-                        };
-                    }),
-                };
-            });
-            return response.json({
-                products: returnedProducts,
-                totalProducts: totalCount,
-            });
+            try {
+                const user = yield this.userService.getUserById(userId);
+                if (!user) {
+                    throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', user_constants_1.USER_NOT_FOUND);
+                }
+                const currency = request['currency'];
+                const products = user.watched
+                    .slice((page - 1) * productPerPage, productPerPage * page)
+                    .map((product) => {
+                    return {
+                        id: product.id,
+                        title: product.getTitle(),
+                        description: product.getDescription(),
+                        price: product.price * currency.rate + currency.symbol,
+                        quantity: product.quantity,
+                        images: product.images,
+                        hexes: product.hexes,
+                        sizeChartImage: product.sizeChartImage,
+                        sizes: product.sizes,
+                        colours: product.colours,
+                        categories: product.categories.map((category) => {
+                            return {
+                                id: category.id,
+                                ua: category.ua,
+                                en: category.en,
+                                rs: category.rs,
+                                ru: category.ru,
+                                createdAt: category.createdAt,
+                                updatedAt: category.updatedAt,
+                            };
+                        }),
+                        reviews: product.reviews.map((review) => {
+                            return {
+                                id: review.id,
+                                name: review.name,
+                                surname: review.surname,
+                                review: review.review,
+                                createdAt: review.createdAt,
+                                updatedAt: review.updatedAt,
+                            };
+                        }),
+                    };
+                });
+                return response.json({
+                    products: products,
+                    totalProducts: user.bookmarks.length,
+                });
+            }
+            catch (err) {
+                this.Logger.error(err);
+                return next(err);
+            }
         });
     }
-    getProducts(request, response, page, productPerPage) {
+    getProductsByIds(request, response, next, productIds, page, productPerPage) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const totalCount = yield this.productRepository.count();
                 const products = yield this.productRepository.findAll({
                     include: { all: true },
                     offset: (page - 1) * productPerPage,
-                    order: [['updatedAt', 'DESC']],
                     limit: productPerPage,
-                    attributes: [
-                        'id',
-                        'title',
-                        'price',
-                        'decription',
-                        'quantity',
-                        'colours',
-                        'sizes',
-                        'categories',
-                        'images',
-                        'sizeChartImage',
-                    ],
+                    where: {
+                        id: productIds,
+                    },
                 });
                 const currency = request['currency'];
                 const returnedProducts = products.map((product) => {
@@ -11223,6 +11186,7 @@ let ProductService = ProductService_1 = class ProductService {
                         price: product.price * currency.rate + currency.symbol,
                         quantity: product.quantity,
                         images: product.images,
+                        hexes: product.hexes,
                         sizeChartImage: product.sizeChartImage,
                         sizes: product.sizes,
                         colours: product.colours,
@@ -11254,69 +11218,122 @@ let ProductService = ProductService_1 = class ProductService {
                     totalProducts: totalCount,
                 });
             }
+            catch (err) {
+                this.Logger.error(err);
+                return next(err);
+            }
+        });
+    }
+    getProducts(request, response, next, page, productPerPage) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const totalCount = yield this.productRepository.count();
+                const products = yield this.productRepository.findAll({
+                    include: { all: true },
+                    order: [['updatedAt', 'DESC']],
+                });
+                const currency = request['currency'];
+                const returnedProducts = products
+                    .map((product) => {
+                    return {
+                        id: product.id,
+                        title: product.getTitle(),
+                        description: product.getDescription(),
+                        price: product.price * currency.rate + currency.symbol,
+                        quantity: product.quantity,
+                        images: product.images,
+                        hexes: product.hexes,
+                        sizeChartImage: product.sizeChartImage,
+                        sizes: product.sizes,
+                        colours: product.colours,
+                        categories: product.categories.map((category) => {
+                            return {
+                                id: category.id,
+                                ua: category.ua,
+                                en: category.en,
+                                rs: category.rs,
+                                ru: category.ru,
+                                createdAt: category.createdAt,
+                                updatedAt: category.updatedAt,
+                            };
+                        }),
+                        reviews: product.reviews.map((review) => {
+                            return {
+                                id: review.id,
+                                name: review.name,
+                                surname: review.surname,
+                                review: review.review,
+                                createdAt: review.createdAt,
+                                updatedAt: review.updatedAt,
+                            };
+                        }),
+                    };
+                })
+                    .slice((page - 1) * productPerPage, productPerPage * page);
+                return response.json({
+                    products: returnedProducts,
+                    totalProducts: totalCount,
+                });
+            }
             catch (error) {
                 this.Logger.error(error);
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCTS_NOT_FOUND);
+                return next(new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCTS_NOT_FOUND));
             }
         });
     }
-    getProductById(request, response, productId) {
+    getProductById(request, response, next, productId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const product = yield this.productRepository.findByPk(productId, {
-                include: {
-                    all: true,
-                },
-                attributes: [
-                    'id',
-                    'title',
-                    'price',
-                    'description',
-                    'quantity',
-                    'colours',
-                    'sizes',
-                    'images',
-                    'sizeChartImage',
-                ],
-            });
-            if (!product) {
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCT_NOT_FOUND);
+            try {
+                const product = yield this.productRepository.findByPk(productId, {
+                    include: {
+                        all: true,
+                    },
+                });
+                if (!product) {
+                    throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCT_NOT_FOUND);
+                }
+                const currency = request['currency'];
+                return response.json({
+                    id: product.id,
+                    title: product.getTitle(),
+                    description: product.getDescription(),
+                    price: Math.floor(product.price * currency.rate) + currency.symbol,
+                    quantity: product.quantity,
+                    images: product.images,
+                    sizeChartImage: product.sizeChartImage,
+                    sizes: product.sizes,
+                    hexes: product.hexes,
+                    colours: product.colours,
+                    categories: product.categories.map((category) => {
+                        return {
+                            id: category.id,
+                            ua: category.ua,
+                            en: category.en,
+                            rs: category.rs,
+                            ru: category.ru,
+                            createdAt: category.createdAt,
+                            updatedAt: category.updatedAt,
+                        };
+                    }),
+                    reviews: product.reviews.map((review) => {
+                        return {
+                            id: review.id,
+                            name: review.name,
+                            surname: review.surname,
+                            review: review.review,
+                            createdAt: review.createdAt,
+                            updatedAt: review.updatedAt,
+                        };
+                    }),
+                });
             }
-            const currency = request['currency'];
-            return response.json({
-                id: product.id,
-                title: product.getTitle(),
-                description: product.getDescription(),
-                price: product.price * currency.rate + currency.symbol,
-                quantity: product.quantity,
-                images: product.images,
-                sizeChartImage: product.sizeChartImage,
-                sizes: product.sizes,
-                colours: product.colours,
-                categories: product.categories.map((category) => {
-                    return {
-                        id: category.id,
-                        ua: category.ua,
-                        en: category.en,
-                        rs: category.rs,
-                        ru: category.ru,
-                        createdAt: category.createdAt,
-                        updatedAt: category.updatedAt,
-                    };
-                }),
-                reviews: product.reviews.map((review) => {
-                    return {
-                        id: review.id,
-                        name: review.name,
-                        surname: review.surname,
-                        review: review.review,
-                        createdAt: review.createdAt,
-                        updatedAt: review.updatedAt,
-                    };
-                }),
-            });
+            catch (err) {
+                this.Logger.error(err);
+                return next(new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCTS_NOT_FOUND));
+            }
         });
     }
-    filterProducts(request, response, queryFilterDto) {
+    filterProducts(request, response, next, queryFilterDto) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 let products = yield this.productRepository.findAll({
@@ -11364,6 +11381,7 @@ let ProductService = ProductService_1 = class ProductService {
                             price: Math.round(product.price * currency.rate) + currency.symbol,
                             quantity: product.quantity,
                             images: product.images,
+                            hexes: product.hexes,
                             sizeChartImage: product.sizeChartImage,
                             sizes: product.sizes,
                             colours: product.colours,
@@ -11396,44 +11414,56 @@ let ProductService = ProductService_1 = class ProductService {
             }
             catch (error) {
                 this.Logger.error(error);
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCTS_NOT_FOUND);
+                return next(new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCTS_NOT_FOUND));
             }
         });
     }
     addWatchedProduct(productId, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield this.userService.getUserById(userId);
-            if (!user) {
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', user_constants_1.USER_NOT_FOUND);
+            try {
+                const user = yield this.userService.getUserById(userId);
+                if (!user) {
+                    throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', user_constants_1.USER_NOT_FOUND);
+                }
+                const product = yield this.findById(productId);
+                if (!user.watched || user.watched.length === 0) {
+                    user.$set('watched', product.id);
+                    user.watched = [product];
+                }
+                else {
+                    user.$add('watched', product.id);
+                }
+                yield user.save();
+                return productId;
             }
-            const product = yield this.findById(productId);
-            if (!user.watched || user.watched.length === 0) {
-                user.$set('watched', product.id);
-                user.watched = [product];
+            catch (err) {
+                this.Logger.error(err);
+                throw err;
             }
-            else {
-                user.$add('watched', product.id);
-            }
-            yield user.save();
-            return productId;
         });
     }
     addBookmarkProduct(productId, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield this.userService.getUserById(userId);
-            if (!user) {
-                throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', user_constants_1.USER_NOT_FOUND);
+            try {
+                const user = yield this.userService.getUserById(userId);
+                if (!user) {
+                    throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', user_constants_1.USER_NOT_FOUND);
+                }
+                const product = yield this.findById(productId);
+                if (!user.bookmarks || user.bookmarks.length === 0) {
+                    user.$set('bookmarks', product.id);
+                    user.bookmarks = [product];
+                }
+                else {
+                    user.$add('bookmarks', product.id);
+                }
+                yield user.save();
+                return productId;
             }
-            const product = yield this.findById(productId);
-            if (!user.bookmarks || user.bookmarks.length === 0) {
-                user.$set('bookmarks', product.id);
-                user.bookmarks = [product];
+            catch (err) {
+                this.Logger.error(err);
+                throw err;
             }
-            else {
-                user.$add('bookmarks', product.id);
-            }
-            yield user.save();
-            return productId;
         });
     }
     createProduct(createProductDto, userId, type, images, sizeChartImage) {
@@ -11461,10 +11491,11 @@ let ProductService = ProductService_1 = class ProductService {
                         .slice(sizeChartImage[0].path.split('\\').indexOf('products'))
                         .join('/');
                 const product = yield this.productRepository.create(Object.assign(Object.assign({}, createProductDto), { title: JSON.stringify(createProductDto.title), description: JSON.stringify(createProductDto.description), images: imagesPaths, sizeChartImage: sizeChartImagePath }));
+                product.reviews = [];
                 for (const category of createProductDto.categories) {
                     const productCategory = yield this.categoriesService.getCategoryById(Number(category));
                     if (!product.categories) {
-                        product.$set('categories', productCategory.id);
+                        product.$add('categories', productCategory.id);
                         product.categories = [productCategory];
                     }
                     else {
@@ -11472,10 +11503,10 @@ let ProductService = ProductService_1 = class ProductService {
                     }
                     yield product.save();
                 }
-                for (const colour of createProductDto.categories) {
+                for (const colour of createProductDto.colours) {
                     const productColour = yield this.coloursService.getColourById(Number(colour));
                     if (!product.colours) {
-                        product.$set('colours', productColour.id);
+                        product.$add('colours', productColour.id);
                         product.colours = [productColour];
                     }
                     else {
@@ -11490,32 +11521,29 @@ let ProductService = ProductService_1 = class ProductService {
                     yield product.save();
                 }
                 if (type && type === 'OWNER') {
-                    setTimeout(() => __awaiter(this, void 0, void 0, function* () {
-                        const owner = yield this.ownerService.getOwnerById(userId);
-                        product.setOwnerId(userId);
-                        product.$set('owner', userId);
-                        product.owner = owner;
-                        owner.$add('products', product.id);
-                        owner.addProduct(product);
-                        yield Promise.all([yield product.save(), yield owner.save()]);
-                    }), 0);
+                    const owner = yield this.ownerService.getOwnerById(userId);
+                    product.setOwnerId(userId);
+                    product.$set('owner', userId);
+                    product.owner = owner;
+                    owner.$add('products', product.id);
+                    owner.addProduct(product);
+                    yield Promise.all([yield product.save(), yield owner.save()]);
                 }
                 if (type && type === 'ADMIN') {
-                    setTimeout(() => __awaiter(this, void 0, void 0, function* () {
-                        product.setAdminId(userId);
-                        product.$set('admin', userId);
-                        const admin = yield this.adminService.getAdminById(userId);
-                        product.admin = admin;
-                        admin.$add('products', product.id);
-                        admin.addProduct(product);
-                        yield Promise.all([yield product.save(), yield admin.save()]);
-                    }), 0);
+                    product.setAdminId(userId);
+                    product.$set('admin', userId);
+                    const admin = yield this.adminService.getAdminById(userId);
+                    product.admin = admin;
+                    admin.$add('products', product.id);
+                    admin.addProduct(product);
+                    yield Promise.all([yield product.save(), yield admin.save()]);
                 }
+                yield product.save();
                 const dbProduct = yield this.findById(product.id);
                 const Product = {
                     id: dbProduct.id,
-                    title: product.getTitle(),
-                    description: product.getDescription(),
+                    title: dbProduct.getTitle(),
+                    description: dbProduct.getDescription(),
                     price: dbProduct.price,
                     quantity: dbProduct.quantity,
                     images: dbProduct.images,
@@ -11544,10 +11572,7 @@ let ProductService = ProductService_1 = class ProductService {
                             updatedAt: category.updatedAt,
                         };
                     }),
-                    reviews: [],
-                };
-                if (dbProduct.reviews.length !== 0) {
-                    Product.reviews = dbProduct.reviews.map((review) => {
+                    reviews: dbProduct.reviews.map((review) => {
                         return {
                             id: review.id,
                             name: review.name,
@@ -11556,8 +11581,8 @@ let ProductService = ProductService_1 = class ProductService {
                             createdAt: review.createdAt,
                             updatedAt: review.updatedAt,
                         };
-                    });
-                }
+                    }),
+                };
                 return Product;
             }
             catch (error) {
@@ -11595,19 +11620,19 @@ let ProductService = ProductService_1 = class ProductService {
                 existingProduct.quantity = updateProductDto.quantity;
                 existingProduct.price = updateProductDto.price;
                 existingProduct.sizes = [...updateProductDto.sizes];
-                existingProduct.sizes = [];
+                existingProduct.hexes = [];
                 for (const category of existingProduct.categories) {
                     existingProduct.$remove('categories', category.id);
                     yield existingProduct.save();
                 }
                 for (const category of updateProductDto.categories) {
-                    const productCategory = yield this.categoriesService.getCategoryById(Number(category));
-                    if (existingProduct.categories.length === 0) {
-                        existingProduct.$set('categories', productCategory.id);
-                        existingProduct.categories = [productCategory];
+                    const existingProductCategory = yield this.categoriesService.getCategoryById(Number(category));
+                    if (!existingProduct.categories) {
+                        existingProduct.$add('categories', existingProductCategory.id);
+                        existingProduct.categories = [existingProductCategory];
                     }
                     else {
-                        existingProduct.$add('categories', productCategory.id);
+                        existingProduct.$add('categories', existingProductCategory.id);
                     }
                     yield existingProduct.save();
                 }
@@ -11615,20 +11640,20 @@ let ProductService = ProductService_1 = class ProductService {
                     existingProduct.$remove('colours', colour.id);
                     yield existingProduct.save();
                 }
-                for (const colour of existingProduct.colours) {
-                    const productColour = yield this.coloursService.getColourById(Number(colour));
-                    if (existingProduct.colours.length === 0) {
-                        existingProduct.$set('colours', productColour.id);
-                        existingProduct.colours = [productColour];
+                for (const colour of updateProductDto.colours) {
+                    const existingProductColour = yield this.coloursService.getColourById(Number(colour));
+                    if (!existingProduct.colours) {
+                        existingProduct.$add('colours', existingProductColour.id);
+                        existingProduct.colours = [existingProductColour];
                     }
                     else {
-                        existingProduct.$add('colours', productColour.id);
+                        existingProduct.$add('colours', existingProductColour.id);
                     }
-                    if (existingProduct.hexes.length === 0) {
-                        existingProduct.hexes = [productColour.hex];
+                    if (!existingProduct.hexes) {
+                        existingProduct.hexes = [existingProductColour.hex];
                     }
                     else {
-                        existingProduct.hexes.push(productColour.hex);
+                        existingProduct.hexes.push(existingProductColour.hex);
                     }
                     yield existingProduct.save();
                 }
@@ -11818,7 +11843,14 @@ let ProductService = ProductService_1 = class ProductService {
     }
     findById(productId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const product = yield this.productRepository.findByPk(productId);
+            const product = yield this.productRepository.findOne({
+                where: {
+                    id: productId,
+                },
+                include: {
+                    all: true,
+                },
+            });
             if (!product) {
                 throw new api_exception_1.ApiException(common_1.HttpStatus.NOT_FOUND, 'Not found!', product_constants_1.PRODUCT_NOT_FOUND);
             }
@@ -12313,7 +12345,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5, _6;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ProductController = void 0;
 const common_1 = __webpack_require__(7);
@@ -12348,78 +12380,53 @@ let ProductController = class ProductController {
     }
     getProducts(response, request, next, page, pageSize) {
         (() => __awaiter(this, void 0, void 0, function* () {
-            try {
-                return this.productService.getProducts(request, response, page, pageSize);
-            }
-            catch (err) {
-                return next(err);
-            }
+            return this.productService.getProducts(request, response, next, page, pageSize);
+        }))();
+    }
+    getProductsByCategory(response, request, next, page, pageSize, categories) {
+        (() => __awaiter(this, void 0, void 0, function* () {
+            return this.productService.getProductsByCategory(request, response, next, page, pageSize, categories);
         }))();
     }
     getProductsByIds(response, request, next, page, pageSize, productIds) {
         (() => __awaiter(this, void 0, void 0, function* () {
-            try {
-                return this.productService.getProductsByIds(request, response, productIds, page, pageSize);
-            }
-            catch (err) {
-                return next(err);
-            }
+            return this.productService.getProductsByIds(request, response, next, productIds, page, pageSize);
         }))();
     }
     filterProducts(response, request, next, queryFilterDto) {
         (() => __awaiter(this, void 0, void 0, function* () {
-            try {
-                return this.productService.filterProducts(request, response, queryFilterDto);
-            }
-            catch (err) {
-                return next(err);
-            }
+            return this.productService.filterProducts(request, response, next, queryFilterDto);
         }))();
     }
     getById(response, request, next, productId) {
         (() => __awaiter(this, void 0, void 0, function* () {
-            try {
-                return this.productService.getProductById(request, response, productId);
-            }
-            catch (err) {
-                return next(err);
-            }
+            return this.productService.getProductById(request, response, next, productId);
         }))();
     }
     getBookmarkProducts(response, request, next, page, pageSize, userId) {
         (() => __awaiter(this, void 0, void 0, function* () {
-            try {
-                return this.productService.getBookmarks(request, response, page, pageSize, userId);
-            }
-            catch (err) {
-                return next(err);
-            }
+            return this.productService.getBookmarks(request, response, next, page, pageSize, userId);
         }))();
     }
     getWatchedProducts(response, request, next, page, pageSize, userId) {
         (() => __awaiter(this, void 0, void 0, function* () {
-            try {
-                return this.productService.getWatchedProducts(request, response, page, pageSize, userId);
-            }
-            catch (err) {
-                return next(err);
-            }
+            return this.productService.getWatchedProducts(request, response, next, page, pageSize, userId);
         }))();
     }
-    addWatchedProduct(next, productId, userId) {
+    addWatchedProduct(productId, userId) {
         try {
             return this.productService.addWatchedProduct(productId, userId);
         }
         catch (err) {
-            return next(err);
+            throw err;
         }
     }
-    addBookmark(next, productId, userId) {
+    addBookmark(productId, userId) {
         try {
             return this.productService.addBookmarkProduct(productId, userId);
         }
         catch (err) {
-            return next(err);
+            throw err;
         }
     }
     createProduct(createProductDto, files, userId, type) {
@@ -12452,6 +12459,7 @@ let ProductController = class ProductController {
 };
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
+    (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
     (0, common_1.Get)('/'),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Req)()),
@@ -12464,6 +12472,21 @@ __decorate([
 ], ProductController.prototype, "getProducts", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
+    (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
+    (0, common_1.Get)('/categories'),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, common_1.Req)()),
+    __param(2, (0, common_1.Next)()),
+    __param(3, (0, common_1.Query)('page', common_1.ParseIntPipe)),
+    __param(4, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
+    __param(5, (0, common_1.Query)('categories', common_1.ParseArrayPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_e = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _e : Object, typeof (_f = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _f : Object, typeof (_g = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _g : Object, Number, Number, Array]),
+    __metadata("design:returntype", void 0)
+], ProductController.prototype, "getProductsByCategory", null);
+__decorate([
+    (0, throttler_1.Throttle)(70, 700),
+    (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
     (0, common_1.Get)('get'),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Req)()),
@@ -12472,35 +12495,38 @@ __decorate([
     __param(4, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
     __param(5, (0, common_1.Query)('productIds', common_1.ParseArrayPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_e = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _e : Object, typeof (_f = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _f : Object, typeof (_g = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _g : Object, Number, Number, Array]),
+    __metadata("design:paramtypes", [typeof (_h = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _h : Object, typeof (_j = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _j : Object, typeof (_k = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _k : Object, Number, Number, Array]),
     __metadata("design:returntype", void 0)
 ], ProductController.prototype, "getProductsByIds", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
     (0, common_1.UsePipes)(common_1.ValidationPipe),
+    (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
     (0, common_1.Get)('filter'),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Req)()),
     __param(2, (0, common_1.Next)()),
     __param(3, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_h = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _h : Object, typeof (_j = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _j : Object, typeof (_k = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _k : Object, typeof (_l = typeof query_filter_dto_1.QueryFilterDto !== "undefined" && query_filter_dto_1.QueryFilterDto) === "function" ? _l : Object]),
+    __metadata("design:paramtypes", [typeof (_l = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _l : Object, typeof (_m = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _m : Object, typeof (_o = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _o : Object, typeof (_p = typeof query_filter_dto_1.QueryFilterDto !== "undefined" && query_filter_dto_1.QueryFilterDto) === "function" ? _p : Object]),
     __metadata("design:returntype", void 0)
 ], ProductController.prototype, "filterProducts", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
     (0, common_1.Get)('/:productId'),
+    (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
     __param(0, (0, common_1.Res)()),
     __param(1, (0, common_1.Req)()),
     __param(2, (0, common_1.Next)()),
     __param(3, (0, common_1.Param)('productId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_m = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _m : Object, typeof (_o = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _o : Object, typeof (_p = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _p : Object, Number]),
+    __metadata("design:paramtypes", [typeof (_q = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _q : Object, typeof (_r = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _r : Object, typeof (_s = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _s : Object, Number]),
     __metadata("design:returntype", void 0)
 ], ProductController.prototype, "getById", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
     (0, roles_auth_decorator_1.Roles)('USER'),
+    (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, user_guard_1.UserGuard),
     (0, common_1.Get)('bookmarkProducts'),
     __param(0, (0, common_1.Res)()),
@@ -12510,12 +12536,13 @@ __decorate([
     __param(4, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
     __param(5, (0, user_id_decorator_1.UserId)('USER-ID')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_q = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _q : Object, typeof (_r = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _r : Object, typeof (_s = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _s : Object, Number, Number, Number]),
+    __metadata("design:paramtypes", [typeof (_t = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _t : Object, typeof (_u = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _u : Object, typeof (_v = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _v : Object, Number, Number, Number]),
     __metadata("design:returntype", void 0)
 ], ProductController.prototype, "getBookmarkProducts", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
     (0, roles_auth_decorator_1.Roles)('USER'),
+    (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, user_guard_1.UserGuard),
     (0, common_1.Get)('watchedProducts'),
     __param(0, (0, common_1.Res)()),
@@ -12525,36 +12552,37 @@ __decorate([
     __param(4, (0, common_1.Query)('pageSize', common_1.ParseIntPipe)),
     __param(5, (0, user_id_decorator_1.UserId)('USER-ID')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_t = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _t : Object, typeof (_u = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _u : Object, typeof (_v = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _v : Object, Number, Number, Number]),
+    __metadata("design:paramtypes", [typeof (_w = typeof express_1.Response !== "undefined" && express_1.Response) === "function" ? _w : Object, typeof (_x = typeof express_1.Request !== "undefined" && express_1.Request) === "function" ? _x : Object, typeof (_y = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _y : Object, Number, Number, Number]),
     __metadata("design:returntype", void 0)
 ], ProductController.prototype, "getWatchedProducts", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
     (0, roles_auth_decorator_1.Roles)('USER'),
+    (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, user_guard_1.UserGuard),
     (0, common_1.Post)('addWatchedProduct'),
-    __param(0, (0, common_1.Next)()),
-    __param(1, (0, common_1.Query)('productId', common_1.ParseIntPipe)),
-    __param(2, (0, user_id_decorator_1.UserId)('USER-ID')),
+    __param(0, (0, common_1.Query)('productId', common_1.ParseIntPipe)),
+    __param(1, (0, user_id_decorator_1.UserId)('USER-ID')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_w = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _w : Object, Number, Number]),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", Object)
 ], ProductController.prototype, "addWatchedProduct", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
     (0, roles_auth_decorator_1.Roles)('USER'),
+    (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, user_guard_1.UserGuard),
     (0, common_1.Post)('addBookmarkProduct'),
-    __param(0, (0, common_1.Next)()),
-    __param(1, (0, common_1.Query)('productId', common_1.ParseIntPipe)),
-    __param(2, (0, user_id_decorator_1.UserId)('USER-ID')),
+    __param(0, (0, common_1.Query)('productId', common_1.ParseIntPipe)),
+    __param(1, (0, user_id_decorator_1.UserId)('USER-ID')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_y = typeof express_1.NextFunction !== "undefined" && express_1.NextFunction) === "function" ? _y : Object, Number, Number]),
+    __metadata("design:paramtypes", [Number, Number]),
     __metadata("design:returntype", Object)
 ], ProductController.prototype, "addBookmark", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
     (0, common_1.Put)('create_product'),
+    (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
     (0, roles_auth_decorator_1.Roles)('OWNER', 'ADMIN'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe({ transform: true })),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, owner_admin_guard_1.OwnerAdminGuard, jw_refresh_guard_1.AuthFerfershGuard, add_content_guard_1.AddContentGuard),
@@ -12607,11 +12635,12 @@ __decorate([
     __param(2, (0, user_id_decorator_1.UserId)('USER-ID')),
     __param(3, (0, user_type_decorator_1.Type)('REFRESHTOKEN')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_0 = typeof create_product_dto_1.CreateProductDto !== "undefined" && create_product_dto_1.CreateProductDto) === "function" ? _0 : Object, Object, Number, String]),
-    __metadata("design:returntype", typeof (_1 = typeof Promise !== "undefined" && Promise) === "function" ? _1 : Object)
+    __metadata("design:paramtypes", [typeof (_1 = typeof create_product_dto_1.CreateProductDto !== "undefined" && create_product_dto_1.CreateProductDto) === "function" ? _1 : Object, Object, Number, String]),
+    __metadata("design:returntype", typeof (_2 = typeof Promise !== "undefined" && Promise) === "function" ? _2 : Object)
 ], ProductController.prototype, "createProduct", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
+    (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
     (0, common_1.Patch)('update_product/:productId'),
     (0, roles_auth_decorator_1.Roles)('OWNER', 'ADMIN'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe({ transform: true })),
@@ -12666,11 +12695,12 @@ __decorate([
     __param(3, (0, user_type_decorator_1.Type)('REFRESHTOKEN')),
     __param(4, (0, common_1.UploadedFiles)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_2 = typeof update_product_dto_1.UpdateProductDto !== "undefined" && update_product_dto_1.UpdateProductDto) === "function" ? _2 : Object, Number, Number, String, Object]),
-    __metadata("design:returntype", typeof (_3 = typeof Promise !== "undefined" && Promise) === "function" ? _3 : Object)
+    __metadata("design:paramtypes", [typeof (_3 = typeof update_product_dto_1.UpdateProductDto !== "undefined" && update_product_dto_1.UpdateProductDto) === "function" ? _3 : Object, Number, Number, String, Object]),
+    __metadata("design:returntype", typeof (_4 = typeof Promise !== "undefined" && Promise) === "function" ? _4 : Object)
 ], ProductController.prototype, "updateProduct", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
+    (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
     (0, common_1.Delete)('delete_product/:productId'),
     (0, roles_auth_decorator_1.Roles)('OWNER', 'ADMIN'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, owner_admin_guard_1.OwnerAdminGuard, jw_refresh_guard_1.AuthFerfershGuard, edit_content_guard_1.EditContentGuard),
@@ -12678,10 +12708,11 @@ __decorate([
     __param(0, (0, common_1.Param)('productId', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", typeof (_4 = typeof Promise !== "undefined" && Promise) === "function" ? _4 : Object)
+    __metadata("design:returntype", typeof (_5 = typeof Promise !== "undefined" && Promise) === "function" ? _5 : Object)
 ], ProductController.prototype, "deleteProduct", null);
 __decorate([
     (0, throttler_1.Throttle)(70, 700),
+    (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
     (0, common_1.Delete)('delete_image'),
     (0, roles_auth_decorator_1.Roles)('OWNER', 'ADMIN'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard, owner_admin_guard_1.OwnerAdminGuard, jw_refresh_guard_1.AuthFerfershGuard, edit_content_guard_1.EditContentGuard),
@@ -12689,7 +12720,7 @@ __decorate([
     __param(0, (0, common_1.Query)('filePath')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", typeof (_5 = typeof Promise !== "undefined" && Promise) === "function" ? _5 : Object)
+    __metadata("design:returntype", typeof (_6 = typeof Promise !== "undefined" && Promise) === "function" ? _6 : Object)
 ], ProductController.prototype, "deleteFile", null);
 ProductController = __decorate([
     (0, common_1.UseGuards)(throttler_behind_proxy_guard_1.ThrottlerBehindProxyGuard),
@@ -12993,15 +13024,20 @@ class ParseFormDataJsonPipe {
         this.options = options;
     }
     transform(value, _metadata) {
-        const { except } = this.options;
-        const serializedValue = value;
-        const originProperties = {};
-        if (except === null || except === void 0 ? void 0 : except.length) {
-            _.merge(originProperties, _.pick(serializedValue, ...except));
+        try {
+            const { except } = this.options;
+            const serializedValue = value;
+            const originProperties = {};
+            if (except === null || except === void 0 ? void 0 : except.length) {
+                _.merge(originProperties, _.pick(serializedValue, ...except));
+            }
+            const deserializedValue = (0, deep_parse_json_1.deepParseJson)(value);
+            console.log(`deserializedValue`, deserializedValue, _metadata);
+            return Object.assign(Object.assign({}, deserializedValue), originProperties);
         }
-        const deserializedValue = (0, deep_parse_json_1.deepParseJson)(value);
-        console.log(`deserializedValue`, deserializedValue, _metadata);
-        return Object.assign(Object.assign({}, deserializedValue), originProperties);
+        catch (err) {
+            throw err;
+        }
     }
 }
 exports.ParseFormDataJsonPipe = ParseFormDataJsonPipe;
@@ -13126,7 +13162,7 @@ let CategoriesColoursModule = class CategoriesColoursModule {
     configure(consumer) {
         consumer
             .apply(initialize_user_middleware_1.InitializeUserMiddleware)
-            .forRoutes({ path: 'categories/create_category', method: common_1.RequestMethod.PUT }, { path: 'categories/delete_category', method: common_1.RequestMethod.DELETE }, { path: 'categories/create_colour', method: common_1.RequestMethod.PUT }, { path: 'categories/delete_colour', method: common_1.RequestMethod.DELETE }, { path: '*', method: common_1.RequestMethod.PATCH });
+            .forRoutes({ path: 'categories/create_category', method: common_1.RequestMethod.PUT }, { path: 'categories/delete_category', method: common_1.RequestMethod.DELETE }, { path: 'colours/create_colour', method: common_1.RequestMethod.PUT }, { path: 'colours/delete_colour', method: common_1.RequestMethod.DELETE }, { path: '*', method: common_1.RequestMethod.PATCH });
     }
 };
 CategoriesColoursModule = __decorate([
@@ -13384,7 +13420,7 @@ let ColoursController = class ColoursController {
 __decorate([
     (0, throttler_1.Throttle)(700, 7000),
     (0, common_1.CacheTTL)(200),
-    (0, common_1.Get)('get_categoties'),
+    (0, common_1.Get)('get_colours'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
@@ -13432,7 +13468,7 @@ ColoursController = __decorate([
     (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
     (0, common_1.UseInterceptors)(common_1.ClassSerializerInterceptor),
     (0, common_1.UseInterceptors)(common_1.CacheInterceptor),
-    (0, common_1.Controller)('categories'),
+    (0, common_1.Controller)('colours'),
     __metadata("design:paramtypes", [typeof (_a = typeof colours_service_1.ColoursService !== "undefined" && colours_service_1.ColoursService) === "function" ? _a : Object])
 ], ColoursController);
 exports.ColoursController = ColoursController;
@@ -13617,13 +13653,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CardController = void 0;
 const common_1 = __webpack_require__(7);
 const api_exception_filter_1 = __webpack_require__(87);
 const error_handler_filter_1 = __webpack_require__(85);
 let CardController = class CardController {
+    addProduct(productId) {
+        console.log(productId);
+    }
 };
+__decorate([
+    (0, common_1.Post)('add/:productId'),
+    __param(0, (0, common_1.Param)('productId', common_1.ParseIntPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", void 0)
+], CardController.prototype, "addProduct", null);
 CardController = __decorate([
     (0, common_1.UseFilters)(error_handler_filter_1.ApiErrorExceptionFilter, api_exception_filter_1.ApiExceptionFilter),
     (0, common_1.Controller)('card')
@@ -14380,6 +14432,7 @@ const axios_1 = __webpack_require__(63);
 const decorators_1 = __webpack_require__(90);
 const throttler_behind_proxy_guard_1 = __webpack_require__(78);
 const throttler_1 = __webpack_require__(79);
+const uuid_1 = __webpack_require__(60);
 let AppController = AppController_1 = class AppController {
     constructor(httpService) {
         this.httpService = httpService;
@@ -14463,9 +14516,12 @@ let AppController = AppController_1 = class AppController {
         return __awaiter(this, void 0, void 0, function* () {
             const iv = (0, crypto_1.randomBytes)(bytes);
             const API_KEY = process.env.API_KEY.toString();
-            const key = (yield (0, util_1.promisify)(crypto_1.scrypt)(API_KEY, 'salt', 32));
+            const key = (yield (0, util_1.promisify)(crypto_1.scrypt)(API_KEY, 'salt', 16));
             const cipher = (0, crypto_1.createCipheriv)('aes-256-ctr', key, iv);
-            return Buffer.concat([cipher.update(value), cipher.final()]).toString('base64');
+            return Buffer.concat([cipher.update(value), cipher.final()])
+                .toString('base64')
+                .replace('/', `${(0, uuid_1.v4)()}`)
+                .replace('=', `${(0, uuid_1.v4)()}`);
         });
     }
 };
@@ -15198,7 +15254,7 @@ module.exports = require("body-parser");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("bfb3df7140e5ffe235ff")
+/******/ 		__webpack_require__.h = () => ("fc28d24cb763999472bb")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

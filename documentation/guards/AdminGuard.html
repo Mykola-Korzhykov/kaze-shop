@@ -102,12 +102,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(adminJwtRefreshTokenService: <a href="../injectables/AdminJwtRefreshService.html" target="_self">AdminJwtRefreshService</a>, reflector: Reflector, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>)</code>
+<code>constructor(adminJwtRefreshTokenService: <a href="../injectables/AdminJwtRefreshService.html" target="_self">AdminJwtRefreshService</a>, reflector: Reflector)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/common/guards/admin.guard.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/common/guards/admin.guard.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -141,18 +141,6 @@
                                                   
                                                         <td>
                                                                     <code>Reflector</code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                                <tr>
-                                                        <td>authService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -194,8 +182,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="27"
-                            class="link-to-prism">src/common/guards/admin.guard.ts:27</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/common/guards/admin.guard.ts:28</a></div>
                 </td>
             </tr>
 
@@ -257,12 +245,14 @@
 } from &#x27;@nestjs/common&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
 import { Payload } from &#x27;../../core/interfaces/auth.interfaces&#x27;;
-import { REFRESH_TOKEN_NOT_PROVIDED, USER_NOT_AUTHORIZIED } from &#x27;../../auth/auth.constants&#x27;;
+import {
+  REFRESH_TOKEN_NOT_PROVIDED,
+  USER_NOT_AUTHORIZIED,
+} from &#x27;../../auth/auth.constants&#x27;;
 import { AdminJwtRefreshService } from &#x27;../../admin/services/jwt-refresh.service&#x27;;
 import { AdminRefreshToken } from &#x27;../../admin/models/admin.refresh.token.model&#x27;;
 import { Reflector } from &#x27;@nestjs/core&#x27;;
 import { ROLES_KEY } from &#x27;../decorators/roles-auth.decorator&#x27;;
-import { AuthService } from &#x27;../../auth/auth.service&#x27;;
 import { ApiException } from &#x27;../exceptions/api.exception&#x27;;
 import { ACCESS_DENIED } from &#x27;../../admin/constants/admin.constants&#x27;;
 
@@ -271,7 +261,6 @@ export class AdminGuard implements CanActivate {
   constructor(
     private readonly adminJwtRefreshTokenService: AdminJwtRefreshService,
     private reflector: Reflector,
-    private authService: AuthService,
   ) {}
 
   canActivate(
@@ -288,7 +277,11 @@ export class AdminGuard implements CanActivate {
       const req &#x3D; context.switchToHttp().getRequest();
       const refreshToken &#x3D; req?.cookies[&#x27;refreshToken&#x27;];
       if (!refreshToken) {
-        throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request!&#x27;, REFRESH_TOKEN_NOT_PROVIDED);
+        throw new ApiException(
+          HttpStatus.BAD_REQUEST,
+          &#x27;Bad request!&#x27;,
+          REFRESH_TOKEN_NOT_PROVIDED,
+        );
       }
       const decodedToken &#x3D; Buffer.from(refreshToken, &#x27;base64&#x27;).toString(
         &#x27;ascii&#x27;,
@@ -297,28 +290,45 @@ export class AdminGuard implements CanActivate {
         decodedToken,
       );
       if (!userRefreshToken) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, USER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          USER_NOT_AUTHORIZIED,
+        );
       }
       const payload: Payload &#x3D; req?.payload;
       if (!payload) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, USER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          USER_NOT_AUTHORIZIED,
+        );
       }
       if (
         userRefreshToken instanceof AdminRefreshToken &amp;&amp;
         payload.userId !&#x3D;&#x3D; userRefreshToken.adminId
       ) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, USER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          USER_NOT_AUTHORIZIED,
+        );
       }
       const refreshPayload &#x3D;
         await this.adminJwtRefreshTokenService.validateRefreshToken(
           decodedToken,
         );
       if (
-          !refreshPayload.roles.some(
+        !refreshPayload.roles.some(
           (role: { value: string; description: string }) &#x3D;&gt;
-            requiredRoles.includes(role.value))
-        ) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, ACCESS_DENIED);
+            requiredRoles.includes(role.value),
+        )
+      ) {
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          ACCESS_DENIED,
+        );
       }
       return true;
     })();

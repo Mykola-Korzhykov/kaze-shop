@@ -284,8 +284,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="34"
-                            class="link-to-prism">src/reviews/reviews.service.ts:34</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="31"
+                            class="link-to-prism">src/reviews/reviews.service.ts:31</a></div>
                 </td>
             </tr>
 
@@ -380,46 +380,43 @@ import { Review } from &#x27;./models/review.model&#x27;;
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class ReviewsService {
-    private readonly Logger &#x3D; new Logger(ProductService.name);
-    constructor(
-        @InjectModel(Review) private readonly reviewRepository: typeof Review,
-        private readonly productService: ProductService,
-    ) {}
-    
-    async createReview(
-        createdReviewDto: CreateReviewDto,
-        productId: number
-    ) {
-        const product &#x3D; await this.productService.findById(productId);
-        const review &#x3D; await this.reviewRepository.create(createdReviewDto);
-        if (!product.reviews) {
-            product.$set(&#x27;reviews&#x27;, review.id);
-            product.reviews &#x3D; [review];
-        } else {
-            product.$add(&#x27;categories&#x27;, review.id);
-        }
-        review.productId &#x3D; product.id;
-        review.$add(&#x27;product&#x27;, product.id);
-        await review.save();
-        await product.save();
-        return review;
-    }
+  private readonly Logger &#x3D; new Logger(ProductService.name);
+  constructor(
+    @InjectModel(Review) private readonly reviewRepository: typeof Review,
+    private readonly productService: ProductService,
+  ) {}
 
-    async deleteReview(reviewId: number): Promise&lt;number&gt; {
-        const review &#x3D; await this.reviewRepository.findByPk(reviewId);
-        const product &#x3D; await this.productService.findById(review.productId);
-        product.$remove(&#x27;reviews&#x27;, review.id);
-        await product.save();
-        const deleted &#x3D; await this.reviewRepository.destroy({
-            where: {
-                id: review.id,
-                name: review.name,
-                surname: review.surname,
-                review: review.review,
-            }
-        });
-        return deleted;
+  async createReview(createdReviewDto: CreateReviewDto, productId: number) {
+    const product &#x3D; await this.productService.findById(productId);
+    const review &#x3D; await this.reviewRepository.create(createdReviewDto);
+    if (!product.reviews) {
+      product.$set(&#x27;reviews&#x27;, review.id);
+      product.reviews &#x3D; [review];
+    } else {
+      product.$add(&#x27;categories&#x27;, review.id);
     }
+    review.productId &#x3D; product.id;
+    review.$add(&#x27;product&#x27;, product.id);
+    await review.save();
+    await product.save();
+    return review;
+  }
+
+  async deleteReview(reviewId: number): Promise&lt;number&gt; {
+    const review &#x3D; await this.reviewRepository.findByPk(reviewId);
+    const product &#x3D; await this.productService.findById(review.productId);
+    product.$remove(&#x27;reviews&#x27;, review.id);
+    await product.save();
+    const deleted &#x3D; await this.reviewRepository.destroy({
+      where: {
+        id: review.id,
+        name: review.name,
+        surname: review.surname,
+        review: review.review,
+      },
+    });
+    return deleted;
+  }
 }
 </code></pre>
     </div>

@@ -133,8 +133,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="39"
-                            class="link-to-prism">src/reviews/reviews.controller.ts:39</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="37"
+                            class="link-to-prism">src/reviews/reviews.controller.ts:37</a></div>
                 </td>
             </tr>
 
@@ -221,8 +221,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="55"
-                            class="link-to-prism">src/reviews/reviews.controller.ts:55</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="59"
+                            class="link-to-prism">src/reviews/reviews.controller.ts:59</a></div>
                 </td>
             </tr>
 
@@ -275,18 +275,18 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-    Body,
-    CacheInterceptor,
-    ClassSerializerInterceptor,
-    Controller,
-    Delete,
-    HttpCode,
-    ParseIntPipe,
-    Put,
-    Query,
-    UseFilters,
-    UseGuards,
-    UseInterceptors
+  Body,
+  CacheInterceptor,
+  ClassSerializerInterceptor,
+  Controller,
+  Delete,
+  HttpCode,
+  ParseIntPipe,
+  Put,
+  Query,
+  UseFilters,
+  UseGuards,
+  UseInterceptors,
 } from &#x27;@nestjs/common&#x27;;
 import { Throttle } from &#x27;@nestjs/throttler&#x27;;
 import { Roles } from &#x27;../common/decorators/roles-auth.decorator&#x27;;
@@ -306,37 +306,39 @@ import { EditContentGuard } from &#x27;../common/guards/edit-content.guard&#x27;
 @UseInterceptors(CacheInterceptor, ClassSerializerInterceptor)
 @Controller(&#x27;reviews&#x27;)
 export class ReviewsController {
-    constructor(
-        private readonly reviewsService: ReviewsService,
-    ) {}
-    
-    @Throttle(70, 700)
-    @Put(&#x27;create_review&#x27;)
-    createReview(
-        @Body() createReviewDto: CreateReviewDto,
-        @Query(&#x27;productId&#x27;, ParseIntPipe) productId: number
-    ) {
-        try {
-            return this.reviewsService.createReview(createReviewDto, productId);
-        } catch (error) {
-            throw error;
-        }
-    }
+  constructor(private readonly reviewsService: ReviewsService) {}
 
-    @Throttle(70, 700)
-    @Delete(&#x27;delete_review&#x27;)
-    @Roles(&#x27;OWNER&#x27;, &#x27;ADMIN&#x27;)
-    @UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard, EditContentGuard)
-    @HttpCode(201)
-    deleteReview(
-        @Query(&#x27;reviewId&#x27;, ParseIntPipe) reviewId: number
-    ) {
-        try {
-            return this.reviewsService.deleteReview(reviewId);
-        } catch (error) {
-            throw error;
-        }
+  @Throttle(70, 700)
+  @Put(&#x27;create_review&#x27;)
+  createReview(
+    @Body() createReviewDto: CreateReviewDto,
+    @Query(&#x27;productId&#x27;, ParseIntPipe) productId: number,
+  ) {
+    try {
+      return this.reviewsService.createReview(createReviewDto, productId);
+    } catch (error) {
+      throw error;
     }
+  }
+
+  @Throttle(70, 700)
+  @Delete(&#x27;delete_review&#x27;)
+  @Roles(&#x27;OWNER&#x27;, &#x27;ADMIN&#x27;)
+  @UseGuards(
+    JwtAuthGuard,
+    RolesGuard,
+    OwnerAdminGuard,
+    AuthFerfershGuard,
+    EditContentGuard,
+  )
+  @HttpCode(201)
+  deleteReview(@Query(&#x27;reviewId&#x27;, ParseIntPipe) reviewId: number) {
+    try {
+      return this.reviewsService.deleteReview(reviewId);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 </code></pre>
     </div>

@@ -154,20 +154,20 @@ import { RolesModule } from &#x27;../roles/roles.module&#x27;;
 import { User } from &#x27;../users/models/user.model&#x27;;
 import { UserRefreshToken } from &#x27;../users/models/user.refresh.token.model&#x27;;
 import { UsersModule } from &#x27;../users/users.module&#x27;;
-import { CategoriesModule } from &#x27;../categories/categories.module&#x27;;
 import { ConfigModule } from &#x27;@nestjs/config&#x27;;
 import { Admin } from &#x27;../admin/models/admin.model&#x27;;
 import { AdminRefreshToken } from &#x27;../admin/models/admin.refresh.token.model&#x27;;
 import { CartModule } from &#x27;../cart/cart.module&#x27;;
 import { CartProduct } from &#x27;../cart/models/cart.product.model&#x27;;
 import { Cart } from &#x27;../cart/models/cart.model&#x27;;
-import { Category } from &#x27;../categories/models/category.model&#x27;;
-import { ProductCategories } from &#x27;../categories/models/product.categories.model&#x27;;
+import { Category } from &#x27;../categories&amp;colours/models/category.model&#x27;;
+import { ProductCategories } from &#x27;../categories&amp;colours/models/product.categories.model&#x27;;
 import { Owner } from &#x27;../owner/models/owner.model&#x27;;
 import { OwnerRefreshToken } from &#x27;../owner/models/owner.refresh.token.model&#x27;;
 import { Product } from &#x27;../product/models/product.model&#x27;;
 import { Order } from &#x27;./models/order.model&#x27;;
 import { OrderProduct } from &#x27;./models/order.product.model&#x27;;
+import { CategoriesColoursModule } from &#x27;src/categories&amp;colours/categories&amp;colours.module&#x27;;
 
 @Module({
   providers: [OrdersService],
@@ -197,7 +197,7 @@ import { OrderProduct } from &#x27;./models/order.product.model&#x27;;
       CartProduct,
     ]),
     forwardRef(() &#x3D;&gt; CartModule),
-    forwardRef(() &#x3D;&gt; CategoriesModule),
+    forwardRef(() &#x3D;&gt; CategoriesColoursModule),
     forwardRef(() &#x3D;&gt; RolesModule),
     forwardRef(() &#x3D;&gt; AuthModule),
     forwardRef(() &#x3D;&gt; UsersModule),

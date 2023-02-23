@@ -105,7 +105,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/common/middlewares/admin-user.middleware.ts:21</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/common/middlewares/admin-user.middleware.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -170,8 +170,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="23"
-                            class="link-to-prism">src/common/middlewares/admin-user.middleware.ts:23</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="19"
+                            class="link-to-prism">src/common/middlewares/admin-user.middleware.ts:19</a></div>
                 </td>
             </tr>
 
@@ -258,10 +258,6 @@
   Res,
   Scope,
 } from &#x27;@nestjs/common&#x27;;
-import {
-  BadRequestException,
-  NotFoundException,
-} from &#x27;@nestjs/common/exceptions&#x27;;
 import { Request, Response, NextFunction } from &#x27;express&#x27;;
 import { ADMIN_NOT_FOUND } from &#x27;../../admin/constants/admin.constants&#x27;;
 import { INVALID_PARAMS } from &#x27;../../auth/auth.constants&#x27;;
@@ -295,7 +291,11 @@ export class AdminUserMiddleware implements NestMiddleware {
         !editContent.toString() ||
         !editWebSite.toString()
       ) {
-        throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request!&#x27;, INVALID_PARAMS);
+        throw new ApiException(
+          HttpStatus.BAD_REQUEST,
+          &#x27;Bad request!&#x27;,
+          INVALID_PARAMS,
+        );
       }
       const admin &#x3D; await this.adminService.getAdminByEmail(email);
       if (admin.phoneNumber &#x3D;&#x3D;&#x3D; phoneNumber) {
@@ -303,7 +303,11 @@ export class AdminUserMiddleware implements NestMiddleware {
         req.body.activationLink &#x3D; admin.activationLink;
         return next();
       }
-      throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, ADMIN_NOT_FOUND);
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        ADMIN_NOT_FOUND,
+      );
     } catch (err: unknown) {
       return next(err);
     }

@@ -73,6 +73,12 @@ async function startServer(): Promise<INestApplication> {
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(helmet());
+  app.use(helmet.xssFilter());
+  app.use(
+    helmet.hsts({
+      maxAge: 2629746000,
+    }),
+  );
   app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
   app.use(helmet.referrerPolicy({ policy: 'same-origin' }));
   app.use(cookieParser(process.env.SECRET_KEY.toString().trim()));

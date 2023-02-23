@@ -278,8 +278,11 @@ export class CorsMiddleware implements NestMiddleware {
   use(@Req() req: Request, @Res() res: Response, @Next() next: NextFunction) {
     const headers: RequestHeaders &#x3D; JSON.parse(JSON.stringify(req.headers));
     const isEmpty &#x3D; this.isEmpty(headers);
+    const geo &#x3D; geoip.reloadDataSync();
     const ipAddress &#x3D; IP.address();
+    this.Logger.log(geo);
     this.Logger.log(ipAddress);
+    this.Logger.log(req.headers[&#x27;x-forwarded-for&#x27;]);
     if (isEmpty) {
       throw new BadRequestException({
         message: &#x27;No request headers were provided!&#x27;,
@@ -298,10 +301,31 @@ export class CorsMiddleware implements NestMiddleware {
       &#x27;Access-Control-Allow-Headers&#x27;,
       &#x27;imageType, Authorization, X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept&#x27;,
     );
+    res.setHeader(&#x27;X-Frame-Options&#x27;, &#x27;deny&#x27;);
+    res.setHeader(
+      &#x27;Cache-Control&#x27;,
+      &#x27;no-store, no-cache, must-revalidate, max-age&#x3D;0, s-maxage&#x3D;0&#x27;,
+    );
+    res.setHeader(&#x27;Expires&#x27;, &#x27;0&#x27;);
+    res.setHeader(&#x27;Strict-Transport-Security&#x27;, &#x27;max-age&#x3D;5184000,preload&#x27;);
     res.setHeader(
       &#x27;Content-Security-Policy&#x27;,
-      &#x27;default-src \&#x27;self\&#x27;; font-src \&#x27;self\&#x27;; img-src \&#x27;self\&#x27;; script-src \&#x27;self\&#x27;; style-src \&#x27;self\&#x27;; frame-src \&#x27;self\&#x27;&#x27;,
+      &#x60;default-src &#x27;self&#x27;; font-src &#x27;self&#x27;; img-src &#x27;self&#x27;; script-src &#x27;self&#x27;; style-src &#x27;self&#x27;; frame-src &#x27;self&#x27;&#x60;,
     );
+    res.setHeader(
+      &#x27;X-Content-Security-Policy&#x27;,
+      &#x60;default-src &#x27;self&#x27;; script-src &#x27;self&#x27;; object-src &#x27;self&#x27;; style-src &#x27;self&#x27;; img - src &#x27;self&#x27; data:; media - src &#x27;self&#x27;; frame - src &#x27;self&#x27;; font - src &#x27;self&#x27;; connect - src &#x27;self&#x27;&#x60;,
+    );
+    res.setHeader(&#x27;X-Permitted-Cross-Domain-Policies&#x27;, &#x27;none&#x27;);
+    res.setHeader(&#x27;X-DNS-Prefetch-Control&#x27;, &#x27;off&#x27;);
+    res.setHeader(&#x27;X-XSS-Protection&#x27;, &#x27;1; mode&#x3D;block&#x27;);
+    res.setHeader(
+      &#x27;X-WebKit-CSP&#x27;,
+      &#x60;default-src &#x27;self&#x27;; script-src &#x27;self&#x27;; object-src &#x27;self&#x27;; style-src &#x27;self&#x27;; img-src &#x27;self&#x27; data:; media-src &#x27;self&#x27;; frame-src &#x27;self&#x27;; font-src &#x27;self&#x27;; connect-src &#x27;self&#x27;&#x60;,
+    );
+    res.removeHeader(&#x27;server&#x27;);
+    res.removeHeader(&#x27;X-Powered-By&#x27;);
+    res.setHeader(&#x27;X-XSS-Protection&#x27;, &#x27;1; mode&#x3D;block&#x27;);
     if (req.method &#x3D;&#x3D;&#x3D; &#x27;OPTIONS&#x27;) {
       return res.status(204).end();
     }

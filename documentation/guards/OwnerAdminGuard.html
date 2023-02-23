@@ -107,7 +107,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/common/guards/owner-admin.guard.ts:27</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/common/guards/owner-admin.guard.ts:26</a></div>
                             </td>
                         </tr>
 
@@ -194,8 +194,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="33"
-                            class="link-to-prism">src/common/guards/owner-admin.guard.ts:33</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="32"
+                            class="link-to-prism">src/common/guards/owner-admin.guard.ts:32</a></div>
                 </td>
             </tr>
 
@@ -251,7 +251,6 @@
             <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
   CanActivate,
   ExecutionContext,
-  HttpException,
   HttpStatus,
   Injectable,
   Scope,
@@ -262,7 +261,7 @@ import {
   ADMIN_NOT_AUTHORIZIED,
   OWNER_NOT_AUTHORIZIED,
   REFRESH_TOKEN_NOT_PROVIDED,
-  USER_NOT_DETECTED
+  USER_NOT_DETECTED,
 } from &#x27;../../auth/auth.constants&#x27;;
 import { OwnerJwtRefreshService } from &#x27;../../owner/services/jwt-refresh.service&#x27;;
 import { OwnerRefreshToken } from &#x27;../../owner/models/owner.refresh.token.model&#x27;;
@@ -294,30 +293,50 @@ export class OwnerAdminGuard implements CanActivate {
       const req &#x3D; context.switchToHttp().getRequest();
       const refreshToken &#x3D; req?.cookies[&#x27;refreshToken&#x27;];
       if (!refreshToken) {
-        throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request!&#x27;, REFRESH_TOKEN_NOT_PROVIDED);
+        throw new ApiException(
+          HttpStatus.BAD_REQUEST,
+          &#x27;Bad request!&#x27;,
+          REFRESH_TOKEN_NOT_PROVIDED,
+        );
       }
       const decodedToken &#x3D; Buffer.from(refreshToken, &#x27;base64&#x27;).toString(
         &#x27;ascii&#x27;,
       );
       const type: &#x27;OWNER&#x27; | &#x27;ADMIN&#x27; | null &#x3D; req[&#x27;type&#x27;];
       if (type &#x3D;&#x3D;&#x3D; undefined) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, USER_NOT_DETECTED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          USER_NOT_DETECTED,
+        );
       }
       if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;OWNER&#x27;) {
         const userRefreshToken &#x3D;
           await this.ownerJwtRefreshTokenService.findToken(decodedToken);
         if (!userRefreshToken) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, OWNER_NOT_AUTHORIZIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            &#x27;Unathorized!&#x27;,
+            OWNER_NOT_AUTHORIZIED,
+          );
         }
         const payload: Payload &#x3D; req?.payload;
         if (!payload) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, OWNER_NOT_AUTHORIZIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            &#x27;Unathorized!&#x27;,
+            OWNER_NOT_AUTHORIZIED,
+          );
         }
         if (
           userRefreshToken instanceof OwnerRefreshToken &amp;&amp;
           payload.userId !&#x3D;&#x3D; userRefreshToken.ownerId
         ) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, OWNER_NOT_AUTHORIZIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            &#x27;Unathorized!&#x27;,
+            OWNER_NOT_AUTHORIZIED,
+          );
         }
         const refreshPayload &#x3D;
           await this.ownerJwtRefreshTokenService.validateRefreshToken(
@@ -328,10 +347,15 @@ export class OwnerAdminGuard implements CanActivate {
         }
         if (
           !refreshPayload.roles.some(
-          (role: { value: string; description: string }) &#x3D;&gt;
-            requiredRoles.includes(role.value))
+            (role: { value: string; description: string }) &#x3D;&gt;
+              requiredRoles.includes(role.value),
+          )
         ) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, ACCESS_DENIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            &#x27;Unathorized!&#x27;,
+            ACCESS_DENIED,
+          );
         }
         return true;
       }
@@ -339,17 +363,29 @@ export class OwnerAdminGuard implements CanActivate {
         const userRefreshToken &#x3D;
           await this.adminJwtRefreshTokenService.findToken(decodedToken);
         if (!userRefreshToken) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, ADMIN_NOT_AUTHORIZIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            &#x27;Unathorized!&#x27;,
+            ADMIN_NOT_AUTHORIZIED,
+          );
         }
         const payload: Payload &#x3D; req?.payload;
         if (!payload) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, ADMIN_NOT_AUTHORIZIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            &#x27;Unathorized!&#x27;,
+            ADMIN_NOT_AUTHORIZIED,
+          );
         }
         if (
           userRefreshToken instanceof AdminRefreshToken &amp;&amp;
           payload.userId !&#x3D;&#x3D; userRefreshToken.adminId
         ) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, ADMIN_NOT_AUTHORIZIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            &#x27;Unathorized!&#x27;,
+            ADMIN_NOT_AUTHORIZIED,
+          );
         }
         const refreshPayload &#x3D;
           await this.adminJwtRefreshTokenService.validateRefreshToken(
@@ -357,14 +393,23 @@ export class OwnerAdminGuard implements CanActivate {
           );
         if (
           !refreshPayload.roles.some(
-          (role: { value: string; description: string }) &#x3D;&gt;
-            requiredRoles.includes(role.value))
+            (role: { value: string; description: string }) &#x3D;&gt;
+              requiredRoles.includes(role.value),
+          )
         ) {
-          throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, ACCESS_DENIED);
+          throw new ApiException(
+            HttpStatus.UNAUTHORIZED,
+            &#x27;Unathorized!&#x27;,
+            ACCESS_DENIED,
+          );
         }
         return true;
       }
-      throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, ACCESS_DENIED);
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        &#x27;Unathorized!&#x27;,
+        ACCESS_DENIED,
+      );
     })();
   }
 }

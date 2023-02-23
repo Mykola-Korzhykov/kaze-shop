@@ -214,7 +214,10 @@ export class ProductMiddleware implements NestMiddleware {
     try {
       const userAgent &#x3D; req.headers[&#x27;user-agent&#x27;];
       res.setHeader(&#x27;Access-Control-Request-Headers&#x27;, &#x27;Authorization&#x27;);
-      res.setHeader(&#x27;Access-Control-Request-Method&#x27;, &#x27;POST, GET, PUT, PATCH, DELETE&#x27;);
+      res.setHeader(
+        &#x27;Access-Control-Request-Method&#x27;,
+        &#x27;POST, GET, PUT, PATCH, DELETE&#x27;,
+      );
       res.setHeader(&#x27;Timing-Allow-Origin&#x27;, &#x60;${process.env.CLIENT_URL.trim()}&#x60;);
       res.setHeader(&#x27;X-Content-Type-Options&#x27;, &#x27;nosniff&#x27;);
       req[&#x27;userAgent&#x27;] &#x3D; userAgent;

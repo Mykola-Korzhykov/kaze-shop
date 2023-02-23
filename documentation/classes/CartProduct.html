@@ -62,7 +62,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/cart/models/cart-item.model.ts</code>
+            <code>src/cart/models/cart.product.model.ts</code>
         </p>
 
 
@@ -177,7 +177,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/cart/models/cart-item.model.ts:54</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">src/cart/models/cart.product.model.ts:54</a></div>
                         </td>
                     </tr>
 
@@ -213,7 +213,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/cart/models/cart-item.model.ts:42</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">src/cart/models/cart.product.model.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -249,7 +249,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/cart/models/cart-item.model.ts:22</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/cart/models/cart.product.model.ts:22</a></div>
                         </td>
                     </tr>
 
@@ -285,7 +285,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/cart/models/cart-item.model.ts:57</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/cart/models/cart.product.model.ts:57</a></div>
                         </td>
                     </tr>
 
@@ -321,7 +321,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/cart/models/cart-item.model.ts:32</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/cart/models/cart.product.model.ts:32</a></div>
                         </td>
                     </tr>
 
@@ -357,7 +357,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/cart/models/cart-item.model.ts:51</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="51" class="link-to-prism">src/cart/models/cart.product.model.ts:51</a></div>
                         </td>
                     </tr>
 
@@ -392,7 +392,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="63"
-                            class="link-to-prism">src/cart/models/cart-item.model.ts:63</a></div>
+                            class="link-to-prism">src/cart/models/cart.product.model.ts:63</a></div>
                 </td>
             </tr>
 
@@ -429,7 +429,7 @@
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Defined in <a href="" data-line="59"
-                            class="link-to-prism">src/cart/models/cart-item.model.ts:59</a></div>
+                            class="link-to-prism">src/cart/models/cart.product.model.ts:59</a></div>
                 </td>
             </tr>
 
@@ -464,10 +464,10 @@
   ForeignKey,
   BelongsTo,
 } from &#x27;sequelize-typescript&#x27;;
-import { Product } from &#x27;../../product/product.model&#x27;;
+import { Product } from &#x27;../../product/models/product.model&#x27;;
 import { Cart } from &#x27;./cart.model&#x27;;
 
-@Table({ tableName: &#x27;cartproduct&#x27; })
+@Table({ tableName: &#x27;CART_products&#x27; })
 export class CartProduct extends Model&lt;CartProduct&gt; {
   @Column({
     type: DataType.INTEGER,

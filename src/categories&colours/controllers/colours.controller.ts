@@ -34,13 +34,13 @@ import { ColoursService } from '../services/colours.service';
 @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
 @UseInterceptors(ClassSerializerInterceptor)
 @UseInterceptors(CacheInterceptor)
-@Controller('categories')
+@Controller('colours')
 export class ColoursController {
   constructor(private readonly coloursService: ColoursService) {}
 
   @Throttle(700, 7000)
   @CacheTTL(200)
-  @Get('get_categoties')
+  @Get('get_colours')
   getcolours(): Promise<ReturnedColour[]> {
     return this.coloursService.getColours();
   }

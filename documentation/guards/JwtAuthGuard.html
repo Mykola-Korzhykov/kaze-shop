@@ -247,22 +247,38 @@ export class JwtAuthGuard implements CanActivate {
       const req &#x3D; context.switchToHttp().getRequest();
       const authHeader &#x3D; req.headers.authorization;
       if (!authHeader) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, USER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          USER_NOT_AUTHORIZIED,
+        );
       }
       const bearer &#x3D; authHeader.split(&#x27; &#x27;)[0];
       const accessToken &#x3D; authHeader.split(&#x27; &#x27;)[1];
       if (bearer !&#x3D;&#x3D; &#x27;Bearer&#x27; || !accessToken) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, USER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          USER_NOT_AUTHORIZIED,
+        );
       }
       const decodedToken &#x3D; Buffer.from(accessToken, &#x27;base64&#x27;).toString(&#x27;ascii&#x27;);
       let payload: Payload;
       try {
         payload &#x3D; await this.authService.validateAccessToken(decodedToken);
       } catch (err) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, USER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          USER_NOT_AUTHORIZIED,
+        );
       }
       if (!payload) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, USER_NOT_AUTHORIZIED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          USER_NOT_AUTHORIZIED,
+        );
       }
       req.payload &#x3D; payload;
       return true;

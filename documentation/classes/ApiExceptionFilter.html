@@ -131,8 +131,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="8"
-                            class="link-to-prism">src/common/filters/api-exception.filter.ts:8</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="7"
+                            class="link-to-prism">src/common/filters/api-exception.filter.ts:7</a></div>
                 </td>
             </tr>
 
@@ -214,17 +214,18 @@ export class ApiExceptionFilter implements ExceptionFilter {
     const request &#x3D; ctx.getRequest&lt;Request&gt;();
     const status &#x3D; exception.status || 500;
     response.status(status).send({
-        success: false,
-        message: exception.message,
-        rawErrors: exception.errors,
-        stack:
-            exception.stack.toString().split(&#x27; &#x27;)[0] +
-            exception.stack.toString().split(&#x27; &#x27;)[1],
-        timestamp: new Date().toISOString(),
-        path: request.url,
+      success: false,
+      message: exception.message,
+      rawErrors: exception.errors,
+      stack:
+        exception.stack.toString().split(&#x27; &#x27;)[0] +
+        exception.stack.toString().split(&#x27; &#x27;)[1],
+      timestamp: new Date().toISOString(),
+      path: request.url,
     });
   }
-}</code></pre>
+}
+</code></pre>
     </div>
 </div>
 

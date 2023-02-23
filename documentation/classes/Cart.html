@@ -89,7 +89,7 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Public</span>
                                 <a href="#cartProducts" >cartProducts</a>
                             </li>
                             <li>
@@ -101,7 +101,7 @@
                                 <a href="#id" >id</a>
                             </li>
                             <li>
-                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Public</span>
                                 <a href="#products" >products</a>
                             </li>
                             <li>
@@ -143,6 +143,9 @@
                             <li>
                                 <a href="#setCartStatus" >setCartStatus</a>
                             </li>
+                            <li>
+                                <a href="#setUser" >setUser</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -167,7 +170,7 @@
                 <td class="col-md-4">
                     <a name="cartProducts"></a>
                     <span class="name">
-                            <span class="modifier">Private</span>
+                            <span class="modifier">Public</span>
                         <span ><b>cartProducts</b></span>
                         <a href="#cartProducts"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -275,7 +278,7 @@
                 <td class="col-md-4">
                     <a name="products"></a>
                     <span class="name">
-                            <span class="modifier">Private</span>
+                            <span class="modifier">Public</span>
                         <span ><b>products</b></span>
                         <a href="#products"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -283,7 +286,7 @@
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>    <code>Product[]</code>
+                        <i>Type : </i>        <code><a href="../classes/Product.html" target="_self" >Product[]</a></code>
 
                     </td>
                 </tr>
@@ -524,7 +527,7 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Product[]</code>
+                        <b>Returns : </b>        <code><a href="../classes/Product.html" target="_self" >Product[]</a></code>
 
                     </div>
                 </td>
@@ -637,6 +640,75 @@
             </tr>
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setUser"></a>
+                    <span class="name">
+                        <span ><b>setUser</b></span>
+                        <a href="#setUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setUser(user: <a href="../classes/User.html" target="_self">User</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="77"
+                            class="link-to-prism">src/cart/models/cart.model.ts:77</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>user</td>
+                                    <td>
+                                                <code><a href="../classes/User.html" target="_self" >User</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../classes/User.html" target="_self" >User</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </section>
 
 
@@ -697,10 +769,10 @@ export class Cart extends Model&lt;Cart&gt; {
   private user: User;
 
   @BelongsToMany(() &#x3D;&gt; Product, () &#x3D;&gt; CartProduct)
-  private products: Product[];
+  public products: Product[];
 
   @HasMany(() &#x3D;&gt; CartProduct)
-  private cartProducts: CartProduct[];
+  public cartProducts: CartProduct[];
 
   getCartStatus(): string {
     return this.cartStatus;
@@ -720,6 +792,11 @@ export class Cart extends Model&lt;Cart&gt; {
   }
 
   getUser(): User {
+    return this.user;
+  }
+
+  setUser(user: User): User {
+    this.user &#x3D; user;
     return this.user;
   }
 }

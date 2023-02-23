@@ -56,13 +56,13 @@
 <title>cluster_MailModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-230.8 601,-230.8 601,-32.8 8,-32.8"/>
 </g>
-<g id="clust6" class="cluster">
-<title>cluster_MailModule_providers</title>
-<polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 593,-92.8 593,-40.8 16,-40.8"/>
-</g>
 <g id="clust4" class="cluster">
 <title>cluster_MailModule_exports</title>
 <polygon fill="none" stroke="black" points="251,-170.8 251,-222.8 355,-222.8 355,-170.8 251,-170.8"/>
+</g>
+<g id="clust6" class="cluster">
+<title>cluster_MailModule_providers</title>
+<polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 593,-92.8 593,-40.8 16,-40.8"/>
 </g>
 <!-- MailService  -->
 <g id="node1" class="node">
@@ -221,8 +221,6 @@ import { Admin } from &#x27;../admin/models/admin.model&#x27;;
 import { AdminRefreshToken } from &#x27;../admin/models/admin.refresh.token.model&#x27;;
 import { CartProduct } from &#x27;../cart/models/cart.product.model&#x27;;
 import { Cart } from &#x27;../cart/models/cart.model&#x27;;
-import { Category } from &#x27;../categories/models/category.model&#x27;;
-import { ProductCategories } from &#x27;../categories/models/product.categories.model&#x27;;
 import { Order } from &#x27;../orders/models/order.model&#x27;;
 import { OrderProduct } from &#x27;../orders/models/order.product.model&#x27;;
 import { Owner } from &#x27;../owner/models/owner.model&#x27;;
@@ -232,6 +230,7 @@ import { Role } from &#x27;../roles/models/roles.model&#x27;;
 import { UserRoles } from &#x27;../roles/models/user.roles.model&#x27;;
 import { User } from &#x27;../users/models/user.model&#x27;;
 import { UserRefreshToken } from &#x27;../users/models/user.refresh.token.model&#x27;;
+import { Currencies } from &#x27;src/owner/models/currencies.model&#x27;;
 
 @Module({
   providers: [MailService, UsersService, OwnerService, AdminService],
@@ -245,8 +244,6 @@ import { UserRefreshToken } from &#x27;../users/models/user.refresh.token.model&
       Product,
       Order,
       OrderProduct,
-      Category,
-      ProductCategories,
       Admin,
       AdminRefreshToken,
       Owner,
@@ -257,6 +254,7 @@ import { UserRefreshToken } from &#x27;../users/models/user.refresh.token.model&
       UserRoles,
       Cart,
       CartProduct,
+      Currencies,
     ]),
     forwardRef(() &#x3D;&gt; AdminModule),
     forwardRef(() &#x3D;&gt; RolesModule),

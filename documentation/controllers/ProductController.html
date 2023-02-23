@@ -149,7 +149,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>addBookmark(productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+<code>addBookmark(next: NextFunction, productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
@@ -163,8 +163,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="162"
-                            class="link-to-prism">src/product/product.controller.ts:162</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="220"
+                            class="link-to-prism">src/product/product.controller.ts:220</a></div>
                 </td>
             </tr>
 
@@ -184,6 +184,18 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td>next</td>
+                                    <td>
+                                            <code>NextFunction</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
                                 <tr>
                                     <td>productId</td>
                                     <td>
@@ -214,7 +226,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>    <code>void | Promise</code>
 
                     </div>
                     <div class="io-description">
@@ -237,7 +249,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>addWatchedProduct(productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+<code>addWatchedProduct(next: NextFunction, productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
@@ -251,8 +263,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="147"
-                            class="link-to-prism">src/product/product.controller.ts:147</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="204"
+                            class="link-to-prism">src/product/product.controller.ts:204</a></div>
                 </td>
             </tr>
 
@@ -272,6 +284,18 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td>next</td>
+                                    <td>
+                                            <code>NextFunction</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
                                 <tr>
                                     <td>productId</td>
                                     <td>
@@ -302,7 +326,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>    <code>void | Promise</code>
 
                     </div>
                     <div class="io-description">
@@ -339,8 +363,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="235"
-                            class="link-to-prism">src/product/product.controller.ts:235</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="315"
+                            class="link-to-prism">src/product/product.controller.ts:315</a></div>
                 </td>
             </tr>
 
@@ -451,8 +475,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="357"
-                            class="link-to-prism">src/product/product.controller.ts:357</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="480"
+                            class="link-to-prism">src/product/product.controller.ts:480</a></div>
                 </td>
             </tr>
 
@@ -527,8 +551,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="344"
-                            class="link-to-prism">src/product/product.controller.ts:344</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="459"
+                            class="link-to-prism">src/product/product.controller.ts:459</a></div>
                 </td>
             </tr>
 
@@ -566,7 +590,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>    <code>Promise&lt;number&gt;</code>
 
                     </div>
                     <div class="io-description">
@@ -589,7 +613,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>filterProducts(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, pageSize: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, order: "ASC" | "DESC", sizes: string[], colours: string[], categories: number[])</code>
+<code>filterProducts(response: Response, request: Request, next: NextFunction, queryFilterDto: <a href="../classes/QueryFilterDto.html" target="_self">QueryFilterDto</a>)</code>
                 </td>
             </tr>
 
@@ -597,14 +621,14 @@
                 <td class="col-md-4">
                     <b>Decorators : </b>
                     <br />
-                    <code>@Throttle(70, 700)<br />@Get(&#x27;filter&#x27;)<br /></code>
+                    <code>@Throttle(70, 700)<br />@UsePipes(ValidationPipe)<br />@Get(&#x27;filter&#x27;)<br /></code>
                 </td>
             </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="86"
-                            class="link-to-prism">src/product/product.controller.ts:86</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="110"
+                            class="link-to-prism">src/product/product.controller.ts:110</a></div>
                 </td>
             </tr>
 
@@ -625,9 +649,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>page</td>
+                                    <td>response</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            <code>Response</code>
                                     </td>
 
                                     <td>
@@ -637,9 +661,9 @@
 
                                 </tr>
                                 <tr>
-                                    <td>pageSize</td>
+                                    <td>request</td>
                                     <td>
-                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            <code>Request</code>
                                     </td>
 
                                     <td>
@@ -649,9 +673,9 @@
 
                                 </tr>
                                 <tr>
-                                    <td>order</td>
+                                    <td>next</td>
                                     <td>
-                                            <code>&quot;ASC&quot; | &quot;DESC&quot;</code>
+                                            <code>NextFunction</code>
                                     </td>
 
                                     <td>
@@ -661,33 +685,9 @@
 
                                 </tr>
                                 <tr>
-                                    <td>sizes</td>
+                                    <td>queryFilterDto</td>
                                     <td>
-                                            <code>string[]</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>colours</td>
-                                    <td>
-                                            <code>string[]</code>
-                                    </td>
-
-                                    <td>
-                                        No
-                                    </td>
-
-
-                                </tr>
-                                <tr>
-                                    <td>categories</td>
-                                    <td>
-                                            <code>number[]</code>
+                                                <code><a href="../classes/QueryFilterDto.html" target="_self" >QueryFilterDto</a></code>
                                     </td>
 
                                     <td>
@@ -702,7 +702,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;ReturnedProducts&gt;</code>
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                     </div>
                     <div class="io-description">
@@ -725,7 +725,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getBookmarkProducts(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, pageSize: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+<code>getBookmarkProducts(response: Response, request: Request, next: NextFunction, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, pageSize: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
@@ -739,8 +739,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="115"
-                            class="link-to-prism">src/product/product.controller.ts:115</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="150"
+                            class="link-to-prism">src/product/product.controller.ts:150</a></div>
                 </td>
             </tr>
 
@@ -760,6 +760,42 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td>response</td>
+                                    <td>
+                                            <code>Response</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>request</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>next</td>
+                                    <td>
+                                            <code>NextFunction</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
                                 <tr>
                                     <td>page</td>
                                     <td>
@@ -802,7 +838,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                     </div>
                     <div class="io-description">
@@ -825,7 +861,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getById(productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+<code>getById(response: Response, request: Request, next: NextFunction, productId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
@@ -839,8 +875,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="103"
-                            class="link-to-prism">src/product/product.controller.ts:103</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="131"
+                            class="link-to-prism">src/product/product.controller.ts:131</a></div>
                 </td>
             </tr>
 
@@ -861,6 +897,42 @@
                             </thead>
                             <tbody>
                                 <tr>
+                                    <td>response</td>
+                                    <td>
+                                            <code>Response</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>request</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>next</td>
+                                    <td>
+                                            <code>NextFunction</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
                                     <td>productId</td>
                                     <td>
                                                 <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
@@ -878,7 +950,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                     </div>
                     <div class="io-description">
@@ -901,7 +973,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getProducts(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, pageSize: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+<code>getProducts(response: Response, request: Request, next: NextFunction, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, pageSize: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
@@ -915,8 +987,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="59"
-                            class="link-to-prism">src/product/product.controller.ts:59</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="61"
+                            class="link-to-prism">src/product/product.controller.ts:61</a></div>
                 </td>
             </tr>
 
@@ -936,6 +1008,42 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td>response</td>
+                                    <td>
+                                            <code>Response</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>request</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>next</td>
+                                    <td>
+                                            <code>NextFunction</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
                                 <tr>
                                     <td>page</td>
                                     <td>
@@ -966,7 +1074,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;ReturnedProducts&gt;</code>
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                     </div>
                     <div class="io-description">
@@ -989,7 +1097,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getProductsByIds(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, pageSize: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productIds: number[])</code>
+<code>getProductsByIds(response: Response, request: Request, next: NextFunction, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, pageSize: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, productIds: number[])</code>
                 </td>
             </tr>
 
@@ -1003,8 +1111,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="72"
-                            class="link-to-prism">src/product/product.controller.ts:72</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="84"
+                            class="link-to-prism">src/product/product.controller.ts:84</a></div>
                 </td>
             </tr>
 
@@ -1024,6 +1132,42 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td>response</td>
+                                    <td>
+                                            <code>Response</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>request</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>next</td>
+                                    <td>
+                                            <code>NextFunction</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
                                 <tr>
                                     <td>page</td>
                                     <td>
@@ -1066,7 +1210,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Promise&lt;ReturnedProducts&gt;</code>
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                     </div>
                     <div class="io-description">
@@ -1089,7 +1233,7 @@
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getWatchedProducts(page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, pageSize: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+<code>getWatchedProducts(response: Response, request: Request, next: NextFunction, page: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, pageSize: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
@@ -1103,8 +1247,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="131"
-                            class="link-to-prism">src/product/product.controller.ts:131</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="177"
+                            class="link-to-prism">src/product/product.controller.ts:177</a></div>
                 </td>
             </tr>
 
@@ -1124,6 +1268,42 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <td>response</td>
+                                    <td>
+                                            <code>Response</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>request</td>
+                                    <td>
+                                            <code>Request</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                                <tr>
+                                    <td>next</td>
+                                    <td>
+                                            <code>NextFunction</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
                                 <tr>
                                     <td>page</td>
                                     <td>
@@ -1166,7 +1346,7 @@
                     <div>
                     </div>
                     <div class="io-description">
-                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                     </div>
                     <div class="io-description">
@@ -1203,8 +1383,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="314"
-                            class="link-to-prism">src/product/product.controller.ts:314</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="422"
+                            class="link-to-prism">src/product/product.controller.ts:422</a></div>
                 </td>
             </tr>
 
@@ -1312,6 +1492,7 @@
   Delete,
   Get,
   HttpCode,
+  Next,
   Param,
   ParseArrayPipe,
   ParseIntPipe,
@@ -1319,6 +1500,8 @@
   Post,
   Put,
   Query,
+  Req,
+  Res,
   UploadedFiles,
   UseFilters,
   UseGuards,
@@ -1348,70 +1531,102 @@ import { ApiExceptionFilter } from &#x27;../common/filters/api-exception.filter&
 import { existsSync, mkdirSync } from &#x27;fs&#x27;;
 import { v4 } from &#x27;uuid&#x27;;
 import { EditContentGuard } from &#x27;../common/guards/edit-content.guard&#x27;;
-import { ReturnedProduct, ReturnedProducts } from &#x27;../core/interfaces/product.interfaces&#x27;;
+import { ReturnedProduct } from &#x27;../core/interfaces/product.interfaces&#x27;;
 import { ParseFormDataJsonPipe } from &#x27;../common/pipes/formdata.pipe&#x27;;
 import { UserGuard } from &#x27;src/common/guards/user.guard&#x27;;
+import { QueryFilterDto } from &#x27;./dto/query-filter.dto&#x27;;
 @UseGuards(ThrottlerBehindProxyGuard)
 @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
 @UseInterceptors(CacheInterceptor, ClassSerializerInterceptor)
 @Controller(&#x27;product&#x27;)
 export class ProductController {
-  constructor(
-    private readonly productService: ProductService,
-  ) {}
-  
+  constructor(private readonly productService: ProductService) {}
+
   @Throttle(70, 700)
   @Get(&#x27;/&#x27;)
   getProducts(
+    @Res() response: Response,
+    @Req() request: Request,
+    @Next() next: NextFunction,
     @Query(&#x27;page&#x27;, ParseIntPipe) page: number,
     @Query(&#x27;pageSize&#x27;, ParseIntPipe) pageSize: number,
-  ): Promise&lt;ReturnedProducts&gt; {
-    try {
-      return this.productService.getProducts(page, pageSize);
-    } catch (err: unknown) {
-      throw err;
-    }
+  ) {
+    (async () &#x3D;&gt; {
+      try {
+        return this.productService.getProducts(
+          request,
+          response,
+          page,
+          pageSize,
+        );
+      } catch (err: unknown) {
+        return next(err);
+      }
+    })();
   }
 
   @Throttle(70, 700)
   @Get(&#x27;get&#x27;)
   getProductsByIds(
+    @Res() response: Response,
+    @Req() request: Request,
+    @Next() next: NextFunction,
     @Query(&#x27;page&#x27;, ParseIntPipe) page: number,
     @Query(&#x27;pageSize&#x27;, ParseIntPipe) pageSize: number,
     @Query(&#x27;productIds&#x27;, ParseArrayPipe) productIds: number[],
-  ): Promise&lt;ReturnedProducts&gt; {
-    try {
-      return this.productService.getProductsByIds(productIds, page, pageSize);
-    } catch (err: unknown) {
-      throw err;
-    }
+  ) {
+    (async () &#x3D;&gt; {
+      try {
+        return this.productService.getProductsByIds(
+          request,
+          response,
+          productIds,
+          page,
+          pageSize,
+        );
+      } catch (err: unknown) {
+        return next(err);
+      }
+    })();
   }
 
   @Throttle(70, 700)
+  @UsePipes(ValidationPipe)
   @Get(&#x27;filter&#x27;)
   filterProducts(
-    @Query(&#x27;page&#x27;, ParseIntPipe) page: number,
-    @Query(&#x27;pageSize&#x27;, ParseIntPipe) pageSize: number,
-    @Query(&#x27;order&#x27;) order: &#x27;ASC&#x27; | &#x27;DESC&#x27;,
-    @Query(&#x27;sizes&#x27;, ParseArrayPipe) sizes: string[],
-    @Query(&#x27;colours&#x27;, ParseArrayPipe) colours: string[],
-    @Query(&#x27;categories&#x27;, ParseArrayPipe) categories: number[],
-  ): Promise&lt;ReturnedProducts&gt; {
-    try{
-      return this.productService.filterProducts(page, pageSize, order, sizes, colours, categories);
-    } catch (err: unknown) {
-      throw err;
-    }
-  }    
+    @Res() response: Response,
+    @Req() request: Request,
+    @Next() next: NextFunction,
+    @Query() queryFilterDto: QueryFilterDto,
+  ) {
+    (async () &#x3D;&gt; {
+      try {
+        return this.productService.filterProducts(
+          request,
+          response,
+          queryFilterDto,
+        );
+      } catch (err: unknown) {
+        return next(err);
+      }
+    })();
+  }
 
   @Throttle(70, 700)
   @Get(&#x27;/:productId&#x27;)
-  getById(@Param(&#x27;productId&#x27;, ParseIntPipe) productId: number) {
-    try {
-      return this.productService.getProductById(productId);
-    } catch (err: unknown) {
-      throw err;
-    }
+  getById(
+    @Res() response: Response,
+    @Req() request: Request,
+    @Next() next: NextFunction,
+    @Param(&#x27;productId&#x27;, ParseIntPipe) productId: number,
+  ) {
+    (async () &#x3D;&gt; {
+      try {
+        return this.productService.getProductById(request, response, productId);
+      } catch (err: unknown) {
+        return next(err);
+      }
+    })();
   }
 
   @Throttle(70, 700)
@@ -1419,15 +1634,26 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RolesGuard, UserGuard)
   @Get(&#x27;bookmarkProducts&#x27;)
   getBookmarkProducts(
+    @Res() response: Response,
+    @Req() request: Request,
+    @Next() next: NextFunction,
     @Query(&#x27;page&#x27;, ParseIntPipe) page: number,
     @Query(&#x27;pageSize&#x27;, ParseIntPipe) pageSize: number,
     @UserId(&#x27;USER-ID&#x27;) userId: number,
   ) {
-    try {
-      return this.getBookmarkProducts(page, pageSize, userId);
-    } catch (err: unknown) {
-      throw err;
-    }
+    (async () &#x3D;&gt; {
+      try {
+        return this.productService.getBookmarks(
+          request,
+          response,
+          page,
+          pageSize,
+          userId,
+        );
+      } catch (err: unknown) {
+        return next(err);
+      }
+    })();
   }
 
   @Throttle(70, 700)
@@ -1435,15 +1661,26 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RolesGuard, UserGuard)
   @Get(&#x27;watchedProducts&#x27;)
   getWatchedProducts(
+    @Res() response: Response,
+    @Req() request: Request,
+    @Next() next: NextFunction,
     @Query(&#x27;page&#x27;, ParseIntPipe) page: number,
     @Query(&#x27;pageSize&#x27;, ParseIntPipe) pageSize: number,
     @UserId(&#x27;USER-ID&#x27;) userId: number,
   ) {
-    try {
-      return this.getWatchedProducts(page, pageSize, userId);
-    } catch (err: unknown) {
-      throw err;
-    }
+    (async () &#x3D;&gt; {
+      try {
+        return this.productService.getWatchedProducts(
+          request,
+          response,
+          page,
+          pageSize,
+          userId,
+        );
+      } catch (err: unknown) {
+        return next(err);
+      }
+    })();
   }
 
   @Throttle(70, 700)
@@ -1451,13 +1688,14 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RolesGuard, UserGuard)
   @Post(&#x27;addWatchedProduct&#x27;)
   addWatchedProduct(
+    @Next() next: NextFunction,
     @Query(&#x27;productId&#x27;, ParseIntPipe) productId: number,
     @UserId(&#x27;USER-ID&#x27;) userId: number,
-  ) {
+  ): void | Promise&lt;number&gt; {
     try {
-      return this.addWatchedProduct(productId, userId);
+      return this.productService.addWatchedProduct(productId, userId);
     } catch (err: unknown) {
-      throw err;
+      return next(err);
     }
   }
 
@@ -1466,13 +1704,14 @@ export class ProductController {
   @UseGuards(JwtAuthGuard, RolesGuard, UserGuard)
   @Post(&#x27;addBookmarkProduct&#x27;)
   addBookmark(
+    @Next() next: NextFunction,
     @Query(&#x27;productId&#x27;, ParseIntPipe) productId: number,
     @UserId(&#x27;USER-ID&#x27;) userId: number,
-  ) {
+  ): void | Promise&lt;number&gt; {
     try {
-      return this.addBookmark(productId, userId);
+      return this.productService.addBookmarkProduct(productId, userId);
     } catch (err: unknown) {
-      throw err;
+      return next(err);
     }
   }
 
@@ -1480,66 +1719,88 @@ export class ProductController {
   @Put(&#x27;create_product&#x27;)
   @Roles(&#x27;OWNER&#x27;, &#x27;ADMIN&#x27;)
   @UsePipes(new ValidationPipe({ transform: true }))
-  @UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard, AddContentGuard)
+  @UseGuards(
+    JwtAuthGuard,
+    RolesGuard,
+    OwnerAdminGuard,
+    AuthFerfershGuard,
+    AddContentGuard,
+  )
   @HttpCode(201)
   @UseInterceptors(
-    FileFieldsInterceptor([
-      { name: &#x27;images&#x27;, maxCount: 20 },
-      { name: &#x27;sizeChartImage&#x27;, maxCount: 1 },
-    ], {
-      fileFilter: (
-        req: Request,
-        file: Express.Multer.File,
-        callback: (error: Error, acceptFile: boolean) &#x3D;&gt; void
-      ) &#x3D;&gt; {
-        const filetypes &#x3D; /jpeg|jpg|png|gif|svg/;
-        const extname &#x3D; filetypes.test(path.extname(file.originalname).toLowerCase());
-        const mimetype &#x3D; filetypes.test(file.mimetype);
-        if (mimetype &amp;&amp; extname) {
-          return callback(null, true);
-        } else {
-          return callback(new Error(&#x27;Only image files are allowed!&#x27;), false);
-        }
+    FileFieldsInterceptor(
+      [
+        { name: &#x27;images&#x27;, maxCount: 20 },
+        { name: &#x27;sizeChartImage&#x27;, maxCount: 1 },
+      ],
+      {
+        fileFilter: (
+          req: Request,
+          file: Express.Multer.File,
+          callback: (error: Error, acceptFile: boolean) &#x3D;&gt; void,
+        ) &#x3D;&gt; {
+          const filetypes &#x3D; /jpeg|jpg|png|gif|svg/;
+          const extname &#x3D; filetypes.test(
+            path.extname(file.originalname).toLowerCase(),
+          );
+          const mimetype &#x3D; filetypes.test(file.mimetype);
+          if (mimetype &amp;&amp; extname) {
+            return callback(null, true);
+          } else {
+            return callback(new Error(&#x27;Only image files are allowed!&#x27;), false);
+          }
+        },
+        storage: diskStorage({
+          destination: (
+            req,
+            file: Express.Multer.File,
+            callback: (error: Error, destination: string) &#x3D;&gt; void,
+          ) &#x3D;&gt; {
+            if (!JSON.parse(req.body.title)?.en) {
+              return callback(new Error(&#x27;Invalid params!&#x27;), null);
+            }
+            const destination &#x3D; path.join(
+              __dirname,
+              &#x27;static&#x27;,
+              &#x27;products&#x27;,
+              &#x60;${JSON.parse(req.body.title)?.en.split(&#x27; &#x27;).join(&#x27;_&#x27;)}&#x60;,
+            );
+            const imagesPath &#x3D; path.join(
+              __dirname,
+              &#x27;static&#x27;,
+              &#x27;products&#x27;,
+              &#x60;${JSON.parse(req.body.title)?.en.split(&#x27; &#x27;).join(&#x27;_&#x27;)}&#x60;,
+              file.fieldname,
+            );
+            if (!existsSync(destination)) {
+              mkdirSync(destination, { recursive: true });
+            }
+            if (!existsSync(imagesPath)) {
+              mkdirSync(imagesPath, { recursive: true });
+            }
+            callback(null, imagesPath);
+          },
+          filename: (req, file: Express.Multer.File, callback: any) &#x3D;&gt; {
+            if (!JSON.parse(req.body.title)?.en) {
+              return callback(new Error(&#x27;Invalid params!&#x27;), null);
+            }
+            const name &#x3D; file.originalname.split(&#x27;.&#x27;)[0];
+            const ext &#x3D; extname(file.originalname);
+            const randomName &#x3D; v4();
+            callback(
+              null,
+              &#x60;${randomName}--${JSON.parse(req.body.title)
+                ?.en.split(&#x27; &#x27;)
+                .join(&#x27;_&#x27;)}--${name}${ext}&#x60;,
+            );
+          },
+        }),
       },
-      storage: diskStorage({
-        destination: (
-          req, file: Express.Multer.File,
-          callback: (error: Error, destination: string) &#x3D;&gt; void
-        ) &#x3D;&gt; {
-          if (!JSON.parse(req.body.title)?.en) {
-            return callback(new Error(&#x27;Invalid params!&#x27;), null);
-          }
-          const destination &#x3D; path.join(
-            __dirname, &#x27;static&#x27;, &#x27;products&#x27;, &#x60;${JSON.parse(req.body.title)?.en.split(&#x27; &#x27;).join(&#x27;_&#x27;)}&#x60;
-          );
-          const imagesPath &#x3D; path.join(
-            __dirname, &#x27;static&#x27;, &#x27;products&#x27;, &#x60;${JSON.parse(req.body.title)?.en.split(&#x27; &#x27;).join(&#x27;_&#x27;)}&#x60;, file.fieldname
-          );
-          if (!existsSync(destination)) {
-            mkdirSync(destination, { recursive: true });
-          }
-          if (!existsSync(imagesPath)) {
-            mkdirSync(imagesPath, { recursive: true });
-          }
-          callback(null, imagesPath);
-        },
-        filename: (
-          req, file: Express.Multer.File,
-          callback: any,
-        ) &#x3D;&gt; {
-          if (!JSON.parse(req.body.title)?.en) {
-            return callback(new Error(&#x27;Invalid params!&#x27;), null);
-          }
-          const name &#x3D; file.originalname.split(&#x27;.&#x27;)[0];
-          const ext &#x3D; extname(file.originalname);
-          const randomName &#x3D; v4();
-          callback(null, &#x60;${randomName}--${JSON.parse(req.body.title)?.en.split(&#x27; &#x27;).join(&#x27;_&#x27;)}--${name}${ext}&#x60;);
-        },
-      })
-    }),
+    ),
   )
   createProduct(
-    @Body(new ParseFormDataJsonPipe({except: [&#x27;images&#x27;, &#x27;sizeChartImage&#x27;]})) createProductDto: CreateProductDto,
+    @Body(new ParseFormDataJsonPipe({ except: [&#x27;images&#x27;, &#x27;sizeChartImage&#x27;] }))
+    createProductDto: CreateProductDto,
     @UploadedFiles()
     files: {
       images?: Express.Multer.File[];
@@ -1549,7 +1810,13 @@ export class ProductController {
     @Type(&#x27;REFRESHTOKEN&#x27;) type: &#x27;OWNER&#x27; | &#x27;ADMIN&#x27; | null,
   ): Promise&lt;ReturnedProduct&gt; {
     try {
-      return this.productService.createProduct(createProductDto, userId, type, files.images, files.sizeChartImage);
+      return this.productService.createProduct(
+        createProductDto,
+        userId,
+        type,
+        files.images,
+        files.sizeChartImage,
+      );
     } catch (error: unknown) {
       throw error;
     }
@@ -1559,66 +1826,88 @@ export class ProductController {
   @Patch(&#x27;update_product/:productId&#x27;)
   @Roles(&#x27;OWNER&#x27;, &#x27;ADMIN&#x27;)
   @UsePipes(new ValidationPipe({ transform: true }))
-  @UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard, EditContentGuard)
+  @UseGuards(
+    JwtAuthGuard,
+    RolesGuard,
+    OwnerAdminGuard,
+    AuthFerfershGuard,
+    EditContentGuard,
+  )
   @HttpCode(202)
   @UseInterceptors(
-    FileFieldsInterceptor([
-      { name: &#x27;images&#x27;, maxCount: 20 },
-      { name: &#x27;sizeChartImage&#x27;, maxCount: 1 },
-    ], {
-      fileFilter: (
-        req: Request,
-        file: Express.Multer.File,
-        callback: (error: Error, acceptFile: boolean) &#x3D;&gt; void
-      ) &#x3D;&gt; {
-        const filetypes &#x3D; /jpeg|jpg|png|gif|svg/;
-        const extname &#x3D; filetypes.test(path.extname(file.originalname).toLowerCase());
-        const mimetype &#x3D; filetypes.test(file.mimetype);
-        if (mimetype &amp;&amp; extname) {
-          return callback(null, true);
-        } else {
-          return callback(new Error(&#x27;Only image files are allowed!&#x27;), false);
-        }
+    FileFieldsInterceptor(
+      [
+        { name: &#x27;images&#x27;, maxCount: 20 },
+        { name: &#x27;sizeChartImage&#x27;, maxCount: 1 },
+      ],
+      {
+        fileFilter: (
+          req: Request,
+          file: Express.Multer.File,
+          callback: (error: Error, acceptFile: boolean) &#x3D;&gt; void,
+        ) &#x3D;&gt; {
+          const filetypes &#x3D; /jpeg|jpg|png|gif|svg/;
+          const extname &#x3D; filetypes.test(
+            path.extname(file.originalname).toLowerCase(),
+          );
+          const mimetype &#x3D; filetypes.test(file.mimetype);
+          if (mimetype &amp;&amp; extname) {
+            return callback(null, true);
+          } else {
+            return callback(new Error(&#x27;Only image files are allowed!&#x27;), false);
+          }
+        },
+        storage: diskStorage({
+          destination: (
+            req,
+            file: Express.Multer.File,
+            callback: (error: Error, destination: string) &#x3D;&gt; void,
+          ) &#x3D;&gt; {
+            if (!JSON.parse(req.body.title)?.en) {
+              return callback(new Error(&#x27;Invalid params!&#x27;), null);
+            }
+            const destination &#x3D; path.join(
+              __dirname,
+              &#x27;static&#x27;,
+              &#x27;products&#x27;,
+              &#x60;${JSON.parse(req.body.title)?.en.split(&#x27; &#x27;).join(&#x27;_&#x27;)}&#x60;,
+            );
+            const imagesPath &#x3D; path.join(
+              __dirname,
+              &#x27;static&#x27;,
+              &#x27;products&#x27;,
+              &#x60;${JSON.parse(req.body.title)?.en.split(&#x27; &#x27;).join(&#x27;_&#x27;)}&#x60;,
+              file.fieldname,
+            );
+            if (!existsSync(destination)) {
+              mkdirSync(destination, { recursive: true });
+            }
+            if (!existsSync(imagesPath)) {
+              mkdirSync(imagesPath, { recursive: true });
+            }
+            callback(null, imagesPath);
+          },
+          filename: (req, file: Express.Multer.File, callback: any) &#x3D;&gt; {
+            if (!JSON.parse(req.body.title)?.en) {
+              return callback(new Error(&#x27;Invalid params!&#x27;), null);
+            }
+            const name &#x3D; file.originalname.split(&#x27;.&#x27;)[0];
+            const ext &#x3D; extname(file.originalname);
+            const randomName &#x3D; v4();
+            callback(
+              null,
+              &#x60;${randomName}--${JSON.parse(req.body.title)
+                ?.en.split(&#x27; &#x27;)
+                .join(&#x27;_&#x27;)}--${name}${ext}&#x60;,
+            );
+          },
+        }),
       },
-      storage: diskStorage({
-        destination: (
-          req, file: Express.Multer.File,
-          callback: (error: Error, destination: string) &#x3D;&gt; void
-        ) &#x3D;&gt; {
-          if (!JSON.parse(req.body.title)?.en) {
-            return callback(new Error(&#x27;Invalid params!&#x27;), null);
-          }
-          const destination &#x3D; path.join(
-            __dirname, &#x27;static&#x27;, &#x27;products&#x27;, &#x60;${JSON.parse(req.body.title)?.en.split(&#x27; &#x27;).join(&#x27;_&#x27;)}&#x60;
-          );
-          const imagesPath &#x3D; path.join(
-            __dirname, &#x27;static&#x27;, &#x27;products&#x27;, &#x60;${JSON.parse(req.body.title)?.en.split(&#x27; &#x27;).join(&#x27;_&#x27;)}&#x60;, file.fieldname
-          );
-          if (!existsSync(destination)) {
-            mkdirSync(destination, { recursive: true });
-          }
-          if (!existsSync(imagesPath)) {
-            mkdirSync(imagesPath, { recursive: true });
-          }
-          callback(null, imagesPath);
-        },
-        filename: (
-          req, file: Express.Multer.File,
-          callback: any,
-        ) &#x3D;&gt; {
-          if (!JSON.parse(req.body.title)?.en) {
-            return callback(new Error(&#x27;Invalid params!&#x27;), null);
-          }
-          const name &#x3D; file.originalname.split(&#x27;.&#x27;)[0];
-          const ext &#x3D; extname(file.originalname);
-          const randomName &#x3D; v4();
-          callback(null, &#x60;${randomName}--${JSON.parse(req.body.title)?.en.split(&#x27; &#x27;).join(&#x27;_&#x27;)}--${name}${ext}&#x60;);
-        },
-      })
-    }),
+    ),
   )
   updateProduct(
-    @Body(new ParseFormDataJsonPipe({except: [&#x27;images&#x27;, &#x27;sizeChartImage&#x27;]})) updateProductDto: UpdateProductDto,
+    @Body(new ParseFormDataJsonPipe({ except: [&#x27;images&#x27;, &#x27;sizeChartImage&#x27;] }))
+    updateProductDto: UpdateProductDto,
     @Param(&#x27;productId&#x27;, ParseIntPipe) productId: number,
     @UserId(&#x27;USER-ID&#x27;) userId: number,
     @Type(&#x27;REFRESHTOKEN&#x27;) type: &#x27;OWNER&#x27; | &#x27;ADMIN&#x27; | null,
@@ -1635,7 +1924,7 @@ export class ProductController {
         userId,
         type,
         files.images,
-        files.sizeChartImage
+        files.sizeChartImage,
       );
     } catch (err: unknown) {
       throw err;
@@ -1645,9 +1934,17 @@ export class ProductController {
   @Throttle(70, 700)
   @Delete(&#x27;delete_product/:productId&#x27;)
   @Roles(&#x27;OWNER&#x27;, &#x27;ADMIN&#x27;)
-  @UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard, EditContentGuard)
+  @UseGuards(
+    JwtAuthGuard,
+    RolesGuard,
+    OwnerAdminGuard,
+    AuthFerfershGuard,
+    EditContentGuard,
+  )
   @HttpCode(202)
-  deleteProduct(@Param(&#x27;productId&#x27;, ParseIntPipe) productId: number) {
+  deleteProduct(
+    @Param(&#x27;productId&#x27;, ParseIntPipe) productId: number,
+  ): Promise&lt;number&gt; {
     try {
       return this.productService.deleteProduct(productId);
     } catch (err: unknown) {
@@ -1658,12 +1955,16 @@ export class ProductController {
   @Throttle(70, 700)
   @Delete(&#x27;delete_image&#x27;)
   @Roles(&#x27;OWNER&#x27;, &#x27;ADMIN&#x27;)
-  @UseGuards(JwtAuthGuard, RolesGuard, OwnerAdminGuard, AuthFerfershGuard, EditContentGuard)
+  @UseGuards(
+    JwtAuthGuard,
+    RolesGuard,
+    OwnerAdminGuard,
+    AuthFerfershGuard,
+    EditContentGuard,
+  )
   @HttpCode(200)
-  deleteFile(
-    @Query(&#x27;filePath&#x27;) filePath: string,
-  ): Promise&lt;string&gt; {
-      return this.productService.deleteImage(filePath);
+  deleteFile(@Query(&#x27;filePath&#x27;) filePath: string): Promise&lt;string&gt; {
+    return this.productService.deleteImage(filePath);
   }
 }
 </code></pre>

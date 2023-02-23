@@ -20,7 +20,7 @@ import { UpdateProductDto } from './dto/update.product.dto';
 import { Product } from './models/product.model';
 import { UsersService } from '../users/services/users.service';
 import { USER_NOT_FOUND } from '../users/constants/user.constants';
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { QueryFilterDto } from './dto/query-filter.dto';
 import { Colour } from 'src/categories&colours/models/colours.model';
 import { ColoursService } from 'src/categories&colours/services/colours.service';
@@ -39,39 +39,113 @@ export class ProductService {
   async getProductsByCategory(
     request: Request,
     response: Response,
+    next: NextFunction,
     page: number,
     pageSize: number,
     categories: number[] | undefined,
   ) {
-    const currency: {
-      currencyCode: string;
-      symbol: string;
-      rate: number;
-    } = request['currency'];
-    let products = await this.productRepository.findAll({
-      include: { all: true },
-    });
-    if (categories && categories.length > 0) {
-      products = products.filter((product: Product) => {
-        if (
-          product.categories.some((category: Category) =>
-            categories.includes(category.id),
-          )
-        ) {
-          return product;
-        }
+    try {
+      const currency: {
+        currencyCode: string;
+        symbol: string;
+        rate: number;
+      } = request['currency'];
+      let products = await this.productRepository.findAll({
+        include: { all: true },
       });
+      if (categories && categories.length > 0) {
+        products = products.filter((product: Product) => {
+          if (
+            product.categories.some((category: Category) =>
+              categories
+                .map((category) => Number(category))
+                .includes(category.id),
+            )
+          ) {
+            return product;
+          }
+        });
+      }
+      return response.json({
+        products: products
+          .map((product: Product) => {
+            return {
+              id: product.id,
+              title: product.getTitle(),
+              description: product.getDescription(),
+              price:
+                Math.round(product.price * currency.rate) + currency.symbol,
+              quantity: product.quantity,
+              images: product.images,
+              hexes: product.hexes,
+              sizeChartImage: product.sizeChartImage,
+              sizes: product.sizes,
+              colours: product.colours,
+              categories: product.categories.map((category) => {
+                return {
+                  id: category.id,
+                  ua: category.ua,
+                  en: category.en,
+                  rs: category.rs,
+                  ru: category.ru,
+                  createdAt: category.createdAt,
+                  updatedAt: category.updatedAt,
+                };
+              }),
+              reviews: product.reviews.map((review) => {
+                return {
+                  id: review.id,
+                  name: review.name,
+                  surname: review.surname,
+                  review: review.review,
+                  createdAt: review.createdAt,
+                  updatedAt: review.updatedAt,
+                };
+              }),
+            };
+          })
+          .slice((page - 1) * pageSize, pageSize * page),
+        totalProducts: products.length,
+      });
+    } catch (err: unknown) {
+      this.Logger.error(err);
+      return next(err);
     }
-    return response.json({
-      products: products
-        .map((product: Product) => {
+  }
+
+  async getBookmarks(
+    request: Request,
+    response: Response,
+    next: NextFunction,
+    page: number,
+    productPerPage: number,
+    userId: number,
+  ) {
+    try {
+      const user = await this.userService.getUserById(userId);
+      if (!user) {
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          USER_NOT_FOUND,
+        );
+      }
+      const currency: {
+        currencyCode: string;
+        symbol: string;
+        rate: number;
+      } = request['currency'];
+      const products = user.bookmarks
+        .slice((page - 1) * productPerPage, productPerPage * page)
+        .map((product) => {
           return {
             id: product.id,
             title: product.getTitle(),
             description: product.getDescription(),
-            price: Math.round(product.price * currency.rate) + currency.symbol,
+            price: product.price * currency.rate + currency.symbol,
             quantity: product.quantity,
             images: product.images,
+            hexes: product.hexes,
             sizeChartImage: product.sizeChartImage,
             sizes: product.sizes,
             colours: product.colours,
@@ -97,212 +171,91 @@ export class ProductService {
               };
             }),
           };
-        })
-        .slice((page - 1) * pageSize, pageSize * page),
-      totalProducts: products.length,
-    });
-  }
-
-  async getBookmarks(
-    request: Request,
-    response: Response,
-    page: number,
-    productPerPage: number,
-    userId: number,
-  ) {
-    const user = await this.userService.getUserById(userId);
-    if (!user) {
-      throw new ApiException(
-        HttpStatus.NOT_FOUND,
-        'Not found!',
-        USER_NOT_FOUND,
-      );
-    }
-    const currency: {
-      currencyCode: string;
-      symbol: string;
-      rate: number;
-    } = request['currency'];
-    const products = user.bookmarks
-      .slice((page - 1) * productPerPage, productPerPage * page)
-      .map((product) => {
-        return {
-          id: product.id,
-          title: product.getTitle(),
-          description: product.getDescription(),
-          price: product.price * currency.rate + currency.symbol,
-          quantity: product.quantity,
-          images: product.images,
-          sizeChartImage: product.sizeChartImage,
-          sizes: product.sizes,
-          colours: product.colours,
-          categories: product.categories.map((category) => {
-            return {
-              id: category.id,
-              ua: category.ua,
-              en: category.en,
-              rs: category.rs,
-              ru: category.ru,
-              createdAt: category.createdAt,
-              updatedAt: category.updatedAt,
-            };
-          }),
-          reviews: product.reviews.map((review) => {
-            return {
-              id: review.id,
-              name: review.name,
-              surname: review.surname,
-              review: review.review,
-              createdAt: review.createdAt,
-              updatedAt: review.updatedAt,
-            };
-          }),
-        };
+        });
+      return response.json({
+        products: products,
+        totalProducts: user.bookmarks.length,
       });
-    return response.json({
-      products: products,
-      totalProducts: user.bookmarks.length,
-    });
+    } catch (err: unknown) {
+      this.Logger.error(err);
+      return next(err);
+    }
   }
 
   async getWatchedProducts(
     request: Request,
     response: Response,
+    next: NextFunction,
     page: number,
     productPerPage: number,
     userId: number,
   ) {
-    const user = await this.userService.getUserById(userId);
-    if (!user) {
-      throw new ApiException(
-        HttpStatus.NOT_FOUND,
-        'Not found!',
-        USER_NOT_FOUND,
-      );
-    }
-    const currency: {
-      currencyCode: string;
-      symbol: string;
-      rate: number;
-    } = request['currency'];
-    const products = user.watched
-      .slice((page - 1) * productPerPage, productPerPage * page)
-      .map((product) => {
-        return {
-          id: product.id,
-          title: product.getTitle(),
-          description: product.getDescription(),
-          price: product.price * currency.rate + currency.symbol,
-          quantity: product.quantity,
-          images: product.images,
-          sizeChartImage: product.sizeChartImage,
-          sizes: product.sizes,
-          colours: product.colours,
-          categories: product.categories.map((category) => {
-            return {
-              id: category.id,
-              ua: category.ua,
-              en: category.en,
-              rs: category.rs,
-              ru: category.ru,
-              createdAt: category.createdAt,
-              updatedAt: category.updatedAt,
-            };
-          }),
-          reviews: product.reviews.map((review) => {
-            return {
-              id: review.id,
-              name: review.name,
-              surname: review.surname,
-              review: review.review,
-              createdAt: review.createdAt,
-              updatedAt: review.updatedAt,
-            };
-          }),
-        };
+    try {
+      const user = await this.userService.getUserById(userId);
+      if (!user) {
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          USER_NOT_FOUND,
+        );
+      }
+      const currency: {
+        currencyCode: string;
+        symbol: string;
+        rate: number;
+      } = request['currency'];
+      const products = user.watched
+        .slice((page - 1) * productPerPage, productPerPage * page)
+        .map((product) => {
+          return {
+            id: product.id,
+            title: product.getTitle(),
+            description: product.getDescription(),
+            price: product.price * currency.rate + currency.symbol,
+            quantity: product.quantity,
+            images: product.images,
+            hexes: product.hexes,
+            sizeChartImage: product.sizeChartImage,
+            sizes: product.sizes,
+            colours: product.colours,
+            categories: product.categories.map((category) => {
+              return {
+                id: category.id,
+                ua: category.ua,
+                en: category.en,
+                rs: category.rs,
+                ru: category.ru,
+                createdAt: category.createdAt,
+                updatedAt: category.updatedAt,
+              };
+            }),
+            reviews: product.reviews.map((review) => {
+              return {
+                id: review.id,
+                name: review.name,
+                surname: review.surname,
+                review: review.review,
+                createdAt: review.createdAt,
+                updatedAt: review.updatedAt,
+              };
+            }),
+          };
+        });
+      return response.json({
+        products: products,
+        totalProducts: user.bookmarks.length,
       });
-    return response.json({
-      products: products,
-      totalProducts: user.bookmarks.length,
-    });
+    } catch (err: unknown) {
+      this.Logger.error(err);
+      return next(err);
+    }
   }
 
   async getProductsByIds(
     request: Request,
     response: Response,
+    next: NextFunction,
     productIds: number[],
-    page: number,
-    productPerPage: number,
-  ) {
-    const totalCount = await this.productRepository.count();
-    const products = await this.productRepository.findAll({
-      include: { all: true },
-      offset: (page - 1) * productPerPage,
-      limit: productPerPage,
-      attributes: [
-        'id',
-        'title',
-        'price',
-        'decription',
-        'quantity',
-        'colours',
-        'sizes',
-        'categories',
-        'images',
-        'sizeChartImage',
-      ],
-      where: {
-        id: productIds,
-      },
-    });
-    const currency: {
-      currencyCode: string;
-      symbol: string;
-      rate: number;
-    } = request['currency'];
-    const returnedProducts = products.map((product) => {
-      return {
-        id: product.id,
-        title: product.getTitle(),
-        description: product.getDescription(),
-        price: product.price * currency.rate + currency.symbol,
-        quantity: product.quantity,
-        images: product.images,
-        sizeChartImage: product.sizeChartImage,
-        sizes: product.sizes,
-        colours: product.colours,
-        categories: product.categories.map((category) => {
-          return {
-            id: category.id,
-            ua: category.ua,
-            en: category.en,
-            rs: category.rs,
-            ru: category.ru,
-            createdAt: category.createdAt,
-            updatedAt: category.updatedAt,
-          };
-        }),
-        reviews: product.reviews.map((review) => {
-          return {
-            id: review.id,
-            name: review.name,
-            surname: review.surname,
-            review: review.review,
-            createdAt: review.createdAt,
-            updatedAt: review.updatedAt,
-          };
-        }),
-      };
-    });
-    return response.json({
-      products: returnedProducts,
-      totalProducts: totalCount,
-    });
-  }
-
-  async getProducts(
-    request: Request,
-    response: Response,
     page: number,
     productPerPage: number,
   ) {
@@ -311,20 +264,10 @@ export class ProductService {
       const products = await this.productRepository.findAll({
         include: { all: true },
         offset: (page - 1) * productPerPage,
-        order: [['updatedAt', 'DESC']],
         limit: productPerPage,
-        attributes: [
-          'id',
-          'title',
-          'price',
-          'decription',
-          'quantity',
-          'colours',
-          'sizes',
-          'categories',
-          'images',
-          'sizeChartImage',
-        ],
+        where: {
+          id: productIds,
+        },
       });
       const currency: {
         currencyCode: string;
@@ -339,6 +282,7 @@ export class ProductService {
           price: product.price * currency.rate + currency.symbol,
           quantity: product.quantity,
           images: product.images,
+          hexes: product.hexes,
           sizeChartImage: product.sizeChartImage,
           sizes: product.sizes,
           colours: product.colours,
@@ -369,12 +313,79 @@ export class ProductService {
         products: returnedProducts,
         totalProducts: totalCount,
       });
+    } catch (err: unknown) {
+      this.Logger.error(err);
+      return next(err);
+    }
+  }
+
+  async getProducts(
+    request: Request,
+    response: Response,
+    next: NextFunction,
+    page: number,
+    productPerPage: number,
+  ): Promise<void | Response<any, Record<string, any>>> {
+    try {
+      const totalCount = await this.productRepository.count();
+      const products = await this.productRepository.findAll({
+        include: { all: true },
+        order: [['updatedAt', 'DESC']],
+      });
+      const currency: {
+        currencyCode: string;
+        symbol: string;
+        rate: number;
+      } = request['currency'];
+      const returnedProducts = products
+        .map((product) => {
+          return {
+            id: product.id,
+            title: product.getTitle(),
+            description: product.getDescription(),
+            price: product.price * currency.rate + currency.symbol,
+            quantity: product.quantity,
+            images: product.images,
+            hexes: product.hexes,
+            sizeChartImage: product.sizeChartImage,
+            sizes: product.sizes,
+            colours: product.colours,
+            categories: product.categories.map((category) => {
+              return {
+                id: category.id,
+                ua: category.ua,
+                en: category.en,
+                rs: category.rs,
+                ru: category.ru,
+                createdAt: category.createdAt,
+                updatedAt: category.updatedAt,
+              };
+            }),
+            reviews: product.reviews.map((review) => {
+              return {
+                id: review.id,
+                name: review.name,
+                surname: review.surname,
+                review: review.review,
+                createdAt: review.createdAt,
+                updatedAt: review.updatedAt,
+              };
+            }),
+          };
+        })
+        .slice((page - 1) * productPerPage, productPerPage * page);
+      return response.json({
+        products: returnedProducts,
+        totalProducts: totalCount,
+      });
     } catch (error) {
       this.Logger.error(error);
-      throw new ApiException(
-        HttpStatus.NOT_FOUND,
-        'Not found!',
-        PRODUCTS_NOT_FOUND,
+      return next(
+        new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          PRODUCTS_NOT_FOUND,
+        ),
       );
     }
   }
@@ -382,75 +393,78 @@ export class ProductService {
   async getProductById(
     request: Request,
     response: Response,
+    next: NextFunction,
     productId: number,
-  ): Promise<Response<any, Record<string, any>>> {
-    const product = await this.productRepository.findByPk(productId, {
-      include: {
-        all: true,
-      },
-      attributes: [
-        'id',
-        'title',
-        'price',
-        'description',
-        'quantity',
-        'colours',
-        'sizes',
-        'images',
-        'sizeChartImage',
-      ],
-    });
-    if (!product) {
-      throw new ApiException(
-        HttpStatus.NOT_FOUND,
-        'Not found!',
-        PRODUCT_NOT_FOUND,
+  ): Promise<void | Response<any, Record<string, any>>> {
+    try {
+      const product = await this.productRepository.findByPk(productId, {
+        include: {
+          all: true,
+        },
+      });
+      if (!product) {
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          PRODUCT_NOT_FOUND,
+        );
+      }
+      const currency: {
+        currencyCode: string;
+        symbol: string;
+        rate: number;
+      } = request['currency'];
+      return response.json({
+        id: product.id,
+        title: product.getTitle(),
+        description: product.getDescription(),
+        price: Math.floor(product.price * currency.rate) + currency.symbol,
+        quantity: product.quantity,
+        images: product.images,
+        sizeChartImage: product.sizeChartImage,
+        sizes: product.sizes,
+        hexes: product.hexes,
+        colours: product.colours,
+        categories: product.categories.map((category) => {
+          return {
+            id: category.id,
+            ua: category.ua,
+            en: category.en,
+            rs: category.rs,
+            ru: category.ru,
+            createdAt: category.createdAt,
+            updatedAt: category.updatedAt,
+          };
+        }),
+        reviews: product.reviews.map((review) => {
+          return {
+            id: review.id,
+            name: review.name,
+            surname: review.surname,
+            review: review.review,
+            createdAt: review.createdAt,
+            updatedAt: review.updatedAt,
+          };
+        }),
+      });
+    } catch (err) {
+      this.Logger.error(err);
+      return next(
+        new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          PRODUCTS_NOT_FOUND,
+        ),
       );
     }
-    const currency: {
-      currencyCode: string;
-      symbol: string;
-      rate: number;
-    } = request['currency'];
-    return response.json({
-      id: product.id,
-      title: product.getTitle(),
-      description: product.getDescription(),
-      price: product.price * currency.rate + currency.symbol,
-      quantity: product.quantity,
-      images: product.images,
-      sizeChartImage: product.sizeChartImage,
-      sizes: product.sizes,
-      colours: product.colours,
-      categories: product.categories.map((category) => {
-        return {
-          id: category.id,
-          ua: category.ua,
-          en: category.en,
-          rs: category.rs,
-          ru: category.ru,
-          createdAt: category.createdAt,
-          updatedAt: category.updatedAt,
-        };
-      }),
-      reviews: product.reviews.map((review) => {
-        return {
-          id: review.id,
-          name: review.name,
-          surname: review.surname,
-          review: review.review,
-          createdAt: review.createdAt,
-          updatedAt: review.updatedAt,
-        };
-      }),
-    });
   }
 
   async filterProducts(
     request: Request,
     response: Response,
+    next: NextFunction,
     queryFilterDto: QueryFilterDto,
-  ): Promise<Response<any, Record<string, any>>> {
+  ): Promise<void | Response<any, Record<string, any>>> {
     try {
       let products = await this.productRepository.findAll({
         include: { all: true },
@@ -514,6 +528,7 @@ export class ProductService {
                 Math.round(product.price * currency.rate) + currency.symbol,
               quantity: product.quantity,
               images: product.images,
+              hexes: product.hexes,
               sizeChartImage: product.sizeChartImage,
               sizes: product.sizes,
               colours: product.colours,
@@ -548,52 +563,64 @@ export class ProductService {
       });
     } catch (error) {
       this.Logger.error(error);
-      throw new ApiException(
-        HttpStatus.NOT_FOUND,
-        'Not found!',
-        PRODUCTS_NOT_FOUND,
+      return next(
+        new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          PRODUCTS_NOT_FOUND,
+        ),
       );
     }
   }
 
   async addWatchedProduct(productId: number, userId: number) {
-    const user = await this.userService.getUserById(userId);
-    if (!user) {
-      throw new ApiException(
-        HttpStatus.NOT_FOUND,
-        'Not found!',
-        USER_NOT_FOUND,
-      );
+    try {
+      const user = await this.userService.getUserById(userId);
+      if (!user) {
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          USER_NOT_FOUND,
+        );
+      }
+      const product = await this.findById(productId);
+      if (!user.watched || user.watched.length === 0) {
+        user.$set('watched', product.id);
+        user.watched = [product];
+      } else {
+        user.$add('watched', product.id);
+      }
+      await user.save();
+      return productId;
+    } catch (err) {
+      this.Logger.error(err);
+      throw err;
     }
-    const product = await this.findById(productId);
-    if (!user.watched || user.watched.length === 0) {
-      user.$set('watched', product.id);
-      user.watched = [product];
-    } else {
-      user.$add('watched', product.id);
-    }
-    await user.save();
-    return productId;
   }
 
   async addBookmarkProduct(productId: number, userId: number) {
-    const user = await this.userService.getUserById(userId);
-    if (!user) {
-      throw new ApiException(
-        HttpStatus.NOT_FOUND,
-        'Not found!',
-        USER_NOT_FOUND,
-      );
+    try {
+      const user = await this.userService.getUserById(userId);
+      if (!user) {
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Not found!',
+          USER_NOT_FOUND,
+        );
+      }
+      const product = await this.findById(productId);
+      if (!user.bookmarks || user.bookmarks.length === 0) {
+        user.$set('bookmarks', product.id);
+        user.bookmarks = [product];
+      } else {
+        user.$add('bookmarks', product.id);
+      }
+      await user.save();
+      return productId;
+    } catch (err) {
+      this.Logger.error(err);
+      throw err;
     }
-    const product = await this.findById(productId);
-    if (!user.bookmarks || user.bookmarks.length === 0) {
-      user.$set('bookmarks', product.id);
-      user.bookmarks = [product];
-    } else {
-      user.$add('bookmarks', product.id);
-    }
-    await user.save();
-    return productId;
   }
 
   async createProduct(
@@ -645,24 +672,25 @@ export class ProductService {
         images: imagesPaths,
         sizeChartImage: sizeChartImagePath,
       });
+      product.reviews = [];
       for (const category of createProductDto.categories) {
         const productCategory = await this.categoriesService.getCategoryById(
           Number(category),
         );
         if (!product.categories) {
-          product.$set('categories', productCategory.id);
+          product.$add('categories', productCategory.id);
           product.categories = [productCategory];
         } else {
           product.$add('categories', productCategory.id);
         }
         await product.save();
       }
-      for (const colour of createProductDto.categories) {
+      for (const colour of createProductDto.colours) {
         const productColour = await this.coloursService.getColourById(
           Number(colour),
         );
         if (!product.colours) {
-          product.$set('colours', productColour.id);
+          product.$add('colours', productColour.id);
           product.colours = [productColour];
         } else {
           product.$add('colours', productColour.id);
@@ -675,32 +703,29 @@ export class ProductService {
         await product.save();
       }
       if (type && type === 'OWNER') {
-        setTimeout(async () => {
-          const owner = await this.ownerService.getOwnerById(userId);
-          product.setOwnerId(userId);
-          product.$set('owner', userId);
-          product.owner = owner;
-          owner.$add('products', product.id);
-          owner.addProduct(product);
-          await Promise.all([await product.save(), await owner.save()]);
-        }, 0);
+        const owner = await this.ownerService.getOwnerById(userId);
+        product.setOwnerId(userId);
+        product.$set('owner', userId);
+        product.owner = owner;
+        owner.$add('products', product.id);
+        owner.addProduct(product);
+        await Promise.all([await product.save(), await owner.save()]);
       }
       if (type && type === 'ADMIN') {
-        setTimeout(async () => {
-          product.setAdminId(userId);
-          product.$set('admin', userId);
-          const admin = await this.adminService.getAdminById(userId);
-          product.admin = admin;
-          admin.$add('products', product.id);
-          admin.addProduct(product);
-          await Promise.all([await product.save(), await admin.save()]);
-        }, 0);
+        product.setAdminId(userId);
+        product.$set('admin', userId);
+        const admin = await this.adminService.getAdminById(userId);
+        product.admin = admin;
+        admin.$add('products', product.id);
+        admin.addProduct(product);
+        await Promise.all([await product.save(), await admin.save()]);
       }
+      await product.save();
       const dbProduct = await this.findById(product.id);
       const Product = {
         id: dbProduct.id,
-        title: product.getTitle(),
-        description: product.getDescription(),
+        title: dbProduct.getTitle(),
+        description: dbProduct.getDescription(),
         price: dbProduct.price,
         quantity: dbProduct.quantity,
         images: dbProduct.images,
@@ -729,10 +754,7 @@ export class ProductService {
             updatedAt: category.updatedAt,
           };
         }),
-        reviews: [],
-      };
-      if (dbProduct.reviews.length !== 0) {
-        Product.reviews = dbProduct.reviews.map((review) => {
+        reviews: dbProduct.reviews.map((review) => {
           return {
             id: review.id,
             name: review.name,
@@ -741,8 +763,8 @@ export class ProductService {
             createdAt: review.createdAt,
             updatedAt: review.updatedAt,
           };
-        });
-      }
+        }),
+      };
       return Product;
     } catch (error) {
       this.Logger.error(error);
@@ -788,20 +810,19 @@ export class ProductService {
       existingProduct.quantity = updateProductDto.quantity;
       existingProduct.price = updateProductDto.price;
       existingProduct.sizes = [...updateProductDto.sizes];
-      existingProduct.sizes = [];
+      existingProduct.hexes = [];
       for (const category of existingProduct.categories) {
         existingProduct.$remove('categories', category.id);
         await existingProduct.save();
       }
       for (const category of updateProductDto.categories) {
-        const productCategory = await this.categoriesService.getCategoryById(
-          Number(category),
-        );
-        if (existingProduct.categories.length === 0) {
-          existingProduct.$set('categories', productCategory.id);
-          existingProduct.categories = [productCategory];
+        const existingProductCategory =
+          await this.categoriesService.getCategoryById(Number(category));
+        if (!existingProduct.categories) {
+          existingProduct.$add('categories', existingProductCategory.id);
+          existingProduct.categories = [existingProductCategory];
         } else {
-          existingProduct.$add('categories', productCategory.id);
+          existingProduct.$add('categories', existingProductCategory.id);
         }
         await existingProduct.save();
       }
@@ -809,20 +830,20 @@ export class ProductService {
         existingProduct.$remove('colours', colour.id);
         await existingProduct.save();
       }
-      for (const colour of existingProduct.colours) {
-        const productColour = await this.coloursService.getColourById(
+      for (const colour of updateProductDto.colours) {
+        const existingProductColour = await this.coloursService.getColourById(
           Number(colour),
         );
-        if (existingProduct.colours.length === 0) {
-          existingProduct.$set('colours', productColour.id);
-          existingProduct.colours = [productColour];
+        if (!existingProduct.colours) {
+          existingProduct.$add('colours', existingProductColour.id);
+          existingProduct.colours = [existingProductColour];
         } else {
-          existingProduct.$add('colours', productColour.id);
+          existingProduct.$add('colours', existingProductColour.id);
         }
-        if (existingProduct.hexes.length === 0) {
-          existingProduct.hexes = [productColour.hex];
+        if (!existingProduct.hexes) {
+          existingProduct.hexes = [existingProductColour.hex];
         } else {
-          existingProduct.hexes.push(productColour.hex);
+          existingProduct.hexes.push(existingProductColour.hex);
         }
         await existingProduct.save();
       }
@@ -1037,7 +1058,14 @@ export class ProductService {
   }
 
   async findById(productId: number): Promise<Product> {
-    const product = await this.productRepository.findByPk(productId);
+    const product = await this.productRepository.findOne({
+      where: {
+        id: productId,
+      },
+      include: {
+        all: true,
+      },
+    });
     if (!product) {
       throw new ApiException(
         HttpStatus.NOT_FOUND,

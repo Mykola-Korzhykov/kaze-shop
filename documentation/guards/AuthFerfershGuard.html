@@ -107,7 +107,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/common/guards/jw-refresh.guard.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/common/guards/jw-refresh.guard.ts:22</a></div>
                             </td>
                         </tr>
 
@@ -194,8 +194,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="25"
-                            class="link-to-prism">src/common/guards/jw-refresh.guard.ts:25</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="29"
+                            class="link-to-prism">src/common/guards/jw-refresh.guard.ts:29</a></div>
                 </td>
             </tr>
 
@@ -262,7 +262,11 @@ import { UsersService } from &#x27;../../users/services/users.service&#x27;;
 import { Payload } from &#x27;../../core/interfaces/auth.interfaces&#x27;;
 import { USER_NOT_FOUND } from &#x27;../../users/constants/user.constants&#x27;;
 import { ApiException } from &#x27;../exceptions/api.exception&#x27;;
-import { INVALID_REQUEST, NO_LINK_PROVIDED, USER_NOT_DETECTED } from &#x27;../../auth/auth.constants&#x27;;
+import {
+  INVALID_REQUEST,
+  NO_LINK_PROVIDED,
+  USER_NOT_DETECTED,
+} from &#x27;../../auth/auth.constants&#x27;;
 
 @Injectable({ scope: Scope.REQUEST })
 export class AuthFerfershGuard implements CanActivate {
@@ -280,28 +284,48 @@ export class AuthFerfershGuard implements CanActivate {
       const payload: Payload &#x3D; req?.payload;
       const type: &#x27;OWNER&#x27; | &#x27;ADMIN&#x27; | null &#x3D; req[&#x27;type&#x27;];
       if (!payload) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, INVALID_REQUEST);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          INVALID_REQUEST,
+        );
       }
       if (type &#x3D;&#x3D;&#x3D; undefined) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, USER_NOT_DETECTED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          USER_NOT_DETECTED,
+        );
       }
       if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;OWNER&#x27;) {
         const activationLink: string &#x3D; req?.signedCookies[&#x27;user-id&#x27;];
         if (!activationLink) {
-          throw new ApiException(HttpStatus.FORBIDDEN, &#x27;Forbidden!&#x27;, NO_LINK_PROVIDED);
+          throw new ApiException(
+            HttpStatus.FORBIDDEN,
+            &#x27;Forbidden!&#x27;,
+            NO_LINK_PROVIDED,
+          );
         }
         return this.ownerService.checkOwner(payload, activationLink);
       }
       if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;ADMIN&#x27;) {
         const activationLink: string &#x3D; req?.signedCookies[&#x27;user-id&#x27;];
         if (!activationLink) {
-          throw new ApiException(HttpStatus.FORBIDDEN, &#x27;Forbidden!&#x27;, NO_LINK_PROVIDED);
+          throw new ApiException(
+            HttpStatus.FORBIDDEN,
+            &#x27;Forbidden!&#x27;,
+            NO_LINK_PROVIDED,
+          );
         }
         return this.adminService.checkAdmin(payload, activationLink);
       }
       const user &#x3D; await this.userService.getUserById(payload.userId);
       if (!user) {
-        throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, USER_NOT_FOUND);  
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          &#x27;Not found!&#x27;,
+          USER_NOT_FOUND,
+        );
       }
       return true;
     })();

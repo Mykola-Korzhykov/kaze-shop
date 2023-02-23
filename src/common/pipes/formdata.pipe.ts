@@ -10,14 +10,18 @@ export class ParseFormDataJsonPipe implements PipeTransform {
   constructor(private options?: TParseFormDataJsonOptions) {}
 
   transform(value: any, _metadata: ArgumentMetadata) {
-    const { except } = this.options;
-    const serializedValue = value;
-    const originProperties = {};
-    if (except?.length) {
-      _.merge(originProperties, _.pick(serializedValue, ...except));
+    try {
+      const { except } = this.options;
+      const serializedValue = value;
+      const originProperties = {};
+      if (except?.length) {
+        _.merge(originProperties, _.pick(serializedValue, ...except));
+      }
+      const deserializedValue = deepParseJson(value);
+      console.log(`deserializedValue`, deserializedValue, _metadata);
+      return { ...deserializedValue, ...originProperties };
+    } catch (err) {
+      throw err;
     }
-    const deserializedValue = deepParseJson(value);
-    console.log(`deserializedValue`, deserializedValue, _metadata);
-    return { ...deserializedValue, ...originProperties };
   }
 }

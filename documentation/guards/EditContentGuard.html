@@ -107,7 +107,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/common/guards/edit-content.guard.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/common/guards/edit-content.guard.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -170,8 +170,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="18"
-                            class="link-to-prism">src/common/guards/edit-content.guard.ts:18</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/common/guards/edit-content.guard.ts:22</a></div>
                 </td>
             </tr>
 
@@ -232,7 +232,11 @@
   Scope,
 } from &#x27;@nestjs/common&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
-import { INVALID_REQUEST, USER_NOT_DETECTED, NO_RIGHT } from &#x27;../../auth/auth.constants&#x27;;
+import {
+  INVALID_REQUEST,
+  USER_NOT_DETECTED,
+  NO_RIGHT,
+} from &#x27;../../auth/auth.constants&#x27;;
 import { AdminService } from &#x27;../../admin/services/admin.service&#x27;;
 import { Payload } from &#x27;../../core/interfaces/auth.interfaces&#x27;;
 import { ApiException } from &#x27;../exceptions/api.exception&#x27;;
@@ -249,10 +253,18 @@ export class EditContentGuard implements CanActivate {
       const payload: Payload &#x3D; req?.payload;
       const type: &#x27;OWNER&#x27; | &#x27;ADMIN&#x27; | null &#x3D; req[&#x27;type&#x27;];
       if (!payload) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, INVALID_REQUEST);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          INVALID_REQUEST,
+        );
       }
       if (type &#x3D;&#x3D;&#x3D; undefined) {
-        throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, USER_NOT_DETECTED);
+        throw new ApiException(
+          HttpStatus.UNAUTHORIZED,
+          &#x27;Unathorized!&#x27;,
+          USER_NOT_DETECTED,
+        );
       }
       if (type &amp;&amp; type &#x3D;&#x3D;&#x3D; &#x27;OWNER&#x27;) {
         return true;

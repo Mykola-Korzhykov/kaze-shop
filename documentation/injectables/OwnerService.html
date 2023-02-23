@@ -69,6 +69,22 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#Logger" >Logger</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -101,6 +117,10 @@
                                 <a href="#creatingOwner" >creatingOwner</a>
                             </li>
                             <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#deleteCron" >deleteCron</a>
+                            </li>
+                            <li>
                                     <span class="modifier">Async</span>
                                 <a href="#findByActivationLink" >findByActivationLink</a>
                             </li>
@@ -131,6 +151,10 @@
                             </li>
                             <li>
                                     <span class="modifier">Async</span>
+                                <a href="#setUp" >setUp</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
                                 <a href="#validateOwner" >validateOwner</a>
                             </li>
                         </ul>
@@ -151,12 +175,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(ownerRepository, roleService: <a href="../injectables/RolesService.html" target="_self">RolesService</a>)</code>
+<code>constructor(schedulerRegistry: SchedulerRegistry, currencyService: <a href="../injectables/CurrencyService.html" target="_self">CurrencyService</a>, currenciesRepository, ownerRepository, roleService: <a href="../injectables/RolesService.html" target="_self">RolesService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/owner/services/owner.service.ts:35</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/owner/services/owner.service.ts:31</a></div>
                             </td>
                         </tr>
 
@@ -173,6 +197,41 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                                <tr>
+                                                        <td>schedulerRegistry</td>
+                                                  
+                                                        <td>
+                                                                    <code>SchedulerRegistry</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>currencyService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CurrencyService.html" target="_self" >CurrencyService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>currenciesRepository</td>
+                                                  
+                                                        <td>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
                                                 <tr>
                                                         <td>ownerRepository</td>
                                                   
@@ -232,8 +291,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="208"
-                            class="link-to-prism">src/owner/services/owner.service.ts:208</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="274"
+                            class="link-to-prism">src/owner/services/owner.service.ts:274</a></div>
                 </td>
             </tr>
 
@@ -315,8 +374,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="171"
-                            class="link-to-prism">src/owner/services/owner.service.ts:171</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="221"
+                            class="link-to-prism">src/owner/services/owner.service.ts:221</a></div>
                 </td>
             </tr>
 
@@ -399,8 +458,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="100"
-                            class="link-to-prism">src/owner/services/owner.service.ts:100</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="142"
+                            class="link-to-prism">src/owner/services/owner.service.ts:142</a></div>
                 </td>
             </tr>
 
@@ -470,8 +529,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="78"
-                            class="link-to-prism">src/owner/services/owner.service.ts:78</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="112"
+                            class="link-to-prism">src/owner/services/owner.service.ts:112</a></div>
                 </td>
             </tr>
 
@@ -535,15 +594,15 @@
             <tr>
                 <td class="col-md-4">
                     <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>creatingOwner(OWNER: string[])</code>
+                    <code>creatingOwner(OWNER: <a href="../classes/CreateOwnerDto.html" target="_self">CreateOwnerDto</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="41"
-                            class="link-to-prism">src/owner/services/owner.service.ts:41</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="68"
+                            class="link-to-prism">src/owner/services/owner.service.ts:68</a></div>
                 </td>
             </tr>
 
@@ -566,7 +625,7 @@
                                 <tr>
                                     <td>OWNER</td>
                                     <td>
-                                            <code>string[]</code>
+                                                <code><a href="../classes/CreateOwnerDto.html" target="_self" >CreateOwnerDto</a></code>
                                     </td>
 
                                     <td>
@@ -582,6 +641,77 @@
                     </div>
                     <div class="io-description">
                         <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="deleteCron"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>deleteCron</b></span>
+                        <a href="#deleteCron"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>deleteCron(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="62"
+                            class="link-to-prism">src/owner/services/owner.service.ts:62</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>name</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                     </div>
                     <div class="io-description">
@@ -613,8 +743,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="120"
-                            class="link-to-prism">src/owner/services/owner.service.ts:120</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="162"
+                            class="link-to-prism">src/owner/services/owner.service.ts:162</a></div>
                 </td>
             </tr>
 
@@ -684,8 +814,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="140"
-                            class="link-to-prism">src/owner/services/owner.service.ts:140</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="190"
+                            class="link-to-prism">src/owner/services/owner.service.ts:190</a></div>
                 </td>
             </tr>
 
@@ -755,8 +885,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="130"
-                            class="link-to-prism">src/owner/services/owner.service.ts:130</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="176"
+                            class="link-to-prism">src/owner/services/owner.service.ts:176</a></div>
                 </td>
             </tr>
 
@@ -826,8 +956,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="148"
-                            class="link-to-prism">src/owner/services/owner.service.ts:148</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="198"
+                            class="link-to-prism">src/owner/services/owner.service.ts:198</a></div>
                 </td>
             </tr>
 
@@ -897,8 +1027,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="193"
-                            class="link-to-prism">src/owner/services/owner.service.ts:193</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="247"
+                            class="link-to-prism">src/owner/services/owner.service.ts:247</a></div>
                 </td>
             </tr>
 
@@ -969,8 +1099,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="216"
-                            class="link-to-prism">src/owner/services/owner.service.ts:216</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="289"
+                            class="link-to-prism">src/owner/services/owner.service.ts:289</a></div>
                 </td>
             </tr>
 
@@ -1052,8 +1182,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="185"
-                            class="link-to-prism">src/owner/services/owner.service.ts:185</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="239"
+                            class="link-to-prism">src/owner/services/owner.service.ts:239</a></div>
                 </td>
             </tr>
 
@@ -1117,6 +1247,52 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="setUp"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>setUp</b></span>
+                        <a href="#setUp"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>setUp()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@Cron(CronExpression.EVERY_30_SECONDS, {name: &#x27;setting-up&#x27;, unrefTimeout: true, utcOffset: 1, disabled: true})<br /></code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="47"
+                            class="link-to-prism">src/owner/services/owner.service.ts:47</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>    <code>unknown</code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="validateOwner"></a>
                     <span class="name">
                         <span class="modifier">Async</span>
@@ -1135,8 +1311,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="156"
-                            class="link-to-prism">src/owner/services/owner.service.ts:156</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="206"
+                            class="link-to-prism">src/owner/services/owner.service.ts:206</a></div>
                 </td>
             </tr>
 
@@ -1185,20 +1361,45 @@
         </tbody>
     </table>
 </section>
+            <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Logger"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>Logger</b></span>
+                        <a href="#Logger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Logger(OwnerService.name)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/owner/services/owner.service.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
 
     </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
-  BadRequestException,
-  ForbiddenException,
-  HttpStatus,
-  Injectable,
-  NotFoundException,
-  Scope,
-  UnauthorizedException,
-} from &#x27;@nestjs/common&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpStatus, Injectable, Logger, Scope } from &#x27;@nestjs/common&#x27;;
 import { InjectModel } from &#x27;@nestjs/sequelize&#x27;;
 import { LoginDto } from &#x27;../../auth/dto/login.dto&#x27;;
 import {
@@ -1223,28 +1424,70 @@ import { Payload } from &#x27;../../core/interfaces/auth.interfaces&#x27;;
 import { v4 } from &#x27;uuid&#x27;;
 import { Role } from &#x27;../../roles/models/roles.model&#x27;;
 import { ApiException } from &#x27;../../common/exceptions/api.exception&#x27;;
+import { Currencies } from &#x27;../models/currencies.model&#x27;;
+import { SchedulerRegistry, Cron, CronExpression } from &#x27;@nestjs/schedule&#x27;;
+import { CurrencyService } from &#x27;./currency.service&#x27;;
 @Injectable({ scope: Scope.TRANSIENT })
 export class OwnerService {
+  private readonly Logger &#x3D; new Logger(OwnerService.name);
   constructor(
+    private readonly schedulerRegistry: SchedulerRegistry,
+    private readonly currencyService: CurrencyService,
+    @InjectModel(Currencies)
+    private readonly currenciesRepository: typeof Currencies,
     @InjectModel(Owner) private readonly ownerRepository: typeof Owner,
     private readonly roleService: RolesService,
   ) {}
 
-  static async creatingOwner(OWNER: string[]) {
-    const existingOwners &#x3D; await Owner.findAll();
-    console.log(existingOwners);
-    if (existingOwners.length &gt; 0) {
-      return;
+  @Cron(CronExpression.EVERY_30_SECONDS, {
+    name: &#x27;setting-up&#x27;,
+    unrefTimeout: true,
+    utcOffset: 1,
+    disabled: true,
+  })
+  async setUp() {
+    this.Logger.warn(&#x60;time (${1}) second for job setting-up to run!&#x60;);
+    const owner &#x3D; await OwnerService.creatingOwner(&lt;CreateOwnerDto&gt;{
+      name: process.env.OWNER.toString().trim().split(&#x27;,&#x27;)[0],
+      surname: process.env.OWNER.toString().trim().split(&#x27;,&#x27;)[1],
+      phoneNumber: process.env.OWNER.toString().trim().split(&#x27;,&#x27;)[2],
+      email: process.env.OWNER.toString().trim().split(&#x27;,&#x27;)[3],
+      password: process.env.OWNER.toString().trim().split(&#x27;,&#x27;)[4],
+    });
+    if (owner) {
+      return this.currencyService.setCurrencies(owner.id);
     }
-    console.log(&#x27;Creating&#x27;);
+    return this.deleteCron(&#x27;setting-up&#x27;);
+  }
+
+  private deleteCron(name: string): void {
+    this.schedulerRegistry.deleteCronJob(name);
+    this.Logger.warn(&#x60;job ${name} deleted!&#x60;);
+    return;
+  }
+
+  static async creatingOwner(OWNER: CreateOwnerDto) {
+    const [phoneNumber, email] &#x3D; await Promise.all([
+      await Owner.findOne({
+        where: { phoneNumber: OWNER.phoneNumber },
+        include: { all: true },
+      }),
+      await Owner.findOne({
+        where: { email: OWNER.email },
+        include: { all: true },
+      }),
+    ]);
+    if (phoneNumber || email) {
+      return false;
+    }
     const SALT_ROUNDS &#x3D; Number(process.env.SALT_ROUNDS);
     const salt &#x3D; await bcrypt.genSalt(SALT_ROUNDS || 10);
-    const hashedPassword &#x3D; await bcrypt.hash(OWNER[4], salt);
+    const hashedPassword &#x3D; await bcrypt.hash(OWNER.password, salt);
     const ownerDto &#x3D; {
-      name: OWNER[0],
-      surname: OWNER[1],
-      phoneNumber: OWNER[2],
-      email: OWNER[3],
+      name: OWNER.name,
+      surname: OWNER.surname,
+      phoneNumber: OWNER.phoneNumber,
+      email: OWNER.email,
       password: hashedPassword,
       activationLink: v4(),
     };
@@ -1273,10 +1516,18 @@ export class OwnerService {
       await this.getOwnerByEmail(dto.email),
     ]);
     if (phoneNumber) {
-       throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, OWNER_WITH_PHONENUMBER_EXIST);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        OWNER_WITH_PHONENUMBER_EXIST,
+      );
     }
     if (email) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, OWNER_WITH_EMAIL_EXIST);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        OWNER_WITH_EMAIL_EXIST,
+      );
     }
     const SALT_ROUNDS &#x3D; Number(process.env.SALT_ROUNDS);
     const salt &#x3D; await bcrypt.genSalt(SALT_ROUNDS);
@@ -1314,7 +1565,11 @@ export class OwnerService {
       where: { activationLink: activationLink },
     });
     if (!owner) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, INVALID_LINK);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        INVALID_LINK,
+      );
     }
     return owner;
   }
@@ -1324,7 +1579,11 @@ export class OwnerService {
       include: { all: true },
     });
     if (!owner) {
-      throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, OWNER_NOT_FOUND);   
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        OWNER_NOT_FOUND,
+      );
     }
     return owner;
   }
@@ -1362,16 +1621,20 @@ export class OwnerService {
 
   async checkOwner(payload: Payload, activationLink: string | undefined) {
     if (!activationLink) {
-      throw new ApiException(HttpStatus.UNAUTHORIZED, &#x27;Unathorized!&#x27;, OWNER_ID_NOT_PROVIDED); 
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        &#x27;Unathorized!&#x27;,
+        OWNER_ID_NOT_PROVIDED,
+      );
     }
     const owner &#x3D; await this.getOwnerById(payload.userId);
     if (owner instanceof Owner &amp;&amp; !owner.getIsActivated()) {
-      throw new ApiException(HttpStatus.FORBIDDEN, &#x27;Forbidden!&#x27;, NOT_ACTIVATED); 
+      throw new ApiException(HttpStatus.FORBIDDEN, &#x27;Forbidden!&#x27;, NOT_ACTIVATED);
     }
     if (owner instanceof Owner &amp;&amp; owner.activationLink &#x3D;&#x3D;&#x3D; activationLink) {
       return true;
     }
-    throw new ApiException(HttpStatus.FORBIDDEN, &#x27;Forbidden!&#x27;, ACCESS_DENIED); 
+    throw new ApiException(HttpStatus.FORBIDDEN, &#x27;Forbidden!&#x27;, ACCESS_DENIED);
   }
 
   async setConfirmCode(codeDto: CodeDto, code: number): Promise&lt;string&gt; {
@@ -1385,22 +1648,41 @@ export class OwnerService {
   async resetPassword(resetDto: ResetDto): Promise&lt;string&gt; {
     const owner &#x3D; await this.getOwnerByEmail(resetDto.email);
     if (resetDto.email !&#x3D;&#x3D; owner.email) {
-       throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, INVALID_EMAIL);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        INVALID_EMAIL,
+      );
     }
     if (Number(Date.now()) &gt;&#x3D; owner.getResetTokenExpiration()) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, RESET_TIME_EXPIRED);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        RESET_TIME_EXPIRED,
+      );
     }
     if (Number(resetDto.code) !&#x3D;&#x3D; owner.getConfirmCode()) {
-      throw new ApiException(HttpStatus.BAD_REQUEST, &#x27;Bad request&#x27;, INVALID_CODE);
+      throw new ApiException(
+        HttpStatus.BAD_REQUEST,
+        &#x27;Bad request&#x27;,
+        INVALID_CODE,
+      );
     }
     await this.rewritePassword(owner, resetDto.password);
     return owner.email;
   }
 
-  async changePassword(ownerId: number, password: string): Promise&lt;Owner | void&gt; {
+  async changePassword(
+    ownerId: number,
+    password: string,
+  ): Promise&lt;Owner | void&gt; {
     const owner &#x3D; await this.getOwnerById(ownerId);
     if (!owner) {
-       throw new ApiException(HttpStatus.NOT_FOUND, &#x27;Not found!&#x27;, OWNER_NOT_FOUND);   
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        &#x27;Not found!&#x27;,
+        OWNER_NOT_FOUND,
+      );
     }
     return this.rewritePassword(owner, password);
   }

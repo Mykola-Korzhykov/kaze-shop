@@ -233,7 +233,7 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsString, IsDefined, Matches, } from &#x27;class-validator&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { IsString, IsDefined, Matches } from &#x27;class-validator&#x27;;
 
 export class CreateReviewDto {
   @IsDefined()
@@ -250,7 +250,8 @@ export class CreateReviewDto {
   @Matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-яzžitisšte_-]/gi)
   @IsString()
   readonly review: string;
-}</code></pre>
+}
+</code></pre>
     </div>
 </div>
 

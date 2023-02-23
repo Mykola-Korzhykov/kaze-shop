@@ -69,6 +69,22 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#Logger" >Logger</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
                 <tr>
                     <td class="col-md-4">
@@ -93,6 +109,54 @@
     </table>
 </section>
 
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(currencyService: <a href="../injectables/CurrencyService.html" target="_self">CurrencyService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/core/middlewares/location.middleware.ts:20</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>currencyService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/CurrencyService.html" target="_self" >CurrencyService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
 
             <section>
     
@@ -119,8 +183,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="16"
-                            class="link-to-prism">src/core/middlewares/location.middleware.ts:16</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/core/middlewares/location.middleware.ts:22</a></div>
                 </td>
             </tr>
 
@@ -193,6 +257,39 @@
         </tbody>
     </table>
 </section>
+            <section>
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Logger"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>Logger</b></span>
+                        <a href="#Logger"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Logger(LocationMiddleware.name)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/core/middlewares/location.middleware.ts:20</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
 
     </div>
 
@@ -200,6 +297,7 @@
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
   Injectable,
+  Logger,
   NestMiddleware,
   Next,
   Req,
@@ -208,21 +306,56 @@
 } from &#x27;@nestjs/common&#x27;;
 import { Request, Response, NextFunction } from &#x27;express&#x27;;
 import geoip from &#x27;geoip-lite&#x27;;
-import IP from &#x27;ip&#x27;; 
+import IP from &#x27;ip&#x27;;
 import path from &#x27;path&#x27;;
 import { Reader } from &#x27;@maxmind/geoip2-node&#x27;;
+import { CurrencyService } from &#x27;../../owner/services/currency.service&#x27;;
+import getSymbolFromCurrency from &#x27;currency-symbol-map&#x27;;
+import countryToCurrency from &#x27;country-to-currency&#x27;;
 @Injectable({ scope: Scope.REQUEST })
 export class LocationMiddleware implements NestMiddleware {
+  private readonly Logger &#x3D; new Logger(LocationMiddleware.name);
+  constructor(private readonly currencyService: CurrencyService) {}
   use(@Req() req: Request, @Res() res: Response, @Next() next: NextFunction) {
     (async () &#x3D;&gt; {
-      const ipAddress &#x3D; IP.address();
-      const reader &#x3D; await Reader.open(path.join(__dirname, &#x27;GeoLite2-Country.mmdb&#x27;));
-      const data &#x3D; reader.country(ipAddress);
-      const geo &#x3D; geoip.lookup(ipAddress);
-      console.log(geo, ipAddress);
-      req[&#x27;location&#x27;] &#x3D; data.country.isoCode;
-      res.setHeader(&#x27;Location&#x27;, &#x60;${req[&#x27;location&#x27;]}&#x60;);
-      return next();
+      try {
+        const ipAddress &#x3D; IP.address();
+        const reader &#x3D; await Reader.open(
+          path.join(__dirname, &#x27;GeoLite2-Country.mmdb&#x27;),
+        );
+        const data &#x3D; reader.country(&#x27;62.122.202.29&#x27;);
+        const geo &#x3D; geoip.lookup(&#x27;62.122.202.29&#x27;);
+        this.Logger.log(geo, ipAddress);
+        req[&#x27;countryIsoCode&#x27;] &#x3D; data.country.isoCode;
+        req[&#x27;CLient-IP&#x27;] &#x3D; data.traits.ipAddress;
+        req[&#x27;CLient-Network&#x27;] &#x3D; data.traits.network;
+        req[&#x27;user-type&#x27;] &#x3D; data.traits.userType;
+        req[&#x27;city&#x27;] &#x3D; geo.city;
+        req[&#x27;geo&#x27;] &#x3D; geo;
+        res.setHeader(&#x27;Client-IP-Address&#x27;, &#x60;${data.traits.ipAddress}&#x60;);
+        res.setHeader(&#x27;Client-Network&#x27;, &#x60;${data.traits.network}&#x60;);
+        res.setHeader(&#x27;Client-Location&#x27;, &#x60;${data.country.isoCode}&#x60;);
+        res.setHeader(&#x27;Client-userType&#x27;, &#x60;${data.traits.userType}&#x60;);
+        const currency &#x3D; await this.currencyService.getCurrentCurrency(
+          data.country.isoCode,
+        );
+        if (currency) {
+          req[&#x27;currency&#x27;] &#x3D; currency;
+          return next();
+        }
+        req[&#x27;currency&#x27;] &#x3D; {
+          currencyCode: countryToCurrency[data.country.isoCode],
+          symbol: getSymbolFromCurrency(
+            process.env.BASE_CURRENCY.toUpperCase().trim(),
+          ),
+          rate: 1,
+        };
+        return next();
+      } catch (err) {
+        console.log(err);
+        this.Logger.error(err);
+        return next(err);
+      }
     })();
   }
 }
