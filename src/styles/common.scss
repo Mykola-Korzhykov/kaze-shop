@@ -648,22 +648,30 @@
 .filter_checkbox {
 	display: flex;
 	align-items: center;
-
+	//Іконка з прозорим фоном
+	// &[data-checked='true'] {
+	// 	& .filter_checkbox__icon {
+	// 		display: flex;
+	// 		justify-content: center;
+	// 		align-items: center;
+	// 		&::after {
+	// 			content: '';
+	// 			width: 15.75px;
+	// 			height: 10.5px;
+	// 			// top: 33%;
+	// 			// left: 50%;
+	// 			// transform: translate(-50%);
+	// 			background: url('../assets/icons/catalog/checkboxMark.svg') no-repeat
+	// 				center top / cover !important;
+	// 		}
+	// 		transition: all 0.2s ease;
+	// 	}
+	// }
+	//Іконка з чорним фоном
 	&[data-checked='true'] {
 		& .filter_checkbox__icon {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			&::after {
-				content: '';
-				width: 15.75px;
-				height: 10.5px;
-				// top: 33%;
-				// left: 50%;
-				// transform: translate(-50%);
-				background: url('../assets/icons/catalog/checkboxMark.svg') no-repeat
-					center top / cover !important;
-			}
+			background: url('../assets/icons/checkbox-active.svg') no-repeat center
+				top / cover !important;
 			transition: all 0.2s ease;
 		}
 	}

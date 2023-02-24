@@ -72,6 +72,11 @@
 		font-size: 16px;
 		line-height: 19px;
 		color: #0b0b0b;
+		&:hover {
+			color: white;
+			background: #0b0b0b;
+			border-right: 1px solid white;
+		}
 	}
 	&_icon {
 		width: 43px;
@@ -84,18 +89,23 @@
 		outline: none;
 		border: #0b0b0b solid 1px;
 		border-left: none;
+		&:hover {
+			background-image: url('../../../../assets/icons/catalog/catalogLikesWhite.svg');
+			background-color: #0b0b0b;
+		}
 	}
 }
 
-.footer:hover .footer_icon {
-	background-image: url('../../../../assets/icons/catalog/catalogLikesWhite.svg');
-	background-color: #0b0b0b;
-}
-.footer:hover .footer_button {
-	color: white;
-	background: #0b0b0b;
-	border-right: 1px solid white;
-}
+// при на веденні на футер-блоку товару і кнопка і іконка закладок ховериться
+// .footer:hover .footer_icon {
+// 	background-image: url('../../../../assets/icons/catalog/catalogLikesWhite.svg');
+// 	background-color: #0b0b0b;
+// }
+// .footer:hover .footer_button {
+// 	color: white;
+// 	background: #0b0b0b;
+// 	border-right: 1px solid white;
+// }
 
 .img {
 	width: 100%;

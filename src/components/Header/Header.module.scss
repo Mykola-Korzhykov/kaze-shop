@@ -15,7 +15,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: none;
+    background-color: #F2F2F0;
       
   @media (max-width: 834px) {
     background-color: #F2F2F0;
@@ -44,7 +44,7 @@
       display: none;
       flex-wrap: wrap;
 
-      @media (max-width: 428px) {
+      @media (max-width: 470px) {
         display: flex;
       }
       li {
@@ -140,7 +140,7 @@
       }
 
       @media (max-width: 428px) {
-        padding: 16px 24px;
+        padding: 16px 12px;
       }
     }
     &_account {
@@ -288,7 +288,7 @@
       top: 100%;
       left: 5%;
     }
-    @media (max-width: 428px) {
+    @media (max-width: 470px) {
       display: none;
     }
   }

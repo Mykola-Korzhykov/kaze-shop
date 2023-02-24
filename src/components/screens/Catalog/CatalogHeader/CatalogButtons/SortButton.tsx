@@ -4,13 +4,31 @@ type Props = {
 	text: string
 }
 const SortButton: FC<Props> = ({ text }) => {
+	const btnsWrapperRef = React.useRef(null)
 	const [sortActive, setSortActive] = React.useState<boolean>(false)
 	const sortButtonHandler = () => {
 		setSortActive(prev => !prev)
 	}
+	const handleClickOutside = (e: MouseEvent) => {
+		if (!btnsWrapperRef.current.contains(e.target)) {
+			setSortActive(false)
+		}
+		// } else {
+		// 	console.log('inside sort block')
+		// }
+	}
+	React.useEffect(() => {
+		document.addEventListener('click', handleClickOutside, true)
+		return () => {
+			document.removeEventListener('click', handleClickOutside, true)
+		}
+	}, [])
 	return (
-		<div className={s.sortBtn_wrapper}>
-			<button onClick={sortButtonHandler} className={s.buttonSort}>
+		<div ref={btnsWrapperRef} className={s.sortBtn_wrapper}>
+			<button
+				onClick={sortButtonHandler}
+				className={`${s.buttonSort} ${sortActive ? `${s.open}` : ''}`}
+			>
 				{text}
 			</button>
 			{sortActive && (

@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import s from './CatalogFilters.module.scss'
 import FiltersColors from './FiltersColors'
 import FiltersSizes from './FiltersSizes'
-import FiltersButton from './FiltersButton'
+import FiltersButton from './FiltersSubmitButton'
 import FiltersCategories from './FiltersCategories'
 const CatalogFilters: FC = () => {
 	return (

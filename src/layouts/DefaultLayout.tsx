@@ -23,9 +23,6 @@ const DefaultLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
 				setIsSticky(false)
 			}
 		})
-		;() => {
-			window.removeEventListener('scroll')
-		}
 	}, [])
 
 	return (
