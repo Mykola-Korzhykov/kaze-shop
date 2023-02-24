@@ -4,6 +4,7 @@ import CatalogContext from '@/context/CatalogContext'
 import CatalogHeader from './CatalogHeader'
 import CatalogItems from './CatalogItems'
 import CatalogFilters from './CatalogFilters'
+import CatalogPagination from './CatalogPagination'
 const Catalog: FC = () => {
 	const [filtersOpened, setFiltersOpened] = useState<boolean>(false)
 	return (
@@ -16,6 +17,7 @@ const Catalog: FC = () => {
 					<CatalogHeader />
 					{filtersOpened && <CatalogFilters />}
 					<CatalogItems />
+					<CatalogPagination />
 				</div>
 			</main>
 		</CatalogContext.Provider>

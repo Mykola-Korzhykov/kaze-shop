@@ -9,11 +9,10 @@
 	color: #0b0b0b;
 	background-color: white;
 	padding: 14px 40px;
-	transition: 0.3s linear background;
+	transition: 0.3s linear color;
 	&:active {
 		color: #ffffff;
-		background: #9d9d9d;
-		transition: 0.3s linear background;
+		background-color: #9d9d9d;
 		border-color: #9d9d9d;
 	}
 	&:hover {
@@ -28,7 +27,7 @@
 	@media (max-width: 420px) {
 		font-size: 16px;
 	}
-	@media (max-width: 375px) {
+	@media (max-width: 385px) {
 		font-size: 14px;
 		padding: 14px 10px;
 	}
@@ -60,7 +59,7 @@
 	}
 	&:hover {
 		color: #ffffff;
-		background: #9d9d9d;
+		background-color: #0b0b0b;
 		transition: 0.3s linear color;
 		border-color: #9d9d9d;
 		&::after {
@@ -68,7 +67,7 @@
 		}
 	}
 	&:active {
-		background-color: #0b0b0b;
+		background-color: #9d9d9d;
 	}
 
 	@media (max-width: 834px) {
@@ -84,7 +83,7 @@
 	@media (max-width: 420px) {
 		font-size: 16px;
 	}
-	@media (max-width: 375px) {
+	@media (max-width: 385px) {
 		font-size: 14px;
 		padding: 14px 10px;
 	}
