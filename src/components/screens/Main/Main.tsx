@@ -22,7 +22,7 @@ const Main = () => {
 
 	return (
 		<div className={s.wrapper}>
-			{/* <BuyProducts /> */}
+			<BuyProducts /> 
 			{/* <ProductFitnes /> */}
 			{/* <About /> */}
 			{/* <ProductsAccessories />  */}
