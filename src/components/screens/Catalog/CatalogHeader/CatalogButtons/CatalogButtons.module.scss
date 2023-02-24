@@ -172,7 +172,7 @@ button.open {
 		top: 50%;
 		transform: translateY(-50%);
 		right: 16px;
-		background-image: url('../../../../../assets/icons/catalog/catalogSortDown.svg.svg');
+		background-image: url('../../../../../assets/icons/catalog/sortIconOpen.svg');
 		width: 24px;
 		height: 24px;
 	}
@@ -182,7 +182,7 @@ button.open {
 		transition: 0.3s linear color;
 		border-color: #9d9d9d;
 		&::after {
-			background-image: url('../../../../../assets/icons/catalog/checkboxSortIcon.svg');
+			background-image: url('../../../../../assets/icons/catalog/sortIconOpenWhite.svg');
 		}
 	}
 }
