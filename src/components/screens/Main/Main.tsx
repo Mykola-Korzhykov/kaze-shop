@@ -22,13 +22,12 @@ const Main = () => {
 
 	return (
 		<div className={s.wrapper}>
-			<BuyProducts />
-			<ProductFitnes />
-			<About />
-			<ProductsAccessories />
+			{/* <BuyProducts /> */}
+			{/* <ProductFitnes /> */}
+			{/* <About /> */}
+			{/* <ProductsAccessories />  */}
 			{/* <Reviews /> */}
-			<FAQ />
-
+			{/* <FAQ /> */}
 		</div>
 
 	)
