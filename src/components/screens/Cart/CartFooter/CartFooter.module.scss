@@ -1,0 +1,87 @@
+.totalPriceWrapper {
+	display: flex;
+	justify-content: flex-end;
+	gap: 137px;
+	margin-bottom: 20px;
+	text-align: right;
+	font-family: 'Georama';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 22px;
+	color: rgba(0, 0, 0, 0.6);
+
+	@media (max-width: 428px) {
+		justify-content: space-between;
+		margin-bottom: 30px;
+	}
+}
+
+.btnsWrapper {
+	display: flex;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+	gap: 32px;
+	@media (max-width: 428px) {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: 24px;
+	}
+}
+
+.btn_goBack {
+	display: inline-block;
+	border: 1.5px solid #0b0b0b;
+	font-family: 'Georama';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	color: #0b0b0b;
+	padding: 16px 43px;
+	transition: 0.3s linear color;
+	max-height: 56px;
+	&:hover {
+		color: #ffffff;
+		transition: 0.3s linear color;
+		background: #0b0b0b;
+	}
+	background: transparent;
+	@media (max-width: 834px) {
+		padding: 16px 21.5px;
+	}
+	@media (max-width: 428px) {
+		flex: 1 1 30%;
+	}
+	@media (max-width: 380px) {
+		flex: 1 1 100%;
+	}
+}
+
+.btn_confirm {
+	border: none;
+	font-family: 'Georama';
+	background: #0b0b0b;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	color: #ffffff;
+	max-height: 56px;
+	padding: 16px 95px;
+	transition: 0.3s linear color;
+	&:hover {
+		background: #9d9d9d;
+		transition: 0.3s linear color;
+	}
+	@media (max-width: 834px) {
+		padding: 16px 37.5px;
+	}
+	@media (max-width: 428px) {
+		flex: 1 1 60%;
+	}
+	@media (max-width: 380px) {
+		flex: 1 1 100%;
+	}
+}
