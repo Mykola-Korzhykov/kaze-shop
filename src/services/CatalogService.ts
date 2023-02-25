@@ -2,12 +2,32 @@ import {} from '@/types/auth'
 import { AxiosInstance, AxiosResponse } from 'axios'
 import { API_URL } from './index'
 export const GoodsApi = (instance: AxiosInstance) => ({
-	async getGoods() {
-		const { data } = await instance.get('/goods')
+	async getGoods(page: number) {
+		const { data } = await instance.get(`/product?page=${page}&pageSize=10`)
 		return data
 	},
-	async filterGoods() {
-		const { data } = await instance.get('/filter')
+	async getGategories() {
+		const { data } = await instance.get('/categories/get_categoties')
+		return data
+	},
+	async getColours() {
+		const { data } = await instance.get('colours/get_colours')
+		return data
+	},
+	async filterGoods(
+		page: number,
+		sizes: string,
+		categories: string,
+		colours: string,
+		sortBy: string
+	) {
+		const { data } = await instance.get(
+			`/filter?page=${page}&pageSize=10${
+				categories && `&categories=${categories}`
+			}${colours && `&colours=${colours}`}${sizes && `&sizes=${sizes}`}${
+				sortBy && `&order=${sortBy}`
+			}`
+		)
 		return data
 	},
 })

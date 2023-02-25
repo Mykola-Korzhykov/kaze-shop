@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { FC } from 'react'
 import s from './CatalogItems.module.scss'
 import Image from 'next/image'
+import { Goods } from '@/types/goods'
 import catalogImg from '../../../../assets/images/catalogItem.png'
-
-const CatalogItem = () => {
+interface ICatalogItemProps {
+	product?: Goods
+}
+const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
+	product
 	return (
 		<div className={s.catalogItem}>
 			<div className={s.imgWrapper}>

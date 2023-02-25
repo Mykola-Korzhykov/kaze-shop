@@ -1,10 +1,13 @@
 import React, { FC } from 'react'
+import { useAppDispatch } from '@/redux/hooks'
+import { setSortType } from '@/redux/slices/goods'
 import s from './CatalogButtons.module.scss'
 type Props = {
 	text: string
 }
 const SortButton: FC<Props> = ({ text }) => {
 	const btnsWrapperRef = React.useRef(null)
+	const dispatch = useAppDispatch()
 	const [sortActive, setSortActive] = React.useState<boolean>(false)
 	const sortButtonHandler = () => {
 		setSortActive(prev => !prev)
@@ -16,6 +19,12 @@ const SortButton: FC<Props> = ({ text }) => {
 		// } else {
 		// 	console.log('inside sort block')
 		// }
+	}
+	const sortByIncrease = () => {
+		dispatch(setSortType('ASC'))
+	}
+	const sortByDecrease = () => {
+		dispatch(setSortType('DEC'))
 	}
 	React.useEffect(() => {
 		document.addEventListener('click', handleClickOutside, true)
@@ -33,10 +42,16 @@ const SortButton: FC<Props> = ({ text }) => {
 			</button>
 			{sortActive && (
 				<div className={s.dropList}>
-					<button className={`${s.buttonSort} ${s.sortUp_icon}`}>
+					<button
+						onClick={sortByIncrease}
+						className={`${s.buttonSort} ${s.sortUp_icon}`}
+					>
 						Возростанию
 					</button>
-					<button className={`${s.buttonSort} ${s.sortDown_icon}`}>
+					<button
+						onClick={sortByDecrease}
+						className={`${s.buttonSort} ${s.sortDown_icon}`}
+					>
 						Убыванию
 					</button>
 				</div>

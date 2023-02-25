@@ -1,7 +1,10 @@
 import React from 'react'
+import { useAppSelector } from '@/redux/hooks'
+import { selectFetchedColours } from '@/redux/slices/goods'
 import s from './CatalogFilters.module.scss'
 import FiltersCheckbox from './FiltersCheckbox'
-const FiltersColors = () => {
+const FiltersColours = () => {
+	const fetchedColours = useAppSelector(selectFetchedColours)
 	const COLORS = [
 		{ label: 'Бежевый', color: '#FFE4C4', id: 1 },
 		{ label: 'Капучинный', color: '#9F8E84', id: 2 },
@@ -22,7 +25,13 @@ const FiltersColors = () => {
 			<div className={s.filters_body}>
 				{COLORS.map(el => {
 					return (
-						<FiltersCheckbox label={el.label} color={el.color} key={el.id} />
+						<FiltersCheckbox
+							label={el.label}
+							color={el.color}
+							key={el.id}
+							type='colour'
+							itemId={el.id}
+						/>
 					)
 				})}
 			</div>
@@ -30,4 +39,4 @@ const FiltersColors = () => {
 	)
 }
 
-export default FiltersColors
+export default FiltersColours
