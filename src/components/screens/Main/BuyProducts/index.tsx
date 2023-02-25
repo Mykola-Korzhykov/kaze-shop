@@ -84,7 +84,7 @@ const BuyProducts = () => {
             <div className={s.wrapper_slider_mobile}>
                 <div className={s.inner_slider}>
                     <div className={s.slider}>
-                        <SliderProducts />
+                        {/* <SliderProducts /> */}
                     </div>
                 </div>
 
