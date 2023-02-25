@@ -5,7 +5,7 @@ import cartImage from '../../../../assets/images/cartItem.png'
 const CartItem = () => {
 	return (
 		<div className={s.cart_item}>
-			<div className={s.item_imgWrapper}>
+			<div className={s.img_wrapper}>
 				<Image src={cartImage} alt='Cart image' className={s.item_img} priority={true} quality={95}/>
 			</div>
 			<div className={s.item_content}>
@@ -19,12 +19,12 @@ const CartItem = () => {
 						<div className={s.item_checkbox}>
 							<p style={{ backgroundColor: 'red' }}></p>
 						</div>
-						<p className={s.item_sizeText}>
+						<p className={s.item_format}>
 							Размер - <span>M</span>
 						</p>
 					</div>
 				</div>
-				<div className={s.item_priceBlock}>
+				<div className={s.item_addition}>
 					<button className={`${s.item_btn} ${s.minus}`}></button>
 					<p className={s.item_count}>1</p>
 					<button className={`${s.item_btn} ${s.plus}`}></button>

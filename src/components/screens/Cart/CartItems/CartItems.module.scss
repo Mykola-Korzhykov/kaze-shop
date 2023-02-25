@@ -13,7 +13,7 @@
 	}
 }
 
-.item_imgWrapper {
+.img_wrapper {
 	margin-right: 30px;
 	max-width: 94px;
 	min-width: 77px;
@@ -53,7 +53,7 @@
 	}
 }
 
-.item_priceBlock {
+.item_addition {
 	display: flex;
 	margin-top: 7px;
 	margin-left: 249px;
@@ -99,7 +99,7 @@
 		font-size: 14px;
 		line-height: 17px;
 	}
-	@media(max-width: 720px) {
+	@media (max-width: 720px) {
 		margin-bottom: 8px;
 	}
 	@media (max-width: 320px) {
@@ -112,7 +112,7 @@
 	display: flex;
 	align-items: center;
 	gap: 20px;
-	@media(max-width: 428px) {
+	@media (max-width: 428px) {
 		gap: 16px;
 	}
 }
@@ -131,7 +131,7 @@
 		padding: 2px;
 	}
 }
-.item_sizeText {
+.item_format {
 	font-family: 'Georama', sans-serif;
 	font-style: normal;
 	font-weight: 400;
