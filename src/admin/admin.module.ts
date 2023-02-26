@@ -42,9 +42,16 @@ import { Order } from '../orders/models/order.model';
 import { OrderProduct } from '../orders/models/order.product.model';
 import { Product } from '../product/models/product.model';
 import { UsersService } from '../users/services/users.service';
-import { Currencies } from 'src/owner/models/currencies.model';
+import { Currencies } from '../owner/models/currencies.model';
 import { HttpModule } from '@nestjs/axios';
-import { CurrencyService } from 'src/owner/services/currency.service';
+import { CurrencyService } from '../owner/services/currency.service';
+import { CartModule } from '../cart/cart.module';
+import { CartService } from '../cart/cart.service';
+import { MailModule } from '../mail/mail.module';
+import { ProductModule } from '../product/product.module';
+import { CategoriesColoursModule } from '../categories&colours/categories&colours.module';
+import { ProductService } from '../product/product.service';
+import { FilesService } from '../core/services/file.service';
 @Module({
   controllers: [AdminController],
   imports: [
@@ -82,14 +89,20 @@ import { CurrencyService } from 'src/owner/services/currency.service';
         expiresIn: 172800000,
       },
     }),
+    forwardRef(() => CartModule),
     forwardRef(() => CoreModule),
     forwardRef(() => AdminModule),
     forwardRef(() => RolesModule),
     forwardRef(() => AuthModule),
     forwardRef(() => OwnerModule),
     forwardRef(() => UsersModule),
+    forwardRef(() => MailModule),
+    forwardRef(() => ProductModule),
+    forwardRef(() => CategoriesColoursModule),
   ],
   providers: [
+    FilesService,
+    CartService,
     TasksService,
     AdminService,
     AdminJwtRefreshService,
@@ -98,6 +111,7 @@ import { CurrencyService } from 'src/owner/services/currency.service';
     AdminService,
     UsersService,
     CurrencyService,
+    ProductService,
   ],
   exports: [AdminService, AdminJwtRefreshService],
 })

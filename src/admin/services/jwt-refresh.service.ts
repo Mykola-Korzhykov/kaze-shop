@@ -234,6 +234,9 @@ export class AdminJwtRefreshService {
   > {
     const token = await this.adminRefreshTokenRepository.findOne({
       where: { adminRefreshToken: adminRefreshToken },
+      include: {
+        all: true,
+      },
     });
     if (!token) {
       return false;

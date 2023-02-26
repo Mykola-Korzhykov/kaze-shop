@@ -33,6 +33,12 @@ import { Currencies } from './models/currencies.model';
 import { CurrencyService } from './services/currency.service';
 import { HttpModule } from '@nestjs/axios';
 import { ScheduleModule } from '@nestjs/schedule';
+import { CartModule } from '../cart/cart.module';
+import { CartService } from 'src/cart/cart.service';
+import { ProductModule } from 'src/product/product.module';
+import { ProductService } from 'src/product/product.service';
+import { CategoriesColoursModule } from 'src/categories&colours/categories&colours.module';
+import { FilesService } from 'src/core/services/file.service';
 @Module({
   imports: [
     ScheduleModule.forRoot(),
@@ -77,11 +83,16 @@ import { ScheduleModule } from '@nestjs/schedule';
       ProductColours,
       Colour,
     ]),
+    forwardRef(() => CartModule),
     forwardRef(() => CoreModule),
     forwardRef(() => AuthModule),
     forwardRef(() => AdminModule),
+    forwardRef(() => ProductModule),
+    forwardRef(() => CategoriesColoursModule),
   ],
   providers: [
+    FilesService,
+    CartService,
     OwnerService,
     OwnerJwtRefreshService,
     CurrencyService,
@@ -89,6 +100,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     TasksService,
     UsersService,
     AdminService,
+    ProductService,
   ],
   exports: [OwnerService, OwnerJwtRefreshService, CurrencyService],
 })

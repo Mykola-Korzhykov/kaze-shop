@@ -46,6 +46,11 @@ import { WatchedProducts } from '../product/models/watched.products.model';
 import { Currencies } from '../owner/models/currencies.model';
 import { HttpModule } from '@nestjs/axios';
 import { CurrencyService } from '../owner/services/currency.service';
+import { CartModule } from '../cart/cart.module';
+import { CartService } from '../cart/cart.service';
+import { CategoriesColoursModule } from '../categories&colours/categories&colours.module';
+import { ProductService } from '../product/product.service';
+import { FilesService } from '../core/services/file.service';
 @Module({
   controllers: [UsersController],
   imports: [
@@ -86,6 +91,8 @@ import { CurrencyService } from '../owner/services/currency.service';
         expiresIn: 604800000,
       },
     }),
+    forwardRef(() => AuthModule),
+    forwardRef(() => CartModule),
     forwardRef(() => MailModule),
     forwardRef(() => ProductModule),
     forwardRef(() => CoreModule),
@@ -94,13 +101,18 @@ import { CurrencyService } from '../owner/services/currency.service';
     forwardRef(() => AuthModule),
     forwardRef(() => OwnerModule),
     forwardRef(() => UsersModule),
+    forwardRef(() => ProductModule),
+    forwardRef(() => CategoriesColoursModule),
   ],
   providers: [
+    FilesService,
+    CartService,
     UsersService,
     UserJwtRefreshTokenService,
     TasksService,
     AuthService,
     CurrencyService,
+    ProductService,
   ],
   exports: [UsersService, UserJwtRefreshTokenService],
 })

@@ -29,8 +29,8 @@ export class ProductService {
   private readonly Logger = new Logger(ProductService.name);
   constructor(
     @InjectModel(Product) private readonly productRepository: typeof Product,
-    private readonly userService: UsersService,
     private readonly ownerService: OwnerService,
+    private readonly userService: UsersService,
     private readonly adminService: AdminService,
     private readonly categoriesService: CategoriesService,
     private readonly coloursService: ColoursService,
@@ -80,14 +80,27 @@ export class ProductService {
               hexes: product.hexes,
               sizeChartImage: product.sizeChartImage,
               sizes: product.sizes,
-              colours: product.colours,
-              categories: product.categories.map((category) => {
+              colours: product.colours.map((colour) => {
+                return {
+                  id: colour.id,
+                  ua: colour.ua,
+                  en: colour.en,
+                  rs: colour.rs,
+                  ru: colour.ru,
+                  hex: colour.hex,
+                  type: 'colour',
+                  createdAt: colour.createdAt,
+                  updatedAt: colour.updatedAt,
+                };
+              }),
+              categories: product?.categories?.map((category) => {
                 return {
                   id: category.id,
                   ua: category.ua,
                   en: category.en,
                   rs: category.rs,
                   ru: category.ru,
+                  type: 'category',
                   createdAt: category.createdAt,
                   updatedAt: category.updatedAt,
                 };
@@ -148,14 +161,27 @@ export class ProductService {
             hexes: product.hexes,
             sizeChartImage: product.sizeChartImage,
             sizes: product.sizes,
-            colours: product.colours,
-            categories: product.categories.map((category) => {
+            colours: product.colours.map((colour) => {
+              return {
+                id: colour.id,
+                ua: colour.ua,
+                en: colour.en,
+                rs: colour.rs,
+                ru: colour.ru,
+                hex: colour.hex,
+                type: 'colour',
+                createdAt: colour.createdAt,
+                updatedAt: colour.updatedAt,
+              };
+            }),
+            categories: product?.categories?.map((category) => {
               return {
                 id: category.id,
                 ua: category.ua,
                 en: category.en,
                 rs: category.rs,
                 ru: category.ru,
+                type: 'category',
                 createdAt: category.createdAt,
                 updatedAt: category.updatedAt,
               };
@@ -217,14 +243,27 @@ export class ProductService {
             hexes: product.hexes,
             sizeChartImage: product.sizeChartImage,
             sizes: product.sizes,
-            colours: product.colours,
-            categories: product.categories.map((category) => {
+            colours: product.colours.map((colour) => {
+              return {
+                id: colour.id,
+                ua: colour.ua,
+                en: colour.en,
+                rs: colour.rs,
+                ru: colour.ru,
+                hex: colour.hex,
+                type: 'colour',
+                createdAt: colour.createdAt,
+                updatedAt: colour.updatedAt,
+              };
+            }),
+            categories: product?.categories?.map((category) => {
               return {
                 id: category.id,
                 ua: category.ua,
                 en: category.en,
                 rs: category.rs,
                 ru: category.ru,
+                type: 'category',
                 createdAt: category.createdAt,
                 updatedAt: category.updatedAt,
               };
@@ -285,14 +324,27 @@ export class ProductService {
           hexes: product.hexes,
           sizeChartImage: product.sizeChartImage,
           sizes: product.sizes,
-          colours: product.colours,
-          categories: product.categories.map((category) => {
+          colours: product.colours.map((colour) => {
+            return {
+              id: colour.id,
+              ua: colour.ua,
+              en: colour.en,
+              rs: colour.rs,
+              ru: colour.ru,
+              hex: colour.hex,
+              type: 'colour',
+              createdAt: colour.createdAt,
+              updatedAt: colour.updatedAt,
+            };
+          }),
+          categories: product?.categories?.map((category) => {
             return {
               id: category.id,
               ua: category.ua,
               en: category.en,
               rs: category.rs,
               ru: category.ru,
+              type: 'category',
               createdAt: category.createdAt,
               updatedAt: category.updatedAt,
             };
@@ -349,14 +401,27 @@ export class ProductService {
             hexes: product.hexes,
             sizeChartImage: product.sizeChartImage,
             sizes: product.sizes,
-            colours: product.colours,
-            categories: product.categories.map((category) => {
+            colours: product.colours.map((colour) => {
+              return {
+                id: colour.id,
+                ua: colour.ua,
+                en: colour.en,
+                rs: colour.rs,
+                ru: colour.ru,
+                hex: colour.hex,
+                type: 'colour',
+                createdAt: colour.createdAt,
+                updatedAt: colour.updatedAt,
+              };
+            }),
+            categories: product?.categories?.map((category) => {
               return {
                 id: category.id,
                 ua: category.ua,
                 en: category.en,
                 rs: category.rs,
                 ru: category.ru,
+                type: 'category',
                 createdAt: category.createdAt,
                 updatedAt: category.updatedAt,
               };
@@ -424,14 +489,27 @@ export class ProductService {
         sizeChartImage: product.sizeChartImage,
         sizes: product.sizes,
         hexes: product.hexes,
-        colours: product.colours,
-        categories: product.categories.map((category) => {
+        colours: product.colours.map((colour) => {
+          return {
+            id: colour.id,
+            ua: colour.ua,
+            en: colour.en,
+            rs: colour.rs,
+            ru: colour.ru,
+            hex: colour.hex,
+            type: 'colour',
+            createdAt: colour.createdAt,
+            updatedAt: colour.updatedAt,
+          };
+        }),
+        categories: product?.categories?.map((category) => {
           return {
             id: category.id,
             ua: category.ua,
             en: category.en,
             rs: category.rs,
             ru: category.ru,
+            type: 'category',
             createdAt: category.createdAt,
             updatedAt: category.updatedAt,
           };
@@ -531,14 +609,27 @@ export class ProductService {
               hexes: product.hexes,
               sizeChartImage: product.sizeChartImage,
               sizes: product.sizes,
-              colours: product.colours,
-              categories: product.categories.map((category) => {
+              colours: product.colours.map((colour) => {
+                return {
+                  id: colour.id,
+                  ua: colour.ua,
+                  en: colour.en,
+                  rs: colour.rs,
+                  ru: colour.ru,
+                  hex: colour.hex,
+                  type: 'colour',
+                  createdAt: colour.createdAt,
+                  updatedAt: colour.updatedAt,
+                };
+              }),
+              categories: product?.categories?.map((category) => {
                 return {
                   id: category.id,
                   ua: category.ua,
                   en: category.en,
                   rs: category.rs,
                   ru: category.ru,
+                  type: 'category',
                   createdAt: category.createdAt,
                   updatedAt: category.updatedAt,
                 };
@@ -739,17 +830,19 @@ export class ProductService {
             rs: colour.rs,
             ru: colour.ru,
             hex: colour.hex,
+            type: 'colour',
             createdAt: colour.createdAt,
             updatedAt: colour.updatedAt,
           };
         }),
-        categories: dbProduct.categories.map((category) => {
+        categories: dbProduct?.categories?.map((category) => {
           return {
             id: category.id,
             ua: category.ua,
             en: category.en,
             rs: category.rs,
             ru: category.ru,
+            type: 'category',
             createdAt: category.createdAt,
             updatedAt: category.updatedAt,
           };
@@ -905,6 +998,7 @@ export class ProductService {
             rs: colour.rs,
             ru: colour.ru,
             hex: colour.hex,
+            type: 'colour',
             createdAt: colour.createdAt,
             updatedAt: colour.updatedAt,
           };
@@ -916,6 +1010,7 @@ export class ProductService {
             en: category.en,
             rs: category.rs,
             ru: category.ru,
+            type: 'category',
             createdAt: category.createdAt,
             updatedAt: category.updatedAt,
           };

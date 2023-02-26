@@ -26,11 +26,14 @@ import { ResetDto } from '../../auth/dto/reset.password.dto';
 import { CodeDto } from '../../core/interfaces/auth.interfaces';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { ApiException } from '../../common/exceptions/api.exception';
+import { Cart } from '../../cart/models/cart.model';
+import { CART_NOT_FOUND } from '../../cart/cart.constants';
 @Injectable({ scope: Scope.TRANSIENT })
 export class UsersService {
   constructor(
     @InjectModel(User) private userRepository: typeof User,
     private readonly roleService: RolesService,
+    @InjectModel(Cart) private readonly cartRepository: typeof Cart,
   ) {}
 
   async findUser(
@@ -77,7 +80,10 @@ export class UsersService {
     return users;
   }
 
-  async initializeUser(userDto: InitializeUser): Promise<User> {
+  async initializeUser(
+    userDto: InitializeUser,
+    cartIdentifier: string,
+  ): Promise<User> {
     const [email, phoneNumber] = await Promise.all([
       await this.getUserByEmail(userDto.email),
       await this.getUserByPhoneNumber(userDto.phoneNumber),
@@ -103,7 +109,21 @@ export class UsersService {
       ...userDto,
       password: hashedPassword,
     });
-    return user.save();
+    const cart = await this.findCartByIdentifier(cartIdentifier);
+    if (cart && cart.cartProducts.length > 0) {
+      cart.userId = user.id;
+      cart.set('user', user);
+      user.$set('leftCarts', cart);
+      user.leftCarts = [cart];
+      await cart.save();
+    }
+    const newCart = await this.createCart(cartIdentifier);
+    user.$set('cart', newCart);
+    newCart.userId = user.id;
+    user.cart = newCart;
+    await newCart.save();
+    await user.save();
+    return user;
   }
 
   async updateUser(userDto: UpdateUserDto, userId: number): Promise<User> {
@@ -141,6 +161,7 @@ export class UsersService {
       await user.save();
       return user;
     }
+    user.leftCarts = [];
     await user.$set('roles', role.id);
     user.roles = [role];
     await user.save();
@@ -236,7 +257,10 @@ export class UsersService {
     return user;
   }
 
-  async validateUser(userDto: ValidateUser): Promise<User> {
+  async validateUser(
+    userDto: ValidateUser,
+    cartIdentifier: string,
+  ): Promise<User> {
     const user = await this.getUserByEmail(userDto.email);
     if (!user) {
       throw new ApiException(
@@ -249,14 +273,22 @@ export class UsersService {
       userDto.password,
       user.getPassword(),
     );
-    if (passwordEquals) {
-      return user;
+    if (!passwordEquals) {
+      throw new ApiException(
+        HttpStatus.UNAUTHORIZED,
+        'Unathorized!',
+        INVALID_EMAIL_OR_PASSWORD,
+      );
     }
-    throw new ApiException(
-      HttpStatus.UNAUTHORIZED,
-      'Unathorized!',
-      INVALID_EMAIL_OR_PASSWORD,
-    );
+    const cart = await this.findCartByIdentifier(cartIdentifier);
+    if (cart && cart.cartProducts.length > 0) {
+      cart.userId = user.id;
+      cart.set('user', user);
+      user.$add('leftCarts', cart);
+      await cart.save();
+    }
+    await user.save();
+    return user;
   }
 
   async setConfirmCode(codeDto: CodeDto, code: number): Promise<string> {
@@ -323,5 +355,35 @@ export class UsersService {
     const hashedPassword = await bcrypt.hash(password, salt);
     user.setNewPasssword(hashedPassword);
     return user.save();
+  }
+
+  async createCart(identifier: string): Promise<Cart> {
+    const cart = await this.cartRepository.create({
+      cartStatus: 'Open',
+      totalPrice: 0,
+      products: [],
+      cartProducts: [],
+      identifier: identifier,
+    });
+    return cart;
+  }
+
+  async findCartByIdentifier(identifier: string): Promise<Cart> {
+    const cart = await this.cartRepository.findOne({
+      where: {
+        identifier: identifier,
+      },
+      include: {
+        all: true,
+      },
+    });
+    if (!cart) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        CART_NOT_FOUND,
+      );
+    }
+    return cart;
   }
 }

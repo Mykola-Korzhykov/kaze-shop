@@ -40,11 +40,30 @@ import { TasksService } from '../core/services/scedule.service';
 import { CoreModule } from '../core/core.module';
 import { AppListener } from '../core/services/events.service';
 import { CurrencyService } from '../owner/services/currency.service';
-import { Currencies } from 'src/owner/models/currencies.model';
+import { Currencies } from '../owner/models/currencies.model';
 import { HttpModule } from '@nestjs/axios';
+import { CartModule } from '../cart/cart.module';
+import { Cart } from '../cart/models/cart.model';
+import { CartProduct } from '../cart/models/cart.product.model';
+import { Category } from '../categories&colours/models/category.model';
+import { Colour } from '../categories&colours/models/colours.model';
+import { ProductCategories } from '../categories&colours/models/product.categories.model';
+import { ProductColours } from '../categories&colours/models/product.colour.model';
+import { Order } from '../orders/models/order.model';
+import { OrderProduct } from '../orders/models/order.product.model';
+import { BookmarksProducts } from '../product/models/bookmark.products';
+import { Product } from '../product/models/product.model';
+import { WatchedProducts } from '../product/models/watched.products.model';
+import { ProductReviews } from '../reviews/models/product.reviews.model';
+import { Review } from '../reviews/models/review.model';
+import { CategoriesColoursModule } from '../categories&colours/categories&colours.module';
+import { ProductModule } from '../product/product.module';
+import { RolesModule } from '../roles/roles.module';
+import { FilesService } from '../core/services/file.service';
 @Module({
   providers: [
     CurrencyService,
+    FilesService,
     AppListener,
     AuthService,
     JwtModule,
@@ -70,20 +89,37 @@ import { HttpModule } from '@nestjs/axios';
       isGlobal: true,
     }),
     SequelizeModule.forFeature([
-      User,
-      UserRefreshToken,
+      ProductReviews,
+      Product,
+      Order,
+      OrderProduct,
+      Category,
+      ProductCategories,
       Admin,
       AdminRefreshToken,
       Owner,
+      OwnerRefreshToken,
+      User,
+      UserRefreshToken,
       Role,
       UserRoles,
-      OwnerRefreshToken,
+      Cart,
+      CartProduct,
+      Review,
+      BookmarksProducts,
+      WatchedProducts,
       Currencies,
+      Colour,
+      ProductColours,
     ]),
+    forwardRef(() => CategoriesColoursModule),
+    forwardRef(() => CartModule),
     forwardRef(() => CoreModule),
     forwardRef(() => AdminModule),
     forwardRef(() => OwnerModule),
     forwardRef(() => UsersModule),
+    forwardRef(() => ProductModule),
+    forwardRef(() => RolesModule),
     JwtModule.register({
       secret:
         process.env.JWT_ACCESS_SECRET.toString().trim() ||

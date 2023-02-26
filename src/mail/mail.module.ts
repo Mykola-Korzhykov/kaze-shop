@@ -7,9 +7,6 @@ import { OwnerModule } from '../owner/owner.module';
 import { RolesModule } from '../roles/roles.module';
 import { UsersModule } from '../users/users.module';
 import { ConfigModule } from '@nestjs/config';
-import { UsersService } from '../users/services/users.service';
-import { OwnerService } from '../owner/services/owner.service';
-import { AdminService } from '../admin/services/admin.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Admin } from '../admin/models/admin.model';
 import { AdminRefreshToken } from '../admin/models/admin.refresh.token.model';
@@ -25,9 +22,11 @@ import { UserRoles } from '../roles/models/user.roles.model';
 import { User } from '../users/models/user.model';
 import { UserRefreshToken } from '../users/models/user.refresh.token.model';
 import { Currencies } from 'src/owner/models/currencies.model';
+import { CartModule } from 'src/cart/cart.module';
+import { ProductModule } from 'src/product/product.module';
 
 @Module({
-  providers: [MailService, UsersService, OwnerService, AdminService],
+  providers: [MailService],
   imports: [
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
@@ -50,6 +49,8 @@ import { Currencies } from 'src/owner/models/currencies.model';
       CartProduct,
       Currencies,
     ]),
+    forwardRef(() => ProductModule),
+    forwardRef(() => CartModule),
     forwardRef(() => AdminModule),
     forwardRef(() => RolesModule),
     forwardRef(() => AuthModule),

@@ -1,6 +1,12 @@
-import { forwardRef, Module } from '@nestjs/common';
-import { CardService } from './cart.service';
-import { CardController } from './cart.controller';
+import {
+  forwardRef,
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
+import { CartService } from './cart.service';
+import { CartController } from './cart.controller';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Admin } from '../admin/models/admin.model';
@@ -26,11 +32,21 @@ import { OrderProduct } from '../orders/models/order.product.model';
 import { Product } from '../product/models/product.model';
 import { OrdersModule } from '../orders/orders.module';
 import { CategoriesColoursModule } from 'src/categories&colours/categories&colours.module';
+import { CartMiddleware } from 'src/common/middlewares/cart.middleware';
+import { CurrencyService } from 'src/owner/services/currency.service';
+import { Currencies } from 'src/owner/models/currencies.model';
+import { AdminModule } from 'src/admin/admin.module';
+import { OwnerModule } from 'src/owner/owner.module';
+import { MailModule } from 'src/mail/mail.module';
+import { HttpModule } from '@nestjs/axios';
+import { ProductService } from '../product/product.service';
 
 @Module({
-  providers: [CardService],
-  controllers: [CardController],
+  providers: [CartService, CurrencyService, ProductService],
+  controllers: [CartController],
+  exports: [CartService],
   imports: [
+    HttpModule,
     forwardRef(() => AuthModule),
     ConfigModule.forRoot({
       envFilePath: `.${process.env.NODE_ENV}.env`,
@@ -55,13 +71,29 @@ import { CategoriesColoursModule } from 'src/categories&colours/categories&colou
       CartProduct,
       Colour,
       ProductColours,
+      Currencies,
     ]),
+    forwardRef(() => MailModule),
     forwardRef(() => ProductModule),
     forwardRef(() => OrdersModule),
     forwardRef(() => CategoriesColoursModule),
     forwardRef(() => RolesModule),
     forwardRef(() => AuthModule),
     forwardRef(() => UsersModule),
+    forwardRef(() => AdminModule),
+    forwardRef(() => OwnerModule),
   ],
 })
-export class CartModule {}
+export class CartModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(CartMiddleware)
+      .forRoutes(
+        { path: 'cart/', method: RequestMethod.GET },
+        { path: 'cart/addProduct', method: RequestMethod.POST },
+        { path: 'cart/clear', method: RequestMethod.PUT },
+        { path: 'cart/deleteProduct', method: RequestMethod.DELETE },
+        { path: 'cart/leftCarts', method: RequestMethod.GET },
+      );
+  }
+}

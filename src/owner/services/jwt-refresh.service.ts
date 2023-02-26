@@ -253,6 +253,9 @@ export class OwnerJwtRefreshService {
   > {
     const token = await this.ownerRefreshTokenRepository.findOne({
       where: { ownerRefreshToken: ownerRefreshToken },
+      include: {
+        all: true,
+      },
     });
     if (!token) {
       return false;

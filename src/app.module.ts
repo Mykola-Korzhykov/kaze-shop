@@ -55,9 +55,11 @@ import { LocationMiddleware } from './core/middlewares/location.middleware';
 import { TasksService } from './core/services/scedule.service';
 import { Colour } from './categories&colours/models/colours.model';
 import { ProductColours } from './categories&colours/models/product.colour.model';
+import { FilesService } from './core/services/file.service';
 @Module({
   controllers: [AppController],
   providers: [
+    FilesService,
     TasksService,
     HttpModule,
     AppClusterService,

@@ -31,6 +31,7 @@ import { ColoursService } from './services/colours.service';
 import { ColoursController } from './controllers/colours.controller';
 import { Colour } from './models/colours.model';
 import { ProductColours } from './models/product.colour.model';
+import { ProductMiddleware } from 'src/common/middlewares/product.middleware';
 
 @Module({
   providers: [CategoriesService, ColoursService],
@@ -67,6 +68,9 @@ import { ProductColours } from './models/product.colour.model';
 })
 export class CategoriesColoursModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(ProductMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
     consumer
       .apply(InitializeUserMiddleware)
       .forRoutes(

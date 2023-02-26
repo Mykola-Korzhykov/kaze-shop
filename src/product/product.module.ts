@@ -80,7 +80,6 @@ import { ProductColours } from 'src/categories&colours/models/product.colour.mod
       Currencies,
     ]),
     forwardRef(() => OrdersModule),
-    forwardRef(() => CartModule),
     forwardRef(() => CategoriesColoursModule),
     forwardRef(() => AdminModule),
     forwardRef(() => RolesModule),

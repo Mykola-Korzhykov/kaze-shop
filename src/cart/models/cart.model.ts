@@ -8,6 +8,8 @@ import {
   BelongsToMany,
   BelongsTo,
 } from 'sequelize-typescript';
+import { Admin } from 'src/admin/models/admin.model';
+import { Owner } from 'src/owner/models/owner.model';
 import { Product } from '../../product/models/product.model';
 import { User } from '../../users/models/user.model';
 import { CartProduct } from './cart.product.model';
@@ -28,7 +30,7 @@ export class Cart extends Model<Cart> {
     unique: false,
     field: 'cartStatus',
   })
-  private cartStatus: string;
+  public cartStatus: string;
 
   @Column({
     type: DataType.INTEGER,
@@ -37,6 +39,13 @@ export class Cart extends Model<Cart> {
   })
   public totalPrice: number;
 
+  @Column({
+    type: DataType.STRING,
+    unique: true,
+    field: 'identifier',
+  })
+  public identifier: string;
+
   @ForeignKey(() => User)
   @Column({
     type: DataType.INTEGER,
@@ -44,8 +53,28 @@ export class Cart extends Model<Cart> {
   })
   public userId: number;
 
+  @ForeignKey(() => Admin)
+  @Column({
+    type: DataType.INTEGER,
+    field: 'adminId',
+  })
+  public adminId: number;
+
+  @ForeignKey(() => Owner)
+  @Column({
+    type: DataType.INTEGER,
+    field: 'ownerId',
+  })
+  public ownerId: number;
+
   @BelongsTo(() => User)
-  private user: User;
+  public user: User;
+
+  @BelongsTo(() => Admin)
+  public admin: Admin;
+
+  @BelongsTo(() => Owner)
+  public owner: Owner;
 
   @BelongsToMany(() => Product, () => CartProduct)
   public products: Product[];

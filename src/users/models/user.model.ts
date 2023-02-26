@@ -9,6 +9,7 @@ import {
   IsInt,
   HasMany,
   ForeignKey,
+  HasOne,
 } from 'sequelize-typescript';
 import { Cart } from '../../cart/models/cart.model';
 import { Admin } from '../../admin/models/admin.model';
@@ -251,8 +252,11 @@ export class User extends Model<User, UsercreationAttrbs> {
   @HasMany(() => UserRefreshToken)
   public userRefreshTokens: UserRefreshToken[];
 
+  @HasOne(() => Cart)
+  public cart: Cart;
+
   @HasMany(() => Cart)
-  public carts: Cart[];
+  public leftCarts: Cart[];
 
   @BelongsToMany(() => Product, () => BookmarksProducts)
   public bookmarks: Product[];
@@ -395,7 +399,7 @@ export class User extends Model<User, UsercreationAttrbs> {
   }
 
   getCarts(): Cart[] {
-    return this.carts;
+    return this.leftCarts;
   }
 
   getUserRefreshTokens(): UserRefreshToken[] {

@@ -10,6 +10,7 @@ import {
   IsUUID,
   BelongsToMany,
   HasMany,
+  HasOne,
 } from 'sequelize-typescript';
 import { Role } from '../../roles/models/roles.model';
 import { UserRoles } from '../../roles/models/user.roles.model';
@@ -17,6 +18,7 @@ import { OwnerCreationAttrbs } from '../../core/interfaces/owner.interfaces';
 import { Product } from '../../product/models/product.model';
 import { OwnerRefreshToken } from './owner.refresh.token.model';
 import { Currencies } from './currencies.model';
+import { Cart } from 'src/cart/models/cart.model';
 
 @Table({ tableName: 'OWNER' })
 export class Owner extends Model<Owner, OwnerCreationAttrbs> {
@@ -178,6 +180,12 @@ export class Owner extends Model<Owner, OwnerCreationAttrbs> {
 
   @HasMany(() => OwnerRefreshToken)
   public ownerRefreshTokens: OwnerRefreshToken[];
+
+  @HasOne(() => Cart)
+  public cart: Cart;
+
+  @HasMany(() => Cart)
+  public leftCarts: Cart[];
 
   getName(): string {
     return this.name;

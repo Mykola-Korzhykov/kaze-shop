@@ -68,6 +68,7 @@ export class CategoriesService {
         en: category.en,
         rs: category.rs,
         ru: category.ru,
+        type: 'category',
         createdAt: category.createdAt,
         updatedAt: category.updatedAt,
       };
@@ -99,6 +100,7 @@ export class CategoriesService {
       en: category.en,
       rs: category.rs,
       ru: category.ru,
+      type: 'category',
       createdAt: category.createdAt,
       updatedAt: category.updatedAt,
     };
@@ -157,6 +159,7 @@ export class CategoriesService {
       en: category.en,
       rs: category.rs,
       ru: category.ru,
+      type: 'category',
       createdAt: category.createdAt,
       updatedAt: category.updatedAt,
     };

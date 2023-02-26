@@ -41,6 +41,7 @@ import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './create.review.dto';
 import RequestValidator from '../common/pipes/body-validator.pipe';
 import { CategoriesColoursModule } from 'src/categories&colours/categories&colours.module';
+import { ProductModule } from 'src/product/product.module';
 
 @Module({
   controllers: [ReviewsController],
@@ -80,6 +81,7 @@ import { CategoriesColoursModule } from 'src/categories&colours/categories&colou
     forwardRef(() => AuthModule),
     forwardRef(() => OwnerModule),
     forwardRef(() => UsersModule),
+    forwardRef(() => ProductModule),
   ],
 })
 export class ReviewsModule implements NestModule {

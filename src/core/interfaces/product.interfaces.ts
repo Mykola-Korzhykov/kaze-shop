@@ -74,6 +74,7 @@ export interface ReturnedCategory {
   en: string;
   rs: string;
   ru: string;
+  type: string;
   createdAt: any;
   updatedAt: any;
 }
@@ -85,6 +86,7 @@ export interface ReturnedColour {
   rs: string;
   ru: string;
   hex: string;
+  type: string;
   createdAt: any;
   updatedAt: any;
 }

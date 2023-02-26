@@ -51,10 +51,10 @@ export class CartProduct extends Model<CartProduct> {
   public quantity: number;
 
   @BelongsTo(() => Cart)
-  private cart: Cart;
+  public cart: Cart;
 
   @BelongsTo(() => Product)
-  private product: Product;
+  public product: Product;
 
   getProduct(): Product {
     return this.product;

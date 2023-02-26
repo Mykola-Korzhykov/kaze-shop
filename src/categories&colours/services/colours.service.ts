@@ -69,6 +69,7 @@ export class ColoursService {
         rs: colour.rs,
         ru: colour.ru,
         hex: colour.hex,
+        type: 'colour',
         createdAt: colour.createdAt,
         updatedAt: colour.updatedAt,
       };
@@ -100,6 +101,7 @@ export class ColoursService {
       rs: colour.rs,
       ru: colour.ru,
       hex: colour.hex,
+      type: 'colour',
       createdAt: colour.createdAt,
       updatedAt: colour.updatedAt,
     };
@@ -161,6 +163,7 @@ export class ColoursService {
       rs: colour.rs,
       ru: colour.ru,
       hex: colour.hex,
+      type: 'colour',
       createdAt: colour.createdAt,
       updatedAt: colour.updatedAt,
     };

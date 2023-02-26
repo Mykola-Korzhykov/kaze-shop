@@ -38,12 +38,16 @@ export class LocationMiddleware implements NestMiddleware {
         res.setHeader('Client-IP-Address', `${data.traits.ipAddress}`);
         res.setHeader('Client-Network', `${data.traits.network}`);
         res.setHeader('Client-Location', `${data.country.isoCode}`);
-        res.setHeader('Client-userType', `${data.traits.userType}`);
+        res.setHeader('Client-domain', `${data.traits.domain}`);
         const currency = await this.currencyService.getCurrentCurrency(
           data.country.isoCode,
         );
         if (currency) {
-          req['currency'] = currency;
+          req['currency'] = {
+            currrencyCode: currency.currrencyCode,
+            symbol: currency.symbol,
+            rate: Number(currency.rate),
+          };
           return next();
         }
         req['currency'] = {
@@ -51,7 +55,7 @@ export class LocationMiddleware implements NestMiddleware {
           symbol: getSymbolFromCurrency(
             process.env.BASE_CURRENCY.toUpperCase().trim(),
           ),
-          rate: 1,
+          rate: Number(1),
         };
         return next();
       } catch (err) {

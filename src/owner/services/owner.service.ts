@@ -23,17 +23,17 @@ import { Payload } from '../../core/interfaces/auth.interfaces';
 import { v4 } from 'uuid';
 import { Role } from '../../roles/models/roles.model';
 import { ApiException } from '../../common/exceptions/api.exception';
-import { Currencies } from '../models/currencies.model';
 import { SchedulerRegistry, Cron, CronExpression } from '@nestjs/schedule';
 import { CurrencyService } from './currency.service';
+import { Cart } from 'src/cart/models/cart.model';
+import { CART_NOT_FOUND } from 'src/cart/cart.constants';
 @Injectable({ scope: Scope.TRANSIENT })
 export class OwnerService {
   private readonly Logger = new Logger(OwnerService.name);
   constructor(
     private readonly schedulerRegistry: SchedulerRegistry,
     private readonly currencyService: CurrencyService,
-    @InjectModel(Currencies)
-    private readonly currenciesRepository: typeof Currencies,
+    @InjectModel(Cart) private readonly cartRepository: typeof Cart,
     @InjectModel(Owner) private readonly ownerRepository: typeof Owner,
     private readonly roleService: RolesService,
   ) {}
@@ -203,7 +203,10 @@ export class OwnerService {
     return owner;
   }
 
-  async validateOwner(ownerDto: LoginDto): Promise<Owner | boolean> {
+  async validateOwner(
+    ownerDto: LoginDto,
+    cartIdentifier: string,
+  ): Promise<Owner | boolean> {
     const owner = await this.getOwnerByEmail(ownerDto.email);
     if (!owner) {
       return false;
@@ -212,10 +215,25 @@ export class OwnerService {
       ownerDto.password,
       owner.getPassword(),
     );
-    if (passwordEquals) {
-      return owner;
+    if (!passwordEquals) {
+      return false;
     }
-    return false;
+    if (!owner.cart || owner.cart.cartProducts.length === 0) {
+      const newCart = await this.createCart(cartIdentifier);
+      owner.$set('cart', newCart);
+      newCart.ownerId = owner.id;
+      owner.cart = newCart;
+      await newCart.save();
+    }
+    const cart = await this.findCartByIdentifier(cartIdentifier);
+    if (cart && cart.cartProducts.length > 0) {
+      cart.ownerId = owner.id;
+      cart.set('owner', owner);
+      owner.$add('leftCarts', cart);
+      await cart.save();
+    }
+    await owner.save();
+    return owner;
   }
 
   async checkOwner(payload: Payload, activationLink: string | undefined) {
@@ -295,5 +313,35 @@ export class OwnerService {
     const hashedPassword = await bcrypt.hash(password, salt);
     owner.setNewPasssword(hashedPassword);
     return owner.save();
+  }
+
+  private async createCart(identifier: string): Promise<Cart> {
+    const cart = await this.cartRepository.create({
+      cartStatus: 'Open',
+      totalPrice: 0,
+      products: [],
+      cartProducts: [],
+      identifier: identifier,
+    });
+    return cart;
+  }
+
+  private async findCartByIdentifier(identifier: string): Promise<Cart> {
+    const cart = await this.cartRepository.findOne({
+      where: {
+        identifier: identifier,
+      },
+      include: {
+        all: true,
+      },
+    });
+    if (!cart) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        CART_NOT_FOUND,
+      );
+    }
+    return cart;
   }
 }

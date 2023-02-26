@@ -12,6 +12,13 @@
             "log",
             "error"
         ],
+        "trailing-comma": [
+            true,
+            {
+                "multiline": "always",
+                "singleline": "never"
+            }
+        ],
         "no-debugger": true,
         "no-duplicate-super": true,
         "no-duplicate-switch-case": true,
@@ -56,7 +63,6 @@
             true,
             "always"
         ],
-        "trailing-comma": false,
         "indent": [
             true,
             "spaces",

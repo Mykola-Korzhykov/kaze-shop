@@ -7,6 +7,8 @@ import { Currencies } from '../../owner/models/currencies.model';
 import { CurrencyService } from '../../owner/services/currency.service';
 import { JwtRefreshTokenDeletedEvent } from '../events/jwt-refresh-token-deleted.evet';
 import { CreateOwnerDto } from 'src/owner/dto/create.owner.dto';
+import { FilesService } from './file.service';
+import { join } from 'path';
 
 @Injectable({ scope: Scope.DEFAULT })
 export class TasksService {
@@ -15,7 +17,7 @@ export class TasksService {
     private readonly schedulerRegistry: SchedulerRegistry,
     private readonly eventEmitter: EventEmitter2,
     private readonly currencyService: CurrencyService,
-    private readonly ownerService: OwnerService,
+    private readonly filesService: FilesService,
   ) {}
 
   addCronJob(
@@ -33,7 +35,9 @@ export class TasksService {
     return job;
   }
 
-  @Cron(CronExpression.EVERY_HOUR)
+  @Cron(CronExpression.EVERY_HOUR, {
+    disabled: true,
+  })
   getCrons(): Map<string, CronJob> {
     const jobs = this.schedulerRegistry.getCronJobs();
     jobs.forEach((value, key) => {
@@ -75,7 +79,9 @@ export class TasksService {
     return;
   }
 
-  @Cron(CronExpression.EVERY_HOUR)
+  @Cron(CronExpression.EVERY_HOUR, {
+    disabled: true,
+  })
   getIntervals(): string[] {
     this.deleteCron('');
     const intervals = this.schedulerRegistry.getIntervals();
@@ -127,11 +133,22 @@ export class TasksService {
     return;
   }
 
-  @Cron(CronExpression.EVERY_HOUR)
+  @Cron(CronExpression.EVERY_HOUR, {
+    disabled: true,
+  })
   getTimeouts(): string[] {
     const timeouts = this.schedulerRegistry.getTimeouts();
     timeouts.forEach((key) => this.logger.log(`Timeout: ${key}`));
     return timeouts;
+  }
+
+  @Cron(CronExpression.EVERY_12_HOURS)
+  async deleteEmptyFolders() {
+    const deleted = await this.filesService.deleteEmpty(
+      join(__dirname, 'static'),
+    );
+    this.logger.log(deleted);
+    return deleted;
   }
 
   @Cron(CronExpression.EVERY_WEEK)

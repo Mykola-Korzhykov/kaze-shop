@@ -13,57 +13,16 @@ import path from 'path';
 import { Reader } from '@maxmind/geoip2-node';
 import { Observable, map, timeout, firstValueFrom, catchError } from 'rxjs';
 import { NextFunction, Request, Response } from 'express';
-import { randomBytes, scrypt, createCipheriv } from 'crypto';
-import { promisify } from 'util';
 import { HttpService } from '@nestjs/axios';
 import { Query, UseGuards } from '@nestjs/common/decorators';
 import { ThrottlerBehindProxyGuard } from './common/guards/throttler-behind-proxy.guard';
 import { Throttle } from '@nestjs/throttler';
-import { v4 } from 'uuid';
 @ApiTags('/')
 @UseGuards(ThrottlerBehindProxyGuard)
 @Controller('/')
 export class AppController {
   private readonly Logger = new Logger(AppController.name);
   constructor(private readonly httpService: HttpService) {}
-
-  @Throttle(20, 500)
-  @Get('set-user')
-  @HttpCode(200)
-  setCookie(
-    @Req() request: Request,
-    @Res() response: Response,
-    @Next() next: NextFunction,
-  ) {
-    (async () => {
-      try {
-        if (!request.signedCookies['_id']) {
-          const _id = await this.generateEncryptedValue('USER', 16);
-          response.cookie('_id', _id, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production' ? true : false,
-            sameSite: 'strict',
-            signed: true,
-            path: '/',
-            maxAge: 30 * 24 * 60 * 60 * 1000,
-          });
-          return response.json({ _id: _id });
-        }
-        response.cookie('_id', request.signedCookies['_id'], {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production' ? true : false,
-          sameSite: 'strict',
-          signed: true,
-          path: '/',
-          maxAge: 30 * 24 * 60 * 60 * 1000,
-        });
-        return response.json({ _id: request.signedCookies['_id'] });
-      } catch (err: unknown) {
-        this.Logger.error(err);
-        next(err);
-      }
-    })();
-  }
 
   @Throttle(20, 500)
   @Get('get-location')
@@ -135,19 +94,5 @@ export class AppController {
         ),
     );
     return data;
-  }
-
-  private async generateEncryptedValue(
-    value: string,
-    bytes: number,
-  ): Promise<string> {
-    const iv = randomBytes(bytes);
-    const API_KEY = process.env.API_KEY.toString();
-    const key = (await promisify(scrypt)(API_KEY, 'salt', 16)) as Buffer;
-    const cipher = createCipheriv('aes-256-ctr', key, iv);
-    return Buffer.concat([cipher.update(value), cipher.final()])
-      .toString('base64')
-      .replace('/', `${v4()}`)
-      .replace('=', `${v4()}`);
   }
 }

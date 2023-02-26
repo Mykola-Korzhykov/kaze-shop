@@ -129,12 +129,12 @@ async function startServer(): Promise<INestApplication> {
   process.on('unhandledRejection', (reason: Error) => {
     console.log(reason.name, reason.message);
     console.log(reason);
-    console.log('UNHANDLED REJECTION! 💥 Shutting down...');
+    console.log('UNHANDLED REJECTION! Shutting down...');
     return process.exit(1), reason;
   });
   process.on('uncaughtException', (err: Error) => {
     console.log(err.name, err.message);
-    console.log('UNCAUGHT EXCEPTION! 💥 Shutting down...');
+    console.log('UNCAUGHT EXCEPTION! Shutting down...');
     return process.exit(1);
   });
   try {

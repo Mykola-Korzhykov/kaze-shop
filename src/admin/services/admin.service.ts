@@ -23,6 +23,8 @@ import { UsersService } from '../../users/services/users.service';
 import { User } from '../../users/models/user.model';
 import { RolesService } from '../../roles/roles.service';
 import { ApiException } from '../../common/exceptions/api.exception';
+import { CART_NOT_FOUND } from 'src/cart/cart.constants';
+import { Cart } from 'src/cart/models/cart.model';
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class AdminService {
@@ -30,6 +32,7 @@ export class AdminService {
     @InjectModel(Admin) private adminRepository: typeof Admin,
     private readonly userService: UsersService,
     private readonly roleService: RolesService,
+    @InjectModel(Cart) private readonly cartRepository: typeof Cart,
   ) {}
 
   async findAdmin(
@@ -275,7 +278,10 @@ export class AdminService {
     return admin;
   }
 
-  async validateAdmin(adminDto: LoginDto): Promise<Admin | boolean> {
+  async validateAdmin(
+    adminDto: LoginDto,
+    cartIdentifier: string,
+  ): Promise<Admin | boolean> {
     const admin = await this.getAdminByEmail(adminDto.email);
     if (!admin) {
       return false;
@@ -284,10 +290,25 @@ export class AdminService {
       adminDto.password,
       admin.getPassword(),
     );
-    if (passwordEquals) {
-      return admin;
+    if (!passwordEquals) {
+      return false;
     }
-    return false;
+    if (!admin.cart || admin.cart.cartProducts.length === 0) {
+      const newCart = await this.createCart(cartIdentifier);
+      admin.$set('cart', newCart);
+      newCart.adminId = admin.id;
+      admin.cart = newCart;
+      await newCart.save();
+    }
+    const cart = await this.findCartByIdentifier(cartIdentifier);
+    if (cart && cart.cartProducts.length > 0) {
+      cart.adminId = admin.id;
+      cart.set('admin', admin);
+      admin.$add('leftCarts', cart);
+      await cart.save();
+    }
+    await admin.save();
+    return admin;
   }
 
   async setConfirmCode(codeDto: CodeDto, code: number): Promise<string> {
@@ -341,5 +362,35 @@ export class AdminService {
     const hashedPassword = await bcrypt.hash(password, salt);
     admin.setNewPasssword(hashedPassword);
     return admin.save();
+  }
+
+  private async createCart(identifier: string): Promise<Cart> {
+    const cart = await this.cartRepository.create({
+      cartStatus: 'Open',
+      totalPrice: 0,
+      products: [],
+      cartProducts: [],
+      identifier: identifier,
+    });
+    return cart;
+  }
+
+  private async findCartByIdentifier(identifier: string): Promise<Cart> {
+    const cart = await this.cartRepository.findOne({
+      where: {
+        identifier: identifier,
+      },
+      include: {
+        all: true,
+      },
+    });
+    if (!cart) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        CART_NOT_FOUND,
+      );
+    }
+    return cart;
   }
 }

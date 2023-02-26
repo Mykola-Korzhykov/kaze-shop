@@ -85,7 +85,13 @@ export class AuthService {
           USER_NOT_AUTHORIZIED,
         );
       }
-      const user = await this.authenticateUser(userDto, userAgent, false);
+      const cartIdentifier = request.signedCookies['_id'];
+      const user = await this.authenticateUser(
+        userDto,
+        userAgent,
+        false,
+        cartIdentifier,
+      );
       const tokens = await this.generateTokens(user, userAgent);
       await this.activateUser(user, response);
       response.cookie('refreshToken', tokens.refreshToken, {
@@ -120,7 +126,13 @@ export class AuthService {
           USER_NOT_AUTHORIZIED,
         );
       }
-      const user = await this.authenticateUser(userDto, userAgent, true);
+      const identifier = request.signedCookies['_id'];
+      const user = await this.authenticateUser(
+        userDto,
+        userAgent,
+        true,
+        identifier,
+      );
       const tokens = await this.generateTokens(user, userAgent);
       await this.activateUser(user, response);
       response.cookie('refreshToken', tokens.refreshToken, {
@@ -568,11 +580,15 @@ export class AuthService {
     userDto: InitializeUser | ValidateUser,
     userAgent: string,
     isNew: boolean,
+    cartIdentifier: undefined | string,
   ): Promise<Admin | Owner | User> {
-    const owner = await this.ownerService.validateOwner({
-      email: userDto.email,
-      password: userDto.password,
-    });
+    const owner = await this.ownerService.validateOwner(
+      {
+        email: userDto.email,
+        password: userDto.password,
+      },
+      cartIdentifier,
+    );
     if (owner instanceof Owner && !owner.getOwnerAgent()) {
       owner.setOwnerAgent(userAgent);
       await owner.save();
@@ -580,10 +596,13 @@ export class AuthService {
     if (owner && owner instanceof Owner) {
       return owner;
     }
-    const admin = await this.adminService.validateAdmin({
-      email: userDto.email,
-      password: userDto.password,
-    });
+    const admin = await this.adminService.validateAdmin(
+      {
+        email: userDto.email,
+        password: userDto.password,
+      },
+      cartIdentifier,
+    );
     if (admin instanceof Admin && !admin.getAdminAgent()) {
       admin.setAdminAgent(userAgent);
       await admin.save();
@@ -593,6 +612,7 @@ export class AuthService {
     }
     if (
       isNew &&
+      cartIdentifier &&
       'name' in <InitializeUser>userDto &&
       'surname' in <InitializeUser>userDto &&
       'phoneNumber' in <InitializeUser>userDto &&
@@ -602,10 +622,14 @@ export class AuthService {
     ) {
       const user = await this.userService.initializeUser(
         <InitializeUser>userDto,
+        cartIdentifier,
       );
       return user;
     }
-    const user = await this.userService.validateUser(<ValidateUser>userDto);
+    const user = await this.userService.validateUser(
+      <ValidateUser>userDto,
+      cartIdentifier,
+    );
     if (user instanceof User) {
       return user;
     }

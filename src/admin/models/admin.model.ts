@@ -19,6 +19,7 @@ import { UserRoles } from '../../roles/models/user.roles.model';
 import { User } from '../../users/models/user.model';
 import { AdminRefreshToken } from './admin.refresh.token.model';
 import { Product } from '../../product/models/product.model';
+import { Cart } from 'src/cart/models/cart.model';
 
 @Table({ tableName: 'ADMINS' })
 export class Admin extends Model<Admin, AdmincreationAttrbs> {
@@ -212,6 +213,12 @@ export class Admin extends Model<Admin, AdmincreationAttrbs> {
     field: 'userAgent',
   })
   private adminAgent: string;
+
+  @HasOne(() => Cart)
+  public cart: Cart;
+
+  @HasMany(() => Cart)
+  public leftCarts: Cart[];
 
   @HasMany(() => Product)
   private products: Product[];
