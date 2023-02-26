@@ -1,10 +1,10 @@
-.cart_itemsWrapper {
+.wrapper {
 	display: flex;
 	flex-direction: column;
 	margin-bottom: 30px;
 }
 
-.cart_item {
+.block {
 	padding: 10px 0;
 	border-top: 1.5px solid #9d9d9d;
 	display: flex;
@@ -13,7 +13,7 @@
 	}
 }
 
-.img_wrapper {
+.imgWrapper {
 	margin-right: 30px;
 	max-width: 94px;
 	min-width: 77px;
@@ -21,14 +21,14 @@
 		width: 77px;
 	}
 }
-.item_img {
+.img {
 	width: 100%;
 	height: 100%;
 	display: block;
 	object-fit: cover;
 }
 
-.item_content {
+.content {
 	display: flex;
 	justify-content: space-between;
 	@media (max-width: 720px) {
@@ -37,7 +37,7 @@
 	}
 }
 
-.item_text {
+.text {
 	display: flex;
 	flex-direction: column;
 	margin-top: 16.5px;
@@ -53,7 +53,7 @@
 	}
 }
 
-.item_addition {
+.addition {
 	display: flex;
 	margin-top: 7px;
 	margin-left: 249px;
@@ -65,7 +65,7 @@
 	}
 }
 
-.item_title {
+.title {
 	font-family: 'Russo One';
 	font-style: normal;
 	font-weight: 400;
@@ -86,7 +86,7 @@
 	}
 }
 
-.item_descr {
+.descr {
 	font-family: 'Georama', sans-serif;
 	font-style: normal;
 	font-weight: 500;
@@ -108,7 +108,7 @@
 	}
 }
 
-.item_size {
+.size {
 	display: flex;
 	align-items: center;
 	gap: 20px;
@@ -116,7 +116,7 @@
 		gap: 16px;
 	}
 }
-.item_checkbox {
+.checkbox {
 	width: 30px;
 	height: 30px;
 	padding: 5px;
@@ -131,7 +131,7 @@
 		padding: 2px;
 	}
 }
-.item_format {
+.format {
 	font-family: 'Georama', sans-serif;
 	font-style: normal;
 	font-weight: 400;
@@ -148,7 +148,7 @@
 	}
 }
 
-.item_btn {
+.btn {
 	width: 30px;
 	height: 30px;
 	padding: 5px;
@@ -165,7 +165,7 @@
 		no-repeat center center/contain;
 }
 
-.item_count {
+.count {
 	margin: 0px 20px;
 	font-family: 'Georama';
 	font-style: normal;
@@ -175,7 +175,7 @@
 	color: #000000;
 }
 
-.item_price {
+.price {
 	font-family: 'Georama';
 	font-style: normal;
 	font-weight: 400;
