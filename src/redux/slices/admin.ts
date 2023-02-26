@@ -22,11 +22,14 @@ const initialState: initialStateType = {
         { id: 3 },
     ],
     inputs: [
-        { id: 1, type: 'text', text: 'Название товара', placeholder: 'Введите название кнопки', label: 'text' },
-        { id: 2, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', label: 'select' },
-        { id: 3, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', label: 'text' },
-        { id: 4, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', label: 'text' },
-        { id: 5, type: 'text', text: 'Описание товара', placeholder: 'Введите описание товара', label: 'text' }
+        { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', label: 'text' },
+        { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название кнопки', label: 'text' },
+        { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название кнопки', label: 'text' },
+        { id: 3, type: 'text', text: 'Название товара ENG', placeholder: 'Введите название кнопки', label: 'text' },
+        { id: 4, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', label: 'select' },
+        { id: 5, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', label: 'text' },
+        { id: 6, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', label: 'text' },
+        { id: 7, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', label: 'text' }
     ]
 
 }
