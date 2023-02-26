@@ -14,6 +14,10 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		const { data } = await instance.get('colours/get_colours')
 		return data
 	},
+	async getGoodsByCategory(page: number, categoryId: number) {
+		const { data } = await instance.get(`/product?page=${page}&pageSize=10&categoryId=${categoryId}`)
+		return data
+	},
 	async filterGoods(
 		page: number,
 		sizes: string,
@@ -22,7 +26,7 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		sortBy: string
 	) {
 		const { data } = await instance.get(
-			`/filter?page=${page}&pageSize=10${
+			`/product/filter?page=${page}&pageSize=10${
 				categories && `&categories=${categories}`
 			}${colours && `&colours=${colours}`}${sizes && `&sizes=${sizes}`}${
 				sortBy && `&order=${sortBy}`
