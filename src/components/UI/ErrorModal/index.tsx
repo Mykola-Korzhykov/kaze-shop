@@ -3,20 +3,16 @@ import React, { FC } from 'react'
 import cl from './ErrorModal.module.scss'
 interface IErrorModalProps {
 	title: string
-	description: string
+	description?: string
 	buttonText: string
 	buttonHref?: string
 }
 const ErrorModal: FC<IErrorModalProps> = ({
 	title,
-	description,
+	description = 'Сталася помилка, але ми працюємо над її вирішенням. Вибачте!',
 	buttonHref = '/',
 	buttonText,
 }) => {
-	// const handleClick = e => {
-	// 	e.preventDefault()
-	// 	router.push(href)
-	// }
 	return (
 		<div className={cl.modal}>
 			<div className={cl.modal_body}>

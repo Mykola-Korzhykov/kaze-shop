@@ -38,9 +38,9 @@ const Catalog: FC = () => {
 					<div className='page_coordinator'>
 						<Link href='/'>Главная</Link> | <span>Каталог</span>
 					</div>
-					{loadingStatus === 'error' ? (
+					{/* {loadingStatus === 'error' ? (
 						<ErrorModal
-						title='503'
+						title='505'
 						buttonText='Вернуться на главную'
 						buttonHref='/'
 						description={error}
@@ -52,11 +52,11 @@ const Catalog: FC = () => {
 							<CatalogItems />
 							<CatalogPagination />
 						</>
-					)}
-					{/* <CatalogHeader />
+					)} */}
+					<CatalogHeader />
 					{filtersOpened && <CatalogFilters />}
 					<CatalogItems />
-					<CatalogPagination /> */}
+					<CatalogPagination />
 					
 				</div>
 			</main>

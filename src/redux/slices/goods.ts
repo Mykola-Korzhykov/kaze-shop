@@ -8,6 +8,8 @@ type GoodsSlice = {
 	goods: Goods[] | null
 	loadingStatus: 'loading' | 'error' | 'idle'
 	page: number
+	totalProducts: number
+	language: 'ua' | 'rs' | 'en' | 'ru'
 	errors: string | null
 	sortType: string
 	headerCategory: number
@@ -30,7 +32,9 @@ export const fetchGoods = createAsyncThunk<
 		const data = await Api().goods.getGoods(pageNumber)
 		return data
 	} catch (e) {
-		return rejectWithValue(e.response.data.rawErrors[0].ua)
+		if ('rawErrors' in e.response.data) {
+			return rejectWithValue(e.response.data.rawErrors[0].ua)
+		}
 	}
 })
 
@@ -62,7 +66,7 @@ export const fetchCategories = createAsyncThunk<
 		const data = await Api().goods.getGategories()
 		return data
 	} catch (e) {
-		return rejectWithValue(e.response.data)
+		return rejectWithValue(e.response.data.rawErrors[0].ua)
 	}
 })
 
@@ -111,13 +115,15 @@ const initialState: GoodsSlice = {
 	page: 1,
 	loadingStatus: 'idle',
 	sortType: '',
-	errors: null,
+	totalProducts: 0,
+	errors: '',
 	headerCategory: 0,
 	filterCategories: [],
 	filterSizes: [],
 	filterColours: [],
 	fetchedColours: null,
 	fetchedCategories: null,
+	language: 'ua',
 }
 
 const goodsSlice = createSlice({
@@ -224,7 +230,7 @@ const goodsSlice = createSlice({
 				if (type === 'rejected') {
 					state.errors = action.payload
 				} else {
-					state.errors = null
+					state.errors = ''
 				}
 			})
 	},

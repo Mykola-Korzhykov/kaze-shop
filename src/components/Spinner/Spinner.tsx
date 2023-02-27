@@ -1,11 +1,21 @@
-import {FC} from 'react'
+import { FC, useEffect } from 'react'
+import { parseCookies } from 'nookies'
+import { setAuthState } from '@/redux/slices/user'
+import { useAppDispatch } from '@/redux/hooks'
 import cl from './spinner.module.scss'
 
 type Props = {
-	isShow?: boolean;
+	isShow?: boolean
 }
 
-const Spinner: FC<Props> = ({isShow = true}) => {
+const Spinner: FC<Props> = ({ isShow = true }) => {
+	const dispatch = useAppDispatch()
+	const cookies = parseCookies()
+	useEffect(() => {
+		dispatch(setAuthState(!!cookies.accessToken))
+		// console.log(cookies.accessToken)
+	}, [])
+
 	return (
 		<div className={`${cl.body} ${isShow ? cl.show : ''}`}>
 			<div className={cl.waviy}>

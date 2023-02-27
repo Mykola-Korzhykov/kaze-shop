@@ -5,10 +5,12 @@ import { HYDRATE } from 'next-redux-wrapper'
 
 type UserSLice = {
 	user: User | null
+	isAuth: boolean
 }
 
 const initialState: UserSLice = {
 	user: null,
+	isAuth: false,
 }
 
 const userSLice = createSlice({
@@ -17,6 +19,9 @@ const userSLice = createSlice({
 	reducers: {
 		addUserInfo(state, action: PayloadAction<User>) {
 			state.user = action.payload
+		},
+		setAuthState(state, action: PayloadAction<boolean>) {
+			state.isAuth = action.payload
 		},
 	},
 	extraReducers: {
@@ -30,7 +35,8 @@ const userSLice = createSlice({
 })
 
 export const selectUserInfo = (state: RootState) => state.user.user
+export const selectAuthState = (state: RootState) => state.user.isAuth
 
-export const { addUserInfo } = userSLice.actions
+export const { addUserInfo, setAuthState } = userSLice.actions
 
 export default userSLice.reducer

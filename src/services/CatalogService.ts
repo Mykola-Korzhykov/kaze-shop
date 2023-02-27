@@ -15,7 +15,9 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		return data
 	},
 	async getGoodsByCategory(page: number, categoryId: number) {
-		const { data } = await instance.get(`/product?page=${page}&pageSize=10&categoryId=${categoryId}`)
+		const { data } = await instance.get(
+			`/product?page=${page}&pageSize=10&categoryId=${categoryId}`
+		)
 		return data
 	},
 	async filterGoods(
@@ -32,6 +34,14 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 				sortBy && `&order=${sortBy}`
 			}`
 		)
+		return data
+	},
+	async saveGood(productId: number) {
+		const { data } = await instance.post(`product/save?productId${productId}`)
+		return data
+	},
+	async addToBasket(productId: number) {
+		const { data } = await instance.post(`product/addBasket?productId${productId}`)
 		return data
 	},
 })
