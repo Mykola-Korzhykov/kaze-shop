@@ -16125,7 +16125,7 @@ let AppController = AppController_1 = class AppController {
                 const ipAddress = request.headers['x-forwarded-for'];
                 this.Logger.log(ipAddress);
                 const reader = yield geoip2_node_1.Reader.open(path_1.default.join(__dirname, 'GeoLite2-Country.mmdb'));
-                const geoCountry = reader.country('62.122.202.29');
+                const geoCountry = reader.country(request.ip);
                 return response.json({
                     geoLocation: Object.assign({ currency: request['currency'], city: request['city'] }, geoCountry),
                 });
@@ -16738,8 +16738,8 @@ let LocationMiddleware = LocationMiddleware_1 = class LocationMiddleware {
             try {
                 const ipAddress = ip_1.default.address();
                 const reader = yield geoip2_node_1.Reader.open(path_1.default.join(__dirname, 'GeoLite2-Country.mmdb'));
-                const data = reader.country('62.122.202.29');
-                const geo = geoip_lite_1.default.lookup('62.122.202.29');
+                const data = reader.country(req.ip);
+                const geo = geoip_lite_1.default.lookup(req.ip);
                 this.Logger.log(geo, ipAddress);
                 req['countryIsoCode'] = data.country.isoCode;
                 req['CLient-IP'] = data.traits.ipAddress;
@@ -16886,7 +16886,7 @@ module.exports = require("body-parser");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("5fd7256389b0fb783b3f")
+/******/ 		__webpack_require__.h = () => ("d97de2448bb8e0a192d1")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */
