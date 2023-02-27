@@ -1,0 +1,25 @@
+.wrapper{
+    padding: 10px 12.5px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    border: 1.5px solid #9D9D9D;
+    gap: 10px;
+    cursor: pointer;
+
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    
+    color: #9D9D9D;
+}
+
+.remove{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}

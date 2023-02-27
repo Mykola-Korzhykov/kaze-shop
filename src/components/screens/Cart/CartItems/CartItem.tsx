@@ -4,31 +4,31 @@ import s from './CartItems.module.scss'
 import cartImage from '../../../../assets/images/cartItem.png'
 const CartItem = () => {
 	return (
-		<div className={s.cart_item}>
-			<div className={s.img_wrapper}>
-				<Image src={cartImage} alt='Cart image' className={s.item_img} priority={true} quality={95}/>
+		<div className={s.block}>
+			<div className={s.imgWrapper}>
+				<Image src={cartImage} alt='Cart image' className={s.img} priority={true} quality={95}/>
 			</div>
-			<div className={s.item_content}>
-				<div className={s.item_text}>
-					<p className={s.item_title}>Топик через плече</p>
-					<p className={s.item_descr}>
+			<div className={s.content}>
+				<div className={s.text}>
+					<p className={s.title}>Топик через плече</p>
+					<p className={s.descr}>
 						Lorem ipsum dolor sit amet consectetur. Convallis suspendisse diam
 						iaculis pulvinar odio curabitur mattis nemore zerhadе
 					</p>
-					<div className={s.item_size}>
-						<div className={s.item_checkbox}>
+					<div className={s.size}>
+						<div className={s.checkbox}>
 							<p style={{ backgroundColor: 'red' }}></p>
 						</div>
-						<p className={s.item_format}>
+						<p className={s.format}>
 							Размер - <span>M</span>
 						</p>
 					</div>
 				</div>
-				<div className={s.item_addition}>
-					<button className={`${s.item_btn} ${s.minus}`}></button>
-					<p className={s.item_count}>1</p>
-					<button className={`${s.item_btn} ${s.plus}`}></button>
-					<p className={s.item_price}>29$</p>
+				<div className={s.addition}>
+					<button className={`${s.btn} ${s.minus}`}></button>
+					<p className={s.count}>1</p>
+					<button className={`${s.btn} ${s.plus}`}></button>
+					<p className={s.price}>29$</p>
 				</div>
 			</div>
 		</div>

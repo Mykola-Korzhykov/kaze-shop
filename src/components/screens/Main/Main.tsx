@@ -21,16 +21,14 @@ import FAQ from './FAQ/FAQ'
 const Main = () => {
 
 	return (
-		<div></div>
-		// <div className={s.wrapper}>
-		// 	//<BuyProducts /> 
-		// 	<ProductFitnes /> 
-		// 	 <About /> 
-		// 	<ProductsAccessories /> 
-		// 	<Reviews />
-		// 	<FAQ />
-		// </div>
-
+		<div className={s.wrapper}>
+			{/* //<BuyProducts /> 
+			<ProductFitnes /> 
+			 <About /> 
+			<ProductsAccessories /> 
+			<Reviews />
+			<FAQ /> */}
+		</div>
 	)
 }
 

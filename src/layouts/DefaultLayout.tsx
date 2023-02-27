@@ -34,14 +34,15 @@ const DefaultLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
 				<link rel='icon' href='/favicon.ico' />
 				<link rel='preconnect' href='https://fonts.googleapis.com' />
 				<link rel='preconnect' href='https://fonts.gstatic.com' />
-				<link
+				{/* above links gives build error. Now they are in _document.tsx */}
+				{/* <link
 					href='https://fonts.googleapis.com/css2?family=Russo+One&display=swap'
 					rel='stylesheet'
 				/>
 				<link
 					href='https://fonts.googleapis.com/css2?family=Georama:wght@300;400&display=swap'
 					rel='stylesheet'
-				></link>
+				></link> */}
 			</Head>
 
 			<div className='wrapper'>

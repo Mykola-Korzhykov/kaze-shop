@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
-
 export interface initialStateType {
     users: {
         id: number
@@ -11,6 +10,23 @@ export interface initialStateType {
         placeholder: string,
         label: string
         type: string
+    }[],
+    sizes:[
+        {
+            id: number,
+            size: string
+        }
+    ],
+    // sizes2:[
+    //     {
+    //         id: number,
+    //         size: string
+    //     }
+    // ]
+    colors: {
+        label: string,
+        hex: string, 
+        id: number
     }[]
 
 }
@@ -22,34 +38,38 @@ const initialState: initialStateType = {
         { id: 3 },
     ],
     inputs: [
-        { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', label: 'text' },
-        { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название кнопки', label: 'text' },
-        { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название кнопки', label: 'text' },
-        { id: 3, type: 'text', text: 'Название товара ENG', placeholder: 'Введите название кнопки', label: 'text' },
-        { id: 4, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', label: 'select' },
-        { id: 5, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', label: 'text' },
-        { id: 6, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', label: 'text' },
-        { id: 7, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', label: 'text' }
-    ]
 
+    ],
+    sizes: [
+        { id: 0, size: 'XS' },
+    ],
+    colors: []
 }
 
 export const admin = createSlice({
     name: 'admin',
     initialState,
     reducers: {
-        increment: (state) => {
-
+        setSizes: (state, action: PayloadAction<{id: number, size: string }>) => {
+            
+            //const found =  state.sizes.indexOf(action.payload.id)
+            state.sizes.push(action.payload)
         },
-        decrement: (state) => {
-
+        removeSizes: (state, action) =>{
+            // console.log('вход')
+            const found =  state.sizes.find((el)=> el.id === action.payload)
+            const index = state.sizes.indexOf(found)
+            state.sizes.splice(index, 1)
         },
-        incrementByAmount: (state, action) => {
 
+        setColors: (state, action: PayloadAction<{label: string,hex: string,  id: number }>) => {
+            
+            //const found =  state.sizes.indexOf(action.payload.id)
+            state.colors.push(action.payload)
         },
     },
 })
 
-export const { } = admin.actions
+export const {  setSizes, removeSizes, setColors } = admin.actions
 
 export default admin.reducer

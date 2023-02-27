@@ -4,10 +4,25 @@ import { RootState } from "@/redux/store"
 import s from './AddProduct.module.scss'
 //comonets
 import { InputTextItem } from './InputText'
+import { ModuleWindiw } from "./ModuleWindow"
+import {SizeItem} from './SizesItem'
 
-export const AddProduct = () => {
+interface AddProductProps {
+    setModalAddPhoto: (n: boolean)=> void,
+    modalAddPhoto: boolean
+}
 
-    // const inputs = useSelector((state: RootState) => state.admin.inputs)
+export const AddProduct = ({setModalAddPhoto, modalAddPhoto}: AddProductProps) => {
+
+    function pushItemPhoto(){
+        addPhotoArr.push({id: addPhotoState[addPhotoState.length -1 ].id })
+        setAddPhoto(addPhotoArr)
+    }
+
+    let addPhotoArr =  [{id: 1}]
+    const [addPhotoState, setAddPhoto] = React.useState([
+        {id: 1}
+   ])
 
     const  [inputs, setInputs] = React.useState([
         { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', label: 'text' },
@@ -24,7 +39,19 @@ export const AddProduct = () => {
     const inputsFistWrapper_3 = inputs?.slice(4, 6)
     const inputsFistWrapper_4 = inputs?.slice(6, 7)
     
-    const inputsSecondWrapper = inputs?.slice(inputs.length - 1, inputs.length)
+    // const inputsSecondWrapper = inputs?.slice(inputs.length - 1, inputs.length)
+
+
+    const sizesItems = [
+       { id: 0, size: 'XS'},
+       { id: 1, size: 'S'},
+       { id: 2, size: 'XXL'},
+       { id: 3, size: 'XXS'},
+       { id: 4, size: 'M'},
+    //    { id: 5, size: 'XS'},
+    ]
+    let sizesArr = [{ id: 0, size: 'XS'}, { id: 1, size: 'S'},]
+    const [sizesState, setSizesState] = React.useState(null)
 
     return (
         <div className={s.wrapper}>
@@ -59,17 +86,82 @@ export const AddProduct = () => {
 
                 </div>
 
-
-
-                
                 {/* <div className={s.second_wrapper}>
                     {inputsSecondWrapper?.map((obj) => {
                         return <InputTextItem key={obj.id} id={obj.id} type={obj.type} text={obj.text} placeholder={obj.placeholder} />
                     })}
                 </div> */}
-
-
             </div>
+
+                <div className={s.addphoto_wrapper}>
+                    <div className={s.descriprion}>
+                        <span className={s.title}>Добавить фото товара</span>
+                        <span onClick={()=>{
+                            pushItemPhoto()
+                        } } className={s.btn}>
+                        <svg className={s.img} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M3.75 12H20.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M12 3.75V20.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+
+                        </span>
+                    </div>
+                    <div className={s.addphoto}>  
+                    {addPhotoState.map((el)=>{
+                        return <div onClick={()=> setModalAddPhoto(!modalAddPhoto)} className={s.addphoto_wrapper}>
+                            <div className={s.element_wrapper}>
+                                <span className={s.id}> {`${el.id}.`}</span>
+                                <span className={s.text}>Загрузить фото</span>
+                            </div>
+                        </div>
+                    })}
+                    </div>
+                  
+                </div>
+                <div className={s.net_wrapper}>
+                    <span className={s.item_wrapper_1}>
+                        Описание размерной сетки
+                        <input className={s.item_1} placeholder="Введите описание размерной сетки" type="text" />
+                    </span>
+                    <span  className={s.item_wrapper_2}>
+                        Загрузите размерную сетку
+                        <label htmlFor="uploadnet" className={s.label}>
+                            Загрузить размерную сетку
+                        </label>
+                        <input id='uploadnet' className={s.item_2} placeholder="Загрузить размерную сетку" type="file" />
+                    </span>
+                   
+                </div>
+
+
+                {/* module */}
+
+                {/* <div className={s.module_wrapper}>
+                    <div className={s.module_inner}>
+                        <div className={s.title_wrapper}>
+                            <div className={s.title}>Добавить фотографию</div>
+                            <div className={s.subtitle}>Для того, чтобы добавить фотографию</div>
+                        </div>
+
+                        <div className={s.inputs_wrapper}>
+                            <div className={s.input_inner}>
+                                <span className={s.title}>Фотография в png и jpg</span>
+                                <input placeholder='Загрузите фотографию' type="text" />
+                            </div>
+                            <div className={s.input_inner}>
+                                <span className={s.title}>Размер</span>
+                                <input placeholder='Выбрать размер фотографии' type="text" />
+                            </div>
+
+                            <div className={s.sizes}>
+                                {sizesArr.map((el)=>{
+                                    return <SizeItem size={el.size} />
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                </div> */}
+
         </div>
     )
 }

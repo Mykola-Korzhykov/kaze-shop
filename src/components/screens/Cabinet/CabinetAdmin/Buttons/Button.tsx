@@ -15,7 +15,7 @@ interface ButtonProps {
 }
 
 export const Button: React.FC<ButtonProps> = ({ id, text, img_grey, img_white, chengeDisplayOK }) => {
-    console.log(id)
+    // console.log(id)
     return (
 
         <div onClick={() => chengeDisplayOK(id)} className={s.wrapper}>

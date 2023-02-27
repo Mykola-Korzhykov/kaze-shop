@@ -29,7 +29,10 @@ import icon_white7 from '../../../../assets/icons/cabinetAdmin/icon7_white.svg'
 import findUser from '../../../../assets/icons/cabinetAdmin/findUser.svg'
 //types
 import { ButtonType } from '../../../../types/auth'
+import { SizeItem } from "./Display/AddProduct/SizesItem";
+import {ModuleWindiw} from './Display/AddProduct/ModuleWindow'
 
+// export const heidthcal = 9;
 
 const buttonsObj: ButtonType[] = [
     { id: 1, img_grey: icon1, img_white: icon_white1, text: 'Выдать роль', url: '/admin-settings/role-settings' },
@@ -41,8 +44,23 @@ const buttonsObj: ButtonType[] = [
     { id: 6, img_grey: icon7, img_white: icon_white7, text: 'Выход' }
 ]
 
+// const sizesItems = [
+//     { id: 0, size: 'XS'},
+//     { id: 1, size: 'S'},
+//     { id: 2, size: 'XS'},
+//     { id: 3, size: 'XS'},
+//     { id: 4, size: 'XS'},
+//     { id: 5, size: 'XS'},
+//  ]
+//  let sizesArr = [{ id: 0, size: 'XS'}, { id: 1, size: 'S'},]
+//  const [sizesState, setSizesState] = React.useState(null)
+
 export const CabinetAdmin: React.FC = () => {
 
+    
+    const [choiceColor, setChoiceColor] =React.useState<boolean>(false)
+    const [modalAddPhoto, setModalAddPhoto ] = React.useState<boolean>(false)
+    const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
 
     const users = useSelector((state: RootState) => state.admin.users)
 
@@ -86,8 +104,65 @@ export const CabinetAdmin: React.FC = () => {
                 {/* <div style={{ backround-color: `${props.color}`}}></div> */}
                 {displayActive === 1 ? usersRole : ''}
                 {displayActive === 2 ? usersAdmin : ''}
-                {displayActive === 3 ? <AddProduct /> : ''}
+                {displayActive === 3 ? <AddProduct modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''}
             </div>
+
+
+            {modalAddPhoto ? <div className={ choiceColor ? s.backround_module  : s.backroundModuleMore}></div> : ''} 
+            {modalAddPhoto ? <ModuleWindiw setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''} 
+            
+            {/* <div className={s.module_wrapper}>
+                    <div className={s.module_inner}>
+                        <div className={s.title_wrapper}>
+                            <div className={s.title}>Добавить фотографию</div>
+                            <div className={s.subtitle}>Для того, чтобы добавить фотографию</div>
+                        </div>
+
+                        <div className={s.inputs_wrapper}>
+                            <div className={s.input_inner}>
+                                <span className={s.title}>Фотография в png и jpg</span>
+                                <label className={s.label_input_file} htmlFor="uploadfileaddphoto">
+                                    Загрузите фотографию
+                                    <input id="uploadfileaddphoto" className={s.input_file} placeholder='Загрузите фотографию' type="file" />
+                                </label>
+                               
+                            </div>
+                            <div className={s.input_inner}>
+                                <span className={s.title}>Размер</span>
+                                <span className={s.input_choice_photo}>
+                                    Выбрать размер фотографии
+                                    <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <  path d="M26 12L16 22L6 12" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+
+
+                                
+                                </span>
+                            </div>
+
+                            <div className={s.sizes}>
+                                {sizesArr.map((el)=>{
+                                    return <SizeItem size={el.size} />
+                                })}
+                            </div>
+
+                            <div className={s.input_inner}>
+                                <span className={s.title}>Цвет</span>
+                                <span className={s.input_choice_color}>
+                                    Выбрать размер фотографии
+                                    <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        < path d="M26 12L16 22L6 12" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                            </div>
+
+                            <div className={s.btn}>
+                                Добавить фотографию
+                            </div>
+                        </div>
+                    </div>
+                </div>
+ */}
 
         </div >
     )

@@ -1,0 +1,250 @@
+
+// .backround_module{
+//     position: absolute;
+//     top: 0;
+//     margin-left: -105px;
+//     height: 110vh;
+//     width: 100vw;
+
+//     background: #0B0B0B;
+//     opacity: 0.25;
+// }
+
+.module_wrapper{
+   
+    margin-left: -105px;
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100vw;
+    margin-top: 160px;
+   
+    display: flex;
+    align-items: end;
+    justify-content: center;
+}
+
+.module_inner{
+   
+    position: relative;
+    width: 601px;
+    background-color: white;
+    padding: 20px 30px; 
+
+}
+
+.title_wrapper{
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+
+    .title{
+        font-family: 'Russo One';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 32px;
+        line-height: 39px;
+        
+        color: #0B0B0B;
+    }
+
+    .subtitle{
+        font-family: 'Georama', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 22px;
+ 
+        color: #9D9D9D;
+    }
+}
+
+.inputs_wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+   
+
+    .input_inner{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        // background-color: red;
+
+        .title{
+            font-family: 'Georama', sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 24px;
+            color: #0B0B0B;
+        }
+
+        .label_input_file{
+            padding: 14px 20px;
+            border: 1.5px solid #9D9D9D;
+            cursor: pointer;
+
+            font-family: 'Georama', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 22px;
+
+            color: #9D9D9D;
+        }
+
+        .input_choice_photo{
+            padding: 14px 20px;
+            border: 1.5px solid #9D9D9D;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            position: relative;
+            
+
+            font-family: 'Georama', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 22px;
+
+            color: #9D9D9D;
+
+            
+
+        
+        }
+
+        .open_icon{
+            width: 24px;
+            height: 24px;
+        }
+
+        .input_choice_color{
+            padding: 14px 20px;
+            border: 1.5px solid #9D9D9D;
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            
+
+            font-family: 'Georama', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 22px;
+
+            color: #9D9D9D;
+
+         
+        }
+
+
+        .input_file{
+            height: 0.5px;
+            width: 0.5px;
+            visibility: hidden;
+        }
+    }
+
+    .btn{
+        display: flex;
+        padding: 16px 164px;
+        background-color: #000000;
+        
+
+        font-family: 'Neue Haas Grotesk Display Pro';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+
+        color: #FFFFFF;
+
+    }
+}
+
+.sizes{
+    width: 100%;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.choice_photo_wrapper{
+    position: absolute;
+    top: 53px;
+    left: -1.5px;
+    visibility: hidden;
+    // height: 0px;
+    // bottom: 0;
+    
+    background-color: #FFFFFF;
+    width: 100.55%;
+    display: flex;
+    flex-direction: column;
+    .item_choice_photo{
+        border: 1.5px solid #9D9D9D;
+        border-top: none;
+        padding: 14px 20px;
+    }
+}
+
+.choice_photo_off{
+    visibility: hidden;
+}
+
+.choice_photo_on{
+    visibility: visible;
+}
+
+.close_modal{
+    position: absolute;
+    top: 22px;
+    right: 25px;
+    cursor: pointer;
+}
+
+//colors 
+
+.color_wrapper_main{
+    // display: flex;
+    // flex-direction: column;
+    // width: 100%;
+    // height: 50px;
+    // position: absolute;
+
+    position: absolute;
+    top: 499px;
+    left: 30px;
+    width: 541px;
+
+    background-color: #FFFFFF;
+    
+    display: flex;
+    flex-direction: column;
+
+    .color_wrapper{
+        display: flex;
+        gap: 10px;
+        border: 1.5px solid #9D9D9D;
+        border-top: none;
+        padding: 14px 20px;
+        cursor: pointer;
+        // background-color: #9D9D9D;
+    }
+}
+
+.color{
+    border: 0.5px solid #9D9D9D;
+    height: 23px;
+    width: 23px;
+    
+}
+
+
+
