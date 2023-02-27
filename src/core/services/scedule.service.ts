@@ -6,10 +6,9 @@ import { OwnerService } from '../../owner/services/owner.service';
 import { Currencies } from '../../owner/models/currencies.model';
 import { CurrencyService } from '../../owner/services/currency.service';
 import { JwtRefreshTokenDeletedEvent } from '../events/jwt-refresh-token-deleted.evet';
-import { CreateOwnerDto } from 'src/owner/dto/create.owner.dto';
-import { FilesService } from './file.service';
+import { CreateOwnerDto } from '../../owner/dto/create.owner.dto';
 import { join } from 'path';
-
+import deleteEmpty from 'delete-empty';
 @Injectable({ scope: Scope.DEFAULT })
 export class TasksService {
   private readonly logger = new Logger(TasksService.name);
@@ -17,7 +16,6 @@ export class TasksService {
     private readonly schedulerRegistry: SchedulerRegistry,
     private readonly eventEmitter: EventEmitter2,
     private readonly currencyService: CurrencyService,
-    private readonly filesService: FilesService,
   ) {}
 
   addCronJob(
@@ -143,10 +141,8 @@ export class TasksService {
   }
 
   @Cron(CronExpression.EVERY_12_HOURS)
-  async deleteEmptyFolders() {
-    const deleted = await this.filesService.deleteEmpty(
-      join(__dirname, 'static'),
-    );
+  async deleteEmptyFolders(): Promise<string[]> {
+    const deleted = await deleteEmpty(join(__dirname, 'static'));
     this.logger.log(deleted);
     return deleted;
   }
@@ -161,8 +157,8 @@ export class TasksService {
     unrefTimeout: true,
     utcOffset: 1,
   })
-  async setUp() {
-    this.logger.warn(`time (${1}) second for job setting-up to run!`);
+  async setUp(): Promise<boolean | void> {
+    this.logger.warn(`time (${30}) second for job setting-up to run!`);
     const owner = await OwnerService.creatingOwner(<CreateOwnerDto>{
       name: process.env.OWNER.toString().trim().split(',')[0],
       surname: process.env.OWNER.toString().trim().split(',')[1],

@@ -28,6 +28,9 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import { ApiException } from '../../common/exceptions/api.exception';
 import { Cart } from '../../cart/models/cart.model';
 import { CART_NOT_FOUND } from '../../cart/cart.constants';
+import { v4 } from 'uuid';
+import { randomBytes, scrypt, createCipheriv } from 'crypto';
+import { promisify } from 'util';
 @Injectable({ scope: Scope.TRANSIENT })
 export class UsersService {
   constructor(
@@ -109,7 +112,10 @@ export class UsersService {
       ...userDto,
       password: hashedPassword,
     });
-    const cart = await this.findCartByIdentifier(cartIdentifier);
+    let cart: Cart | undefined;
+    if (cartIdentifier) {
+      cart = await this.findCartByIdentifier(cartIdentifier);
+    }
     if (cart && cart.cartProducts.length > 0) {
       cart.userId = user.id;
       cart.set('user', user);
@@ -117,7 +123,11 @@ export class UsersService {
       user.leftCarts = [cart];
       await cart.save();
     }
-    const newCart = await this.createCart(cartIdentifier);
+    if (cart && cart.cartProducts?.length === 0) {
+      await this.deleteCartById(cart.id, cart.identifier);
+    }
+    const identifier = await this.generateEncryptedValue('USER', 16);
+    const newCart = await this.createCart(identifier);
     user.$set('cart', newCart);
     newCart.userId = user.id;
     user.cart = newCart;
@@ -280,12 +290,18 @@ export class UsersService {
         INVALID_EMAIL_OR_PASSWORD,
       );
     }
-    const cart = await this.findCartByIdentifier(cartIdentifier);
+    let cart: Cart | undefined;
+    if (cartIdentifier) {
+      cart = await this.findCartByIdentifier(cartIdentifier);
+    }
     if (cart && cart.cartProducts.length > 0) {
       cart.userId = user.id;
       cart.set('user', user);
       user.$add('leftCarts', cart);
       await cart.save();
+    }
+    if (cart && cart.cartProducts?.length === 0) {
+      await this.deleteCartById(cart.id, cart.identifier);
     }
     await user.save();
     return user;
@@ -357,7 +373,7 @@ export class UsersService {
     return user.save();
   }
 
-  async createCart(identifier: string): Promise<Cart> {
+  private async createCart(identifier: string): Promise<Cart> {
     const cart = await this.cartRepository.create({
       cartStatus: 'Open',
       totalPrice: 0,
@@ -368,7 +384,17 @@ export class UsersService {
     return cart;
   }
 
-  async findCartByIdentifier(identifier: string): Promise<Cart> {
+  private async deleteCartById(id: number, identifier: string) {
+    const cart = await this.cartRepository.findOne({
+      where: {
+        id: id,
+        identifier: identifier,
+      },
+    });
+    return cart;
+  }
+
+  private async findCartByIdentifier(identifier: string): Promise<Cart> {
     const cart = await this.cartRepository.findOne({
       where: {
         identifier: identifier,
@@ -385,5 +411,19 @@ export class UsersService {
       );
     }
     return cart;
+  }
+
+  private async generateEncryptedValue(
+    value: string,
+    bytes: number,
+  ): Promise<string> {
+    const iv = randomBytes(bytes);
+    const API_KEY = process.env.API_KEY.toString();
+    const key = (await promisify(scrypt)(API_KEY, 'salt', 32)) as Buffer;
+    const cipher = createCipheriv('aes-256-ctr', key, iv);
+    return Buffer.concat([cipher.update(value), cipher.final()])
+      .toString('base64')
+      .replace('/', `${v4()}`)
+      .replace('=', `${v4()}`);
   }
 }

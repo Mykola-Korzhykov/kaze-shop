@@ -8,10 +8,12 @@ import { CART_NOT_FOUND } from './cart.constants';
 import { Cart } from './models/cart.model';
 import { CartProduct } from './models/cart.product.model';
 import { ProductService } from '../product/product.service';
-import { User } from 'src/users/models/user.model';
+import { User } from '../users/models/user.model';
 import { randomBytes, scrypt, createCipheriv } from 'crypto';
 import { promisify } from 'util';
 import { v4 } from 'uuid';
+import { AddProductDto } from './dto/add-product.dto';
+import { ColoursService } from '../categories&colours/services/colours.service';
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class CartService {
@@ -21,6 +23,7 @@ export class CartService {
     private readonly cartProductRepository: typeof CartProduct,
     @InjectModel(Cart) private readonly cartRepository: typeof Cart,
     private readonly productService: ProductService,
+    private readonly colourSevice: ColoursService,
   ) {}
 
   async setCart(request: Request, response: Response, next: NextFunction) {
@@ -69,64 +72,25 @@ export class CartService {
       } = request['currency'];
       let totalPrice = 0;
       cart.cartProducts.forEach((cartProduct: CartProduct) => {
-        totalPrice +=
-          Number(cartProduct.quantity) * Number(cartProduct.product.price);
+        totalPrice += Number(cartProduct.quantity) * Number(cartProduct.price);
       });
+      cart.totalPrice = totalPrice;
+      await cart.save();
       return response.json({
         cart: {
           id: cart.id,
           cartStatus: cart.cartStatus,
           totalPrice: totalPrice * currency.rate + currency.symbol,
           cartProducts: cart.cartProducts.map((cartProduct: CartProduct) => {
-            const product = cartProduct.getProduct();
             return {
-              product: {
-                id: product.id,
-                title: product.getTitle(),
-                description: product.getDescription(),
-                price:
-                  Math.round(product.price * currency.rate) + currency.symbol,
-                quantity: product.quantity,
-                images: product.images,
-                hexes: product.hexes,
-                sizeChartImage: product.sizeChartImage,
-                sizes: product.sizes,
-                colours: product.colours.map((colour) => {
-                  return {
-                    id: colour.id,
-                    ua: colour.ua,
-                    en: colour.en,
-                    rs: colour.rs,
-                    ru: colour.ru,
-                    hex: colour.hex,
-                    type: 'colour',
-                    createdAt: colour.createdAt,
-                    updatedAt: colour.updatedAt,
-                  };
-                }),
-                categories: product?.categories?.map((category) => {
-                  return {
-                    id: category.id,
-                    ua: category.ua,
-                    en: category.en,
-                    rs: category.rs,
-                    ru: category.ru,
-                    type: 'category',
-                    createdAt: category.createdAt,
-                    updatedAt: category.updatedAt,
-                  };
-                }),
-                reviews: product.reviews.map((review) => {
-                  return {
-                    id: review.id,
-                    name: review.name,
-                    surname: review.surname,
-                    review: review.review,
-                    createdAt: review.createdAt,
-                    updatedAt: review.updatedAt,
-                  };
-                }),
-              },
+              id: cartProduct.id,
+              color: cartProduct.colour,
+              size: cartProduct.size,
+              price: cartProduct.price * currency.rate + currency.symbol,
+              imageUrl: cartProduct.imageUrl,
+              colourId: cartProduct.colourId,
+              colour: cartProduct.colour,
+              productId: cartProduct.productId,
               quantity: cartProduct.quantity,
             };
           }),
@@ -163,55 +127,15 @@ export class CartService {
             cartStatus: cart.cartStatus,
             totalPrice: totalPrice * currency.rate + currency.symbol,
             cartProducts: cart.cartProducts.map((cartProduct: CartProduct) => {
-              const product = cartProduct.getProduct();
               return {
-                product: {
-                  id: product.id,
-                  title: product.getTitle(),
-                  description: product.getDescription(),
-                  price:
-                    Math.round(product.price * currency.rate) + currency.symbol,
-                  quantity: product.quantity,
-                  images: product.images,
-                  hexes: product.hexes,
-                  sizeChartImage: product.sizeChartImage,
-                  sizes: product.sizes,
-                  colours: product.colours.map((colour) => {
-                    return {
-                      id: colour.id,
-                      ua: colour.ua,
-                      en: colour.en,
-                      rs: colour.rs,
-                      ru: colour.ru,
-                      hex: colour.hex,
-                      type: 'colour',
-                      createdAt: colour.createdAt,
-                      updatedAt: colour.updatedAt,
-                    };
-                  }),
-                  categories: product?.categories?.map((category) => {
-                    return {
-                      id: category.id,
-                      ua: category.ua,
-                      en: category.en,
-                      rs: category.rs,
-                      ru: category.ru,
-                      type: 'category',
-                      createdAt: category.createdAt,
-                      updatedAt: category.updatedAt,
-                    };
-                  }),
-                  reviews: product.reviews.map((review) => {
-                    return {
-                      id: review.id,
-                      name: review.name,
-                      surname: review.surname,
-                      review: review.review,
-                      createdAt: review.createdAt,
-                      updatedAt: review.updatedAt,
-                    };
-                  }),
-                },
+                id: cartProduct.id,
+                color: cartProduct.colour,
+                size: cartProduct.size,
+                price: cartProduct.price * currency.rate + currency.symbol,
+                imageUrl: cartProduct.imageUrl,
+                colourId: cartProduct.colourId,
+                colour: cartProduct.colour,
+                productId: cartProduct.productId,
                 quantity: cartProduct.quantity,
               };
             }),
@@ -229,6 +153,7 @@ export class CartService {
     response: Response,
     next: NextFunction,
     productId: number,
+    addProduct: AddProductDto,
   ): Promise<void | Response<any, Record<string, any>>> {
     try {
       const product = await this.productService.findById(productId);
@@ -240,24 +165,44 @@ export class CartService {
       }
       const cartProductIndex = cart.cartProducts.findIndex(
         (cartProduct: CartProduct) => {
-          return cartProduct.productId === product.id;
+          return (
+            addProduct.imageUrl === cartProduct.imageUrl &&
+            addProduct.size === cartProduct.size &&
+            addProduct.colorId === cartProduct.colourId
+          );
         },
       );
       let newQuantity = 1;
       if (cartProductIndex >= 0) {
         newQuantity = cart.cartProducts[cartProductIndex].quantity + 1;
         cart.cartProducts[cartProductIndex].quantity = newQuantity;
+        cart.totalPrice += product.price;
         await cart.save();
       } else {
         const newCartProduct = await this.cartProductRepository.create({
+          imageUrl: addProduct.imageUrl,
+          size: addProduct.size,
+          colorId: addProduct.colorId,
           quantity: newQuantity,
           productId: product.id,
           cartId: cart.id,
+          price: product.price,
         });
+        const colour = await this.colourSevice.getColourById(
+          addProduct.colorId,
+        );
+        newCartProduct.set('colour', colour);
         newCartProduct.set('product', product);
         newCartProduct.set('cart', cart);
         cart.$add('cartProducts', newCartProduct);
         await Promise.all([await cart.save(), await newCartProduct.save()]);
+        let newTotalPrice = 0;
+        cart.cartProducts.forEach((cartProduct: CartProduct) => {
+          newTotalPrice +=
+            Number(cartProduct.quantity) * Number(cartProduct.product.price);
+        });
+        cart.totalPrice = newTotalPrice;
+        await cart.save();
       }
       return response.json({ cart });
     } catch (err: unknown) {
@@ -270,22 +215,33 @@ export class CartService {
     request: Request,
     response: Response,
     next: NextFunction,
-    productId: number,
+    cartProductId: number,
   ): Promise<void | Response<any, Record<string, any>>> {
     try {
-      const product = await this.productService.findById(productId);
       const user: User | Admin | Owner | null = request['user'];
       const cartIdentifier = request.signedCookies['_id'];
       let cart: Cart = await this.findCartByIdentifier(cartIdentifier);
       if (user) {
         cart = user.cart;
       }
-      const updatedCartItems = cart.cartProducts.filter(
+      const [cartProduct] = cart.cartProducts.filter(
         (cartProduct: CartProduct) => {
-          return cartProduct.productId !== product.id;
+          return cartProduct.id === cartProductId;
         },
       );
-      cart.cartProducts = updatedCartItems;
+      await this.productService.findById(cartProduct.productId);
+      if (cartProduct.quantity - 1 === 0) {
+        cart.$remove('cartProducts', cartProduct.id);
+        const cartProductIndex = cart.cartProducts.findIndex(
+          (cartProduct: CartProduct) => {
+            return cartProduct.id === cartProductId;
+          },
+        );
+        cart.cartProducts.splice(cartProductIndex, 1);
+        await cart.save();
+      }
+      cartProduct.quantity -= 1;
+      await cartProduct.save();
       await cart.save();
       return response.json({ cart });
     } catch (err: unknown) {

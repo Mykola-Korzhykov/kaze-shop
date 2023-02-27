@@ -25,8 +25,10 @@ import { Role } from '../../roles/models/roles.model';
 import { ApiException } from '../../common/exceptions/api.exception';
 import { SchedulerRegistry, Cron, CronExpression } from '@nestjs/schedule';
 import { CurrencyService } from './currency.service';
-import { Cart } from 'src/cart/models/cart.model';
-import { CART_NOT_FOUND } from 'src/cart/cart.constants';
+import { Cart } from '../../cart/models/cart.model';
+import { CART_NOT_FOUND } from '../../cart/cart.constants';
+import { randomBytes, scrypt, createCipheriv } from 'crypto';
+import { promisify } from 'util';
 @Injectable({ scope: Scope.TRANSIENT })
 export class OwnerService {
   private readonly Logger = new Logger(OwnerService.name);
@@ -218,19 +220,26 @@ export class OwnerService {
     if (!passwordEquals) {
       return false;
     }
-    if (!owner.cart || owner.cart.cartProducts.length === 0) {
-      const newCart = await this.createCart(cartIdentifier);
+    if (!owner.cart) {
+      const identifier = await this.generateEncryptedValue('OWNER', 16);
+      const newCart = await this.createCart(identifier);
       owner.$set('cart', newCart);
       newCart.ownerId = owner.id;
       owner.cart = newCart;
       await newCart.save();
     }
-    const cart = await this.findCartByIdentifier(cartIdentifier);
-    if (cart && cart.cartProducts.length > 0) {
+    let cart: Cart | undefined;
+    if (cartIdentifier) {
+      cart = await this.findCartByIdentifier(cartIdentifier);
+    }
+    if (cart && cart.cartProducts?.length > 0) {
       cart.ownerId = owner.id;
       cart.set('owner', owner);
       owner.$add('leftCarts', cart);
       await cart.save();
+    }
+    if (cart && cart.cartProducts?.length === 0) {
+      await this.deleteCartById(cart.id, cart.identifier);
     }
     await owner.save();
     return owner;
@@ -326,6 +335,16 @@ export class OwnerService {
     return cart;
   }
 
+  private async deleteCartById(id: number, identifier: string) {
+    const cart = await this.cartRepository.findOne({
+      where: {
+        id: id,
+        identifier: identifier,
+      },
+    });
+    return cart;
+  }
+
   private async findCartByIdentifier(identifier: string): Promise<Cart> {
     const cart = await this.cartRepository.findOne({
       where: {
@@ -343,5 +362,19 @@ export class OwnerService {
       );
     }
     return cart;
+  }
+
+  private async generateEncryptedValue(
+    value: string,
+    bytes: number,
+  ): Promise<string> {
+    const iv = randomBytes(bytes);
+    const API_KEY = process.env.API_KEY.toString();
+    const key = (await promisify(scrypt)(API_KEY, 'salt', 32)) as Buffer;
+    const cipher = createCipheriv('aes-256-ctr', key, iv);
+    return Buffer.concat([cipher.update(value), cipher.final()])
+      .toString('base64')
+      .replace('/', `${v4()}`)
+      .replace('=', `${v4()}`);
   }
 }

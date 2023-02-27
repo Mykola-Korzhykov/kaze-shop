@@ -1,4 +1,5 @@
 import {
+  Body,
   ClassSerializerInterceptor,
   Controller,
   Delete,
@@ -17,14 +18,15 @@ import {
 } from '@nestjs/common';
 import { Throttle } from '@nestjs/throttler';
 import { NextFunction, Request, Response } from 'express';
-import { Roles } from 'src/common/decorators/roles-auth.decorator';
-import { CartGuard } from 'src/common/guards/cart.guard';
-import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/common/guards/roles.guard';
-import { ThrottlerBehindProxyGuard } from 'src/common/guards/throttler-behind-proxy.guard';
+import { Roles } from '../common/decorators/roles-auth.decorator';
+import { CartGuard } from '../common/guards/cart.guard';
+import { JwtAuthGuard } from '../common/guards/jwt-auth.guard';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { ThrottlerBehindProxyGuard } from '../common/guards/throttler-behind-proxy.guard';
 import { ApiExceptionFilter } from '../common/filters/api-exception.filter';
 import { ApiErrorExceptionFilter } from '../common/filters/error-handler.filter';
 import { CartService } from './cart.service';
+import { AddProductDto } from './dto/add-product.dto';
 @UseGuards(ThrottlerBehindProxyGuard)
 @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
 @UseInterceptors(ClassSerializerInterceptor)
@@ -55,7 +57,7 @@ export class CartController {
     @Next() next: NextFunction,
   ) {
     (async () => {
-      console.log(response, request, next);
+      return this.cardService.getCart(response, request, next);
     })();
   }
 
@@ -68,6 +70,7 @@ export class CartController {
     @Req() request: Request,
     @Next() next: NextFunction,
     @Param('productId', ParseIntPipe) productId: number,
+    @Body() addProdcut: AddProductDto,
   ) {
     (async () => {
       return this.cardService.addProductToCart(
@@ -75,6 +78,7 @@ export class CartController {
         response,
         next,
         productId,
+        addProdcut,
       );
     })();
   }
@@ -96,19 +100,19 @@ export class CartController {
   @Throttle(55, 550)
   @Roles('ADMIN', 'USER', 'OWNER')
   @UseGuards(CartGuard)
-  @Delete('deleteProduct/:productId')
+  @Delete('deleteProduct/:cartProductId')
   deleteProduct(
     @Res() response: Response,
     @Req() request: Request,
     @Next() next: NextFunction,
-    @Param('productId', ParseIntPipe) productId: number,
+    @Param('cartProductId', ParseIntPipe) cartProductId: number,
   ) {
     (async () => {
       return this.cardService.deleteProductFromCart(
         request,
         response,
         next,
-        productId,
+        cartProductId,
       );
     })();
   }
@@ -123,7 +127,7 @@ export class CartController {
     @Next() next: NextFunction,
   ) {
     (async () => {
-      console.log(response, request, next);
+      return this.cardService.getLeftCarts(response, request, next);
     })();
   }
 }

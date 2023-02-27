@@ -26,8 +26,8 @@ export class LocationMiddleware implements NestMiddleware {
         const reader = await Reader.open(
           path.join(__dirname, 'GeoLite2-Country.mmdb'),
         );
-        const data = reader.country(req.ip);
-        const geo = geoip.lookup(req.ip);
+        const data = reader.country('62.122.202.29');
+        const geo = geoip.lookup('62.122.202.29');
         this.Logger.log(geo, ipAddress);
         req['countryIsoCode'] = data.country.isoCode;
         req['CLient-IP'] = data.traits.ipAddress;
@@ -38,7 +38,6 @@ export class LocationMiddleware implements NestMiddleware {
         res.setHeader('Client-IP-Address', `${data.traits.ipAddress}`);
         res.setHeader('Client-Network', `${data.traits.network}`);
         res.setHeader('Client-Location', `${data.country.isoCode}`);
-        res.setHeader('Client-domain', `${data.traits.domain}`);
         const currency = await this.currencyService.getCurrentCurrency(
           data.country.isoCode,
         );

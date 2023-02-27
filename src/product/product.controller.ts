@@ -47,7 +47,7 @@ import { v4 } from 'uuid';
 import { EditContentGuard } from '../common/guards/edit-content.guard';
 import { ReturnedProduct } from '../core/interfaces/product.interfaces';
 import { ParseFormDataJsonPipe } from '../common/pipes/formdata.pipe';
-import { UserGuard } from 'src/common/guards/user.guard';
+import { UserGuard } from '../common/guards/user.guard';
 import { QueryFilterDto } from './dto/query-filter.dto';
 @UseGuards(ThrottlerBehindProxyGuard)
 @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
@@ -79,7 +79,30 @@ export class ProductController {
 
   @Throttle(70, 700)
   @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
-  @Get('/categories')
+  @Get('compare')
+  getCompare(
+    @Res() response: Response,
+    @Req() request: Request,
+    @Next() next: NextFunction,
+    @Query('page', ParseIntPipe) page: number,
+    @Query('pageSize', ParseIntPipe) pageSize: number,
+    @Query('categories', ParseArrayPipe) categories: number[] | undefined,
+  ) {
+    (async () => {
+      return this.productService.getCompareProducts(
+        request,
+        response,
+        next,
+        page,
+        pageSize,
+        categories,
+      );
+    })();
+  }
+
+  @Throttle(70, 700)
+  @UseFilters(ApiErrorExceptionFilter, ApiExceptionFilter)
+  @Get('categories')
   getProductsByCategory(
     @Res() response: Response,
     @Req() request: Request,

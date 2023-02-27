@@ -7,9 +7,9 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Observable } from 'rxjs';
-import { ACCESS_DENIED } from 'src/admin/constants/admin.constants';
-import { USER_NOT_AUTHORIZIED } from 'src/auth/auth.constants';
-import { AuthService } from 'src/auth/auth.service';
+import { ACCESS_DENIED } from '../../admin/constants/admin.constants';
+import { USER_NOT_AUTHORIZIED } from '../../auth/auth.constants';
+import { AuthService } from '../../auth/auth.service';
 import { Payload } from '../../core/interfaces/auth.interfaces';
 import { ROLES_KEY } from '../decorators/roles-auth.decorator';
 import { ApiException } from '../exceptions/api.exception';

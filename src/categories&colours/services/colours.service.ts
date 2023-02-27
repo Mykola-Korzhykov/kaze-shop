@@ -17,6 +17,26 @@ export class ColoursService {
     @InjectModel(Colour) private readonly colourRepository: typeof Colour,
   ) {}
 
+  async setColours(): Promise<Colour[]> {
+    const colours = await this.colourRepository.bulkCreate([
+      { ru: 'Бежевый', rs: '', en: '', ua: '', hex: '#FFE4C4' },
+      { ru: 'Капучинный', rs: '', en: '', ua: '', hex: '#9F8E84' },
+      { ru: 'Синий', rs: '', en: '', ua: '', hex: '#000080' },
+      { ru: 'Голубой', rs: '', en: '', ua: '', hex: '#A6BEE5' },
+      { ru: 'Коричневый', rs: '', en: '', ua: '', hex: '#0B0B0B' },
+      { ru: 'Изумрудный', rs: '', en: '', ua: '', hex: '#24514C' },
+      { ru: 'Розовый', rs: '', en: '', ua: '', hex: '#FFC0CB' },
+      { ru: 'Фиолетовый', rs: '', en: '', ua: '', hex: '#800080' },
+      { ru: 'Черный', rs: '', en: '', ua: '', hex: '#0B0B0B' },
+      { ru: 'Оливковый', rs: '', en: '', ua: '', hex: '#829E86' },
+      { ru: 'Белый', rs: '', en: '', ua: '', hex: '#fff' },
+      { ru: 'Серый', rs: '', en: '', ua: '', hex: '#808080' },
+      { ru: 'Графитовый', rs: '', en: '', ua: '', hex: '#525A5B' },
+      { ru: 'Пудровый', rs: '', en: '', ua: '', hex: '#F2E2D8' },
+    ]);
+    return colours;
+  }
+
   async getColourByValue(value: string): Promise<Colour> {
     const colour = await this.colourRepository.findOne({
       where: { ua: value },

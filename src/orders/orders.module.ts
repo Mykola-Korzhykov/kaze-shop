@@ -22,7 +22,7 @@ import { OwnerRefreshToken } from '../owner/models/owner.refresh.token.model';
 import { Product } from '../product/models/product.model';
 import { Order } from './models/order.model';
 import { OrderProduct } from './models/order.product.model';
-import { CategoriesColoursModule } from 'src/categories&colours/categories&colours.module';
+import { CategoriesColoursModule } from '../categories&colours/categories&colours.module';
 
 @Module({
   providers: [OrdersService],

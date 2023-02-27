@@ -39,12 +39,12 @@ import { ProductMiddleware } from '../common/middlewares/product.middleware';
 import { ProductReviews } from '../reviews/models/product.reviews.model';
 import { BookmarksProducts } from './models/bookmark.products';
 import { WatchedProducts } from './models/watched.products.model';
-import { UserMiddleware } from 'src/common/middlewares/user.middleware';
+import { UserMiddleware } from '../common/middlewares/user.middleware';
 import { HttpModule } from '@nestjs/axios';
-import { Currencies } from 'src/owner/models/currencies.model';
-import { ColoursService } from 'src/categories&colours/services/colours.service';
-import { Colour } from 'src/categories&colours/models/colours.model';
-import { ProductColours } from 'src/categories&colours/models/product.colour.model';
+import { Currencies } from '../owner/models/currencies.model';
+import { ColoursService } from '../categories&colours/services/colours.service';
+import { Colour } from '../categories&colours/models/colours.model';
+import { ProductColours } from '../categories&colours/models/product.colour.model';
 
 @Module({
   providers: [ProductService, FilesService, CategoriesService, ColoursService],
@@ -79,6 +79,7 @@ import { ProductColours } from 'src/categories&colours/models/product.colour.mod
       CartProduct,
       Currencies,
     ]),
+    forwardRef(() => CartModule),
     forwardRef(() => OrdersModule),
     forwardRef(() => CategoriesColoursModule),
     forwardRef(() => AdminModule),

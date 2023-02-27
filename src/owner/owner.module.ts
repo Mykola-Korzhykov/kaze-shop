@@ -34,11 +34,11 @@ import { CurrencyService } from './services/currency.service';
 import { HttpModule } from '@nestjs/axios';
 import { ScheduleModule } from '@nestjs/schedule';
 import { CartModule } from '../cart/cart.module';
-import { CartService } from 'src/cart/cart.service';
-import { ProductModule } from 'src/product/product.module';
-import { ProductService } from 'src/product/product.service';
-import { CategoriesColoursModule } from 'src/categories&colours/categories&colours.module';
-import { FilesService } from 'src/core/services/file.service';
+import { CartService } from '../cart/cart.service';
+import { ProductModule } from '../product/product.module';
+import { ProductService } from '../product/product.service';
+import { CategoriesColoursModule } from '../categories&colours/categories&colours.module';
+import { FilesService } from '../core/services/file.service';
 @Module({
   imports: [
     ScheduleModule.forRoot(),

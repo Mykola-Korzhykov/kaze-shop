@@ -21,9 +21,9 @@ import { Role } from '../roles/models/roles.model';
 import { UserRoles } from '../roles/models/user.roles.model';
 import { User } from '../users/models/user.model';
 import { UserRefreshToken } from '../users/models/user.refresh.token.model';
-import { Currencies } from 'src/owner/models/currencies.model';
-import { CartModule } from 'src/cart/cart.module';
-import { ProductModule } from 'src/product/product.module';
+import { Currencies } from '../owner/models/currencies.model';
+import { CartModule } from '../cart/cart.module';
+import { ProductModule } from '../product/product.module';
 
 @Module({
   providers: [MailService],

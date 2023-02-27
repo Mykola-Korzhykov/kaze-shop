@@ -28,63 +28,67 @@ export class FilesService {
   private readonly Logger = new Logger(FilesService.name);
 
   async deleteEmpty(cwd: string, options?: any, cb?: any) {
-    if (typeof cwd !== 'string') {
-      return Promise.reject(
-        new TypeError('expected the first argument to be a string'),
-      );
-    }
-
-    if (typeof options === 'function') {
-      cb = options;
-      options = null;
-    }
-
-    if (typeof cb === 'function') {
-      return this.deleteEmpty(cwd, options, cb)
-        .then((res: any) => cb(null, res))
-        .catch(cb);
-    }
-
-    const opts = options || {};
-    const dirname = path.resolve(cwd);
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    const onDirectory = opts.onDirectory || (() => {});
-    const empty: string[] = [];
-
-    const remove = async (filepath: string) => {
-      const dir = path.resolve(filepath);
-
-      if (!this.isValidDir(cwd, dir, empty)) {
-        return;
+    try {
+      if (typeof cwd !== 'string') {
+        return Promise.reject(
+          new TypeError('expected the first argument to be a string'),
+        );
       }
-      onDirectory(dir);
 
-      const files = await readdir(dir);
+      if (typeof options === 'function') {
+        cb = options;
+        options = null;
+      }
 
-      if (this.isEmpty(dir, files, empty, opts)) {
-        empty.push(dir);
+      if (typeof cb === 'function') {
+        return this.deleteEmpty(cwd, options, cb)
+          .then((res: any) => cb(null, res))
+          .catch(cb);
+      }
 
-        await this.deleteDir(dir, opts);
+      const opts = options || {};
+      const dirname = path.resolve(cwd);
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      const onDirectory = opts.onDirectory || (() => {});
+      const empty: string[] = [];
 
-        if (opts.verbose === true) {
-          console.log(colors.red('Deleted:'), path.relative(cwd, dir));
+      const remove = async (filepath: string) => {
+        const dir = path.resolve(filepath);
+
+        if (!this.isValidDir(cwd, dir, empty)) {
+          return;
+        }
+        onDirectory(dir);
+
+        const files = await readdir(dir);
+
+        if (this.isEmpty(dir, files, empty, opts)) {
+          empty.push(dir);
+
+          await this.deleteDir(dir, opts);
+
+          if (opts.verbose === true) {
+            console.log(colors.red('Deleted:'), path.relative(cwd, dir));
+          }
+
+          if (typeof opts.onDelete === 'function') {
+            await opts.onDelete(dir);
+          }
+
+          return remove(path.dirname(dir));
         }
 
-        if (typeof opts.onDelete === 'function') {
-          await opts.onDelete(dir);
+        for (const file of files) {
+          await remove(path.join(dir, file));
         }
 
-        return remove(path.dirname(dir));
-      }
+        return empty;
+      };
 
-      for (const file of files) {
-        await remove(path.join(dir, file));
-      }
-
-      return empty;
-    };
-
-    return remove(dirname);
+      return remove(dirname);
+    } catch (err) {
+      this.Logger.log(err);
+    }
   }
 
   deleteEmptySync(cwd: string, options?: any) {
@@ -249,13 +253,12 @@ export class FilesService {
   private async deleteDir(dirname: string, options: any = {}) {
     if (options.dryRun !== true) {
       return new Promise<void>((resolve, reject) => {
-        rimraf(dirname, { ...options, glob: false }, (err: unknown) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        });
+        try {
+          rimraf(dirname, { ...options, glob: false });
+          resolve();
+        } catch (err) {
+          reject(err);
+        }
       });
     }
   }

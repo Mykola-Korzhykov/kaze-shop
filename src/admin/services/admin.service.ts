@@ -25,6 +25,9 @@ import { RolesService } from '../../roles/roles.service';
 import { ApiException } from '../../common/exceptions/api.exception';
 import { CART_NOT_FOUND } from 'src/cart/cart.constants';
 import { Cart } from 'src/cart/models/cart.model';
+import { v4 } from 'uuid';
+import { randomBytes, scrypt, createCipheriv } from 'crypto';
+import { promisify } from 'util';
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class AdminService {
@@ -294,18 +297,25 @@ export class AdminService {
       return false;
     }
     if (!admin.cart || admin.cart.cartProducts.length === 0) {
-      const newCart = await this.createCart(cartIdentifier);
+      const identifier = await this.generateEncryptedValue('ADMIN', 16);
+      const newCart = await this.createCart(identifier);
       admin.$set('cart', newCart);
       newCart.adminId = admin.id;
       admin.cart = newCart;
       await newCart.save();
     }
-    const cart = await this.findCartByIdentifier(cartIdentifier);
+    let cart: Cart | undefined;
+    if (cartIdentifier) {
+      cart = await this.findCartByIdentifier(cartIdentifier);
+    }
     if (cart && cart.cartProducts.length > 0) {
       cart.adminId = admin.id;
       cart.set('admin', admin);
       admin.$add('leftCarts', cart);
       await cart.save();
+    }
+    if (cart && cart.cartProducts?.length === 0) {
+      await this.deleteCartById(cart.id, cart.identifier);
     }
     await admin.save();
     return admin;
@@ -364,6 +374,16 @@ export class AdminService {
     return admin.save();
   }
 
+  private async deleteCartById(id: number, identifier: string) {
+    const cart = await this.cartRepository.findOne({
+      where: {
+        id: id,
+        identifier: identifier,
+      },
+    });
+    return cart;
+  }
+
   private async createCart(identifier: string): Promise<Cart> {
     const cart = await this.cartRepository.create({
       cartStatus: 'Open',
@@ -392,5 +412,19 @@ export class AdminService {
       );
     }
     return cart;
+  }
+
+  private async generateEncryptedValue(
+    value: string,
+    bytes: number,
+  ): Promise<string> {
+    const iv = randomBytes(bytes);
+    const API_KEY = process.env.API_KEY.toString();
+    const key = (await promisify(scrypt)(API_KEY, 'salt', 32)) as Buffer;
+    const cipher = createCipheriv('aes-256-ctr', key, iv);
+    return Buffer.concat([cipher.update(value), cipher.final()])
+      .toString('base64')
+      .replace('/', `${v4()}`)
+      .replace('=', `${v4()}`);
   }
 }

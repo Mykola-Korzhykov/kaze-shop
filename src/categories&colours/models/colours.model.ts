@@ -4,7 +4,9 @@ import {
   Table,
   Model,
   BelongsToMany,
+  ForeignKey,
 } from 'sequelize-typescript';
+import { CartProduct } from '../../cart/models/cart.product.model';
 import { ColourCreationAtrb } from '../../core/interfaces/product.interfaces';
 import { Product } from '../../product/models/product.model';
 import { ProductColours } from './product.colour.model';
@@ -59,6 +61,14 @@ export class Colour extends Model<Colour, ColourCreationAtrb> {
     field: 'hex',
   })
   public hex: string;
+
+  @ForeignKey(() => CartProduct)
+  @Column({
+    type: DataType.INTEGER,
+    unique: false,
+    field: 'cartProductId',
+  })
+  public cartProductId: number;
 
   @BelongsToMany(() => Product, () => ProductColours)
   private products: Product[];

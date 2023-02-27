@@ -39,7 +39,7 @@ export class AppController {
         const reader = await Reader.open(
           path.join(__dirname, 'GeoLite2-Country.mmdb'),
         );
-        const geoCountry = reader.country(request.ip);
+        const geoCountry = reader.country('62.122.202.29');
         return response.json({
           geoLocation: {
             currency: request['currency'],

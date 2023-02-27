@@ -17,6 +17,13 @@ export class CategoriesService {
     @InjectModel(Category) private readonly categoryRepository: typeof Category,
   ) {}
 
+  async setCategories(): Promise<Category[]> {
+    const categories = await this.categoryRepository.bulkCreate([
+      { ru: '', rs: '', en: '', ua: '' },
+    ]);
+    return categories;
+  }
+
   async getCategoryByValue(value: string): Promise<Category> {
     const category = await this.categoryRepository.findOne({
       where: { ua: value },

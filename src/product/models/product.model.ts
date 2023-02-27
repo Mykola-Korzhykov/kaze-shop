@@ -19,8 +19,8 @@ import { Owner } from '../../owner/models/owner.model';
 import { Admin } from '../../admin/models/admin.model';
 import { Review } from '../../reviews/models/review.model';
 import { ProductReviews } from '../../reviews/models/product.reviews.model';
-import { Colour } from 'src/categories&colours/models/colours.model';
-import { ProductColours } from 'src/categories&colours/models/product.colour.model';
+import { Colour } from '../../categories&colours/models/colours.model';
+import { ProductColours } from '../../categories&colours/models/product.colour.model';
 
 @Table({ tableName: 'PRODUCTS' })
 export class Product extends Model<Product, ProductCreationAttrs> {
@@ -92,7 +92,7 @@ export class Product extends Model<Product, ProductCreationAttrs> {
   public price: number;
 
   @Column({
-    type: DataType.ARRAY(DataType.STRING),
+    type: DataType.ARRAY(DataType.JSONB),
     unique: false,
     allowNull: false,
     field: 'images',

@@ -40,8 +40,8 @@ import { ReviewsController } from './reviews.controller';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './create.review.dto';
 import RequestValidator from '../common/pipes/body-validator.pipe';
-import { CategoriesColoursModule } from 'src/categories&colours/categories&colours.module';
-import { ProductModule } from 'src/product/product.module';
+import { CategoriesColoursModule } from '../categories&colours/categories&colours.module';
+import { ProductModule } from '../product/product.module';
 
 @Module({
   controllers: [ReviewsController],

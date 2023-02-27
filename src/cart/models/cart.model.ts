@@ -8,8 +8,8 @@ import {
   BelongsToMany,
   BelongsTo,
 } from 'sequelize-typescript';
-import { Admin } from 'src/admin/models/admin.model';
-import { Owner } from 'src/owner/models/owner.model';
+import { Admin } from '../../admin/models/admin.model';
+import { Owner } from '../../owner/models/owner.model';
 import { Product } from '../../product/models/product.model';
 import { User } from '../../users/models/user.model';
 import { CartProduct } from './cart.product.model';

@@ -22,8 +22,8 @@ import { UsersService } from '../users/services/users.service';
 import { USER_NOT_FOUND } from '../users/constants/user.constants';
 import { NextFunction, Request, Response } from 'express';
 import { QueryFilterDto } from './dto/query-filter.dto';
-import { Colour } from 'src/categories&colours/models/colours.model';
-import { ColoursService } from 'src/categories&colours/services/colours.service';
+import { Colour } from '../categories&colours/models/colours.model';
+import { ColoursService } from '../categories&colours/services/colours.service';
 @Injectable({ scope: Scope.TRANSIENT })
 export class ProductService {
   private readonly Logger = new Logger(ProductService.name);
@@ -35,6 +35,97 @@ export class ProductService {
     private readonly categoriesService: CategoriesService,
     private readonly coloursService: ColoursService,
   ) {}
+
+  async getCompareProducts(
+    request: Request,
+    response: Response,
+    next: NextFunction,
+    page: number,
+    pageSize: number,
+    categories: number[] | undefined,
+  ) {
+    try {
+      const currency: {
+        currencyCode: string;
+        symbol: string;
+        rate: number;
+      } = request['currency'];
+      let products = await this.productRepository.findAll({
+        include: { all: true },
+      });
+      if (categories && categories.length > 0) {
+        products = products.filter((product: Product) => {
+          if (
+            product.categories.some(
+              (category: Category) =>
+                !categories
+                  .map((category) => Number(category))
+                  .includes(category.id),
+            )
+          ) {
+            return product;
+          }
+        });
+      }
+      return response.json({
+        products: products
+          .map((product: Product) => {
+            return {
+              id: product.id,
+              title: product.getTitle(),
+              description: product.getDescription(),
+              price:
+                Math.round(product.price * currency.rate) + currency.symbol,
+              quantity: product.quantity,
+              images: product.images.map((image) => JSON.parse(image)),
+              hexes: product.hexes,
+              sizeChartImage: product.sizeChartImage,
+              sizes: product.sizes,
+              colours: product.colours.map((colour) => {
+                return {
+                  id: colour.id,
+                  ua: colour.ua,
+                  en: colour.en,
+                  rs: colour.rs,
+                  ru: colour.ru,
+                  hex: colour.hex,
+                  type: 'colour',
+                  createdAt: colour.createdAt,
+                  updatedAt: colour.updatedAt,
+                };
+              }),
+              categories: product?.categories?.map((category) => {
+                return {
+                  id: category.id,
+                  ua: category.ua,
+                  en: category.en,
+                  rs: category.rs,
+                  ru: category.ru,
+                  type: 'category',
+                  createdAt: category.createdAt,
+                  updatedAt: category.updatedAt,
+                };
+              }),
+              reviews: product.reviews.map((review) => {
+                return {
+                  id: review.id,
+                  name: review.name,
+                  surname: review.surname,
+                  review: review.review,
+                  createdAt: review.createdAt,
+                  updatedAt: review.updatedAt,
+                };
+              }),
+            };
+          })
+          .slice((page - 1) * pageSize, pageSize * page),
+        totalProducts: products.length,
+      });
+    } catch (err: unknown) {
+      this.Logger.error(err);
+      return next(err);
+    }
+  }
 
   async getProductsByCategory(
     request: Request,
@@ -76,7 +167,7 @@ export class ProductService {
               price:
                 Math.round(product.price * currency.rate) + currency.symbol,
               quantity: product.quantity,
-              images: product.images,
+              images: product.images.map((image) => JSON.parse(image)),
               hexes: product.hexes,
               sizeChartImage: product.sizeChartImage,
               sizes: product.sizes,
@@ -157,7 +248,7 @@ export class ProductService {
             description: product.getDescription(),
             price: product.price * currency.rate + currency.symbol,
             quantity: product.quantity,
-            images: product.images,
+            images: product.images.map((image) => JSON.parse(image)),
             hexes: product.hexes,
             sizeChartImage: product.sizeChartImage,
             sizes: product.sizes,
@@ -239,7 +330,7 @@ export class ProductService {
             description: product.getDescription(),
             price: product.price * currency.rate + currency.symbol,
             quantity: product.quantity,
-            images: product.images,
+            images: product.images.map((image) => JSON.parse(image)),
             hexes: product.hexes,
             sizeChartImage: product.sizeChartImage,
             sizes: product.sizes,
@@ -320,7 +411,7 @@ export class ProductService {
           description: product.getDescription(),
           price: product.price * currency.rate + currency.symbol,
           quantity: product.quantity,
-          images: product.images,
+          images: product.images.map((image) => JSON.parse(image)),
           hexes: product.hexes,
           sizeChartImage: product.sizeChartImage,
           sizes: product.sizes,
@@ -397,7 +488,7 @@ export class ProductService {
             description: product.getDescription(),
             price: product.price * currency.rate + currency.symbol,
             quantity: product.quantity,
-            images: product.images,
+            images: product.images.map((image) => JSON.parse(image)),
             hexes: product.hexes,
             sizeChartImage: product.sizeChartImage,
             sizes: product.sizes,
@@ -485,7 +576,7 @@ export class ProductService {
         description: product.getDescription(),
         price: Math.floor(product.price * currency.rate) + currency.symbol,
         quantity: product.quantity,
-        images: product.images,
+        images: product.images.map((image) => JSON.parse(image)),
         sizeChartImage: product.sizeChartImage,
         sizes: product.sizes,
         hexes: product.hexes,
@@ -605,7 +696,7 @@ export class ProductService {
               price:
                 Math.round(product.price * currency.rate) + currency.symbol,
               quantity: product.quantity,
-              images: product.images,
+              images: product.images.map((image) => JSON.parse(image)),
               hexes: product.hexes,
               sizeChartImage: product.sizeChartImage,
               sizes: product.sizes,
@@ -760,7 +851,6 @@ export class ProductService {
         ...createProductDto,
         title: JSON.stringify(createProductDto.title),
         description: JSON.stringify(createProductDto.description),
-        images: imagesPaths,
         sizeChartImage: sizeChartImagePath,
       });
       product.reviews = [];
@@ -793,6 +883,17 @@ export class ProductService {
         }
         await product.save();
       }
+      const IMAGES = [];
+      imagesPaths.forEach((path, index) => {
+        const imageObj = {
+          image: path,
+          size: product.sizes[index],
+          colour: product.colours[index],
+        };
+        IMAGES.push(JSON.stringify(imageObj));
+      });
+      product.images = IMAGES;
+      await product.save();
       if (type && type === 'OWNER') {
         const owner = await this.ownerService.getOwnerById(userId);
         product.setOwnerId(userId);
@@ -819,7 +920,7 @@ export class ProductService {
         description: dbProduct.getDescription(),
         price: dbProduct.price,
         quantity: dbProduct.quantity,
-        images: dbProduct.images,
+        images: dbProduct.images.map((image) => JSON.parse(image)),
         sizeChartImage: dbProduct.sizeChartImage,
         sizes: dbProduct.sizes,
         colours: dbProduct.colours.map((colour) => {
@@ -960,7 +1061,17 @@ export class ProductService {
             );
           },
         );
-        existingProduct.images = [...imagesPaths];
+        const IMAGES = [];
+        imagesPaths.forEach((path, index) => {
+          const imageObj = {
+            image: path,
+            size: existingProduct.sizes[index],
+            colour: existingProduct.colours[index],
+          };
+          IMAGES.push(JSON.stringify(imageObj));
+        });
+        existingProduct.images = IMAGES;
+        await existingProduct.save();
       }
       if (sizeChartImage && sizeChartImage.length > 0) {
         const sizeChartImagePath =
@@ -987,7 +1098,7 @@ export class ProductService {
         description: dbProduct?.getDescription(),
         price: dbProduct?.price,
         quantity: dbProduct?.quantity,
-        images: dbProduct?.images,
+        images: dbProduct?.images.map((image) => JSON.parse(image)),
         sizeChartImage: dbProduct?.sizeChartImage,
         sizes: dbProduct?.sizes,
         colours: dbProduct.colours.map((colour) => {

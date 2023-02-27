@@ -18,7 +18,7 @@ import { OwnerCreationAttrbs } from '../../core/interfaces/owner.interfaces';
 import { Product } from '../../product/models/product.model';
 import { OwnerRefreshToken } from './owner.refresh.token.model';
 import { Currencies } from './currencies.model';
-import { Cart } from 'src/cart/models/cart.model';
+import { Cart } from '../../cart/models/cart.model';
 
 @Table({ tableName: 'OWNER' })
 export class Owner extends Model<Owner, OwnerCreationAttrbs> {
