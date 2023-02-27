@@ -3,11 +3,16 @@ import { HYDRATE } from 'next-redux-wrapper'
 import { Api } from '@/services'
 import { RootState } from '../store'
 import { Goods, fetchedCategory, fetchedColour } from '../../types/goods'
+import { AxiosError } from 'axios'
 type GoodsSlice = {
 	goods: Goods[] | null
 	loadingStatus: 'loading' | 'error' | 'idle'
 	page: number
+	totalProducts: number
+	language: 'ua' | 'rs' | 'en' | 'ru'
+	errors: string | null
 	sortType: string
+	headerCategory: number
 	filterCategories: number[]
 	filterSizes: string[] | null
 	filterColours: number[] | null
@@ -15,41 +20,83 @@ type GoodsSlice = {
 	fetchedCategories: fetchedCategory[] | null
 }
 
-export const fetchGoods = createAsyncThunk(
-	'goods/fetchAllGoods',
-	async (_, { getState }) => {
-		const state = getState() as RootState
-		const goodsState = state.goods
-		const pageNumber = goodsState.page
+export const fetchGoods = createAsyncThunk<
+	Goods[],
+	null,
+	{ rejectValue: string }
+>('goods/fetchAllGoods', async (_, { getState, rejectWithValue }) => {
+	const state = getState() as RootState
+	const goodsState = state.goods
+	const pageNumber = goodsState.page
+	try {
 		const data = await Api().goods.getGoods(pageNumber)
 		return data
+	} catch (e) {
+		if ('rawErrors' in e.response.data) {
+			return rejectWithValue(e.response.data.rawErrors[0].ua)
+		}
 	}
-)
-
-export const fetchCategories = createAsyncThunk(
-	'goods/fetchCategories',
-	async () => {
-		const data = await Api().goods.getGategories()
-		return data
-	}
-)
-
-export const fetchColours = createAsyncThunk('goods/fetchColours', async () => {
-	const data = await Api().goods.getColours()
-	return data
 })
 
-export const filterGoods = createAsyncThunk(
-	'goods/filterGoods',
-	async (_, { getState }) => {
+export const fetchGoodsByCategory = createAsyncThunk<
+	Goods[],
+	number,
+	{ rejectValue: string }
+>(
+	'goods/fetchGoodsByCategory',
+	async (categoryId: number, { getState, rejectWithValue }) => {
 		const state = getState() as RootState
-
 		const goodsState = state.goods
-		const sortBy = goodsState.sortType
 		const pageNumber = goodsState.page
-		const categoriesStr = goodsState.filterCategories.join(',')
-		const coloursStr = goodsState.filterColours.join(',')
-		const sizesStr = goodsState.filterSizes.join(',')
+		try {
+			const data = await Api().goods.getGoodsByCategory(pageNumber, categoryId)
+			return data
+		} catch (e) {
+			return rejectWithValue(e.response.data.rawErrors[0].ua)
+		}
+	}
+)
+
+export const fetchCategories = createAsyncThunk<
+	fetchedCategory[],
+	null,
+	{ rejectValue: string }
+>('goods/fetchCategories', async (_, { rejectWithValue }) => {
+	try {
+		const data = await Api().goods.getGategories()
+		return data
+	} catch (e) {
+		return rejectWithValue(e.response.data.rawErrors[0].ua)
+	}
+})
+
+export const fetchColours = createAsyncThunk<
+	fetchedColour[],
+	null,
+	{ rejectValue: string }
+>('goods/fetchColours', async (_, { rejectWithValue }) => {
+	try {
+		const data = await Api().goods.getColours()
+		return data
+	} catch (e) {
+		return rejectWithValue(e.response.data.rawErrors[0].ua)
+	}
+})
+
+export const filterGoods = createAsyncThunk<
+	Goods[],
+	null,
+	{ rejectValue: string }
+>('goods/filterGoods', async (_, { getState, rejectWithValue }) => {
+	const state = getState() as RootState
+
+	const goodsState = state.goods
+	const sortBy = goodsState.sortType
+	const pageNumber = goodsState.page
+	const categoriesStr = goodsState.filterCategories.join(',')
+	const coloursStr = goodsState.filterColours.join(',')
+	const sizesStr = goodsState.filterSizes.join(',')
+	try {
 		const data = await Api().goods.filterGoods(
 			pageNumber,
 			sizesStr,
@@ -58,19 +105,25 @@ export const filterGoods = createAsyncThunk(
 			sortBy
 		)
 		return data
+	} catch (e) {
+		return rejectWithValue(e.response.data.rawErrors[0].error)
 	}
-)
+})
 
 const initialState: GoodsSlice = {
 	goods: null,
 	page: 1,
 	loadingStatus: 'idle',
 	sortType: '',
+	totalProducts: 0,
+	errors: '',
+	headerCategory: 0,
 	filterCategories: [],
 	filterSizes: [],
 	filterColours: [],
 	fetchedColours: null,
 	fetchedCategories: null,
+	language: 'ua',
 }
 
 const goodsSlice = createSlice({
@@ -110,8 +163,15 @@ const goodsSlice = createSlice({
 		setSortType(state, action: PayloadAction<string>) {
 			state.sortType = action.payload
 		},
+		setHeaderCategory(state, action: PayloadAction<number>) {
+			state.headerCategory = action.payload
+		},
 		setPage(state, action: PayloadAction<number>) {
-			state.page = action.payload
+			if (action.payload >= 1) {
+				state.page = action.payload
+			} else {
+				state.page = 1
+			}
 		},
 	},
 	extraReducers: builder => {
@@ -121,8 +181,9 @@ const goodsSlice = createSlice({
 			builder.addCase(fetchGoods.pending, state => {
 				state.loadingStatus = 'loading'
 			}),
-			builder.addCase(fetchGoods.rejected, state => {
+			builder.addCase(fetchGoods.rejected, (state, action) => {
 				state.loadingStatus = 'error'
+				state.errors = action.payload
 			}),
 			builder.addCase(filterGoods.fulfilled, (state, action) => {
 				state.goods = action.payload
@@ -132,12 +193,45 @@ const goodsSlice = createSlice({
 			}),
 			builder.addCase(filterGoods.rejected, (state, action) => {
 				state.loadingStatus = 'error'
+				state.errors = action.payload
 			}),
 			builder.addCase(fetchCategories.fulfilled, (state, action) => {
 				state.fetchedCategories = action.payload
 			}),
+			builder.addCase(fetchCategories.pending, (state, action) => {
+				state.loadingStatus = 'loading'
+			}),
+			builder.addCase(fetchCategories.rejected, (state, action) => {
+				state.loadingStatus = 'error'
+				state.errors = action.payload
+			}),
 			builder.addCase(fetchColours.fulfilled, (state, action) => {
 				state.fetchedColours = action.payload
+			}),
+			builder.addCase(fetchColours.pending, (state, action) => {
+				state.loadingStatus = 'loading'
+			}),
+			builder.addCase(fetchColours.rejected, (state, action) => {
+				state.loadingStatus = 'error'
+				state.errors = action.payload
+			}),
+			builder.addCase(fetchGoodsByCategory.fulfilled, (state, action) => {
+				state.goods = action.payload
+			}),
+			builder.addCase(fetchGoodsByCategory.pending, (state, action) => {
+				state.loadingStatus = 'loading'
+			}),
+			builder.addCase(fetchGoodsByCategory.rejected, (state, action) => {
+				state.loadingStatus = 'error'
+				state.errors = action.payload
+			}),
+			builder.addDefaultCase((state, action) => {
+				const [type] = action.type.split('/').splice(-1)
+				if (type === 'rejected') {
+					state.errors = action.payload
+				} else {
+					state.errors = ''
+				}
 			})
 	},
 })
@@ -153,6 +247,8 @@ export const {
 	setFilterColour,
 	setFilterSize,
 	setSortType,
+	setPage,
+	setHeaderCategory,
 } = goodsSlice.actions
 
 export default goodsSlice.reducer
