@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect } from 'react'
 import Spinner from '@/components/Spinner/Spinner'
+import ErrorModal from '@/components/UI/ErrorModal'
 import {
 	filterGoods,
 	fetchGoods,
@@ -24,10 +25,10 @@ const Catalog: FC = () => {
 		dispatch(fetchGoods())
 		dispatch(fetchCategories())
 		dispatch(fetchColours())
-	}, [])
+	}, [dispatch])
 	useEffect(() => {
 		dispatch(filterGoods())
-	}, [sortType, page])
+	}, [sortType, page, dispatch])
 
 	return (
 		<CatalogContext.Provider value={{ filtersOpened, setFiltersOpened }}>
@@ -38,7 +39,12 @@ const Catalog: FC = () => {
 						<Link href='/'>Главная</Link> | <span>Каталог</span>
 					</div>
 					{loadingStatus === 'error' ? (
-						<h5 className='text-center mt-5'>{error}</h5>
+						<ErrorModal
+						title='503'
+						buttonText='Вернуться на главную'
+						buttonHref='/'
+						description={error}
+					/>
 					) : (
 						<>
 							<CatalogHeader />
@@ -47,6 +53,11 @@ const Catalog: FC = () => {
 							<CatalogPagination />
 						</>
 					)}
+					{/* <CatalogHeader />
+					{filtersOpened && <CatalogFilters />}
+					<CatalogItems />
+					<CatalogPagination /> */}
+					
 				</div>
 			</main>
 		</CatalogContext.Provider>
