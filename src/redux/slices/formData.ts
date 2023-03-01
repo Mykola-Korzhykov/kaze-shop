@@ -1,25 +1,63 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 export interface initialStateType {
-   
+    title: {
+        ua: string | null,
+        ru: string | null,
+        rs: string | null,
+        en: string | null,
+      };
+      description: {
+        ua: string | null,
+        ru: string | null,
+        rs: string | null,
+        en: string | null,
+      },
+      sizesend:string[],
+    
 }
 
 const initialState: initialStateType = {
-    
+    title: {
+        ua: null,
+        ru: null,
+        rs: null,
+        en: null,
+      },
+      description: {
+        ua: null,
+        ru: null,
+        rs: null,
+        en: null,
+      },
+      sizesend:[]
 }
 
 export const formData = createSlice({
     name: 'formData',
     initialState,
     reducers: {
-        setSizes: (state, action) => {
+        setTitle: (state, action: PayloadAction<{ branch: keyof initialStateType['title'], title: string }>) => {
+            const { branch, title } = action.payload;
+            if (branch in state.title) {
+                state.title[branch] = title;
+            }
+        },
+        setDescription: (state, action: PayloadAction<{ branch: keyof initialStateType['description'], description: string }>) => {
+            const { branch, description } = action.payload;
+            if (branch in state.description) {
+                state.description[branch] = description;
+            }
+        },
+        setSizes: (state, action: PayloadAction<string>) => {
             
-        
+            //const found =  state.sizes.indexOf(action.payload.id)
+            state.sizesend.push(action.payload)
         },
 
     },
 })
 
-export const {  } = formData.actions
+export const { setTitle, setDescription, setSizes} = formData.actions
 
 export default formData.reducer

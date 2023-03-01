@@ -38,20 +38,21 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
 
    const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
    const addPhotoState =  useSelector((state: RootState)=> state.admin.addPhotoState)
+   
 
     const  [inputs, setInputs] = React.useState([
-        { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', label: 'text', disable: false },
-        { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название кнопки', label: 'text', disable: false },
-        { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название кнопки', label: 'text',  disable: false },
-        { id: 3, type: 'text', text: 'Название товара ENG', placeholder: 'Введите название кнопки', label: 'text',disable: false },
-        { id: 4, type: 'text', text: 'Описание товара RU', placeholder: 'Введите описание товара', label: 'text',disable: false },
-        { id: 5, type: 'text', text: 'Описание товара UA', placeholder: 'Введите описание товара', label: 'text',disable: false },
-        { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', label: 'text',disable: false },
-        { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', label: 'text',disable: false },
-        { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', label: 'text', disable: false },
-        { id: 9, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', label: 'text', disable: false },
-        { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', label: 'text', disable: false },
-        // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', label: 'text', disable: true, colors: colors },
+        { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', name: 'titleRU', disable: false,  },
+        { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название кнопки', name: 'titleUA', disable: false },
+        { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название кнопки', name: 'titleSRB',  disable: false },
+        { id: 3, type: 'text', text: 'Название товара ENG', placeholder: 'Введите название кнопки', name: 'titleENG',disable: false },
+        { id: 4, type: 'text', text: 'Описание товара RU', placeholder: 'Введите описание товара', name: 'descriptionRU',disable: false },
+        { id: 5, type: 'text', text: 'Описание товара UA', placeholder: 'Введите описание товара', name: 'descriptionUA',disable: false },
+        { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', name: 'descriptionSRB',disable: false },
+        { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false },
+        { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', name: 'text', disable: false },
+        { id: 9, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'text', disable: false },
+        { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'text', disable: false },
+        // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', name: 'text', disable: true, colors: colors },
         //{ id: 9, type: 'text', text: 'Выберите существующий товар', placeholder: 'Выберите существующий товар', label: 'text', disable: true },
    
     ])
@@ -86,6 +87,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                     <div className={s.wrapper_inner }>
                         {inputsFistWrapper_1?.map((obj) => {
                             return <InputTextItem  
+                            name={obj.name}
                             disable={obj.disable} 
                             key={obj.id} id={obj.id} 
                             type={obj.type} 
@@ -97,6 +99,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                     <div className={s.wrapper_inner }>
                         {inputsFistWrapper_2?.map((obj) => {
                             return <InputTextItem  
+                            name={obj.name}
                             disable={obj.disable} 
                             key={obj.id} 
                             id={obj.id} 
@@ -113,6 +116,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                     <div className={s.wrapper_inner }>
                         {inputsFistWrapper_3?.map((obj) => {
                             return <InputTextItem  
+                            name={obj.name}
                             disable={obj.disable} 
                             key={obj.id} id={obj.id} 
                             type={obj.type} 
@@ -126,6 +130,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                     <div className={s.wrapper_inner }>
                         {inputsFistWrapper_4?.map((obj) => {
                             return <InputTextItem
+                            name={obj.name}
                              setModalAddColor={setModalAddColor}
                              modalAddColor={modalAddColor} 
                              disable={obj.disable} 
@@ -136,8 +141,6 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                         })}
                     </div>
 
-
-
                 </div>
 
                 <div className={s.inputs_wrapper}>
@@ -145,6 +148,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                     <div className={s.wrapper_inner }>
                         {inputsFistWrapper_5?.map((obj) => {
                             return <InputTextItem   
+                            name={obj.name}
                             disable={obj.disable} 
                             key={obj.id} 
                             id={obj.id}
@@ -159,7 +163,8 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
 
                     <div className={s.wrapper_inner }>
                         {inputsFistWrapper_6?.map((obj) => {
-                            return <InputTextItem   
+                            return <InputTextItem  
+                            name={obj.name} 
                             disable={obj.disable} 
                             key={obj.id} 
                             id={obj.id}

@@ -5,8 +5,8 @@ import { SizeItem } from "../SizesItem"
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import { useAppDispatch } from '@/redux/hooks'
-import {setSizes, setColors} from '../../../../../../../redux/slices/admin'
-
+import { setColors} from '../../../../../../../redux/slices/admin'
+import {setSizes} from '../../../../../../../redux/slices/formData'
 
 
 interface ModuleWindiwProps {
@@ -22,7 +22,7 @@ export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto, setChoiceColor, c
 
     const dispatch = useAppDispatch()
 
-    const selectedSizes = useSelector((state: RootState)=> state.admin.sizesend)
+    const selectedSizes = useSelector((state: RootState)=> state.formData.sizesend)
     const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
     console.log('colors', colors)
     const categories =  useSelector((state: RootState)=> state.goods.fetchedCategories)
@@ -94,7 +94,7 @@ export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto, setChoiceColor, c
                         <div className={ choiceSize ? `${s.choice_photo_wrapper} ${s.choice_photo_on}` : `${s.choice_photo_wrapper} ${s.choice_photo_off}`  }>
                             {sizesItems.map((el, ind)=>{
                                 return <span onClick={
-                                    ()=>  dispatch(setSizes(el)) 
+                                    ()=>  dispatch(setSizes(el.size)) 
                                 } key={ind} className={s.item_choice_photo}>
                                     {el.size}
                                 </span>
@@ -105,8 +105,8 @@ export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto, setChoiceColor, c
                 </div>
 
                 <div className={s.sizes}>
-                    {selectedSizes?.map((el)=>{
-                        return <SizeItem size={el.size} id={el.id} />
+                    {selectedSizes?.map((el, ind)=>{
+                        return <SizeItem key={ind} size={el} id={ind} />
                     })}
                 </div>
 
