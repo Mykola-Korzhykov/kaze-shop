@@ -71,7 +71,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
 
     return (
         <div className={s.wrapper}>
-
+            <form action="/submit-form" method="post">
             <div className={s.inputs_text}>
 
                 <div className={s.inputs_wrapper}>
@@ -230,6 +230,15 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                     </div>
                 </div> */}
 
+
+
+                
+
+                <div className={s.send_wrapper}>
+                    <button className={s.btn_cancel}>Отправить</button>
+                    <input className={s.btn_send} value='Добавить товар' type="submit" name="submit" id="" />
+                </div>
+            </form>
         </div>
     )
 }
