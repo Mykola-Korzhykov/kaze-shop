@@ -44,9 +44,13 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
         { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название кнопки', label: 'text', disable: false },
         { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название кнопки', label: 'text',  disable: false },
         { id: 3, type: 'text', text: 'Название товара ENG', placeholder: 'Введите название кнопки', label: 'text',disable: false },
-        { id: 5, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', label: 'text', disable: false },
-        { id: 6, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', label: 'text', disable: false },
-        { id: 7, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', label: 'text', disable: false },
+        { id: 4, type: 'text', text: 'Описание товара RU', placeholder: 'Введите описание товара', label: 'text',disable: false },
+        { id: 5, type: 'text', text: 'Описание товара UA', placeholder: 'Введите описание товара', label: 'text',disable: false },
+        { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', label: 'text',disable: false },
+        { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', label: 'text',disable: false },
+        { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', label: 'text', disable: false },
+        { id: 9, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', label: 'text', disable: false },
+        { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', label: 'text', disable: false },
         // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', label: 'text', disable: true, colors: colors },
         //{ id: 9, type: 'text', text: 'Выберите существующий товар', placeholder: 'Выберите существующий товар', label: 'text', disable: true },
    
@@ -56,7 +60,8 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
     const inputsFistWrapper_2 = inputs?.slice(2, 4)
     const inputsFistWrapper_3 = inputs?.slice(4, 6)
     const inputsFistWrapper_4 = inputs?.slice(6, 8)
-    const inputsFistWrapper_5 = inputs?.slice(8, 9)
+    const inputsFistWrapper_5 = inputs?.slice(8, 10)
+    const inputsFistWrapper_6 = inputs?.slice(10, 11)
     
     // const inputsSecondWrapper = inputs?.slice(inputs.length - 1, inputs.length)
 
@@ -152,7 +157,22 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                         })}
                     </div>
 
-                   
+                    <div className={s.wrapper_inner }>
+                        {inputsFistWrapper_6?.map((obj) => {
+                            return <InputTextItem   
+                            disable={obj.disable} 
+                            key={obj.id} 
+                            id={obj.id}
+                            type={obj.type} 
+                            text={obj.text} 
+                            placeholder={obj.placeholder}
+                            setModalAddColor={setModalAddColor}
+                            modalAddColor={modalAddColor}  />
+                            
+                        })}
+                    </div>
+
+         
 
 
                 </div>

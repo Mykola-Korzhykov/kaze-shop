@@ -5,6 +5,7 @@ import goods from './slices/goods'
 import user from './slices/user'
 import admin from './slices/admin'
 import main from './slices/main'
+import formData from './slices/formData'
 
 export function makeStore() {
 	return configureStore({
@@ -12,7 +13,8 @@ export function makeStore() {
 			goods: goods,
 			user: user,
 			admin,
-			main
+			main,
+			formData
 		},
 	})
 }
