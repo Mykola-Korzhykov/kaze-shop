@@ -14,7 +14,7 @@ const Spinner: FC<Props> = ({ isShow = true }) => {
 	useEffect(() => {
 		dispatch(setAuthState(!!cookies.accessToken))
 		// console.log(cookies.accessToken)
-	}, [])
+	}, [dispatch])
 
 	return (
 		<div className={`${cl.body} ${isShow ? cl.show : ''}`}>
