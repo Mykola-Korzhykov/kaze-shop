@@ -4,6 +4,8 @@ import { RootState } from "@/redux/store"
 import s from './AddProduct.module.scss'
 //comonets
 import { InputTextItem } from './InputText'
+import {setAddPhotoState} from '../../../../../../redux/slices/admin'
+import { useAppDispatch } from '@/redux/hooks'
 import { ModuleWindiw } from "./ModuleWindow"
 import {SizeItem} from './SizesItem'
 
@@ -16,21 +18,23 @@ interface AddProductProps {
 
 export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, modalAddColor}: AddProductProps) => {
 
-    function pushItemPhoto(){
-        addPhotoArr.push({id: addPhotoState[addPhotoState.length -1 ].id + 1 })
-        setAddPhoto(addPhotoArr)
-        addPhotoArr = addPhotoState
-    }
+    const dispatch = useAppDispatch()
+//     function pushItemPhoto(){
+//         addPhotoArr.push({id: addPhotoState[addPhotoState.length -1 ].id + 1 })
+//         setAddPhoto(addPhotoArr)
+//         addPhotoArr = addPhotoState
+//     }
 
-    let addPhotoArr =  [{id: 1}]
-    const [addPhotoState, setAddPhoto] = React.useState([
-        {id: 1}
-   ])
+//     let addPhotoArr =  [{id: 1}]
+//     const [addPhotoState, setAddPhoto] = React.useState([
+//         {id: 1}
+//    ])
 
-   console.log('addPhotoState', addPhotoState)
-   console.log('addPhotoArr', addPhotoArr)
+//    console.log('addPhotoState', addPhotoState)
+//    console.log('addPhotoArr', addPhotoArr)
 
    const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
+   const addPhotoState =  useSelector((state: RootState)=> state.admin.addPhotoState)
 
     const  [inputs, setInputs] = React.useState([
         { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', label: 'text', disable: false },
@@ -81,6 +85,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                             placeholder={obj.placeholder} />
                         })}
                     </div>
+
                     <div className={s.wrapper_inner }>
                         {inputsFistWrapper_2?.map((obj) => {
                             return <InputTextItem  
@@ -160,7 +165,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                     <div className={s.descriprion}>
                         <span className={s.title}>Добавить фото товара</span>
                         <span onClick={()=>{
-                            pushItemPhoto()
+                           dispatch(setAddPhotoState()) 
                         } } className={s.btn}>
                         <svg className={s.img} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3.75 12H20.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -170,7 +175,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                         </span>
                     </div>
                     <div className={s.addphoto}>  
-                    {addPhotoState.map((el, ind)=>{
+                    {addPhotoState?.map((el, ind)=>{
                         return <div onClick={()=> setModalAddPhoto(!modalAddPhoto)} className={s.addphoto_wrapper}>
                             <div className={s.element_wrapper}>
                                 <span className={s.id}> {`${el.id}.`}</span>

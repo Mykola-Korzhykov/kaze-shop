@@ -27,7 +27,8 @@ export interface initialStateType {
         label: string,
         hex: string | null, 
         id: number
-    }[]
+    }[],
+    addPhotoState: {id: number}[]
 
 }
 
@@ -57,7 +58,8 @@ const initialState: initialStateType = {
     { label: 'Серый', hex: '#808080', id: 13413413413 },
     { label: 'Графитовый', hex: '#525A5B', id: 57567 },
     { label: 'Пудровый', hex: '#F2E2D8', id: 75756756 },
-    {label: 'Добавить цвет ', hex: null, id: 75756756 }]
+    {label: 'Добавить цвет ', hex: null, id: 75756756 }],
+    addPhotoState: [{id: 1}]
 }
 
 export const admin = createSlice({
@@ -81,9 +83,15 @@ export const admin = createSlice({
             //const found =  state.sizes.indexOf(action.payload.id)
             state.colors.push(action.payload)
         },
+        setAddPhotoState: (state) => {
+            
+            //const found =  state.sizes.indexOf(action.payload.id)
+            state.addPhotoState.push({id: state.addPhotoState[state.addPhotoState.length - 1].id + 1})
+        },
+
     },
 })
 
-export const {  setSizes, removeSizes,  setColors } = admin.actions
+export const {  setSizes, removeSizes,  setColors, setAddPhotoState } = admin.actions
 
 export default admin.reducer
