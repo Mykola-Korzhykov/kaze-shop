@@ -13,41 +13,20 @@ interface ModuleWindiwProps {
     setModalAddPhoto: (n: boolean)=> void,
     modalAddPhoto: boolean,
     setChoiceColor: (n: boolean)=> void,
-    choiceColor: boolean
+    choiceColor: boolean,
+    setModalAddColor: (n: boolean)=> void,
+    modalAddColor: boolean,
 }
 
-
-const colors = [
-    { label: 'Бежевый', hex: '#FFE4C4', id: 1 },
-    { label: 'Капучинный', hex: '#9F8E84', id: 2 },
-    { label: 'Синий', hex: '#000080', id: 3 },
-    { label: 'Голубой', hex: '#A6BEE5', id: 4 },
-    { label: 'Коричневый', hex: '#0B0B0B', id: 5 },
-    { label: 'Изумрудный', hex: '#24514C', id: 6 },
-    { label: 'Розовый', hex: '#FFC0CB', id: 7 },
-    { label: 'Фиолетовый', hex: '#800080', id: 8 },
-    { label: 'Черный', hex: '#0B0B0B', id: 52 },
-    { label: 'Оливковый', hex: '#829E86', id: 432 },
-    { label: 'Белый', hex: '#fff', id: 34314 },
-    { label: 'Серый', hex: '#808080', id: 13413413413 },
-    { label: 'Графитовый', hex: '#525A5B', id: 57567 },
-    { label: 'Пудровый', hex: '#F2E2D8', id: 75756756 },
-  ]
-
- 
-
-
-export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto,}: ModuleWindiwProps) => {
+export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto, setChoiceColor, choiceColor, setModalAddColor, modalAddColor}: ModuleWindiwProps) => {
 
     const dispatch = useAppDispatch()
 
-    const selectedSizes = useSelector((state: RootState)=> state.admin.sizes)
-    // const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
+    const selectedSizes = useSelector((state: RootState)=> state.admin.sizesend)
+    const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
+    console.log('colors', colors)
     const categories =  useSelector((state: RootState)=> state.goods.fetchedCategories)
 
-    // const colors = useSelector((state: RootState) => state.admin.colors)
-
-    
     const sizesItems = [
         { id: 0, size: 'XS'},
         { id: 1, size: 'S'},
@@ -55,13 +34,14 @@ export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto,}: ModuleWindiwPro
         { id: 3, size: 'XXS'},
         { id: 4, size: 'M'},
      ]
+
     //  let sizesArr = [{ id: 0, size: 'XS'}, { id: 1, size: 'S'},]
 
      const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
-     const [choiceColor, setChoiceColor] =React.useState<boolean>(false)
+  
 
     return (
-        <div className={s.module_wrapper}>
+        <div  style={  modalAddColor  ? {visibility: 'hidden'} :  {visibility: 'visible'}} className={s.module_wrapper}>
 
        
         <div className={s.module_inner}>
@@ -82,13 +62,21 @@ export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto,}: ModuleWindiwPro
 
             <div className={s.inputs_wrapper}>
                 <div className={s.input_inner}>
-                    <span className={s.title}>Фотография в png и jpg</span>
-                    <label className={s.label_input_file} htmlFor="uploadfileaddphoto">
+                    <span className={s.title}>Фотография в jpg</span>
+                    <label className={s.label_input_file} htmlFor="uploadfileaddphotojpg">
                         Загрузите фотографию
-                        <input id="uploadfileaddphoto" className={s.input_file} placeholder='Загрузите фотографию' type="file" />
+                        <input id="uploadfileaddphotojpg" className={s.input_file} placeholder='Загрузите фотографию' type="file" />
                     </label>
-                   
                 </div>
+
+                <div className={s.input_inner}>
+                    <span className={s.title}>Фотография в png</span>
+                    <label className={s.label_input_file} htmlFor="uploadfileaddphotopng">
+                        Загрузите фотографию
+                        <input id="uploadfileaddphotopng" className={s.input_file} placeholder='Загрузите фотографию' type="file" />
+                    </label>
+                </div>
+                
                 <div className={s.input_inner}>
                     <span className={s.title}>Размер</span>
                     <span onClick={()=>{
@@ -134,28 +122,42 @@ export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto,}: ModuleWindiwPro
                             <path d="M26 12L16 22L6 12" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>}
                     </span>
-                    <div className={s.color_wrapper_main}>
-                        { choiceColor ? colors?.map((el, ind)=>{
-                            return <div onClick={()=> {
-                                dispatch(setColors(el))
-                                setChoiceColor(!choiceColor)
-                            }} key={ind} className={s.color_wrapper}>
-                                <span className={s.color} style={{
-                                    backgroundColor: `${el.hex}`,
-                                    }}>  
-                                </span>
-                                <span className={s.title}>
-                                    {el.label}
-                                </span>
-                            </div>
-                        }) : ''}
-                    </div>
-                   
-                </div>
+                        <div  style={{top: selectedSizes?.length > 0 ? '602px' : '558px'}} className={s.color_wrapper_main}>
+                            { choiceColor ? colors?.map((el, ind)=>{
+                                return el.id !== 48 ? (
+                                    <div onClick={()=> {
+                                        dispatch(setColors(el))
+                                        setChoiceColor(!choiceColor)
+                                    }} key={ind} className={s.color_wrapper}>
+                                        <span className={s.color} style={{
+                                            backgroundColor: `${el.hex}`,
+                                        }}>  
+                                        </span>
+                                        <span className={s.title}>
+                                            {el.label}
+                                        </span>
+                                    </div>
+                                ) : <div onClick={()=> {
+                                    setModalAddColor(true)
+                                    setChoiceColor(!choiceColor)
+                                }} key={ind} className={s.color_wrapper}>
+                                    
+                                    <svg className={s.plus} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3.75 12H20.25" stroke="#9D9D9D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M12 3.75V20.25" stroke="#9D9D9D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
 
-                <div className={s.btn}>
+                                        <span className={s.title}>
+                                            {el.label}
+                                        </span>
+                                       
+                                </div>
+                            }) : ''}
+                        </div>
+                   </div>
+                <button className={s.btn}>
                     Добавить фотографию
-                </div>
+                </button>
             </div>
         </div>
     </div>

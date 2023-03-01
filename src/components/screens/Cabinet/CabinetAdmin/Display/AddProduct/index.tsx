@@ -9,14 +9,17 @@ import {SizeItem} from './SizesItem'
 
 interface AddProductProps {
     setModalAddPhoto: (n: boolean)=> void,
-    modalAddPhoto: boolean
+    modalAddPhoto: boolean,
+    setModalAddColor: (n: boolean)=> void
+    modalAddColor: boolean,
 }
 
-export const AddProduct = ({setModalAddPhoto, modalAddPhoto}: AddProductProps) => {
+export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, modalAddColor}: AddProductProps) => {
 
     function pushItemPhoto(){
-        addPhotoArr.push({id: addPhotoState[addPhotoState.length -1 ].id })
+        addPhotoArr.push({id: addPhotoState[addPhotoState.length -1 ].id + 1 })
         setAddPhoto(addPhotoArr)
+        addPhotoArr = addPhotoState
     }
 
     let addPhotoArr =  [{id: 1}]
@@ -24,20 +27,29 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto}: AddProductProps) =
         {id: 1}
    ])
 
+   console.log('addPhotoState', addPhotoState)
+   console.log('addPhotoArr', addPhotoArr)
+
+   const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
+
     const  [inputs, setInputs] = React.useState([
-        { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', label: 'text' },
-        { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название кнопки', label: 'text' },
-        { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название кнопки', label: 'text' },
-        { id: 3, type: 'text', text: 'Название товара ENG', placeholder: 'Введите название кнопки', label: 'text' },
-        { id: 5, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', label: 'text' },
-        { id: 6, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', label: 'text' },
-        { id: 7, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', label: 'text' }
+        { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', label: 'text', disable: false },
+        { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название кнопки', label: 'text', disable: false },
+        { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название кнопки', label: 'text',  disable: false },
+        { id: 3, type: 'text', text: 'Название товара ENG', placeholder: 'Введите название кнопки', label: 'text',disable: false },
+        { id: 5, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', label: 'text', disable: false },
+        { id: 6, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', label: 'text', disable: false },
+        { id: 7, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', label: 'text', disable: false },
+        // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', label: 'text', disable: true, colors: colors },
+        //{ id: 9, type: 'text', text: 'Выберите существующий товар', placeholder: 'Выберите существующий товар', label: 'text', disable: true },
+   
     ])
 
     const inputsFistWrapper_1 = inputs?.slice(0, 2)
     const inputsFistWrapper_2 = inputs?.slice(2, 4)
     const inputsFistWrapper_3 = inputs?.slice(4, 6)
-    const inputsFistWrapper_4 = inputs?.slice(6, 7)
+    const inputsFistWrapper_4 = inputs?.slice(6, 8)
+    const inputsFistWrapper_5 = inputs?.slice(8, 9)
     
     // const inputsSecondWrapper = inputs?.slice(inputs.length - 1, inputs.length)
 
@@ -61,12 +73,25 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto}: AddProductProps) =
                 <div className={s.inputs_wrapper}>
                     <div className={s.wrapper_inner }>
                         {inputsFistWrapper_1?.map((obj) => {
-                            return <InputTextItem key={obj.id} id={obj.id} type={obj.type} text={obj.text} placeholder={obj.placeholder} />
+                            return <InputTextItem  
+                            disable={obj.disable} 
+                            key={obj.id} id={obj.id} 
+                            type={obj.type} 
+                            text={obj.text} 
+                            placeholder={obj.placeholder} />
                         })}
                     </div>
                     <div className={s.wrapper_inner }>
                         {inputsFistWrapper_2?.map((obj) => {
-                            return <InputTextItem key={obj.id} id={obj.id} type={obj.type} text={obj.text} placeholder={obj.placeholder} />
+                            return <InputTextItem  
+                            disable={obj.disable} 
+                            key={obj.id} 
+                            id={obj.id} 
+                            type={obj.type} 
+                            text={obj.text} 
+                            placeholder={obj.placeholder}
+                            setModalAddColor={setModalAddColor}
+                            modalAddColor={modalAddColor} />
                         })}
                     </div>
                 </div>
@@ -74,15 +99,53 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto}: AddProductProps) =
                 <div className={s.inputs_wrapper}>
                     <div className={s.wrapper_inner }>
                         {inputsFistWrapper_3?.map((obj) => {
-                            return <InputTextItem key={obj.id} id={obj.id} type={obj.type} text={obj.text} placeholder={obj.placeholder} />
+                            return <InputTextItem  
+                            disable={obj.disable} 
+                            key={obj.id} id={obj.id} 
+                            type={obj.type} 
+                            text={obj.text} 
+                            placeholder={obj.placeholder}
+                            setModalAddColor={setModalAddColor}
+                            modalAddColor={modalAddColor} />
                         })}
                     </div>
 
                     <div className={s.wrapper_inner }>
                         {inputsFistWrapper_4?.map((obj) => {
-                            return <InputTextItem key={obj.id} id={obj.id} type={obj.type} text={obj.text} placeholder={obj.placeholder} />
+                            return <InputTextItem
+                             setModalAddColor={setModalAddColor}
+                             modalAddColor={modalAddColor} 
+                             disable={obj.disable} 
+                             key={obj.id} id={obj.id} 
+                             type={obj.type} 
+                             text={obj.text} 
+                             placeholder={obj.placeholder} />
                         })}
                     </div>
+
+
+
+                </div>
+
+                <div className={s.inputs_wrapper}>
+
+                    <div className={s.wrapper_inner }>
+                        {inputsFistWrapper_5?.map((obj) => {
+                            return <InputTextItem   
+                            disable={obj.disable} 
+                            key={obj.id} 
+                            id={obj.id}
+                            type={obj.type} 
+                            text={obj.text} 
+                            placeholder={obj.placeholder}
+                            setModalAddColor={setModalAddColor}
+                            modalAddColor={modalAddColor}  />
+                            
+                        })}
+                    </div>
+
+                   
+
 
                 </div>
 
@@ -107,7 +170,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto}: AddProductProps) =
                         </span>
                     </div>
                     <div className={s.addphoto}>  
-                    {addPhotoState.map((el)=>{
+                    {addPhotoState.map((el, ind)=>{
                         return <div onClick={()=> setModalAddPhoto(!modalAddPhoto)} className={s.addphoto_wrapper}>
                             <div className={s.element_wrapper}>
                                 <span className={s.id}> {`${el.id}.`}</span>

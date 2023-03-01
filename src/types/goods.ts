@@ -10,15 +10,16 @@ export interface fetchedCategory {
 }
 
 export interface fetchedColour {
-	id: number
-	ua: string
-	en: string
-	rs: string
-	ru: string
-	hex: string
-	type: 'colour'
-	createdAt: any
-	updatedAt: any
+	id: number | null
+	ua: string | null
+	en: string | null
+	rs: string | null
+	ru: string | null
+	hex: string | null
+	type: 'colour' | null
+	createdAt: any | null
+	updatedAt: any | null
+	label: string | null
 }
 export interface Goods {
 	id: number

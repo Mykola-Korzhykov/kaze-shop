@@ -31,6 +31,8 @@ import findUser from '../../../../assets/icons/cabinetAdmin/findUser.svg'
 import { ButtonType } from '../../../../types/auth'
 import { SizeItem } from "./Display/AddProduct/SizesItem";
 import {ModuleWindiw} from './Display/AddProduct/ModuleWindow'
+import {ModalAddCategory} from '../../Cabinet/CabinetAdmin/Display/AddProduct/ModalAddCategory'
+import {ModalAddColor} from '../../Cabinet/CabinetAdmin/Display/AddProduct/ModalAddColor'
 
 // export const heidthcal = 9;
 
@@ -56,11 +58,12 @@ const buttonsObj: ButtonType[] = [
 //  const [sizesState, setSizesState] = React.useState(null)
 
 export const CabinetAdmin: React.FC = () => {
-
     
+    const [modalAddColor, setModalAddColor] = React.useState<boolean>(false)
     const [choiceColor, setChoiceColor] =React.useState<boolean>(false)
     const [modalAddPhoto, setModalAddPhoto ] = React.useState<boolean>(false)
-    const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
+    const [modalAddCAtegory, setModalAddCAtegory ] = React.useState<boolean>(false)
+    // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
 
     const users = useSelector((state: RootState) => state.admin.users)
 
@@ -70,10 +73,10 @@ export const CabinetAdmin: React.FC = () => {
     const usersRole = users.map((el) => <UserRole key={el.id} setUserOpenOK={setUserOpen} idUserOpen={idUserOpen} id={el.id} />)
     const usersAdmin = users.map((el) => <UserAdmin key={el.id} setUserOpenOK={setUserOpen} idUserOpen={idUserOpen} id={el.id} />)
 
+    console.log('choiceColor' , choiceColor)
 
     return (
         <div className={s.wrapper}>
-
 
             <div className={s.nav_dekstop}>
                 {buttonsObj.map((obj, ind) => {
@@ -100,17 +103,19 @@ export const CabinetAdmin: React.FC = () => {
 
                 </label>
 
-
+            
                 {/* <div style={{ backround-color: `${props.color}`}}></div> */}
                 {displayActive === 1 ? usersRole : ''}
                 {displayActive === 2 ? usersAdmin : ''}
-                {displayActive === 3 ? <AddProduct modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''}
-            </div>
+                {displayActive === 3 ? <AddProduct  modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''}
+            </div >
 
-
-            {modalAddPhoto ? <div className={ choiceColor ? s.backround_module  : s.backroundModuleMore}></div> : ''} 
-            {modalAddPhoto ? <ModuleWindiw setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''} 
-            
+            {modalAddPhoto ? <div className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''} 
+            {modalAddCAtegory ? <div className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''} 
+            {modalAddCAtegory ? <div className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''} 
+            {modalAddPhoto ? <ModuleWindiw setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  
+            {/* {modalAddCAtegory ? <ModalAddCategory modalAddCAtegory={modalAddCAtegory} setModalAddCAtegory={setModalAddCAtegory} /> : ''}  */}
+            {modalAddColor ? <ModalAddColor  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : '' }
             {/* <div className={s.module_wrapper}>
                     <div className={s.module_inner}>
                         <div className={s.title_wrapper}>
@@ -163,7 +168,8 @@ export const CabinetAdmin: React.FC = () => {
                     </div>
                 </div>
  */}
-
+          
+           
         </div >
     )
 }

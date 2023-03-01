@@ -11,7 +11,7 @@ export interface initialStateType {
         label: string
         type: string
     }[],
-    sizes:[
+    sizesend:[
         {
             id: number,
             size: string
@@ -25,7 +25,7 @@ export interface initialStateType {
     // ]
     colors: {
         label: string,
-        hex: string, 
+        hex: string | null, 
         id: number
     }[]
 
@@ -40,10 +40,24 @@ const initialState: initialStateType = {
     inputs: [
 
     ],
-    sizes: [
+    sizesend: [
         { id: 0, size: 'XS' },
     ],
-    colors: []
+    colors: [ { label: 'Бежевый', hex: '#FFE4C4', id: 1 },
+    { label: 'Капучинный', hex: '#9F8E84', id: 2 },
+    { label: 'Синий', hex: '#000080', id: 3 },
+    { label: 'Голубой', hex: '#A6BEE5', id: 4 },
+    { label: 'Коричневый', hex: '#0B0B0B', id: 5 },
+    { label: 'Изумрудный', hex: '#24514C', id: 6 },
+    { label: 'Розовый', hex: '#FFC0CB', id: 7 },
+    { label: 'Фиолетовый', hex: '#800080', id: 8 },
+    { label: 'Черный', hex: '#0B0B0B', id: 52 },
+    { label: 'Оливковый', hex: '#829E86', id: 432 },
+    { label: 'Белый', hex: '#fff', id: 34314 },
+    { label: 'Серый', hex: '#808080', id: 13413413413 },
+    { label: 'Графитовый', hex: '#525A5B', id: 57567 },
+    { label: 'Пудровый', hex: '#F2E2D8', id: 75756756 },
+    {label: 'Добавить цвет ', hex: null, id: 75756756 }]
 }
 
 export const admin = createSlice({
@@ -53,13 +67,13 @@ export const admin = createSlice({
         setSizes: (state, action: PayloadAction<{id: number, size: string }>) => {
             
             //const found =  state.sizes.indexOf(action.payload.id)
-            state.sizes.push(action.payload)
+            state.sizesend.push(action.payload)
         },
         removeSizes: (state, action) =>{
             // console.log('вход')
-            const found =  state.sizes.find((el)=> el.id === action.payload)
-            const index = state.sizes.indexOf(found)
-            state.sizes.splice(index, 1)
+            const found =  state.sizesend.find((el)=> el.id === action.payload)
+            const index = state.sizesend.indexOf(found)
+            state.sizesend.splice(index, 1)
         },
 
         setColors: (state, action: PayloadAction<{label: string,hex: string,  id: number }>) => {
@@ -70,6 +84,6 @@ export const admin = createSlice({
     },
 })
 
-export const {  setSizes, removeSizes, setColors } = admin.actions
+export const {  setSizes, removeSizes,  setColors } = admin.actions
 
 export default admin.reducer

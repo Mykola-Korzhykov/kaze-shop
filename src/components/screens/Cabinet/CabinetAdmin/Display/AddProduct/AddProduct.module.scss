@@ -22,13 +22,13 @@
 }
 
 .wrapper_inner {
-       width: 50%;
-        @media (max-width: 1050px) {
-            width: 100%;
-            margin-bottom: 30px;
-            display: flex;
-            flex-direction: column;
-        }
+       width: 100%;
+        // @media (max-width: 1050px) {
+        //     width: 100%;
+        //     margin-bottom: 30px;
+        //     display: flex;
+        //     flex-direction: column;
+        // }
 }
 
 .second_wrapper{
@@ -157,10 +157,14 @@
         gap: 10px;
         flex-grow: 1;
 
+        @media (max-width: 1230px) {
+            margin-top: 30px;
+         }
         @media (max-width: 1030px) {
             max-width: 100%;
            flex-grow: 1;
         }
+
         font-family: 'Georama', sans-serif;
         font-style: normal;
         font-weight: 500;

@@ -1,14 +1,4 @@
 
-// .backround_module{
-//     position: absolute;
-//     top: 0;
-//     margin-left: -105px;
-//     height: 110vh;
-//     width: 100vw;
-
-//     background: #0B0B0B;
-//     opacity: 0.25;
-// }
 
 .module_wrapper{
    
@@ -17,7 +7,7 @@
     top: 0;
     height: 100%;
     width: 100vw;
-    margin-top: 160px;
+    margin-top: 170px;
    
     display: flex;
     align-items: end;
@@ -58,9 +48,10 @@
         font-size: 18px;
         line-height: 22px;
  
-        color: #9D9D9D;
+        color: #0B0B0B;
     }
 }
+
 
 .inputs_wrapper{
     display: flex;
@@ -80,13 +71,17 @@
             font-weight: 500;
             font-size: 20px;
             line-height: 24px;
-            color: black;
+            color: #0B0B0B;
         }
 
         .label_input_file{
-            padding: 14px 20px;
+            height: 50px;
+            width: 100%;
+            // padding: 14px 20px;
             border: 1.5px solid #9D9D9D;
             cursor: pointer;
+            position: relative;
+
 
             font-family: 'Georama', sans-serif;
             font-style: normal;
@@ -114,14 +109,6 @@
 
             color: #9D9D9D;
 
-            
-
-        
-        }
-
-        .open_icon{
-            width: 24px;
-            height: 24px;
         }
 
         .input_choice_color{
@@ -145,111 +132,70 @@
 
 
         .input_file{
-            height: 0.5px;
-            width: 0.5px;
-            visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            
+            background: none;
+            outline: none;
+            padding: 14px 20px;
+            border: none;
+            // height: 0.5px;
+            // width: 0.5px;
+            // visibility: hidden;
         }
+        
     }
 
     .btn{
-        // display: flex;
+        display: flex;
         padding: 16px 164px;
         background-color: #000000;
-        margin-top: 50px;
-        border: none;
         
 
-        font-family: 'Georama', sans-serif;
+        font-family: 'Neue Haas Grotesk Display Pro';
         font-style: normal;
         font-weight: 500;
-        // font-size: 20px;
-        font-size: 19px;
+        font-size: 20px;
         line-height: 24px;
 
         color: #FFFFFF;
+
     }
 }
 
-.sizes{
-    width: 100%;
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
+.btn_add{
+    margin-top: 50px;
+    padding: 16px 174px;
+    background-color: #000000;
+    color: #FFFFFF;
+    border: none;
 
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 19px;
+    max-height: 551px;
+    cursor: pointer;
+    // line-height: 24px;
 }
 
-.choice_photo_wrapper{
-    position: absolute;
-    top: 53.5px;
-    left: -1.5px;
-    visibility: hidden;
-    // height: 0px;
-    // bottom: 0;
-    
-    background-color: #FFFFFF;
-    width: 100.55%;
-    display: flex;
-    flex-direction: column;
-    .item_choice_photo{
-        border: 1.5px solid #9D9D9D;
-        border-top: none;
-        padding: 14px 20px;
-    }
+.label_input_file{
+    position: relative;
 }
 
-.choice_photo_off{
-    visibility: hidden;
-}
-
-.choice_photo_on{
-    visibility: visible;
-}
 
 .close_modal{
-    position: absolute;
-    top: 22px;
-    right: 25px;
     cursor: pointer;
-}
-
-//colors 
-
-.color_wrapper_main{
-    // display: flex;
-    // flex-direction: column;
-    // width: 100%;
-    // height: 50px;
-    // position: absolute;
-
     position: absolute;
-    // top: 602px;
-    left: 30px;
-    width: 541px;
+    top: 21.5px;
+    right: 30px;
 
-    background-color: #FFFFFF;
-    
-    display: flex;
-    flex-direction: column;
-
-    .color_wrapper{
-        display: flex;
-        gap: 10px;
-        border: 1.5px solid #9D9D9D;
-        border-top: none;
-        padding: 14px 20px;
-        cursor: pointer;
-
-        
-        // background-color: #9D9D9D;
-    }
+    // .open_icon{
+    //     width: 24px;
+    //     height: 24px;
+       
+    // }
 }
-
-.color{
-    border: 0.5px solid #9D9D9D;
-    height: 23px;
-    width: 23px;
-    
-}
-
-
-
