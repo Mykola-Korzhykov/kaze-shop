@@ -63,6 +63,8 @@ export const CabinetAdmin: React.FC = () => {
     const [choiceColor, setChoiceColor] =React.useState<boolean>(false)
     const [modalAddPhoto, setModalAddPhoto ] = React.useState<boolean>(false)
     const [modalAddCAtegory, setModalAddCAtegory ] = React.useState<boolean>(false)
+    const [countPhoto, setCountPhoto] = React.useState<number>(1)
+
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
 
     const users = useSelector((state: RootState) => state.admin.users)
@@ -73,7 +75,7 @@ export const CabinetAdmin: React.FC = () => {
     const usersRole = users.map((el) => <UserRole key={el.id} setUserOpenOK={setUserOpen} idUserOpen={idUserOpen} id={el.id} />)
     const usersAdmin = users.map((el) => <UserAdmin key={el.id} setUserOpenOK={setUserOpen} idUserOpen={idUserOpen} id={el.id} />)
 
-    console.log('choiceColor' , choiceColor)
+    // console.log('choiceColor' , choiceColor)
 
     return (
         <div className={s.wrapper}>
@@ -107,13 +109,16 @@ export const CabinetAdmin: React.FC = () => {
                 {/* <div style={{ backround-color: `${props.color}`}}></div> */}
                 {displayActive === 1 ? usersRole : ''}
                 {displayActive === 2 ? usersAdmin : ''}
-                {displayActive === 3 ? <AddProduct  modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''}
+                {displayActive === 3 ? <AddProduct  setCountPhoto={setCountPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor}   modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''}
             </div >
+            {countPhoto > 1 && modalAddPhoto ? <div style={{height: `${ 800 +  countPhoto * 300}px` }} className={s.backround_module}></div> : ''}
+            {modalAddPhoto  && countPhoto < 2 ? <div className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''} 
+            {modalAddCAtegory ? <div className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''} 
+            {modalAddCAtegory ? <div className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''} 
 
-            {modalAddPhoto ? <div className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''} 
-            {modalAddCAtegory ? <div className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''} 
-            {modalAddCAtegory ? <div className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''} 
-            {modalAddPhoto ? <ModuleWindiw setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  
+
+
+            {modalAddPhoto ? <ModuleWindiw  setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  
             {/* {modalAddCAtegory ? <ModalAddCategory modalAddCAtegory={modalAddCAtegory} setModalAddCAtegory={setModalAddCAtegory} /> : ''}  */}
             {modalAddColor ? <ModalAddColor  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : '' }
             {/* <div className={s.module_wrapper}>

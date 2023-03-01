@@ -12,11 +12,14 @@ import {SizeItem} from './SizesItem'
 interface AddProductProps {
     setModalAddPhoto: (n: boolean)=> void,
     modalAddPhoto: boolean,
-    setModalAddColor: (n: boolean)=> void
+    setModalAddColor: (n: boolean)=> void,
     modalAddColor: boolean,
+    // countPhoto: number, 
+    setCountPhoto: (n: number)=> void
+
 }
 
-export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, modalAddColor}: AddProductProps) => {
+export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, modalAddColor, setCountPhoto}: AddProductProps) => {
 
     const dispatch = useAppDispatch()
 //     function pushItemPhoto(){
@@ -165,6 +168,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                     <div className={s.descriprion}>
                         <span className={s.title}>Добавить фото товара</span>
                         <span onClick={()=>{
+                           setCountPhoto(addPhotoState.length)
                            dispatch(setAddPhotoState()) 
                         } } className={s.btn}>
                         <svg className={s.img} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
