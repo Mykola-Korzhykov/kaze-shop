@@ -17,18 +17,14 @@ export interface initialStateType {
             size: string
         }
     ],
-    // sizes2:[
-    //     {
-    //         id: number,
-    //         size: string
-    //     }
-    // ]
     colors: {
         label: string,
         hex: string | null, 
         id: number
     }[],
-    addPhotoState: {id: number}[]
+    addPhotoState: {id: number}[],
+    sizesItems: { id: number,size: string}[],
+    categoryArr: {id: number, title: string }[]
 
 }
 
@@ -59,8 +55,21 @@ const initialState: initialStateType = {
     { label: 'Графитовый', hex: '#525A5B', id: 57567 },
     { label: 'Пудровый', hex: '#F2E2D8', id: 75756756 },
     {label: 'Добавить цвет ', hex: null, id: 75756756 }],
-    addPhotoState: [{id: 1}]
+    addPhotoState: [{id: 1}],
+    sizesItems: [
+        { id: 0, size: 'XS'},
+        { id: 1, size: 'S'},
+        { id: 2, size: 'XXL'},
+        { id: 3, size: 'XXS'},
+        { id: 4, size: 'M'},
+    ],
+    categoryArr: [
+        {id: 1, title: 'первая категоря'},
+        {id: 2, title: 'вторая'}, 
+        {id: 0.1, title: 'уоуооуоуоуоуоуоу категория '}
+    ]
 }
+
 
 export const admin = createSlice({
     name: 'admin',

@@ -13,8 +13,14 @@ export interface initialStateType {
         rs: string | null,
         en: string | null,
       },
-      sizesend:string[],
-      colorsend: number[]
+      sizes:string[],
+      colourId: number | null,
+      price: number | null,
+      quantity: number | null,
+      imagesjpg: null | any,
+      allcoloursId: number[] | null,
+      allsizes: string[] | null,
+      categories: number[] | null,
     
 }
 
@@ -31,8 +37,14 @@ const initialState: initialStateType = {
         rs: null,
         en: null,
       },
-      sizesend:[],
-      colorsend: []
+      sizes:[],
+      colourId: null,
+      price: null,
+      quantity: null ,
+      imagesjpg: [],
+      allcoloursId: [],
+      allsizes: [],
+      categories: [],
 
 }
 
@@ -53,18 +65,48 @@ export const formData = createSlice({
             }
         },
         setSizes: (state, action: PayloadAction<string>) => {
-            state.sizesend.push(action.payload)
+            state.sizes.push(action.payload)
         },
         removeSizes: (state, action: PayloadAction<string>) =>{
-            const found =  state.sizesend.find((el)=> el === action.payload)
-            const index = state.sizesend.indexOf(found)
-            state.sizesend.splice(index, 1)
+            const found =  state.sizes.find((el)=> el === action.payload)
+            const index = state.sizes.indexOf(found)
+            state.sizes.splice(index, 1)
         },
+        //colors
         setColors:  (state, action: PayloadAction<number>) =>{
-            console.log('colorsend',  state.colorsend)
-            state.colorsend.push(action.payload)
-        }
+            state.colourId = action.payload
+        },
+        //price
+        setPrice:  (state, action: PayloadAction<number>) =>{
+            state.price = action.payload
+        },
+        //quantity
+        setQuantity:  (state, action: PayloadAction<number>) =>{
+            state.quantity = action.payload
+        },
+        setImagesPng:  (state, action: PayloadAction<any>) =>{
+            state.imagesjpg.push(action.payload)
+        },
+        removeAll:  (state) =>{
+            state.sizes = []
+            state.colourId = null
+            state.imagesjpg = []
+    
+        },
+        //allcoloursId
+        setAllcoloursId:  (state, action: PayloadAction<any>) =>{
+            state.allcoloursId.push(action.payload)
+        },
+        //allSizes
+        setAllsizes:  (state, action: PayloadAction<string[]>) =>{
+            state.allsizes = [...state.allsizes, ...action.payload]
 
+        },
+        //AllCategories
+        setCategories:  (state, action: PayloadAction<number>) =>{
+            state.categories.push(action.payload)
+
+        },
 
     },
 })
@@ -72,6 +114,13 @@ export const formData = createSlice({
 export const { 
     setTitle, setDescription, 
     setSizes, removeSizes,
-    setColors} = formData.actions
+    setColors,
+    setPrice,
+    setQuantity,
+    setImagesPng,
+    removeAll,
+    setAllcoloursId,
+    setAllsizes,
+    setCategories} = formData.actions
 
 export default formData.reducer

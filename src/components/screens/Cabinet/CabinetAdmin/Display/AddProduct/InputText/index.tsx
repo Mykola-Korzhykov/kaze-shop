@@ -5,9 +5,9 @@ import Image from 'next/image';
 //redux
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store"
-import {setTitle, setDescription} from '../../../../../../../redux/slices/formData'
+import {setTitle, setDescription, setPrice, setCategories} from '../../../../../../../redux/slices/formData'
 import { useAppDispatch } from '@/redux/hooks'
-import {initialStateType} from '../../../../../../../redux/slices/formData'
+// import {initialStateType, } from '../../../../../../../redux/slices/formData'
 
 interface InputItemProps {
     id: number,
@@ -31,15 +31,17 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
 
     const dispatch = useAppDispatch()
     // const titleStore = useSelector((state: RootState)=> state.formData.title)
-    const titleDescription = useSelector((state: RootState)=> state.formData.description)
-    // console.log(titleDescription)
-   
+    
+    //redux
+    const titleDescription = useSelector((state: RootState)=> state.formData.price)
+    const categoryArr = useSelector((state: RootState)=> state.admin.categoryArr)
+    //state
+    const [categoriesDisplay, setCategoriesDisplay ] = React.useState<boolean>(false)
 
-    // console.log('colors', colors)
-    interface BranchPayloadAction {
-        branch: string,
-        title: string
-      }
+     function changeCategoriesDisplay ( id: number){
+        // e.stopPropagation();   . /
+        setCategoriesDisplay(!categoriesDisplay)
+     }
      
       function handleBlurSet(event: any) {
         
@@ -58,7 +60,6 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
         if(event.target.name === 'titleENG' ){
             const payload: any = {branch: 'en', title: event.target.value}
             dispatch(setTitle(payload)) 
-
         }
         //descriptionRU
         if(event.target.name === 'descriptionRU'){
@@ -77,7 +78,17 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
             const payload: any = {branch: 'en', description: event.target.value}
             dispatch(setDescription(payload)) 
         }
-
+         //price
+        if(event.target.name === 'price'){
+            const payload: number = event.target.value
+            dispatch(setPrice(payload)) 
+        }
+       //countproducts
+       if(event.target.name === 'price'){
+        const payload: number = event.target.value
+        dispatch(setPrice(payload)) 
+        }
+       
 
         // console.log('titleDescription', titleDescription)
         // console.log('titleStore' , titleStore)
@@ -85,13 +96,7 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
         // console.log('Пользователь закончил ввод:', event.target.value);
       }
     
-    const sizesItems = [
-        { id: 0, size: 'XS'},
-        { id: 1, size: 'S'},
-        { id: 2, size: 'XXL'},
-        { id: 3, size: 'XXS'},
-        { id: 4, size: 'M'},
-     ]
+ 
    
     return (
         <div className={s.wrapper}>
@@ -123,10 +128,39 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
             : ''} */}
 
             {type === 'select' ?  
-                <label  className={s.select__wrapper} htmlFor="selectCategory">
+                <label onClick={(e) => { setCategoriesDisplay(!categoriesDisplay); }}  className={s.select__wrapper} htmlFor="selectCategory">
                         <input style={{cursor: 'pointer'}} id='selectCategory' readOnly className={s.input} type={type} placeholder={placeholder} />
                         <Image  className={`${s.select_img}`} src={selectIcon} alt="My Image" />
-                </label>    
+
+           
+                        <div className={  categoriesDisplay ?  s.categorychose_wrapper : s.categorychose_wrapper_off }>
+
+                        {  categoryArr?.map((el, ind) =>{
+                        return el.id !== 0.1 ?
+                         <div key={ind} onClick={(e) => {  e.stopPropagation(); console.log(';;;'); setCategoriesDisplay(!categoriesDisplay); }} className={s.categorychose_item}>
+                            <span> {el.title} </span>
+                        </div> 
+
+                        :
+                        
+                        <div key={ind} onClick={(e) => {  e.stopPropagation(); console.log(';;;'); setCategoriesDisplay(!categoriesDisplay); }}   className={s.categorychose_add}>
+                            <span className={s.categorychose_img}>
+                            <svg className={s.plus} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M3.75 12H20.25" stroke="#9D9D9D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M12 3.75V20.25" stroke="#9D9D9D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                            </span>
+                            <span className={s.categorychose_item_add}>
+                               Добавить категорию
+                            </span>
+
+                        </div>
+                           
+                        })  }
+
+
+                        </div>
+                </label>  
        
             // <label htmlFor="categoruProduct" className={s.select__wrapper}>
                     

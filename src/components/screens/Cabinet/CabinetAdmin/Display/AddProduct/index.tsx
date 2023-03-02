@@ -50,8 +50,8 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
         { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', name: 'descriptionSRB',disable: false },
         { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false },
         { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', name: 'text', disable: false },
-        { id: 9, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'text', disable: false },
-        { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'text', disable: false },
+        { id: 9, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false },
+        { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'countproducts', disable: false },
         // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', name: 'text', disable: true, colors: colors },
         //{ id: 9, type: 'text', text: 'Выберите существующий товар', placeholder: 'Выберите существующий товар', label: 'text', disable: true },
    
@@ -205,7 +205,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                     </div>
                     <div className={s.addphoto}>  
                     {addPhotoState?.map((el, ind)=>{
-                        return <div onClick={()=> setModalAddPhoto(!modalAddPhoto)} className={s.addphoto_wrapper}>
+                        return <div key={ind} onClick={()=> setModalAddPhoto(!modalAddPhoto)} className={s.addphoto_wrapper}>
                             <div className={s.element_wrapper}>
                                 <span className={s.id}> {`${el.id}.`}</span>
                                 <span className={s.text}>Загрузить фото</span>

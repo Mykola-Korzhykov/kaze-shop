@@ -71,6 +71,8 @@
     outline: none;
 }
 
+// category chose 
+
 .select__wrapper{
     width: 100%;
     display: flex;
@@ -89,6 +91,111 @@
         appearance: none;
     }
 }
+
+.categorychose_wrapper_off{
+    display: none;
+}
+
+.categorychose_wrapper{
+    // z-index: 2;
+    // width: 100%;
+    // position: absolute;
+    background-color: red;
+   
+
+    
+}
+
+.categorychose_add{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-left: 24px;
+    cursor: pointer;
+}
+
+.categorychose_item_add{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #9D9D9D;
+}
+
+.categorychose_item{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    padding-left: 24px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #9D9D9D;
+}
+
+.categorychose_img{
+    width: 24px;
+    height: 24px;
+    // background-image: url('../../../../../../../assets/icons/');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -193,5 +300,6 @@
     font-size: 18px;
     line-height: 22px;
 }
+
 
 

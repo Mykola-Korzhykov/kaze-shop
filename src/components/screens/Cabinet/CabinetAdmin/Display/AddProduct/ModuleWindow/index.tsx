@@ -6,7 +6,8 @@ import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import { useAppDispatch } from '@/redux/hooks'
 // import { setColors} from '../../../../../../../redux/slices/admin'
-import {setSizes, setColors} from '../../../../../../../redux/slices/formData'
+import {setSizes, setColors, setImagesPng, removeAll, setAllcoloursId, setAllsizes} from '../../../../../../../redux/slices/formData'
+import { devNull } from "os"
 
 
 interface ModuleWindiwProps {
@@ -20,28 +21,59 @@ interface ModuleWindiwProps {
 
 export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto, setChoiceColor, choiceColor, setModalAddColor, modalAddColor}: ModuleWindiwProps) => {
 
+    
+
+    const inputRef = React.useRef<HTMLInputElement>(null);
+
     const dispatch = useAppDispatch()
-
-
-    const selectedSizes = useSelector((state: RootState)=> state.formData.sizesend)
+    //local state 
+    const [files, setFiles] = React.useState([])
+    const [arrObjMod, setArrObjMod] = React.useState([])
+    const [allFiles, setAllFiles] = React.useState([])
+    //redux state
+    const allSizes =  useSelector((state: RootState)=> state.formData.allsizes)
+    const allcoloursId =  useSelector((state: RootState)=> state.formData.allcoloursId)
+    const selectedSizes = useSelector((state: RootState)=> state.formData.sizes)
     const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
-   
+    const sizesItems =  useSelector((state: RootState)=> state.admin.sizesItems)
+    //get
     const categories =  useSelector((state: RootState)=> state.goods.fetchedCategories)
-    const colorsend =  useSelector((state: RootState)=> state.formData.colorsend)
+    const categoriesSend =  useSelector((state: RootState)=> state.goods.fetchedCategories)
+    const colourId =  useSelector((state: RootState)=> state.formData.colourId)
+    //modal backround
+    const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
+    console.log('categoriesSend', categoriesSend)
 
-    console.log('colorsend', colorsend)
+     function generationObjModal () {
+        const obj = {
+            fileNames: files.map((el)=>{
+                return el[0].name
+            }),
+            colourId: colourId,
+            sizes: selectedSizes
+        }
+        setArrObjMod((prevState)=> [...prevState, obj])
+        setAllFiles((prevState: any)=> [...prevState, ...files[0]])
+        dispatch(setAllcoloursId(colourId))
+        dispatch(setAllsizes(obj.sizes))
+        
 
-    const sizesItems = [
-        { id: 0, size: 'XS'},
-        { id: 1, size: 'S'},
-        { id: 2, size: 'XXL'},
-        { id: 3, size: 'XXS'},
-        { id: 4, size: 'M'},
-     ]
-
-    //  let sizesArr = [{ id: 0, size: 'XS'}, { id: 1, size: 'S'},]
-
-     const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
+        console.log('arrObjMod', arrObjMod)
+        console.log('allFiles', allFiles)
+      
+     
+        dispatch(removeAll())
+        
+       
+     }
+     
+    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>)=>{
+        console.log(event.target.files)
+        setFiles(  (prevArray: any) => [...prevArray,  event.target.files] )
+    }
+      //@ts-ignore
+      globalThis.pavlo = files
+      
   
 
     return (
@@ -58,7 +90,6 @@ export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto, setChoiceColor, c
              </svg>
         </div>
 
-
             <div className={s.title_wrapper}>
                 <div className={s.title}>Добавить фотографию</div>
                 <div className={s.subtitle}>Для того, чтобы добавить фотографию</div>
@@ -66,20 +97,20 @@ export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto, setChoiceColor, c
 
             <div className={s.inputs_wrapper}>
                 <div className={s.input_inner}>
-                    <span className={s.title}>Фотография в jpg</span>
+                    <span className={s.title}>Фотографии </span>
                     <label className={s.label_input_file} htmlFor="uploadfileaddphotojpg">
                         Загрузите фотографию
-                        <input id="uploadfileaddphotojpg" className={s.input_file} placeholder='Загрузите фотографию' type="file" />
+                        <input  key={Math.random()} ref={inputRef} multiple onChange={handleFileUpload} id="uploadfileaddphotojpg" className={s.input_file} placeholder='Загрузите фотографию' type="file" />
                     </label>
                 </div>
 
-                <div className={s.input_inner}>
+                {/* <div className={s.input_inner}>
                     <span className={s.title}>Фотография в png</span>
                     <label className={s.label_input_file} htmlFor="uploadfileaddphotopng">
                         Загрузите фотографию
-                        <input id="uploadfileaddphotopng" className={s.input_file} placeholder='Загрузите фотографию' type="file" />
+                        <input  key={Math.random()} multiple onChange={handleFileUploadPng} id="uploadfileaddphotopng" className={s.input_file} placeholder='Загрузите фотографию' type="file" />
                     </label>
-                </div>
+                </div> */}
                 
                 <div className={s.input_inner}>
                     <span className={s.title}>Размер</span>
@@ -159,7 +190,7 @@ export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto, setChoiceColor, c
                             }) : ''}
                         </div>
                    </div>
-                <button className={s.btn}>
+                <button onClick={generationObjModal} className={s.btn}>
                     Добавить фотографию
                 </button>
             </div>
