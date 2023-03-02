@@ -5,8 +5,8 @@ import { SizeItem } from "../SizesItem"
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import { useAppDispatch } from '@/redux/hooks'
-import {setSizes, setColors} from '../../../../../../../redux/slices/admin'
-
+// import { setColors} from '../../../../../../../redux/slices/admin'
+import {setSizes, setColors} from '../../../../../../../redux/slices/formData'
 
 
 interface ModuleWindiwProps {
@@ -22,10 +22,14 @@ export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto, setChoiceColor, c
 
     const dispatch = useAppDispatch()
 
-    const selectedSizes = useSelector((state: RootState)=> state.admin.sizesend)
+
+    const selectedSizes = useSelector((state: RootState)=> state.formData.sizesend)
     const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
-    console.log('colors', colors)
+   
     const categories =  useSelector((state: RootState)=> state.goods.fetchedCategories)
+    const colorsend =  useSelector((state: RootState)=> state.formData.colorsend)
+
+    console.log('colorsend', colorsend)
 
     const sizesItems = [
         { id: 0, size: 'XS'},
@@ -94,7 +98,7 @@ export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto, setChoiceColor, c
                         <div className={ choiceSize ? `${s.choice_photo_wrapper} ${s.choice_photo_on}` : `${s.choice_photo_wrapper} ${s.choice_photo_off}`  }>
                             {sizesItems.map((el, ind)=>{
                                 return <span onClick={
-                                    ()=>  dispatch(setSizes(el)) 
+                                    ()=>  dispatch(setSizes(el.size)) 
                                 } key={ind} className={s.item_choice_photo}>
                                     {el.size}
                                 </span>
@@ -105,8 +109,8 @@ export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto, setChoiceColor, c
                 </div>
 
                 <div className={s.sizes}>
-                    {selectedSizes?.map((el)=>{
-                        return <SizeItem size={el.size} id={el.id} />
+                    {selectedSizes?.map((el, ind)=>{
+                        return <SizeItem key={ind} size={el} id={ind} />
                     })}
                 </div>
 
@@ -124,9 +128,9 @@ export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto, setChoiceColor, c
                     </span>
                         <div  style={{top: selectedSizes?.length > 0 ? '602px' : '558px'}} className={s.color_wrapper_main}>
                             { choiceColor ? colors?.map((el, ind)=>{
-                                return el.id !== 48 ? (
+                                return el.id !== 48093899940393 ? (
                                     <div onClick={()=> {
-                                        dispatch(setColors(el))
+                                        dispatch(setColors(el.id))
                                         setChoiceColor(!choiceColor)
                                     }} key={ind} className={s.color_wrapper}>
                                         <span className={s.color} style={{
