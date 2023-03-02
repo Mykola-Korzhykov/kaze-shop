@@ -54,10 +54,16 @@ export const formData = createSlice({
             //const found =  state.sizes.indexOf(action.payload.id)
             state.sizesend.push(action.payload)
         },
+        removeSizes: (state, action: PayloadAction<string>) =>{
+            // console.log('вход')
+            const found =  state.sizesend.find((el)=> el === action.payload)
+            const index = state.sizesend.indexOf(found)
+            state.sizesend.splice(index, 1)
+        },
 
     },
 })
 
-export const { setTitle, setDescription, setSizes} = formData.actions
+export const { setTitle, setDescription, setSizes, removeSizes} = formData.actions
 
 export default formData.reducer

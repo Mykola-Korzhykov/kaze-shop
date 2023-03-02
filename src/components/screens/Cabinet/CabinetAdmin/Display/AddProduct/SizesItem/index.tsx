@@ -2,7 +2,8 @@ import React from "react"
 import s from './SizesItem.module.scss'
 //redux
 import { useAppDispatch } from '@/redux/hooks'
-import {removeSizes} from '../../../../../../../redux/slices/admin'
+// import {removeSizes} from '../../../../../../../redux/slices/admin'
+import { removeSizes} from '../../../../../../../redux/slices/formData'
 
 
 interface SizeItemPropsType {
@@ -13,10 +14,9 @@ interface SizeItemPropsType {
 export const SizeItem = ({size, id}: SizeItemPropsType) => {
 
     const dispatch = useAppDispatch()
-    const myId = id
 
  return(
-    <div onClick={()=>{dispatch(removeSizes(myId))}} className={s.wrapper}>
+    <div onClick={()=>{dispatch(removeSizes(size))}} className={s.wrapper}>
         <span  className={s.size}>
             {size}
         </span>

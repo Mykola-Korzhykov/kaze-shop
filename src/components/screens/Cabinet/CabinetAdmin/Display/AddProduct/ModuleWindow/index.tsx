@@ -6,7 +6,7 @@ import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import { useAppDispatch } from '@/redux/hooks'
 import { setColors} from '../../../../../../../redux/slices/admin'
-import {setSizes} from '../../../../../../../redux/slices/formData'
+import {setSizes, removeSizes} from '../../../../../../../redux/slices/formData'
 
 
 interface ModuleWindiwProps {
@@ -24,7 +24,7 @@ export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto, setChoiceColor, c
 
     const selectedSizes = useSelector((state: RootState)=> state.formData.sizesend)
     const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
-    console.log('colors', colors)
+    console.log('selectedSizes', selectedSizes)
     const categories =  useSelector((state: RootState)=> state.goods.fetchedCategories)
 
     const sizesItems = [
