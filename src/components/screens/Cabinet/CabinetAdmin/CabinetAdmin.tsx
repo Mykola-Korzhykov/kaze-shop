@@ -64,10 +64,12 @@ export const CabinetAdmin: React.FC = () => {
     const [modalAddPhoto, setModalAddPhoto ] = React.useState<boolean>(false)
     const [modalAddCAtegory, setModalAddCAtegory ] = React.useState<boolean>(false)
     const [countPhoto, setCountPhoto] = React.useState<number>(1)
+    console.log('choiceColor', choiceColor)
 
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
 
     const users = useSelector((state: RootState) => state.admin.users)
+    const colors = useSelector((state: RootState) => state.admin.colors)
 
     const [idUserOpen, setUserOpen] = React.useState<number>(0)
     const [displayActive, setDisplayActive] = React.useState<number>(1)
@@ -111,11 +113,10 @@ export const CabinetAdmin: React.FC = () => {
                 {displayActive === 2 ? usersAdmin : ''}
                 {displayActive === 3 ? <AddProduct  setCountPhoto={setCountPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor}   modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''}
             </div >
-            {countPhoto > 0 && modalAddPhoto ? <div style={{height: `${ 1200 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''}
+            {countPhoto > 0 && modalAddPhoto &&  choiceColor === false? <div style={{height: `${ 1200 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''}
             {/* {modalAddPhoto  && countPhoto < 2 ? <div  className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''}  */}
-            {modalAddCAtegory ? <div className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''} 
-            {modalAddCAtegory ? <div className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''} 
-
+            {choiceColor? <div   style={{height: `${ 1200 +  colors.length * 25}px` }} className={ s.backround_module}></div> : ''} 
+            {/* choiceColor == true ? s.backroundModuleMore : */}
 
 
             {modalAddPhoto ? <ModuleWindiw  setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  
