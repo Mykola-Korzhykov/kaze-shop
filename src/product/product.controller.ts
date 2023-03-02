@@ -283,7 +283,7 @@ export class ProductController {
   @UseInterceptors(
     FileFieldsInterceptor(
       [
-        { name: 'images', maxCount: 20 },
+        { name: 'images', maxCount: 30 },
         { name: 'sizeChartImage', maxCount: 1 },
       ],
       {

@@ -52,7 +52,7 @@ import { AdminRefreshToken } from '../admin/models/admin.refresh.token.model';
 import { UserRefreshToken } from '../users/models/user.refresh.token.model';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { SchedulerRegistry } from '@nestjs/schedule';
-import { JwtRefreshTokenDeletedEvent } from 'src/core/events/jwt-refresh-token-deleted.evet';
+import { JwtRefreshTokenDeletedEvent } from '../core/events/jwt-refresh-token-deleted.evet';
 @Injectable({ scope: Scope.TRANSIENT })
 export class AuthService {
   private readonly Logger = new Logger(AuthService.name);

@@ -36,6 +36,15 @@ export class TasksService {
   @Cron(CronExpression.EVERY_HOUR, {
     disabled: true,
   })
+  getTimeouts(): string[] {
+    const timeouts = this.schedulerRegistry.getTimeouts();
+    timeouts.forEach((key) => this.logger.log(`Timeout: ${key}`));
+    return timeouts;
+  }
+
+  @Cron(CronExpression.EVERY_HOUR, {
+    disabled: true,
+  })
   getCrons(): Map<string, CronJob> {
     const jobs = this.schedulerRegistry.getCronJobs();
     jobs.forEach((value, key) => {
@@ -48,12 +57,6 @@ export class TasksService {
       this.logger.log(`job: ${key} -> next: ${next}`);
     });
     return jobs;
-  }
-
-  deleteCron(name: string): void {
-    this.schedulerRegistry.deleteCronJob(name);
-    this.logger.warn(`job ${name} deleted!`);
-    return;
   }
 
   addInterval(
@@ -71,12 +74,6 @@ export class TasksService {
     return interval;
   }
 
-  deleteInterval(name: string): void {
-    this.schedulerRegistry.deleteInterval(name);
-    this.logger.warn(`Interval ${name} deleted!`);
-    return;
-  }
-
   @Cron(CronExpression.EVERY_HOUR, {
     disabled: true,
   })
@@ -87,15 +84,6 @@ export class TasksService {
     return intervals;
   }
 
-  garbageCollector(name: string, milliseconds: number) {
-    const callback = async () => {
-      this.logger.warn(`Interval ${name} executing at time (${milliseconds})!`);
-    };
-    const interval = setInterval(callback, milliseconds);
-    this.schedulerRegistry.addInterval(name, interval);
-    return interval;
-  }
-
   addTimeoutForTokens(
     name: string,
     milliseconds: number,
@@ -103,53 +91,54 @@ export class TasksService {
     identifier: string,
     cb: (refreshTokenId: number, identifier: string) => Promise<number | false>,
   ): NodeJS.Timeout {
-    const callback = async (): Promise<boolean | void> => {
-      this.logger.log(`Timeout ${name} executing after (${milliseconds})!`);
-      const timeout = await cb(refreshTokenId, identifier);
-      if (!timeout) {
-        return this.deleteTimeout(name);
-      }
+    try {
+      const callback = async (): Promise<boolean | void> => {
+        this.logger.log(`Timeout ${name} executing after (${milliseconds})!`);
+        const timeout = await cb(refreshTokenId, identifier);
+        if (!timeout) {
+          return this.deleteTimeout(name);
+        }
+        this.deleteTimeout(name);
+        const jwtRefreshTokenDeletedEvent = new JwtRefreshTokenDeletedEvent();
+        jwtRefreshTokenDeletedEvent.name = name;
+        jwtRefreshTokenDeletedEvent.userId = refreshTokenId;
+        jwtRefreshTokenDeletedEvent.description = `deleted user refresh token: ${refreshTokenId}`;
+        return this.eventEmitter.emit(
+          'refreshtoken.deleted',
+          jwtRefreshTokenDeletedEvent,
+        );
+      };
+      this.logger.warn(`Timeout ${name} executing!`);
+      const timeout = setTimeout(callback, milliseconds);
+      this.schedulerRegistry.addTimeout(name, timeout);
+      return timeout;
+    } catch (err) {
       this.deleteTimeout(name);
-      const jwtRefreshTokenDeletedEvent = new JwtRefreshTokenDeletedEvent();
-      jwtRefreshTokenDeletedEvent.name = name;
-      jwtRefreshTokenDeletedEvent.userId = refreshTokenId;
-      jwtRefreshTokenDeletedEvent.description = `deleted user refresh token: ${refreshTokenId}`;
-      return this.eventEmitter.emit(
-        'refreshtoken.deleted',
-        jwtRefreshTokenDeletedEvent,
-      );
-    };
-    this.logger.warn(`Timeout ${name} executing!`);
-    const timeout = setTimeout(callback, milliseconds);
-    this.schedulerRegistry.addTimeout(name, timeout);
-    return timeout;
+    }
   }
 
-  deleteTimeout(name: string): void {
-    this.schedulerRegistry.deleteTimeout(name);
-    this.logger.log(`Timeout ${name} deleted!`);
-    return;
-  }
-
-  @Cron(CronExpression.EVERY_HOUR, {
-    disabled: true,
+  @Cron(CronExpression.EVERY_12_HOURS, {
+    name: 'deleteEmptyFolders',
   })
-  getTimeouts(): string[] {
-    const timeouts = this.schedulerRegistry.getTimeouts();
-    timeouts.forEach((key) => this.logger.log(`Timeout: ${key}`));
-    return timeouts;
-  }
-
-  @Cron(CronExpression.EVERY_12_HOURS)
   async deleteEmptyFolders(): Promise<string[]> {
-    const deleted = await deleteEmpty(join(__dirname, 'static'));
-    this.logger.log(deleted);
-    return deleted;
+    try {
+      const deleted = await deleteEmpty(join(__dirname, 'static'));
+      this.logger.log(deleted);
+      return deleted;
+    } catch (err) {
+      this.deleteCron('deleteEmptyFolders');
+    }
   }
 
-  @Cron(CronExpression.EVERY_WEEK)
+  @Cron(CronExpression.EVERY_WEEK, {
+    name: 'renewCurrencies',
+  })
   async renewCurrencies(): Promise<Currencies> {
-    return this.currencyService.renewCurrencies();
+    try {
+      return this.currencyService.renewCurrencies();
+    } catch (err) {
+      this.deleteCron('renewCurrencies');
+    }
   }
 
   @Cron(CronExpression.EVERY_30_SECONDS, {
@@ -158,17 +147,39 @@ export class TasksService {
     utcOffset: 1,
   })
   async setUp(): Promise<boolean | void> {
-    this.logger.warn(`time (${30}) second for job setting-up to run!`);
-    const owner = await OwnerService.creatingOwner(<CreateOwnerDto>{
-      name: process.env.OWNER.toString().trim().split(',')[0],
-      surname: process.env.OWNER.toString().trim().split(',')[1],
-      phoneNumber: process.env.OWNER.toString().trim().split(',')[2],
-      email: process.env.OWNER.toString().trim().split(',')[3],
-      password: process.env.OWNER.toString().trim().split(',')[4],
-    });
-    if (owner) {
-      return this.currencyService.setCurrencies(owner.id);
+    try {
+      this.logger.warn(`time (${30}) second for job setting-up to run!`);
+      const owner = await OwnerService.creatingOwner(<CreateOwnerDto>{
+        name: process.env.OWNER.toString().trim().split(',')[0],
+        surname: process.env.OWNER.toString().trim().split(',')[1],
+        phoneNumber: process.env.OWNER.toString().trim().split(',')[2],
+        email: process.env.OWNER.toString().trim().split(',')[3],
+        password: process.env.OWNER.toString().trim().split(',')[4],
+      });
+      if (owner) {
+        return this.currencyService.setCurrencies(owner.id);
+      }
+      return this.deleteCron('setting-up');
+    } catch (err) {
+      this.deleteCron('setting-up');
     }
-    return this.deleteCron('setting-up');
+  }
+
+  private deleteTimeout(name: string): void {
+    this.schedulerRegistry.deleteTimeout(name);
+    this.logger.log(`Timeout ${name} deleted!`);
+    return;
+  }
+
+  private deleteCron(name: string): void {
+    this.schedulerRegistry.deleteCronJob(name);
+    this.logger.warn(`job ${name} deleted!`);
+    return;
+  }
+
+  private deleteInterval(name: string): void {
+    this.schedulerRegistry.deleteInterval(name);
+    this.logger.warn(`Interval ${name} deleted!`);
+    return;
   }
 }

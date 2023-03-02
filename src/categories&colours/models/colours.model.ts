@@ -6,6 +6,7 @@ import {
   BelongsToMany,
   ForeignKey,
 } from 'sequelize-typescript';
+import { OrderProduct } from '../../orders/models/order.product.model';
 import { CartProduct } from '../../cart/models/cart.product.model';
 import { ColourCreationAtrb } from '../../core/interfaces/product.interfaces';
 import { Product } from '../../product/models/product.model';
@@ -69,6 +70,14 @@ export class Colour extends Model<Colour, ColourCreationAtrb> {
     field: 'cartProductId',
   })
   public cartProductId: number;
+
+  @ForeignKey(() => OrderProduct)
+  @Column({
+    type: DataType.INTEGER,
+    unique: false,
+    field: 'orderProductId',
+  })
+  public orderProductId: number;
 
   @BelongsToMany(() => Product, () => ProductColours)
   private products: Product[];

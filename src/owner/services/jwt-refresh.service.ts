@@ -110,7 +110,6 @@ export class OwnerJwtRefreshService {
       }
       return token;
     } catch (err: unknown) {
-      console.log(err);
       throw new ApiException(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Internal Server Error',

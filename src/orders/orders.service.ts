@@ -1,10 +1,12 @@
 import { Injectable, Scope } from '@nestjs/common';
 import crypto from 'crypto';
+import { TelegramService } from '../telegram/telegram.service';
 @Injectable({ scope: Scope.TRANSIENT })
 export class OrdersService {
   private readonly API_URL = `${process.env.LIQPAY_API_BASE_URL.trim()}/${Number(
     process.env.LIQPAY_API_VERSION,
   )}`;
+  constructor(private readonly bot: TelegramService) {}
   ganeratePaymentLink(params: {
     amount: number;
     orderId: number;

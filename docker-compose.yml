@@ -29,6 +29,10 @@ services:
     restart: unless-stopped
     env_file:
      - .production.env
+    environment:
+     - REDIS_USERNAME=redis
+     - REDIS_REPLICATION_MODE=master
+     - REDIS_PASSWORD=hfDFdcgbdfhbkhdfhhdsaETn123sregdt@fdgd
     hostname: redis
   postgres:
     container_name: postgres

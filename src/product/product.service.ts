@@ -832,15 +832,6 @@ export class ProductService {
           NO_IMAGES_PROVIDED,
         );
       }
-      const imagesPaths: string[] = images.map((image: Express.Multer.File) => {
-        return (
-          '/' +
-          image.path
-            .split('\\')
-            .slice(image.path.split('\\').indexOf('products'))
-            .join('/')
-        );
-      });
       const sizeChartImagePath =
         '/' +
         sizeChartImage[0].path
@@ -854,7 +845,8 @@ export class ProductService {
         sizeChartImage: sizeChartImagePath,
       });
       product.reviews = [];
-      for (const category of createProductDto.categories) {
+      // tslint:disable-next-line: await-promise
+      for await (const category of createProductDto.categories) {
         const productCategory = await this.categoriesService.getCategoryById(
           Number(category),
         );
@@ -866,7 +858,8 @@ export class ProductService {
         }
         await product.save();
       }
-      for (const colour of createProductDto.colours) {
+      // tslint:disable-next-line: await-promise
+      for await (const colour of createProductDto.colours) {
         const productColour = await this.coloursService.getColourById(
           Number(colour),
         );
@@ -883,15 +876,44 @@ export class ProductService {
         }
         await product.save();
       }
-      const IMAGES = [];
-      imagesPaths.forEach((path, index) => {
-        const imageObj = {
-          image: path,
-          size: product.sizes[index],
-          colour: product.colours[index],
-        };
-        IMAGES.push(JSON.stringify(imageObj));
-      });
+      const IMAGES: string[] = [];
+      // tslint:disable-next-line: await-promise
+      for await (const IMAGE of createProductDto.selectedImages) {
+        const colour = await this.coloursService.getColourById(
+          Number(IMAGE.colourId),
+        );
+        const imagesPaths: string[] = [];
+        IMAGE.fileNames.forEach((fileName: string) => {
+          const imagePath = images.filter((image: Express.Multer.File) => {
+            return image.originalname === fileName;
+          });
+          imagePath.forEach((image: Express.Multer.File) => {
+            imagesPaths.push(image.path);
+          });
+        });
+        IMAGES.push(
+          JSON.stringify({
+            imagesPaths: imagesPaths.map((path: string) => {
+              return path
+                .split('\\')
+                .slice(path.split('\\').indexOf('products'))
+                .join('/');
+            }),
+            sizes: IMAGE.sizes,
+            colour: {
+              id: colour.id,
+              ua: colour.ua,
+              en: colour.en,
+              rs: colour.rs,
+              ru: colour.ru,
+              hex: colour.hex,
+              type: 'colour',
+              createdAt: colour.createdAt,
+              updatedAt: colour.updatedAt,
+            },
+          }),
+        );
+      }
       product.images = IMAGES;
       await product.save();
       if (type && type === 'OWNER') {
@@ -1041,38 +1063,46 @@ export class ProductService {
         }
         await existingProduct.save();
       }
-      if (images && images.length > 0) {
-        for (const image of existingProduct.images) {
-          const file = join(__dirname, 'static' + image);
-          unlink(file, (err) => {
-            if (err) {
-              this.Logger.error(err.message);
-            }
-          });
-        }
-        const imagesPaths: string[] = images.map(
-          (image: Express.Multer.File) => {
-            return (
-              '/' +
-              image.path
-                .split('\\')
-                .slice(image.path.split('\\').indexOf('products'))
-                .join('/')
-            );
-          },
+      const IMAGES: string[] = [];
+      // tslint:disable-next-line: await-promise
+      for await (const IMAGE of updateProductDto.selectedImages) {
+        const colour = await this.coloursService.getColourById(
+          Number(IMAGE.colourId),
         );
-        const IMAGES = [];
-        imagesPaths.forEach((path, index) => {
-          const imageObj = {
-            image: path,
-            size: existingProduct.sizes[index],
-            colour: existingProduct.colours[index],
-          };
-          IMAGES.push(JSON.stringify(imageObj));
+        const imagesPaths: string[] = [];
+        IMAGE.fileNames.forEach((fileName: string) => {
+          const imagePath = images.filter((image: Express.Multer.File) => {
+            return image.originalname === fileName;
+          });
+          imagePath.forEach((image: Express.Multer.File) => {
+            imagesPaths.push(image.path);
+          });
         });
-        existingProduct.images = IMAGES;
-        await existingProduct.save();
+        IMAGES.push(
+          JSON.stringify({
+            imagesPaths: imagesPaths.map((path: string) => {
+              return path
+                .split('\\')
+                .slice(path.split('\\').indexOf('products'))
+                .join('/');
+            }),
+            sizes: IMAGE.sizes,
+            colour: {
+              id: colour.id,
+              ua: colour.ua,
+              en: colour.en,
+              rs: colour.rs,
+              ru: colour.ru,
+              hex: colour.hex,
+              type: 'colour',
+              createdAt: colour.createdAt,
+              updatedAt: colour.updatedAt,
+            },
+          }),
+        );
       }
+      existingProduct.images = IMAGES;
+      await existingProduct.save();
       if (sizeChartImage && sizeChartImage.length > 0) {
         const sizeChartImagePath =
           '/' +
@@ -1257,7 +1287,6 @@ export class ProductService {
       }
       return filePath;
     } catch (error) {
-      console.log(error);
       this.Logger.error(error);
       throw error;
     }
@@ -1280,5 +1309,21 @@ export class ProductService {
       );
     }
     return product;
+  }
+
+  async findAllProducts(): Promise<Product[]> {
+    const products = await this.productRepository.findAll({
+      include: {
+        all: true,
+      },
+    });
+    if (!products) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        PRODUCT_NOT_FOUND,
+      );
+    }
+    return products;
   }
 }

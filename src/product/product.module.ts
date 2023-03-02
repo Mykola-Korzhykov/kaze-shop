@@ -45,6 +45,7 @@ import { Currencies } from '../owner/models/currencies.model';
 import { ColoursService } from '../categories&colours/services/colours.service';
 import { Colour } from '../categories&colours/models/colours.model';
 import { ProductColours } from '../categories&colours/models/product.colour.model';
+import { BullModule } from '@nestjs/bull';
 
 @Module({
   providers: [ProductService, FilesService, CategoriesService, ColoursService],
@@ -54,6 +55,13 @@ import { ProductColours } from '../categories&colours/models/product.colour.mode
       envFilePath: `.${process.env.NODE_ENV}.env`,
       expandVariables: true,
       isGlobal: true,
+    }),
+    BullModule.registerQueue({
+      name: 'garbageColecting',
+      defaultJobOptions: {
+        delay: 5000,
+        stackTraceLimit: 50,
+      },
     }),
     HttpModule,
     SequelizeModule.forFeature([

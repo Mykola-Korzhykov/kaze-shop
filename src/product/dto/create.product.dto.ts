@@ -5,37 +5,44 @@ class Nested {
   @IsString()
   @Matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-яzžitisšte_-]/gi)
   ua: string;
+
   @IsDefined()
   @IsString()
   @Matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-яzžitisšte_-]/gi)
   ru: string;
+
   @IsDefined()
   @IsString()
   @Matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-яzžitisšte_-]/gi)
   rs: string;
+
   @IsDefined()
   @IsString()
   @Matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-яzžitisšte_-]/gi)
   en: string;
 }
+
+class Image {
+  @IsDefined()
+  @Type(() => Array<string>)
+  fileNames: string[];
+
+  @IsDefined()
+  colourId: number;
+
+  @IsDefined()
+  @Type(() => Array<string>)
+  sizes: string[];
+}
+
 export class CreateProductDto {
   @IsDefined()
   @Type(() => Nested)
-  readonly title: {
-    ua: string;
-    ru: string;
-    rs: string;
-    en: string;
-  };
+  readonly title: Nested;
 
   @IsDefined()
   @Type(() => Nested)
-  readonly description: {
-    ua: string;
-    ru: string;
-    rs: string;
-    en: string;
-  };
+  readonly description: Nested;
 
   @IsDefined()
   @Type(() => Number)
@@ -72,4 +79,8 @@ export class CreateProductDto {
   // @IsArray()
   // @ArrayNotEmpty()
   readonly categories: number[];
+
+  @IsDefined()
+  @Type(() => Array<any>)
+  readonly selectedImages: Image[];
 }

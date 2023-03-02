@@ -9,8 +9,6 @@ import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TasksService } from './services/scedule.service';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { BullModule } from '@nestjs/bull';
-import { GarbageCollectingProcessor } from './processors/garbage.processor';
 import { Admin } from '../admin/models/admin.model';
 import { AdminRefreshToken } from '../admin/models/admin.refresh.token.model';
 import { CartProduct } from '../cart/models/cart.product.model';
@@ -39,6 +37,9 @@ import { OwnerModule } from '../owner/owner.module';
 import { ProductModule } from '../product/product.module';
 import { RolesModule } from '../roles/roles.module';
 import { UsersModule } from '../users/users.module';
+import { BullModule } from '@nestjs/bull';
+import { ColectingGarbageFiles } from './processors/delete.files.processor';
+import { WorkerService } from './services/workers.service';
 @Module({
   providers: [
     { provide: APP_INTERCEPTOR, useClass: GlobalInterceptor },
@@ -47,16 +48,17 @@ import { UsersModule } from '../users/users.module';
       provide: APP_GUARD,
       useClass: ThrottlerBehindProxyGuard,
     },
+    WorkerService,
     CurrencyService,
     TasksService,
     AppClusterService,
     FilesService,
-    GarbageCollectingProcessor,
+    ColectingGarbageFiles,
   ],
   imports: [
     HttpModule,
     BullModule.registerQueue({
-      name: 'garbageCollecting',
+      name: 'garbageColecting',
     }),
     EventEmitterModule.forRoot({
       wildcard: true,

@@ -23,7 +23,6 @@ import { Throttle } from '@nestjs/throttler';
 export class AppController {
   private readonly Logger = new Logger(AppController.name);
   constructor(private readonly httpService: HttpService) {}
-
   @Throttle(20, 500)
   @Get('get-location')
   @HttpCode(200)
@@ -37,7 +36,7 @@ export class AppController {
         const ipAddress = request.headers['x-forwarded-for'];
         this.Logger.log(ipAddress);
         const reader = await Reader.open(
-          path.join(__dirname, 'GeoLite2-Country.mmdb'),
+          path.join(__dirname, process.env.IP_ADDRESS_DB.trim()),
         );
         const geoCountry = reader.country(request.ip);
         return response.json({

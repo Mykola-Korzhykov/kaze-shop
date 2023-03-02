@@ -54,7 +54,7 @@ export class User extends Model<User, UsercreationAttrbs> {
   @ApiProperty({ example: '+251912345678', description: 'user`s phoneNumber' })
   @Column({
     type: DataType.STRING,
-    unique: false,
+    unique: true,
     allowNull: false,
     field: 'phoneNumber',
   })

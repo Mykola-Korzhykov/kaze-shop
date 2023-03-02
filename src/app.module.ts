@@ -56,6 +56,7 @@ import { TasksService } from './core/services/scedule.service';
 import { Colour } from './categories&colours/models/colours.model';
 import { ProductColours } from './categories&colours/models/product.colour.model';
 import { FilesService } from './core/services/file.service';
+import { WebhookMiddleware } from './core/middlewares/webhook.middleware';
 @Module({
   controllers: [AppController],
   providers: [
@@ -106,6 +107,7 @@ import { FilesService } from './core/services/file.service';
         port: Number(process.env.REDIS_PORT),
         db: 1,
         password: process.env.REDIS_PASSWORD.toString(),
+        lazyConnect: false,
       },
       settings: {
         lockDuration: 30000,
@@ -139,6 +141,7 @@ import { FilesService } from './core/services/file.service';
         fileSize: 12282810,
       },
     }),
+    SequelizeModule.forFeature([Product]),
     SequelizeModule.forRoot({
       dialect: 'postgres',
       host: process.env.PGHOST.toString(),
@@ -194,5 +197,23 @@ export class AppModule implements NestModule {
       path: '*',
       method: RequestMethod.ALL,
     });
+    // consumer.apply(WebhookMiddleware).forRoutes(
+    //   {
+    //     path: '*',
+    //     method: RequestMethod.PUT,
+    //   },
+    //   {
+    //     path: '*',
+    //     method: RequestMethod.POST,
+    //   },
+    //   {
+    //     path: '*',
+    //     method: RequestMethod.PATCH,
+    //   },
+    //   {
+    //     path: '*',
+    //     method: RequestMethod.DELETE,
+    //   },
+    // );
   }
 }

@@ -20,7 +20,7 @@ export class CurrencyService {
   async setCurrencies(ownerId: number) {
     const currencies = await Currencies.findAll();
     if (currencies.length > 0) {
-      console.log(currencies);
+      this.Logger.log(currencies);
       return false;
     }
     let data: any;
@@ -44,7 +44,7 @@ export class CurrencyService {
             }),
           ),
       );
-      console.log(data);
+      this.Logger.log(data);
       const currency = await Currencies.create({
         base: data.base,
         date: data.date,

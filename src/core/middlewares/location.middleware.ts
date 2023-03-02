@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import geoip from 'geoip-lite';
-import IP from 'ip';
 import path from 'path';
 import { Reader } from '@maxmind/geoip2-node';
 import { CurrencyService } from '../../owner/services/currency.service';
@@ -22,13 +21,12 @@ export class LocationMiddleware implements NestMiddleware {
   use(@Req() req: Request, @Res() res: Response, @Next() next: NextFunction) {
     (async () => {
       try {
-        const ipAddress = IP.address();
         const reader = await Reader.open(
-          path.join(__dirname, 'GeoLite2-Country.mmdb'),
+          path.join(__dirname, process.env.IP_ADDRESS_DB.trim()),
         );
         const data = reader.country(req.ip);
         const geo = geoip.lookup(req.ip);
-        this.Logger.log(geo, ipAddress);
+        this.Logger.log(geo);
         req['countryIsoCode'] = data.country.isoCode;
         req['CLient-IP'] = data.traits.ipAddress;
         req['CLient-Network'] = data.traits.network;
@@ -58,7 +56,6 @@ export class LocationMiddleware implements NestMiddleware {
         };
         return next();
       } catch (err) {
-        console.log(err);
         this.Logger.error(err);
         return next(err);
       }

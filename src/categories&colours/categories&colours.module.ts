@@ -31,7 +31,7 @@ import { ColoursService } from './services/colours.service';
 import { ColoursController } from './controllers/colours.controller';
 import { Colour } from './models/colours.model';
 import { ProductColours } from './models/product.colour.model';
-import { ProductMiddleware } from 'src/common/middlewares/product.middleware';
+import { ProductMiddleware } from '../common/middlewares/product.middleware';
 
 @Module({
   providers: [CategoriesService, ColoursService],

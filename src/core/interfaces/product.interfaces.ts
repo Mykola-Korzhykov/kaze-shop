@@ -100,3 +100,10 @@ export interface CartProductCreatinAtrb {
   quantity: number;
   price: number;
 }
+
+export interface OrderCreatinAtrrb {
+  userName: string;
+  userSurname: string;
+  userEmail: string;
+  userPhoneNumber: string;
+}

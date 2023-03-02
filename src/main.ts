@@ -14,7 +14,6 @@ import { ApiErrorExceptionFilter } from './common/filters/error-handler.filter';
 import { ApiExceptionFilter } from './common/filters/api-exception.filter';
 import { extname, join } from 'path';
 import bodyParser from 'body-parser';
-
 const PORT: number = Number(process.env.PORT) || 2222;
 declare const module: any;
 async function startServer(): Promise<INestApplication> {
@@ -23,6 +22,7 @@ async function startServer(): Promise<INestApplication> {
     bufferLogs: true,
     autoFlushLogs: true,
     forceCloseConnections: true,
+    rawBody: true,
   });
   const httpAdapter = app.get(HttpAdapterHost);
   app.enableShutdownHooks();

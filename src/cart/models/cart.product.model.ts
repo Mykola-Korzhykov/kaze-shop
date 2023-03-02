@@ -8,7 +8,7 @@ import {
   BelongsTo,
   HasOne,
 } from 'sequelize-typescript';
-import { Colour } from 'src/categories&colours/models/colours.model';
+import { Colour } from '../../categories&colours/models/colours.model';
 import { CartProductCreatinAtrb } from '../../core/interfaces/product.interfaces';
 import { Product } from '../../product/models/product.model';
 import { Cart } from './cart.model';

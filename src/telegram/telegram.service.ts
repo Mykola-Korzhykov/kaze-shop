@@ -1,9 +1,9 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Scope } from '@nestjs/common';
 import { Telegraf } from 'telegraf';
 import { TELEGRAM_MODULE_OPTIONS } from './telegram.constants';
 import { ITelegramOptions } from './telegram.interface';
 
-@Injectable()
+@Injectable({ scope: Scope.TRANSIENT })
 export class TelegramService {
   bot: Telegraf;
   options: ITelegramOptions;
