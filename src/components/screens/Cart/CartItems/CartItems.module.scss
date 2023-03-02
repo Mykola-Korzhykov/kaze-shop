@@ -164,6 +164,11 @@
 	background: transparent url('../../../../assets/icons/cart/priceMinus.svg')
 		no-repeat center center/contain;
 }
+.delete {
+	background: transparent
+		url('../../../../assets/icons/cart/deleteItemCart.svg') no-repeat center
+		center/contain;
+}
 
 .count {
 	margin: 0px 20px;
