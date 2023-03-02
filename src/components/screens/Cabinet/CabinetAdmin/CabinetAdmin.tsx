@@ -111,8 +111,8 @@ export const CabinetAdmin: React.FC = () => {
                 {displayActive === 2 ? usersAdmin : ''}
                 {displayActive === 3 ? <AddProduct  setCountPhoto={setCountPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor}   modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''}
             </div >
-            {countPhoto > 1 && modalAddPhoto ? <div style={{height: `${ 800 +  countPhoto * 200}px` }} className={s.backround_module}></div> : ''}
-            {modalAddPhoto  && countPhoto < 2 ? <div  className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''} 
+            {countPhoto > 0 && modalAddPhoto ? <div style={{height: `${ 1200 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''}
+            {/* {modalAddPhoto  && countPhoto < 2 ? <div  className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''}  */}
             {modalAddCAtegory ? <div className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''} 
             {modalAddCAtegory ? <div className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''} 
 
