@@ -136,7 +136,7 @@ const initialState: GoodsSlice = {
     { label: 'Серый', hex: '#808080', id: 13413413413  , type: 'colour' , ru: 'ru', rs: 'rs', en: 'en', ua: 'ua' , createdAt: 'stringstringTest', updatedAt: 'stringTest'},
 	{ label: 'Графитовый', hex: '#525A5B', id: 57567  , type: 'colour' , ru: 'ru', rs: 'rs', en: 'en', ua: 'ua' , createdAt: 'stringstringTest', updatedAt: 'stringTest'},
     { label: 'Пудровый', hex: '#F2E2D8', id: 75756756  , type: 'colour' , ru: 'ru', rs: 'rs', en: 'en', ua: 'ua' , createdAt: 'stringstringTest', updatedAt: 'stringTest'},
-    {label: 'Добавить цвет ', hex: null, id: 48  , type: 'colour' , ru: 'ru', rs: 'rs', en: 'en', ua: 'ua' , createdAt: 'stringstringTest', updatedAt: 'stringTest'}],
+    {label: 'Добавить цвет ', hex: null, id: 48093899940393  , type: 'colour' , ru: 'ru', rs: 'rs', en: 'en', ua: 'ua' , createdAt: 'stringstringTest', updatedAt: 'stringTest'}],
 	fetchedCategories: null,
 	language: 'ua',
 }

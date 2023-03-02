@@ -14,6 +14,7 @@ export interface initialStateType {
         en: string | null,
       },
       sizesend:string[],
+      colorsend: number[]
     
 }
 
@@ -30,7 +31,9 @@ const initialState: initialStateType = {
         rs: null,
         en: null,
       },
-      sizesend:[]
+      sizesend:[],
+      colorsend: []
+
 }
 
 export const formData = createSlice({
@@ -50,20 +53,25 @@ export const formData = createSlice({
             }
         },
         setSizes: (state, action: PayloadAction<string>) => {
-            
-            //const found =  state.sizes.indexOf(action.payload.id)
             state.sizesend.push(action.payload)
         },
         removeSizes: (state, action: PayloadAction<string>) =>{
-            // console.log('вход')
             const found =  state.sizesend.find((el)=> el === action.payload)
             const index = state.sizesend.indexOf(found)
             state.sizesend.splice(index, 1)
         },
+        setColors:  (state, action: PayloadAction<number>) =>{
+            console.log('colorsend',  state.colorsend)
+            state.colorsend.push(action.payload)
+        }
+
 
     },
 })
 
-export const { setTitle, setDescription, setSizes, removeSizes} = formData.actions
+export const { 
+    setTitle, setDescription, 
+    setSizes, removeSizes,
+    setColors} = formData.actions
 
 export default formData.reducer
