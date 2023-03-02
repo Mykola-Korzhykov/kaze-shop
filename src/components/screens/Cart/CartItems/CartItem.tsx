@@ -6,7 +6,13 @@ const CartItem = () => {
 	return (
 		<div className={s.block}>
 			<div className={s.imgWrapper}>
-				<Image src={cartImage} alt='Cart image' className={s.img} priority={true} quality={95}/>
+				<Image
+					src={cartImage}
+					alt='Cart image'
+					className={s.img}
+					priority={true}
+					quality={95}
+				/>
 			</div>
 			<div className={s.content}>
 				<div className={s.text}>
@@ -25,7 +31,7 @@ const CartItem = () => {
 					</div>
 				</div>
 				<div className={s.addition}>
-					<button className={`${s.btn} ${s.minus}`}></button>
+					<button className={`${s.btn} ${s.delete}`}></button>
 					<p className={s.count}>1</p>
 					<button className={`${s.btn} ${s.plus}`}></button>
 					<p className={s.price}>29$</p>

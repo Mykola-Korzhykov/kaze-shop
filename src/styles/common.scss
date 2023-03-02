@@ -22,6 +22,8 @@
 }
 
 .page_coordinator {
+	position: relative;
+	z-index: 100;
 	font-family: 'Georama', sans-serif;
 	font-style: normal;
 	font-weight: 500;
