@@ -36,8 +36,8 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
     const titleDescription = useSelector((state: RootState)=> state.formData.price)
     const categories = useSelector((state: RootState)=> state.formData.categories)
     const categoryArr = useSelector((state: RootState)=> state.admin.categoryArr)
-    console.log('categories', categories)
-    console.log('categoryArr', categoryArr)
+    // console.log('categories', categories)
+    // console.log('categoryArr', categoryArr)
     //state
     const [categoriesDisplay, setCategoriesDisplay ] = React.useState<boolean>(false)
 

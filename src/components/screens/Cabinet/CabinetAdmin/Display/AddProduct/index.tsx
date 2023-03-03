@@ -8,6 +8,7 @@ import {setAddPhotoState} from '../../../../../../redux/slices/admin'
 import { useAppDispatch } from '@/redux/hooks'
 import { ModuleWindiw } from "./ModuleWindow"
 import {SizeItem} from './SizesItem'
+import {setNetData} from '../../../../../../redux/slices/formData'
 
 interface AddProductProps {
     setModalAddPhoto: (n: boolean)=> void,
@@ -18,26 +19,66 @@ interface AddProductProps {
     setCountPhoto: (n: number)=> void
 
 }
+  
+
+interface formDataType {
+        images: File[] ,
+        title: {
+            ua: string | null,
+            ru: string | null,
+            rs: string | null,
+            en: string | null,
+        };
+        description: {
+            ua: string | null,
+            ru: string | null,
+            rs: string | null,
+            en: string | null,
+        },
+        categories: number[],
+        colours: number[],
+        selectedImages: {
+            fileNames: string[],
+            colourId: number;
+            sizes: string[]
+        }[],
+        price: number | null,
+        quantity: number | null,
+        //дальше скажи під яким неймінгом тобі грузити ці свойства
+        allcoloursId: number[] | null, //всі кольора 
+        allsizes: string[] | null, // всі розміра
+        netData: string | null, // опис размерной сетки
+        netImage: 'image/jpeg' | 'image/png' //сама размерная сетка 
+    
+}
 
 export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, modalAddColor, setCountPhoto}: AddProductProps) => {
 
     const dispatch = useAppDispatch()
-//     function pushItemPhoto(){
-//         addPhotoArr.push({id: addPhotoState[addPhotoState.length -1 ].id + 1 })
-//         setAddPhoto(addPhotoArr)
-//         addPhotoArr = addPhotoState
-//     }
 
-//     let addPhotoArr =  [{id: 1}]
-//     const [addPhotoState, setAddPhoto] = React.useState([
-//         {id: 1}
-//    ])
 
-//    console.log('addPhotoState', addPhotoState)
-//    console.log('addPhotoArr', addPhotoArr)
+    function sendFormData(p: any){
+        const formData = new FormData();
+        formData.append('net', p)
 
-   const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
-   const addPhotoState =  useSelector((state: RootState)=> state.admin.addPhotoState)
+    }
+
+
+    // const [netData, setNetData] = React.useState<null | string>(null)
+
+    const [netFile, setNetFile] = React.useState<null | any>(null)
+    const NetData = useSelector((state: RootState)=> state.formData.netData)
+    const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
+    //statesRedux
+    const addPhotoState =  useSelector((state: RootState)=> state.admin.addPhotoState)
+    const titleen =  useSelector((state: RootState)=> state.formData.title.en)
+
+
+    // console.log('titleen', titleen)
+    // console.log('netData', NetData)
+    // console.log('setNetFile', netFile)
+    // console.log('title', title)
+
    
 
     const  [inputs, setInputs] = React.useState([
@@ -66,17 +107,6 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
     
     // const inputsSecondWrapper = inputs?.slice(inputs.length - 1, inputs.length)
 
-
-    const sizesItems = [
-       { id: 0, size: 'XS'},
-       { id: 1, size: 'S'},
-       { id: 2, size: 'XXL'},
-       { id: 3, size: 'XXS'},
-       { id: 4, size: 'M'},
-    //    { id: 5, size: 'XS'},
-    ]
-    let sizesArr = [{ id: 0, size: 'XS'}, { id: 1, size: 'S'},]
-    const [sizesState, setSizesState] = React.useState(null)
 
     return (
         <div className={s.wrapper}>
@@ -195,6 +225,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                         <span onClick={()=>{
                            setCountPhoto(addPhotoState.length)
                            dispatch(setAddPhotoState()) 
+
                         } } className={s.btn}>
                         <svg className={s.img} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3.75 12H20.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -218,16 +249,20 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                 <div className={s.net_wrapper}>
                     <span className={s.item_wrapper_1}>
                         Описание размерной сетки
-                        <input className={s.item_1} placeholder="Введите описание размерной сетки" type="text" />
+                        <input onBlur={(e)=>{
+                            dispatch(setNetData(e.target.value))
+                            e.target.value = e.target.value
+                        }}  key={1}  className={s.item_1} placeholder="Введите описание размерной сетки" type="text" />
                     </span>
                     <span  className={s.item_wrapper_2}>
                         Загрузите размерную сетку
                         <label htmlFor="uploadnet" className={s.label}>
                             Загрузить размерную сетку
                         </label>
-                        <input id='uploadnet' className={s.item_2} placeholder="Загрузить размерную сетку" type="file" />
+                        <input key={2}  onChange={(e)=>{
+                            setNetFile(e.target.files[0])
+                        }} id='uploadnet' className={s.item_2} placeholder="Загрузить размерную сетку" type="file" />
                     </span>
-                   
                 </div>
 
 
@@ -264,7 +299,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                 
 
                 <div className={s.send_wrapper}>
-                    <button className={s.btn_cancel}>Отправить</button>
+                    <button  className={s.btn_cancel}>Отменить</button>
                     <input className={s.btn_send} value='Добавить товар' type="submit" name="submit" id="" />
                 </div>
             </form>

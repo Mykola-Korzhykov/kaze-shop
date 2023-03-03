@@ -21,6 +21,7 @@ export interface initialStateType {
       allcoloursId: number[] | null,
       allsizes: string[] | null,
       categories: number[] | null,
+      netData: string | null
     
 }
 
@@ -45,6 +46,7 @@ const initialState: initialStateType = {
       allcoloursId: [],
       allsizes: [],
       categories: [],
+      netData: null,
 
 }
 
@@ -108,6 +110,11 @@ export const formData = createSlice({
             state.categories.push(action.payload)
 
         },
+        setNetData: (state, action: PayloadAction<string>) =>{
+            console.log('вход к категориям')
+            state.netData = action.payload
+
+        },
 
     },
 })
@@ -122,6 +129,7 @@ export const {
     removeAll,
     setAllcoloursId,
     setAllsizes,
-    setCategories} = formData.actions
+    setCategories,
+    setNetData} = formData.actions
 
 export default formData.reducer

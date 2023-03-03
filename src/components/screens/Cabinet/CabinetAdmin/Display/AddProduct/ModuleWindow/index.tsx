@@ -32,7 +32,7 @@ export const ModuleWindiw = ({setModalAddPhoto, modalAddPhoto, setChoiceColor, c
     const [allFiles, setAllFiles] = React.useState([])
     //redux state
     const allSizes =  useSelector((state: RootState)=> state.formData.allsizes)
-    const allcoloursId =  useSelector((state: RootState)=> state.formData.allcoloursId)
+    const allcoloursId =  useSelector((state: RootState)=> state.formData.categories)
     const selectedSizes = useSelector((state: RootState)=> state.formData.sizes)
     const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
     const sizesItems =  useSelector((state: RootState)=> state.admin.sizesItems)
