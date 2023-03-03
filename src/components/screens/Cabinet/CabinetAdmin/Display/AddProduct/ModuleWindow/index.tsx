@@ -62,28 +62,27 @@ export const ModuleWindiw = ({ setModalAddPhoto, modalAddPhoto, setChoiceColor, 
             sizes: selectedSizes
         }
 
-        files.forEach((el)=>{
-            dispatch(setArrObjMod(el))  
-        })
+        // files.forEach((el)=>{
+        //     dispatch(setArrObjMod(el))  
+        // })
         
         dispatch(setAllcoloursId(colourId))
         dispatch(setAllsizes(obj.sizes))
         dispatch(setArrObjMod(obj))
-        setImages([...imagesData, files])
-        console.log('ArrObjMod', ArrObjMod)
-        // console.log('images', images)
-        // console.log('setArrObjMod', setArrObjMod)
-        // console.log('files', files)
-      
-     
-        dispatch(removeAll())
-        
        
+        // setImages([...imagesData, ...files])
+        console.log('ArrObjMod', ArrObjMod)
+        
+        dispatch(removeAll())
+        setFiles([])
      }
      
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>)=>{
         // console.log(event.target.files)
+        console.log()
+       
         setFiles(  (prevArray: any) => [...prevArray,  event.target.files[0]] )
+        setImages( (prevArray: any) => [...prevArray,  event.target.files[0]])
     }
       //@ts-ignore
       globalThis.pavlo = files

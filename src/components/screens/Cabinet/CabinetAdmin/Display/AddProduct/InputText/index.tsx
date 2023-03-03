@@ -89,7 +89,7 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
        //countproducts
        if(event.target.name === 'price'){
         const payload: number = event.target.value
-        dispatch(setPrice(payload)) 
+        dispatch(setPrice(Number(payload) )) 
         }
        
 

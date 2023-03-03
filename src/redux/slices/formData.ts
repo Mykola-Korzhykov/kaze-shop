@@ -30,7 +30,6 @@ export interface initialStateType {
       netData: string | null,
       arrObjMod: { fileNames: string[], colourId: number; sizes: string[];}[],
       images: File[]
-    
 }
 
 const initialState: initialStateType = {
@@ -96,7 +95,7 @@ export const formData = createSlice({
         },
         //price
         setPrice:  (state, action: PayloadAction<number>) =>{
-            state.price = action.payload
+            state.price =  Number(action.payload)
         },
         //quantity
         setQuantity:  (state, action: PayloadAction<number>) =>{
@@ -133,8 +132,8 @@ export const formData = createSlice({
         },
         //
         setSizeChartImageDescription: (state, action: PayloadAction<{ branch: keyof initialStateType['sizeChartImageDescription'], sizeChartImageDescription: string }>) =>{
-            console.log('key', action.payload.branch)
-            console.log('title', action.payload.sizeChartImageDescription)
+            // console.log('key', action.payload.branch)
+            // console.log('title', action.payload.sizeChartImageDescription)
             const { branch, sizeChartImageDescription } = action.payload;
             if (branch in state.sizeChartImageDescription) {
                 state.sizeChartImageDescription[branch] = sizeChartImageDescription;
