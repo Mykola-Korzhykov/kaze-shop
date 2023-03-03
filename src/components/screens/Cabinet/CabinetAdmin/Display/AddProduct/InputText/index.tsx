@@ -34,7 +34,10 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
     
     //redux
     const titleDescription = useSelector((state: RootState)=> state.formData.price)
+    const categories = useSelector((state: RootState)=> state.formData.categories)
     const categoryArr = useSelector((state: RootState)=> state.admin.categoryArr)
+    console.log('categories', categories)
+    console.log('categoryArr', categoryArr)
     //state
     const [categoriesDisplay, setCategoriesDisplay ] = React.useState<boolean>(false)
 
@@ -130,13 +133,7 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
             {type === 'select' ?  
                 <label
                  className={s.select__wrapper} htmlFor="selectCategory">
-                        <input onClick={ (e) => { 
-                        
-                        console.log('input ')
-                        setCategoriesDisplay(!categoriesDisplay);
-                        
-                        dispatch(setCategories(8))
-                        }}  id='selectCategory' readOnly className={s.input} type={type} placeholder={placeholder} />
+                        <input onClick={ (e) => { console.log('[[[[[');  setCategoriesDisplay(!categoriesDisplay); }}  id='selectCategory' readOnly className={s.input} type={type} placeholder={placeholder} />
                         <Image  className={`${s.select_img}`} src={selectIcon} alt="My Image" />
 
            
@@ -147,17 +144,27 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
                          <div onClick={ (e) => { 
                             e.preventDefault()
                             e.stopPropagation(); 
-                            console.log('item')
-                          
+                            console.log('item') 
+                            console.log(el.id)
+                            
                             setCategoriesDisplay(!categoriesDisplay);
-                            dispatch(setCategories(8))
+                            dispatch(setCategories(el.id))
                             }}  key={ind} className={s.categorychose_item}>
                             <span> {el.title} </span>
                         </div> 
-
+                        
                         :
                         
-                        <div key={ind} className={s.categorychose_add}>
+                        <div
+                        onClick={ (e) => { 
+                            e.preventDefault()
+                            e.stopPropagation(); 
+                            console.log('plus')
+                            console.log(el.id)
+                            setCategoriesDisplay(!categoriesDisplay);
+                            }} 
+                        
+                        key={ind} className={s.categorychose_add}>
                             <span className={s.categorychose_img}>
                             <svg className={s.plus} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M3.75 12H20.25" stroke="#9D9D9D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
