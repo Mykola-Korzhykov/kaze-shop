@@ -7,6 +7,7 @@ export interface ProductCreationAttrs {
   price: number;
   sizeChartImage: string;
   sizes: string[];
+  sizeChartImageDescription: string;
 }
 
 export interface ReviewCreationAtrb {
@@ -53,6 +54,12 @@ export interface ReturnedProduct {
     rs: string;
     en: string;
   };
+  sizeChartImageDescription: {
+    ua: string;
+    ru: string;
+    rs: string;
+    en: string;
+  };
   price: number;
   quantity: number;
   images: string[];
@@ -89,21 +96,4 @@ export interface ReturnedColour {
   type: string;
   createdAt: any;
   updatedAt: any;
-}
-
-export interface CartProductCreatinAtrb {
-  imageUrl: string;
-  size: string;
-  colorId: number;
-  productId: number;
-  cartId: number;
-  quantity: number;
-  price: number;
-}
-
-export interface OrderCreatinAtrrb {
-  userName: string;
-  userSurname: string;
-  userEmail: string;
-  userPhoneNumber: string;
 }

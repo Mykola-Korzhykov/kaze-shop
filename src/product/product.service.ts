@@ -74,6 +74,7 @@ export class ProductService {
               id: product.id,
               title: product.getTitle(),
               description: product.getDescription(),
+              sizeChartImageDescription: product.getSizeChartImageDescription(),
               price:
                 Math.round(product.price * currency.rate) + currency.symbol,
               quantity: product.quantity,
@@ -164,6 +165,7 @@ export class ProductService {
               id: product.id,
               title: product.getTitle(),
               description: product.getDescription(),
+              sizeChartImageDescription: product.getSizeChartImageDescription(),
               price:
                 Math.round(product.price * currency.rate) + currency.symbol,
               quantity: product.quantity,
@@ -246,6 +248,7 @@ export class ProductService {
             id: product.id,
             title: product.getTitle(),
             description: product.getDescription(),
+            sizeChartImageDescription: product.getSizeChartImageDescription(),
             price: product.price * currency.rate + currency.symbol,
             quantity: product.quantity,
             images: product.images.map((image) => JSON.parse(image)),
@@ -328,6 +331,7 @@ export class ProductService {
             id: product.id,
             title: product.getTitle(),
             description: product.getDescription(),
+            sizeChartImageDescription: product.getSizeChartImageDescription(),
             price: product.price * currency.rate + currency.symbol,
             quantity: product.quantity,
             images: product.images.map((image) => JSON.parse(image)),
@@ -409,6 +413,7 @@ export class ProductService {
           id: product.id,
           title: product.getTitle(),
           description: product.getDescription(),
+          sizeChartImageDescription: product.getSizeChartImageDescription(),
           price: product.price * currency.rate + currency.symbol,
           quantity: product.quantity,
           images: product.images.map((image) => JSON.parse(image)),
@@ -574,6 +579,7 @@ export class ProductService {
         id: product.id,
         title: product.getTitle(),
         description: product.getDescription(),
+        sizeChartImageDescription: product.getSizeChartImageDescription(),
         price: Math.floor(product.price * currency.rate) + currency.symbol,
         quantity: product.quantity,
         images: product.images.map((image) => JSON.parse(image)),
@@ -693,6 +699,7 @@ export class ProductService {
               id: product.id,
               title: product.getTitle(),
               description: product.getDescription(),
+              sizeChartImageDescription: product.getSizeChartImageDescription(),
               price:
                 Math.round(product.price * currency.rate) + currency.symbol,
               quantity: product.quantity,
@@ -843,6 +850,9 @@ export class ProductService {
         title: JSON.stringify(createProductDto.title),
         description: JSON.stringify(createProductDto.description),
         sizeChartImage: sizeChartImagePath,
+        sizeChartImageDescription: JSON.stringify(
+          createProductDto.sizeChartImageDescription,
+        ),
       });
       product.reviews = [];
       // tslint:disable-next-line: await-promise
@@ -940,6 +950,7 @@ export class ProductService {
         id: dbProduct.id,
         title: dbProduct.getTitle(),
         description: dbProduct.getDescription(),
+        sizeChartImageDescription: dbProduct.getSizeChartImageDescription(),
         price: dbProduct.price,
         quantity: dbProduct.quantity,
         images: dbProduct.images.map((image) => JSON.parse(image)),
@@ -1023,6 +1034,9 @@ export class ProductService {
       }
       existingProduct.setTitle(updateProductDto.title);
       existingProduct.setDescription(updateProductDto.description);
+      existingProduct.setSizeChartImageDescription(
+        updateProductDto.sizeChartImageDescription,
+      );
       existingProduct.quantity = updateProductDto.quantity;
       existingProduct.price = updateProductDto.price;
       existingProduct.sizes = [...updateProductDto.sizes];
@@ -1126,6 +1140,7 @@ export class ProductService {
         id: dbProduct?.id,
         title: dbProduct?.getTitle(),
         description: dbProduct?.getDescription(),
+        sizeChartImageDescription: dbProduct?.getSizeChartImageDescription(),
         price: dbProduct?.price,
         quantity: dbProduct?.quantity,
         images: dbProduct?.images.map((image) => JSON.parse(image)),

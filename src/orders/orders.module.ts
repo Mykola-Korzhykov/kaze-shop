@@ -1,4 +1,10 @@
-import { forwardRef, Module } from '@nestjs/common';
+import {
+  forwardRef,
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { OrdersController } from './orders.controller';
 import { SequelizeModule } from '@nestjs/sequelize';
@@ -23,6 +29,7 @@ import { Product } from '../product/models/product.model';
 import { Order } from './models/order.model';
 import { OrderProduct } from './models/order.product.model';
 import { CategoriesColoursModule } from '../categories&colours/categories&colours.module';
+import { IsUser } from '../common/middlewares/is-user.middleware';
 
 @Module({
   providers: [OrdersService],
@@ -58,4 +65,11 @@ import { CategoriesColoursModule } from '../categories&colours/categories&colour
     forwardRef(() => UsersModule),
   ],
 })
-export class OrdersModule {}
+export class OrdersModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(IsUser).forRoutes({
+      path: 'orders/create_order',
+      method: RequestMethod.POST,
+    });
+  }
+}

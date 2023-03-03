@@ -217,6 +217,9 @@ export class UserJwtRefreshTokenService {
       where: {
         userRefreshToken: userRefreshToken,
       },
+      include: {
+        all: true,
+      },
     });
     if (!token) {
       throw new ApiException(

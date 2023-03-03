@@ -7,7 +7,9 @@ import {
   ForeignKey,
   BelongsToMany,
   BelongsTo,
+  HasOne,
 } from 'sequelize-typescript';
+import { Order } from 'src/orders/models/order.model';
 import { Admin } from '../../admin/models/admin.model';
 import { Owner } from '../../owner/models/owner.model';
 import { Product } from '../../product/models/product.model';
@@ -67,6 +69,13 @@ export class Cart extends Model<Cart> {
   })
   public ownerId: number;
 
+  @ForeignKey(() => Order)
+  @Column({
+    type: DataType.INTEGER,
+    field: 'orderId',
+  })
+  public orderId: number;
+
   @BelongsTo(() => User)
   public user: User;
 
@@ -75,6 +84,9 @@ export class Cart extends Model<Cart> {
 
   @BelongsTo(() => Owner)
   public owner: Owner;
+
+  @HasOne(() => Order)
+  public order: Order;
 
   @BelongsToMany(() => Product, () => CartProduct)
   public products: Product[];

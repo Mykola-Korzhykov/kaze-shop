@@ -10,3 +10,9 @@ export const IDENTIFIER_NOT_PROVIDED = {
   ru: 'Корзина пользователя не найдена!',
   rs: 'Корисничка корпа није пронађена!',
 };
+export const CART_EMPTY = {
+  ua: 'Ваш кошик порожній!',
+  en: 'Your cart is empty!',
+  ru: 'Ваша корзина пуста!',
+  rs: 'Ваша колица су празна!',
+};

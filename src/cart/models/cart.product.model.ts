@@ -9,7 +9,7 @@ import {
   HasOne,
 } from 'sequelize-typescript';
 import { Colour } from '../../categories&colours/models/colours.model';
-import { CartProductCreatinAtrb } from '../../core/interfaces/product.interfaces';
+import { CartProductCreatinAtrb } from '../../core/interfaces/cart.interfaces';
 import { Product } from '../../product/models/product.model';
 import { Cart } from './cart.model';
 @Table({ tableName: 'CART_products' })

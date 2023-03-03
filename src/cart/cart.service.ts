@@ -282,6 +282,22 @@ export class CartService {
     return cart;
   }
 
+  async getCartById(cartId: number): Promise<Cart> {
+    const cart = await this.cartRepository.findByPk(cartId, {
+      include: {
+        all: true,
+      },
+    });
+    if (!cart) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Not found!',
+        CART_NOT_FOUND,
+      );
+    }
+    return cart;
+  }
+
   async findCartByIdentifier(identifier: string): Promise<Cart> {
     const cart = await this.cartRepository.findOne({
       where: {

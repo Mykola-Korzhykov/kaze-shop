@@ -8,7 +8,8 @@ export class WorkerService {
   private readonly logger = new Logger(WorkerService.name);
   constructor(
     private readonly schedulerRegistry: SchedulerRegistry,
-    @InjectQueue('garbageColecting') private queue: Queue,
+    @InjectQueue('garbageColecting') private garbageQueue: Queue,
+    @InjectQueue('deleteProductsFromCarts') private freshQueue: Queue,
   ) {}
 
   @Cron(CronExpression.EVERY_2_HOURS, {
@@ -16,10 +17,22 @@ export class WorkerService {
   })
   async deleteFiles() {
     try {
-      await this.queue.add('deleteFiles');
+      await this.garbageQueue.add('deleteFiles');
       this.logger.log('done');
     } catch (err) {
       this.deleteCron('garbageColecting');
+    }
+  }
+
+  @Cron(CronExpression.EVERY_12_HOURS, {
+    name: 'freshCarts',
+  })
+  async freshCarts() {
+    try {
+      await this.freshQueue.add('freshCarts');
+      this.logger.log('done');
+    } catch (err) {
+      this.deleteCron('freshCarts');
     }
   }
 

@@ -82,6 +82,33 @@ export class Product extends Model<Product, ProductCreationAttrs> {
     return this.description;
   }
 
+  @Column({
+    type: DataType.JSONB,
+    unique: false,
+    allowNull: false,
+    field: 'sizeChartImageDescription',
+  })
+  public sizeChartImageDescription: string;
+
+  getSizeChartImageDescription(): {
+    ua: string;
+    ru: string;
+    rs: string;
+    en: string;
+  } {
+    return JSON.parse(this.sizeChartImageDescription);
+  }
+
+  setSizeChartImageDescription(sizeChartImageDescription: {
+    ua: string;
+    ru: string;
+    rs: string;
+    en: string;
+  }) {
+    this.sizeChartImageDescription = JSON.stringify(sizeChartImageDescription);
+    return this.sizeChartImageDescription;
+  }
+
   @IsInt
   @Column({
     type: DataType.INTEGER,

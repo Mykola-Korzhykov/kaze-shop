@@ -27,7 +27,7 @@ export class AppClusterService {
     } else {
       AppClusterService.Logger.log(`Cluster server started on ${process.pid}`);
       const app = await callback();
-      console.info(app);
+      AppClusterService.Logger.log(`Cluster server started: ${app.get.name}`);
       process.on('SIGINT', () => process.exit(1));
       process.on('SIGTERM', () => process.exit(1));
       process.on('SIGUSR2', async () => process.exit(1));

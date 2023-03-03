@@ -1,4 +1,5 @@
 import { Inject, Injectable, Scope } from '@nestjs/common';
+import { Order } from '../orders/models/order.model';
 import { Telegraf } from 'telegraf';
 import { TELEGRAM_MODULE_OPTIONS } from './telegram.constants';
 import { ITelegramOptions } from './telegram.interface';
@@ -13,7 +14,9 @@ export class TelegramService {
     this.options = options;
   }
 
-  async sendMessage(message: string, chatId: string = this.options.chatId) {
-    await this.bot.telegram.sendMessage(chatId, message);
+  async sendMessage(order: Order, chatId: string = this.options.chatId) {
+    //await this.bot.telegram.sendMessage(chatId);
   }
+
+  private createMessage(order: Order) {}
 }

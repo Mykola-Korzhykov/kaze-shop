@@ -9,7 +9,8 @@ import {
   BelongsToMany,
   IsEmail,
 } from 'sequelize-typescript';
-import { OrderCreatinAtrrb } from '../../core/interfaces/product.interfaces';
+import { Cart } from 'src/cart/models/cart.model';
+import { OrderCreatinAtrrb } from '../../core/interfaces/order.interfaces';
 import { Product } from '../../product/models/product.model';
 import { User } from '../../users/models/user.model';
 import { OrderProduct } from './order.product.model';
@@ -31,6 +32,41 @@ export class Order extends Model<Order, OrderCreatinAtrrb> {
     field: 'userName',
   })
   public userName: string;
+
+  @Column({
+    type: DataType.STRING,
+    unique: false,
+    allowNull: false,
+    field: 'languageCode',
+  })
+  public languageCode: string;
+
+  @Column({
+    type: DataType.JSONB,
+    unique: false,
+    allowNull: false,
+    field: 'currency',
+  })
+  private currency: string;
+
+  getCurrency(): {
+    countryCode: string;
+    currencyCode: string;
+    symbol: string;
+    rate: number;
+  } {
+    return JSON.parse(this.currency);
+  }
+
+  setCurrency(currency: {
+    countryCode: string;
+    currencyCode: string;
+    symbol: string;
+    rate: number;
+  }) {
+    this.currency = JSON.stringify(currency);
+    return this.currency;
+  }
 
   @Column({
     type: DataType.STRING,
@@ -66,6 +102,14 @@ export class Order extends Model<Order, OrderCreatinAtrrb> {
   public country: string;
 
   @Column({
+    type: DataType.DATE,
+    unique: false,
+    allowNull: false,
+    field: 'sendDate',
+  })
+  public sendDate: Date;
+
+  @Column({
     type: DataType.STRING,
     unique: false,
     allowNull: true,
@@ -84,7 +128,7 @@ export class Order extends Model<Order, OrderCreatinAtrrb> {
   @Column({
     type: DataType.STRING,
     unique: false,
-    allowNull: true,
+    allowNull: false,
     field: 'comment',
   })
   public comment: string;
@@ -102,15 +146,15 @@ export class Order extends Model<Order, OrderCreatinAtrrb> {
     allowNull: true,
     field: 'orderToken',
   })
-  private orderToken: string;
+  public orderToken: string;
 
   @Column({
-    type: DataType.STRING,
+    type: DataType.DATE,
     unique: true,
     allowNull: true,
     field: 'orderTokenExpiration',
   })
-  private orderTokenExpiration: number;
+  private orderTokenExpiration: Date;
 
   @ForeignKey(() => User)
   @Column({
@@ -119,6 +163,13 @@ export class Order extends Model<Order, OrderCreatinAtrrb> {
   })
   public userId: number;
 
+  @ForeignKey(() => Cart)
+  @Column({
+    type: DataType.INTEGER,
+    field: 'cartId',
+  })
+  public cartId: number;
+
   @Column({
     type: DataType.INTEGER,
     field: 'totalPrice',
@@ -126,7 +177,10 @@ export class Order extends Model<Order, OrderCreatinAtrrb> {
   public totalPrice: number;
 
   @BelongsTo(() => User)
-  private user: User;
+  public user: User;
+
+  @BelongsTo(() => Cart)
+  public cart: Cart;
 
   @HasMany(() => OrderProduct)
   public orderProducts: OrderProduct[];
@@ -160,11 +214,11 @@ export class Order extends Model<Order, OrderCreatinAtrrb> {
     return this.orderToken;
   }
 
-  getOrderTokenExpiration(): number {
+  getOrderTokenExpiration(): Date {
     return this.orderTokenExpiration;
   }
 
-  setOrderTokenExpiration(orderTokenExpiration: number): number {
+  setOrderTokenExpiration(orderTokenExpiration: Date): Date {
     this.orderTokenExpiration = orderTokenExpiration;
     return this.orderTokenExpiration;
   }

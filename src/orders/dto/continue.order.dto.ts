@@ -1,4 +1,12 @@
-import { IsString, MinLength, MaxLength } from 'class-validator';
+import {
+  IsString,
+  MinLength,
+  MaxLength,
+  IsDate,
+  IsOptional,
+  IsDefined,
+  IsBoolean,
+} from 'class-validator';
 
 export class ContinueOrderDto {
   @IsString()
@@ -16,8 +24,23 @@ export class ContinueOrderDto {
   @MaxLength(50)
   readonly postOffice: string;
 
+  @IsOptional()
   @IsString()
   @MinLength(2)
   @MaxLength(250)
   readonly comment?: string;
+
+  @IsOptional()
+  @IsDate()
+  @MinLength(2)
+  @MaxLength(250)
+  readonly sendDate?: Date;
+
+  @IsDefined()
+  @IsBoolean()
+  readonly payByCard: boolean;
+
+  @IsDefined()
+  @IsBoolean()
+  readonly payInCash: boolean;
 }

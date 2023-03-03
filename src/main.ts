@@ -24,6 +24,7 @@ async function startServer(): Promise<INestApplication> {
     forceCloseConnections: true,
     rawBody: true,
   });
+  app.flushLogs();
   const httpAdapter = app.get(HttpAdapterHost);
   app.enableShutdownHooks();
   app.useGlobalPipes(

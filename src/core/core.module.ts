@@ -40,6 +40,7 @@ import { UsersModule } from '../users/users.module';
 import { BullModule } from '@nestjs/bull';
 import { ColectingGarbageFiles } from './processors/delete.files.processor';
 import { WorkerService } from './services/workers.service';
+import { DeleteProductsFromCarts } from './processors/delete.products.from.carts.processor';
 @Module({
   providers: [
     { provide: APP_INTERCEPTOR, useClass: GlobalInterceptor },
@@ -49,6 +50,7 @@ import { WorkerService } from './services/workers.service';
       useClass: ThrottlerBehindProxyGuard,
     },
     WorkerService,
+    DeleteProductsFromCarts,
     CurrencyService,
     TasksService,
     AppClusterService,
@@ -57,9 +59,12 @@ import { WorkerService } from './services/workers.service';
   ],
   imports: [
     HttpModule,
-    BullModule.registerQueue({
-      name: 'garbageColecting',
-    }),
+    BullModule.registerQueue(
+      {
+        name: 'garbageColecting',
+      },
+      { name: 'deleteProductsFromCarts' },
+    ),
     EventEmitterModule.forRoot({
       wildcard: true,
       delimiter: '.',

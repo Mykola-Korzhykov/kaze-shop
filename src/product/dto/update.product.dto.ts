@@ -80,4 +80,8 @@ export class UpdateProductDto {
   @IsDefined()
   @Type(() => Array<any>)
   readonly selectedImages: Image[];
+
+  @IsDefined()
+  @Type(() => Nested)
+  readonly sizeChartImageDescription: Nested;
 }

@@ -2,6 +2,9 @@
     "rules": {
         "no-var-requires": true,
         "no-any": false,
+        "noImplicitReturns": true,
+        "allowUnusedLabels": false,
+        "no-duplicate-key": true,
         "promise-function-async": false,
         "await-promise": true,
         "curly": true,
@@ -34,6 +37,7 @@
         "static-this": true,
         "switch-default": true,
         "triple-equals": false,
+        "no-parameter-properties": false,
         "no-require-imports": false,
         "prefer-const": true,
         "arrow-return-shorthand": true,

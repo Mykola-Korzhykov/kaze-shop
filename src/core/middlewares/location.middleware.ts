@@ -41,6 +41,7 @@ export class LocationMiddleware implements NestMiddleware {
         );
         if (currency) {
           req['currency'] = {
+            countryCode: data.country.isoCode,
             currrencyCode: currency.currrencyCode,
             symbol: currency.symbol,
             rate: Number(currency.rate),
@@ -48,6 +49,7 @@ export class LocationMiddleware implements NestMiddleware {
           return next();
         }
         req['currency'] = {
+          countryCode: data.country.isoCode,
           currencyCode: countryToCurrency[data.country.isoCode],
           symbol: getSymbolFromCurrency(
             process.env.BASE_CURRENCY.toUpperCase().trim(),
