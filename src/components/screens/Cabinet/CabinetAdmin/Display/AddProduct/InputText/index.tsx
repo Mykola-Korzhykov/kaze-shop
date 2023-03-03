@@ -128,8 +128,15 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
             : ''} */}
 
             {type === 'select' ?  
-                <label onClick={(e) => { setCategoriesDisplay(!categoriesDisplay); }}  className={s.select__wrapper} htmlFor="selectCategory">
-                        <input style={{cursor: 'pointer'}} id='selectCategory' readOnly className={s.input} type={type} placeholder={placeholder} />
+                <label
+                 className={s.select__wrapper} htmlFor="selectCategory">
+                        <input onClick={ (e) => { 
+                        
+                        console.log('input ')
+                        setCategoriesDisplay(!categoriesDisplay);
+                        
+                        dispatch(setCategories(8))
+                        }}  id='selectCategory' readOnly className={s.input} type={type} placeholder={placeholder} />
                         <Image  className={`${s.select_img}`} src={selectIcon} alt="My Image" />
 
            
@@ -137,13 +144,20 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
 
                         {  categoryArr?.map((el, ind) =>{
                         return el.id !== 0.1 ?
-                         <div key={ind} onClick={(e) => {  e.stopPropagation(); console.log(';;;'); setCategoriesDisplay(!categoriesDisplay); }} className={s.categorychose_item}>
+                         <div onClick={ (e) => { 
+                            e.preventDefault()
+                            e.stopPropagation(); 
+                            console.log('item')
+                          
+                            setCategoriesDisplay(!categoriesDisplay);
+                            dispatch(setCategories(8))
+                            }}  key={ind} className={s.categorychose_item}>
                             <span> {el.title} </span>
                         </div> 
 
                         :
                         
-                        <div key={ind} onClick={(e) => {  e.stopPropagation(); console.log(';;;'); setCategoriesDisplay(!categoriesDisplay); }}   className={s.categorychose_add}>
+                        <div key={ind} className={s.categorychose_add}>
                             <span className={s.categorychose_img}>
                             <svg className={s.plus} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M3.75 12H20.25" stroke="#9D9D9D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -157,7 +171,6 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
                         </div>
                            
                         })  }
-
 
                         </div>
                 </label>  

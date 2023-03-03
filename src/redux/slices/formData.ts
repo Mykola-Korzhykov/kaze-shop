@@ -104,6 +104,7 @@ export const formData = createSlice({
         },
         //AllCategories
         setCategories:  (state, action: PayloadAction<number>) =>{
+            console.log('вход к категориям')
             state.categories.push(action.payload)
 
         },
