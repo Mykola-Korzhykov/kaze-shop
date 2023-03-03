@@ -64,6 +64,7 @@ export const CabinetAdmin: React.FC = () => {
     const [modalAddPhoto, setModalAddPhoto ] = React.useState<boolean>(false)
     const [modalAddCAtegory, setModalAddCAtegory ] = React.useState<boolean>(false)
     const [countPhoto, setCountPhoto] = React.useState<number>(1)
+    const  [images, setImages] = React.useState([])
     console.log('choiceColor', choiceColor)
 
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
@@ -111,7 +112,7 @@ export const CabinetAdmin: React.FC = () => {
                 {/* <div style={{ backround-color: `${props.color}`}}></div> */}
                 {displayActive === 1 ? usersRole : ''}
                 {displayActive === 2 ? usersAdmin : ''}
-                {displayActive === 3 ? <AddProduct  setCountPhoto={setCountPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor}   modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''}
+                {displayActive === 3 ? <AddProduct imagesData={images} setImages={setImages}  setCountPhoto={setCountPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor}   modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''}
             </div >
             {countPhoto > 0 && modalAddPhoto &&  choiceColor === false? <div style={{height: `${ 1200 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''}
             {/* {modalAddPhoto  && countPhoto < 2 ? <div  className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''}  */}
@@ -119,7 +120,7 @@ export const CabinetAdmin: React.FC = () => {
             {/* choiceColor == true ? s.backroundModuleMore : */}
 
 
-            {modalAddPhoto ? <ModuleWindiw  setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  
+            {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  
             {/* {modalAddCAtegory ? <ModalAddCategory modalAddCAtegory={modalAddCAtegory} setModalAddCAtegory={setModalAddCAtegory} /> : ''}  */}
             {modalAddColor ? <ModalAddColor  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : '' }
             {/* <div className={s.module_wrapper}>

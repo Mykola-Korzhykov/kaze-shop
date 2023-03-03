@@ -18,6 +18,8 @@ interface AddProductProps {
     modalAddColor: boolean,
     // countPhoto: number, 
     setCountPhoto: (n: number)=> void
+    imagesData: { fileNames: string[], colourId: number; sizes: string[];}[],
+    setImages: (n: any)=> void,
 
 }
   
@@ -36,6 +38,12 @@ interface formDataType {
             rs: string | null,
             en: string | null,
         },
+        sizeChartImageDescription: {
+            ua: string | null,
+            ru: string | null,
+            rs: string | null,
+            en: string | null,
+          }
         categories: number[],
         colours: number[],
         selectedImages: {
@@ -48,19 +56,88 @@ interface formDataType {
         //дальше скажи під яким неймінгом тобі грузити ці свойства
         allcoloursId: number[] | null, //всі кольора 
         allsizes: string[] | null, // всі розміра
-        netData: string | null, // опис размерной сетки
-        netImage: 'image/jpeg' | 'image/png' //сама размерная сетка 
+        // netData: string | null, // опис размерной сетки
+        netImage: File //сама размерная сетка 
     
 }
 
-export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, modalAddColor, setCountPhoto}: AddProductProps) => {
+export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, modalAddColor, setCountPhoto, imagesData, setImages}: AddProductProps) => {
+
+    const [netFile, setNetFile] = React.useState<null | any>(null)
+    // const NetData = useSelector((state: RootState)=> state.formData.netData)
+    const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
+    //statesRedux
+    const addPhotoState =  useSelector((state: RootState)=> state.admin.addPhotoState)
+    const title = useSelector((state: RootState)=> state.formData.title)
+    const description = useSelector((state: RootState)=> state.formData.description)
+    const sizeChartImageDescription = useSelector((state: RootState)=> state.formData.sizeChartImageDescription)
+    const categories = useSelector((state: RootState)=> state.formData.categories)
+    const colours = useSelector((state: RootState)=> state.formData.allcoloursId)
+    const selectedImages = useSelector((state: RootState)=> state.formData.arrObjMod)
+    const price =  useSelector((state: RootState)=> state.formData.price)
+    const quantity =  useSelector((state: RootState)=> state.formData.quantity)
+    const netImage =  useSelector((state: RootState)=> state.formData.netData)
+    const allsizes =  useSelector((state: RootState)=> state.formData.allsizes)
+
+   let  objDataSend = {
+        images: imagesData,
+        title: title,
+        description: description,
+        sizeChartImageDescription: sizeChartImageDescription,
+        categories: categories,
+        colours: colours,
+        selectedImages: selectedImages,
+        price: price,
+        quantity: quantity,
+       // allcoloursId: colours,
+        allsizes: allsizes,
+        netImage: netFile
+   }
+
+   console.log('objDataSend', objDataSend)
+  
+
+    // const selectedImages = useSelector((state: RootState)=> state.formData.)
+    
+
 
     const dispatch = useAppDispatch()
 
+    console.log('imagesData', imagesData)
 
-    function sendFormData(p: any){
+
+    function sendFormData({images, title, description, sizeChartImageDescription, categories, colours, selectedImages, price, quantity, allcoloursId, allsizes, netImage  }: formDataType){
         const formData = new FormData();
-        formData.append('net', p)
+        //images
+        for(let i = 0;  i < images.length; i++){
+            formData.append('images', images[i])
+        }
+        //title
+        //JSON.stringify()
+        formData.append('title', JSON.stringify(title))
+        //description
+        formData.append('description', JSON.stringify(description))
+        //sizeChartImageDescription
+        formData.append('sizeChartImageDescription', JSON.stringify(sizeChartImageDescription))
+        //categories
+        formData.append('categories', JSON.stringify(categories))
+        //colours
+        formData.append('colours', JSON.stringify(colours))
+        //selectedImages
+        formData.append('selectedImages', JSON.stringify(selectedImages))
+        //price
+        formData.append('price', JSON.stringify(price))
+        //quantity
+        formData.append('quantity', JSON.stringify(quantity))
+        //allsizes
+        formData.append('sizes', JSON.stringify(allsizes))
+        //sizeChartImage
+        formData.append('sizeChartImage', netImage)
+        //
+
+
+        console.log('formData', formData)
+      
 
     }
 
@@ -74,12 +151,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
 
     // const [netData, setNetData] = React.useState<null | string>(null)
 
-    const [netFile, setNetFile] = React.useState<null | any>(null)
-    const NetData = useSelector((state: RootState)=> state.formData.netData)
-    const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
-    //statesRedux
-    const addPhotoState =  useSelector((state: RootState)=> state.admin.addPhotoState)
-    const titleen =  useSelector((state: RootState)=> state.formData.title.en)
+ 
 
 
     // console.log('titleen', titleen)
@@ -324,7 +396,11 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
 
                 <div className={s.send_wrapper}>
                     <button  className={s.btn_cancel}>Отменить</button>
-                    <input className={s.btn_send} value='Добавить товар' type="submit" name="submit" id="" />
+                    
+                    <input onClick={()=>{
+                        //@ts-ignore
+                        sendFormData(objDataSend)
+                    }} className={s.btn_send} value='Добавить товар' name="submit" id="" />
                 </div>
             </form>
         </div>

@@ -27,7 +27,9 @@ export interface initialStateType {
       allcoloursId: number[] | null,
       allsizes: string[] | null,
       categories: number[] | null,
-      netData: string | null
+      netData: string | null,
+      arrObjMod: { fileNames: string[], colourId: number; sizes: string[];}[],
+      images: File[]
     
 }
 
@@ -59,6 +61,8 @@ const initialState: initialStateType = {
       allsizes: [],
       categories: [],
       netData: null,
+      arrObjMod: [],
+      images: []
 
 }
 
@@ -136,6 +140,16 @@ export const formData = createSlice({
                 state.sizeChartImageDescription[branch] = sizeChartImageDescription;
             }
         },
+        setArrObjMod: (state, action: PayloadAction<{ fileNames: string[], colourId: number; sizes: string[]}>) =>{
+            
+            state.arrObjMod.push(action.payload) 
+
+        },
+        setImages: (state, action: PayloadAction<File>) =>{
+            
+            state.images.push(action.payload) 
+
+        },
     },
 })
 
@@ -151,6 +165,7 @@ export const {
     setAllsizes,
     setCategories,
     setNetData,
-    setSizeChartImageDescription} = formData.actions
+    setSizeChartImageDescription,
+    setArrObjMod} = formData.actions
 
 export default formData.reducer
