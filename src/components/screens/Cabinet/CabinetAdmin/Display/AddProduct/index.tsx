@@ -107,13 +107,13 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
 
 
     function sendFormData({images, title, description, sizeChartImageDescription, categories, colours, selectedImages, price, quantity, allcoloursId, allsizes, netImage  }: formDataType){
+
         const formData = new FormData();
         //images
         for(let i = 0;  i < images.length; i++){
             formData.append('images', images[i])
         }
         //title
-        //JSON.stringify()
         formData.append('title', JSON.stringify(title))
         //description
         formData.append('description', JSON.stringify(description))
@@ -126,18 +126,32 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
         //selectedImages
         formData.append('selectedImages', JSON.stringify(selectedImages))
         //price
-        formData.append('price', JSON.stringify(price))
+        formData.append('price', price.toString());
         //quantity
-        formData.append('quantity', JSON.stringify(quantity))
+        formData.append('quantity', quantity.toString())
         //allsizes
         formData.append('sizes', JSON.stringify(allsizes))
         //sizeChartImage
         formData.append('sizeChartImage', netImage)
-        //
 
+        fetch('/product/create_product', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
+        });
 
         console.log('formData', formData)
-      
 
     }
 
@@ -172,7 +186,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
         { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false },
         { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', name: 'text', disable: false },
         { id: 9, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false },
-        { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'countproducts', disable: false },
+        { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false },
         // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', name: 'text', disable: true, colors: colors },
         //{ id: 9, type: 'text', text: 'Выберите существующий товар', placeholder: 'Выберите существующий товар', label: 'text', disable: true },
    

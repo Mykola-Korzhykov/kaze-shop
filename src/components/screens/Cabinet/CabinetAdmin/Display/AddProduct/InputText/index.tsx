@@ -5,7 +5,7 @@ import Image from 'next/image';
 //redux
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store"
-import {setTitle, setDescription, setPrice, setCategories} from '../../../../../../../redux/slices/formData'
+import {setTitle, setDescription, setPrice, setCategories, setQuantity} from '../../../../../../../redux/slices/formData'
 import { useAppDispatch } from '@/redux/hooks'
 // import {initialStateType, } from '../../../../../../../redux/slices/formData'
 
@@ -81,16 +81,18 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
             const payload: any = {branch: 'en', description: event.target.value}
             dispatch(setDescription(payload)) 
         }
-         //price
-        if(event.target.name === 'price'){
+         //quantity
+        if(event.target.name === 'quantity'){
             const payload: number = event.target.value
-            dispatch(setPrice(payload)) 
+            dispatch(setQuantity(Number(payload))) 
         }
-       //countproducts
+       //price
        if(event.target.name === 'price'){
         const payload: number = event.target.value
-        dispatch(setPrice(Number(payload) )) 
+        dispatch(setPrice(Number(payload))) 
         }
+
+        //setQuantity
        
 
         // console.log('titleDescription', titleDescription)
