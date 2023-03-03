@@ -9,6 +9,7 @@ import { useAppDispatch } from '@/redux/hooks'
 import { ModuleWindiw } from "./ModuleWindow"
 import {SizeItem} from './SizesItem'
 import {setNetData} from '../../../../../../redux/slices/formData'
+import {SizeChart} from './sizeChart'
 
 interface AddProductProps {
     setModalAddPhoto: (n: boolean)=> void,
@@ -62,6 +63,13 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
         formData.append('net', p)
 
     }
+
+    const SizeChartArr = [
+        {id: 1, title: ' Описание размерной сетки UA', placeholder: 'Введите описание размерной сетки', leng: "ua"},
+        {id: 2, title: ' Описание размерной сетки RU', placeholder: 'Введите описание размерной сетки', leng: "ru"},
+        {id: 3, title: ' Описание размерной сетки SRB', placeholder: 'Введите описание размерной сетки', leng: "rs"},
+        {id: 4, title: ' Описание размерной сетки ENG', placeholder: 'Введите описание размерной сетки', leng: "en"},
+    ]
 
 
     // const [netData, setNetData] = React.useState<null | string>(null)
@@ -246,23 +254,39 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                     </div>
                   
                 </div>
+
+
+
+
+
+
                 <div className={s.net_wrapper}>
-                    <span className={s.item_wrapper_1}>
+
+
+
+
+                    {SizeChartArr.map((obj)=>{
+                        return <SizeChart key={obj.id} leng={obj.leng} id={obj.id} placeholder={obj.placeholder} title={obj.title} />
+                    })}
+                    
+                    {/* <span className={s.item_wrapper_1}>
                         Описание размерной сетки
                         <input onBlur={(e)=>{
                             dispatch(setNetData(e.target.value))
                             e.target.value = e.target.value
                         }}  key={1}  className={s.item_1} placeholder="Введите описание размерной сетки" type="text" />
-                    </span>
+                    </span> */}
+
+
                     <span  className={s.item_wrapper_2}>
                         Загрузите размерную сетку
-                        <label htmlFor="uploadnet" className={s.label}>
+                        <label style={{ cursor: 'pointer'}} htmlFor="uploadnet" className={s.label}>
                             Загрузить размерную сетку
                         </label>
                         <input key={2}  onChange={(e)=>{
                             setNetFile(e.target.files[0])
                         }} id='uploadnet' className={s.item_2} placeholder="Загрузить размерную сетку" type="file" />
-                    </span>
+                    </span> 
                 </div>
 
 

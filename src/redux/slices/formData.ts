@@ -13,6 +13,12 @@ export interface initialStateType {
         rs: string | null,
         en: string | null,
       },
+      sizeChartImageDescription: {
+        ua: string | null,
+        ru: string | null,
+        rs: string | null,
+        en: string | null,
+      }
       sizes:string[],
       colourId: number | null,
       price: number | null,
@@ -37,6 +43,12 @@ const initialState: initialStateType = {
         ru: null,
         rs: null,
         en: null,
+      },
+      sizeChartImageDescription: {
+        ua: '',
+        ru: '',
+        rs: '',
+        en: '',
       },
       sizes:[],
       colourId: null,
@@ -111,11 +123,19 @@ export const formData = createSlice({
 
         },
         setNetData: (state, action: PayloadAction<string>) =>{
-            console.log('вход к категориям')
+            console.log('вход к описания сетки')
             state.netData = action.payload
 
         },
-
+        //
+        setSizeChartImageDescription: (state, action: PayloadAction<{ branch: keyof initialStateType['sizeChartImageDescription'], sizeChartImageDescription: string }>) =>{
+            console.log('key', action.payload.branch)
+            console.log('title', action.payload.sizeChartImageDescription)
+            const { branch, sizeChartImageDescription } = action.payload;
+            if (branch in state.sizeChartImageDescription) {
+                state.sizeChartImageDescription[branch] = sizeChartImageDescription;
+            }
+        },
     },
 })
 
@@ -130,6 +150,7 @@ export const {
     setAllcoloursId,
     setAllsizes,
     setCategories,
-    setNetData} = formData.actions
+    setNetData,
+    setSizeChartImageDescription} = formData.actions
 
 export default formData.reducer
