@@ -111,18 +111,19 @@ export const CabinetAdmin: React.FC = () => {
 
                 {/* <div style={{ backround-color: `${props.color}`}}></div> */}
                 {displayActive === 1 ? usersRole : ''}
-                {displayActive === 2 ? usersAdmin : ''}
-                {displayActive === 3 ? <AddProduct imagesData={images} setImages={setImages}  setCountPhoto={setCountPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor}   modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''}
+                {displayActive === 2 ? usersAdmin : ''} 
+                {displayActive === 3 ? <AddProduct modalAddCAtegory={modalAddCAtegory} setModalAddCAtegory={setModalAddCAtegory}  imagesData={images} setImages={setImages}  setCountPhoto={setCountPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor}   modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''}
             </div >
-            {countPhoto > 0 && modalAddPhoto &&  choiceColor === false? <div style={{height: `${ 1200 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''}
+            {countPhoto > 0 && modalAddPhoto &&  choiceColor === false? <div style={{height: `${ 1450 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''}
             {/* {modalAddPhoto  && countPhoto < 2 ? <div  className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''}  */}
-            {choiceColor? <div   style={{height: `${ 1200 +  colors.length * 25}px` }} className={ s.backround_module}></div> : ''} 
-            {/* choiceColor == true ? s.backroundModuleMore : */}
+            {choiceColor? <div   style={{height: `${ 1450 +  colors.length * 25}px` }} className={ s.backround_module}></div> : ''} 
+            { modalAddCAtegory ?<div style={{height: '1450px'}} className={s.backround_module}></div> : ''}
 
 
             {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  
-            {/* {modalAddCAtegory ? <ModalAddCategory modalAddCAtegory={modalAddCAtegory} setModalAddCAtegory={setModalAddCAtegory} /> : ''}  */}
+            {modalAddCAtegory ? <ModalAddCategory modalAddCAtegory={modalAddCAtegory} setModalAddCAtegory={setModalAddCAtegory} /> : ''} 
             {modalAddColor ? <ModalAddColor  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : '' }
+            
             {/* <div className={s.module_wrapper}>
                     <div className={s.module_inner}>
                         <div className={s.title_wrapper}>

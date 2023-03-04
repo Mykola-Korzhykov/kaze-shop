@@ -2,8 +2,9 @@ import React from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import s from './AddProduct.module.scss'
-//comonets
+//components
 import { InputTextItem } from './InputText'
+// import {ModalAddCategory} from '../AddProduct/ModalAddCategory'
 import {setAddPhotoState} from '../../../../../../redux/slices/admin'
 import { useAppDispatch } from '@/redux/hooks'
 import { ModuleWindiw } from "./ModuleWindow"
@@ -20,7 +21,8 @@ interface AddProductProps {
     setCountPhoto: (n: number)=> void
     imagesData: { fileNames: string[], colourId: number; sizes: string[];}[],
     setImages: (n: any)=> void,
-
+    modalAddCAtegory: boolean,
+    setModalAddCAtegory: (n: any)=> void,
 }
   
 
@@ -61,7 +63,7 @@ interface formDataType {
     
 }
 
-export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, modalAddColor, setCountPhoto, imagesData, setImages}: AddProductProps) => {
+export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, modalAddColor, setCountPhoto, imagesData, setImages, modalAddCAtegory, setModalAddCAtegory}: AddProductProps) => {
 
     const [netFile, setNetFile] = React.useState<null | any>(null)
     // const NetData = useSelector((state: RootState)=> state.formData.netData)
@@ -261,7 +263,10 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                              key={obj.id} id={obj.id} 
                              type={obj.type} 
                              text={obj.text} 
-                             placeholder={obj.placeholder} />
+                             placeholder={obj.placeholder}
+                             modalAddCAtegory={modalAddCAtegory}
+                             setModalAddCAtegory={setModalAddCAtegory}
+                             />
                         })}
                     </div>
 
@@ -280,7 +285,10 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                             text={obj.text} 
                             placeholder={obj.placeholder}
                             setModalAddColor={setModalAddColor}
-                            modalAddColor={modalAddColor}  />
+                            modalAddColor={modalAddColor}
+                            modalAddCAtegory={modalAddCAtegory}
+                            setModalAddCAtegory={setModalAddCAtegory}  />
+                            
                             
                         })}
                     </div>
@@ -296,7 +304,11 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                             text={obj.text} 
                             placeholder={obj.placeholder}
                             setModalAddColor={setModalAddColor}
-                            modalAddColor={modalAddColor}  />
+                            modalAddColor={modalAddColor}
+                            modalAddCAtegory={modalAddCAtegory}
+                            setModalAddCAtegory={setModalAddCAtegory}
+                              />
+                           
                             
                         })}
                     </div>

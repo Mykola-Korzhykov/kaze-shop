@@ -6,19 +6,45 @@ import { RootState } from "@/redux/store"
 import { useAppDispatch } from '@/redux/hooks'
 
 
+
 interface ModalAddCategoryProps {
     setModalAddCAtegory: (n: boolean)=> void,
     modalAddCAtegory: boolean,
 }
 
 
-
 export const ModalAddCategory = ({setModalAddCAtegory, modalAddCAtegory }: ModalAddCategoryProps) => {
+
+    interface  inputsObj {
+        ua: string;
+        ru: string;
+        rs: string;
+        en: string;
+    }
+
+    const [stateInputs, setStateInputs] = React.useState<inputsObj>({ua: '',  ru: '', rs: '', en: ''  })
+    
+
+    function sendStateInputs(obj: inputsObj){
+        
+        const formData = new FormData();
+        //title
+        formData.append('title', JSON.stringify(obj))
+
+        fetch('categories/create_category', {
+            method: 'PUT',
+            body: formData
+          })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
+
+    }
 
     const dispatch = useAppDispatch()
 
     return (
-        <div className={s.module_wrapper}>
+        <div style={ modalAddCAtegory ?  {  display: 'flex'} :{  display: 'none'} } className={s.module_wrapper}>
             <div className={s.module_inner}>
 
             <div onClick={()=> setModalAddCAtegory(false)} className={s.close_modal}>
@@ -40,7 +66,10 @@ export const ModalAddCategory = ({setModalAddCAtegory, modalAddCAtegory }: Modal
                         <span className={s.title}>Категория (Украинский)</span>
                         <label className={s.label_input_file} htmlFor="choosecategoryUA">
                                 
-                            <input id="choosecategoryUA" className={s.input_file} placeholder='Введите категорию' type="text" />
+                            <input key={1} onBlur={(e)=>{
+                              setStateInputs(prevState => ({ ...prevState, ua: e.target.value  }));
+                              console.log('setStateInputs', stateInputs )
+                            }} id="choosecategoryUA" className={s.input_file} placeholder='Введите категорию' type="text" />
                         </label>
                     </div>
 
@@ -48,15 +77,22 @@ export const ModalAddCategory = ({setModalAddCAtegory, modalAddCAtegory }: Modal
                         <span className={s.title}>Категория (Русский)</span>
                         <label className={s.label_input_file} htmlFor="choosecategoryRU">
                            
-                            <input id="choosecategoryRU" className={s.input_file} placeholder='Введите категорию' type="text" />
+                            <input key={2} onBlur={(e)=>{
+                              setStateInputs(prevState => ({ ...prevState, ru: e.target.value  }));
+                              console.log('setStateInputs', stateInputs )
+                            }} id="choosecategoryRU" className={s.input_file} placeholder='Введите категорию' type="text" />
                         </label>
                     </div>
 
                     <div className={s.input_inner}>
                         <span className={s.title}>Категория (Английский)</span>
-                        <label className={s.label_input_file} htmlFor="choosecategoryEN">
+                        <label  className={s.label_input_file} htmlFor="choosecategoryEN">
                            
-                            <input id="choosecategoryEN" className={s.input_file} placeholder='Введите категорию' type="text" />
+                            <input 
+                            key={3} onBlur={(e)=>{
+                                setStateInputs(prevState => ({ ...prevState, en: e.target.value  }));
+                                console.log('setStateInputs', stateInputs )
+                              }} id="choosecategoryEN" className={s.input_file} placeholder='Введите категорию' type="text" />
                         </label>
                     </div>
 
@@ -64,11 +100,17 @@ export const ModalAddCategory = ({setModalAddCAtegory, modalAddCAtegory }: Modal
                         <span className={s.title}>Категория (Сербский)</span>
                         <label className={s.label_input_file} htmlFor="choosecategoryRS">
                            
-                            <input id="choosecategoryRS" className={s.input_file} placeholder='Введите категорию' type="text" />
+                            <input key={4} onBlur={(e)=>{
+                              setStateInputs(prevState => ({ ...prevState, rs: e.target.value  }));
+                              console.log('setStateInputs', stateInputs )
+                            }} id="choosecategoryRS" className={s.input_file} placeholder='Введите категорию' type="text" />
                         </label>
                     </div>
 
-                    <button className={s.btn_add}>
+                    <button onClick={()=>{
+                        sendStateInputs(stateInputs)
+                        setModalAddCAtegory(false)
+                        }} className={s.btn_add}>
                         Добавить категорию
                     </button>
 

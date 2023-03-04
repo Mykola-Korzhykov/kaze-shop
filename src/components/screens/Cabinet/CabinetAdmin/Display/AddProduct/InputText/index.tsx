@@ -25,13 +25,17 @@ interface InputItemProps {
     }[],
     setModalAddColor?: (n: boolean)=> void
     modalAddColor?: boolean,
+    modalAddCAtegory?: boolean, 
+    setModalAddCAtegory?: (n: boolean)=> void
+    
 }
 
-export const InputTextItem = ({ id, type, text, placeholder, disable, name, colors, modalAddColor, setModalAddColor}: InputItemProps) => {
+export const InputTextItem = ({ id, type, text, placeholder, disable, name, colors, modalAddColor, setModalAddColor, setModalAddCAtegory, modalAddCAtegory}: InputItemProps) => {
 
     const dispatch = useAppDispatch()
     // const titleStore = useSelector((state: RootState)=> state.formData.title)
     
+    console.log('modalAddCAtegory', modalAddCAtegory)
     //redux
     const titleDescription = useSelector((state: RootState)=> state.formData.price)
     const categories = useSelector((state: RootState)=> state.formData.categories)
@@ -161,8 +165,7 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
                         onClick={ (e) => { 
                             e.preventDefault()
                             e.stopPropagation(); 
-                            console.log('plus')
-                            console.log(el.id)
+                            setModalAddCAtegory(true)
                             setCategoriesDisplay(!categoriesDisplay);
                             }} 
                         
