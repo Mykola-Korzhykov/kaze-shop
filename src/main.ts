@@ -169,8 +169,8 @@ if (process.env?.NODE_ENV === 'development') {
 }
 if (process.env?.NODE_ENV === 'production') {
   try {
-    //startServer();
-    AppClusterService.clusterize(startServer);
+    startServer();
+    //AppClusterService.clusterize(startServer);
   } catch (err) {
     console.log(err);
   }
