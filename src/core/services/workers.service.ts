@@ -10,6 +10,7 @@ export class WorkerService {
     private readonly schedulerRegistry: SchedulerRegistry,
     @InjectQueue('garbageColecting') private garbageQueue: Queue,
     @InjectQueue('deleteProductsFromCarts') private freshQueue: Queue,
+    @InjectQueue('deleteNotCompletedOrders') private deleteOrdersQueue: Queue,
   ) {}
 
   @Cron(CronExpression.EVERY_2_HOURS, {
@@ -18,7 +19,6 @@ export class WorkerService {
   async deleteFiles() {
     try {
       await this.garbageQueue.add('deleteFiles');
-      this.logger.log('done');
     } catch (err) {
       this.deleteCron('garbageColecting');
     }
@@ -30,9 +30,19 @@ export class WorkerService {
   async freshCarts() {
     try {
       await this.freshQueue.add('freshCarts');
-      this.logger.log('done');
     } catch (err) {
       this.deleteCron('freshCarts');
+    }
+  }
+
+  @Cron(CronExpression.EVERY_DAY_AT_11PM, {
+    name: 'deleteOrders',
+  })
+  async fdeleteOrders() {
+    try {
+      await this.deleteOrdersQueue.add('deleteOrders');
+    } catch (err) {
+      this.deleteCron('deleteOrders');
     }
   }
 

@@ -57,6 +57,7 @@ import { Colour } from './categories&colours/models/colours.model';
 import { ProductColours } from './categories&colours/models/product.colour.model';
 import { FilesService } from './core/services/file.service';
 import { WebhookMiddleware } from './core/middlewares/webhook.middleware';
+import { AppGateway } from './app.gateway';
 @Module({
   controllers: [AppController],
   providers: [
@@ -64,6 +65,7 @@ import { WebhookMiddleware } from './core/middlewares/webhook.middleware';
     TasksService,
     HttpModule,
     AppClusterService,
+    AppGateway,
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,

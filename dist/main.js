@@ -179,17 +179,18 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __webpack_require__(4);
 const swagger_1 = __webpack_require__(5);
 const app_module_1 = __webpack_require__(6);
-const helmet_1 = __importDefault(__webpack_require__(192));
-const compression_1 = __importDefault(__webpack_require__(193));
-const cookie_parser_1 = __importDefault(__webpack_require__(194));
-const serve_favicon_1 = __importDefault(__webpack_require__(195));
+const helmet_1 = __importDefault(__webpack_require__(197));
+const compression_1 = __importDefault(__webpack_require__(198));
+const cookie_parser_1 = __importDefault(__webpack_require__(199));
+const serve_favicon_1 = __importDefault(__webpack_require__(200));
 const cluster_service_1 = __webpack_require__(113);
 const common_1 = __webpack_require__(7);
 const all_exceptions_filter_1 = __webpack_require__(110);
 const error_handler_filter_1 = __webpack_require__(88);
 const api_exception_filter_1 = __webpack_require__(90);
 const path_1 = __webpack_require__(73);
-const body_parser_1 = __importDefault(__webpack_require__(196));
+const body_parser_1 = __importDefault(__webpack_require__(201));
+const redis_io_adapter_1 = __webpack_require__(202);
 const PORT = Number(process.env.PORT) || 2222;
 function startServer() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -200,8 +201,11 @@ function startServer() {
             forceCloseConnections: true,
             rawBody: true,
         });
-        app.flushLogs();
         const httpAdapter = app.get(core_1.HttpAdapterHost);
+        const redisIoAdapter = new redis_io_adapter_1.RedisIoAdapter(app);
+        yield redisIoAdapter.connectToRedis();
+        app.useWebSocketAdapter(redisIoAdapter);
+        app.flushLogs();
         app.enableShutdownHooks();
         app.useGlobalPipes(new common_1.ValidationPipe({
             transform: true,
@@ -365,7 +369,7 @@ const throttler_1 = __webpack_require__(82);
 const path_1 = __importDefault(__webpack_require__(73));
 const admin_refresh_token_model_1 = __webpack_require__(49);
 const mail_module_1 = __webpack_require__(121);
-const cors_middleware_1 = __webpack_require__(180);
+const cors_middleware_1 = __webpack_require__(184);
 const core_1 = __webpack_require__(4);
 const all_exceptions_filter_1 = __webpack_require__(110);
 const global_interceptor_1 = __webpack_require__(111);
@@ -381,9 +385,9 @@ const user_model_1 = __webpack_require__(38);
 const user_refresh_token_model_1 = __webpack_require__(39);
 const roles_model_1 = __webpack_require__(26);
 const user_roles_model_1 = __webpack_require__(30);
-const app_controller_1 = __webpack_require__(183);
-const telegram_module_1 = __webpack_require__(185);
-const telegram_config_1 = __webpack_require__(186);
+const app_controller_1 = __webpack_require__(187);
+const telegram_module_1 = __webpack_require__(189);
+const telegram_config_1 = __webpack_require__(190);
 const categories_colours_module_1 = __webpack_require__(147);
 const product_model_1 = __webpack_require__(32);
 const category_model_1 = __webpack_require__(43);
@@ -393,19 +397,20 @@ const cart_model_1 = __webpack_require__(37);
 const order_model_1 = __webpack_require__(36);
 const order_product_model_1 = __webpack_require__(35);
 const platform_express_1 = __webpack_require__(138);
-const bull_1 = __webpack_require__(170);
-const reviews_module_1 = __webpack_require__(187);
+const bull_1 = __webpack_require__(173);
+const reviews_module_1 = __webpack_require__(191);
 const review_model_1 = __webpack_require__(45);
 const product_reviews_model_1 = __webpack_require__(46);
 const bookmark_products_1 = __webpack_require__(40);
 const watched_products_model_1 = __webpack_require__(41);
 const currencies_model_1 = __webpack_require__(48);
 const axios_1 = __webpack_require__(64);
-const location_middleware_1 = __webpack_require__(191);
+const location_middleware_1 = __webpack_require__(195);
 const scedule_service_1 = __webpack_require__(69);
 const colours_model_1 = __webpack_require__(34);
 const product_colour_model_1 = __webpack_require__(42);
 const file_service_1 = __webpack_require__(116);
+const app_gateway_1 = __webpack_require__(196);
 let AppModule = class AppModule {
     configure(consumer) {
         consumer.apply(cors_middleware_1.CorsMiddleware, location_middleware_1.LocationMiddleware).forRoutes({
@@ -422,6 +427,7 @@ AppModule = __decorate([
             scedule_service_1.TasksService,
             axios_1.HttpModule,
             cluster_service_1.AppClusterService,
+            app_gateway_1.AppGateway,
             {
                 provide: core_1.APP_FILTER,
                 useClass: all_exceptions_filter_1.AllExceptionsFilter,
@@ -600,11 +606,11 @@ const owner_refresh_token_model_1 = __webpack_require__(47);
 const users_module_1 = __webpack_require__(122);
 const user_model_1 = __webpack_require__(38);
 const user_refresh_token_model_1 = __webpack_require__(39);
-const user_admin_middleware_1 = __webpack_require__(178);
+const user_admin_middleware_1 = __webpack_require__(182);
 const body_validator_pipe_1 = __importDefault(__webpack_require__(129));
 const create_admin_dto_1 = __webpack_require__(78);
 const config_1 = __webpack_require__(108);
-const admin_user_middleware_1 = __webpack_require__(179);
+const admin_user_middleware_1 = __webpack_require__(183);
 const core_module_1 = __webpack_require__(109);
 const scedule_service_1 = __webpack_require__(69);
 const cart_product_model_1 = __webpack_require__(33);
@@ -4162,7 +4168,7 @@ __decorate([
 ], Order.prototype, "comment", void 0);
 __decorate([
     (0, sequelize_typescript_1.Column)({
-        type: sequelize_typescript_1.DataType.ENUM('Canceled', 'Submitted', 'Completed', 'Processing'),
+        type: sequelize_typescript_1.DataType.ENUM('Canceled', 'Submitted', 'Completed', 'Processing', 'PAID'),
         unique: false,
         field: 'orderStatus',
     }),
@@ -9156,8 +9162,8 @@ const jwt_refresh_service_1 = __webpack_require__(76);
 const jwt_refresh_service_2 = __webpack_require__(75);
 const users_module_1 = __webpack_require__(122);
 const initialize_user_middleware_1 = __webpack_require__(128);
-const initialize_email_middleware_1 = __webpack_require__(175);
-const activate_middleware_1 = __webpack_require__(176);
+const initialize_email_middleware_1 = __webpack_require__(179);
+const activate_middleware_1 = __webpack_require__(180);
 const body_validator_pipe_1 = __importDefault(__webpack_require__(129));
 const login_dto_1 = __webpack_require__(94);
 const signup_dto_1 = __webpack_require__(17);
@@ -9175,7 +9181,7 @@ const user_refresh_token_model_1 = __webpack_require__(39);
 const config_1 = __webpack_require__(108);
 const scedule_service_1 = __webpack_require__(69);
 const core_module_1 = __webpack_require__(109);
-const events_service_1 = __webpack_require__(177);
+const events_service_1 = __webpack_require__(181);
 const currency_service_1 = __webpack_require__(63);
 const currencies_model_1 = __webpack_require__(48);
 const axios_1 = __webpack_require__(64);
@@ -10369,10 +10375,11 @@ const owner_module_1 = __webpack_require__(103);
 const product_module_1 = __webpack_require__(130);
 const roles_module_1 = __webpack_require__(104);
 const users_module_1 = __webpack_require__(122);
-const bull_1 = __webpack_require__(170);
-const delete_files_processor_1 = __webpack_require__(171);
-const workers_service_1 = __webpack_require__(173);
-const delete_products_from_carts_processor_1 = __webpack_require__(174);
+const bull_1 = __webpack_require__(173);
+const delete_files_processor_1 = __webpack_require__(174);
+const workers_service_1 = __webpack_require__(176);
+const delete_products_from_carts_processor_1 = __webpack_require__(177);
+const delete_not_completed_orders_processor_1 = __webpack_require__(178);
 let CoreModule = CoreModule_1 = class CoreModule {
 };
 CoreModule = CoreModule_1 = __decorate([
@@ -10391,12 +10398,13 @@ CoreModule = CoreModule_1 = __decorate([
             cluster_service_1.AppClusterService,
             file_service_1.FilesService,
             delete_files_processor_1.ColectingGarbageFiles,
+            delete_not_completed_orders_processor_1.DeleteNotCompletedOrders,
         ],
         imports: [
             axios_1.HttpModule,
             bull_1.BullModule.registerQueue({
                 name: 'garbageColecting',
-            }, { name: 'deleteProductsFromCarts' }),
+            }, { name: 'deleteProductsFromCarts' }, { name: 'deleteNotCompletedOrders' }),
             event_emitter_1.EventEmitterModule.forRoot({
                 wildcard: true,
                 delimiter: '.',
@@ -11743,7 +11751,7 @@ const currencies_model_1 = __webpack_require__(48);
 const colours_service_1 = __webpack_require__(136);
 const colours_model_1 = __webpack_require__(34);
 const product_colour_model_1 = __webpack_require__(42);
-const bull_1 = __webpack_require__(170);
+const bull_1 = __webpack_require__(173);
 let ProductModule = class ProductModule {
     configure(consumer) {
         consumer.apply(product_middleware_1.ProductMiddleware).forRoutes({
@@ -14938,7 +14946,7 @@ const order_product_model_1 = __webpack_require__(35);
 const product_model_1 = __webpack_require__(32);
 const orders_module_1 = __webpack_require__(158);
 const categories_colours_module_1 = __webpack_require__(147);
-const cart_middleware_1 = __webpack_require__(169);
+const cart_middleware_1 = __webpack_require__(172);
 const currency_service_1 = __webpack_require__(63);
 const currencies_model_1 = __webpack_require__(48);
 const admin_module_1 = __webpack_require__(9);
@@ -15653,7 +15661,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OrdersModule = void 0;
 const common_1 = __webpack_require__(7);
 const orders_service_1 = __webpack_require__(159);
-const orders_controller_1 = __webpack_require__(165);
+const orders_controller_1 = __webpack_require__(168);
 const sequelize_1 = __webpack_require__(8);
 const auth_module_1 = __webpack_require__(91);
 const roles_model_1 = __webpack_require__(26);
@@ -15676,7 +15684,9 @@ const product_model_1 = __webpack_require__(32);
 const order_model_1 = __webpack_require__(36);
 const order_product_model_1 = __webpack_require__(35);
 const categories_colours_module_1 = __webpack_require__(147);
-const is_user_middleware_1 = __webpack_require__(168);
+const is_user_middleware_1 = __webpack_require__(171);
+const event_emitter_1 = __webpack_require__(70);
+const order_gateway_1 = __webpack_require__(165);
 let OrdersModule = class OrdersModule {
     configure(consumer) {
         consumer.apply(is_user_middleware_1.IsUser).forRoutes({
@@ -15687,7 +15697,7 @@ let OrdersModule = class OrdersModule {
 };
 OrdersModule = __decorate([
     (0, common_1.Module)({
-        providers: [orders_service_1.OrdersService],
+        providers: [orders_service_1.OrdersService, order_gateway_1.OrdersGateway],
         controllers: [orders_controller_1.OrdersController],
         imports: [
             (0, common_1.forwardRef)(() => auth_module_1.AuthModule),
@@ -15695,6 +15705,15 @@ OrdersModule = __decorate([
                 envFilePath: `.${process.env.NODE_ENV}.env`,
                 expandVariables: true,
                 isGlobal: true,
+            }),
+            event_emitter_1.EventEmitterModule.forRoot({
+                wildcard: false,
+                delimiter: '.',
+                newListener: false,
+                removeListener: false,
+                maxListeners: 10,
+                verboseMemoryLeak: false,
+                ignoreErrors: false,
             }),
             sequelize_1.SequelizeModule.forFeature([
                 product_model_1.Product,
@@ -15775,7 +15794,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var OrdersService_1;
-var _a, _b;
+var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OrdersService = void 0;
 const common_1 = __webpack_require__(7);
@@ -15789,11 +15808,15 @@ const order_model_1 = __webpack_require__(36);
 const uuid_1 = __webpack_require__(59);
 const util_1 = __webpack_require__(15);
 const order_constants_1 = __webpack_require__(164);
+const event_emitter_1 = __webpack_require__(70);
+const order_gateway_1 = __webpack_require__(165);
 let OrdersService = OrdersService_1 = class OrdersService {
-    constructor(orderRepository, bot, cartService) {
+    constructor(orderRepository, bot, cartService, eventEmitter, ordersGateWay) {
         this.orderRepository = orderRepository;
         this.bot = bot;
         this.cartService = cartService;
+        this.eventEmitter = eventEmitter;
+        this.ordersGateWay = ordersGateWay;
         this.Logger = new common_1.Logger(OrdersService_1.name);
         this.API_URL = `${process.env.LIQPAY_API_BASE_URL.trim()}/${Number(process.env.LIQPAY_API_VERSION)}`;
     }
@@ -15809,6 +15832,7 @@ let OrdersService = OrdersService_1 = class OrdersService {
                 order.setOrderToken(orderToken);
                 order.setOrderTokenExpiration(new Date());
                 order.cartId = userCart.id;
+                order.setOrderStatus('Submitted');
                 order.$set('cart', userCart);
                 userCart.$set('order', order);
                 yield order.save();
@@ -15860,6 +15884,8 @@ let OrdersService = OrdersService_1 = class OrdersService {
                 order.postOffice = continueOrderDto.postOffice;
                 order.setCurrency(currency);
                 order.languageCode = languageCode;
+                order.cart.setCartStatus('CheckedOut');
+                yield order.cart.save();
                 if (continueOrderDto.comment) {
                     order.comment = continueOrderDto.comment;
                 }
@@ -15874,8 +15900,9 @@ let OrdersService = OrdersService_1 = class OrdersService {
                         Number(orderProduct.quantity) * Number(orderProduct.price);
                 });
                 order.totalPrice = totalPrice * currency.rate;
-                yield order.save();
                 if (continueOrderDto.payByCard && !continueOrderDto.payInCash) {
+                    order.setOrderStatus('Processing');
+                    yield order.save();
                     paymentLink = this.ganeratePaymentLink({
                         userName: order.userName,
                         userSurname: order.userSurname,
@@ -15887,6 +15914,8 @@ let OrdersService = OrdersService_1 = class OrdersService {
                     }, currency);
                     return response.json({ paymentLink: paymentLink, orderId: order.id });
                 }
+                order.setOrderStatus('Completed');
+                yield order.save();
                 yield this.bot.sendMessage(order);
                 return response.json({ paymentLink: paymentLink, orderId: order.id });
             }
@@ -15914,6 +15943,8 @@ let OrdersService = OrdersService_1 = class OrdersService {
             const dataString = this.objectToBase64(dataToSign);
             const verification = this.verifyDataString(dataString, signature);
             if (verification) {
+                order.setOrderStatus('PAID');
+                yield order.save();
                 yield this.bot.sendMessage(order);
             }
             return;
@@ -15987,7 +16018,7 @@ let OrdersService = OrdersService_1 = class OrdersService {
 OrdersService = OrdersService_1 = __decorate([
     (0, common_1.Injectable)({ scope: common_1.Scope.TRANSIENT }),
     __param(0, (0, sequelize_1.InjectModel)(order_model_1.Order)),
-    __metadata("design:paramtypes", [Object, typeof (_a = typeof telegram_service_1.TelegramService !== "undefined" && telegram_service_1.TelegramService) === "function" ? _a : Object, typeof (_b = typeof cart_service_1.CartService !== "undefined" && cart_service_1.CartService) === "function" ? _b : Object])
+    __metadata("design:paramtypes", [Object, typeof (_a = typeof telegram_service_1.TelegramService !== "undefined" && telegram_service_1.TelegramService) === "function" ? _a : Object, typeof (_b = typeof cart_service_1.CartService !== "undefined" && cart_service_1.CartService) === "function" ? _b : Object, typeof (_c = typeof event_emitter_1.EventEmitter2 !== "undefined" && event_emitter_1.EventEmitter2) === "function" ? _c : Object, typeof (_d = typeof order_gateway_1.OrdersGateway !== "undefined" && order_gateway_1.OrdersGateway) === "function" ? _d : Object])
 ], OrdersService);
 exports.OrdersService = OrdersService;
 
@@ -16033,9 +16064,60 @@ let TelegramService = class TelegramService {
     }
     sendMessage(order, chatId = this.options.chatId) {
         return __awaiter(this, void 0, void 0, function* () {
+            const message = this.createMessage(order);
+            const msg = yield this.bot.telegram.sendMessage(chatId, message);
+            return msg;
         });
     }
-    createMessage(order) { }
+    createMessage(order) {
+        let message = ``;
+        let totalPrice = 0;
+        order.orderProducts.forEach((orderProduct, index) => {
+            message += `
+      - - - - - - - - -   
+      ТОВАР ${index + 1}
+      Товар: ${orderProduct}
+      Размер: ${orderProduct.size}
+      Цвет: ${orderProduct.colour.ru}, ${orderProduct.colour.hex}
+      Колличество: ${orderProduct.quantity}
+      Цена: ${orderProduct.price}$
+
+      `;
+        });
+        order.orderProducts.forEach((orderProduct) => {
+            totalPrice += Number(orderProduct.quantity) * Number(orderProduct.price);
+        });
+        message += `
+    - - - - - - - - -
+    КОНТАКТНАЯ ИНФОРМАЦИЯ
+
+    Имя: ${order.userName}
+    Фамилия: ${order.userSurname}
+    Номер телефона: ${order.userPhoneNumber}
+    E-mail: ${order.userEmail}
+    
+    - - - - - - - - -
+
+    ДОСТАВКА В ОТДЕЛЕНИЕ
+
+    Страна: ${order.country}
+    Город: ${order.city}
+    Отделение: ${order.postOffice}
+
+    - - - - - - - - -
+
+    ОПЛАТА КАРТОЙ
+
+    Статус оплаты: ${order.getOrderStatus() === 'PAID' ? 'Оплачено' : 'Не оплачено'}
+    Комментарий к заказу: ${order.comment ? order.comment : 'Отсутствует'}
+
+    - - - - - - - - -
+
+    ПОДИТОГ
+
+    Сумма заказа: ${totalPrice}$`;
+        return message;
+    }
 };
 TelegramService = __decorate([
     (0, common_1.Injectable)({ scope: common_1.Scope.TRANSIENT }),
@@ -16109,6 +16191,73 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var _a, _b, _c;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.OrdersGateway = void 0;
+const websockets_1 = __webpack_require__(166);
+const socket_io_1 = __webpack_require__(167);
+let OrdersGateway = class OrdersGateway {
+    sendToAll(msg) {
+        this.wss.emit('OnPaymentProceed', { type: 'PaymentDone', message: msg });
+    }
+    handleOrderContinued(client, orderStatus) {
+        client.emit('orderConinued', orderStatus);
+    }
+    handleOrderLeft(client, orderStatus) {
+        client.emit('orderLeft', orderStatus);
+    }
+};
+__decorate([
+    (0, websockets_1.WebSocketServer)(),
+    __metadata("design:type", typeof (_a = typeof socket_io_1.Server !== "undefined" && socket_io_1.Server) === "function" ? _a : Object)
+], OrdersGateway.prototype, "wss", void 0);
+__decorate([
+    (0, websockets_1.SubscribeMessage)('OrderContinued'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_b = typeof socket_io_1.Socket !== "undefined" && socket_io_1.Socket) === "function" ? _b : Object, String]),
+    __metadata("design:returntype", void 0)
+], OrdersGateway.prototype, "handleOrderContinued", null);
+__decorate([
+    (0, websockets_1.SubscribeMessage)('OrderLeft'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_c = typeof socket_io_1.Socket !== "undefined" && socket_io_1.Socket) === "function" ? _c : Object, String]),
+    __metadata("design:returntype", void 0)
+], OrdersGateway.prototype, "handleOrderLeft", null);
+OrdersGateway = __decorate([
+    (0, websockets_1.WebSocketGateway)({ namespace: '/orders/verify_order' })
+], OrdersGateway);
+exports.OrdersGateway = OrdersGateway;
+
+
+/***/ }),
+/* 166 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("@nestjs/websockets");
+
+/***/ }),
+/* 167 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("socket.io");
+
+/***/ }),
+/* 168 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
@@ -16130,8 +16279,8 @@ const express_1 = __webpack_require__(20);
 const throttler_behind_proxy_guard_1 = __webpack_require__(81);
 const api_exception_filter_1 = __webpack_require__(90);
 const error_handler_filter_1 = __webpack_require__(88);
-const create_order_dto_1 = __webpack_require__(166);
-const continue_order_dto_1 = __webpack_require__(167);
+const create_order_dto_1 = __webpack_require__(169);
+const continue_order_dto_1 = __webpack_require__(170);
 let OrdersController = class OrdersController {
     createOrder(request, response, next, cartId, createOrderDto) {
         (() => __awaiter(this, void 0, void 0, function* () {
@@ -16195,7 +16344,7 @@ exports.OrdersController = OrdersController;
 
 
 /***/ }),
-/* 166 */
+/* 169 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -16252,7 +16401,7 @@ exports.CreateOrderDto = CreateOrderDto;
 
 
 /***/ }),
-/* 167 */
+/* 170 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -16318,7 +16467,7 @@ exports.ContinueOrderDto = ContinueOrderDto;
 
 
 /***/ }),
-/* 168 */
+/* 171 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -16389,7 +16538,7 @@ exports.IsUser = IsUser;
 
 
 /***/ }),
-/* 169 */
+/* 172 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -16493,14 +16642,14 @@ exports.CartMiddleware = CartMiddleware;
 
 
 /***/ }),
-/* 170 */
+/* 173 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@nestjs/bull");
 
 /***/ }),
-/* 171 */
+/* 174 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -16537,10 +16686,10 @@ var ColectingGarbageFiles_1;
 var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ColectingGarbageFiles = void 0;
-const bull_1 = __webpack_require__(170);
+const bull_1 = __webpack_require__(173);
 const common_1 = __webpack_require__(7);
 const sequelize_1 = __webpack_require__(8);
-const bull_2 = __webpack_require__(172);
+const bull_2 = __webpack_require__(175);
 const fs_1 = __webpack_require__(117);
 const path_1 = __webpack_require__(73);
 const product_model_1 = __webpack_require__(32);
@@ -16615,14 +16764,14 @@ exports.ColectingGarbageFiles = ColectingGarbageFiles;
 
 
 /***/ }),
-/* 172 */
+/* 175 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("bull");
 
 /***/ }),
-/* 173 */
+/* 176 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -16649,25 +16798,25 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 var WorkerService_1;
-var _a, _b, _c;
+var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.WorkerService = void 0;
-const bull_1 = __webpack_require__(170);
+const bull_1 = __webpack_require__(173);
 const common_1 = __webpack_require__(7);
 const schedule_1 = __webpack_require__(62);
-const bull_2 = __webpack_require__(172);
+const bull_2 = __webpack_require__(175);
 let WorkerService = WorkerService_1 = class WorkerService {
-    constructor(schedulerRegistry, garbageQueue, freshQueue) {
+    constructor(schedulerRegistry, garbageQueue, freshQueue, deleteOrdersQueue) {
         this.schedulerRegistry = schedulerRegistry;
         this.garbageQueue = garbageQueue;
         this.freshQueue = freshQueue;
+        this.deleteOrdersQueue = deleteOrdersQueue;
         this.logger = new common_1.Logger(WorkerService_1.name);
     }
     deleteFiles() {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.garbageQueue.add('deleteFiles');
-                this.logger.log('done');
             }
             catch (err) {
                 this.deleteCron('garbageColecting');
@@ -16678,10 +16827,19 @@ let WorkerService = WorkerService_1 = class WorkerService {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 yield this.freshQueue.add('freshCarts');
-                this.logger.log('done');
             }
             catch (err) {
                 this.deleteCron('freshCarts');
+            }
+        });
+    }
+    fdeleteOrders() {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                yield this.deleteOrdersQueue.add('deleteOrders');
+            }
+            catch (err) {
+                this.deleteCron('deleteOrders');
             }
         });
     }
@@ -16707,17 +16865,26 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], WorkerService.prototype, "freshCarts", null);
+__decorate([
+    (0, schedule_1.Cron)(schedule_1.CronExpression.EVERY_DAY_AT_11PM, {
+        name: 'deleteOrders',
+    }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], WorkerService.prototype, "fdeleteOrders", null);
 WorkerService = WorkerService_1 = __decorate([
     (0, common_1.Injectable)({ scope: common_1.Scope.DEFAULT }),
     __param(1, (0, bull_1.InjectQueue)('garbageColecting')),
     __param(2, (0, bull_1.InjectQueue)('deleteProductsFromCarts')),
-    __metadata("design:paramtypes", [typeof (_a = typeof schedule_1.SchedulerRegistry !== "undefined" && schedule_1.SchedulerRegistry) === "function" ? _a : Object, typeof (_b = typeof bull_2.Queue !== "undefined" && bull_2.Queue) === "function" ? _b : Object, typeof (_c = typeof bull_2.Queue !== "undefined" && bull_2.Queue) === "function" ? _c : Object])
+    __param(3, (0, bull_1.InjectQueue)('deleteNotCompletedOrders')),
+    __metadata("design:paramtypes", [typeof (_a = typeof schedule_1.SchedulerRegistry !== "undefined" && schedule_1.SchedulerRegistry) === "function" ? _a : Object, typeof (_b = typeof bull_2.Queue !== "undefined" && bull_2.Queue) === "function" ? _b : Object, typeof (_c = typeof bull_2.Queue !== "undefined" && bull_2.Queue) === "function" ? _c : Object, typeof (_d = typeof bull_2.Queue !== "undefined" && bull_2.Queue) === "function" ? _d : Object])
 ], WorkerService);
 exports.WorkerService = WorkerService;
 
 
 /***/ }),
-/* 174 */
+/* 177 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -16754,10 +16921,10 @@ var DeleteProductsFromCarts_1;
 var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DeleteProductsFromCarts = void 0;
-const bull_1 = __webpack_require__(170);
+const bull_1 = __webpack_require__(173);
 const common_1 = __webpack_require__(7);
 const sequelize_1 = __webpack_require__(8);
-const bull_2 = __webpack_require__(172);
+const bull_2 = __webpack_require__(175);
 const cart_model_1 = __webpack_require__(37);
 const product_model_1 = __webpack_require__(32);
 let DeleteProductsFromCarts = DeleteProductsFromCarts_1 = class DeleteProductsFromCarts {
@@ -16844,7 +17011,117 @@ exports.DeleteProductsFromCarts = DeleteProductsFromCarts;
 
 
 /***/ }),
-/* 175 */
+/* 178 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __asyncValues = (this && this.__asyncValues) || function (o) {
+    if (!Symbol.asyncIterator) throw new TypeError("Symbol.asyncIterator is not defined.");
+    var m = o[Symbol.asyncIterator], i;
+    return m ? m.call(o) : (o = typeof __values === "function" ? __values(o) : o[Symbol.iterator](), i = {}, verb("next"), verb("throw"), verb("return"), i[Symbol.asyncIterator] = function () { return this; }, i);
+    function verb(n) { i[n] = o[n] && function (v) { return new Promise(function (resolve, reject) { v = o[n](v), settle(resolve, reject, v.done, v.value); }); }; }
+    function settle(resolve, reject, d, v) { Promise.resolve(v).then(function(v) { resolve({ value: v, done: d }); }, reject); }
+};
+var DeleteNotCompletedOrders_1;
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.DeleteNotCompletedOrders = void 0;
+const bull_1 = __webpack_require__(173);
+const common_1 = __webpack_require__(7);
+const sequelize_1 = __webpack_require__(8);
+const bull_2 = __webpack_require__(175);
+const order_model_1 = __webpack_require__(36);
+let DeleteNotCompletedOrders = DeleteNotCompletedOrders_1 = class DeleteNotCompletedOrders {
+    constructor(orderRepository) {
+        this.orderRepository = orderRepository;
+        this.logger = new common_1.Logger(DeleteNotCompletedOrders_1.name);
+    }
+    processNamedJob(job) {
+        var _a, e_1, _b, _c;
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                this.logger.warn('JOB started: deleting orders', job.name);
+                this.logger.log(process.cwd());
+                const orders = yield this.orderRepository.findAll({
+                    include: { all: true },
+                });
+                try {
+                    for (var _d = true, orders_1 = __asyncValues(orders), orders_1_1; orders_1_1 = yield orders_1.next(), _a = orders_1_1.done, !_a;) {
+                        _c = orders_1_1.value;
+                        _d = false;
+                        try {
+                            const order = _c;
+                            if (new Date(order.getOrderTokenExpiration().getTime() + 60 * 60 * 24 * 1000) > new Date() &&
+                                !order.city &&
+                                !order.postOffice &&
+                                !order.country &&
+                                order.getOrderStatus() === 'Submitted') {
+                                yield this.orderRepository.destroy({ where: { id: order.id } });
+                            }
+                        }
+                        finally {
+                            _d = true;
+                        }
+                    }
+                }
+                catch (e_1_1) { e_1 = { error: e_1_1 }; }
+                finally {
+                    try {
+                        if (!_d && !_a && (_b = orders_1.return)) yield _b.call(orders_1);
+                    }
+                    finally { if (e_1) throw e_1.error; }
+                }
+                const newOrders = yield this.orderRepository.findAll({
+                    include: { all: true },
+                });
+                this.logger.log('JOB finished succesfully!', job.name);
+                return newOrders;
+            }
+            catch (err) {
+                this.logger.error(err);
+                process.exit(1);
+            }
+        });
+    }
+};
+__decorate([
+    (0, bull_1.Process)('deleteOrders'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [typeof (_a = typeof bull_2.Job !== "undefined" && bull_2.Job) === "function" ? _a : Object]),
+    __metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
+], DeleteNotCompletedOrders.prototype, "processNamedJob", null);
+DeleteNotCompletedOrders = DeleteNotCompletedOrders_1 = __decorate([
+    (0, bull_1.Processor)('deleteNotCompletedOrders'),
+    __param(0, (0, sequelize_1.InjectModel)(order_model_1.Order)),
+    __metadata("design:paramtypes", [Object])
+], DeleteNotCompletedOrders);
+exports.DeleteNotCompletedOrders = DeleteNotCompletedOrders;
+
+
+/***/ }),
+/* 179 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -16935,7 +17212,7 @@ exports.InitializeEmailMiddleware = InitializeEmailMiddleware;
 
 
 /***/ }),
-/* 176 */
+/* 180 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -17038,7 +17315,7 @@ exports.ActivateMiddleware = ActivateMiddleware;
 
 
 /***/ }),
-/* 177 */
+/* 181 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -17077,7 +17354,7 @@ exports.AppListener = AppListener;
 
 
 /***/ }),
-/* 178 */
+/* 182 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -17169,7 +17446,7 @@ exports.UserAdminMiddleware = UserAdminMiddleware;
 
 
 /***/ }),
-/* 179 */
+/* 183 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -17260,7 +17537,7 @@ exports.AdminUserMiddleware = AdminUserMiddleware;
 
 
 /***/ }),
-/* 180 */
+/* 184 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -17286,8 +17563,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CorsMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
-const geoip_lite_1 = __importDefault(__webpack_require__(181));
-const ip_1 = __importDefault(__webpack_require__(182));
+const geoip_lite_1 = __importDefault(__webpack_require__(185));
+const ip_1 = __importDefault(__webpack_require__(186));
 let CorsMiddleware = CorsMiddleware_1 = class CorsMiddleware {
     constructor() {
         this.Logger = new common_1.Logger(CorsMiddleware_1.name);
@@ -17351,21 +17628,21 @@ exports.CorsMiddleware = CorsMiddleware;
 
 
 /***/ }),
-/* 181 */
+/* 185 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("geoip-lite");
 
 /***/ }),
-/* 182 */
+/* 186 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("ip");
 
 /***/ }),
-/* 183 */
+/* 187 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -17401,7 +17678,7 @@ exports.AppController = void 0;
 const common_1 = __webpack_require__(7);
 const swagger_1 = __webpack_require__(5);
 const path_1 = __importDefault(__webpack_require__(73));
-const geoip2_node_1 = __webpack_require__(184);
+const geoip2_node_1 = __webpack_require__(188);
 const rxjs_1 = __webpack_require__(65);
 const express_1 = __webpack_require__(20);
 const axios_1 = __webpack_require__(64);
@@ -17493,14 +17770,14 @@ exports.AppController = AppController;
 
 
 /***/ }),
-/* 184 */
+/* 188 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("@maxmind/geoip2-node");
 
 /***/ }),
-/* 185 */
+/* 189 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -17555,7 +17832,7 @@ exports.TelegramModule = TelegramModule;
 
 
 /***/ }),
-/* 186 */
+/* 190 */
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -17577,7 +17854,7 @@ exports.getTelegramConfig = getTelegramConfig;
 
 
 /***/ }),
-/* 187 */
+/* 191 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -17625,9 +17902,9 @@ const user_refresh_token_model_1 = __webpack_require__(39);
 const users_module_1 = __webpack_require__(122);
 const product_reviews_model_1 = __webpack_require__(46);
 const review_model_1 = __webpack_require__(45);
-const reviews_controller_1 = __webpack_require__(188);
-const reviews_service_1 = __webpack_require__(190);
-const create_review_dto_1 = __webpack_require__(189);
+const reviews_controller_1 = __webpack_require__(192);
+const reviews_service_1 = __webpack_require__(194);
+const create_review_dto_1 = __webpack_require__(193);
 const body_validator_pipe_1 = __importDefault(__webpack_require__(129));
 const categories_colours_module_1 = __webpack_require__(147);
 const product_module_1 = __webpack_require__(130);
@@ -17690,7 +17967,7 @@ exports.ReviewsModule = ReviewsModule;
 
 
 /***/ }),
-/* 188 */
+/* 192 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -17720,8 +17997,8 @@ const roles_guard_1 = __webpack_require__(84);
 const api_exception_filter_1 = __webpack_require__(90);
 const error_handler_filter_1 = __webpack_require__(88);
 const throttler_behind_proxy_guard_1 = __webpack_require__(81);
-const create_review_dto_1 = __webpack_require__(189);
-const reviews_service_1 = __webpack_require__(190);
+const create_review_dto_1 = __webpack_require__(193);
+const reviews_service_1 = __webpack_require__(194);
 const edit_content_guard_1 = __webpack_require__(142);
 let ReviewsController = class ReviewsController {
     constructor(reviewsService) {
@@ -17775,7 +18052,7 @@ exports.ReviewsController = ReviewsController;
 
 
 /***/ }),
-/* 189 */
+/* 193 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -17816,7 +18093,7 @@ exports.CreateReviewDto = CreateReviewDto;
 
 
 /***/ }),
-/* 190 */
+/* 194 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -17900,7 +18177,7 @@ exports.ReviewsService = ReviewsService;
 
 
 /***/ }),
-/* 191 */
+/* 195 */
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -17935,9 +18212,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.LocationMiddleware = void 0;
 const common_1 = __webpack_require__(7);
 const express_1 = __webpack_require__(20);
-const geoip_lite_1 = __importDefault(__webpack_require__(181));
+const geoip_lite_1 = __importDefault(__webpack_require__(185));
 const path_1 = __importDefault(__webpack_require__(73));
-const geoip2_node_1 = __webpack_require__(184);
+const geoip2_node_1 = __webpack_require__(188);
 const currency_service_1 = __webpack_require__(63);
 const currency_symbol_map_1 = __importDefault(__webpack_require__(67));
 const country_to_currency_1 = __importDefault(__webpack_require__(66));
@@ -18003,39 +18280,144 @@ exports.LocationMiddleware = LocationMiddleware;
 
 
 /***/ }),
-/* 192 */
+/* 196 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var AppGateway_1;
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AppGateway = void 0;
+const websockets_1 = __webpack_require__(166);
+const common_1 = __webpack_require__(7);
+const socket_io_1 = __webpack_require__(167);
+let AppGateway = AppGateway_1 = class AppGateway {
+    constructor() {
+        this.logger = new common_1.Logger(AppGateway_1.name);
+    }
+    afterInit() {
+        this.logger.log('Initialized!');
+    }
+    handleConnection(client) {
+        this.logger.log(`Client ${client.id} connect`);
+    }
+    handleDisconnect(client) {
+        this.logger.log(`Client ${client.id} disconnected`);
+    }
+};
+__decorate([
+    (0, websockets_1.WebSocketServer)(),
+    __metadata("design:type", typeof (_a = typeof socket_io_1.Server !== "undefined" && socket_io_1.Server) === "function" ? _a : Object)
+], AppGateway.prototype, "server", void 0);
+AppGateway = AppGateway_1 = __decorate([
+    (0, websockets_1.WebSocketGateway)(4959)
+], AppGateway);
+exports.AppGateway = AppGateway;
+
+
+/***/ }),
+/* 197 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("helmet");
 
 /***/ }),
-/* 193 */
+/* 198 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("compression");
 
 /***/ }),
-/* 194 */
+/* 199 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("cookie-parser");
 
 /***/ }),
-/* 195 */
+/* 200 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("serve-favicon");
 
 /***/ }),
-/* 196 */
+/* 201 */
 /***/ ((module) => {
 
 "use strict";
 module.exports = require("body-parser");
+
+/***/ }),
+/* 202 */
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.RedisIoAdapter = void 0;
+const platform_socket_io_1 = __webpack_require__(203);
+const redis_adapter_1 = __webpack_require__(204);
+const redis_1 = __webpack_require__(205);
+class RedisIoAdapter extends platform_socket_io_1.IoAdapter {
+    connectToRedis() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const pubClient = (0, redis_1.createClient)({ url: `redis://localhost:6379` });
+            const subClient = pubClient.duplicate();
+            yield Promise.all([pubClient.connect(), subClient.connect()]);
+            this.adapterConstructor = (0, redis_adapter_1.createAdapter)(pubClient, subClient);
+        });
+    }
+    createIOServer(port, options) {
+        const server = super.createIOServer(port, options);
+        server.adapter(this.adapterConstructor);
+        return server;
+    }
+}
+exports.RedisIoAdapter = RedisIoAdapter;
+
+
+/***/ }),
+/* 203 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("@nestjs/platform-socket.io");
+
+/***/ }),
+/* 204 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("@socket.io/redis-adapter");
+
+/***/ }),
+/* 205 */
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("redis");
 
 /***/ })
 /******/ 	]);
@@ -18099,7 +18481,7 @@ module.exports = require("body-parser");
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("71c448b0f32323248294")
+/******/ 		__webpack_require__.h = () => ("191a66428893147e3e2d")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/hasOwnProperty shorthand */

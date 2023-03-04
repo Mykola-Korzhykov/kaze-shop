@@ -41,6 +41,7 @@ import { BullModule } from '@nestjs/bull';
 import { ColectingGarbageFiles } from './processors/delete.files.processor';
 import { WorkerService } from './services/workers.service';
 import { DeleteProductsFromCarts } from './processors/delete.products.from.carts.processor';
+import { DeleteNotCompletedOrders } from './processors/delete.not.completed.orders.processor';
 @Module({
   providers: [
     { provide: APP_INTERCEPTOR, useClass: GlobalInterceptor },
@@ -56,6 +57,7 @@ import { DeleteProductsFromCarts } from './processors/delete.products.from.carts
     AppClusterService,
     FilesService,
     ColectingGarbageFiles,
+    DeleteNotCompletedOrders,
   ],
   imports: [
     HttpModule,
@@ -64,6 +66,7 @@ import { DeleteProductsFromCarts } from './processors/delete.products.from.carts
         name: 'garbageColecting',
       },
       { name: 'deleteProductsFromCarts' },
+      { name: 'deleteNotCompletedOrders' },
     ),
     EventEmitterModule.forRoot({
       wildcard: true,

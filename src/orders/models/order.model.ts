@@ -134,7 +134,13 @@ export class Order extends Model<Order, OrderCreatinAtrrb> {
   public comment: string;
 
   @Column({
-    type: DataType.ENUM('Canceled', 'Submitted', 'Completed', 'Processing'),
+    type: DataType.ENUM(
+      'Canceled',
+      'Submitted',
+      'Completed',
+      'Processing',
+      'PAID',
+    ),
     unique: false,
     field: 'orderStatus',
   })

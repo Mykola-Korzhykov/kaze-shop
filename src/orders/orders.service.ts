@@ -14,6 +14,8 @@ import { ContinueOrderDto } from './dto/continue.order.dto';
 import { User } from '../users/models/user.model';
 import { ORDER_NOT_FOUND, ORDER_TOKEN_NOT_PROVIDED } from './order.constants';
 import { OrderProduct } from './models/order.product.model';
+import { EventEmitter2, OnEvent } from '@nestjs/event-emitter';
+import { OrdersGateway } from './order.gateway';
 @Injectable({ scope: Scope.TRANSIENT })
 export class OrdersService {
   private readonly Logger = new Logger(OrdersService.name);
@@ -24,6 +26,8 @@ export class OrdersService {
     @InjectModel(Order) private readonly orderRepository: typeof Order,
     private readonly bot: TelegramService,
     private readonly cartService: CartService,
+    private readonly eventEmitter: EventEmitter2,
+    private readonly ordersGateWay: OrdersGateway,
   ) {}
 
   async createOrder(
@@ -49,6 +53,7 @@ export class OrdersService {
       order.setOrderToken(orderToken);
       order.setOrderTokenExpiration(new Date());
       order.cartId = userCart.id;
+      order.setOrderStatus('Submitted');
       order.$set('cart', userCart);
       userCart.$set('order', order);
       await order.save();
@@ -117,6 +122,8 @@ export class OrdersService {
       order.postOffice = continueOrderDto.postOffice;
       order.setCurrency(currency);
       order.languageCode = languageCode;
+      order.cart.setCartStatus('CheckedOut');
+      await order.cart.save();
       if (continueOrderDto.comment) {
         order.comment = continueOrderDto.comment;
       }
@@ -131,8 +138,9 @@ export class OrdersService {
           Number(orderProduct.quantity) * Number(orderProduct.price);
       });
       order.totalPrice = totalPrice * currency.rate;
-      await order.save();
       if (continueOrderDto.payByCard && !continueOrderDto.payInCash) {
+        order.setOrderStatus('Processing');
+        await order.save();
         paymentLink = this.ganeratePaymentLink(
           {
             userName: order.userName,
@@ -147,7 +155,9 @@ export class OrdersService {
         );
         return response.json({ paymentLink: paymentLink, orderId: order.id });
       }
-      // відправка на бота і на крмку
+      // відправка на крмку
+      order.setOrderStatus('Completed');
+      await order.save();
       await this.bot.sendMessage(order);
       return response.json({ paymentLink: paymentLink, orderId: order.id });
     } catch (err) {
@@ -176,6 +186,8 @@ export class OrdersService {
     const dataString = this.objectToBase64(dataToSign);
     const verification = this.verifyDataString(dataString, signature);
     if (verification) {
+      order.setOrderStatus('PAID');
+      await order.save();
       await this.bot.sendMessage(order);
     }
     return;
@@ -252,6 +264,11 @@ export class OrdersService {
     };
     return dataToSign;
   }
+
+  // @OnEvent('order.paid')
+  // handleOrderPaidEvent(payload: OrderPaidEvent) {
+
+  // }
 
   private signString(strToSign: string): string {
     const hash = crypto.createHash('sha1');

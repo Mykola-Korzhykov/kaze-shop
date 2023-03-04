@@ -30,9 +30,11 @@ import { Order } from './models/order.model';
 import { OrderProduct } from './models/order.product.model';
 import { CategoriesColoursModule } from '../categories&colours/categories&colours.module';
 import { IsUser } from '../common/middlewares/is-user.middleware';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { OrdersGateway } from './order.gateway';
 
 @Module({
-  providers: [OrdersService],
+  providers: [OrdersService, OrdersGateway],
   controllers: [OrdersController],
   imports: [
     forwardRef(() => AuthModule),
@@ -40,6 +42,15 @@ import { IsUser } from '../common/middlewares/is-user.middleware';
       envFilePath: `.${process.env.NODE_ENV}.env`,
       expandVariables: true,
       isGlobal: true,
+    }),
+    EventEmitterModule.forRoot({
+      wildcard: false,
+      delimiter: '.',
+      newListener: false,
+      removeListener: false,
+      maxListeners: 10,
+      verboseMemoryLeak: false,
+      ignoreErrors: false,
     }),
     SequelizeModule.forFeature([
       Product,
