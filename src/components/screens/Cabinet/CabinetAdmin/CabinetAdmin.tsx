@@ -65,7 +65,7 @@ export const CabinetAdmin: React.FC = () => {
     const [modalAddCAtegory, setModalAddCAtegory ] = React.useState<boolean>(false)
     const [countPhoto, setCountPhoto] = React.useState<number>(1)
     const  [images, setImages] = React.useState([])
-    console.log('choiceColor', choiceColor)
+    
 
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
 

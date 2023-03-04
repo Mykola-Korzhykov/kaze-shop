@@ -15,25 +15,21 @@ interface ModalAddCategoryProps {
 
 export const ModalAddCategory = ({setModalAddCAtegory, modalAddCAtegory }: ModalAddCategoryProps) => {
 
-    interface  inputsObj {
+    interface  inputsStateType {
         ua: string;
         ru: string;
         rs: string;
         en: string;
     }
 
-    const [stateInputs, setStateInputs] = React.useState<inputsObj>({ua: '',  ru: '', rs: '', en: ''  })
+    const [stateInputs, setStateInputs] = React.useState<inputsStateType>({ua: '',  ru: '', rs: '', en: ''  })
     
 
-    function sendStateInputs(obj: inputsObj){
-        
-        const formData = new FormData();
-        //title
-        formData.append('title', JSON.stringify(obj))
+    function sendStateInputs(obj: inputsStateType){
 
         fetch('categories/create_category', {
             method: 'PUT',
-            body: formData
+            body: JSON.stringify(obj)
           })
             .then(response => response.json())
             .then(data => console.log(data))
