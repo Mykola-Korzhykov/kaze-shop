@@ -20,6 +20,7 @@
     "eslint-config-next": "13.1.2",
     "immer": "^9.0.19",
     "keen-slider": "^6.8.5",
+    "lodash.debounce": "^4.0.8",
     "next": "^13.2.1",
     "next-redux-wrapper": "^8.1.0",
     "next-seo": "^5.15.0",
@@ -35,6 +36,7 @@
     "yup": "^0.32.11"
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.7",
     "@types/react-slick": "^0.23.10",
     "@types/react-transition-group": "^4.4.5"
   }

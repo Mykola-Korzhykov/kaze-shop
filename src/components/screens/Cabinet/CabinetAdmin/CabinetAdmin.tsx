@@ -1,11 +1,14 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useSelector , } from "react-redux";
 import s from './CabinetAdmine.module.scss'
 import { Button } from './Buttons/Button'
 import { UserAdmin } from './UsersRole/UserAdmin'
 import { UserRole } from './UserAdmin/UserRole'
 import { RootState } from "@/redux/store";
+import { useAppDispatch } from "@/redux/hooks";
 import Link from "next/link";
+
+import debounce from 'lodash.debounce';
 //components 
 import { AddProduct } from './Display/AddProduct'
 
@@ -27,12 +30,16 @@ import icon_white5 from '../../../../assets/icons/cabinetAdmin/icon5_white.svg'
 import icon_white6 from '../../../../assets/icons/cabinetAdmin/icon6_white.svg'
 import icon_white7 from '../../../../assets/icons/cabinetAdmin/icon7_white.svg'
 import findUser from '../../../../assets/icons/cabinetAdmin/findUser.svg'
-//types
+//types & redux
 import { ButtonType } from '../../../../types/auth'
 import { SizeItem } from "./Display/AddProduct/SizesItem";
 import {ModuleWindiw} from './Display/AddProduct/ModuleWindow'
 import {ModalAddCategory} from '../../Cabinet/CabinetAdmin/Display/AddProduct/ModalAddCategory'
 import {ModalAddColor} from '../../Cabinet/CabinetAdmin/Display/AddProduct/ModalAddColor'
+import {findUsersRole, getUsersRole, getUsersAdmin , findUsersAdmin} from '../../../../redux/slices/admin'
+import axios from "axios";
+
+
 
 // export const heidthcal = 9;
 
@@ -66,16 +73,37 @@ export const CabinetAdmin: React.FC = () => {
     const [countPhoto, setCountPhoto] = React.useState<number>(1)
     const  [images, setImages] = React.useState([])
 
+    const dispatch = useAppDispatch()
+
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
 
-    const users = useSelector((state: RootState) => state.admin.users)
+    const usersRoleUI = useSelector((state: RootState) => state.admin.usersRole)
+    const usersAdminUI = useSelector((state: RootState) => state.admin.usersAdmin)
+    
     const colors = useSelector((state: RootState) => state.admin.colors)
+
+    //получення юзерів і адмінів
+    React.useEffect(()=>{
+        dispatch(getUsersRole())  
+        dispatch(getUsersAdmin())  
+    }, [])
+
     // console.log('users', users)
 
     const [idUserOpen, setUserOpen] = React.useState<number>(0)
     const [displayActive, setDisplayActive] = React.useState<number>(1)
+  
+    const debouncedSearchAdmin = debounce((term) => {
+        dispatch(findUsersAdmin(term.toLowerCase()))
+      }, 500);
 
-    const usersRole = users.map((el) => <UserRole
+      const debouncedSearchRole = debounce((term) => {
+        dispatch(findUsersRole(term.toLowerCase()))
+      }, 500);
+
+
+
+    const usersRole = usersRoleUI.map((el) => <UserRole
     name={el.name}
     editContent={el.editContent}
     surname={el.surname}
@@ -90,7 +118,7 @@ export const CabinetAdmin: React.FC = () => {
     id={el.id}
      
      />)
-    const usersAdmin = users.map((el) => <UserAdmin 
+    const usersAdmin = usersAdminUI.map((el) => <UserAdmin 
     name={el.name}
     editContent={el.editContent}
     surname={el.surname}
@@ -125,10 +153,29 @@ export const CabinetAdmin: React.FC = () => {
             </div>
 
             <div className={s.display}>
-                <label htmlFor="findUser" className={displayActive === 1 || displayActive === 2 ? s.input_wrapper_on : s.input_wrapper_off}>
+
+
+                <label htmlFor="findUser" className={displayActive === 1  ? s.input_wrapper_on : s.input_wrapper_off}>
                     Пользователь
                     <div className={s.input_wrapper}>
-                        <input className={s.input} id='findUser' type="findUser" />
+                        <input onChange={(e)=>{
+                            debouncedSearchRole(e.target.value)
+                            console.log('debouncedSearchRole')
+                           
+                        }} className={s.input} id='findUser' type="findUser" />
+                        <Image src={findUser} alt='findUser' />
+                    </div>
+
+                </label>
+                        {/* при дісплеї 2 ( роль поиск) */}
+                <label htmlFor="findUser" className={ displayActive === 2 ? s.input_wrapper_on : s.input_wrapper_off}>
+                    Пользователь
+                    <div className={s.input_wrapper}>
+                        <input onChange={(e)=>{
+                          
+                            debouncedSearchAdmin(e.target.value)
+                            console.log('debouncedSearchAdmin')
+                        }} className={s.input} id='findUser' type="findUser" />
                         <Image src={findUser} alt='findUser' />
                     </div>
 
