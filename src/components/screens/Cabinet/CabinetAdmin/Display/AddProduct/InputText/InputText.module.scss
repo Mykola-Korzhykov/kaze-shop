@@ -102,7 +102,7 @@
     // z-index: 2;
     // width: 100%;
     // position: absolute;
-    background-color: red;
+    background-color: none;
    
 
     
@@ -114,6 +114,8 @@
     align-items: center;
     padding-left: 24px;
     cursor: pointer;
+    border: #9D9D9D 1.5px solid;
+    border-top: none;
 }
 
 .categorychose_item_add{
@@ -131,6 +133,7 @@
     font-size: 18px;
     line-height: 22px;
     color: #9D9D9D;
+   
 }
 
 .categorychose_item{
@@ -149,7 +152,10 @@
     font-size: 18px;
     line-height: 22px;
     color: #9D9D9D;
+    border: #9D9D9D 1.5px solid;
+    border-top: none;
 }
+
 
 .categorychose_img{
     width: 24px;

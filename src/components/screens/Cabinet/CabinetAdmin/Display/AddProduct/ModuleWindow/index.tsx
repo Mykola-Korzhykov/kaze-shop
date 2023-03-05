@@ -170,7 +170,7 @@ export const ModuleWindiw = ({ setModalAddPhoto, modalAddPhoto, setChoiceColor, 
                             <path d="M26 12L16 22L6 12" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>}
                     </span>
-                        <div  style={{top: selectedSizes?.length > 0 ? '602px' : '558px'}} className={s.color_wrapper_main}>
+                        <div  style={{top: selectedSizes?.length > 0 ? '500px' : '456px'}} className={s.color_wrapper_main}>
                             { choiceColor ? colors?.map((el, ind)=>{
                                 return el.id !== 48093899940393 ? (
                                     <div onClick={()=> {
