@@ -1,6 +1,9 @@
 import { createSlice, createAsyncThunk, PayloadAction, Slice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
+// хардкор 
+import imgProduct from '../../assets/images/admin/img.svg'
+
 
     //поиск юзерів через дебаунс 
  export const findUsersRole = createAsyncThunk(
@@ -86,7 +89,8 @@ import axios from 'axios'
       categories: number[] | null,
       netData: string | null,
       arrObjMod: { fileNames: string[], colourId: number; sizes: string[];}[],
-      images: string []
+    //   images: string [] | File []
+    images: any[]
 }
   
 export interface initialStateType {
@@ -115,8 +119,7 @@ export interface initialStateType {
     categoryArr: {id: number, title: string }[],
     loading: boolean,
     error: string,
-
-
+    products: Product[],
 
 }
 
@@ -618,7 +621,42 @@ const initialState: initialStateType = {
         {id: 0.1, title: 'уоуооуоуоуоуоуоу категория '}
     ],
     loading: false,
-    error: 'no error'
+    error: 'no error',
+    products: [
+
+     {
+        title: {
+            ua: 'ProductUA',
+            ru: 'ProductRU',
+            rs: 'ProductRS',
+            en: 'ProductEN',
+          },
+          description: {
+            ua: 'ProductUA',
+            ru: 'ProductRU',
+            rs: 'ProductRS',
+            en: 'ProductEN',
+          },
+          sizeChartImageDescription: {
+            ua: 'cетка ua ',
+            ru:'cетка ru',
+            rs:'cетка rs',
+            en: 'cетка en',
+          },
+          sizes:['S', 'M', ],
+          colourId: 5,
+          price: 500,
+          quantity: 100,
+          imagesjpg: [imgProduct, imgProduct, imgProduct, imgProduct, imgProduct],
+          allcoloursId: [1,2,3,4,5,6],
+          allsizes: ['S', 'M' , '' ],
+          categories: [1,2,3],
+          netData: 'dlldldlldldldldldlldldldldldldldldldlldld',
+          arrObjMod: [ { fileNames: ['text1', 'twxt2'], colourId: 3, sizes: ['S', 'M'],}],
+          images: [imgProduct, imgProduct, imgProduct, imgProduct]
+     }
+         
+    ]
 }
 
 

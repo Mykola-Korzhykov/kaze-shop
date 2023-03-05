@@ -11,6 +11,8 @@ import Link from "next/link";
 import debounce from 'lodash.debounce';
 //components 
 import { AddProduct } from './Display/AddProduct'
+import {EditProduct} from './Display/EditProduct'
+import {EditProductMain} from './Display/EditProduct/EditProductMain'
 
 import Image from 'next/image';
 //icons
@@ -233,6 +235,7 @@ export const CabinetAdmin: React.FC = () => {
                     })}
                 </div> : ''
                 }
+                {displayActive === 4? <EditProduct /> : '' }
                 
             </div >
             {countPhoto > 0 && modalAddPhoto &&  choiceColor === false? <div style={{height: `${ 1450 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''}

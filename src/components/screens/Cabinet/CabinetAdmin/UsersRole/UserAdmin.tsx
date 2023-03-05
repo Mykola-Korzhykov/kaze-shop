@@ -27,7 +27,7 @@ export const UserAdmin: React.FC<UserProps> = ({ setUserOpenOK, idUserOpen, id, 
 
     const openUser = id === idUserOpen ? true : false
     const [activeCheckbox, setSctiveCheckbox] = React.useState<number | null>(null)
-
+   
     const [UserAdmin, setUserAdmin] = React.useState<{
         addContent: boolean, 
         editContent: boolean,

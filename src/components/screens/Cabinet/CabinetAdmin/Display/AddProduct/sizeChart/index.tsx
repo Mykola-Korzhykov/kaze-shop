@@ -16,7 +16,7 @@ export const SizeChart = ({title, placeholder, id, leng }: SizeChartProps)=> {
 
     const dispatch = useAppDispatch()
     const p =  useSelector((state: RootState)=> state.formData.sizeChartImageDescription)
-    console.log(p)
+    
 
     return (
         <label className={s.label} htmlFor={`sizechart${id}`}>
