@@ -1,4 +1,5 @@
-import Cabinet from '@/components/screens/Cabinet/Cabinet'
+// import Cabinet from '@/components/screens/Cabinet/Cabinet'
+import React from "react";
 // import SpinnerLayout from '@/layouts/SpinnerLayout'
 // import { wrapper } from '@/redux/store'
 // import { addUserInfo } from '@/redux/slices/user'

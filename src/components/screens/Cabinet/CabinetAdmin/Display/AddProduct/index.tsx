@@ -206,7 +206,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
 
     return (
         <div className={s.wrapper}>
-            <form action="/submit-form" method="post">
+            <form className={s.from} action="/submit-form" method="post">
             <div className={s.inputs_text}>
 
                 <div className={s.inputs_wrapper}>

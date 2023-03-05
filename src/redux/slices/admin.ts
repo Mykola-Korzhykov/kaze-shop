@@ -56,6 +56,38 @@ import axios from 'axios'
     editContent: boolean;
     editWebSite: boolean;
   }
+
+  export interface Product {
+    title: {
+        ua: string | null,
+        ru: string | null,
+        rs: string | null,
+        en: string | null,
+      };
+      description: {
+        ua: string | null,
+        ru: string | null,
+        rs: string | null,
+        en: string | null,
+      },
+      sizeChartImageDescription: {
+        ua: string | null,
+        ru: string | null,
+        rs: string | null,
+        en: string | null,
+      }
+      sizes:string[],
+      colourId: number | null,
+      price: number | null,
+      quantity: number | null,
+      imagesjpg: null | any,
+      allcoloursId: number[] | null,
+      allsizes: string[] | null,
+      categories: number[] | null,
+      netData: string | null,
+      arrObjMod: { fileNames: string[], colourId: number; sizes: string[];}[],
+      images: string []
+}
   
 export interface initialStateType {
     usersRole: User[],
@@ -83,6 +115,7 @@ export interface initialStateType {
     categoryArr: {id: number, title: string }[],
     loading: boolean,
     error: string,
+
 
 
 }

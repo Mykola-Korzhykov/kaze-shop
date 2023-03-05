@@ -1,5 +1,6 @@
 .wrapper{
-    width: 100%;
+    // width: 100%;
+    min-width: 0px;
 }
 .inputs_text{
     margin-left: -30px;
@@ -31,7 +32,8 @@
 }
 
 .wrapper_inner {
-       width: 100%;
+       max-width: 100%;
+    min-width: 0px;
         // @media (max-width: 1050px) {
         //     width: 100%;
         //     margin-bottom: 30px;
@@ -52,7 +54,8 @@
 
 
 .descriprion{
-    width: 100%;
+    // width: 100%;
+    min-width: 0px;
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
@@ -92,6 +95,7 @@
     .addphoto_wrapper{
      
         width: 100%;
+        min-width: 0px;
 
         .element_wrapper{
             display: flex;
@@ -123,8 +127,8 @@
     column-gap: 30px;
     flex-wrap: wrap;
     row-gap: 15px;
-    min-width: 0;
-    flex-basis: 20%;
+    min-width: 0px;
+    // flex-basis: 20%;
 
     @media (max-width: 1080px) {
         flex-direction: column;
@@ -270,4 +274,9 @@
     /* black */
     
     border: 1.5px solid #0B0B0B;
+}
+
+.from{
+    max-width: 100%;
+    min-width: 0px;
 }
