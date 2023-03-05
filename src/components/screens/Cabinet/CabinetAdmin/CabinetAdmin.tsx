@@ -77,17 +77,46 @@ export const CabinetAdmin: React.FC = () => {
 
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
 
+   
+
     const usersRoleUI = useSelector((state: RootState) => state.admin.usersRole)
     console.log('getUsersRole', getUsersRole)
     const usersAdminUI = useSelector((state: RootState) => state.admin.usersAdmin)
-    
+    const [paginationLendthRole, setPaginationLendthRole] = React.useState<any[]>([])
+    const [paginationLendthAdmin, setPaginationLendthAdmin] = React.useState<any[]>([])
+
     const colors = useSelector((state: RootState) => state.admin.colors)
 
-    //получення юзерів і адмінів
+    const [activePaginatoinRole, setActivePaginatoinRole] = React.useState<number>(1)
+    const [activePaginatoinRoleAdmin, setActivePaginatoinAdmin] = React.useState<number>(1)
+
+    // получення юзерів 
     React.useEffect(()=>{
-        dispatch(getUsersRole())  
-        dispatch(getUsersAdmin())  
-    }, [])
+        // dispatch(getUsersRole(activePaginatoinRole))
+     }, [activePaginatoinRole ])
+     //получення адмінів 
+    React.useEffect(()=>{
+    //    dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
+    }, [ activePaginatoinRoleAdmin])
+    // вираховування пагінації
+    React.useEffect(()=>{
+        let countoRolePagination = Math.ceil(usersAdminUI.length / 10)
+        let arrRolePagination : number[] = []
+        for(let i = 1;  i <  countoRolePagination + 1; i++){
+            arrRolePagination.push(i)
+        }
+        setPaginationLendthRole(arrRolePagination)
+
+        let countAdminPagination = Math.ceil(usersAdminUI.length / 10)
+        let arrAdminPagination: number[] = [];
+        for(let i = 1;  i <  countAdminPagination + 1; i++){
+            arrAdminPagination.push(i)
+        }
+        setPaginationLendthAdmin(arrAdminPagination)
+
+        console.log('arrRolePagination', arrRolePagination)
+        console.log('arrAdminPagination', arrAdminPagination)
+    }, [usersRoleUI, usersAdminUI])
 
     // console.log('users', users)
 
@@ -101,8 +130,6 @@ export const CabinetAdmin: React.FC = () => {
       const debouncedSearchRole = debounce((term) => {
         dispatch(findUsersRole(term.toLowerCase()))
       }, 500);
-
-
 
     const usersRole = usersRoleUI.map((el) => <UserRole
     name={el.name}
@@ -187,6 +214,27 @@ export const CabinetAdmin: React.FC = () => {
                 {displayActive === 1 ? usersRole : ''} 
                 {displayActive === 2 ? usersAdmin : ''} 
                 {displayActive === 3 ? <AddProduct modalAddCAtegory={modalAddCAtegory} setModalAddCAtegory={setModalAddCAtegory}  imagesData={images} setImages={setImages}  setCountPhoto={setCountPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor}   modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''}
+                {displayActive === 1 ?
+                <div className={s.pagination_wrapper}>
+                    {paginationLendthRole.map((el)=>{
+                        return <span onClick={()=>{
+                            setActivePaginatoinRole(el)
+
+                        }} className={ activePaginatoinRole === el ?  s.item_active : s.item}>{el}</span>
+                    })}
+                </div> : ''
+                }
+                {displayActive === 2 ?
+                <div className={s.pagination_wrapper}>
+                    {paginationLendthAdmin.map((el)=>{
+                        return <span onClick={()=>{
+                            setActivePaginatoinAdmin(el)
+
+                        }} className={ activePaginatoinRoleAdmin === el ?  s.item_active : s.item}>{el}</span>
+                    })}
+                </div> : ''
+                }
+                
             </div >
             {countPhoto > 0 && modalAddPhoto &&  choiceColor === false? <div style={{height: `${ 1450 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''}
             {/* {modalAddPhoto  && countPhoto < 2 ? <div  className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''}  */}
@@ -250,6 +298,8 @@ export const CabinetAdmin: React.FC = () => {
                     </div>
                 </div>
  */}
+
+   
           
            
         </div >

@@ -15,9 +15,9 @@ import axios from 'axios'
     //получення всіх юзерів на перший рендерінг 
   export const getUsersRole = createAsyncThunk(
     'users/getUsers',
-    async () => {
-        console.log('getUsersRole')
-      const response = await axios.get(`/user/get_users?page=1&pageSize=1`)
+    async (params: number, thunkAPI) => {
+    
+      const response = await axios.get(`/user/get_users?page=10&pageSize=${params}`)
       return response.data
     }
   )
@@ -35,9 +35,9 @@ import axios from 'axios'
     //получення всіх aдмінів
   export const getUsersAdmin = createAsyncThunk(
     'users/getAdmins',
-    async () => {
+    async (params: number, thunkAPI) => {
         console.log('getUsersAdmin')
-      const response = await axios.get(`/admin/get_admins?page=1&pageSize=1`)
+      const response = await axios.get(`/admin/get_admins?page=10&pageSize=${params}`)
       return response.data
     }
   )
@@ -133,7 +133,191 @@ const initialState: initialStateType = {
             addContent: false,
             editContent: false,
             editWebSite: false,
-        }
+        },
+
+
+
+
+
+
+
+
+        {
+            id: 1,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 2,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '+380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 3,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 4,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 1,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 2,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '+380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 3,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 4,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 1,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 2,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '+380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 3,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 4,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 1,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 2,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '+380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 3,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 4,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
     ],
     usersAdmin: [
 
@@ -180,7 +364,191 @@ const initialState: initialStateType = {
             addContent: false,
             editContent: false,
             editWebSite: false,
-        }
+        },
+
+
+
+
+
+
+
+        {
+            id: 1,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 2,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '+380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 3,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 4,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 1,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 2,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '+380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 3,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 4,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 1,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 2,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '+380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 3,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 4,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 1,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 2,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '+380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 3,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 4,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+
     ],
     inputs: [
 
@@ -262,6 +630,7 @@ export const admin: Slice<initialStateType> = createSlice({
             state.error = action.error.message;
             state.loading = false;
           })
+
           //полученя юзерів 
           .addCase(getUsersRole.fulfilled, (state, action) => {
             state.usersRole = action.payload;
