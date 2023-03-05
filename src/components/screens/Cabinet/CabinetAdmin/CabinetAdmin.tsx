@@ -71,13 +71,11 @@ export const CabinetAdmin: React.FC = () => {
     const [modalAddPhoto, setModalAddPhoto ] = React.useState<boolean>(false)
     const [modalAddCAtegory, setModalAddCAtegory ] = React.useState<boolean>(false)
     const [countPhoto, setCountPhoto] = React.useState<number>(1)
-    const  [images, setImages] = React.useState([])
+    const [images, setImages] = React.useState([])
 
     const dispatch = useAppDispatch()
 
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
-
-   
 
     const usersRoleUI = useSelector((state: RootState) => state.admin.usersRole)
     console.log('getUsersRole', getUsersRole)
@@ -156,9 +154,10 @@ export const CabinetAdmin: React.FC = () => {
     editWebSite={el.editWebSite}
     addContent={el.addContent}
     key={el.id} 
+    id={el.id}
     setUserOpenOK={setUserOpen} 
     idUserOpen={idUserOpen} 
-    id={el.id} />)
+     />)
 
     // console.log('choiceColor' , choiceColor)
 
@@ -217,7 +216,7 @@ export const CabinetAdmin: React.FC = () => {
                 {displayActive === 1 ?
                 <div className={s.pagination_wrapper}>
                     {paginationLendthRole.map((el)=>{
-                        return <span onClick={()=>{
+                        return <span key={el} onClick={()=>{
                             setActivePaginatoinRole(el)
 
                         }} className={ activePaginatoinRole === el ?  s.item_active : s.item}>{el}</span>
@@ -227,7 +226,7 @@ export const CabinetAdmin: React.FC = () => {
                 {displayActive === 2 ?
                 <div className={s.pagination_wrapper}>
                     {paginationLendthAdmin.map((el)=>{
-                        return <span onClick={()=>{
+                        return <span key={el} onClick={()=>{
                             setActivePaginatoinAdmin(el)
 
                         }} className={ activePaginatoinRoleAdmin === el ?  s.item_active : s.item}>{el}</span>

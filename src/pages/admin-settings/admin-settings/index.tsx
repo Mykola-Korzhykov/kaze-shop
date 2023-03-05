@@ -18,7 +18,7 @@ import { Api } from '@/services'
 import axios from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
-import { UserAdmin } from '@/components/screens/Cabinet/CabinetAdmin/UserAdmin/UserRole'
+import { UserAdmin } from '@/components/screens/Cabinet/CabinetAdmin/UsersRole/UserAdmin'
 //icons 
 import findUser from '../../../assets/icons/cabinetAdmin/findUser.svg'
 
@@ -30,7 +30,16 @@ const AdminSettings: React.FC = () => {
 
     const [idUserOpen, setUserOpen] = useState<number>(0)
 
-    const users = Selector((state: RootState) => state.admin.users).map((el, ind) => <UserAdmin setUserOpenOK={setUserOpen} idUserOpen={idUserOpen} key={ind} id={el.id} />)
+    const users = Selector((state: RootState) => state.admin.usersAdmin).map((el, ind) => <UserAdmin setUserOpenOK={setUserOpen} idUserOpen={idUserOpen} key={ind} id={el.id}  name={el.name}
+    editContent={el.editContent}
+    surname={el.surname}
+    phoneNumber={el.phoneNumber}
+    email={el.email}
+    isAdmin={el.isAdmin}
+    editWebSite={el.editWebSite}
+    addContent={el.addContent}
+   
+     />)
 
     return (
         <SpinnerLayout>

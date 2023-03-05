@@ -7,9 +7,9 @@ import { InputTextItem } from './InputText'
 // import {ModalAddCategory} from '../AddProduct/ModalAddCategory'
 import {setAddPhotoState} from '../../../../../../redux/slices/admin'
 import { useAppDispatch } from '@/redux/hooks'
-import { ModuleWindiw } from "./ModuleWindow"
-import {SizeItem} from './SizesItem'
-import {setNetData} from '../../../../../../redux/slices/formData'
+// import { ModuleWindiw } from "./ModuleWindow"
+// import {SizeItem} from './SizesItem'
+// import {setNetData} from '../../../../../../redux/slices/formData'
 import {SizeChart} from './sizeChart'
 
 interface AddProductProps {
