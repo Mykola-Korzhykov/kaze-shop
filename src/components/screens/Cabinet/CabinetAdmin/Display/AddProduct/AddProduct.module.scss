@@ -1,6 +1,5 @@
 .wrapper{
-    // width: 100%;
-    min-width: 0px;
+    width: 100%;
 }
 .inputs_text{
     margin-left: -30px;
@@ -9,7 +8,7 @@
 
 .inputs_wrapper{
     display: flex;
-   
+    width: 100%;
     
     @media (max-width: 1050px) {
             display: flex;
@@ -32,8 +31,8 @@
 }
 
 .wrapper_inner {
-       max-width: 100%;
-    min-width: 0px;
+       width: 100%;
+    // min-width: 0px;
         // @media (max-width: 1050px) {
         //     width: 100%;
         //     margin-bottom: 30px;
@@ -54,8 +53,8 @@
 
 
 .descriprion{
-    // width: 100%;
-    min-width: 0px;
+    width: 100%;
+    // min-width: 0px;
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
@@ -95,7 +94,7 @@
     .addphoto_wrapper{
      
         width: 100%;
-        min-width: 0px;
+        // min-width: 0px;
 
         .element_wrapper{
             display: flex;
@@ -127,7 +126,7 @@
     column-gap: 30px;
     flex-wrap: wrap;
     row-gap: 15px;
-    min-width: 0px;
+    // min-width: 0px;
     // flex-basis: 20%;
 
     @media (max-width: 1080px) {
@@ -278,5 +277,5 @@
 
 .from{
     max-width: 100%;
-    min-width: 0px;
+    // min-width: 0px;
 }
