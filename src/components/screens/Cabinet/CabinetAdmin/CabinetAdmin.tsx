@@ -78,6 +78,7 @@ export const CabinetAdmin: React.FC = () => {
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
 
     const usersRoleUI = useSelector((state: RootState) => state.admin.usersRole)
+    console.log('getUsersRole', getUsersRole)
     const usersAdminUI = useSelector((state: RootState) => state.admin.usersAdmin)
     
     const colors = useSelector((state: RootState) => state.admin.colors)

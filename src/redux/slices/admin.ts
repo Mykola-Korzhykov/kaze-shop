@@ -6,6 +6,7 @@ import axios from 'axios'
  export const findUsersRole = createAsyncThunk(
     'users/fetchUsersRole',
     async (params: string, thunkAPI) => {
+        console.log('findUsersRole')
       const response = await axios.get(`/user/find_users?page=1&pageSize=1&v=${params}`)
       return response.data
     }
@@ -15,15 +16,17 @@ import axios from 'axios'
   export const getUsersRole = createAsyncThunk(
     'users/getUsers',
     async () => {
+        console.log('getUsersRole')
       const response = await axios.get(`/user/get_users?page=1&pageSize=1`)
       return response.data
     }
   )
-
+  //getUsersRole
      //поиск адмінів через дебаунс 
  export const findUsersAdmin = createAsyncThunk(
     'users/fetchUsersAdmin',
     async (params: string, thunkAPI) => {
+        console.log('findUsersAdmin')
       const response = await axios.get(`/admin/find_admin?page=1&pageSize=1&v=${params}`)
       return response.data
     }
@@ -33,6 +36,7 @@ import axios from 'axios'
   export const getUsersAdmin = createAsyncThunk(
     'users/getAdmins',
     async () => {
+        console.log('getUsersAdmin')
       const response = await axios.get(`/admin/get_admins?page=1&pageSize=1`)
       return response.data
     }
@@ -266,7 +270,7 @@ export const admin: Slice<initialStateType> = createSlice({
             state.loading = true;
           })
           .addCase(getUsersRole.rejected, (state, action) => {
-            state.usersAdmin = []
+            state.usersRole = []
             state.error = action.error.message;
             state.loading = false;
           })
