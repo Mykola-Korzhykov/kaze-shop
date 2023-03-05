@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import s from './CabinetAdmine.module.scss'
 import { Button } from './Buttons/Button'
-import { UserRole } from './UsersRole/UserRole'
-import { UserAdmin } from './UserAdmin/UserAdmin'
+import { UserAdmin } from './UsersRole/UserAdmin'
+import { UserRole } from './UserAdmin/UserRole'
 import { RootState } from "@/redux/store";
 import Link from "next/link";
 //components 
@@ -65,18 +65,44 @@ export const CabinetAdmin: React.FC = () => {
     const [modalAddCAtegory, setModalAddCAtegory ] = React.useState<boolean>(false)
     const [countPhoto, setCountPhoto] = React.useState<number>(1)
     const  [images, setImages] = React.useState([])
-    
 
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
 
     const users = useSelector((state: RootState) => state.admin.users)
     const colors = useSelector((state: RootState) => state.admin.colors)
+    // console.log('users', users)
 
     const [idUserOpen, setUserOpen] = React.useState<number>(0)
     const [displayActive, setDisplayActive] = React.useState<number>(1)
 
-    const usersRole = users.map((el) => <UserRole key={el.id} setUserOpenOK={setUserOpen} idUserOpen={idUserOpen} id={el.id} />)
-    const usersAdmin = users.map((el) => <UserAdmin key={el.id} setUserOpenOK={setUserOpen} idUserOpen={idUserOpen} id={el.id} />)
+    const usersRole = users.map((el) => <UserRole
+    name={el.name}
+    editContent={el.editContent}
+    surname={el.surname}
+    phoneNumber={el.phoneNumber}
+    email={el.email}
+    isAdmin={el.isAdmin}
+    editWebSite={el.editWebSite}
+    addContent={el.addContent}
+    key={el.id} 
+    setUserOpenOK={setUserOpen} 
+    idUserOpen={idUserOpen} 
+    id={el.id}
+     
+     />)
+    const usersAdmin = users.map((el) => <UserAdmin 
+    name={el.name}
+    editContent={el.editContent}
+    surname={el.surname}
+    phoneNumber={el.phoneNumber}
+    email={el.email}
+    isAdmin={el.isAdmin}
+    editWebSite={el.editWebSite}
+    addContent={el.addContent}
+    key={el.id} 
+    setUserOpenOK={setUserOpen} 
+    idUserOpen={idUserOpen} 
+    id={el.id} />)
 
     // console.log('choiceColor' , choiceColor)
 
@@ -110,7 +136,7 @@ export const CabinetAdmin: React.FC = () => {
 
 
                 {/* <div style={{ backround-color: `${props.color}`}}></div> */}
-                {displayActive === 1 ? usersRole : ''}
+                {displayActive === 1 ? usersRole : ''} 
                 {displayActive === 2 ? usersAdmin : ''} 
                 {displayActive === 3 ? <AddProduct modalAddCAtegory={modalAddCAtegory} setModalAddCAtegory={setModalAddCAtegory}  imagesData={images} setImages={setImages}  setCountPhoto={setCountPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor}   modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''}
             </div >

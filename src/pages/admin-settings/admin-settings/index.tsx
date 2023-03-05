@@ -18,7 +18,7 @@ import { Api } from '@/services'
 import axios from 'axios'
 import Image from 'next/image'
 import Link from 'next/link'
-import { UserAdmin } from '@/components/screens/Cabinet/CabinetAdmin/UserAdmin/UserAdmin'
+import { UserAdmin } from '@/components/screens/Cabinet/CabinetAdmin/UserAdmin/UserRole'
 //icons 
 import findUser from '../../../assets/icons/cabinetAdmin/findUser.svg'
 

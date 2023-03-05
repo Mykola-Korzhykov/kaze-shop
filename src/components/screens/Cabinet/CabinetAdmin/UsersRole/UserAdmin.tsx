@@ -12,42 +12,82 @@ interface UserProps {
     idUserOpen?: number,
     id: number,
     setUserOpenOK?: (n: number) => void,
+    addContent: boolean, 
+    editContent: boolean,
+    editWebSite:  boolean,
+    isAdmin: boolean,
+    email: string,
+    phoneNumber: string,
+    surname: string,
+    name: string,
 
 }
 
-export const UserAdmin: React.FC<UserProps> = ({ setUserOpenOK, idUserOpen, id, }) => {
+export const UserAdmin: React.FC<UserProps> = ({ setUserOpenOK, idUserOpen, id, addContent, editContent, editWebSite, isAdmin, email, phoneNumber , surname, name  }) => {
 
-    // const [openUserMy, setOpenUserMy] = React.useState<boolean>(false)
     const openUser = id === idUserOpen ? true : false
-
     const [activeCheckbox, setSctiveCheckbox] = React.useState<number | null>(null)
 
-    // function OpenUser() {
+    const [UserAdmin, setUserAdmin] = React.useState<{
+        addContent: boolean, 
+        editContent: boolean,
+        editWebSite:  boolean,
+        isAdmin: boolean,
+        email: string,
+        phoneNumber: string,
+        surname: string,
+        name: string,
+        id: number,
+    }>(
+       { id: id,
+        name: name,
+        surname: surname,
+        email: email,
+        phoneNumber: phoneNumber,
+        isAdmin: isAdmin,
+        addContent: addContent,
+        editContent: editContent,
+        editWebSite: editWebSite,}
+    )
+    
 
-    // }
+    function sendUserAdmin (role: any, bool: boolean){
+
+        fetch('/admin/create_admin',{
+            method: 'PUT',
+            body: JSON.stringify({...UserAdmin, [role]: bool  })
+        })
+        setUserAdmin((prevState)=> ({...prevState, [role]: bool  }))
+        // console.log(  'editContent',  UserAdmin.editContent)
+        // console.log(  'addContent',  UserAdmin.addContent)
+
+    }
 
     return (
         <div onClick={() => { setUserOpenOK(idUserOpen === id ? -1 : id) }} className={s.wrapper}>
             <div className={s.info}>
                 <div className={s.user}>
                     <div className={s.user_id}>User {id}</div>
-                    <Image className={openUser ? `${s.ArrowUser_open}` : `${s.ArrowUser_close}`} src={ArrowUser} alt='user' />
+                    <Image onClick={() => {
+                        setUserOpenOK(idUserOpen === id ? -1 : id)
+
+                    }} className={openUser ? `${s.ArrowUser_open}` : `${s.ArrowUser_close}`} src={ArrowUser} alt='user' />
                 </div>
 
                 <div className={s.user_info}>
                     <span className={`${s.name} ${s.user_inner}`}>
                         <Image src={userIcone} alt='user' />
-                        Артур Копча
+                       {surname} {name}
                     </span>
 
                     <span className={`${s.email} ${s.user_inner}`}>
                         <Image src={emailIcone} alt='phone' />
-                        arturkopcha@icloud.com
+                        {email}
                     </span>
 
                     <span className={`${s.phone} ${s.user_inner}`}>
                         <Image src={phoneIcone} alt='email' />
-                        +380940499495
+                        {phoneNumber}
                     </span>
                 </div>
             </div>
@@ -56,25 +96,27 @@ export const UserAdmin: React.FC<UserProps> = ({ setUserOpenOK, idUserOpen, id, 
             <div className={openUser ? `${s.roles} ${s.roles__open}` : `${s.roles} ${s.roles__false}`}>
                 <div className={s.checkbox_wrapper_first}>
 
-
-                    {/* <label htmlFor={`makeAdmin${id}`} className={s.checkbox_wrapper}>
-                        <input onClick={() => setSctiveCheckbox(1)} id={`makeAdmin${id}`} className={s.checkbox} type="checkbox" />
+                    <label htmlFor={`makeAdmin${id}`} className={s.checkbox_wrapper}>
+                        <input onChange={()=>{
+                           sendUserAdmin('isAdmin', !UserAdmin.isAdmin)
+                           console.log(`user ${id}`, !UserAdmin.isAdmin)
+                        }} onClick={() => setSctiveCheckbox(1)} id={`makeAdmin${id}`} className={s.checkbox} type="checkbox" />
                         <span className={s.checkbox_label}>
                             <Image className={s.checkbox_icon} src={checkbox_icon} alt='checkbox_icon' />
                         </span>
-                        <span className={s.checkbox_text}> Сделать администратором</span>
-                    </label> */}
+                        <span  className={s.checkbox_text}> Сделать администратором</span>
+                    </label>
 
-                    <label htmlFor={`editRpoduct${id}`} className={s.checkbox_wrapper}>
+                    {/* <label htmlFor={`editRpoduct${id}`} className={s.checkbox_wrapper}>
                         <input onClick={() => setSctiveCheckbox(2)} id={`editRpoduct${id}`} className={s.checkbox} type="checkbox" />
                         <span className={s.checkbox_label}>
                             <Image className={s.checkbox_icon} src={checkbox_icon} alt='checkbox_icon' />
                         </span>
                         <span className={s.checkbox_text}> Редактирование товара</span>
-                    </label>
+                    </label> */}
                 </div>
 
-                <div className={s.checkbox_wrapper_second}>
+                {/* <div className={s.checkbox_wrapper_second}>
                     <label htmlFor={`addProduct${id}`} className={s.checkbox_wrapper}>
                         <input onClick={() => setSctiveCheckbox(3)} id={`addProduct${id}`} className={s.checkbox} type="checkbox" />
                         <span className={s.checkbox_label}>
@@ -83,14 +125,14 @@ export const UserAdmin: React.FC<UserProps> = ({ setUserOpenOK, idUserOpen, id, 
                         <span className={s.checkbox_text}> Добавление товара</span>
                     </label>
 
-                    {/* <label htmlFor={`editSite${id}`} className={s.checkbox_wrapper}>
+                    <label htmlFor={`editSite${id}`} className={s.checkbox_wrapper}>
                         <input onClick={() => setSctiveCheckbox(4)} id={`editSite${id}`} className={s.checkbox} type="checkbox" />
                         <span className={s.checkbox_label}>
                             <Image className={s.checkbox_icon} src={checkbox_icon} alt='checkbox_icon' />
                         </span>
                         <span className={s.checkbox_text}> Редактирование сайта</span>
-                    </label> */}
-                </div>
+                    </label>
+                </div> */}
 
 
 

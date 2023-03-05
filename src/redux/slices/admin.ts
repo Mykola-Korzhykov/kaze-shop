@@ -2,7 +2,15 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 export interface initialStateType {
     users: {
-        id: number
+            id: number,
+            name: string,
+            surname: string,
+            email: string,
+            phoneNumber: string,
+            isAdmin: boolean,
+            addContent: boolean,
+            editContent: boolean,
+            editWebSite: boolean,
     }[],
     inputs: {
         id: number,
@@ -24,15 +32,58 @@ export interface initialStateType {
     }[],
     addPhotoState: {id: number}[],
     sizesItems: { id: number,size: string}[],
-    categoryArr: {id: number, title: string }[]
+    categoryArr: {id: number, title: string }[],
+
 
 }
 
 const initialState: initialStateType = {
     users: [
-        { id: 1 },
-        { id: 2 },
-        { id: 3 },
+
+        {
+            id: 1,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 2,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '+380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 3,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        },
+        {
+            id: 4,
+            name: 'Pavlo',
+            surname: 'Podulak',
+            email: 'pdpdpdp@gmail.com',
+            phoneNumber: '380688874901',
+            isAdmin: false,
+            addContent: false,
+            editContent: false,
+            editWebSite: false,
+        }
     ],
     inputs: [
 
