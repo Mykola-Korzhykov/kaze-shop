@@ -41,8 +41,6 @@ import {ModalAddColor} from '../../Cabinet/CabinetAdmin/Display/AddProduct/Modal
 import {findUsersRole, getUsersRole, getUsersAdmin , findUsersAdmin} from '../../../../redux/slices/admin'
 import axios from "axios";
 
-
-
 // export const heidthcal = 9;
 
 const buttonsObj: ButtonType[] = [
@@ -66,6 +64,8 @@ const buttonsObj: ButtonType[] = [
 //  let sizesArr = [{ id: 0, size: 'XS'}, { id: 1, size: 'S'},]
 //  const [sizesState, setSizesState] = React.useState(null)
 
+
+
 export const CabinetAdmin: React.FC = () => {
     
     const [modalAddColor, setModalAddColor] = React.useState<boolean>(false)
@@ -82,6 +82,8 @@ export const CabinetAdmin: React.FC = () => {
     const usersRoleUI = useSelector((state: RootState) => state.admin.usersRole)
     console.log('getUsersRole', getUsersRole)
     const usersAdminUI = useSelector((state: RootState) => state.admin.usersAdmin)
+    const editProductItemId = useSelector((state: RootState)=>state.admin.editProductItemId )
+    console.log('editProductItemId', editProductItemId)
     const [paginationLendthRole, setPaginationLendthRole] = React.useState<any[]>([])
     const [paginationLendthAdmin, setPaginationLendthAdmin] = React.useState<any[]>([])
 
@@ -131,7 +133,7 @@ export const CabinetAdmin: React.FC = () => {
         dispatch(findUsersRole(term.toLowerCase()))
       }, 500);
 
-    const usersRole = usersRoleUI.map((el) => <UserRole
+    const usersRole = usersRoleUI.map((el, ind) => <UserRole
     name={el.name}
     editContent={el.editContent}
     surname={el.surname}
@@ -140,13 +142,13 @@ export const CabinetAdmin: React.FC = () => {
     isAdmin={el.isAdmin}
     editWebSite={el.editWebSite}
     addContent={el.addContent}
-    key={el.id} 
+    key={ind} 
     setUserOpenOK={setUserOpen} 
     idUserOpen={idUserOpen} 
     id={el.id}
      
      />)
-    const usersAdmin = usersAdminUI.map((el) => <UserAdmin 
+    const usersAdmin = usersAdminUI.map((el, ind) => <UserAdmin 
     name={el.name}
     editContent={el.editContent}
     surname={el.surname}
@@ -155,7 +157,7 @@ export const CabinetAdmin: React.FC = () => {
     isAdmin={el.isAdmin}
     editWebSite={el.editWebSite}
     addContent={el.addContent}
-    key={el.id} 
+    key={ind} 
     id={el.id}
     setUserOpenOK={setUserOpen} 
     idUserOpen={idUserOpen} 
@@ -168,7 +170,7 @@ export const CabinetAdmin: React.FC = () => {
 
             <div className={s.nav_dekstop}>
                 {buttonsObj.map((obj, ind) => {
-                    return <Button chengeDisplayOK={setDisplayActive} key={obj.id} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
+                    return <Button chengeDisplayOK={setDisplayActive} key={ind} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
                 })}
             </div>
 

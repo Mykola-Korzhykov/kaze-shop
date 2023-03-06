@@ -12,9 +12,10 @@ import {EditProductItem} from '../EditProduct/EditProductItem'
 export const EditProduct = () =>{
 
     const products = useSelector((state: RootState)=>state.admin.products )
-    const array = [1,2,3,4,5,6,7,8,9,10]
+    const editProductItemId = useSelector((state: RootState)=>state.admin.editProductItemId )
 
-    const [editProductItemId, setEditProductItemId] = React.useState<number>(-1)
+    const array = [1,2,3,4,5,6,7,8,9,10]
+    // const [editProductItemId, setEditProductItemId] = React.useState<number>(-1)
     const activeProductEdit = products.filter((el)=>{
         return el.id === editProductItemId
     })
@@ -22,9 +23,9 @@ export const EditProduct = () =>{
     return (
 
       <>
-        <div className={ editProductItemId >= 0 ? s.wrapper_off :  s.wrapper}>
+        <div className={ editProductItemId === -1 ? s.wrapper  : s.wrapper_off}>
             {array.map((obj)=>{
-                return <Item setEditProductItemId={setEditProductItemId} />
+                return <Item  /> 
             })}
         </div>
 

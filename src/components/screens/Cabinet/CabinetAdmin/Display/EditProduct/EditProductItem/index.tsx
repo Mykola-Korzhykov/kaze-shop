@@ -9,6 +9,8 @@ import {Input} from './Input'
 
 export const EditProductItem = () =>{
 
+    const editProductItemId = useSelector((state: RootState)=> state.admin.editProductItemId)
+
     const  [inputs, setInputs] = React.useState([
         { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название товара', name: 'titleRU', disable: false,  },
         { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название товара', name: 'titleUA', disable: false },
@@ -23,11 +25,11 @@ export const EditProductItem = () =>{
         { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false },
         // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', name: 'text', disable: true, colors: colors },
         //{ id: 9, type: 'text', text: 'Выберите существующий товар', placeholder: 'Выберите существующий товар', label: 'text', disable: true },
-   
     ])
 
     return (
-        <div className={s.wrapper}>
+        <>
+        <div style={ editProductItemId >= 1 ? {display : 'flex'} : {display : 'none'}} className={s.wrapper}>
         
         {inputs.map((obj)=>{
             return <div className={s.inputs_wrapper}>
@@ -41,9 +43,30 @@ export const EditProductItem = () =>{
                 
             </div>
         })}
+
+
+       
+
         
 
         </div>
+
+
+        <div className={s.addphoto_wrapper}>
+            <span className={s.title}>Добавить фото товара</span>
+            <span className={s.btn}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3.75 12H20.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 3.75V20.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+
+            </span>
+        </div>
+
+        
+
+
+        </>
     )
 
  }

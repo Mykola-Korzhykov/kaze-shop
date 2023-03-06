@@ -36,6 +36,7 @@
 
 .input_category{
     width: 441px;
+
     
     flex-grow: 1;
     height: 50px;
@@ -45,6 +46,7 @@
     @media (max-width: 1300px) {
         display: flex;
         flex-direction: column;
+        width: 100%;
     }
 }
 

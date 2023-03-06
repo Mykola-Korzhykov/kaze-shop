@@ -121,6 +121,7 @@ export interface initialStateType {
     loading: boolean,
     error: string,
     products: Product[],
+    editProductItemId: number
 
 }
 
@@ -658,9 +659,9 @@ const initialState: initialStateType = {
           id: 1
      }
          
-    ]
+    ],
+    editProductItemId: -1
 }
-
 
 export const admin: Slice<initialStateType> = createSlice({
     name: 'admin',
@@ -686,6 +687,9 @@ export const admin: Slice<initialStateType> = createSlice({
         },
         setUsers: (state, action: PayloadAction<User[]>) => {
             state.usersRole = action.payload
+        },
+        setEditProductItemId: (state, action: PayloadAction<number>) => {
+            state.editProductItemId = action.payload
         },
         
     },
@@ -747,6 +751,6 @@ export const admin: Slice<initialStateType> = createSlice({
      
 })
 
-export const {  setSizes, removeSizes,  setColors, setAddPhotoState, setUsers } = admin.actions
+export const {  setSizes, removeSizes,  setColors, setAddPhotoState, setUsers , setEditProductItemId} = admin.actions
 
 export default admin.reducer
