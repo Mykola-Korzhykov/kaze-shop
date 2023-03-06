@@ -211,8 +211,6 @@ export const CabinetAdmin: React.FC = () => {
                     </div>
 
                 </label>
-
-
                 {/* <div style={{ backround-color: `${props.color}`}}></div> */}
                 {displayActive === 1 ? usersRole : ''} 
                 {displayActive === 2 ? usersAdmin : ''} 
@@ -271,7 +269,7 @@ export const CabinetAdmin: React.FC = () => {
                                 <span className={s.input_choice_photo}>
                                     Выбрать размер фотографии
                                     <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <  path d="M26 12L16 22L6 12" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <  path d="M26 12L16 22L6 12" stroke="black" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                                     </svg>
 
 
@@ -290,7 +288,7 @@ export const CabinetAdmin: React.FC = () => {
                                 <span className={s.input_choice_color}>
                                     Выбрать размер фотографии
                                     <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        < path d="M26 12L16 22L6 12" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        < path d="M26 12L16 22L6 12" stroke="black" stroke-width="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                                     </svg>
                                 </span>
                             </div>

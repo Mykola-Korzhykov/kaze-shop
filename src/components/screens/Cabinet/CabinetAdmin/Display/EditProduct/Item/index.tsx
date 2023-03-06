@@ -50,8 +50,8 @@ return(
             <button onClick={()=>dispatch(setEditProductItemId(1))} className={s.btn}> Изменить </button>
             <span  className={s.close_btn}>
             <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M23.4375 6.5625L6.5625 23.4375" stroke="#0B0B0B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M23.4375 23.4375L6.5625 6.5625" stroke="#0B0B0B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M23.4375 6.5625L6.5625 23.4375" stroke="#0B0B0B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M23.4375 23.4375L6.5625 6.5625" stroke="#0B0B0B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
             </span>
         </div>

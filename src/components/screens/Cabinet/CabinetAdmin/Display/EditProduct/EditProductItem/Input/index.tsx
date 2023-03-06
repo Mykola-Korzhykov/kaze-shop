@@ -149,15 +149,15 @@ export const Input = ({text, placeholder, name, id, type, disable}: InputProps) 
                 //         d="M3.75 12H20.25"
                 //         stroke="#9D9D9D"
                 //         stroke-width="1.5"
-                //         stroke-linecap="round"
-                //         stroke-linejoin="round"
+                //         strokeLinecap="round"
+                //         strokeLinejoin="round"
                 //         />
                 //         <path
                 //         d="M12 3.75V20.25"
                 //         stroke="#9D9D9D"
                 //         stroke-width="1.5"
-                //         stroke-linecap="round"
-                //         stroke-linejoin="round"
+                //         strokeLinecap="round"
+                //         strokeLinejoin="round"
                 //         />
                 //     </svg>
                 //     </span>
