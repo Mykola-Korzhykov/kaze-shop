@@ -1,6 +1,8 @@
 import React, { FC } from 'react'
 import { Api } from '@/services'
+import { useSelector } from 'react-redux'
 import { useAppDispatch } from '@/redux/hooks'
+import { RootState } from '@/redux/store'
 import { useRouter } from 'next/router'
 import { addUserInfo } from '@/redux/slices/user'
 import Link from 'next/link'
@@ -8,9 +10,18 @@ import { setCookie } from 'nookies'
 import CabinetTabs from '@/components/screens/Cabinet/CabinetTabs'
 //
 import { CabinetAdmin } from '../Cabinet/CabinetAdmin/CabinetAdmin'
+
+
+
 const Cabinet: FC = () => {
+
+
+	
 	const dispatch = useAppDispatch()
 	const router = useRouter()
+	const user = useSelector((state:RootState )=> state.user )
+
+	console.log('user', user)
 	React.useEffect(() => {
 		const fetchUserData = async () => {
 			try {
@@ -37,9 +48,10 @@ const Cabinet: FC = () => {
 					<Link href='#'>Главная</Link> | <span>Личный кабинет</span>
 				</div>
 
-
-				{/* <CabinetTabs /> */}
-				<CabinetAdmin />
+				{user.user.type === 'USER' ||  'ADMIN' ?  <CabinetTabs /> :  ''}
+				{user.user.type === 'OWNER'  ? <CabinetAdmin /> :  ''}
+				<CabinetAdmin /> 
+				
 			</div>
 		</main>
 	)

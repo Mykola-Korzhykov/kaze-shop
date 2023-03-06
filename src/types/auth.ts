@@ -20,7 +20,7 @@ export type User = {
 	country?: string | null
 	city?: string | null
 	postOffice?: string | null
-	type?: 'OWNER' | 'ADMIN'
+	type?: 'OWNER' | 'USER'
 }
 
 export type Owner = {
@@ -40,7 +40,7 @@ export type Admin = {
 }
 
 export type AuthResponse = {
-	type?: 'OWNER' | 'ADMIN'
+	type?: 'OWNER' | 'ADMIN' | "USER"
 	accessToken: string
 	user?: User
 	owner?: Owner
