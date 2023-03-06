@@ -33,6 +33,9 @@ export const EditProduct = () =>{
             {/* передача фото розмеров та цветов от activeProductEdit */}
            <EditProductItem   />            
         </div>
+
+
+        
     </>
     )
 

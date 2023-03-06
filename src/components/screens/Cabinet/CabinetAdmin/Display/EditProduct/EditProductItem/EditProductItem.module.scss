@@ -51,4 +51,140 @@
     border-radius: 5px;
 }
 
-//
+//net 
+
+.net_wrapper{
+    display: flex;
+    // flex-direction: column;
+    column-gap: 30px;
+    @media (max-width: 1100px) {
+        margin-top: 30px;
+        row-gap: 30px;
+        flex-direction: column;
+     }
+}
+
+.desription_net_wrapper{
+    height: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input{
+   
+    height: 50px;
+    outline: none;
+    padding-left: 15px;
+    border: 1.5px solid #9D9D9D;
+}
+
+.input::placeholder{
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+
+    color: #9D9D9D;
+}
+
+
+
+.input_file{
+    height: 0px;
+    width: 0px;
+    opacity: 0;
+}
+
+.title{
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    
+    display: flex;
+    align-items: center;
+    
+    color: #0B0B0B;
+}
+
+
+// file input 
+.file_net_wrapper{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex-grow: 1;
+}
+
+.label{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+
+    border: 1.5px solid #0B0B0B;
+
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+
+    color: #0B0B0B;
+}
+
+//send
+
+.send_wrapper{
+    margin-top: 30px;
+    display: flex;
+    column-gap: 30px;
+
+}
+
+.send_cancel{
+    display: flex;
+    padding: 16px 24px;
+    gap: 24px;
+    flex-grow: 1;
+    // width: 346px;
+    height: 56px;
+    border: 1.5px solid #0B0B0B;
+    cursor: pointer;
+
+
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+    color: #0B0B0B;
+}
+
+.send{
+    flex-grow: 1;
+    cursor: pointer;
+    background-color: #0B0B0B;
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    max-width: 445px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #FFFFFF;
+}

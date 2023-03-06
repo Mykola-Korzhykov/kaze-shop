@@ -29,6 +29,8 @@ export const EditProductItem = () =>{
 
     return (
         <>
+        <div  style={ editProductItemId >= 1 ? {display : 'block'} : {display : 'none'}}  >
+       
         <div style={ editProductItemId >= 1 ? {display : 'flex'} : {display : 'none'}} className={s.wrapper}>
         
         {inputs.map((obj, ind)=>{
@@ -65,8 +67,36 @@ export const EditProductItem = () =>{
             </span>
         </div>
 
+       {/* мепаю вофо существующих товаров  */}
+
+        <div className={s.net_wrapper}>
+
+          <div className={s.desription_net_wrapper}>
+            <span className={s.title}>Описание размерной сетки</span>
+            <input className={s.input} name="desription_net" type="text" placeholder={'Описание размерной сетки'} />
+          </div>
+
+          <div className={s.file_net_wrapper}>
+            <span className={s.title}>Загрузите размерную сетку</span>
+            <label className={s.label} htmlFor="uploadnet">
+                Изменить размерную сетку
+            </label>
+            <input className={s.input_file} id='uploadnet' name="net_file" type="file"  />
+          </div>
+
+        </div>
+
+        {/* размер товара делаю интуп и СЕТАЮ существующие в отдельную переменную , меняю ее в редактировке и отправляю при отправке */}
+
+        {/* тоже самое с цветами , сатею в отдельную переменную, локальную переменную после чего с ней работаю и отправляю при отправке ее уже  */}
 
 
+        <div className={s.send_wrapper}>
+            <span className={s.send_cancel}>Отмена</span>
+            <span className={s.send}>Изменить товар</span>
+
+        </div>
+        </div>
 
         </>
     )

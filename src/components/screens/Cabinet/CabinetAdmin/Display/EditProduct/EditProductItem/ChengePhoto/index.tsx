@@ -20,7 +20,7 @@ export const ChengePhoto = ({number, }: ChengePhotoProps) =>{
         <>
              <div className={s.wrapper}>
                 <span className={s.number}>{number}</span>
-                <span className={s.title}></span>
+                <span className={s.title}> Изменить фото </span>
              </div>
         </>
     )
