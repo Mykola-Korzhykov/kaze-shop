@@ -1,0 +1,122 @@
+.wrapper{
+    @media (max-width: 1300px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.title{
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 24px;
+    
+    display: flex;
+    align-items: center;
+    
+    color: #0B0B0B;
+    margin-bottom: 10px;
+}
+
+.input{
+    width: 441px;
+    
+    flex-grow: 1;
+    height: 50px;
+   border: 1.5px solid #9D9D9D;
+   padding-left: 20px;
+   outline: none;
+   @media (max-width: 1300px) {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+}
+
+.input_category{
+    width: 441px;
+    
+    flex-grow: 1;
+    height: 50px;
+    border: 1.5px solid #9D9D9D;
+    padding-left: 20px;
+    outline: none;
+    @media (max-width: 1300px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.input_category::placeholder{
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #9D9D9D;
+}
+
+.input::placeholder{
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    
+    display: flex;
+    align-items: center;
+    
+    color: #9D9D9D;
+}
+
+//category 
+
+.select__wrapper{
+    cursor: pointer;
+    position: relative;
+    font-family: 'Georama', sans-serif;
+    @media (max-width: 1300px) {
+        display: flex;
+        flex-direction: column;
+    }
+
+}
+
+.select_img{
+    top: 45px;
+    right: 20px;
+    position: absolute;
+
+}
+
+.categorychose_wrapper{
+    display: block;
+}
+
+.categorychose_wrapper_off{
+    display: none;
+}
+
+.categorychose_item{
+    border: #9D9D9D solid 1.5px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    border-top: none;
+
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    
+    display: flex;
+    align-items: center;
+
+    color: #9D9D9D;
+}
+
+
+

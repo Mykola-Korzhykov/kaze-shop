@@ -45,11 +45,11 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
     //state
     const [categoriesDisplay, setCategoriesDisplay ] = React.useState<boolean>(false)
 
-     function changeCategoriesDisplay ( id: number){
-        // e.stopPropagation();   . /
-        setCategoriesDisplay(!categoriesDisplay)
-     }
-     
+    //  function changeCategoriesDisplay ( id: number){
+    //     // e.stopPropagation();   . /
+    //     setCategoriesDisplay(!categoriesDisplay)
+    //  }
+        
       function handleBlurSet(event: any) {
         
         if(event.target.name === 'titleRU' ){

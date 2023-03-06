@@ -90,7 +90,8 @@ import imgProduct from '../../assets/images/admin/img.svg'
       netData: string | null,
       arrObjMod: { fileNames: string[], colourId: number; sizes: string[];}[],
     //   images: string [] | File []
-    images: any[]
+    images: any[],
+    id: number
 }
   
 export interface initialStateType {
@@ -653,7 +654,8 @@ const initialState: initialStateType = {
           categories: [1,2,3],
           netData: 'dlldldlldldldldldlldldldldldldldldldlldld',
           arrObjMod: [ { fileNames: ['text1', 'twxt2'], colourId: 3, sizes: ['S', 'M'],}],
-          images: [imgProduct, imgProduct, imgProduct, imgProduct]
+          images: [imgProduct, imgProduct, imgProduct, imgProduct],
+          id: 1
      }
          
     ]
@@ -685,6 +687,7 @@ export const admin: Slice<initialStateType> = createSlice({
         setUsers: (state, action: PayloadAction<User[]>) => {
             state.usersRole = action.payload
         },
+        
     },
 
     extraReducers: (builder) => {

@@ -12,7 +12,7 @@ import debounce from 'lodash.debounce';
 //components 
 import { AddProduct } from './Display/AddProduct'
 import {EditProduct} from './Display/EditProduct'
-import {EditProductMain} from './Display/EditProduct/EditProductMain'
+import {EditProductItem} from './Display/EditProduct/EditProductItem'
 
 import Image from 'next/image';
 //icons

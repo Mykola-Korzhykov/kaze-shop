@@ -1,0 +1,19 @@
+.wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 30px;
+    column-gap: 30px;
+    @media (max-width: 1300px) {
+       
+       flex-direction: column;
+    }
+}
+
+.inputs_wrapper{
+    display: flex;
+    min-width: 0px;
+    @media (max-width: 1300px) {
+       
+        flex-direction: column;
+     }
+}

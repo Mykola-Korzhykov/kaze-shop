@@ -7,10 +7,11 @@ import photoNew from '../../../../../../../assets/images/admin/img.svg'
 interface ItemPropsType {
     photo?: string | File 
     price?: number,
-    title?: string
+    title?: string,
+    setEditProductItemId: (n: number) => void
 }
 
-export const Item = ({photo, price, title}: ItemPropsType) =>{
+export const Item = ({photo, price, title, setEditProductItemId,}: ItemPropsType) =>{
     let photoiside; 
     const [photoDone, sePhotoDone] = React.useState<any>()
 
@@ -42,8 +43,8 @@ return(
         <div className={s.title}>Лосины классика</div>
         <div className={s.price}> 78$ </div>
         <div className={s.btn_wrapper}>
-            <button className={s.btn}> Изменить </button>
-            <span className={s.close_btn}>
+            <button onClick={()=>setEditProductItemId(1)} className={s.btn}> Изменить </button>
+            <span  className={s.close_btn}>
             <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M23.4375 6.5625L6.5625 23.4375" stroke="#0B0B0B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M23.4375 23.4375L6.5625 6.5625" stroke="#0B0B0B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
