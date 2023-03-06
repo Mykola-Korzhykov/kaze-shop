@@ -24,8 +24,8 @@ export const EditProduct = () =>{
 
       <>
         <div className={ editProductItemId === -1 ? s.wrapper  : s.wrapper_off}>
-            {array.map((obj)=>{
-                return <Item  /> 
+            {array.map((obj, ind)=>{
+                return <Item key={ind}  /> 
             })}
         </div>
 

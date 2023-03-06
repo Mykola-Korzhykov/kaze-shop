@@ -31,16 +31,18 @@ export const EditProductItem = () =>{
         <>
         <div style={ editProductItemId >= 1 ? {display : 'flex'} : {display : 'none'}} className={s.wrapper}>
         
-        {inputs.map((obj)=>{
-            return <div className={s.inputs_wrapper}>
+        {inputs.map((obj, ind)=>{
+            return <div  key={ind} className={s.inputs_wrapper}>
                 <Input 
+               
                 placeholder={obj.placeholder}
                 text={obj.text}
                 name={obj.name}
                 id={obj.id} 
                 type={obj.type}
-                disable={obj.disable} />
-                
+                disable={obj.disable} 
+               />
+              
             </div>
         })}
 
@@ -63,7 +65,7 @@ export const EditProductItem = () =>{
             </span>
         </div>
 
-        
+
 
 
         </>
