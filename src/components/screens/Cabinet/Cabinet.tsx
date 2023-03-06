@@ -48,8 +48,8 @@ const Cabinet: FC = () => {
 					<Link href='#'>Главная</Link> | <span>Личный кабинет</span>
 				</div>
 
-				{/* {user.user.type === 'USER' ||  'ADMIN' ?  <CabinetTabs /> :  ''}
-				{user.user.type === 'OWNER'  ? <CabinetAdmin /> :  ''} */}
+				{user.user.type === 'USER' ||  'ADMIN' ?  <CabinetTabs /> :  ''}
+				{user.user.type === 'OWNER'  ? <CabinetAdmin /> :  ''}
 				<CabinetAdmin /> 
 				
 			</div>
