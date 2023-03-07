@@ -20,7 +20,7 @@ export type User = {
 	country?: string | null
 	city?: string | null
 	postOffice?: string | null
-	type?: 'OWNER' | 'USER'
+	type?: 'OWNER' | 'USER' | 'ADMIN'
 }
 
 export type Owner = {
