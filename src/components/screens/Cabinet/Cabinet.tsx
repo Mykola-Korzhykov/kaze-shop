@@ -45,7 +45,7 @@ const Cabinet: FC = () => {
 
 				{(user && user.user.type === 'USER') || 'ADMIN' ? <CabinetTabs /> : ''}
 				{user && user.user.type === 'OWNER' ? <CabinetAdmin /> : ''}
-				<CabinetAdmin />
+				{/* <CabinetAdmin /> */}
 			</div>
 		</main>
 	)
