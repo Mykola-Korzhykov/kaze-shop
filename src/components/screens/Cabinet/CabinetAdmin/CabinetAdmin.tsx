@@ -82,7 +82,8 @@ export const CabinetAdmin: React.FC = () => {
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
 
     const usersRoleUI = useSelector((state: RootState) => state.admin.usersRole)
-    //console.log('getUsersRole', getUsersRole)
+    console.log('usersRoleUI', usersRoleUI)
+    // console.log('getUsersRole', getUsersRole)
     const usersAdminUI = useSelector((state: RootState) => state.admin.usersAdmin)
     const editProductItemId = useSelector((state: RootState)=>state.admin.editProductItemId )
    // console.log('editProductItemId', editProductItemId)
@@ -121,6 +122,7 @@ export const CabinetAdmin: React.FC = () => {
 	}, [dispatch])
     // получення юзерів 
     React.useEffect(()=>{
+        console.log('users get')
         dispatch(getUsersRole(activePaginatoinRole))
      }, [activePaginatoinRole ])
      //получення адмінів 

@@ -49,11 +49,11 @@ const Cabinet: FC = () => {
 					<Link href='#'>Главная</Link> | <span>Личный кабинет</span>
 				</div>
 
-				{user && user.user?.type === 'USER'  ? <CabinetTabs /> : ''}
+				{/* {user && user.user?.type === 'USER'  ? <CabinetTabs /> : ''}
 				{user?.user?.type === 'OWNER' && <CabinetAdmin />}
-				{user?.user?.type === 'ADMIN' && <CabinetAdmin />}
+				{user?.user?.type === 'ADMIN' && <CabinetAdmin />} */}
    
-				{/* <CabinetAdmin /> */}
+				<CabinetAdmin />
 			</div>
 		</main>
 	)
