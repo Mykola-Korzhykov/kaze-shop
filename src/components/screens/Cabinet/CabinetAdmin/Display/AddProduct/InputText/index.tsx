@@ -180,6 +180,9 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
                                Добавить категорию
                             </span>
 
+
+
+
                         </div>
                            
                         })  }
