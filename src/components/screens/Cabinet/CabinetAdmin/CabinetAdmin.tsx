@@ -82,10 +82,10 @@ export const CabinetAdmin: React.FC = () => {
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
 
     const usersRoleUI = useSelector((state: RootState) => state.admin.usersRole)
-    console.log('getUsersRole', getUsersRole)
+    //console.log('getUsersRole', getUsersRole)
     const usersAdminUI = useSelector((state: RootState) => state.admin.usersAdmin)
     const editProductItemId = useSelector((state: RootState)=>state.admin.editProductItemId )
-    console.log('editProductItemId', editProductItemId)
+   // console.log('editProductItemId', editProductItemId)
     const [paginationLendthRole, setPaginationLendthRole] = React.useState<any[]>([])
     const [paginationLendthAdmin, setPaginationLendthAdmin] = React.useState<any[]>([])
 
@@ -121,11 +121,11 @@ export const CabinetAdmin: React.FC = () => {
 	}, [dispatch])
     // получення юзерів 
     React.useEffect(()=>{
-        // dispatch(getUsersRole(activePaginatoinRole))
+        dispatch(getUsersRole(activePaginatoinRole))
      }, [activePaginatoinRole ])
      //получення адмінів 
     React.useEffect(()=>{
-    //    dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
+       dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
     }, [ activePaginatoinRoleAdmin])
     // вираховування пагінації
     React.useEffect(()=>{
@@ -143,8 +143,8 @@ export const CabinetAdmin: React.FC = () => {
         }
         setPaginationLendthAdmin(arrAdminPagination)
 
-        console.log('arrRolePagination', arrRolePagination)
-        console.log('arrAdminPagination', arrAdminPagination)
+        // console.log('arrRolePagination', arrRolePagination)
+        // console.log('arrAdminPagination', arrAdminPagination)
     }, [usersRoleUI, usersAdminUI])
 
     // console.log('users', users)
