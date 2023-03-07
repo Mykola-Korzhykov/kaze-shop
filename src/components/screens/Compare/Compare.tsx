@@ -4,13 +4,14 @@ import Image from 'next/image'
 import s from './Compare.module.scss'
 import cartImage from '../../../assets/images/cartItem.png'
 import catalogItem from '../../../assets/images/compare.png'
-
+import CompareModal from './CompareModal'
 const Compare = () => {
 	const [sizeActive, setSizeActive] = React.useState<boolean>(true)
 	const [colorActive, setColorActive] = React.useState<boolean>(false)
 	return (
 		<main className='content'>
 			<div className='container'>
+				<CompareModal />
 				<div className={s.body}>
 					<div className={s.main_item}>
 						<div className={s.main_imgWrapper}>

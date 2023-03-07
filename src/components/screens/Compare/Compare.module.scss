@@ -416,3 +416,92 @@
 
 .open {
 }
+
+// compare modal styles
+
+.modal {
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	// background-color: rgba(183, 183, 183, 184);
+	// opacity: .9;
+	&_body {
+		background-color: #ffffff;
+		margin: 15% auto;
+		padding: 20px;
+		width: 600px;
+		min-height: 355px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		@media (max-width: 1034px) {
+			margin: 20% auto;
+		}
+		@media (max-width: 824px) {
+			margin: 30% auto;
+		}
+		@media (max-width: 500px) {
+			margin: 50% auto;
+		}
+	}
+	&_header {
+		display: flex;
+		gap: 30px;
+		margin-bottom: 50px;
+	}
+	&_content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	&_title {
+		font-family: 'Russo One';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 32px;
+		line-height: 39px;
+		color: #0b0b0b;
+	}
+	&_descr {
+		font-family: 'Georama';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 18px;
+		line-height: 22px;
+		color: #9d9d9d;
+		margin-bottom: 30px;
+		margin-top: 15px;
+	}
+	&_text {
+		width: 100%;
+		border-bottom: 1.5px solid #9d9d9d;
+		margin-bottom: 30px;
+	}
+	&_btns {
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+	}
+	&_btn {
+		flex: 0 1 48%;
+		padding: 16px 32px;
+		font-family: 'Georama';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 24px;
+		border: 1.5px solid #0b0b0b;
+	}
+	&_cancelBtn {
+		color: #0b0b0b;
+		background-color: #ffffff;
+	}
+	&_addBtn {
+		color: #ffffff;
+		background-color: #0b0b0b;
+	}
+}
