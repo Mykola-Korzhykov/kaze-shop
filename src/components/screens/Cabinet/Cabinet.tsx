@@ -28,6 +28,12 @@ const Cabinet: FC = () => {
 				if (data.user) {
 					dispatch(addUserInfo(data.user))
 				}
+				if (data.admin) {
+					dispatch(addUserInfo(data.admin))
+				}
+				if (data.owner) {
+					dispatch(addUserInfo(data.owner))
+				}
 			} catch (e) {
 				//router.push('/404')
 				console.log(e)

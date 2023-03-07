@@ -7,7 +7,9 @@ import { UserRole } from './UserAdmin/UserRole'
 import { RootState } from "@/redux/store";
 import { useAppDispatch } from "@/redux/hooks";
 import Link from "next/link";
-
+import { Api } from "@/services";
+import { setCookie } from "nookies";
+import { addUserInfo } from "@/redux/slices/user";
 import debounce from 'lodash.debounce';
 //components 
 import { AddProduct } from './Display/AddProduct'
@@ -91,7 +93,32 @@ export const CabinetAdmin: React.FC = () => {
 
     const [activePaginatoinRole, setActivePaginatoinRole] = React.useState<number>(1)
     const [activePaginatoinRoleAdmin, setActivePaginatoinAdmin] = React.useState<number>(1)
+    //refresh
+    React.useEffect(() => {
+		const fetchUserData = async () => {
+			try {
+				const data = await Api().user.getMe()
+				setCookie(null, 'accessToken', data.accessToken, {
+					maxAge: 30 * 24 * 60 * 60,
+					path: '/',
+				})
+				if (data.user) {
+					dispatch(addUserInfo(data.user))
+				}
+                if (data.admin) {
+					dispatch(addUserInfo(data.admin))
+				}
+                if (data.owner) {
+					dispatch(addUserInfo(data.owner))
+				}
+			} catch (e) {
+				//router.push('/404')
+				console.log(e)
+			}
+		}
 
+		fetchUserData()
+	}, [dispatch])
     // получення юзерів 
     React.useEffect(()=>{
         // dispatch(getUsersRole(activePaginatoinRole))
