@@ -37,3 +37,4 @@ const adminSetings = () => {
 }
 
 export default adminSetings;
+
