@@ -17,7 +17,7 @@ const CabinetTabs: FC = () => {
 			const elX = e.clientX
 			window.scrollTo({ top: elX / 10, behavior: 'smooth' })
 		},
-		[selectedTab]
+		[]
 	)
 
 	return (

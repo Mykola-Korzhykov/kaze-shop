@@ -13,9 +13,10 @@ const Spinner: FC<Props> = ({ isShow = true }) => {
 	const cookies = parseCookies()
 	useEffect(() => {
 		dispatch(setAuthState(!!cookies.accessToken))
-		// console.log(cookies.accessToken)
 	}, [dispatch])
-
+	useEffect(() => {
+		console.log('work access token')
+	}, [cookies.accessToken])
 	return (
 		<div className={`${cl.body} ${isShow ? cl.show : ''}`}>
 			<div className={cl.waviy}>
