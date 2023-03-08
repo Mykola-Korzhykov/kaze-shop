@@ -3,6 +3,7 @@ import { parseCookies } from 'nookies'
 import { setAuthState } from '@/redux/slices/user'
 import { useAppDispatch } from '@/redux/hooks'
 import cl from './spinner.module.scss'
+import { Api } from '@/services'
 
 type Props = {
 	isShow?: boolean
@@ -15,8 +16,13 @@ const Spinner: FC<Props> = ({ isShow = true }) => {
 		dispatch(setAuthState(!!cookies.accessToken))
 	}, [dispatch])
 	useEffect(() => {
-		console.log('work access token')
-	}, [cookies.accessToken])
+		try {
+			// Api().user.refreshCartToken()
+		} catch (e) {
+			//router.push('/404')
+			console.log(e)
+		}
+	}, [])
 	return (
 		<div className={`${cl.body} ${isShow ? cl.show : ''}`}>
 			<div className={cl.waviy}>
