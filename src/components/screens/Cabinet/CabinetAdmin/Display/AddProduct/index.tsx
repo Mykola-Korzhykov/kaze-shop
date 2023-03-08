@@ -323,6 +323,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                         return <InputTextItem key={obj.id} id={obj.id} type={obj.type} text={obj.text} placeholder={obj.placeholder} />
                     })}
                 </div> */}
+                
             </div>
 
                 <div className={s.addphoto_wrapper}>

@@ -4,49 +4,69 @@ import {API_URL} from  '../../services'
 
 // хардкор 
 import imgProduct from '../../assets/images/admin/img.svg'
+import { RootState } from '../store';
+import Cookies from 'js-cookie';
 
-    //поиск юзерів через дебаунс 
- export const findUsersRole = createAsyncThunk(
+export const findUsersRole = createAsyncThunk(
     'users/fetchUsersRole',
     async (params: string, thunkAPI) => {
-        // console.log('findUsersRole')
-      const response = await axios.get(`${API_URL}/user/find_users?page=1&pageSize=1&v=${params}`)
-      return response.data
+      const instance = axios.create({
+        baseURL: API_URL,
+        withCredentials: true,
+        headers: {
+          Authorization: 'Bearer ' + (Cookies.get() || ''),
+        },
+      });
+      const response = await instance.get(`/user/find_users?page=1&pageSize=10&v=${params}`);
+      return response.data;
     }
-  )
-
-    //получення всіх юзерів на перший рендерінг 
+  );
+  
   export const getUsersRole = createAsyncThunk(
     'users/getUsers',
     async (params: number, thunkAPI) => {
-
-      const response = await axios.get(`${API_URL}/user/get_users?page=10&pageSize=${params}`)
-      return response.data
+      const instance = axios.create({
+        baseURL: API_URL,
+        withCredentials: true,
+        headers: {
+          Authorization: 'Bearer ' + (Cookies.get() || ''),
+        },
+      });
+      const response = await instance.get(`/user/get_users?page=10&pageSize=${params}`);
+      return response.data;
     }
-  )
-
-  //getUsersRole
-     //поиск адмінів через дебаунс 
- export const findUsersAdmin = createAsyncThunk(
+  );
+  
+  export const findUsersAdmin = createAsyncThunk(
     'users/fetchUsersAdmin',
     async (params: string, thunkAPI) => {
-        console.log('findUsersAdmin')
-      const response = await axios.get(`${API_URL}/admin/find_admin?page=1&pageSize=1&v=${params}`)
-      return response.data
+      const instance = axios.create({
+        baseURL: API_URL,
+        withCredentials: true,
+        headers: {
+          Authorization: 'Bearer ' + (Cookies.get() || ''),
+        },
+      });
+      const response = await instance.get(`/admin/find_admin?page=1&pageSize=10&v=${params}`);
+      return response.data;
     }
-  )
-
-    //получення всіх aдмінів
+  );
+  
   export const getUsersAdmin = createAsyncThunk(
     'users/getAdmins',
     async (params: number, thunkAPI) => {
-        console.log('getUsersAdmin')
-      const response = await axios.get(`${API_URL}/admin/get_admins?page=10&pageSize=${params}`)
-      return response.data
+      const instance = axios.create({
+        baseURL: API_URL,
+        withCredentials: true,
+        headers: {
+          Authorization: 'Bearer ' + (Cookies.get() || ''),
+        },
+      });
+      const response = await instance.get(`/admin/get_admins?page=10&pageSize=${params}`);
+      return response.data;
     }
-  )
-
-
+  );
+  
 
 
   export interface User {
