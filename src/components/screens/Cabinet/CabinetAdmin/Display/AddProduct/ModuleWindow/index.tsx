@@ -11,6 +11,7 @@ import { devNull } from "os"
 import {setModalAddPhoto} from '../../../../../../../redux/slices/modal'
 
 
+
 interface ModuleWindowImagesProps {
     fileNames: string[];
     colourId: number;
@@ -53,6 +54,7 @@ export const ModuleWindiw = ({  modalAddPhoto, setChoiceColor, choiceColor, setM
     const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
     // console.log('categoriesSend', categoriesSend)
 
+    
      function generationObjModal () {
         const obj = {
             fileNames: files.map((el)=>{
@@ -153,6 +155,7 @@ export const ModuleWindiw = ({  modalAddPhoto, setChoiceColor, choiceColor, setM
                     </span>
                 </div>
 
+                     
                 <div className={s.sizes}>
                     {selectedSizes?.map((el, ind)=>{
                         return <SizeItem key={ind} size={el} id={ind} />

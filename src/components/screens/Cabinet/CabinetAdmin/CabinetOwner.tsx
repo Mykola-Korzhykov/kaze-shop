@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector , } from "react-redux";
-import s from './CabinetAdmine.module.scss'
+import s from './CabinetOwner.module.scss'
 import { Button } from './Buttons/Button'
 import { UserAdmin } from './UsersRole/UserAdmin'
 import { UserRole } from './UserAdmin/UserRole'
@@ -39,12 +39,12 @@ import findUser from '../../../../assets/icons/cabinetAdmin/findUser.svg'
 import { ButtonType } from '../../../../types/auth'
 import { SizeItem } from "./Display/AddProduct/SizesItem";
 import {ModuleWindiw} from './Display/AddProduct/ModuleWindow'
-import {ModalAddCategory} from '../../Cabinet/CabinetAdmin/Display/AddProduct/ModalAddCategory'
-import {ModalAddColor} from '../../Cabinet/CabinetAdmin/Display/AddProduct/ModalAddColor'
+import {ModalAddCategory} from './Display/AddProduct/ModalAddCategory'
+import {ModalAddColor} from './Display/AddProduct/ModalAddColor'
 import {findUsersRole, getUsersRole, getUsersAdmin , findUsersAdmin} from '../../../../redux/slices/admin'
 import axios from "axios";
 import LogoutModal from "@/components/modals/LogoutModal/LogoutModal";
-import ChangeUserPassword from "@/components/ChangeUserPassword/ChangeUserPassword";
+import ChangeUserPassword from '../../../ChangeUserPassword/ChangeUserPassword'
 
 
 // export const heidthcal = 9;
@@ -132,7 +132,7 @@ export const CabinetAdmin: React.FC = () => {
     React.useEffect(()=>{
        if( displayActive === 1 ){
         console.log('запыт getUsersRole')
-        dispatch(getUsersRole(activePaginatoinRole))
+        // dispatch(getUsersRole(activePaginatoinRole))
        }
         
      }, [activePaginatoinRole,  displayActive])
@@ -140,7 +140,7 @@ export const CabinetAdmin: React.FC = () => {
     React.useEffect(()=>{
         if(displayActive === 2){
             console.log('запыт getUsersAdmin')
-            dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
+            // dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
         }
     }, [ activePaginatoinRoleAdmin, displayActive])
     // вираховування пагінації
@@ -189,6 +189,7 @@ export const CabinetAdmin: React.FC = () => {
     setUserOpenOK={setUserOpen} 
     idUserOpen={idUserOpen} 
     id={el.id}
+    activePaginatoinRole={activePaginatoinRole}
      
      />)
     const usersAdmin = usersAdminUI.map((el, ind) => <UserAdmin 
@@ -204,12 +205,15 @@ export const CabinetAdmin: React.FC = () => {
     id={el.id}
     setUserOpenOK={setUserOpen} 
     idUserOpen={idUserOpen} 
+    activePaginatoinRoleAdmin={activePaginatoinRoleAdmin}
      />)
 
     // console.log('choiceColor' , choiceColor)
 
     return (
         <div className={s.wrapper}>
+
+            
 
             <div className={s.nav_dekstop}>
                 {buttonsObj.map((obj, ind) => {
@@ -263,9 +267,10 @@ export const CabinetAdmin: React.FC = () => {
                     </div>
 
                 </label>
+              
                 {/* <div style={{ backround-color: `${props.color}`}}></div> */}
-                {displayActive === 1 ? usersRole : ''} 
-                {displayActive === 2 ? usersAdmin : ''} 
+                {displayActive === 1 ? usersAdmin : ''}
+                {displayActive === 2 ? usersRole : ''} 
                 {displayActive === 3 ? <AddProduct 
                 modalAddCAtegory={modalAddCAtegory} 
                 imagesData={images} setImages={setImages}  

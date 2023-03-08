@@ -7,6 +7,11 @@ import userIcone from '../../../../../assets/icons/User/user_icon.svg'
 import phoneIcone from '../../../../../assets/icons/User/phone_icon.svg'
 import emailIcone from '../../../../../assets/icons/User/email_icon.svg'
 import checkbox_icon from '../../../../../assets/icons/User/checkbox_icon.svg'
+import {API_URL} from '../../../../../services/index'
+import axios from 'axios'
+import Cookies from "js-cookie";
+import { useAppDispatch } from "@/redux/hooks";
+import {getUsersAdmin} from '../../../../../redux/slices/admin'
 
 interface UserProps {
     idUserOpen?: number,
@@ -20,10 +25,11 @@ interface UserProps {
     phoneNumber: string,
     surname: string,
     name: string,
+    activePaginatoinRoleAdmin: number
 
 }
 
-export const UserAdmin: React.FC<UserProps> = ({ setUserOpenOK, idUserOpen, id, addContent, editContent, editWebSite, isAdmin, email, phoneNumber , surname, name  }) => {
+export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebSite, isAdmin, email, phoneNumber , surname, name  }) => {
 
     const openUser = id === idUserOpen ? true : false
     const [activeCheckbox, setSctiveCheckbox] = React.useState<number | null>(null)
@@ -50,18 +56,38 @@ export const UserAdmin: React.FC<UserProps> = ({ setUserOpenOK, idUserOpen, id, 
         editWebSite: editWebSite,}
     )
     
+    const dispatch = useAppDispatch()
 
-    function sendUserAdmin (role: any, bool: boolean){
-
-        fetch('/admin/create_admin',{
-            method: 'PUT',
-            body: JSON.stringify({...UserAdmin, [role]: bool  })
+    function sendUserAdmin(role: string, bool: boolean) {
+        const cookies = Cookies.get()
+        const token = cookies.accessToken
+      
+        const instance = axios.create({
+          baseURL: API_URL,
+          withCredentials: true,
+          headers: {
+            Authorization: 'Bearer ' + (token || ''),
+          },
         })
-        setUserAdmin((prevState)=> ({...prevState, [role]: bool  }))
-        // console.log(  'editContent',  UserAdmin.editContent)
-        // console.log(  'addContent',  UserAdmin.addContent)
+      
+        instance.put('/admin/create_admin', {
+          [role]: bool,
+        })
+        
+          .then(response => {
+            setUserAdmin(prevState => ({
+              ...prevState,
+              [role]: bool,
+            }))
+          })
+          .catch(error => {
+            console.error('Error updating user admin:', error)
+          })
+      }
 
-    }
+    //   React.useEffect(()=>{
+    //     dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
+    //   }, [UserAdmin])
 
     return (
         <div onClick={() => { setUserOpenOK(idUserOpen === id ? -1 : id) }} className={s.wrapper}>
@@ -97,9 +123,9 @@ export const UserAdmin: React.FC<UserProps> = ({ setUserOpenOK, idUserOpen, id, 
                 <div className={s.checkbox_wrapper_first}>
 
                     <label htmlFor={`makeAdmin${id}`} className={s.checkbox_wrapper}>
-                        <input onChange={()=>{
+                        <input checked={isAdmin ? true : false} onChange={()=>{
                            sendUserAdmin('isAdmin', !UserAdmin.isAdmin)
-                           console.log(`user ${id}`, !UserAdmin.isAdmin)
+                           
                         }} onClick={() => setSctiveCheckbox(1)} id={`makeAdmin${id}`} className={s.checkbox} type="checkbox" />
                         <span className={s.checkbox_label}>
                             <Image className={s.checkbox_icon} src={checkbox_icon} alt='checkbox_icon' />
