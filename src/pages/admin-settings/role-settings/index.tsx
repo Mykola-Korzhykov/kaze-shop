@@ -10,7 +10,6 @@ import { UserRole } from '@/components/screens/Cabinet/CabinetAdmin/UserAdmin/Us
 
 //icons 
 import findUser from '../../../assets/icons/cabinetAdmin/findUser.svg'
-
 //components 
 
 // import { wrapper } from '@/redux/store'
@@ -64,5 +63,14 @@ const GiveRole: React.FC = () => {
         </SpinnerLayout>
     )
 }
+
+
+<main className='content'>
+<div className='container'>
+ 
+</div>
+</main>
+
+
 
 export default GiveRole

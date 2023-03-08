@@ -1,23 +1,28 @@
-.wrapper{
-    width: 100%;
-    padding-left: 32px;
-    padding-right: 32px;
- 
-}
 
 .container{
-    max-width: 1230px;
-	padding: 0 0px;
-	margin: 0 auto;
-
-	@media (max-width: 1300px) {
-		padding: 0 32px;
-	}
-
-	@media (max-width: 428px) {
-		padding: 0 12px;
-	}
+    // margin-top: 100px;
 }
+
+.backround_black{
+   position: absolute;
+   top: 0;
+   
+   
+   right: 0;
+   width: 600px;
+   height: 900px;
+   background-color: #9D9D9D;
+   z-index: 5;
+}
+
+.wrapper{
+    width: 100%;
+    // padding-left: 32px;
+    // padding-right: 32px;
+    // margin-top: 100px;
+}
+
+
 .inputs_text{
     margin-left: -30px;
 }

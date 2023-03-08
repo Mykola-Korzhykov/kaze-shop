@@ -323,14 +323,14 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                         return <InputTextItem key={obj.id} id={obj.id} type={obj.type} text={obj.text} placeholder={obj.placeholder} />
                     })}
                 </div> */}
-                
+
             </div>
 
                 <div className={s.addphoto_wrapper}>
                     <div className={s.descriprion}>
                         <span className={s.title}>Добавить фото товара</span>
                         <span onClick={()=>{
-                           setCountPhoto(addPhotoState.length)
+                        //    setCountPhoto(addPhotoState.length)
                         //    @ts-ignore
                            dispatch(setAddPhotoState());
                         

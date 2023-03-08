@@ -66,8 +66,6 @@ export const findUsersRole = createAsyncThunk(
       return response.data;
     }
   );
-  
-
 
   export interface User {
     id: number;

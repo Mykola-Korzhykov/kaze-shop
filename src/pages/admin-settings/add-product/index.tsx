@@ -144,6 +144,7 @@ import { useAppDispatch } from '@/redux/hooks'
 import {SizeChart} from '../../../components/screens/Cabinet/CabinetAdmin/Display/AddProduct/sizeChart'
 import {setModalAddPhoto} from '../../../redux/slices/modal'
 import {ModuleWindiw} from '../../../components/screens/Cabinet/CabinetAdmin/Display/AddProduct/ModuleWindow'
+import Link from "next/link"
 
 interface AddProductProps {
     // setModalAddPhoto: (n: boolean)=> void,
@@ -341,9 +342,21 @@ export const AddProduct = ({  setModalAddColor, modalAddColor, setCountPhoto, im
 
     
     return (
-        <div className={s.wrapper}>
-            <div className={s.container}>
-              {modalAddPhoto ? <ModuleWindiw /> : '' }  
+
+<main className='content'>
+<div className='container'>
+        
+    <div className={s.wrapper}>
+            
+
+                <div className='page_coordinator'>
+                    <Link href='/cabinet'>.../Личный кабинет | </Link> <span>Выдать роль</span>
+                </div>
+                
+                
+              {modalAddPhoto
+              //@ts-ignore
+               ? <ModuleWindiw /> : '' }  
             <form className={s.from} action="/submit-form" method="post">
             <div className={s.inputs_text}>
 
@@ -466,7 +479,7 @@ export const AddProduct = ({  setModalAddColor, modalAddColor, setCountPhoto, im
                     <div className={s.descriprion}>
                         <span className={s.title}>Добавить фото товара</span>
                         <span onClick={()=>{
-                           setCountPhoto(addPhotoState.length)
+                        //    setCountPhoto(addPhotoState.length)
                         //    @ts-ignore
                            dispatch(setAddPhotoState());
                         
@@ -569,8 +582,14 @@ export const AddProduct = ({  setModalAddColor, modalAddColor, setCountPhoto, im
                 </div>
                 
             </form>
+   
+
+           
         </div>
-        </div>
+</div>
+</main>
+
+
     )
 }
 

@@ -18,14 +18,14 @@ interface ModuleWindowImagesProps {
 }
 
 interface ModuleWindiwProps {
-    setModalAddPhoto: (n: boolean)=> void, 
-    modalAddPhoto: boolean,
-    setChoiceColor: (n: boolean)=> void,
-    choiceColor: boolean,
-    setModalAddColor: (n: boolean)=> void,
-    modalAddColor: boolean,
-    imagesData: { fileNames: string[], colourId: number; sizes: string[];}[],
-    setImages: (n: any)=> void,
+    setModalAddPhoto?: (n: boolean)=> void, 
+    modalAddPhoto?: boolean,
+    setChoiceColor?: (n: boolean)=> void,
+    choiceColor?: boolean,
+    setModalAddColor?: (n: boolean)=> void,
+    modalAddColor?: boolean,
+    imagesData?: { fileNames: string[], colourId: number; sizes: string[];}[],
+    setImages?: (n: any)=> void,
 }
 
 export const ModuleWindiw = ({  modalAddPhoto, setChoiceColor, choiceColor, setModalAddColor, modalAddColor, imagesData, setImages }: ModuleWindiwProps) => {

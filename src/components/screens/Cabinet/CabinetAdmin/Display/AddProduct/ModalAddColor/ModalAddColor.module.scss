@@ -2,16 +2,18 @@
 
 .module_wrapper{
    
-    margin-left: -105px;
+    // margin-left: -105px;
     position: absolute;
     top: 0;
     height: 100%;
-    width: 100vw;
+    width: 90%;
     margin-top:250px;
    
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .module_inner{
@@ -19,7 +21,8 @@
     position: relative;
     width: 601px;
     background-color: white;
-    padding: 20px 30px; 
+    padding: 20px 30px;
+    
 
 }
 
