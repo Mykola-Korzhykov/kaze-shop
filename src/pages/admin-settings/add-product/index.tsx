@@ -353,7 +353,11 @@ export const AddProduct = ({  setModalAddColor, modalAddColor, setCountPhoto, im
                     <Link href='/cabinet'>.../Личный кабинет | </Link> <span>Выдать роль</span>
                 </div>
                 
+              <div className={s.wrapper_inner_main}>
                 
+              {modalAddPhoto
+              //@ts-ignore
+               ? <div className={s.backround_window}></div>: '' } 
               {modalAddPhoto
               //@ts-ignore
                ? <ModuleWindiw /> : '' }  
@@ -582,6 +586,7 @@ export const AddProduct = ({  setModalAddColor, modalAddColor, setCountPhoto, im
                 </div>
                 
             </form>
+            </div>  
    
 
            
