@@ -43,6 +43,7 @@ import {ModalAddCategory} from '../../Cabinet/CabinetAdmin/Display/AddProduct/Mo
 import {ModalAddColor} from '../../Cabinet/CabinetAdmin/Display/AddProduct/ModalAddColor'
 import {findUsersRole, getUsersRole, getUsersAdmin , findUsersAdmin} from '../../../../redux/slices/admin'
 import axios from "axios";
+import LogoutModal from "@/components/modals/LogoutModal/LogoutModal";
 
 // export const heidthcal = 9;
 
@@ -127,7 +128,7 @@ export const CabinetAdmin: React.FC = () => {
     // получення юзерів 
     React.useEffect(()=>{
        if( displayActive === 1 ){
-        console.log('p')
+        console.log('запыт getUsersRole')
         dispatch(getUsersRole(activePaginatoinRole))
        }
         
@@ -135,7 +136,7 @@ export const CabinetAdmin: React.FC = () => {
      //получення адмінів 
     React.useEffect(()=>{
         if(displayActive === 2){
-            console.log('p2')
+            console.log('запыт getUsersAdmin')
             dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
         }
     }, [ activePaginatoinRoleAdmin, displayActive])
@@ -263,6 +264,8 @@ export const CabinetAdmin: React.FC = () => {
                 modalAddColor={modalAddColor} 
                 setModalAddColor={setModalAddColor}   
                 modalAddPhoto={modalAddPhoto} /> : ''}
+                {displayActive === 6 ? <LogoutModal closeModal={setDisplayActive}  /> : ''} 
+
                 
                 {displayActive === 1 ?
                 <div className={s.pagination_wrapper}>
