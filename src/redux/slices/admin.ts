@@ -7,10 +7,9 @@ import imgProduct from '../../assets/images/admin/img.svg'
 import { RootState } from '../store';
 import Cookies from 'js-cookie';
 
-
 export const findUsersRole = createAsyncThunk(
   'users/fetchUsersRole',
-  async (params: string, thunkAPI) => {
+  async (params: string[], thunkAPI) => {
     const instance = axios.create({
       baseURL: API_URL,
       withCredentials: true,
@@ -22,6 +21,7 @@ export const findUsersRole = createAsyncThunk(
     return response.data;
   }
 );
+
 
 export const getUsersRole = createAsyncThunk(
   'users/getUsers',
@@ -40,7 +40,7 @@ export const getUsersRole = createAsyncThunk(
 
 export const findUsersAdmin = createAsyncThunk(
   'users/fetchUsersAdmin',
-  async (params: string, thunkAPI) => {
+  async (params: string[], thunkAPI) => {
     const instance = axios.create({
       baseURL: API_URL,
       withCredentials: true,
@@ -268,6 +268,7 @@ export const admin: Slice<initialStateType> = createSlice({
           })
           .addCase(findUsersRole.rejected, (state, action) => {
             state.usersRole = []
+            console.log('ошибка поиск юзеров')
             state.error = action.error.message;
             state.loading = false;
           })
@@ -281,6 +282,7 @@ export const admin: Slice<initialStateType> = createSlice({
           })
           .addCase(getUsersRole.rejected, (state, action) => {
             state.usersRole = []
+            console.log('ошибка получения юзеров')
             state.error = action.error.message;
             state.loading = false;
           })
@@ -293,6 +295,7 @@ export const admin: Slice<initialStateType> = createSlice({
           })
           .addCase(getUsersAdmin.rejected, (state, action) => {
             state.usersAdmin = []
+            console.log('ошибка получения админов')
             state.error = action.error.message;
             state.loading = false;
           })
@@ -305,6 +308,7 @@ export const admin: Slice<initialStateType> = createSlice({
           })
           .addCase(findUsersAdmin.rejected, (state, action) => {
             state.usersAdmin = []
+            console.log('ошибка поиск админов')
             state.error = action.error.message;
             state.loading = false;
           })

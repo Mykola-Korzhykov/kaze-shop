@@ -21,7 +21,7 @@ const initialState: ModalType = {
 
 }
 // const [countPhoto, setCountPhoto] = React.useState<number>(1)
-const modaleSlice = createSlice({
+const modaleSlice  = createSlice({
 	name: 'user',
 	initialState: initialState,
 	reducers: {

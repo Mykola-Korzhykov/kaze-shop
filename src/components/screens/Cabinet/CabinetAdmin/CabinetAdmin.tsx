@@ -44,6 +44,8 @@ import {ModalAddColor} from '../../Cabinet/CabinetAdmin/Display/AddProduct/Modal
 import {findUsersRole, getUsersRole, getUsersAdmin , findUsersAdmin} from '../../../../redux/slices/admin'
 import axios from "axios";
 import LogoutModal from "@/components/modals/LogoutModal/LogoutModal";
+import ChangeUserPassword from "@/components/ChangeUserPassword/ChangeUserPassword";
+
 
 // export const heidthcal = 9;
 
@@ -83,9 +85,9 @@ export const CabinetAdmin: React.FC = () => {
     const [images, setImages] = React.useState([])
 
     const dispatch = useAppDispatch()
-
+   
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
-
+    console.log('ChangeUserPassword', ChangeUserPassword)
     const usersRoleUI = useSelector((state: RootState) => state.admin.usersRole)
     console.log('usersRoleUI', usersRoleUI)
     // console.log('getUsersRole', getUsersRole)
@@ -99,6 +101,7 @@ export const CabinetAdmin: React.FC = () => {
     const [displayActive, setDisplayActive] = React.useState<number>(1)
     const [activePaginatoinRole, setActivePaginatoinRole] = React.useState<number>(1)
     const [activePaginatoinRoleAdmin, setActivePaginatoinAdmin] = React.useState<number>(1)
+    console.log('displayActive', displayActive)
     //refresh
     React.useEffect(() => {
 		const fetchUserData = async () => {
@@ -166,11 +169,11 @@ export const CabinetAdmin: React.FC = () => {
     
   
     const debouncedSearchAdmin = debounce((term) => {
-        dispatch(findUsersAdmin(term.toLowerCase()))
+        dispatch(findUsersAdmin(term))
       }, 500);
 
       const debouncedSearchRole = debounce((term) => {
-        dispatch(findUsersRole(term.toLowerCase()))
+        dispatch(findUsersRole(term))
       }, 500);
 
     const usersRole = usersRoleUI.map((el, ind) => <UserRole
@@ -230,8 +233,12 @@ export const CabinetAdmin: React.FC = () => {
                     Пользователь
                     <div className={s.input_wrapper}>
                         <input onChange={(e)=>{
-                            debouncedSearchRole(e.target.value)
-                            console.log('debouncedSearchRole')
+                            if (e.target.value === '' || e.target.value === ' ') {
+                                dispatch(getUsersRole(activePaginatoinRole))
+                            }else{
+                                debouncedSearchRole(e.target.value.toLowerCase().split(' ').join(','))
+                                console.log('debouncedSearchRole', e.target.value.toLowerCase().split(' ').join(','))
+                            }
                            
                         }} className={s.input} id='findUser' type="findUser" />
                         <Image src={findUser} alt='findUser' />
@@ -243,9 +250,14 @@ export const CabinetAdmin: React.FC = () => {
                     Пользователь
                     <div className={s.input_wrapper}>
                         <input onChange={(e)=>{
-                          
-                            debouncedSearchAdmin(e.target.value)
-                            console.log('debouncedSearchAdmin')
+                          if (e.target.value === '' || e.target.value === ' ') {
+                            dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
+                          }else{
+                            debouncedSearchAdmin(e.target.value.toLowerCase().split(' ').join(','))
+                            
+                            console.log('debouncedSearchAdmin', e.target.value.toLowerCase().split(' ').join(','))
+                          }
+                           
                         }} className={s.input} id='findUser' type="findUser" />
                         <Image src={findUser} alt='findUser' />
                     </div>
@@ -254,25 +266,24 @@ export const CabinetAdmin: React.FC = () => {
                 {/* <div style={{ backround-color: `${props.color}`}}></div> */}
                 {displayActive === 1 ? usersRole : ''} 
                 {displayActive === 2 ? usersAdmin : ''} 
-
-
                 {displayActive === 3 ? <AddProduct 
                 modalAddCAtegory={modalAddCAtegory} 
-               
                 imagesData={images} setImages={setImages}  
                 setCountPhoto={setCountPhoto}  
                 modalAddColor={modalAddColor} 
                 setModalAddColor={setModalAddColor}   
                 modalAddPhoto={modalAddPhoto} /> : ''}
+                {displayActive === 4? <EditProduct /> : '' }
+                {displayActive === 5 ?  <ChangeUserPassword /> : ''} 
                 {displayActive === 6 ? <LogoutModal closeModal={setDisplayActive}  /> : ''} 
-
+                
                 
                 {displayActive === 1 ?
                 <div className={s.pagination_wrapper}>
                     {paginationLendthRole.map((el)=>{
                         return <span key={el} onClick={()=>{
                             setActivePaginatoinRole(el)
-
+                            
                         }} className={ activePaginatoinRole === el ?  s.item_active : s.item}>{el}</span>
                     })}
                 </div> : ''
@@ -287,7 +298,7 @@ export const CabinetAdmin: React.FC = () => {
                     })}
                 </div> : ''
                 }
-                {displayActive === 4? <EditProduct /> : '' }
+               
                 
             </div >
             {countPhoto > 0 && modalAddPhoto &&  choiceColor === false? <div style={{height: `${ 1450 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''}

@@ -20,6 +20,8 @@ const CabinetTabs: FC = () => {
 		[]
 	)
 
+	// console.log('ChangeUserPassword', ChangeUserPassword)
+
 	return (
 		<>
 			{selectedTab === 7 && <LogoutModal closeModal={setSelectedTab} />}

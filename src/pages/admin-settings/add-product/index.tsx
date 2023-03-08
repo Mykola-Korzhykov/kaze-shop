@@ -145,6 +145,7 @@ import {SizeChart} from '../../../components/screens/Cabinet/CabinetAdmin/Displa
 import {setModalAddPhoto} from '../../../redux/slices/modal'
 import {ModuleWindiw} from '../../../components/screens/Cabinet/CabinetAdmin/Display/AddProduct/ModuleWindow'
 import Link from "next/link"
+import { getUsersRole} from '../../../redux/slices/admin'
 
 interface AddProductProps {
     // setModalAddPhoto: (n: boolean)=> void,
@@ -201,7 +202,7 @@ export const AddProduct = ({  setModalAddColor, modalAddColor, setCountPhoto, im
 
     const [netFile, setNetFile] = React.useState<null | any>(null)
 
-    
+    console.log('getUsersRole', getUsersRole)
     // const NetData = useSelector((state: RootState)=> state.formData.netData)
     const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
     const modalAddPhoto = useSelector((state: RootState)=> state.modaleSlice.modalAddPhoto)
