@@ -126,12 +126,17 @@ export const CabinetAdmin: React.FC = () => {
 	}, [dispatch])
     // получення юзерів 
     React.useEffect(()=>{
-        console.log('users get')
+       
+       if( displayActive === 1 ){
         dispatch(getUsersRole(activePaginatoinRole))
+       }
+        
      }, [activePaginatoinRole ])
      //получення адмінів 
     React.useEffect(()=>{
-       dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
+        if(displayActive === 2){
+            dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
+        }
     }, [ activePaginatoinRoleAdmin])
     // вираховування пагінації
     React.useEffect(()=>{
