@@ -66,6 +66,9 @@ export const UserApi = (instance: AxiosInstance) => ({
 		)
 		return data
 	},
+	async refreshCartToken() {
+		await instance.get('/cart/set-cart')
+	},
 	// async getMe() {
 	// 	const { data } = await axios.patch<GetCodeDto, { data: AuthResponse }>(
 	// 		'https://jsonplaceholder.typicode.com/users/1'

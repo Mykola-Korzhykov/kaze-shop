@@ -50,7 +50,7 @@ export const Api = (
 					// localStorage.setItem('token', response.data.accessToken)
 					return instance.request(originalRequest)
 				} catch (e) {
-					console.log('НЕ АВТОРИЗОВАН')
+					console.log('NOT AUTH')
 				}
 			}
 			throw error

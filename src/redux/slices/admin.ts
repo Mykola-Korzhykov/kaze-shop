@@ -1,9 +1,15 @@
-import { createSlice, createAsyncThunk, PayloadAction, Slice } from '@reduxjs/toolkit'
+import {
+	createSlice,
+	createAsyncThunk,
+	PayloadAction,
+	Slice,
+} from '@reduxjs/toolkit'
 import axios from 'axios'
-import {API_URL} from  '../../services'
+import { API_URL } from '../../services'
 
-// хардкор 
+// хардкор
 import imgProduct from '../../assets/images/admin/img.svg'
+
 import { RootState } from '../store';
 import Cookies from 'js-cookie';
 
@@ -24,21 +30,24 @@ export const findUsersRole = createAsyncThunk(
 
 
 export const getUsersRole = createAsyncThunk(
-  'users/getUsers',
-  async (params: number, thunkAPI) => {
-    const instance = axios.create({
-      baseURL: API_URL,
-      withCredentials: true,
-      headers: {
-        Authorization: 'Bearer ' + (Cookies.get('accessToken') || ''),
-      },
-    });
-    const response = await instance.get(`/user/get_users?page=${params}&pageSize=10`);
-    return response.data;
-  }
-);
+	'users/getUsers',
+	async (params: number, thunkAPI) => {
+		const instance = axios.create({
+			baseURL: API_URL,
+			withCredentials: true,
+			headers: {
+				Authorization: 'Bearer ' + (Cookies.get('accessToken') || ''),
+			},
+		})
+		const response = await instance.get(
+			`/user/get_users?page=${params}&pageSize=10`
+		)
+		return response.data
+	}
+)
 
 export const findUsersAdmin = createAsyncThunk(
+
   'users/fetchUsersAdmin',
   async (params: string[], thunkAPI) => {
     const instance = axios.create({
@@ -53,209 +62,210 @@ export const findUsersAdmin = createAsyncThunk(
   }
 );
 
+
 export const getUsersAdmin = createAsyncThunk(
-  'users/getAdmins',
-  async (params: number, thunkAPI) => {
-    const instance = axios.create({
-      baseURL: API_URL,
-      withCredentials: true,
-      headers: {
-        Authorization: 'Bearer ' + (Cookies.get('accessToken') || ''),
-      },
-    });
-    const response = await instance.get(`/admin/get_admins?page=${params}&pageSize=10`);
-    return response.data;
-  }
-);
+	'users/getAdmins',
+	async (params: number, thunkAPI) => {
+		const instance = axios.create({
+			baseURL: API_URL,
+			withCredentials: true,
+			headers: {
+				Authorization: 'Bearer ' + (Cookies.get('accessToken') || ''),
+			},
+		})
+		const response = await instance.get(
+			`/admin/get_admins?page=${params}&pageSize=10`
+		)
+		return response.data
+	}
+)
 
-
-  export interface User {
-    id: number;
-    name: string;
-    surname: string;
-    email: string;
-    phoneNumber: string;
-    isAdmin: boolean;
-    addContent: boolean;
-    editContent: boolean;
-    editWebSite: boolean;
-  }
-
-  export interface Product {
-    title: {
-        ua: string | null,
-        ru: string | null,
-        rs: string | null,
-        en: string | null,
-      };
-      description: {
-        ua: string | null,
-        ru: string | null,
-        rs: string | null,
-        en: string | null,
-      },
-      sizeChartImageDescription: {
-        ua: string | null,
-        ru: string | null,
-        rs: string | null,
-        en: string | null,
-      }
-      sizes:string[],
-      colourId: number | null,
-      price: number | null,
-      quantity: number | null,
-      imagesjpg: null | any,
-      allcoloursId: number[] | null,
-      allsizes: string[] | null,
-      categories: number[] | null,
-      netData: string | null,
-      arrObjMod: { fileNames: string[], colourId: number; sizes: string[];}[],
-    //   images: string [] | File []
-    images: any[],
-    id: number
+export interface User {
+	id: number
+	name: string
+	surname: string
+	email: string
+	phoneNumber: string
+	isAdmin: boolean
+	addContent: boolean
+	editContent: boolean
+	editWebSite: boolean
 }
-  
-export interface initialStateType {
-    usersRole: User[],
-    usersAdmin: User[],
-    inputs: {
-        id: number,
-        text: string,
-        placeholder: string,
-        label: string
-        type: string
-    }[],
-    sizesend:[
-        {
-            id: number,
-            size: string
-        }
-    ],
-    colors: {
-        label: string,
-        hex: string | null, 
-        id: number
-    }[],
-    addPhotoState: {id: number}[],
-    sizesItems: { id: number,size: string}[],
-    categoryArr: {id: number, title: string }[],
-    loading: boolean,
-    error: string,
-    products: Product[],
-    editProductItemId: number
 
+export interface Product {
+	title: {
+		ua: string | null
+		ru: string | null
+		rs: string | null
+		en: string | null
+	}
+	description: {
+		ua: string | null
+		ru: string | null
+		rs: string | null
+		en: string | null
+	}
+	sizeChartImageDescription: {
+		ua: string | null
+		ru: string | null
+		rs: string | null
+		en: string | null
+	}
+	sizes: string[]
+	colourId: number | null
+	price: number | null
+	quantity: number | null
+	imagesjpg: null | any
+	allcoloursId: number[] | null
+	allsizes: string[] | null
+	categories: number[] | null
+	netData: string | null
+	arrObjMod: { fileNames: string[]; colourId: number; sizes: string[] }[]
+	//   images: string [] | File []
+	images: any[]
+	id: number
+}
+
+export interface initialStateType {
+	usersRole: User[]
+	usersAdmin: User[]
+	inputs: {
+		id: number
+		text: string
+		placeholder: string
+		label: string
+		type: string
+	}[]
+	sizesend: [
+		{
+			id: number
+			size: string
+		}
+	]
+	colors: {
+		label: string
+		hex: string | null
+		id: number
+	}[]
+	addPhotoState: { id: number }[]
+	sizesItems: { id: number; size: string }[]
+	categoryArr: { id: number; title: string }[]
+	loading: boolean
+	error: string
+	products: Product[]
+	editProductItemId: number
 }
 
 const initialState: initialStateType = {
-    usersAdmin: [],
-    usersRole: [
-
-    ],
-    inputs: [
-
-    ],
-    sizesend: [
-        { id: 0, size: 'XS' },
-    ],
-    colors: [ { label: 'Бежевый', hex: '#FFE4C4', id: 1 },
-    { label: 'Капучинный', hex: '#9F8E84', id: 2 },
-    { label: 'Синий', hex: '#000080', id: 3 },
-    { label: 'Голубой', hex: '#A6BEE5', id: 4 },
-    { label: 'Коричневый', hex: '#0B0B0B', id: 5 },
-    { label: 'Изумрудный', hex: '#24514C', id: 6 },
-    { label: 'Розовый', hex: '#FFC0CB', id: 7 },
-    { label: 'Фиолетовый', hex: '#800080', id: 8 },
-    { label: 'Черный', hex: '#0B0B0B', id: 52 },
-    { label: 'Оливковый', hex: '#829E86', id: 432 },
-    { label: 'Белый', hex: '#fff', id: 34314 },
-    { label: 'Серый', hex: '#808080', id: 13413413413 },
-    { label: 'Графитовый', hex: '#525A5B', id: 57567 },
-    { label: 'Пудровый', hex: '#F2E2D8', id: 75756756 },
-    {label: 'Добавить цвет ', hex: null, id: 75756756 }],
-    addPhotoState: [{id: 1}],
-    sizesItems: [
-        { id: 0, size: 'XS'},
-        { id: 1, size: 'S'},
-        { id: 2, size: 'XXL'},
-        { id: 3, size: 'XXS'},
-        { id: 4, size: 'M'},
-    ],
-    categoryArr: [
-        {id: 1, title: 'первая категоря'},
-        {id: 2, title: 'вторая'}, 
-        {id: 0.1, title: 'уоуооуоуоуоуоуоу категория '}
-    ],
-    loading: false,
-    error: 'no error',
-    products: [
-
-     {
-        title: {
-            ua: 'ProductUA',
-            ru: 'ProductRU',
-            rs: 'ProductRS',
-            en: 'ProductEN',
-          },
-          description: {
-            ua: 'ProductUA',
-            ru: 'ProductRU',
-            rs: 'ProductRS',
-            en: 'ProductEN',
-          },
-          sizeChartImageDescription: {
-            ua: 'cетка ua ',
-            ru:'cетка ru',
-            rs:'cетка rs',
-            en: 'cетка en',
-          },
-          sizes:['S', 'M', ],
-          colourId: 5,
-          price: 500,
-          quantity: 100,
-          imagesjpg: [imgProduct, imgProduct, imgProduct, imgProduct, imgProduct],
-          allcoloursId: [1,2,3,4,5,6],
-          allsizes: ['S', 'M' , '' ],
-          categories: [1,2,3],
-          netData: 'dlldldlldldldldldlldldldldldldldldldlldld',
-          arrObjMod: [ { fileNames: ['text1', 'twxt2'], colourId: 3, sizes: ['S', 'M'],}],
-          images: [imgProduct, imgProduct, imgProduct, imgProduct],
-          id: 1
-     }
-         
-    ],
-    editProductItemId: -1
+	usersAdmin: [],
+	usersRole: [],
+	inputs: [],
+	sizesend: [{ id: 0, size: 'XS' }],
+	colors: [
+		{ label: 'Бежевый', hex: '#FFE4C4', id: 1 },
+		{ label: 'Капучинный', hex: '#9F8E84', id: 2 },
+		{ label: 'Синий', hex: '#000080', id: 3 },
+		{ label: 'Голубой', hex: '#A6BEE5', id: 4 },
+		{ label: 'Коричневый', hex: '#0B0B0B', id: 5 },
+		{ label: 'Изумрудный', hex: '#24514C', id: 6 },
+		{ label: 'Розовый', hex: '#FFC0CB', id: 7 },
+		{ label: 'Фиолетовый', hex: '#800080', id: 8 },
+		{ label: 'Черный', hex: '#0B0B0B', id: 52 },
+		{ label: 'Оливковый', hex: '#829E86', id: 432 },
+		{ label: 'Белый', hex: '#fff', id: 34314 },
+		{ label: 'Серый', hex: '#808080', id: 13413413413 },
+		{ label: 'Графитовый', hex: '#525A5B', id: 57567 },
+		{ label: 'Пудровый', hex: '#F2E2D8', id: 75756756 },
+		{ label: 'Добавить цвет ', hex: null, id: 75756756 },
+	],
+	addPhotoState: [{ id: 1 }],
+	sizesItems: [
+		{ id: 0, size: 'XS' },
+		{ id: 1, size: 'S' },
+		{ id: 2, size: 'XXL' },
+		{ id: 3, size: 'XXS' },
+		{ id: 4, size: 'M' },
+	],
+	categoryArr: [
+		{ id: 1, title: 'первая категоря' },
+		{ id: 2, title: 'вторая' },
+		{ id: 0.1, title: 'уоуооуоуоуоуоуоу категория ' },
+	],
+	loading: false,
+	error: 'no error',
+	products: [
+		{
+			title: {
+				ua: 'ProductUA',
+				ru: 'ProductRU',
+				rs: 'ProductRS',
+				en: 'ProductEN',
+			},
+			description: {
+				ua: 'ProductUA',
+				ru: 'ProductRU',
+				rs: 'ProductRS',
+				en: 'ProductEN',
+			},
+			sizeChartImageDescription: {
+				ua: 'cетка ua ',
+				ru: 'cетка ru',
+				rs: 'cетка rs',
+				en: 'cетка en',
+			},
+			sizes: ['S', 'M'],
+			colourId: 5,
+			price: 500,
+			quantity: 100,
+			imagesjpg: [imgProduct, imgProduct, imgProduct, imgProduct, imgProduct],
+			allcoloursId: [1, 2, 3, 4, 5, 6],
+			allsizes: ['S', 'M', ''],
+			categories: [1, 2, 3],
+			netData: 'dlldldlldldldldldlldldldldldldldldldlldld',
+			arrObjMod: [
+				{ fileNames: ['text1', 'twxt2'], colourId: 3, sizes: ['S', 'M'] },
+			],
+			images: [imgProduct, imgProduct, imgProduct, imgProduct],
+			id: 1,
+		},
+	],
+	editProductItemId: -1,
 }
 
 export const admin: Slice<initialStateType> = createSlice({
-    name: 'admin',
-    initialState,
-    reducers: {
-        setSizes: (state, action: PayloadAction<{id: number, size: string }>) => {
-            
-            //const found =  state.sizes.indexOf(action.payload.id)
-            state.sizesend.push(action.payload)
-        },
-        removeSizes: (state, action) =>{
-            // console.log('вход')
-            const found =  state.sizesend.find((el)=> el.id === action.payload)
-            const index = state.sizesend.indexOf(found)
-            state.sizesend.splice(index, 1)
-        },
+	name: 'admin',
+	initialState,
+	reducers: {
+		setSizes: (state, action: PayloadAction<{ id: number; size: string }>) => {
+			//const found =  state.sizes.indexOf(action.payload.id)
+			state.sizesend.push(action.payload)
+		},
+		removeSizes: (state, action) => {
+			// console.log('вход')
+			const found = state.sizesend.find(el => el.id === action.payload)
+			const index = state.sizesend.indexOf(found)
+			state.sizesend.splice(index, 1)
+		},
 
-        setColors: (state, action: PayloadAction<{label: string,hex: string,  id: number }>) => {
-            state.colors.push(action.payload)
-        },
-        setAddPhotoState: (state) => {
-            state.addPhotoState.push({id: state.addPhotoState[state.addPhotoState.length - 1].id + 1})
-        },
-        setUsers: (state, action: PayloadAction<User[]>) => {
-            state.usersRole = action.payload
-        },
-        setEditProductItemId: (state, action: PayloadAction<number>) => {
-            state.editProductItemId = action.payload
-        },
-        
-    },
+		setColors: (
+			state,
+			action: PayloadAction<{ label: string; hex: string; id: number }>
+		) => {
+			state.colors.push(action.payload)
+		},
+		setAddPhotoState: state => {
+			state.addPhotoState.push({
+				id: state.addPhotoState[state.addPhotoState.length - 1].id + 1,
+			})
+		},
+		setUsers: (state, action: PayloadAction<User[]>) => {
+			state.usersRole = action.payload
+		},
+		setEditProductItemId: (state, action: PayloadAction<number>) => {
+			state.editProductItemId = action.payload
+		},
+	},
+
 
     extraReducers: (builder) => {
         builder
@@ -315,9 +325,16 @@ export const admin: Slice<initialStateType> = createSlice({
       },
 
 
-     
+    
 })
 
-export const {  setSizes, removeSizes,  setColors, setAddPhotoState, setUsers , setEditProductItemId} = admin.actions
+export const {
+	setSizes,
+	removeSizes,
+	setColors,
+	setAddPhotoState,
+	setUsers,
+	setEditProductItemId,
+} = admin.actions
 
 export default admin.reducer

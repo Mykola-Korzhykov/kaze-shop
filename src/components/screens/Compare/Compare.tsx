@@ -11,7 +11,7 @@ const Compare = () => {
 	return (
 		<main className='content'>
 			<div className='container'>
-				<CompareModal />
+				{/* <CompareModal /> */}
 				<div className={s.body}>
 					<div className={s.main_item}>
 						<div className={s.main_imgWrapper}>
