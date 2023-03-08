@@ -337,9 +337,13 @@ export const AddProduct = ({  setModalAddColor, modalAddColor, setCountPhoto, im
     // const inputsSecondWrapper = inputs?.slice(inputs.length - 1, inputs.length)
 
 
+
+
+    
     return (
         <div className={s.wrapper}>
             <div className={s.container}>
+              {modalAddPhoto ? <ModuleWindiw /> : '' }  
             <form className={s.from} action="/submit-form" method="post">
             <div className={s.inputs_text}>
 
