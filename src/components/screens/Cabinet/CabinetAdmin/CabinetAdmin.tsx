@@ -15,6 +15,7 @@ import debounce from 'lodash.debounce';
 import { AddProduct } from './Display/AddProduct'
 import {EditProduct} from './Display/EditProduct'
 import {EditProductItem} from './Display/EditProduct/EditProductItem'
+import {setModalAddPhoto, setModalAddColor} from '../../../../redux/slices/modal'
 
 import Image from 'next/image';
 //icons
@@ -70,10 +71,13 @@ const buttonsObj: ButtonType[] = [
 
 export const CabinetAdmin: React.FC = () => {
     
-    const [modalAddColor, setModalAddColor] = React.useState<boolean>(false)
+    // const [modalAddColor, setModalAddColor] = React.useState<boolean>(false)
+    const modalAddColor =  useSelector((state: RootState) => state.modaleSlice.modalAddColor)
     const [choiceColor, setChoiceColor] =React.useState<boolean>(false)
-    const [modalAddPhoto, setModalAddPhoto ] = React.useState<boolean>(false)
-    const [modalAddCAtegory, setModalAddCAtegory ] = React.useState<boolean>(false)
+    // const [modalAddPhoto, setModalAddPhoto ] = React.useState<boolean>(false)
+    const modalAddPhoto = useSelector((state: RootState) => state.modaleSlice.modalAddPhoto)
+    const modalAddCAtegory =  useSelector((state: RootState) => state.modaleSlice.modalAddCAtegory)
+    // const [modalAddCAtegory, setModalAddCAtegory ] = React.useState<boolean>(false)
     const [countPhoto, setCountPhoto] = React.useState<number>(1)
     const [images, setImages] = React.useState([])
 
@@ -91,7 +95,7 @@ export const CabinetAdmin: React.FC = () => {
     const [paginationLendthAdmin, setPaginationLendthAdmin] = React.useState<any[]>([])
 
     const colors = useSelector((state: RootState) => state.admin.colors)
-
+    
     const [activePaginatoinRole, setActivePaginatoinRole] = React.useState<number>(1)
     const [activePaginatoinRoleAdmin, setActivePaginatoinAdmin] = React.useState<number>(1)
     //refresh
@@ -243,7 +247,17 @@ export const CabinetAdmin: React.FC = () => {
                 {/* <div style={{ backround-color: `${props.color}`}}></div> */}
                 {displayActive === 1 ? usersRole : ''} 
                 {displayActive === 2 ? usersAdmin : ''} 
-                {displayActive === 3 ? <AddProduct modalAddCAtegory={modalAddCAtegory} setModalAddCAtegory={setModalAddCAtegory}  imagesData={images} setImages={setImages}  setCountPhoto={setCountPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor}   modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto} /> : ''}
+
+
+                {displayActive === 3 ? <AddProduct 
+                modalAddCAtegory={modalAddCAtegory} 
+               
+                imagesData={images} setImages={setImages}  
+                setCountPhoto={setCountPhoto}  
+                modalAddColor={modalAddColor} 
+                setModalAddColor={setModalAddColor}   
+                modalAddPhoto={modalAddPhoto} /> : ''}
+                
                 {displayActive === 1 ?
                 <div className={s.pagination_wrapper}>
                     {paginationLendthRole.map((el)=>{
@@ -274,8 +288,8 @@ export const CabinetAdmin: React.FC = () => {
 
 
             {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  
-            {modalAddCAtegory ? <ModalAddCategory modalAddCAtegory={modalAddCAtegory} setModalAddCAtegory={setModalAddCAtegory} /> : ''} 
-            {modalAddColor ? <ModalAddColor  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : '' }
+            {modalAddCAtegory ? <ModalAddCategory  /> : ''} 
+            {modalAddColor ? <ModalAddColor  /> : '' }
             
             {/* <div className={s.module_wrapper}>
                     <div className={s.module_inner}>

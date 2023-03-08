@@ -6,6 +6,7 @@ import user from './slices/user'
 import admin from './slices/admin'
 import main from './slices/main'
 import formData from './slices/formData'
+import modaleSlice from './slices/modal'
 
 export function makeStore() {
 	return configureStore({
@@ -14,7 +15,8 @@ export function makeStore() {
 			user: user,
 			admin,
 			main,
-			formData
+			formData,
+			modaleSlice
 		},
 	})
 }

@@ -4,16 +4,17 @@ import s from './ModalAddCategory.module.scss'
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import { useAppDispatch } from '@/redux/hooks'
+import {setModalAddCAtegory} from '../../../../../../../redux/slices/modal'
 
 
 
 interface ModalAddCategoryProps {
-    setModalAddCAtegory: (n: boolean)=> void,
-    modalAddCAtegory: boolean,
+    // setModalAddCAtegory: (n: boolean)=> void,
+    // modalAddCAtegory: boolean,
 }
 
 
-export const ModalAddCategory = ({setModalAddCAtegory, modalAddCAtegory }: ModalAddCategoryProps) => {
+export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
 
     interface  inputsStateType {
         ua: string;
@@ -21,6 +22,7 @@ export const ModalAddCategory = ({setModalAddCAtegory, modalAddCAtegory }: Modal
         rs: string;
         en: string;
     }
+    const modalAddCAtegory = useSelector((state: RootState)=> state.modaleSlice.modalAddCAtegory)
 
     const [stateInputs, setStateInputs] = React.useState<inputsStateType>({ua: '',  ru: '', rs: '', en: ''  })
     
@@ -43,8 +45,8 @@ export const ModalAddCategory = ({setModalAddCAtegory, modalAddCAtegory }: Modal
         <div style={ modalAddCAtegory ?  {  display: 'flex'} :{  display: 'none'} } className={s.module_wrapper}>
             <div className={s.module_inner}>
 
-            <div onClick={()=> setModalAddCAtegory(false)} className={s.close_modal}>
-
+            <div onClick={()=> dispatch(setModalAddCAtegory(false)) } className={s.close_modal}>
+                
                 <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M25 7L7 25" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     <path d="M25 25L7 7" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -105,7 +107,7 @@ export const ModalAddCategory = ({setModalAddCAtegory, modalAddCAtegory }: Modal
 
                     <button onClick={()=>{
                         sendStateInputs(stateInputs)
-                        setModalAddCAtegory(false)
+                        dispatch(setModalAddCAtegory(false))
                         }} className={s.btn_add}>
                         Добавить категорию
                     </button>

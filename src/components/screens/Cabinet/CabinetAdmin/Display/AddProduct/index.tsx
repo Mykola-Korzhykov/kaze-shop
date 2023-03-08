@@ -2,7 +2,8 @@ import React from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import s from './AddProduct.module.scss'
-//components
+//components & redux
+import {setModalAddPhoto} from '../../../../../../redux/slices/modal'
 import { InputTextItem } from './InputText'
 // import {ModalAddCategory} from '../AddProduct/ModalAddCategory'
 import {setAddPhotoState} from '../../../../../../redux/slices/admin'
@@ -13,7 +14,7 @@ import { useAppDispatch } from '@/redux/hooks'
 import {SizeChart} from './sizeChart'
 
 interface AddProductProps {
-    setModalAddPhoto: (n: boolean)=> void,
+    // setModalAddPhoto: (n: boolean)=> void,
     modalAddPhoto: boolean,
     setModalAddColor: (n: boolean)=> void,
     modalAddColor: boolean,
@@ -22,7 +23,7 @@ interface AddProductProps {
     imagesData: { fileNames: string[], colourId: number; sizes: string[];}[],
     setImages: (n: any)=> void,
     modalAddCAtegory: boolean,
-    setModalAddCAtegory: (n: any)=> void,
+    // setModalAddCAtegory: (n: any)=> void,
 }
   
 
@@ -63,7 +64,7 @@ interface formDataType {
     
 }
 
-export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, modalAddColor, setCountPhoto, imagesData, setImages, modalAddCAtegory, setModalAddCAtegory}: AddProductProps) => {
+export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, setCountPhoto, imagesData, setImages, modalAddCAtegory}: AddProductProps) => {
 
     const [netFile, setNetFile] = React.useState<null | any>(null)
     // const NetData = useSelector((state: RootState)=> state.formData.netData)
@@ -265,7 +266,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                              text={obj.text} 
                              placeholder={obj.placeholder}
                              modalAddCAtegory={modalAddCAtegory}
-                             setModalAddCAtegory={setModalAddCAtegory}
+                           
                              />
                         })}
                     </div>
@@ -287,7 +288,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                             setModalAddColor={setModalAddColor}
                             modalAddColor={modalAddColor}
                             modalAddCAtegory={modalAddCAtegory}
-                            setModalAddCAtegory={setModalAddCAtegory}  />
+                              />
                             
                             
                         })}
@@ -306,7 +307,6 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                             setModalAddColor={setModalAddColor}
                             modalAddColor={modalAddColor}
                             modalAddCAtegory={modalAddCAtegory}
-                            setModalAddCAtegory={setModalAddCAtegory}
                               />
                            
                             
@@ -344,7 +344,7 @@ export const AddProduct = ({setModalAddPhoto, modalAddPhoto, setModalAddColor, m
                     </div>
                     <div className={s.addphoto}>  
                     {addPhotoState?.map((el, ind)=>{
-                        return <div key={ind} onClick={()=> setModalAddPhoto(!modalAddPhoto)} className={s.addphoto_wrapper}>
+                        return <div key={ind} onClick={()=> dispatch(setModalAddPhoto(!modalAddPhoto))} className={s.addphoto_wrapper}>
                             <div className={s.element_wrapper}>
                                 <span className={s.id}> {`${el.id}.`}</span>
                                 <span className={s.text}>Загрузить фото</span>

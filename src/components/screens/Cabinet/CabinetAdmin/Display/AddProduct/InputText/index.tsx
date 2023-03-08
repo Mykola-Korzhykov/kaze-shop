@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store"
 import {setTitle, setDescription, setPrice, setCategories, setQuantity} from '../../../../../../../redux/slices/formData'
 import { useAppDispatch } from '@/redux/hooks'
+import {setModalAddCAtegory} from '../../../../../../../redux/slices/modal'
 // import {initialStateType, } from '../../../../../../../redux/slices/formData'
 
 interface InputItemProps {
@@ -26,20 +27,22 @@ interface InputItemProps {
     setModalAddColor?: (n: boolean)=> void
     modalAddColor?: boolean,
     modalAddCAtegory?: boolean, 
-    setModalAddCAtegory?: (n: boolean)=> void
+    // setModalAddCAtegory?: (n: boolean)=> void
     
 }
 
-export const InputTextItem = ({ id, type, text, placeholder, disable, name, colors, modalAddColor, setModalAddColor, setModalAddCAtegory, modalAddCAtegory}: InputItemProps) => {
+export const InputTextItem = ({ id, type, text, placeholder, disable, name, colors, modalAddColor, setModalAddColor, }: InputItemProps) => {
 
     const dispatch = useAppDispatch()
     // const titleStore = useSelector((state: RootState)=> state.formData.title)
     
-    console.log('modalAddCAtegory', modalAddCAtegory)
+    
     //redux
+    const modalAddCAtegory =  useSelector((state: RootState)=> state.modaleSlice.modalAddCAtegory)
     const titleDescription = useSelector((state: RootState)=> state.formData.price)
     const categories = useSelector((state: RootState)=> state.formData.categories)
     const categoryArr = useSelector((state: RootState)=> state.admin.categoryArr)
+    console.log('modalAddCAtegory', modalAddCAtegory)
     // console.log('categories', categories)
     // console.log('categoryArr', categoryArr)
     //state
@@ -164,8 +167,9 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
                         <div
                         onClick={ (e) => { 
                             e.preventDefault()
-                            e.stopPropagation(); 
-                            setModalAddCAtegory(true)
+                            e.stopPropagation();
+                            dispatch(setModalAddCAtegory(true)) 
+                           
                             setCategoriesDisplay(!categoriesDisplay);
                             }} 
                         

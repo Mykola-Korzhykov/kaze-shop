@@ -4,16 +4,16 @@ import s from './ModalAddColor.module.scss'
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import { useAppDispatch } from '@/redux/hooks'
+import {setModalAddColor} from '../../../../../../../redux/slices/modal'
 
 
 interface ModalAddColorProps {
-    setModalAddColor: (n: boolean)=> void,
-    modalAddColor: boolean,
+
 }
 
 
 
-export const ModalAddColor: React.FC<ModalAddColorProps> = ({setModalAddColor, modalAddColor }) => {
+export const ModalAddColor: React.FC<ModalAddColorProps> = () => {
 
     const coloursArr = [
         {id: 0, text: 'Название цвета UA', placeholder: 'Введите название цвета', leng: 'ua'},
@@ -21,6 +21,8 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setModalAddColor, m
         {id: 2, text: 'Название цвета EN', placeholder: 'Введите название цвета', leng: 'en'},
         {id: 3, text: 'Название цвета SRB', placeholder: 'Введите название цвета', leng: 'rs'},
     ]
+
+    const modalAddColor = useSelector((state: RootState)=> state.modaleSlice.modalAddColor )
 
     interface  inputsStateType {
         ua: string;
@@ -49,7 +51,7 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setModalAddColor, m
         <div className={s.module_wrapper}>
             <div className={s.module_inner}>
 
-            <div onClick={()=> setModalAddColor(false)} className={s.close_modal}>
+            <div onClick={()=> dispatch(setModalAddColor(false)) } className={s.close_modal}>
 
                 <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M25 7L7 25" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -92,6 +94,7 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setModalAddColor, m
                     </div>
 
                     <button onClick={()=>{
+                        dispatch(setModalAddColor(false))
                         sendInputsState(inputsState)
                         console.log('inputsStateColors', inputsState)
                     }} className={s.btn_add}>

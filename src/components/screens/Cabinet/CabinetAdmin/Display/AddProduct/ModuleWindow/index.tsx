@@ -8,6 +8,8 @@ import { useAppDispatch } from '@/redux/hooks'
 // import { setColors} from '../../../../../../../redux/slices/admin'
 import {setSizes, setColors, setImagesPng, removeAll, setAllcoloursId, setAllsizes, setArrObjMod} from '../../../../../../../redux/slices/formData'
 import { devNull } from "os"
+import {setModalAddPhoto} from '../../../../../../../redux/slices/modal'
+
 
 interface ModuleWindowImagesProps {
     fileNames: string[];
@@ -16,7 +18,7 @@ interface ModuleWindowImagesProps {
 }
 
 interface ModuleWindiwProps {
-    setModalAddPhoto: (n: boolean)=> void,
+    setModalAddPhoto: (n: boolean)=> void, 
     modalAddPhoto: boolean,
     setChoiceColor: (n: boolean)=> void,
     choiceColor: boolean,
@@ -26,7 +28,7 @@ interface ModuleWindiwProps {
     setImages: (n: any)=> void,
 }
 
-export const ModuleWindiw = ({ setModalAddPhoto, modalAddPhoto, setChoiceColor, choiceColor, setModalAddColor, modalAddColor, imagesData, setImages }: ModuleWindiwProps) => {
+export const ModuleWindiw = ({  modalAddPhoto, setChoiceColor, choiceColor, setModalAddColor, modalAddColor, imagesData, setImages }: ModuleWindiwProps) => {
 
     console.log('imagesData', imagesData)
 
@@ -75,6 +77,7 @@ export const ModuleWindiw = ({ setModalAddPhoto, modalAddPhoto, setChoiceColor, 
         
         dispatch(removeAll())
         setFiles([])
+        dispatch(setModalAddPhoto(false))
      }
      
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>)=>{
@@ -95,7 +98,7 @@ export const ModuleWindiw = ({ setModalAddPhoto, modalAddPhoto, setChoiceColor, 
        
         <div className={s.module_inner}>
 
-        <div onClick={()=> setModalAddPhoto(false)} className={s.close_modal}>
+        <div onClick={()=> dispatch(setModalAddPhoto(false))  } className={s.close_modal}>
 
             <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M25 7L7 25" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>

@@ -5,12 +5,11 @@ import {API_URL} from  '../../services'
 // хардкор 
 import imgProduct from '../../assets/images/admin/img.svg'
 
-
     //поиск юзерів через дебаунс 
  export const findUsersRole = createAsyncThunk(
     'users/fetchUsersRole',
     async (params: string, thunkAPI) => {
-        console.log('findUsersRole')
+        // console.log('findUsersRole')
       const response = await axios.get(`${API_URL}/user/find_users?page=1&pageSize=1&v=${params}`)
       return response.data
     }
@@ -20,11 +19,12 @@ import imgProduct from '../../assets/images/admin/img.svg'
   export const getUsersRole = createAsyncThunk(
     'users/getUsers',
     async (params: number, thunkAPI) => {
-    
+
       const response = await axios.get(`${API_URL}/user/get_users?page=10&pageSize=${params}`)
       return response.data
     }
   )
+
   //getUsersRole
      //поиск адмінів через дебаунс 
  export const findUsersAdmin = createAsyncThunk(
