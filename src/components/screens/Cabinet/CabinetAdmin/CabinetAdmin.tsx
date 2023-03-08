@@ -95,7 +95,7 @@ export const CabinetAdmin: React.FC = () => {
     const [paginationLendthAdmin, setPaginationLendthAdmin] = React.useState<any[]>([])
 
     const colors = useSelector((state: RootState) => state.admin.colors)
-    
+    const [displayActive, setDisplayActive] = React.useState<number>(1)
     const [activePaginatoinRole, setActivePaginatoinRole] = React.useState<number>(1)
     const [activePaginatoinRoleAdmin, setActivePaginatoinAdmin] = React.useState<number>(1)
     //refresh
@@ -126,18 +126,19 @@ export const CabinetAdmin: React.FC = () => {
 	}, [dispatch])
     // получення юзерів 
     React.useEffect(()=>{
-       
        if( displayActive === 1 ){
+        console.log('p')
         dispatch(getUsersRole(activePaginatoinRole))
        }
         
-     }, [activePaginatoinRole ])
+     }, [activePaginatoinRole,  displayActive])
      //получення адмінів 
     React.useEffect(()=>{
         if(displayActive === 2){
+            console.log('p2')
             dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
         }
-    }, [ activePaginatoinRoleAdmin])
+    }, [ activePaginatoinRoleAdmin, displayActive])
     // вираховування пагінації
     React.useEffect(()=>{
         let countoRolePagination = Math.ceil(usersAdminUI.length / 10)
@@ -161,7 +162,7 @@ export const CabinetAdmin: React.FC = () => {
     // console.log('users', users)
 
     const [idUserOpen, setUserOpen] = React.useState<number>(0)
-    const [displayActive, setDisplayActive] = React.useState<number>(1)
+    
   
     const debouncedSearchAdmin = debounce((term) => {
         dispatch(findUsersAdmin(term.toLowerCase()))
