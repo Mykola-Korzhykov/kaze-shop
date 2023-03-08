@@ -33,7 +33,7 @@ export const getUsersRole = createAsyncThunk(
         Authorization: 'Bearer ' + (Cookies.get('accessToken') || ''),
       },
     });
-    const response = await instance.get(`/user/get_users?page=10&pageSize=${params}`);
+    const response = await instance.get(`/user/get_users?page=1&pageSize=${params}`);
     return response.data;
   }
 );
@@ -63,7 +63,7 @@ export const getUsersAdmin = createAsyncThunk(
         Authorization: 'Bearer ' + (Cookies.get('accessToken') || ''),
       },
     });
-    const response = await instance.get(`/admin/get_admins?page=10&pageSize=${params}`);
+    const response = await instance.get(`/admin/get_admins?page=1&pageSize=${params}`);
     return response.data;
   }
 );
