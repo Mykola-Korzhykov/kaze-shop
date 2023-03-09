@@ -5,6 +5,10 @@ import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import { useAppDispatch } from '@/redux/hooks'
 import {setModalAddCAtegory} from '../../../../../../../redux/slices/modal'
+import axios from "axios"
+import {API_URL } from '../../../../../../../services/index'
+import { parseCookies } from 'nookies';
+
 
 
 
@@ -13,32 +17,52 @@ interface ModalAddCategoryProps {
     // modalAddCAtegory: boolean,
 }
 
+interface  inputsStateType {
+    ua: string;
+    ru: string;
+    rs: string;
+    en: string;
+}
 
 export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
 
-    interface  inputsStateType {
-        ua: string;
-        ru: string;
-        rs: string;
-        en: string;
-    }
+    
     const modalAddCAtegory = useSelector((state: RootState)=> state.modaleSlice.modalAddCAtegory)
 
     const [stateInputs, setStateInputs] = React.useState<inputsStateType>({ua: '',  ru: '', rs: '', en: ''  })
     
 
-    function sendStateInputs(obj: inputsStateType){
+    // function sendStateInputs(obj: inputsStateType){
 
-        fetch('categories/create_category', {
-            method: 'PUT',
-            body: JSON.stringify(obj)
-          })
-            .then(response => response.json())
-            .then(data => console.log(data))
-            .catch(error => console.error(error));
+    //     fetch('categories/create_category', {
+    //         method: 'PUT',
+    //         body: JSON.stringify(obj)
+    //       })
+    //         .then(response => response.json())
+    //         .then(data => console.log(data))
+    //         .catch(error => console.error(error));
 
+    // }
+        
+   
+    function sendStateInputs(obj: inputsStateType) {
+        const cookies = parseCookies();
+        const token = cookies.accessToken;
+        
+        axios({
+        method: 'put',
+        url: 'categories/create_category',
+        baseURL: API_URL,
+        withCredentials: true,
+        headers: {
+            Authorization: 'Bearer ' + (token || ''),
+        },
+        data: JSON.stringify(obj),
+        })
+        .then(response => console.log('response.data', response.data))
+        .catch(error => console.error(error));
     }
-
+  
     const dispatch = useAppDispatch()
 
     return (
@@ -117,3 +141,4 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
         </div>
     )
 }
+
