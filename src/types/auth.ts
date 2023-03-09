@@ -1,4 +1,4 @@
-import { Button } from './../components/screens/Cabinet/CabinetAdmin/Buttons/Button';
+import { Button } from '../components/screens/Cabinet/CabinetOwner/Buttons/Button';
 export type LoginDto = {
 	email: string
 	password: string

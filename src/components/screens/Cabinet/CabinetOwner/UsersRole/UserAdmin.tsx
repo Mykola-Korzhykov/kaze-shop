@@ -58,6 +58,7 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
     
     const dispatch = useAppDispatch()
 
+       
     function sendUserAdmin(role: string, bool: boolean) {
         const cookies = Cookies.get()
         const token = cookies.accessToken
@@ -75,14 +76,17 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
         })
         
           .then(response => {
-            setUserAdmin(prevState => ({
-              ...prevState,
-              [role]: bool,
-            }))
+            dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
+            // setUserAdmin(prevState => ({
+            //   ...prevState,
+            //   [role]: bool,
+            // }))
           })
           .catch(error => {
             console.error('Error updating user admin:', error)
           })
+
+          setUserAdmin(prevState => ({ ...prevState, [role]: bool, }))
       }
 
     //   React.useEffect(()=>{
@@ -122,11 +126,16 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
             <div className={openUser ? `${s.roles} ${s.roles__open}` : `${s.roles} ${s.roles__false}`}>
                 <div className={s.checkbox_wrapper_first}>
 
-                    <label htmlFor={`makeAdmin${id}`} className={s.checkbox_wrapper}>
+                    <label htmlFor={`isAdmin${id}`} className={s.checkbox_wrapper}>
                         <input checked={isAdmin ? true : false} onChange={()=>{
                            sendUserAdmin('isAdmin', !UserAdmin.isAdmin)
+
+                        //    setUserAdmin(prevState => ({
+                        //     ...prevState,
+                        //     'isAdmin': !UserAdmin.isAdmin,
+                        //   }))
                            
-                        }} onClick={() => setSctiveCheckbox(1)} id={`makeAdmin${id}`} className={s.checkbox} type="checkbox" />
+                        }} onClick={() => setSctiveCheckbox(1)} id={`isAdmin${id}`} className={s.checkbox} type="checkbox" />
                         <span className={s.checkbox_label}>
                             <Image className={s.checkbox_icon} src={checkbox_icon} alt='checkbox_icon' />
                         </span>

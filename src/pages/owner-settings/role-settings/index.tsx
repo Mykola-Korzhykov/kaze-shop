@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { RootState } from '@/redux/store'
 import s from './roleSettings.module.scss'
 import SpinnerLayout from '@/layouts/SpinnerLayout'
-import { UserRole } from '@/components/screens/Cabinet/CabinetAdmin/UserAdmin/UserRole'
+import { UserRole } from '@/components/screens/Cabinet/CabinetOwner/UserAdmin/UserRole'
 
 //icons 
 import findUser from '../../../assets/icons/cabinetAdmin/findUser.svg'

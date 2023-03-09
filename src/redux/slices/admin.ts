@@ -153,7 +153,8 @@ export interface initialStateType {
 	loading: boolean
 	error: string
 	products: Product[]
-	editProductItemId: number
+	editProductItemId: number,
+    displayActive: number
 }
 
 const initialState: initialStateType = {
@@ -164,7 +165,7 @@ const initialState: initialStateType = {
             surname: 'Kolumyp',
             email:' pashawork@gmail.com',
             phoneNumber: '+380688874920',
-            isAdmin: false,
+            isAdmin: true,
             addContent: false,
             editContent: true,
             editWebSite: false,
@@ -175,7 +176,7 @@ const initialState: initialStateType = {
             surname: 'Kolumyp',
             email:' pashawork@gmail.com',
             phoneNumber: '+380688874920',
-            isAdmin: false,
+            isAdmin: true,
             addContent: false,
             editContent: true,
             editWebSite: false,
@@ -186,7 +187,7 @@ const initialState: initialStateType = {
             surname: 'Kolumyp',
             email:' pashawork@gmail.com',
             phoneNumber: '+380688874920',
-            isAdmin: false,
+            isAdmin: true,
             addContent: false,
             editContent: true,
             editWebSite: false,
@@ -197,7 +198,7 @@ const initialState: initialStateType = {
             surname: 'Kolumyp',
             email:' pashawork@gmail.com',
             phoneNumber: '+380688874920',
-            isAdmin: false,
+            isAdmin: true,
             addContent: false,
             editContent: true,
             editWebSite: false,
@@ -208,7 +209,7 @@ const initialState: initialStateType = {
             surname: 'Kolumyp',
             email:' pashawork@gmail.com',
             phoneNumber: '+380688874920',
-            isAdmin: false,
+            isAdmin: true,
             addContent: false,
             editContent: true,
             editWebSite: false,
@@ -221,7 +222,7 @@ const initialState: initialStateType = {
             surname: 'Kolumyp',
             email:' pashawork@gmail.com',
             phoneNumber: '+380688874920',
-            isAdmin: false,
+            isAdmin: true,
             addContent: false,
             editContent: false,
             editWebSite: false,
@@ -232,7 +233,7 @@ const initialState: initialStateType = {
             surname: 'Kolumyp',
             email:' pashawork@gmail.com',
             phoneNumber: '+380688874920',
-            isAdmin: false,
+            isAdmin: true,
             addContent: false,
             editContent: true,
             editWebSite: false,
@@ -243,7 +244,7 @@ const initialState: initialStateType = {
             surname: 'Kolumyp',
             email:' pashawork@gmail.com',
             phoneNumber: '+380688874920',
-            isAdmin: false,
+            isAdmin: true,
             addContent: false,
             editContent: true,
             editWebSite: false,
@@ -342,6 +343,7 @@ const initialState: initialStateType = {
 		},
 	],
 	editProductItemId: -1,
+    displayActive: 1
 }
 
 export const admin: Slice<initialStateType> = createSlice({
@@ -376,6 +378,10 @@ export const admin: Slice<initialStateType> = createSlice({
 		setEditProductItemId: (state, action: PayloadAction<number>) => {
 			state.editProductItemId = action.payload
 		},
+        setChangeCheckbox: (state, action: PayloadAction<{id: number, branch: keyof User, bool: boolean}>) => {
+            //@ts-ignore
+            state.usersRole[action.payload.id - 1][action.payload.branch] = action.payload.bool;
+          },
         
 
 	},
@@ -449,6 +455,7 @@ export const {
 	setAddPhotoState,
 	setUsers,
 	setEditProductItemId,
+    setChangeCheckbox
 } = admin.actions
 
 export default admin.reducer

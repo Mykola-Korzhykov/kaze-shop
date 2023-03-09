@@ -134,16 +134,16 @@ import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import s from './AddProduct.module.scss'
 //components
-import { InputTextItem } from '../../../components/screens/Cabinet/CabinetAdmin/Display/AddProduct/InputText'
+import { InputTextItem } from '../../../components/screens/Cabinet/CabinetOwner/Display/AddProduct/InputText'
 // import {ModalAddCategory} from '../AddProduct/ModalAddCategory'
 import {setAddPhotoState} from '../../../redux/slices/admin'
 import { useAppDispatch } from '@/redux/hooks'
 // import { ModuleWindiw } from "./ModuleWindow"
 // import {SizeItem} from './SizesItem'
 // import {setNetData} from '../../../../../../redux/slices/formData'
-import {SizeChart} from '../../../components/screens/Cabinet/CabinetAdmin/Display/AddProduct/sizeChart'
+import {SizeChart} from '../../../components/screens/Cabinet/CabinetOwner/Display/AddProduct/sizeChart'
 import {setModalAddPhoto} from '../../../redux/slices/modal'
-import {ModuleWindiw} from '../../../components/screens/Cabinet/CabinetAdmin/Display/AddProduct/ModuleWindow'
+import {ModuleWindiw} from '../../../components/screens/Cabinet/CabinetOwner/Display/AddProduct/ModuleWindow'
 import Link from "next/link"
 import { getUsersRole} from '../../../redux/slices/admin'
 

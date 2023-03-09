@@ -1,0 +1,35 @@
+.wrapper{
+    display: flex;
+    gap: 30px;
+    // height: 900px;
+    @media (max-width: 900px) {
+        display: block;
+    }
+}
+
+.nav_dekstop{
+    display: block;
+    @media (max-width: 900px) {
+        display: none;
+    }
+}
+
+.nav_mobile{
+    display: none;
+    @media (max-width: 900px) {
+        display: block;
+    }
+}
+
+.display{
+    display: block;
+    width: 100%;
+    min-width: 0px;
+    @media (max-width: 900px) {
+        display: none;
+    }
+}
+
+.link{
+    text-transform: none;
+}

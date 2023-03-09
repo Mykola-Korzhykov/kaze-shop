@@ -9,7 +9,8 @@ import Link from 'next/link'
 import { setCookie } from 'nookies'
 import CabinetTabs from '@/components/screens/Cabinet/CabinetTabs'
 //
-import { CabinetAdmin } from './CabinetAdmin/CabinetOwner'
+import { CabinetOwner } from './CabinetOwner/CabinetOwner'
+import {CabinetAdmin} from './CabinetAdmin'
 
 const Cabinet: FC = () => {
 	const dispatch = useAppDispatch()
@@ -53,7 +54,9 @@ const Cabinet: FC = () => {
 				{user?.user?.type === 'OWNER' && <CabinetAdmin />}
 				{user?.user?.type === 'ADMIN' && <CabinetAdmin />}  */}
    
-				<CabinetAdmin />
+				<CabinetOwner />
+				{/* <CabinetAdmin /> */}
+
 			</div>
 		</main>
 	)

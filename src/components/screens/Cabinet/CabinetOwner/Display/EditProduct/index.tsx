@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState  } from "@/redux/store";
 //components 
 import {Item} from './Item'
-import {EditProductItem} from '../EditProduct/EditProductItem'
+import {EditProductItem} from './EditProductItem'
 // 
 
 
