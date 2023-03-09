@@ -356,7 +356,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             <div className={s.element_wrapper}>
                                 <span className={s.id}> {`${el.id}.`}</span>
                                 <span className={s.text}>Загрузить фото</span>
-                                { ind < imageUrlArr.length -1 ?   <Image className={s.photo_item} src={imageUrlArr[ind]} alt="uploaded image" width={200} height={200} /> : ''}    
+                              <Image className={s.photo_item} src={imageUrlArr[ind]? imageUrlArr[ind] : ''  } alt="" width={200} height={200} />
                             </div>
                         </div>
                     })}

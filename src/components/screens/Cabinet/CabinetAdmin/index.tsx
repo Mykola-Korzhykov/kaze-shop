@@ -23,6 +23,7 @@ import findUser from '../../../../assets/icons/cabinetAdmin/findUser.svg'
 //components 
 import {Button} from '../CabinetOwner/Buttons/Button'
 import LogoutModal from '../../../modals/LogoutModal/LogoutModal'
+import ChangePasswordSetting  from '../../../screens/Cabinet/CabinetOwner/Display/ChangePasswordSetting'
 
 
 
@@ -61,7 +62,7 @@ const buttonsObj: ButtonType[] = [
 
             <div className={s.display}>
                 {displayActive === 6 ? <LogoutModal closeModal={setDisplayActive} /> : ''}
-                
+                {displayActive === 5 ? <ChangePasswordSetting /> : ''}
 
                 
             </div >
