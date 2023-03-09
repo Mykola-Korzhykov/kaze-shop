@@ -235,7 +235,7 @@ export const AddProduct = ({  setModalAddColor, modalAddColor, setCountPhoto, im
         netImage: netFile
    }
 
-   console.log('objDataSend', objDataSend)
+//    console.log('objDataSend', objDataSend)
   
 
     const dispatch = useAppDispatch()

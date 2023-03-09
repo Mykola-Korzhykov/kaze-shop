@@ -89,8 +89,8 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
           setUserAdmin(prevState => ({ ...prevState, [role]: bool, }))
       }
 
-      React.useEffect(()=>{
-        dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
+     React.useEffect(()=>{
+       dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
       }, [])
 
     return (

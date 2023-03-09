@@ -70,7 +70,7 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
     const dispatch = useAppDispatch()
 
     function sendUserRole(role: string, bool: boolean) {
-        console.log('clickfnnfnfnfnnfnfnffnfnnfnfnfnfnnfnfnfnfnnfnfnnfnfnfnnfnnfnfnfnfnfnfnfn')
+        // console.log('clickfnnfnfnfnnfnfnffnfnnfnfnfnfnnfnfnfnfnnfnfnnfnfnfnnfnnfnfnfnfnfnfnfn')
         const cookies = parseCookies();
         const token = cookies.accessToken;
        

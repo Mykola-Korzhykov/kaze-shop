@@ -83,7 +83,7 @@ export const CabinetOwner: React.FC = () => {
     const modalAddCAtegory =  useSelector((state: RootState) => state.modaleSlice.modalAddCAtegory)
     // const [modalAddCAtegory, setModalAddCAtegory ] = React.useState<boolean>(false)
     const [countPhoto, setCountPhoto] = React.useState<number>(1)
-    const [images, setImages] = React.useState([])
+    const [images, setImages] = React.useState<File[]>([])
 
     const dispatch = useAppDispatch()
    

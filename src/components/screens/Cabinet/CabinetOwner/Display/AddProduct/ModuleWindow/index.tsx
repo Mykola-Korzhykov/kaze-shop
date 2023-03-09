@@ -25,7 +25,7 @@ interface ModuleWindiwProps {
     choiceColor?: boolean,
     setModalAddColor?: (n: boolean)=> void,
     modalAddColor?: boolean,
-    imagesData?: { fileNames: string[], colourId: number; sizes: string[];}[],
+    imagesData?: File[],
     setImages?: (n: any)=> void,
 }
 
