@@ -16,6 +16,7 @@ import { AddProduct } from './Display/AddProduct'
 import {EditProduct} from './Display/EditProduct'
 import {EditProductItem} from './Display/EditProduct/EditProductItem'
 import {setModalAddPhoto, setModalAddColor} from '../../../../redux/slices/modal'
+import ChangePasswordSetting from './Display/ChangePasswordSetting'
 
 import Image from 'next/image';
 //icons
@@ -279,9 +280,9 @@ export const CabinetOwner: React.FC = () => {
                 setModalAddColor={setModalAddColor}   
                 modalAddPhoto={modalAddPhoto} /> : ''}
                 {displayActive === 4? <EditProduct /> : '' }
-                {displayActive === 5 ?  <ChangeUserPassword /> : ''} 
+                {displayActive === 5 ? <div> <ChangePasswordSetting />  </div>: ''} 
                 {displayActive === 6 ? <LogoutModal closeModal={setDisplayActive}  /> : ''} 
-                
+                {/* <ChangePasswordSetting /> */}
                 
                 {displayActive === 1 ?
                 <div className={s.pagination_wrapper}>

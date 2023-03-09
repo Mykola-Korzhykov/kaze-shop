@@ -7,8 +7,9 @@ import { useRouter } from 'next/router'
 import { addUserInfo } from '@/redux/slices/user'
 import Link from 'next/link'
 import { setCookie } from 'nookies'
+//components
+import ChangeUserPassword from '@/components/ChangeUserPassword/ChangeUserPassword'
 import CabinetTabs from '@/components/screens/Cabinet/CabinetTabs'
-//
 import { CabinetOwner } from './CabinetOwner/CabinetOwner'
 import {CabinetAdmin} from './CabinetAdmin'
 
@@ -50,10 +51,10 @@ const Cabinet: FC = () => {
 					<Link href='#'>Главная</Link> | <span>Личный кабинет</span>
 				</div>
 
-			 	{user && user.user?.type === 'USER'  ? <CabinetTabs /> : ''}
+			 	{/* {user && user.user?.type === 'USER'  ? <CabinetTabs /> : ''}
 				{user?.user?.type === 'OWNER' && <CabinetOwner />}
-				{user?.user?.type === 'ADMIN' && <CabinetAdmin />} 
-   
+				{user?.user?.type === 'ADMIN' && <CabinetAdmin />}  */}
+			
 				<CabinetOwner />
 				{/* <CabinetAdmin /> */}
 
