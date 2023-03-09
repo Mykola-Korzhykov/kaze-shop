@@ -9,6 +9,7 @@ import { useAppDispatch } from '@/redux/hooks'
 import {setSizes, setColors, setImagesPng, removeAll, setAllcoloursId, setAllsizes, setArrObjMod} from '../../../../../../../redux/slices/formData'
 import { devNull } from "os"
 import {setModalAddPhoto} from '../../../../../../../redux/slices/modal'
+import {setImageUrl} from '../../../../../../../redux/slices/modal'
 
 
 
@@ -29,7 +30,7 @@ interface ModuleWindiwProps {
     setImages?: (n: any)=> void,
 }
 
-export const ModuleWindiw = ({  modalAddPhoto, setChoiceColor, choiceColor, setModalAddColor, modalAddColor, imagesData, setImages }: ModuleWindiwProps) => {
+export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, setModalAddColor, modalAddColor, imagesData, setImages }: ModuleWindiwProps) => {
 
     const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -52,8 +53,6 @@ export const ModuleWindiw = ({  modalAddPhoto, setChoiceColor, choiceColor, setM
     const images = useSelector((state: RootState)=> state.formData.images)
     //modal backround
     const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
-    // console.log('categoriesSend', categoriesSend)
-
     
      function generationObjModal () {
         const obj = {
@@ -78,14 +77,17 @@ export const ModuleWindiw = ({  modalAddPhoto, setChoiceColor, choiceColor, setM
         dispatch(removeAll())
         setFiles([])
         dispatch(setModalAddPhoto(false))
+        const file = files[0];
+        const url = URL.createObjectURL(file);
+        setImageUrl(url)
+        dispatch(setImageUrl(url))
      }
      
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>)=>{
-        // console.log(event.target.files)
-        console.log()
-       
+        
         setFiles(  (prevArray: any) => [...prevArray,  event.target.files[0]] )
         setImages( (prevArray: any) => [...prevArray,  event.target.files[0]])
+
     }
       //@ts-ignore
       globalThis.pavlo = files
@@ -117,6 +119,8 @@ export const ModuleWindiw = ({  modalAddPhoto, setChoiceColor, choiceColor, setM
                     <label className={s.label_input_file} htmlFor="uploadfileaddphotojpg">
                         Загрузите фотографию
                         <input  key={Math.random()} ref={inputRef} multiple onChange={handleFileUpload} id="uploadfileaddphotojpg" className={s.input_file} placeholder='Загрузите фотографию' type="file" />
+
+
                     </label>
                 </div>
 

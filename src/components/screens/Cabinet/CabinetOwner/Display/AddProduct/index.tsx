@@ -15,6 +15,7 @@ import {SizeChart} from './sizeChart'
 import axios from "axios"
 import {API_URL} from '../../../../../../services/index'
 import { parseCookies } from "nookies"
+import Image from "next/image"
 
 interface AddProductProps {
     // setModalAddPhoto: (n: boolean)=> void,
@@ -26,7 +27,7 @@ interface AddProductProps {
     imagesData: File[],
     setImages: (n: any)=> void,
     modalAddCAtegory: boolean,
-    // setModalAddCAtegory: (n: any)=> void,
+   
 }
   
 
@@ -73,6 +74,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
     // const NetData = useSelector((state: RootState)=> state.formData.netData)
     const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
     //statesRedux
+    const imageUrlArr =  useSelector((state: RootState)=> state.modaleSlice.imageUrlArr)
     const addPhotoState =  useSelector((state: RootState)=> state.admin.addPhotoState)
     const title = useSelector((state: RootState)=> state.formData.title)
     const description = useSelector((state: RootState)=> state.formData.description)
@@ -84,6 +86,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
     const quantity =  useSelector((state: RootState)=> state.formData.quantity)
     const netImage =  useSelector((state: RootState)=> state.formData.netData)
     const allsizes =  useSelector((state: RootState)=> state.formData.allsizes)
+    console.log('imageUrlArr', imageUrlArr)
 
    let  objDataSend = {
         images: imagesData,
@@ -353,6 +356,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             <div className={s.element_wrapper}>
                                 <span className={s.id}> {`${el.id}.`}</span>
                                 <span className={s.text}>Загрузить фото</span>
+                                { ind < imageUrlArr.length -1 ?   <Image className={s.photo_item} src={imageUrlArr[ind]} alt="uploaded image" width={200} height={200} /> : ''}    
                             </div>
                         </div>
                     })}
@@ -366,9 +370,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
 
 
                 <div className={s.net_wrapper}>
-
-
-
 
                     {SizeChartArr.map((obj)=>{
                         return <SizeChart key={obj.id} leng={obj.leng} id={obj.id} placeholder={obj.placeholder} title={obj.title} />
@@ -438,3 +439,4 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         </div>
     )
 }
+

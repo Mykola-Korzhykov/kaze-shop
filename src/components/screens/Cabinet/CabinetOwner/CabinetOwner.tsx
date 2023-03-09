@@ -97,7 +97,6 @@ export const CabinetOwner: React.FC = () => {
    // console.log('editProductItemId', editProductItemId)
     const [paginationLendthRole, setPaginationLendthRole] = React.useState<any[]>([])
     const [paginationLendthAdmin, setPaginationLendthAdmin] = React.useState<any[]>([])
-
     const colors = useSelector((state: RootState) => state.admin.colors)
     const [displayActive, setDisplayActive] = React.useState<number>(1)
     const [activePaginatoinRole, setActivePaginatoinRole] = React.useState<number>(1)

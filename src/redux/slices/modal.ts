@@ -8,7 +8,8 @@ interface ModalType {
     modalAddColor: boolean
     modalAddCAtegory: boolean
     choiceColor: boolean
-    countPhoto: number
+    countPhoto: number,
+    imageUrlArr: string[]
     
 }
 
@@ -18,6 +19,8 @@ const initialState: ModalType = {
     modalAddCAtegory: false,
     choiceColor: false,
     countPhoto: 1,
+    //для отобржения фото после загрузки 
+    imageUrlArr: [] 
 
 }
 // const [countPhoto, setCountPhoto] = React.useState<number>(1)
@@ -39,6 +42,9 @@ const modaleSlice  = createSlice({
         },
         setChoiceColor: (state, action) =>{
 
+        },
+        setImageUrl:(state, action: PayloadAction<string>) =>{
+            state.imageUrlArr.push(action.payload)
         }
 
 	},
@@ -47,6 +53,6 @@ const modaleSlice  = createSlice({
 export const selectUserInfo = (state: RootState) => state.user.user
 export const selectAuthState = (state: RootState) => state.user.isAuth
 
-export const { setModalAddPhoto, setModalAddColor, setCountPhoto, setModalAddCAtegory, setChoiceColor } = modaleSlice.actions
+export const { setModalAddPhoto, setModalAddColor, setCountPhoto, setModalAddCAtegory, setChoiceColor, setImageUrl } = modaleSlice.actions
 
 export default modaleSlice.reducer
