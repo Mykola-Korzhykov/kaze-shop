@@ -5,9 +5,11 @@ import { RootState  } from "@/redux/store";
 //components 
 import {Input} from './Input'
 
+interface EditProductItemType {
+    id: number
+}
 
-
-export const EditProductItem = () =>{
+export const EditProductItem = ({id}: EditProductItemType) =>{
 
     const editProductItemId = useSelector((state: RootState)=> state.admin.editProductItemId)
 

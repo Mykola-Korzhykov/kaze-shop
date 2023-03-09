@@ -11,8 +11,9 @@ import {EditProductItem} from './EditProductItem'
 
 export const EditProduct = () =>{
 
-    const products = useSelector((state: RootState)=>state.admin.products )
+    const products = useSelector((state: RootState)=>state.admin.editProducts)
     const editProductItemId = useSelector((state: RootState)=>state.admin.editProductItemId )
+    const [activeId, setActiveId] = React.useState(0)
 
     const array = [1,2,3,4,5,6,7,8,9,10]
     // const [editProductItemId, setEditProductItemId] = React.useState<number>(-1)
@@ -24,14 +25,24 @@ export const EditProduct = () =>{
 
       <>
         <div className={ editProductItemId === -1 ? s.wrapper  : s.wrapper_off}>
-            {array.map((obj, ind)=>{
-                return <Item key={ind}  /> 
+            {products.map((obj, ind)=>{
+                return <Item  
+                photo={obj.images[0].fileNames[0]} 
+                price={obj.price} id={obj.id} 
+                setActiveId={setActiveId} 
+                title={obj.title.ua}
+                key={ind}  
+
+                /> 
             })}
         </div>
 
+
+        {/* передача фото розмеров та цветов от activeProductEdit */}
+
         <div className={s.wrapperEditProductItem}>
-            {/* передача фото розмеров та цветов от activeProductEdit */}
-           <EditProductItem   />            
+      
+           <EditProductItem  id={activeId}  />            
         </div>
 
 

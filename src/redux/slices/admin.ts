@@ -6,6 +6,11 @@ import {
 } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { API_URL } from '../../services'
+//types 
+import {ProductSend} from '../../types/auth'
+import {Goods} from '../../types/goods'
+import photo from '../../assets/images/main/About/girl.svg'
+
 
 // хардкор
 import imgProduct from '../../assets/images/admin/img.svg'
@@ -92,40 +97,6 @@ export interface User {
 	editWebSite: boolean
 }
 
-export interface Product {
-	title: {
-		ua: string | null
-		ru: string | null
-		rs: string | null
-		en: string | null
-	}
-	description: {
-		ua: string | null
-		ru: string | null
-		rs: string | null
-		en: string | null
-	}
-	sizeChartImageDescription: {
-		ua: string | null
-		ru: string | null
-		rs: string | null
-		en: string | null
-	}
-	sizes: string[]
-	colourId: number | null
-	price: number | null
-	quantity: number | null
-	imagesjpg: null | any
-	allcoloursId: number[] | null
-	allsizes: string[] | null
-	categories: number[] | null
-	netData: string | null
-	arrObjMod: { fileNames: string[]; colourId: number; sizes: string[] }[]
-	//   images: string [] | File []
-	images: any[]
-	id: number
-}
-
 export interface initialStateType {
 	usersRole: User[]
 	usersAdmin: User[]
@@ -152,9 +123,11 @@ export interface initialStateType {
 	categoryArr: { id: number; title: string }[]
 	loading: boolean
 	error: string
-	products: Product[]
+	products: ProductSend[]
 	editProductItemId: number,
-    displayActive: number
+    displayActive: number,
+    editProducts: Goods[]
+
 }
 
 const initialState: initialStateType = {
@@ -343,8 +316,320 @@ const initialState: initialStateType = {
 		},
 	],
 	editProductItemId: -1,
-    displayActive: 1
+    displayActive: 1,
+    editProducts:[
+        {
+	id: 1,
+	title: {
+		ua: 'Павло',
+		ru:' Паша',
+		rs: 'хз',
+		en: 'The best',
+	},
+	description: {
+		ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
+		ru: 'на русс опис doprepwfieifweifipowerf',
+		rs: 'на rs опис лдощцаозщуцощауоазуцща',
+		en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
+	},
+	price: 300,
+	quantity: 100,
+    // { fileNames: string[], colourId: number; sizes: string[]}
+	images: [
+    {
+        fileNames: [photo, photo],
+        colourId: 3,
+        sizes: ["S", "M", "L"]
+    },
+    {
+        fileNames: [photo, photo],
+        colourId: 4,
+        sizes: ["S", "M", "L"]
+    },
+    ],
+      sizeChartImage: 'kfkf'
+      ,
+	sizes: ['X', 'XS'],
+	colours: [
+		{
+			label: 'Бежевый',
+			hex: '#FFE4C4',
+			id: 1,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Капучинный',
+			hex: '#9F8E84',
+			id: 2,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Синий',
+			hex: '#000080',
+			id: 3,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Голубой',
+			hex: '#A6BEE5',
+			id: 4,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+	],
+	categories: [
+		{
+        id: 1,
+		ua: 'Категорія 1',
+		en: 'Категория 1',
+		rs:	'Категорія 1 rs',
+		ru: 'Категорія 1 ru',
+		type: 'category',
+		createdAt: 'any',
+		updatedAt: 'any',
+        }
+	]
+} ,
+{
+	id: 1,
+	title: {
+		ua: 'Павло',
+		ru:' Паша',
+		rs: 'хз',
+		en: 'The best',
+	},
+	description: {
+		ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
+		ru: 'на русс опис doprepwfieifweifipowerf',
+		rs: 'на rs опис лдощцаозщуцощауоазуцща',
+		en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
+	},
+	price: 300,
+	quantity: 100,
+    // { fileNames: string[], colourId: number; sizes: string[]}
+	images: [
+    {
+        fileNames: [photo, photo],
+        colourId: 3,
+        sizes: ["S", "M", "L"]
+    },
+    {
+        fileNames: [photo, photo],
+        colourId: 4,
+        sizes: ["S", "M", "L"]
+    },
+    ],
+      sizeChartImage: 'kfkf'
+      ,
+	sizes: ['X', 'XS'],
+	colours: [
+		{
+			label: 'Бежевый',
+			hex: '#FFE4C4',
+			id: 1,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Капучинный',
+			hex: '#9F8E84',
+			id: 2,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Синий',
+			hex: '#000080',
+			id: 3,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Голубой',
+			hex: '#A6BEE5',
+			id: 4,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+	],
+	categories: [
+		{
+        id: 1,
+		ua: 'Категорія 1',
+		en: 'Категория 1',
+		rs:	'Категорія 1 rs',
+		ru: 'Категорія 1 ru',
+		type: 'category',
+		createdAt: 'any',
+		updatedAt: 'any',
+        }
+	]
+} ,
+{
+	id: 1,
+	title: {
+		ua: 'Павло',
+		ru:' Паша',
+		rs: 'хз',
+		en: 'The best',
+	},
+	description: {
+		ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
+		ru: 'на русс опис doprepwfieifweifipowerf',
+		rs: 'на rs опис лдощцаозщуцощауоазуцща',
+		en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
+	},
+	price: 300,
+	quantity: 100,
+    // { fileNames: string[], colourId: number; sizes: string[]}
+	images: [
+    {
+        fileNames: [photo, photo],
+        colourId: 3,
+        sizes: ["S", "M", "L"]
+    },
+    {
+        fileNames: [photo, photo],
+        colourId: 4,
+        sizes: ["S", "M", "L"]
+    },
+    ],
+      sizeChartImage: 'kfkf'
+      ,
+	sizes: ['X', 'XS'],
+	colours: [
+		{
+			label: 'Бежевый',
+			hex: '#FFE4C4',
+			id: 1,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Капучинный',
+			hex: '#9F8E84',
+			id: 2,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Синий',
+			hex: '#000080',
+			id: 3,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Голубой',
+			hex: '#A6BEE5',
+			id: 4,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+	],
+	categories: [
+		{
+        id: 1,
+		ua: 'Категорія 1',
+		en: 'Категория 1',
+		rs:	'Категорія 1 rs',
+		ru: 'Категорія 1 ru',
+		type: 'category',
+		createdAt: 'any',
+		updatedAt: 'any',
+        }
+	]
+} ,
+],
+// id: number
+// title: {
+//     ua: string
+//     ru: string
+//     rs: string
+//     en: string
+// }
+// description: {
+//     ua: string
+//     ru: string
+//     rs: string
+//     en: string
+// }
+// price: number
+// quantity: number
+// images: { fileNames: string[], colourId: number; sizes: string[]}[]
+// sizeChartImage: string
+// sizes: string[]
+// colours: fetchedColour[]
+// categories: fetchedCategory[]
+
+
 }
+
+
+
 
 export const admin: Slice<initialStateType> = createSlice({
 	name: 'admin',

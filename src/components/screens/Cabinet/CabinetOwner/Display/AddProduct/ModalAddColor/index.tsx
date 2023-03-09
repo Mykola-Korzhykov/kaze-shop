@@ -51,7 +51,7 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = () => {
         const token = cookies.accessToken;
         
         axios({
-        method: 'put',
+        method: 'PUT',
         url: 'colours/create_colour',
         baseURL: API_URL,
         withCredentials: true,

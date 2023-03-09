@@ -50,7 +50,7 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
         const token = cookies.accessToken;
         
         axios({
-        method: 'put',
+        method: 'PUT',
         url: 'categories/create_category',
         baseURL: API_URL,
         withCredentials: true,

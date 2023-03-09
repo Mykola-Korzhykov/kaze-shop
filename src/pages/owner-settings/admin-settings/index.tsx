@@ -28,23 +28,23 @@ const AdminSettings: React.FC = () => {
 
     const Selector = useSelector
 
-    const [idUserOpen, setUserOpen] = useState<number>(0)
+    // const [idUserOpen, setUserOpen] = useState<number>(0)
 
-    const users = Selector((state: RootState) => state.admin.usersAdmin).map((el, ind) => <UserAdmin setUserOpenOK={setUserOpen} idUserOpen={idUserOpen} key={ind} id={el.id}  name={el.name}
-    editContent={el.editContent}
-    surname={el.surname}
-    phoneNumber={el.phoneNumber}
-    email={el.email}
-    isAdmin={el.isAdmin}
-    editWebSite={el.editWebSite}
-    addContent={el.addContent}
+    // const users = Selector((state: RootState) => state.admin.usersAdmin).map((el, ind) => <UserAdmin setUserOpenOK={setUserOpen} idUserOpen={idUserOpen} key={ind} id={el.id}  name={el.name}
+    // editContent={el.editContent}
+    // surname={el.surname}
+    // phoneNumber={el.phoneNumber}
+    // email={el.email}
+    // isAdmin={el.isAdmin}
+    // editWebSite={el.editWebSite}
+    // addContent={el.addContent}
    
-     />)
+    //  />)
 
     return (
         <SpinnerLayout>
             <main className='content'>
-                <div className='container'>
+                {/* <div className='container'>
                     <div className='page_coordinator'>
                         <Link href='/cabinet'>.../Личный кабинет | </Link> <span>Выдать роль</span>
                     </div>
@@ -58,7 +58,7 @@ const AdminSettings: React.FC = () => {
                     </label>
 
                     {users}
-                </div>
+                </div> */}
             </main>
         </SpinnerLayout>
     )
