@@ -102,9 +102,9 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
 
       }
 
-    //   React.useEffect(()=>{
-    //     dispatch(getUsersRole(activePaginatoinRole))
-    //   }, [UserRole])
+      React.useEffect(()=>{
+        dispatch(getUsersRole(activePaginatoinRole))
+      }, [])
 
 
     return (
