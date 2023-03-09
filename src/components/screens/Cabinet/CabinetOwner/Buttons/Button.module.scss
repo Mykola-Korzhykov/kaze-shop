@@ -71,3 +71,21 @@
     text-transform: none;
 }
 
+.displayActive{
+    background: #0b0b0b;
+    color: #fff;
+
+    .img_grey {
+        display: none;
+    }
+
+    .img_white {
+        display: block;
+    }
+    .text{
+        color: #fff;
+        transition: 0.4s linear background-color;
+    }
+}
+
+

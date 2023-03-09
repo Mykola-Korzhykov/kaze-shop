@@ -12,6 +12,10 @@ interface EditProductItemType {
 export const EditProductItem = ({id}: EditProductItemType) =>{
 
     const editProductItemId = useSelector((state: RootState)=> state.admin.editProductItemId)
+    const products = useSelector((state: RootState)=>state.admin.editProducts)
+    const activeProduct = products.find((el)=>{
+        return el.id === id
+    })
 
     const  [inputs, setInputs] = React.useState([
         { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название товара', name: 'titleRU', disable: false,  },
@@ -38,7 +42,7 @@ export const EditProductItem = ({id}: EditProductItemType) =>{
         {inputs.map((obj, ind)=>{
             return <div  key={ind} className={s.inputs_wrapper}>
                 <Input 
-               
+                
                 placeholder={obj.placeholder}
                 text={obj.text}
                 name={obj.name}

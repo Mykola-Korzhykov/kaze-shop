@@ -86,7 +86,7 @@ export const CabinetOwner: React.FC = () => {
     const [images, setImages] = React.useState<File[]>([])
 
     const dispatch = useAppDispatch()
-   
+    
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
     console.log('ChangeUserPassword', ChangeUserPassword)
     const usersRoleUI = useSelector((state: RootState) => state.admin.usersRole)
@@ -101,7 +101,7 @@ export const CabinetOwner: React.FC = () => {
     const [displayActive, setDisplayActive] = React.useState<number>(1)
     const [activePaginatoinRole, setActivePaginatoinRole] = React.useState<number>(1)
     const [activePaginatoinRoleAdmin, setActivePaginatoinAdmin] = React.useState<number>(1)
-    console.log('displayActive', displayActive)
+    // console.log('displayActive', displayActive)
     //refresh
     React.useEffect(() => {
 		const fetchUserData = async () => {
@@ -176,9 +176,9 @@ export const CabinetOwner: React.FC = () => {
         dispatch(findUsersRole(term))
       }, 500);
 
-    const usersRole = usersRoleUI.map((el, ind) => <UserRole
+    const usersRole = usersRoleUI.map((el, ind) => <UserAdmin
     name={el.name}
-    editContent={el.editContent}
+    editContent={el.editContent} 
     surname={el.surname}
     phoneNumber={el.phoneNumber}
     email={el.email}
@@ -189,10 +189,10 @@ export const CabinetOwner: React.FC = () => {
     setUserOpenOK={setUserOpen} 
     idUserOpen={idUserOpen} 
     id={el.id}
-    activePaginatoinRole={activePaginatoinRole}
+    activePaginatoinRoleAdmin={activePaginatoinRoleAdmin}
      
      />)
-    const usersAdmin = usersAdminUI.map((el, ind) => <UserAdmin 
+    const usersAdmin = usersAdminUI.map((el, ind) => <UserRole 
     name={el.name}
     editContent={el.editContent}
     surname={el.surname}
@@ -205,7 +205,8 @@ export const CabinetOwner: React.FC = () => {
     id={el.id}
     setUserOpenOK={setUserOpen} 
     idUserOpen={idUserOpen} 
-    activePaginatoinRoleAdmin={activePaginatoinRoleAdmin}
+    activePaginatoinRole={activePaginatoinRole}
+    
      />)
 
     // console.log('choiceColor' , choiceColor)
@@ -217,7 +218,7 @@ export const CabinetOwner: React.FC = () => {
 
             <div className={s.nav_dekstop}>
                 {buttonsObj.map((obj, ind) => {
-                    return <Button chengeDisplayOK={setDisplayActive} key={ind} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
+                    return <Button displayActive={displayActive}  chengeDisplayOK={setDisplayActive} key={ind} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
                 })}
             </div>
 
@@ -225,7 +226,7 @@ export const CabinetOwner: React.FC = () => {
                 {buttonsObj.map((obj, ind) => {
 
                     return <Link className={s.link} href={`${obj.url}`} key={ind}>
-                        <Button chengeDisplayOK={setDisplayActive} key={obj.id} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
+                        <Button   displayActive={displayActive}  chengeDisplayOK={setDisplayActive} key={obj.id} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
                     </Link>
                 })}
             </div>
@@ -269,8 +270,8 @@ export const CabinetOwner: React.FC = () => {
                 </label>
               
                 {/* <div style={{ backround-color: `${props.color}`}}></div> */}
-                {displayActive === 1 ? usersAdmin : ''}
-                {displayActive === 2 ? usersRole : ''} 
+                {displayActive === 1 ? usersRole : ''} 
+                {displayActive === 2 ? usersAdmin : ''} 
                 {displayActive === 3 ? <AddProduct 
                 modalAddCAtegory={modalAddCAtegory} 
                 imagesData={images} setImages={setImages}  

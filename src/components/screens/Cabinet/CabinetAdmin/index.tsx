@@ -47,7 +47,7 @@ const buttonsObj: ButtonType[] = [
         <div className={s.wrapper}>
               <div className={s.nav_dekstop}>
                 {buttonsObj.map((obj, ind) => {
-                    return <Button chengeDisplayOK={setDisplayActive} key={ind} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
+                    return <Button displayActive={displayActive} chengeDisplayOK={setDisplayActive} key={ind} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
                 })}
             </div>
 
@@ -55,7 +55,7 @@ const buttonsObj: ButtonType[] = [
                 {buttonsObj.map((obj, ind) => {
 
                     return <Link className={s.link} href={`${obj.url}`} key={ind}>
-                        <Button chengeDisplayOK={setDisplayActive} key={obj.id} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
+                        <Button displayActive={displayActive} chengeDisplayOK={setDisplayActive} key={obj.id} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
                     </Link>
                 })}
             </div>

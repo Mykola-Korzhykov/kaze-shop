@@ -13,7 +13,7 @@ import { API_URL } from "@/services";
 import axios from "axios";
 import { parseCookies } from "nookies";
 import { useAppDispatch } from "@/redux/hooks";
-import {getUsersRole} from '../../../../../redux/slices/admin'
+import {getUsersAdmin, getUsersRole} from '../../../../../redux/slices/admin'
 import {setChangeCheckbox} from '../../../../../redux/slices/admin'
 
 
@@ -40,7 +40,7 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
 
     console.log(`check user editContent${id}`, addContent )
     const localUser = useSelector((state:RootState ) => state.admin.usersRole[id - 1])
-    console.log('localUser', localUser)
+    console.log('UserRolefekfekflkwefnwklenrflwerfnwlenfklnelfnlkenklfnklenrfnwelnflkernfnweklnklenflknwkfnwkfr')
 
     const [activeCheckbox, setSctiveCheckbox] = React.useState<number | null>(null)
     const usersRole = useSelector((state: RootState )=> state.admin.usersRole)
@@ -73,7 +73,7 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
         // console.log('clickfnnfnfnfnnfnfnffnfnnfnfnfnfnnfnfnfnfnnfnfnnfnfnfnnfnnfnfnfnfnfnfnfn')
         const cookies = parseCookies();
         const token = cookies.accessToken;
-       
+        
         const instance = axios.create({
           baseURL: API_URL,
           withCredentials: true,
@@ -103,9 +103,8 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
       }
 
       React.useEffect(()=>{
-        dispatch(getUsersRole(activePaginatoinRole))
+        dispatch(getUsersAdmin(activePaginatoinRole))
       }, [])
-
 
     return (
         <div onClick={() => { setUserOpenOK(idUserOpen === id ? -1 : id) }} className={s.wrapper}>

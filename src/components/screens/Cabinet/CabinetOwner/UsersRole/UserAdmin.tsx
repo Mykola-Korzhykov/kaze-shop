@@ -11,7 +11,7 @@ import {API_URL} from '../../../../../services/index'
 import axios from 'axios'
 import Cookies from "js-cookie";
 import { useAppDispatch } from "@/redux/hooks";
-import {getUsersAdmin} from '../../../../../redux/slices/admin'
+import {getUsersAdmin, getUsersRole} from '../../../../../redux/slices/admin'
 
 interface UserProps {
     idUserOpen?: number,
@@ -90,7 +90,7 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
       }
 
      React.useEffect(()=>{
-       dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
+       dispatch(getUsersRole(activePaginatoinRoleAdmin))
       }, [])
 
     return (
