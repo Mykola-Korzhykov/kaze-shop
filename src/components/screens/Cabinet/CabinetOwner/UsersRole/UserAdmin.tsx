@@ -75,17 +75,21 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
             Authorization: 'Bearer ' + (token || ''),
           },
         })
+
+        
+        setUserAdmin({
+            ...UserAdmin,
+            [role]: bool,
+        })
       
         instance.put('/admin/create_admin', {
-            UserAdmin
+            ...UserAdmin,
+            [role]: bool,
         })
-       
+        
           .then(response => {
 
-            setUserAdmin({
-                ...UserAdmin,
-                [role]: bool,
-            })
+           
             // dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
             // setUserAdmin(prevState => ({
             //   ...prevState,

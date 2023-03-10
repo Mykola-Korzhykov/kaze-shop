@@ -71,6 +71,7 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
     //  console.log('UserRole', UserRole)
 
     function changeUserRole (role: string, bool: boolean){
+
         setUserRole({
             ...UserRole,
             [role]: bool,
@@ -222,8 +223,11 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
                     </label> */}
                 </div>
 
-                <div onClick={()=> {
+                <div onClick={(e)=> {
                     //  console.log('UserRole', UserRole)
+                    e.preventDefault()
+                    e.stopPropagation();
+                    setUserOpenOK(id)
                      sendUserRole()
                 } } className={ openUser ?  s.btn_save : s.btn_save_off }>
                     Сохранить
