@@ -20,7 +20,7 @@ interface UserProps {
     setUserOpenOK?: (n: number) => void,
     addContent: boolean, 
     editContent: boolean,
-    editWebSite:  boolean,
+    editWebsite:  boolean,
     isAdmin: boolean,
     email: string,
     phoneNumber: string,
@@ -30,7 +30,7 @@ interface UserProps {
 
 }
 
-export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebSite, isAdmin, email, phoneNumber , surname, name  }) => {
+export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebsite, isAdmin, email, phoneNumber , surname, name  }) => {
 
     const openUser = id === idUserOpen ? true : false
     const [activeCheckbox, setSctiveCheckbox] = React.useState<number | null>(null)
@@ -38,7 +38,7 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
     const [UserAdmin, setUserAdmin] = React.useState<{
         addContent: boolean, 
         editContent: boolean,
-        editWebSite:  boolean,
+        editWebsite:  boolean,
         isAdmin: boolean,
         email: string,
         phoneNumber: string,
@@ -54,7 +54,7 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
         isAdmin: isAdmin,
         addContent: addContent,
         editContent: editContent,
-        editWebSite: editWebSite,}
+        editWebsite: editWebsite,}
     )
     
     console.log('UserAdmin', UserAdmin)
@@ -75,19 +75,10 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
         })
       
         instance.put('/admin/create_admin', {
-            id: id,
-            name: name,
-            surname: surname,
-            email: email,
-            phoneNumber: phoneNumber,
-            isAdmin: isAdmin,
-            addContent: addContent,
-            editContent: editContent,
-            editWebSite: editWebSite,
+            ...UserAdmin,
             [role]: bool,
         })
        
-        
           .then(response => {
             dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
             // setUserAdmin(prevState => ({

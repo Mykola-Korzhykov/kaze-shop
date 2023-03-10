@@ -192,7 +192,7 @@ export const CabinetOwner: React.FC = (props) => {
     phoneNumber={el.phoneNumber}
     email={el.email}
     isAdmin={el.isAdmin}
-    editWebSite={el.editWebSite}
+    editWebsite={el.editWebsite}
     addContent={el.addContent}
     key={ind} 
     setUserOpenOK={setUserOpen} 
@@ -208,7 +208,7 @@ export const CabinetOwner: React.FC = (props) => {
     phoneNumber={el.phoneNumber}
     email={el.email}
     isAdmin={el.isAdmin}
-    editWebSite={el.editWebSite}
+    editWebsite={el.editWebsite}
     addContent={el.addContent}
     key={ind} 
     id={el.id}

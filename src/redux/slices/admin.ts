@@ -8,7 +8,7 @@ import axios from 'axios'
 import { API_URL } from '../../services'
 //types 
 import {ProductSend} from '../../types/auth'
-import {Goods} from '../../types/goods'
+import {fetchedColour, Goods} from '../../types/goods'
 import photo from '../../assets/images/main/About/girl.svg'
 
 
@@ -94,7 +94,7 @@ export interface User {
 	isAdmin: boolean
 	addContent: boolean
 	editContent: boolean
-	editWebSite: boolean
+	editWebsite: boolean
 }
 
 export interface initialStateType {
@@ -127,6 +127,7 @@ export interface initialStateType {
 	editProductItemId: number,
     displayActive: number,
     editProducts: Goods[]
+	// colours: fetchedColour[]
 
 }
 
@@ -624,7 +625,6 @@ const initialState: initialStateType = {
 // sizes: string[]
 // colours: fetchedColour[]
 // categories: fetchedCategory[]
-
 
 }
 

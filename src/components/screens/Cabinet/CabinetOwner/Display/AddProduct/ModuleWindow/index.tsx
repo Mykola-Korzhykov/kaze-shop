@@ -57,8 +57,8 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const fetchColoursArr = useSelector((state: RootState)=> state.goods.fetchedColours)
     //modal backround
     const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
-    //console.log('fetchColoursArr', fetchColoursArr)
-    dispatch(fetchColours()) 
+    console.log('fetchColoursArr', fetchColoursArr)
+
      function generationObjModal () {
         const obj = {
             fileNames: files.map((el)=>{
@@ -98,7 +98,10 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     }
 
     //@ts-ignore
-      dispatch(fetchCategories())  
+    //   dispatch(fetchCategories())
+    dispatch(fetchCategories())
+    dispatch(fetchColours())
+    
       
       
   
@@ -188,7 +191,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                     </svg>}
                     </span>
                         <div  style={{top: selectedSizes?.length > 0 ? '500px' : '456px'}} className={s.color_wrapper_main}>
-                            { choiceColor ? colors?.map((el, ind)=>{
+                            { choiceColor ? fetchColoursArr?.map((el, ind)=>{
                                 return el.id !== 48093899940393 ? (
                                     <div onClick={()=> {
                                         dispatch(setColors(el.id))

@@ -23,7 +23,7 @@ interface UserProps {
     setUserOpenOK?: (n: number) => void,
     addContent: boolean, 
     editContent: boolean,
-    editWebSite:  boolean,
+    editWebsite:  boolean,
     isAdmin: boolean,
     email: string,
     phoneNumber: string,
@@ -33,7 +33,7 @@ interface UserProps {
 
 }
 
-export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebSite, isAdmin, email, phoneNumber , surname, name }) => {
+export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebsite, isAdmin, email, phoneNumber , surname, name }) => {
 
     // const [openUserMy, setOpenUserMy] = React.useState<boolean>(false)
     const openUser = id === idUserOpen ? true : false
@@ -49,7 +49,7 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
     const [UserRole, setUserRole] = React.useState<{
         addContent: boolean, 
         editContent: boolean,
-        editWebSite:  boolean,
+        editWebsite:  boolean,
         isAdmin: boolean,
         email: string,
         phoneNumber: string,
@@ -65,7 +65,7 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
         isAdmin: isAdmin,
         addContent: addContent,
         editContent: editContent,
-        editWebSite: editWebSite,}
+        editWebsite: editWebsite,}
     )
 
      console.log('UserRole', UserRole)
@@ -86,15 +86,7 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
           },
         });
         instance.put('/admin/create_admin', {
-            id: id,
-            name: name,
-            surname: surname,
-            email: email,
-            phoneNumber: phoneNumber,
-            isAdmin: isAdmin,
-            addContent: addContent,
-            editContent: editContent,
-            editWebSite: editWebSite,
+            ...UserRole,
             [role]: bool,
         })
           .then(() => {
@@ -186,13 +178,13 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
                         <span className={s.checkbox_text}> Добавление товара</span>
                     </label>
 
-                    <label htmlFor={`editWeb${id}`} className={s.checkbox_wrapper}>
-                            <input  checked={editWebSite ? true : false} onChange={() => {
-                                sendUserRole('editWebSite', !UserRole.editWebSite)
-                                setUserRole(prevState => ({ ...prevState, ['editWebSite']: !prevState.editWebSite }))
+                    <label htmlFor={`editWebsite${id}`} className={s.checkbox_wrapper}>
+                            <input  checked={editWebsite ? true : false} onChange={() => {
+                                sendUserRole('editWebsite', !UserRole.editWebsite)
+                                //setUserRole(prevState => ({ ...prevState, ['editWebSite']: !prevState.editWebSite }))
                                 // dispatch(setChangeCheckbox({id: id, branch: 'editWebSite', bool: !UserRole.editWebSite }))
                                 // setSctiveCheckbox(4)
-                            }} id={`editWeb${id}`} className={s.checkbox} type="checkbox" />
+                            }} id={`editWebsite${id}`} className={s.checkbox} type="checkbox" />
                             <span className={s.checkbox_label}>
                                 <Image className={s.checkbox_icon} src={checkbox_icon} alt='checkbox_icon' />
                             </span>
