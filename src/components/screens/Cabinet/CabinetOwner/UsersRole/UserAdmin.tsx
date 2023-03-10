@@ -60,14 +60,11 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
     const dispatch = useAppDispatch()
     // console.log(useWhyDidYouUpdate('UserAdmin',{ activePaginatoinRoleAdmin, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebSite, isAdmin, email, phoneNumber , surname, name  }))
     
-    function changeUserRole (role: string, bool: boolean){
-        setUserAdmin({
-            ...UserAdmin,
-            [role]: bool,
-        })
-    }
+    // function changeUserRole (role: string, bool: boolean){
+        
+    // }
        
-    function sendUserAdmin() {
+    function sendUserAdmin(role: string, bool: boolean) {
         const cookies = Cookies.get()
         const token = cookies.accessToken
       
@@ -84,6 +81,11 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
         })
        
           .then(response => {
+
+            setUserAdmin({
+                ...UserAdmin,
+                [role]: bool,
+            })
             // dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
             // setUserAdmin(prevState => ({
             //   ...prevState,
@@ -136,8 +138,9 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
 
                     <label htmlFor={`isAdmin${id}`} className={s.checkbox_wrapper}>
                         <input checked={UserAdmin.isAdmin ? true : false} onChange={()=>{
-                           changeUserRole('isAdmin', !UserAdmin.isAdmin)
+                        //    changeUserRole('isAdmin', !UserAdmin.isAdmin)
 
+                           sendUserAdmin('isAdmin', !UserAdmin.isAdmin)
                         //    setUserAdmin(prevState => ({
                         //     ...prevState,
                         //     'isAdmin': !UserAdmin.isAdmin,
@@ -181,12 +184,12 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
 
             </div>
 
-            <div onClick={()=> {
+            {/* <div onClick={()=> {
                 // console.log('UserAdmin', UserAdmin)
                 sendUserAdmin()
             }} className={ openUser ?  s.btn_save : s.btn_save_off }>
                 Сохранить
-            </div>
+            </div> */}
         </div>
     )
 }
