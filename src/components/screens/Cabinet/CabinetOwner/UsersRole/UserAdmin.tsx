@@ -12,6 +12,7 @@ import axios from 'axios'
 import Cookies from "js-cookie";
 import { useAppDispatch } from "@/redux/hooks";
 import {getUsersAdmin, getUsersRole} from '../../../../../redux/slices/admin'
+import { useWhyDidYouUpdate } from 'ahooks';
 
 interface UserProps {
     idUserOpen?: number,
@@ -57,6 +58,7 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
     )
     
     const dispatch = useAppDispatch()
+    // console.log(useWhyDidYouUpdate('UserAdmin',{ activePaginatoinRoleAdmin, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebSite, isAdmin, email, phoneNumber , surname, name  }))
 
        
     function sendUserAdmin(role: string, bool: boolean) {
@@ -89,9 +91,9 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
           setUserAdmin(prevState => ({ ...prevState, [role]: bool, }))
       }
 
-     React.useEffect(()=>{
-       dispatch(getUsersRole(activePaginatoinRoleAdmin))
-      }, [])
+    //  React.useEffect(()=>{
+    //    dispatch(getUsersRole(activePaginatoinRoleAdmin))
+    //   }, [])
 
     return (
         <div onClick={() => { setUserOpenOK(idUserOpen === id ? -1 : id) }} className={s.wrapper}>

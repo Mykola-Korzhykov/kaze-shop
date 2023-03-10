@@ -17,6 +17,8 @@ import {EditProduct} from './Display/EditProduct'
 import {EditProductItem} from './Display/EditProduct/EditProductItem'
 import {setModalAddPhoto, setModalAddColor} from '../../../../redux/slices/modal'
 import ChangePasswordSetting from './Display/ChangePasswordSetting'
+import { useWhyDidYouUpdate } from 'ahooks';
+
 
 import Image from 'next/image';
 //icons
@@ -35,6 +37,8 @@ import icon_white4 from '../../../../assets/icons/cabinetAdmin/icon4_white.svg'
 import icon_white5 from '../../../../assets/icons/cabinetAdmin/icon5_white.svg'
 import icon_white6 from '../../../../assets/icons/cabinetAdmin/icon6_white.svg'
 import icon_white7 from '../../../../assets/icons/cabinetAdmin/icon7_white.svg'
+
+// import findUser from '../../../../../assets/icons/cabinetAdmin/findUser.svg'
 import findUser from '../../../../assets/icons/cabinetAdmin/findUser.svg'
 //types & redux
 import { ButtonType } from '../../../../types/auth'
@@ -73,7 +77,7 @@ const buttonsObj: ButtonType[] = [
 
 
 
-export const CabinetOwner: React.FC = () => {
+export const CabinetOwner: React.FC = (props) => {
     
     // const [modalAddColor, setModalAddColor] = React.useState<boolean>(false)
     const modalAddColor =  useSelector((state: RootState) => state.modaleSlice.modalAddColor)
@@ -86,12 +90,14 @@ export const CabinetOwner: React.FC = () => {
     const [images, setImages] = React.useState<File[]>([])
 
     const dispatch = useAppDispatch()
+
     
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
-    console.log('ChangeUserPassword', ChangeUserPassword)
+    // console.log('ChangeUserPassword', ChangeUserPassword)
     const usersRoleUI = useSelector((state: RootState) => state.admin.usersRole)
-    console.log('usersRoleUI', usersRoleUI)
+    // console.log('usersRoleUI', usersRoleUI)
     // console.log('getUsersRole', getUsersRole)
+    console.log('useWhyDidYouUpdate', props)
     const usersAdminUI = useSelector((state: RootState) => state.admin.usersAdmin)
     const editProductItemId = useSelector((state: RootState)=>state.admin.editProductItemId )
    // console.log('editProductItemId', editProductItemId)
@@ -132,7 +138,7 @@ export const CabinetOwner: React.FC = () => {
     React.useEffect(()=>{
        if( displayActive === 1 ){
         console.log('запыт getUsersRole')
-        // dispatch(getUsersRole(activePaginatoinRole))
+        dispatch(getUsersRole(activePaginatoinRole))
        }
         
      }, [activePaginatoinRole,  displayActive])
@@ -140,7 +146,7 @@ export const CabinetOwner: React.FC = () => {
     React.useEffect(()=>{
         if(displayActive === 2){
             console.log('запыт getUsersAdmin')
-            // dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
+            dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
         }
     }, [ activePaginatoinRoleAdmin, displayActive])
     // вираховування пагінації

@@ -102,9 +102,9 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
 
       }
 
-      React.useEffect(()=>{
-        dispatch(getUsersAdmin(activePaginatoinRole))
-      }, [])
+    //   React.useEffect(()=>{
+    //     dispatch(getUsersAdmin(activePaginatoinRole))
+    //   }, [])
 
     return (
         <div onClick={() => { setUserOpenOK(idUserOpen === id ? -1 : id) }} className={s.wrapper}>
