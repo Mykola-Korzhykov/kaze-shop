@@ -14,7 +14,6 @@ import {fetchCategories} from '../../../../../../../redux/slices/goods'
 import {fetchColours} from '../../../../../../../redux/slices/goods'
 
 
-
 interface ModuleWindowImagesProps {
     fileNames: string[];
     colourId: number;
@@ -37,6 +36,8 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const inputRef = React.useRef<HTMLInputElement>(null);
 
     const dispatch = useAppDispatch()
+
+   
     
     //local state 
     const [files, setFiles] = React.useState([])
@@ -104,15 +105,10 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
 
     }
 
-    //@ts-ignore
-    //   dispatch(fetchCategories())
-    dispatch(fetchCategories())
-    dispatch(fetchColours())
     
-      
-      
-  
-
+    
+     dispatch(fetchColours())
+    
     return (
         <div  style={  modalAddColor  ? {visibility: 'hidden'} :  {visibility: 'visible'}} className={s.module_wrapper}>
 
