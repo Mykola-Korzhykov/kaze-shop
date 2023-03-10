@@ -141,7 +141,7 @@ export const CabinetOwner: React.FC = (props) => {
     React.useEffect(()=>{
        if( displayActive === 1 ){
         console.log('запыт getUsersRole')
-        //dispatch(getUsersRole(activePaginatoinRole))
+            dispatch(getUsersRole(activePaginatoinRole))
        }
         
      }, [activePaginatoinRole,  displayActive])
@@ -149,7 +149,7 @@ export const CabinetOwner: React.FC = (props) => {
     React.useEffect(()=>{
         if(displayActive === 2){
             console.log('запыт getUsersAdmin')
-            //dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
+            dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
         }
     }, [ activePaginatoinRoleAdmin, displayActive])
     // вираховування пагінації

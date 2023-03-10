@@ -57,7 +57,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const fetchColoursArr = useSelector((state: RootState)=> state.goods.fetchedColours)
     //modal backround
     const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
-    console.log('fetchColoursArr', fetchColoursArr)
+    //console.log('fetchColoursArr', fetchColoursArr)
     dispatch(fetchColours()) 
      function generationObjModal () {
         const obj = {

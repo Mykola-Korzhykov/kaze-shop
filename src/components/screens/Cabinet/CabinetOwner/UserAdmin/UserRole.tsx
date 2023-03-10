@@ -179,7 +179,6 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
                         <span className={s.checkbox_text}> Добавление товара</span>
                     </label>
 
-                    
                     <label htmlFor={`editWeb${id}`} className={s.checkbox_wrapper}>
                             <input  checked={editWebSite ? true : false} onChange={() => {
                                 sendUserRole('editWebSite', !UserRole.editWebSite)
