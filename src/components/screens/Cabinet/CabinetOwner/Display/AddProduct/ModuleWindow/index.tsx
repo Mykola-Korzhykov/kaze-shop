@@ -10,7 +10,7 @@ import {setSizes, setColors, setImagesPng, removeAll, setAllcoloursId, setAllsiz
 import { devNull } from "os"
 import {setModalAddPhoto} from '../../../../../../../redux/slices/modal'
 import {setImageUrl} from '../../../../../../../redux/slices/modal'
-
+import {fetchCategories} from '../../../../../../../redux/slices/goods'
 
 
 interface ModuleWindowImagesProps {
@@ -35,6 +35,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const inputRef = React.useRef<HTMLInputElement>(null);
 
     const dispatch = useAppDispatch()
+    
     //local state 
     const [files, setFiles] = React.useState([])
     // const [arrObjMod, setArrObjMod] = React.useState([])
@@ -47,12 +48,13 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const sizesItems =  useSelector((state: RootState)=> state.admin.sizesItems)
     //get
     const categories =  useSelector((state: RootState)=> state.goods.fetchedCategories)
-    const categoriesSend =  useSelector((state: RootState)=> state.goods.fetchedCategories)
+    const fetchedCategories =  useSelector((state: RootState)=> state.goods.fetchedCategories)
     const colourId =  useSelector((state: RootState)=> state.formData.colourId)
     const ArrObjMod =  useSelector((state: RootState)=> state.formData.arrObjMod)
     const images = useSelector((state: RootState)=> state.formData.images)
     //modal backround
     const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
+    console.log('fetchedCategories', fetchedCategories)
     
      function generationObjModal () {
         const obj = {
@@ -82,6 +84,8 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
         setImageUrl(url)
         dispatch(setImageUrl(url))
      }
+
+     dispatch(fetchCategories())  
      
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>)=>{
         

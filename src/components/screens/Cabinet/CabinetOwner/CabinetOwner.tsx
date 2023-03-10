@@ -18,6 +18,7 @@ import {EditProductItem} from './Display/EditProduct/EditProductItem'
 import {setModalAddPhoto, setModalAddColor} from '../../../../redux/slices/modal'
 import ChangePasswordSetting from './Display/ChangePasswordSetting'
 import { useWhyDidYouUpdate } from 'ahooks';
+import {fetchCategories} from '../../../../redux/slices/goods'
 
 
 import Image from 'next/image';
@@ -90,7 +91,8 @@ export const CabinetOwner: React.FC = (props) => {
     const [images, setImages] = React.useState<File[]>([])
 
     const dispatch = useAppDispatch()
-
+   
+    
     
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
     // console.log('ChangeUserPassword', ChangeUserPassword)
@@ -108,6 +110,7 @@ export const CabinetOwner: React.FC = (props) => {
     const [activePaginatoinRole, setActivePaginatoinRole] = React.useState<number>(1)
     const [activePaginatoinRoleAdmin, setActivePaginatoinAdmin] = React.useState<number>(1)
     // console.log('displayActive', displayActive)
+   
     //refresh
     React.useEffect(() => {
 		const fetchUserData = async () => {
