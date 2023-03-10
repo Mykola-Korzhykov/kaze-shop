@@ -7,16 +7,33 @@ import { useRouter } from 'next/router'
 import { addUserInfo } from '@/redux/slices/user'
 import Link from 'next/link'
 import { setCookie } from 'nookies'
+import s from './screenStyle.module.scss'
 //components
 import ChangeUserPassword from '@/components/ChangeUserPassword/ChangeUserPassword'
 import CabinetTabs from '@/components/screens/Cabinet/CabinetTabs'
 import { CabinetOwner } from './CabinetOwner/CabinetOwner'
 import {CabinetAdmin} from './CabinetAdmin'
+//modal
+import {setModalAddPhoto, setModalAddColor} from '../../../redux/slices/modal'
+import {ModalAddCategory} from './../Cabinet/CabinetOwner/Display/AddProduct/ModalAddCategory'
+import {ModalAddColor} from './../Cabinet/CabinetOwner/Display/AddProduct/ModalAddColor'
+import { ModuleWindiw } from './CabinetOwner/Display/AddProduct/ModuleWindow'
+
+
 
 const Cabinet: FC = () => {
 	const dispatch = useAppDispatch()
 	const router = useRouter()
 	const user = useSelector((state: RootState) => state.user)
+
+
+	//states 
+	const [countPhoto, setCountPhoto] = React.useState<number>(1)
+	const modalAddPhoto = useSelector((state: RootState) => state.modaleSlice.modalAddPhoto)
+	const [choiceColor, setChoiceColor] =React.useState<boolean>(false)
+	const modalAddCAtegory =  useSelector((state: RootState) => state.modaleSlice.modalAddCAtegory)
+	const modalAddColor =  useSelector((state: RootState) => state.modaleSlice.modalAddColor)
+	const [images, setImages] = React.useState<File[]>([])
 
 	console.log('user', user)
 	React.useEffect(() => {
@@ -52,11 +69,40 @@ const Cabinet: FC = () => {
 				</div>
 
 			 	{user && user.user?.type === 'USER'  ? <CabinetTabs /> : ''}
-				{user?.user?.type === 'OWNER' && <CabinetOwner />}
+				{user?.user?.type === 'OWNER' && <CabinetOwner
+				modalAddCAtegory={modalAddCAtegory} 
+                imagesData={images} setImages={setImages}  
+                setCountPhoto={setCountPhoto}  
+				modalAddPhoto={modalAddPhoto}
+                modalAddColor={modalAddColor} 
+                setModalAddColor={setModalAddColor}  
+				/>}
 				{user?.user?.type === 'ADMIN' && <CabinetAdmin />} 
 			
-				{/* <CabinetOwner />   */}
+
+				{/* <CabinetOwner 
+				modalAddCAtegory={modalAddCAtegory} 
+                imagesData={images} setImages={setImages}  
+                setCountPhoto={setCountPhoto}  
+				modalAddPhoto={modalAddPhoto}
+                modalAddColor={modalAddColor} 
+                setModalAddColor={setModalAddColor}   
+                />    */}
 				{/* <CabinetAdmin /> */}
+
+			{/* <div className={s.backround_module}></div>  */}
+			{countPhoto > 0 && modalAddPhoto ? <div style={{height: `${ 1450 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''}
+			{/* {countPhoto > 0 && modalAddPhoto &&  choiceColor === false? <div style={{height: `${ 1450 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''} */}
+            {/* {modalAddPhoto  && countPhoto < 2 ? <div  className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''}  */}
+			{/* style={{height: `${ 1450 +  colors.length * 25}px` }} */}
+            {/* {choiceColor? <div   className={ s.backround_module}></div> : ''}  */}
+            { modalAddCAtegory ?<div style={{height: '1450px'}} className={s.backround_module}></div> : ''}
+
+
+            {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  
+            {modalAddCAtegory ? <ModalAddCategory  /> : ''} 
+            {modalAddColor ? <ModalAddColor  /> : '' }
+			{/* {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  */}
 
 			</div>
 		</main>

@@ -11,20 +11,32 @@
 // }
 
 .module_wrapper{
-   
-    margin-left: -105px;
+
     position: absolute;
     top: 0;
     height: 100%;
     width: 100vw;
     margin-top: 210px;
     z-index: 2;
-    
-   
     display: flex;
-    // align-items: flex-end;
     align-items: center;
     justify-content: center;
+    left: 50%;
+    transform: translateX(-50%);
+   
+    // margin-left: -105px;
+    // position: absolute;
+    // top: 0;
+    // height: 100%;
+    // width: 100vw;
+    // margin-top: 210px;
+    // z-index: 2;
+    
+   
+    // display: flex;
+    // // align-items: flex-end;
+    // align-items: center;
+    // justify-content: center;
 }
 
 .module_inner{
@@ -217,6 +229,9 @@
 
 //colors 
 
+.color_wrapper_main_off{
+    display: none;
+}
 .color_wrapper_main{
     // display: flex;
     // flex-direction: column;
@@ -228,6 +243,9 @@
     // top: 602px;
     left: 30px;
     width: 541px;
+    height: 500px; 
+    overflow-y: scroll;
+
 
     background-color: #FFFFFF;
     

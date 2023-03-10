@@ -55,6 +55,13 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const ArrObjMod =  useSelector((state: RootState)=> state.formData.arrObjMod)
     const images = useSelector((state: RootState)=> state.formData.images)
     const fetchColoursArr = useSelector((state: RootState)=> state.goods.fetchedColours)
+
+    const newColoursArr = fetchColoursArr ? [...fetchColoursArr, {
+        label: 'Добавить цвет ',
+        hex: '',
+        id: 48093899940393
+      }] : null;
+  
     //modal backround
     const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
     console.log('fetchColoursArr', fetchColoursArr)
@@ -190,8 +197,8 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                             <path d="M26 12L16 22L6 12" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>}
                     </span>
-                        <div  style={{top: selectedSizes?.length > 0 ? '500px' : '456px'}} className={s.color_wrapper_main}>
-                            { choiceColor ? fetchColoursArr?.map((el, ind)=>{
+                        <div  style={{top: selectedSizes?.length > 0 ? '500px' : '456px'}} className={ choiceColor ?  s.color_wrapper_main :  s.color_wrapper_main_off }>
+                            { choiceColor ? newColoursArr?.map((el, ind)=>{
                                 return el.id !== 48093899940393 ? (
                                     <div onClick={()=> {
                                         dispatch(setColors(el.id))

@@ -101,9 +101,6 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = () => {
                          </div>
                 })}
 
-
-                    
-
                     <div className={s.input_inner}>
                         <span className={s.title}>Цветовой код</span>
                         <label className={s.label_input_file} htmlFor="choosecategoryRU">
