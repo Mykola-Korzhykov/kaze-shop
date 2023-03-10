@@ -67,6 +67,7 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
         editContent: editContent,
         editWebSite: editWebSite,}
     )
+
      console.log('UserRole', UserRole)
 
     
@@ -182,7 +183,7 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
                     <label htmlFor={`editWeb${id}`} className={s.checkbox_wrapper}>
                             <input  checked={editWebSite ? true : false} onChange={() => {
                                 sendUserRole('editWebSite', !UserRole.editWebSite)
-                                // setUserRole(prevState => ({ ...prevState, ['editWebSite']: !prevState.editWebSite }))
+                                setUserRole(prevState => ({ ...prevState, ['editWebSite']: !prevState.editWebSite }))
                                 // dispatch(setChangeCheckbox({id: id, branch: 'editWebSite', bool: !UserRole.editWebSite }))
                                 // setSctiveCheckbox(4)
                             }} id={`editWeb${id}`} className={s.checkbox} type="checkbox" />
