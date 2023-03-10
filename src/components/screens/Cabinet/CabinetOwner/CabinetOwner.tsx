@@ -97,7 +97,7 @@ export const CabinetOwner: React.FC = (props) => {
     const usersRoleUI = useSelector((state: RootState) => state.admin.usersRole)
     // console.log('usersRoleUI', usersRoleUI)
     // console.log('getUsersRole', getUsersRole)
-    console.log('useWhyDidYouUpdate', props)
+    console.log('CabinetOwner useWhyDidYouUpdate', useWhyDidYouUpdate('CabinetOwner', props))
     const usersAdminUI = useSelector((state: RootState) => state.admin.usersAdmin)
     const editProductItemId = useSelector((state: RootState)=>state.admin.editProductItemId )
    // console.log('editProductItemId', editProductItemId)
