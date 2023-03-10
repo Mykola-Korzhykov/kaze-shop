@@ -27,7 +27,6 @@ interface UserProps {
     surname: string,
     name: string,
     activePaginatoinRoleAdmin: number
-
 }
 
 export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebsite, isAdmin, email, phoneNumber , surname, name  }) => {

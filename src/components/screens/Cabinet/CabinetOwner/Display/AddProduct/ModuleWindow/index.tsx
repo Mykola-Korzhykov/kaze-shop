@@ -65,7 +65,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     //modal backround
     const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
     console.log('fetchColoursArr', fetchColoursArr)
-
+    //   console.log('setModalAddColor', setModalAddColor)
      function generationObjModal () {
         const obj = {
             fileNames: files.map((el)=>{
@@ -215,6 +215,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                                 ) : <div onClick={()=> {
                                     setModalAddColor(true)
                                     setChoiceColor(!choiceColor)
+                                    // dispatch()
                                 }} key={ind} className={s.color_wrapper}>
                                     
                                     <svg className={s.plus} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

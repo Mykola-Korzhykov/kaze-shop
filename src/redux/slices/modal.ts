@@ -40,8 +40,8 @@ const modaleSlice  = createSlice({
         setModalAddCAtegory: (state, action) =>{
             state.modalAddCAtegory = action.payload
         },
-        setChoiceColor: (state, action) =>{
-
+        setChoiceColorDispatch: (state, action) =>{
+            // state.choiceColor = action.payload
         },
         setImageUrl:(state, action: PayloadAction<string>) =>{
             state.imageUrlArr.push(action.payload)
@@ -53,6 +53,6 @@ const modaleSlice  = createSlice({
 export const selectUserInfo = (state: RootState) => state.user.user
 export const selectAuthState = (state: RootState) => state.user.isAuth
 
-export const { setModalAddPhoto, setModalAddColor, setCountPhoto, setModalAddCAtegory, setChoiceColor, setImageUrl } = modaleSlice.actions
+export const { setModalAddPhoto, setModalAddColor, setCountPhoto, setModalAddCAtegory, setChoiceColorDispatch, setImageUrl } = modaleSlice.actions
 
 export default modaleSlice.reducer

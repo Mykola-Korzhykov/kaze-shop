@@ -85,7 +85,7 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
             Authorization: 'Bearer ' + (token || ''),
           },
         });
-        instance.put('/admin/create_admin', {
+        instance.patch('/admin/update_admin', {
             ...UserRole,
             [role]: bool,
         })
