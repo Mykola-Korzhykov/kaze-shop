@@ -142,7 +142,7 @@ const initialState: initialStateType = {
         //      isAdmin: true,
         //      addContent: false,
         //      editContent: true,
-        //      editWebSite: false,
+        //      editWebsite: false,
         //  },
         // {
         //     id: 2,
@@ -153,7 +153,7 @@ const initialState: initialStateType = {
         //     isAdmin: true,
         //     addContent: false,
         //     editContent: true,
-        //     editWebSite: false,
+        //     editWebsite: false,
         // },
         // {
         //     id: 3,
@@ -164,7 +164,7 @@ const initialState: initialStateType = {
         //     isAdmin: true,
         //     addContent: false,
         //     editContent: true,
-        //     editWebSite: false,
+        //     editWebsite: false,
         // },
         // {
         //     id: 4,
@@ -175,7 +175,7 @@ const initialState: initialStateType = {
         //     isAdmin: true,
         //     addContent: false,
         //     editContent: true,
-        //     editWebSite: false,
+        //     editWebsite: false,
         // },
         // {
         //     id: 5,
@@ -186,7 +186,7 @@ const initialState: initialStateType = {
         //     isAdmin: true,
         //     addContent: false,
         //     editContent: true,
-        //     editWebSite: false,
+        //     editWebsite: false,
         // },
     ],
 	usersRole: [
@@ -199,7 +199,7 @@ const initialState: initialStateType = {
         //      isAdmin: true,
         //      addContent: false,
         //      editContent: false,
-        //      editWebSite: false,
+        //      editWebsite: false,
         //  },
         // {
         //     id: 2,
@@ -210,7 +210,7 @@ const initialState: initialStateType = {
         //     isAdmin: true,
         //     addContent: false,
         //     editContent: true,
-        //     editWebSite: false,
+        //     editWebsite: false,
         // },
         // {
         //     id: 3,
@@ -221,7 +221,7 @@ const initialState: initialStateType = {
         //     isAdmin: true,
         //     addContent: false,
         //     editContent: true,
-        //     editWebSite: false,
+        //     editWebsite: false,
         // },
         // {
         //     id: 4,
@@ -232,7 +232,7 @@ const initialState: initialStateType = {
         //     isAdmin: false,
         //     addContent: false,
         //     editContent: true,
-        //     editWebSite: false,
+        //     editWebsite: false,
         // },
         // {
         //     id: 5,
@@ -243,7 +243,7 @@ const initialState: initialStateType = {
         //     isAdmin: false,
         //     addContent: false,
         //     editContent: true,
-        //     editWebSite: false,
+        //     editWebsite: false,
         // },
     ],
 	inputs: [],
