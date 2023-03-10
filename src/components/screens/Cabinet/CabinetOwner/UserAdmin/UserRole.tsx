@@ -38,12 +38,13 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
     // const [openUserMy, setOpenUserMy] = React.useState<boolean>(false)
     const openUser = id === idUserOpen ? true : false
 
-    console.log(`check user editContent${id}`, addContent )
+    // console.log(`check user editContent${id}`, addContent )
     const localUser = useSelector((state:RootState ) => state.admin.usersRole[id - 1])
-    console.log('UserRolefekfekflkwefnwklenrflwerfnwlenfklnelfnlkenklfnklenrfnwelnflkernfnweklnklenflknwkfnwkfr')
+    // console.log('UserRolefekfekflkwefnwklenrflwerfnwlenfklnelfnlkenklfnklenrfnwelnflkernfnweklnklenflknwkfnwkfr')
 
     const [activeCheckbox, setSctiveCheckbox] = React.useState<number | null>(null)
     const usersRole = useSelector((state: RootState )=> state.admin.usersRole)
+    
    
     const [UserRole, setUserRole] = React.useState<{
         addContent: boolean, 
@@ -66,6 +67,8 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
         editContent: editContent,
         editWebSite: editWebSite,}
     )
+    console.log('UserRole', UserRole)
+
     
     const dispatch = useAppDispatch()
 
