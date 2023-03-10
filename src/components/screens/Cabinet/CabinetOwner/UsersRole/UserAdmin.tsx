@@ -75,7 +75,15 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
         })
       
         instance.put('/admin/create_admin', {
-            ...UserAdmin,
+            id: id,
+            name: name,
+            surname: surname,
+            email: email,
+            phoneNumber: phoneNumber,
+            isAdmin: isAdmin,
+            addContent: addContent,
+            editContent: editContent,
+            editWebSite: editWebSite,
             [role]: bool,
         })
        
