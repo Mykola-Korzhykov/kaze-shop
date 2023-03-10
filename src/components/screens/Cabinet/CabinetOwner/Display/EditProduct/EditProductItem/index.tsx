@@ -6,10 +6,11 @@ import { RootState  } from "@/redux/store";
 import {Input} from './Input'
 
 interface EditProductItemType {
-    id: number
+    id: number,
+    price: number
 }
 
-export const EditProductItem = ({id}: EditProductItemType) =>{
+export const EditProductItem = ({id, price}: EditProductItemType) =>{
 
     const editProductItemId = useSelector((state: RootState)=> state.admin.editProductItemId)
     const products = useSelector((state: RootState)=>state.admin.editProducts)
@@ -42,7 +43,7 @@ export const EditProductItem = ({id}: EditProductItemType) =>{
         {inputs.map((obj, ind)=>{
             return <div  key={ind} className={s.inputs_wrapper}>
                 <Input 
-                
+                price={price}
                 placeholder={obj.placeholder}
                 text={obj.text}
                 name={obj.name}
@@ -50,7 +51,7 @@ export const EditProductItem = ({id}: EditProductItemType) =>{
                 type={obj.type}
                 disable={obj.disable} 
                />
-              
+
             </div>
         })}
 

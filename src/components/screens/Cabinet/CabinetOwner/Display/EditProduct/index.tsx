@@ -41,8 +41,8 @@ export const EditProduct = () =>{
         {/* передача фото розмеров та цветов от activeProductEdit */}
 
         <div className={s.wrapperEditProductItem}>
-      
-           <EditProductItem  id={activeId}  />            
+                
+           <EditProductItem  price={activeProductEdit[activeId].price} id={activeId}  />            
         </div>
 
 

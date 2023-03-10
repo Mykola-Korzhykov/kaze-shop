@@ -57,6 +57,7 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
         editWebSite: editWebSite,}
     )
     
+    console.log('UserAdmin', UserAdmin)
     const dispatch = useAppDispatch()
     // console.log(useWhyDidYouUpdate('UserAdmin',{ activePaginatoinRoleAdmin, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebSite, isAdmin, email, phoneNumber , surname, name  }))
 
@@ -138,7 +139,7 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
                         //     ...prevState,
                         //     'isAdmin': !UserAdmin.isAdmin,
                         //   }))
-                           
+
                         }} onClick={() => setSctiveCheckbox(1)} id={`isAdmin${id}`} className={s.checkbox} type="checkbox" />
                         <span className={s.checkbox_label}>
                             <Image className={s.checkbox_icon} src={checkbox_icon} alt='checkbox_icon' />

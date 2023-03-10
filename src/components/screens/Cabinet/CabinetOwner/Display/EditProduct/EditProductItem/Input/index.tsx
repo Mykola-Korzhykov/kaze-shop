@@ -14,10 +14,11 @@ interface InputProps {
     name: string,
     id: number,
     type: string,
-    disable: boolean
+    disable: boolean,
+    price: number
 }
 
-export const Input = ({text, placeholder, name, id, type, disable}: InputProps) =>{
+export const Input = ({text, placeholder, name, id, type, disable, price}: InputProps) =>{
 
     const dispatch = useAppDispatch()
     const [categoriesDisplay, setCategoriesDisplay] = React.useState<boolean>(false)
@@ -75,15 +76,23 @@ export const Input = ({text, placeholder, name, id, type, disable}: InputProps) 
         // console.log('Пользователь закончил ввод:', event.target.value);
       }
 
+    //   { id: 9, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false },
+    //   { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false },
 
     return (
         <div className={s.wrapper}>
 
         {disable == false && type === 'text' ?  <div className={s.wrapper}>
             <div className={s.title}>{text}</div>
-            <input onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder !== 'Введите название товара' && placeholder !== 'Введите описание товара' ? 'какие - то данные ' : placeholder  } name={name}/>
+            <input onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder !== 'Введите название товара' && placeholder !== 'Введите описание товара' ? price.toString() : placeholder  } name={name}/>
         </div> : '' }
         {/* next */}
+
+        {/* {disable == false && type === 'text' ?  <div className={s.wrapper}>
+            <div className={s.title}>{text}</div>
+            <input onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder !== 'Введите цену' && placeholder !== 'Введите количество товаров' ? 'какие - то данные ' : placeholder  } name={name}/>
+        </div> : '' }
+        next */}
         {disable == true  && type === 'text' && placeholder === 'Выберите существующий товар' ?  <input onClick={()=> console.log('p')} style={{cursor: 'pointer'}} readOnly className={s.input} type={type} placeholder={placeholder} /> : ''}
         {/* next */}
 
@@ -169,6 +178,8 @@ export const Input = ({text, placeholder, name, id, type, disable}: InputProps) 
         </label> : (
             <div></div>
         )}
+
+        
 
 
         </div>

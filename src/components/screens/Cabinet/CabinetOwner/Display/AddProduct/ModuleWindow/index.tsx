@@ -11,6 +11,8 @@ import { devNull } from "os"
 import {setModalAddPhoto} from '../../../../../../../redux/slices/modal'
 import {setImageUrl} from '../../../../../../../redux/slices/modal'
 import {fetchCategories} from '../../../../../../../redux/slices/goods'
+import {fetchColours} from '../../../../../../../redux/slices/goods'
+
 
 
 interface ModuleWindowImagesProps {
@@ -52,10 +54,11 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const colourId =  useSelector((state: RootState)=> state.formData.colourId)
     const ArrObjMod =  useSelector((state: RootState)=> state.formData.arrObjMod)
     const images = useSelector((state: RootState)=> state.formData.images)
+    const fetchColoursArr = useSelector((state: RootState)=> state.goods.fetchedColours)
     //modal backround
     const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
-    console.log('fetchedCategories', fetchedCategories)
-    
+    console.log('fetchColoursArr', fetchColoursArr)
+    dispatch(fetchColours()) 
      function generationObjModal () {
         const obj = {
             fileNames: files.map((el)=>{
@@ -85,7 +88,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
         dispatch(setImageUrl(url))
      }
 
-     dispatch(fetchCategories())  
+   
      
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>)=>{
         
@@ -93,8 +96,10 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
         setImages( (prevArray: any) => [...prevArray,  event.target.files[0]])
 
     }
-      //@ts-ignore
-      globalThis.pavlo = files
+
+    //@ts-ignore
+      dispatch(fetchCategories())  
+      
       
   
 

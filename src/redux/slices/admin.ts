@@ -132,17 +132,17 @@ export interface initialStateType {
 
 const initialState: initialStateType = {
 	usersAdmin: [
-        // {
-        //     id: 1,
-        //     name: 'Pavlo',
-        //     surname: 'Kolumyp',
-        //     email:' pashawork@gmail.com',
-        //     phoneNumber: '+380688874920',
-        //     isAdmin: true,
-        //     addContent: false,
-        //     editContent: true,
-        //     editWebSite: false,
-        // },
+        //  {
+        //      id: 1,
+        //      name: 'Pavlo',
+        //      surname: 'Kolumyp',
+        //      email:' pashawork@gmail.com',
+        //      phoneNumber: '+380688874920',
+        //      isAdmin: true,
+        //      addContent: false,
+        //      editContent: true,
+        //      editWebSite: false,
+        //  },
         // {
         //     id: 2,
         //     name: 'Pavlo',
@@ -189,17 +189,17 @@ const initialState: initialStateType = {
         // },
     ],
 	usersRole: [
-        // {
-        //     id: 1,
-        //     name: 'Pavlo',
-        //     surname: 'Kolumyp',
-        //     email:' pashawork@gmail.com',
-        //     phoneNumber: '+380688874920',
-        //     isAdmin: true,
-        //     addContent: false,
-        //     editContent: false,
-        //     editWebSite: false,
-        // },
+        //  {
+        //      id: 1,
+        //      name: 'Pavlo',
+        //      surname: 'Kolumyp',
+        //      email:' pashawork@gmail.com',
+        //      phoneNumber: '+380688874920',
+        //      isAdmin: true,
+        //      addContent: false,
+        //      editContent: false,
+        //      editWebSite: false,
+        //  },
         // {
         //     id: 2,
         //     name: 'Pavlo',
