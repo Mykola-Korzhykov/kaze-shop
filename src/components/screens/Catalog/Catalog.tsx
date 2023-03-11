@@ -21,6 +21,7 @@ const Catalog: FC = () => {
 	const loadingStatus = useAppSelector(state => state.goods.loadingStatus)
 	const error = useAppSelector(state => state.goods.errors)
 	const [filtersOpened, setFiltersOpened] = useState<boolean>(false)
+	
 	useEffect(() => {
 		dispatch(fetchGoods())
 		dispatch(fetchCategories())
@@ -57,7 +58,6 @@ const Catalog: FC = () => {
 					{filtersOpened && <CatalogFilters />}
 					<CatalogItems />
 					<CatalogPagination />
-					
 				</div>
 			</main>
 		</CatalogContext.Provider>
