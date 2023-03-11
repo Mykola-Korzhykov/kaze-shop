@@ -137,7 +137,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         //selectedImages
         formData.append("selectedImages", JSON.stringify(selectedImages));
         //price
-        formData.append("price", price.toString());
+        formData.append("price", String(price));
         //quantity
         formData.append("quantity", quantity.toString());
         //allsizes
@@ -146,7 +146,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         formData.append("sizeChartImage", netImage);
       
         axios
-          .post("/product/create_product", formData, {
+          .put("/product/create_product", formData, {
             baseURL: API_URL,
             withCredentials: true,
             headers: {

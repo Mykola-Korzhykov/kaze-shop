@@ -67,6 +67,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
     console.log('fetchColoursArr', fetchColoursArr)
     //   console.log('setModalAddColor', setModalAddColor)
+    console.log('files', files)
      function generationObjModal () {
         const obj = {
             fileNames: files.map((el)=>{
@@ -76,23 +77,23 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
             sizes: selectedSizes
         }
 
-        // files.forEach((el)=>{
-        //     dispatch(setArrObjMod(el))  
-        // })
-        
+
+    
+
+        // dispatch(setArrObjMod(obj))  
         dispatch(setAllcoloursId(colourId))
         dispatch(setAllsizes(obj.sizes))
         dispatch(setArrObjMod(obj))
        
         // setImages([...imagesData, ...files])
-        console.log('ArrObjMod', ArrObjMod)
+        // console.log('ArrObjMod', ArrObjMod)
         
         dispatch(removeAll())
         setFiles([])
         dispatch(setModalAddPhoto(false))
         const file = files[0];
         const url = URL.createObjectURL(file);
-        setImageUrl(url)
+        // setImageUrl(url)
         dispatch(setImageUrl(url))
      }
 
@@ -102,7 +103,6 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
         
         setFiles(  (prevArray: any) => [...prevArray,  event.target.files[0]] )
         setImages( (prevArray: any) => [...prevArray,  event.target.files[0]])
-
     }
 
     React.useEffect(()=>{
