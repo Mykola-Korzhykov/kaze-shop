@@ -121,7 +121,11 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
     const [activePaginatoinRole, setActivePaginatoinRole] = React.useState<number>(1)
     const [activePaginatoinRoleAdmin, setActivePaginatoinAdmin] = React.useState<number>(1)
     // console.log('displayActive', displayActive)
-    dispatch(fetchCategories())
+
+    React.useEffect(()=>{
+        dispatch(fetchCategories())
+    }, [])
+
     //refresh
     // React.useEffect(() => {
 	// 	const fetchUserData = async () => {

@@ -267,11 +267,18 @@ const initialState: initialStateType = {
 	],
 	addPhotoState: [{ id: 1 }],
 	sizesItems: [
-		{ id: 0, size: 'XS' },
-		{ id: 1, size: 'S' },
-		{ id: 2, size: 'XXL' },
-		{ id: 3, size: 'XXS' },
-		{ id: 4, size: 'M' },
+
+		{id: 0, size: 'XS'},
+		{id: 1, size: ' XS-S'},
+		{id: 2, size: 'S'},
+		{id: 3, size: 'S-M'},
+		{id: 4, size: 'M'},
+		{id: 5, size: 'L'},
+		{id: 6, size: 'L-XL'},
+		{id: 7, size: '2XL'},
+		{id: 8, size: '3XL'},
+		{id: 9, size: '4XL'},
+
 	],
 	categoryArr: [
 		{ id: 1, title: 'первая категоря' },

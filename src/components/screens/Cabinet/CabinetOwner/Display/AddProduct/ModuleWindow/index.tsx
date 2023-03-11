@@ -105,9 +105,11 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
 
     }
 
+    React.useEffect(()=>{
+        dispatch(fetchColours())
+    }, [])
     
-    
-     dispatch(fetchColours())
+     
     
     return (
         <div  style={  modalAddColor  ? {visibility: 'hidden'} :  {visibility: 'visible'}} className={s.module_wrapper}>
