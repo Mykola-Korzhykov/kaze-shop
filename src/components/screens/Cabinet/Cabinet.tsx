@@ -59,7 +59,7 @@ const Cabinet: FC = () => {
 			}
 		}
 
-		if(!user) {
+		if(!user.user) {
 			fetchUserData()
 		}
 	}, [dispatch])
