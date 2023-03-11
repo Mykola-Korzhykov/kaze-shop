@@ -123,31 +123,30 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
     // console.log('displayActive', displayActive)
     dispatch(fetchCategories())
     //refresh
-    React.useEffect(() => {
-		const fetchUserData = async () => {
-			try {
-				const data = await Api().user.getMe()
-				setCookie(null, 'accessToken', data.accessToken, {
-					maxAge: 30 * 24 * 60 * 60,
-					path: '/',
-				})
-				if (data.user) {
-					dispatch(addUserInfo(data.user))
-				}
-                if (data.admin) {
-					dispatch(addUserInfo(data.admin))
-				}
-                if (data.owner) {
-					dispatch(addUserInfo(data.owner))
-				}
-			} catch (e) {
-				//router.push('/404')
-				console.log(e)
-			}
-		}
+    // React.useEffect(() => {
+	// 	const fetchUserData = async () => {
+	// 		try {
+	// 			const data = await Api().user.getMe()
+	// 			setCookie(null, 'accessToken', data.accessToken, {
+	// 				maxAge: 30 * 24 * 60 * 60,
+	// 				path: '/',
+	// 			})
+	// 			if (data.user) {
+	// 				dispatch(addUserInfo(data.user))
+	// 			}
+    //             if (data.admin) {
+	// 				dispatch(addUserInfo(data.admin))
+	// 			}
+    //             if (data.owner) {
+	// 				dispatch(addUserInfo(data.owner))
+	// 			}
+	// 		} catch (e) {
+	// 			console.log(e)
+	// 		}
+	// 	}
 
-		fetchUserData()
-	}, [dispatch])
+	// 	fetchUserData()
+	// }, [dispatch])
     // получення юзерів 
     React.useEffect(()=>{
        if( displayActive === 1 ){

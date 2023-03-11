@@ -59,7 +59,9 @@ const Cabinet: FC = () => {
 			}
 		}
 
-		fetchUserData()
+		if(!user) {
+			fetchUserData()
+		}
 	}, [dispatch])
 	return (
 		<main className='content'>
