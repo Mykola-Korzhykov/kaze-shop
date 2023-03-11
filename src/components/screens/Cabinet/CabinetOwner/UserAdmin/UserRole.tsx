@@ -94,7 +94,7 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
           },
         });
         instance.patch('/admin/update_admin', {
-            UserRole
+            ...UserRole
         })
           .then(() => {
             // dispatch(getUsersRole(activePaginatoinRole))
