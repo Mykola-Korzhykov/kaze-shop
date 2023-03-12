@@ -210,7 +210,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                                     }} key={ind} className={s.color_wrapper}>
                                         <span className={s.color} style={{
                                             backgroundColor: `${el.hex}`,
-                                        }}>  
+                                        }}>
                                         </span>
                                         <span className={s.title}>
                                             {el.label}

@@ -21,12 +21,16 @@ interface EditProductItemType {
 export const EditProductItem = ({id, }: EditProductItemType) =>{
 
     const [choiseSize, setChoiseSize] = React.useState<boolean>(false)
+    const [choiceColors, setChoiceColors] = React.useState<boolean>(false)
     const sizesItems = useSelector((state: RootState)=> state.admin.sizesItems)
 
     console.log('EditProductItemID', id)
 
     const editProductItemId = useSelector((state: RootState)=> state.admin.editProductItemId)
     const products = useSelector((state: RootState)=>state.admin.editProducts)
+    const colors = useSelector((state: RootState)=>state.goods.fetchedColours)
+
+    console.log('colors', colors)
 
 
     const [userEdit, setUserEdit] = React.useState<Goods>( {
@@ -239,6 +243,38 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                 })}
            </div>
 
+        </div>
+
+
+        <div onClick={()=>{
+                setChoiceColors(!choiceColors)
+            }} className={s.colours_select_wrapper}>
+            <div className={s.title}>
+                Цвет товара
+            </div>
+            <label className={s.label_colors} htmlFor="colorsbyproduct">
+                
+                Выберите цвет
+                <input  className={s.input_colors} id="colorsbyproduct" type="text" />
+                <Image className={choiseSize ? `${s.input_icon_on} ${s.input_icon}` : `${ s.input_icon_off} ${s.input_icon}` } src={openInput} alt='error' />
+            </label>
+
+            <div className={ choiceColors? s.choice_colors_wrapper : s.choice_colors_wrapper_off }>
+                {colors.map((el, ind)=>{
+                    return <div className={s.item_wrapper}>
+                        <span  style={{
+                            marginLeft: '20px',
+                            backgroundColor: `${el.hex}`,
+                            display: 'block',
+                            height: '23px',
+                            width: '23px' }}className={s.color}>  </span>
+
+                        <span className={s.title}> {el.label}  </span>
+
+                    </div>
+                })}
+
+            </div>
         </div>
 
         {/* тоже самое с цветами , сатею в отдельную переменную, локальную переменную после чего с ней работаю и отправляю при отправке ее уже  */}

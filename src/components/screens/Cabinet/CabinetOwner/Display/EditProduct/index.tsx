@@ -19,7 +19,7 @@ export const EditProduct = () =>{
         return el.id === activeId
     })
 
-    console.log('activeProductEdit', activeProductEdit)
+    // console.log('activeProductEdit', activeProductEdit)
 
     return (
 
@@ -31,10 +31,8 @@ export const EditProduct = () =>{
                 price={obj.price} id={obj.id} 
                 setActiveId={setActiveId} 
                 title={obj.title.ua}
-                key={ind}  
-
-
-                /> 
+                key={ind} 
+            /> 
             })}
         </div>
 
@@ -43,7 +41,6 @@ export const EditProduct = () =>{
         <div className={s.wrapperEditProductItem}>
            <EditProductItem  id={activeId}  />            
         </div>
-
     </>
     )
 
