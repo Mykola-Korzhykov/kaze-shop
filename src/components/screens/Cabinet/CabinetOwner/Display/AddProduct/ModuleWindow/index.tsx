@@ -67,11 +67,13 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
 	// updatedAt: any | null
 	// label: string | null
     const newColoursArr = fetchColoursArr ? [...fetchColoursArr, {
-        label: 'Добавить цвет ',
-        hex: '',
-        id: 48093899940393
+         hex: '#A6BEE5',
+		id: -48093899940393,
+		ru: 'ru',
+		rs: 'rs',
+		en: 'en',
+		ua: 'Добавить цвет',
       }] : null;
-  
     //modal backround
     const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
     // console.log('fetchColoursArr', fetchColoursArr)
@@ -86,6 +88,12 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
             sizes: selectedSizes
         }
     
+        // hex: '#A6BEE5',
+		// 	id: 4,
+		// 	ru: 'ru',
+		// 	rs: 'rs',
+		// 	en: 'en',
+		// 	ua: 'ua',
 
         // dispatch(setArrObjMod(obj))  
         dispatch(setAllcoloursId(colourId))
@@ -201,9 +209,9 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                             <path d="M26 12L16 22L6 12" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>}
                     </span>
-                        <div  style={{top: selectedSizes?.length > 0 ? '500px' : '456px'}} className={ choiceColor ?  s.color_wrapper_main :  s.color_wrapper_main_off }>
+                        <div  style={{top: selectedSizes?.length > 0 ? '500px' : '453.5px'}} className={ choiceColor ?  s.color_wrapper_main :  s.color_wrapper_main_off }>
                             { choiceColor ? newColoursArr?.map((el, ind)=>{
-                                return el.id !== 48093899940393 ? (
+                                return el.id !== -48093899940393 ? (
                                     <div onClick={()=> {
                                         dispatch(setColors(el.id))
                                         setChoiceColor(!choiceColor)
@@ -213,7 +221,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                                         }}>
                                         </span>
                                         <span className={s.title}>
-                                            {el.label}
+                                            {el.ua}
                                         </span>
                                     </div>
                                 ) : <div onClick={()=> {
@@ -228,7 +236,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                                     </svg>
 
                                         <span className={s.title}>
-                                            {el.label}
+                                            {el.ua}
                                         </span>
                                        
                                 </div>

@@ -69,149 +69,70 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
         sizes: ['X', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS'],
         colours: [
             {
-                label: 'Бежевый',
                 hex: '#FFE4C4',
                 id: 1,
-                type: 'colour',
                 ru: 'ru',
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
-                createdAt: 'stringstringTest',
-                updatedAt: 'stringTest',
             },
             {
-                label: 'Капучинный',
                 hex: '#9F8E84',
                 id: 2,
-                type: 'colour',
                 ru: 'ru',
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
-                createdAt: 'stringstringTest',
-                updatedAt: 'stringTest',
             },
             {
-                label: 'Синий',
                 hex: '#000080',
                 id: 3,
-                type: 'colour',
                 ru: 'ru',
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
-                createdAt: 'stringstringTest',
-                updatedAt: 'stringTest',
             },
             {
-                label: 'Голубой',
                 hex: '#A6BEE5',
                 id: 4,
-                type: 'colour',
                 ru: 'ru',
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
-                createdAt: 'stringstringTest',
-                updatedAt: 'stringTest',
             },
             {
-                label: 'Бежевый',
                 hex: '#FFE4C4',
                 id: 1,
-                type: 'colour',
                 ru: 'ru',
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
-                createdAt: 'stringstringTest',
-                updatedAt: 'stringTest',
             },
             {
-                label: 'Капучинный',
                 hex: '#9F8E84',
                 id: 2,
-                type: 'colour',
                 ru: 'ru',
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
-                createdAt: 'stringstringTest',
-                updatedAt: 'stringTest',
             },
             {
-                label: 'Синий',
                 hex: '#000080',
                 id: 3,
-                type: 'colour',
                 ru: 'ru',
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
-                createdAt: 'stringstringTest',
-                updatedAt: 'stringTest',
             },
             {
-                label: 'Голубой',
                 hex: '#A6BEE5',
                 id: 4,
-                type: 'colour',
                 ru: 'ru',
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
-                createdAt: 'stringstringTest',
-                updatedAt: 'stringTest',
             },
-            {
-                label: 'Бежевый',
-                hex: '#FFE4C4',
-                id: 1,
-                type: 'colour',
-                ru: 'ru',
-                rs: 'rs',
-                en: 'en',
-                ua: 'ua',
-                createdAt: 'stringstringTest',
-                updatedAt: 'stringTest',
-            },
-            {
-                label: 'Капучинный',
-                hex: '#9F8E84',
-                id: 2,
-                type: 'colour',
-                ru: 'ru',
-                rs: 'rs',
-                en: 'en',
-                ua: 'ua',
-                createdAt: 'stringstringTest',
-                updatedAt: 'stringTest',
-            },
-            {
-                label: 'Синий',
-                hex: '#000080',
-                id: 3,
-                type: 'colour',
-                ru: 'ru',
-                rs: 'rs',
-                en: 'en',
-                ua: 'ua',
-                createdAt: 'stringstringTest',
-                updatedAt: 'stringTest',
-            },
-            {
-                label: 'Голубой',
-                hex: '#A6BEE5',
-                id: 4,
-                type: 'colour',
-                ru: 'ru',
-                rs: 'rs',
-                en: 'en',
-                ua: 'ua',
-                createdAt: 'stringstringTest',
-                updatedAt: 'stringTest',
-            },
+            
         ],
         categories: [
             {
@@ -371,7 +292,7 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                                     e.stopPropagation();
                                 }}
                             >
-                                {el.label}
+                                {el.ua}
                             </span>
                         </div>
                     })}
@@ -382,7 +303,7 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
 
             <div className={s.select_colors_wrapper}>
                      {userEdit.colours?.map((el, ind)=>{
-                        return < ColorItem key={ind} hex={el.hex} label={el.label} /> 
+                        return < ColorItem key={ind} hex={el.hex} label={el.ua} /> 
                      })}
             </div>
 
