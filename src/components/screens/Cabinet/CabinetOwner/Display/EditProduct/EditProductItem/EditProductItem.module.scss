@@ -188,3 +188,21 @@
 
     color: #FFFFFF;
 }
+
+//choice_size_wrapper
+
+.choice_size_wrapper{
+    display: flex;
+    flex-direction: column;
+
+    .choice_size_title{
+        font-family: 'Georama', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 24px;
+        margin-bottom: 10px;
+        
+        color: #0B0B0B;
+    }
+}

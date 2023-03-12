@@ -356,7 +356,22 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             <div className={s.element_wrapper}>
                                 <span className={s.id}> {`${el.id}.`}</span>
                                 <span className={s.text}>Загрузить фото</span>
-                              <Image className={s.photo_item} src={imageUrlArr[ind]? imageUrlArr[ind] : ''  } alt="" width={200} height={200} />
+                                <Image
+                                className={ imageUrlArr[ind] ?    s.photo_item : s.photo_item_off }
+                                src={imageUrlArr[ind] ? imageUrlArr[ind] : ''}
+                                alt=""
+                                width={200}
+                                height={200}
+                                onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                                //   if(imageUrlArr[ind]){
+                                //   }else{
+                                //     const target = e.target as HTMLImageElement;
+                                //     // console.log('Error loading image:', target.src);
+                                //     // console.log('imageUrlArr', imageUrlArr)
+                                //     target.style.display = 'none';
+                                //   }
+                                }}
+                                />
                             </div>
                         </div>
                     })}

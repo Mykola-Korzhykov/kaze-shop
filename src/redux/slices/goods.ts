@@ -4,6 +4,7 @@ import { Api } from '@/services'
 import { RootState } from '../store'
 import { Goods, fetchedCategory, fetchedColour } from '../../types/goods'
 import { AxiosError } from 'axios'
+
 type GoodsSlice = {
 	goods: Goods[] | null
 	compareProduct: Goods | null

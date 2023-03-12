@@ -47,7 +47,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const allSizes =  useSelector((state: RootState)=> state.formData.allsizes)
     const allcoloursId =  useSelector((state: RootState)=> state.formData.categories)
     const selectedSizes = useSelector((state: RootState)=> state.formData.sizes)
-    const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
+   // const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
     const sizesItems =  useSelector((state: RootState)=> state.admin.sizesItems)
     //get
     const categories =  useSelector((state: RootState)=> state.goods.fetchedCategories)
@@ -56,7 +56,16 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const ArrObjMod =  useSelector((state: RootState)=> state.formData.arrObjMod)
     const images = useSelector((state: RootState)=> state.formData.images)
     const fetchColoursArr = useSelector((state: RootState)=> state.goods.fetchedColours)
-
+    // id: number | null
+	// ua: string | null
+	// en: string | null
+	// rs: string | null
+	// ru: string | null
+	// hex: string | null
+	// type: 'colour' | null
+	// createdAt: any | null
+	// updatedAt: any | null
+	// label: string | null
     const newColoursArr = fetchColoursArr ? [...fetchColoursArr, {
         label: 'Добавить цвет ',
         hex: '',
@@ -76,8 +85,6 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
             colourId: colourId,
             sizes: selectedSizes
         }
-
-
     
 
         // dispatch(setArrObjMod(obj))  
@@ -105,11 +112,10 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
         setImages( (prevArray: any) => [...prevArray,  event.target.files[0]])
     }
 
-    React.useEffect(()=>{
-        dispatch(fetchColours())
-    }, [])
+    // React.useEffect(()=>{
+    //     dispatch(fetchColours())
+    // }, [])
     
-     
     
     return (
         <div  style={  modalAddColor  ? {visibility: 'hidden'} :  {visibility: 'visible'}} className={s.module_wrapper}>

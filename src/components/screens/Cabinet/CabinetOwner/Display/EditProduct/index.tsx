@@ -7,8 +7,6 @@ import {Item} from './Item'
 import {EditProductItem} from './EditProductItem'
 // 
 
-
-
 export const EditProduct = () =>{
 
     const products = useSelector((state: RootState)=>state.admin.editProducts)
@@ -18,8 +16,10 @@ export const EditProduct = () =>{
     const array = [1,2,3,4,5,6,7,8,9,10]
     // const [editProductItemId, setEditProductItemId] = React.useState<number>(-1)
     const activeProductEdit = products.filter((el)=>{
-        return el.id === editProductItemId
+        return el.id === activeId
     })
+
+    console.log('activeProductEdit', activeProductEdit)
 
     return (
 
@@ -33,20 +33,17 @@ export const EditProduct = () =>{
                 title={obj.title.ua}
                 key={ind}  
 
+
                 /> 
             })}
         </div>
 
-
         {/* передача фото розмеров та цветов от activeProductEdit */}
 
         <div className={s.wrapperEditProductItem}>
-                
-           <EditProductItem  price={activeProductEdit[activeId].price} id={activeId}  />            
+           <EditProductItem  id={activeId}  />            
         </div>
 
-
-        
     </>
     )
 

@@ -422,7 +422,7 @@ const initialState: initialStateType = {
 	]
 } ,
 {
-	id: 1,
+	id: 2,
 	title: {
 		ua: 'Павло',
 		ru:' Паша',
@@ -517,7 +517,7 @@ const initialState: initialStateType = {
 	]
 } ,
 {
-	id: 1,
+	id: 3,
 	title: {
 		ua: 'Павло',
 		ru:' Паша',

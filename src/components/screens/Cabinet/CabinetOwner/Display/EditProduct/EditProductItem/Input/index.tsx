@@ -15,15 +15,16 @@ interface InputProps {
     id: number,
     type: string,
     disable: boolean,
-    price: number
+    // price: number
 }
 
-export const Input = ({text, placeholder, name, id, type, disable, price}: InputProps) =>{
+export const Input = ({text, placeholder, name, id, type, disable,}: InputProps) =>{
 
     const dispatch = useAppDispatch()
     const [categoriesDisplay, setCategoriesDisplay] = React.useState<boolean>(false)
     const categoryArr = useSelector((state: RootState)=> state.admin.categoryArr)
-
+    
+    
     function handleBlurSet(event: any) {
         
         if(event.target.name === 'titleRU' ){
@@ -66,8 +67,8 @@ export const Input = ({text, placeholder, name, id, type, disable, price}: Input
         }
        //price
        if(event.target.name === 'price'){
-        const payload: number = event.target.value
-        dispatch(setPrice(Number(payload))) 
+            const payload: number = event.target.value
+            dispatch(setPrice(Number(payload))) 
         }
         //setQuantity
         // console.log('titleDescription', titleDescription)
@@ -84,7 +85,7 @@ export const Input = ({text, placeholder, name, id, type, disable, price}: Input
 
         {disable == false && type === 'text' ?  <div className={s.wrapper}>
             <div className={s.title}>{text}</div>
-            <input onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder !== 'Введите название товара' && placeholder !== 'Введите описание товара' ? price.toString() : placeholder  } name={name}/>
+            <input onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder !== 'Введите название товара' && placeholder !== 'Введите описание товара' ?  placeholder : placeholder } name={name}/>
         </div> : '' }
         {/* next */}
 
