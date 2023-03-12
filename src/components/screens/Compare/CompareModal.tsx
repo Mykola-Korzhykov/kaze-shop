@@ -1,16 +1,21 @@
-import React from 'react'
+import React, { FC } from 'react'
 import s from './Compare.module.scss'
 import Image from 'next/image'
 import compareModal from '../../../assets/images/compareModal.png'
-const CompareModal = () => {
-	const [sizeActive, setSizeActive] = React.useState<boolean>(true)
+const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
+	setShowModal,
+}) => {
+	const closeModal = () => {
+		setShowModal(false)
+	}
+	const [sizeActive, setSizeActive] = React.useState<boolean>(false)
 	const [colorActive, setColorActive] = React.useState<boolean>(false)
 	return (
 		<div className={s.modal}>
 			<div className={s.modal_body}>
 				<div className={s.modal_header}>
 					<div className={s.modal_imgWrapper}>
-						<Image src={compareModal} alt='comopare modal img' />
+						<Image className={s.modal_img} src={compareModal} alt='compare modal img' />
 					</div>
 					<div className={s.modal_content}>
 						<div className={s.modal_text}>
@@ -58,7 +63,10 @@ const CompareModal = () => {
 					</div>
 				</div>
 				<div className={s.modal_btns}>
-					<button className={`${s.modal_btn} ${s.modal_cancelBtn}`}>
+					<button
+						onClick={closeModal}
+						className={`${s.modal_btn} ${s.modal_cancelBtn}`}
+					>
 						Отмена
 					</button>
 					<button className={`${s.modal_btn} ${s.modal_addBtn}`}>

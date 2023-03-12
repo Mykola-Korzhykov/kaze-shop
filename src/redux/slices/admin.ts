@@ -6,6 +6,11 @@ import {
 } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { API_URL } from '../../services'
+//types 
+import {ProductSend} from '../../types/auth'
+import {fetchedColour, Goods} from '../../types/goods'
+import photo from '../../assets/images/main/About/girl.svg'
+
 
 // хардкор
 import imgProduct from '../../assets/images/admin/img.svg'
@@ -89,41 +94,7 @@ export interface User {
 	isAdmin: boolean
 	addContent: boolean
 	editContent: boolean
-	editWebSite: boolean
-}
-
-export interface Product {
-	title: {
-		ua: string | null
-		ru: string | null
-		rs: string | null
-		en: string | null
-	}
-	description: {
-		ua: string | null
-		ru: string | null
-		rs: string | null
-		en: string | null
-	}
-	sizeChartImageDescription: {
-		ua: string | null
-		ru: string | null
-		rs: string | null
-		en: string | null
-	}
-	sizes: string[]
-	colourId: number | null
-	price: number | null
-	quantity: number | null
-	imagesjpg: null | any
-	allcoloursId: number[] | null
-	allsizes: string[] | null
-	categories: number[] | null
-	netData: string | null
-	arrObjMod: { fileNames: string[]; colourId: number; sizes: string[] }[]
-	//   images: string [] | File []
-	images: any[]
-	id: number
+	editWebsite: boolean
 }
 
 export interface initialStateType {
@@ -152,152 +123,162 @@ export interface initialStateType {
 	categoryArr: { id: number; title: string }[]
 	loading: boolean
 	error: string
-	products: Product[]
+	products: ProductSend[]
 	editProductItemId: number,
-    displayActive: number
+    displayActive: number,
+    editProducts: Goods[]
+	// colours: fetchedColour[]
+
 }
 
 const initialState: initialStateType = {
 	usersAdmin: [
-        {
-            id: 1,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: true,
-            addContent: false,
-            editContent: true,
-            editWebSite: false,
-        },
-        {
-            id: 2,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: true,
-            addContent: false,
-            editContent: true,
-            editWebSite: false,
-        },
-        {
-            id: 3,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: true,
-            addContent: false,
-            editContent: true,
-            editWebSite: false,
-        },
-        {
-            id: 4,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: true,
-            addContent: false,
-            editContent: true,
-            editWebSite: false,
-        },
-        {
-            id: 5,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: true,
-            addContent: false,
-            editContent: true,
-            editWebSite: false,
-        },
+        //  {
+        //      id: 1,
+        //      name: 'Pavlo',
+        //      surname: 'Kolumyp',
+        //      email:' pashawork@gmail.com',
+        //      phoneNumber: '+380688874920',
+        //      isAdmin: true,
+        //      addContent: false,
+        //      editContent: true,
+        //      editWebsite: false,
+        //  },
+        // {
+        //     id: 2,
+        //     name: 'Pavlo',
+        //     surname: 'Kolumyp',
+        //     email:' pashawork@gmail.com',
+        //     phoneNumber: '+380688874920',
+        //     isAdmin: true,
+        //     addContent: false,
+        //     editContent: true,
+        //     editWebsite: false,
+        // },
+        // {
+        //     id: 3,
+        //     name: 'Pavlo',
+        //     surname: 'Kolumyp',
+        //     email:' pashawork@gmail.com',
+        //     phoneNumber: '+380688874920',
+        //     isAdmin: true,
+        //     addContent: false,
+        //     editContent: true,
+        //     editWebsite: false,
+        // },
+        // {
+        //     id: 4,
+        //     name: 'Pavlo',
+        //     surname: 'Kolumyp',
+        //     email:' pashawork@gmail.com',
+        //     phoneNumber: '+380688874920',
+        //     isAdmin: true,
+        //     addContent: false,
+        //     editContent: true,
+        //     editWebsite: false,
+        // },
+        // {
+        //     id: 5,
+        //     name: 'Pavlo',
+        //     surname: 'Kolumyp',
+        //     email:' pashawork@gmail.com',
+        //     phoneNumber: '+380688874920',
+        //     isAdmin: true,
+        //     addContent: false,
+        //     editContent: true,
+        //     editWebsite: false,
+        // },
     ],
 	usersRole: [
-        {
-            id: 1,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: true,
-            addContent: false,
-            editContent: false,
-            editWebSite: false,
-        },
-        {
-            id: 2,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: true,
-            addContent: false,
-            editContent: true,
-            editWebSite: false,
-        },
-        {
-            id: 3,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: true,
-            addContent: false,
-            editContent: true,
-            editWebSite: false,
-        },
-        {
-            id: 4,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: false,
-            addContent: false,
-            editContent: true,
-            editWebSite: false,
-        },
-        {
-            id: 5,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: false,
-            addContent: false,
-            editContent: true,
-            editWebSite: false,
-        },
+        //  {
+        //      id: 1,
+        //      name: 'Pavlo',
+        //      surname: 'Kolumyp',
+        //      email:' pashawork@gmail.com',
+        //      phoneNumber: '+380688874920',
+        //      isAdmin: true,
+        //      addContent: false,
+        //      editContent: false,
+        //      editWebsite: false,
+        //  },
+        // {
+        //     id: 2,
+        //     name: 'Pavlo',
+        //     surname: 'Kolumyp',
+        //     email:' pashawork@gmail.com',
+        //     phoneNumber: '+380688874920',
+        //     isAdmin: true,
+        //     addContent: false,
+        //     editContent: true,
+        //     editWebsite: false,
+        // },
+        // {
+        //     id: 3,
+        //     name: 'Pavlo',
+        //     surname: 'Kolumyp',
+        //     email:' pashawork@gmail.com',
+        //     phoneNumber: '+380688874920',
+        //     isAdmin: true,
+        //     addContent: false,
+        //     editContent: true,
+        //     editWebsite: false,
+        // },
+        // {
+        //     id: 4,
+        //     name: 'Pavlo',
+        //     surname: 'Kolumyp',
+        //     email:' pashawork@gmail.com',
+        //     phoneNumber: '+380688874920',
+        //     isAdmin: false,
+        //     addContent: false,
+        //     editContent: true,
+        //     editWebsite: false,
+        // },
+        // {
+        //     id: 5,
+        //     name: 'Pavlo',
+        //     surname: 'Kolumyp',
+        //     email:' pashawork@gmail.com',
+        //     phoneNumber: '+380688874920',
+        //     isAdmin: false,
+        //     addContent: false,
+        //     editContent: true,
+        //     editWebsite: false,
+        // },
     ],
 	inputs: [],
 	sizesend: [{ id: 0, size: 'XS' }],
 	colors: [
-		{ label: 'Бежевый', hex: '#FFE4C4', id: 1 },
-		{ label: 'Капучинный', hex: '#9F8E84', id: 2 },
-		{ label: 'Синий', hex: '#000080', id: 3 },
-		{ label: 'Голубой', hex: '#A6BEE5', id: 4 },
-		{ label: 'Коричневый', hex: '#0B0B0B', id: 5 },
-		{ label: 'Изумрудный', hex: '#24514C', id: 6 },
-		{ label: 'Розовый', hex: '#FFC0CB', id: 7 },
-		{ label: 'Фиолетовый', hex: '#800080', id: 8 },
-		{ label: 'Черный', hex: '#0B0B0B', id: 52 },
-		{ label: 'Оливковый', hex: '#829E86', id: 432 },
-		{ label: 'Белый', hex: '#fff', id: 34314 },
-		{ label: 'Серый', hex: '#808080', id: 13413413413 },
-		{ label: 'Графитовый', hex: '#525A5B', id: 57567 },
-		{ label: 'Пудровый', hex: '#F2E2D8', id: 75756756 },
-		{ label: 'Добавить цвет ', hex: null, id: 75756756 },
+		// { label: 'Бежевый', hex: '#FFE4C4', id: 1 },
+		// { label: 'Капучинный', hex: '#9F8E84', id: 2 },
+		// { label: 'Синий', hex: '#000080', id: 3 },
+		// { label: 'Голубой', hex: '#A6BEE5', id: 4 },
+		// { label: 'Коричневый', hex: '#0B0B0B', id: 5 },
+		// { label: 'Изумрудный', hex: '#24514C', id: 6 },
+		// { label: 'Розовый', hex: '#FFC0CB', id: 7 },
+		// { label: 'Фиолетовый', hex: '#800080', id: 8 },
+		// { label: 'Черный', hex: '#0B0B0B', id: 52 },
+		// { label: 'Оливковый', hex: '#829E86', id: 432 },
+		// { label: 'Белый', hex: '#fff', id: 34314 },
+		// { label: 'Серый', hex: '#808080', id: 13413413413 },
+		// { label: 'Графитовый', hex: '#525A5B', id: 57567 },
+		// { label: 'Пудровый', hex: '#F2E2D8', id: 75756756 },
+		// { label: 'Добавить цвет ', hex: null, id: 75756756 },
 	],
 	addPhotoState: [{ id: 1 }],
 	sizesItems: [
-		{ id: 0, size: 'XS' },
-		{ id: 1, size: 'S' },
-		{ id: 2, size: 'XXL' },
-		{ id: 3, size: 'XXS' },
-		{ id: 4, size: 'M' },
+
+		{id: 0, size: 'XS'},
+		{id: 1, size: ' XS-S'},
+		{id: 2, size: 'S'},
+		{id: 3, size: 'S-M'},
+		{id: 4, size: 'M'},
+		{id: 5, size: 'L'},
+		{id: 6, size: 'L-XL'},
+		{id: 7, size: '2XL'},
+		{id: 8, size: '3XL'},
+		{id: 9, size: '4XL'},
+
 	],
 	categoryArr: [
 		{ id: 1, title: 'первая категоря' },
@@ -343,8 +324,319 @@ const initialState: initialStateType = {
 		},
 	],
 	editProductItemId: -1,
-    displayActive: 1
+    displayActive: 1,
+    editProducts:[
+        {
+	id: 1,
+	title: {
+		ua: 'Павло',
+		ru:' Паша',
+		rs: 'хз',
+		en: 'The best',
+	},
+	description: {
+		ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
+		ru: 'на русс опис doprepwfieifweifipowerf',
+		rs: 'на rs опис лдощцаозщуцощауоазуцща',
+		en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
+	},
+	price: 300,
+	quantity: 100,
+    // { fileNames: string[], colourId: number; sizes: string[]}
+	images: [
+    {
+        fileNames: [photo, photo],
+        colourId: 3,
+        sizes: ["S", "M", "L"]
+    },
+    {
+        fileNames: [photo, photo],
+        colourId: 4,
+        sizes: ["S", "M", "L"]
+    },
+    ],
+      sizeChartImage: 'kfkf'
+      ,
+	sizes: ['X', 'XS'],
+	colours: [
+		{
+			label: 'Бежевый',
+			hex: '#FFE4C4',
+			id: 1,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Капучинный',
+			hex: '#9F8E84',
+			id: 2,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Синий',
+			hex: '#000080',
+			id: 3,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Голубой',
+			hex: '#A6BEE5',
+			id: 4,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+	],
+	categories: [
+		{
+        id: 1,
+		ua: 'Категорія 1',
+		en: 'Категория 1',
+		rs:	'Категорія 1 rs',
+		ru: 'Категорія 1 ru',
+		type: 'category',
+		createdAt: 'any',
+		updatedAt: 'any',
+        }
+	]
+} ,
+{
+	id: 2,
+	title: {
+		ua: 'Павло',
+		ru:' Паша',
+		rs: 'хз',
+		en: 'The best',
+	},
+	description: {
+		ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
+		ru: 'на русс опис doprepwfieifweifipowerf',
+		rs: 'на rs опис лдощцаозщуцощауоазуцща',
+		en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
+	},
+	price: 300,
+	quantity: 100,
+    // { fileNames: string[], colourId: number; sizes: string[]}
+	images: [
+    {
+        fileNames: [photo, photo],
+        colourId: 3,
+        sizes: ["S", "M", "L"]
+    },
+    {
+        fileNames: [photo, photo],
+        colourId: 4,
+        sizes: ["S", "M", "L"]
+    },
+    ],
+      sizeChartImage: 'kfkf'
+      ,
+	sizes: ['X', 'XS'],
+	colours: [
+		{
+			label: 'Бежевый',
+			hex: '#FFE4C4',
+			id: 1,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Капучинный',
+			hex: '#9F8E84',
+			id: 2,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Синий',
+			hex: '#000080',
+			id: 3,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Голубой',
+			hex: '#A6BEE5',
+			id: 4,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+	],
+	categories: [
+		{
+        id: 1,
+		ua: 'Категорія 1',
+		en: 'Категория 1',
+		rs:	'Категорія 1 rs',
+		ru: 'Категорія 1 ru',
+		type: 'category',
+		createdAt: 'any',
+		updatedAt: 'any',
+        }
+	]
+} ,
+{
+	id: 3,
+	title: {
+		ua: 'Павло',
+		ru:' Паша',
+		rs: 'хз',
+		en: 'The best',
+	},
+	description: {
+		ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
+		ru: 'на русс опис doprepwfieifweifipowerf',
+		rs: 'на rs опис лдощцаозщуцощауоазуцща',
+		en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
+	},
+	price: 300,
+	quantity: 100,
+    // { fileNames: string[], colourId: number; sizes: string[]}
+	images: [
+    {
+        fileNames: [photo, photo],
+        colourId: 3,
+        sizes: ["S", "M", "L"]
+    },
+    {
+        fileNames: [photo, photo],
+        colourId: 4,
+        sizes: ["S", "M", "L"]
+    },
+    ],
+      sizeChartImage: 'kfkf'
+      ,
+	sizes: ['X', 'XS'],
+	colours: [
+		{
+			label: 'Бежевый',
+			hex: '#FFE4C4',
+			id: 1,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Капучинный',
+			hex: '#9F8E84',
+			id: 2,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Синий',
+			hex: '#000080',
+			id: 3,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+		{
+			label: 'Голубой',
+			hex: '#A6BEE5',
+			id: 4,
+			type: 'colour',
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			createdAt: 'stringstringTest',
+			updatedAt: 'stringTest',
+		},
+	],
+	categories: [
+		{
+        id: 1,
+		ua: 'Категорія 1',
+		en: 'Категория 1',
+		rs:	'Категорія 1 rs',
+		ru: 'Категорія 1 ru',
+		type: 'category',
+		createdAt: 'any',
+		updatedAt: 'any',
+        }
+	]
+} ,
+],
+// id: number
+// title: {
+//     ua: string
+//     ru: string
+//     rs: string
+//     en: string
+// }
+// description: {
+//     ua: string
+//     ru: string
+//     rs: string
+//     en: string
+// }
+// price: number
+// quantity: number
+// images: { fileNames: string[], colourId: number; sizes: string[]}[]
+// sizeChartImage: string
+// sizes: string[]
+// colours: fetchedColour[]
+// categories: fetchedCategory[]
+
 }
+
+
+
 
 export const admin: Slice<initialStateType> = createSlice({
 	name: 'admin',

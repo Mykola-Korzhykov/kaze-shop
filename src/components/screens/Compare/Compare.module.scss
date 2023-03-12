@@ -155,6 +155,14 @@
 		font-size: 20px;
 		line-height: 24px;
 	}
+	@media (max-width: 428px) {
+		font-size: 18px;
+		line-height: 22px;
+	}
+	@media (max-width: 330px) {
+		font-size: 16px;
+		line-height: 19px;
+	}
 }
 
 .descr {
@@ -169,6 +177,10 @@
 	@media (max-width: 880px) {
 		font-size: 14px;
 		line-height: 17px;
+	}
+	@media (max-width: 330px) {
+		font-size: 12px;
+		line-height: 14px;
 	}
 }
 
@@ -243,6 +255,7 @@
 }
 
 .select_size {
+	position: relative;
 	flex: 0 1 45%;
 	> button:first-child {
 		&::after {
@@ -291,6 +304,7 @@
 }
 
 .select_color {
+	position: relative;
 	flex: 0 1 45%;
 	> button:first-child {
 		&::after {
@@ -400,7 +414,10 @@
 	display: flex;
 	flex-direction: column;
 	position: relative;
-	top: -2px;
+	top: -1px;
+	// position: absolute;
+	// width: 100%;
+	// top: 44px;
 	button {
 		border-top: none;
 	}
@@ -409,6 +426,9 @@
 .size_droplist {
 	display: flex;
 	flex-direction: column;
+	// position: absolute;
+	// width: 100%;
+	// top: 44px;
 	button {
 		border-top: none;
 	}
@@ -421,13 +441,13 @@
 
 .modal {
 	position: fixed;
-	z-index: 1;
+	z-index: 10000;
 	left: 0;
 	top: 0;
 	width: 100%;
 	height: 100%;
-	// background-color: rgba(183, 183, 183, 184);
-	// opacity: .9;
+	background: url('../../../assets/images/compareModalBG.png') no-repeat center
+		center/cover;
 	&_body {
 		background-color: #ffffff;
 		margin: 15% auto;
@@ -439,19 +459,25 @@
 		align-items: center;
 		justify-content: center;
 		@media (max-width: 1034px) {
-			margin: 20% auto;
-		}
-		@media (max-width: 824px) {
-			margin: 30% auto;
+			margin: 15% auto;
 		}
 		@media (max-width: 500px) {
-			margin: 50% auto;
+			margin: 22% auto;
+		}
+		@media (max-width: 640px) {
+			width: 90%;
+		}
+		@media (max-width: 428px) {
+			padding: 30px 16px;
 		}
 	}
 	&_header {
 		display: flex;
 		gap: 30px;
 		margin-bottom: 50px;
+		@media (max-width: 640px) {
+			flex-direction: column;
+		}
 	}
 	&_content {
 		display: flex;
@@ -465,6 +491,10 @@
 		font-size: 32px;
 		line-height: 39px;
 		color: #0b0b0b;
+		@media (max-width: 428px) {
+			font-size: 24px;
+			line-height: 29px;
+		}
 	}
 	&_descr {
 		font-family: 'Georama';
@@ -481,10 +511,19 @@
 		border-bottom: 1.5px solid #9d9d9d;
 		margin-bottom: 30px;
 	}
+	&_img {
+		@media (max-width: 640px) {
+			width: 100%;
+		}
+	}
 	&_btns {
 		width: 100%;
 		display: flex;
 		justify-content: space-between;
+		@media (max-width: 640px) {
+			flex-direction: column;
+			gap: 24px;
+		}
 	}
 	&_btn {
 		flex: 0 1 48%;

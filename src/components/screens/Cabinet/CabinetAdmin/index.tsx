@@ -23,6 +23,7 @@ import findUser from '../../../../assets/icons/cabinetAdmin/findUser.svg'
 //components 
 import {Button} from '../CabinetOwner/Buttons/Button'
 import LogoutModal from '../../../modals/LogoutModal/LogoutModal'
+import ChangePasswordSetting  from '../../../screens/Cabinet/CabinetOwner/Display/ChangePasswordSetting'
 
 
 
@@ -46,7 +47,7 @@ const buttonsObj: ButtonType[] = [
         <div className={s.wrapper}>
               <div className={s.nav_dekstop}>
                 {buttonsObj.map((obj, ind) => {
-                    return <Button chengeDisplayOK={setDisplayActive} key={ind} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
+                    return <Button displayActive={displayActive} chengeDisplayOK={setDisplayActive} key={ind} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
                 })}
             </div>
 
@@ -54,14 +55,14 @@ const buttonsObj: ButtonType[] = [
                 {buttonsObj.map((obj, ind) => {
 
                     return <Link className={s.link} href={`${obj.url}`} key={ind}>
-                        <Button chengeDisplayOK={setDisplayActive} key={obj.id} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
+                        <Button displayActive={displayActive} chengeDisplayOK={setDisplayActive} key={obj.id} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
                     </Link>
                 })}
             </div>
 
             <div className={s.display}>
                 {displayActive === 6 ? <LogoutModal closeModal={setDisplayActive} /> : ''}
-                
+                {displayActive === 5 ? <ChangePasswordSetting /> : ''}
 
                 
             </div >

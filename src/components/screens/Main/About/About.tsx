@@ -1,5 +1,5 @@
 import s from "./about.module.scss";
-import woman from "../../../../assets/images/main/about/about_woman.png";
+import woman from "../../../../assets/images/main/About/girl.svg";
 
 import Image from "next/image";
 import Button from "../Button/Button";

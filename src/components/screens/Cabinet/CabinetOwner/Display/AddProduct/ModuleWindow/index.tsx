@@ -9,7 +9,9 @@ import { useAppDispatch } from '@/redux/hooks'
 import {setSizes, setColors, setImagesPng, removeAll, setAllcoloursId, setAllsizes, setArrObjMod} from '../../../../../../../redux/slices/formData'
 import { devNull } from "os"
 import {setModalAddPhoto} from '../../../../../../../redux/slices/modal'
-
+import {setImageUrl} from '../../../../../../../redux/slices/modal'
+import {fetchCategories} from '../../../../../../../redux/slices/goods'
+import {fetchColours} from '../../../../../../../redux/slices/goods'
 
 
 interface ModuleWindowImagesProps {
@@ -25,15 +27,18 @@ interface ModuleWindiwProps {
     choiceColor?: boolean,
     setModalAddColor?: (n: boolean)=> void,
     modalAddColor?: boolean,
-    imagesData?: { fileNames: string[], colourId: number; sizes: string[];}[],
+    imagesData?: File[],
     setImages?: (n: any)=> void,
 }
 
-export const ModuleWindiw = ({  modalAddPhoto, setChoiceColor, choiceColor, setModalAddColor, modalAddColor, imagesData, setImages }: ModuleWindiwProps) => {
+export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, setModalAddColor, modalAddColor, imagesData, setImages }: ModuleWindiwProps) => {
 
     const inputRef = React.useRef<HTMLInputElement>(null);
 
     const dispatch = useAppDispatch()
+
+   
+    
     //local state 
     const [files, setFiles] = React.useState([])
     // const [arrObjMod, setArrObjMod] = React.useState([])
@@ -42,19 +47,36 @@ export const ModuleWindiw = ({  modalAddPhoto, setChoiceColor, choiceColor, setM
     const allSizes =  useSelector((state: RootState)=> state.formData.allsizes)
     const allcoloursId =  useSelector((state: RootState)=> state.formData.categories)
     const selectedSizes = useSelector((state: RootState)=> state.formData.sizes)
-    const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
+   // const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
     const sizesItems =  useSelector((state: RootState)=> state.admin.sizesItems)
     //get
     const categories =  useSelector((state: RootState)=> state.goods.fetchedCategories)
-    const categoriesSend =  useSelector((state: RootState)=> state.goods.fetchedCategories)
+    const fetchedCategories =  useSelector((state: RootState)=> state.goods.fetchedCategories)
     const colourId =  useSelector((state: RootState)=> state.formData.colourId)
     const ArrObjMod =  useSelector((state: RootState)=> state.formData.arrObjMod)
     const images = useSelector((state: RootState)=> state.formData.images)
+    const fetchColoursArr = useSelector((state: RootState)=> state.goods.fetchedColours)
+    // id: number | null
+	// ua: string | null
+	// en: string | null
+	// rs: string | null
+	// ru: string | null
+	// hex: string | null
+	// type: 'colour' | null
+	// createdAt: any | null
+	// updatedAt: any | null
+	// label: string | null
+    const newColoursArr = fetchColoursArr ? [...fetchColoursArr, {
+        label: 'Добавить цвет ',
+        hex: '',
+        id: 48093899940393
+      }] : null;
+  
     //modal backround
     const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
-    // console.log('categoriesSend', categoriesSend)
-
-    
+    // console.log('fetchColoursArr', fetchColoursArr)
+    //   console.log('setModalAddColor', setModalAddColor)
+    console.log('files', files)
      function generationObjModal () {
         const obj = {
             fileNames: files.map((el)=>{
@@ -63,35 +85,38 @@ export const ModuleWindiw = ({  modalAddPhoto, setChoiceColor, choiceColor, setM
             colourId: colourId,
             sizes: selectedSizes
         }
+    
 
-        // files.forEach((el)=>{
-        //     dispatch(setArrObjMod(el))  
-        // })
-        
+        // dispatch(setArrObjMod(obj))  
         dispatch(setAllcoloursId(colourId))
         dispatch(setAllsizes(obj.sizes))
         dispatch(setArrObjMod(obj))
        
         // setImages([...imagesData, ...files])
-        console.log('ArrObjMod', ArrObjMod)
+        // console.log('ArrObjMod', ArrObjMod)
         
         dispatch(removeAll())
         setFiles([])
         dispatch(setModalAddPhoto(false))
+        const file = files[0];
+        const url = URL.createObjectURL(file);
+        // setImageUrl(url)
+        dispatch(setImageUrl(url))
      }
+
+   
      
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>)=>{
-        // console.log(event.target.files)
-        console.log()
-       
+        
         setFiles(  (prevArray: any) => [...prevArray,  event.target.files[0]] )
         setImages( (prevArray: any) => [...prevArray,  event.target.files[0]])
     }
-      //@ts-ignore
-      globalThis.pavlo = files
-      
-  
 
+     React.useEffect(()=>{
+         dispatch(fetchColours())
+    }, [])
+    
+    
     return (
         <div  style={  modalAddColor  ? {visibility: 'hidden'} :  {visibility: 'visible'}} className={s.module_wrapper}>
 
@@ -117,6 +142,8 @@ export const ModuleWindiw = ({  modalAddPhoto, setChoiceColor, choiceColor, setM
                     <label className={s.label_input_file} htmlFor="uploadfileaddphotojpg">
                         Загрузите фотографию
                         <input  key={Math.random()} ref={inputRef} multiple onChange={handleFileUpload} id="uploadfileaddphotojpg" className={s.input_file} placeholder='Загрузите фотографию' type="file" />
+
+
                     </label>
                 </div>
 
@@ -174,8 +201,8 @@ export const ModuleWindiw = ({  modalAddPhoto, setChoiceColor, choiceColor, setM
                             <path d="M26 12L16 22L6 12" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>}
                     </span>
-                        <div  style={{top: selectedSizes?.length > 0 ? '500px' : '456px'}} className={s.color_wrapper_main}>
-                            { choiceColor ? colors?.map((el, ind)=>{
+                        <div  style={{top: selectedSizes?.length > 0 ? '500px' : '456px'}} className={ choiceColor ?  s.color_wrapper_main :  s.color_wrapper_main_off }>
+                            { choiceColor ? newColoursArr?.map((el, ind)=>{
                                 return el.id !== 48093899940393 ? (
                                     <div onClick={()=> {
                                         dispatch(setColors(el.id))
@@ -192,6 +219,7 @@ export const ModuleWindiw = ({  modalAddPhoto, setChoiceColor, choiceColor, setM
                                 ) : <div onClick={()=> {
                                     setModalAddColor(true)
                                     setChoiceColor(!choiceColor)
+                                    // dispatch()
                                 }} key={ind} className={s.color_wrapper}>
                                     
                                     <svg className={s.plus} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -12,6 +12,10 @@ import { useAppDispatch } from '@/redux/hooks'
 // import {SizeItem} from './SizesItem'
 // import {setNetData} from '../../../../../../redux/slices/formData'
 import {SizeChart} from './sizeChart'
+import axios from "axios"
+import {API_URL} from '../../../../../../services/index'
+import { parseCookies } from "nookies"
+import Image from "next/image"
 
 interface AddProductProps {
     // setModalAddPhoto: (n: boolean)=> void,
@@ -20,10 +24,10 @@ interface AddProductProps {
     modalAddColor: boolean,
     // countPhoto: number, 
     setCountPhoto: (n: number)=> void
-    imagesData: { fileNames: string[], colourId: number; sizes: string[];}[],
+    imagesData: File[],
     setImages: (n: any)=> void,
     modalAddCAtegory: boolean,
-    // setModalAddCAtegory: (n: any)=> void,
+   
 }
   
 
@@ -57,7 +61,7 @@ interface formDataType {
         price: number | null,
         quantity: number | null,
         //дальше скажи під яким неймінгом тобі грузити ці свойства
-        allcoloursId: number[] | null, //всі кольора 
+        allcoloursId?: number[] | null, //всі кольора 
         allsizes: string[] | null, // всі розміра
         // netData: string | null, // опис размерной сетки
         netImage: File //сама размерная сетка 
@@ -70,6 +74,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
     // const NetData = useSelector((state: RootState)=> state.formData.netData)
     const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
     //statesRedux
+    const imageUrlArr =  useSelector((state: RootState)=> state.modaleSlice.imageUrlArr)
     const addPhotoState =  useSelector((state: RootState)=> state.admin.addPhotoState)
     const title = useSelector((state: RootState)=> state.formData.title)
     const description = useSelector((state: RootState)=> state.formData.description)
@@ -81,6 +86,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
     const quantity =  useSelector((state: RootState)=> state.formData.quantity)
     const netImage =  useSelector((state: RootState)=> state.formData.netData)
     const allsizes =  useSelector((state: RootState)=> state.formData.allsizes)
+    console.log('imageUrlArr', imageUrlArr)
 
    let  objDataSend = {
         images: imagesData,
@@ -92,7 +98,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         selectedImages: selectedImages,
         price: price,
         quantity: quantity,
-       // allcoloursId: colours,
+    //    allcoloursId: colours,
         allsizes: allsizes,
         netImage: netFile
    }
@@ -109,54 +115,55 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
     console.log('imagesData', imagesData)
 
 
-    function sendFormData({images, title, description, sizeChartImageDescription, categories, colours, selectedImages, price, quantity, allcoloursId, allsizes, netImage  }: formDataType){
-
+    function sendFormData({ images, title, description, sizeChartImageDescription, categories, colours, selectedImages, price, quantity, allsizes, netImage }: formDataType) {
+        const cookies = parseCookies();
+        const token = cookies.accessToken;
+      
         const formData = new FormData();
         //images
-        for(let i = 0;  i < images.length; i++){
-            formData.append('images', images[i])
+        for (let i = 0; i < images.length; i++) {
+          formData.append("images", images[i]);
         }
         //title
-        formData.append('title', JSON.stringify(title))
+        formData.append("title", JSON.stringify(title));
         //description
-        formData.append('description', JSON.stringify(description))
+        formData.append("description", JSON.stringify(description));
         //sizeChartImageDescription
-        formData.append('sizeChartImageDescription', JSON.stringify(sizeChartImageDescription))
+        formData.append("sizeChartImageDescription", JSON.stringify(sizeChartImageDescription));
         //categories
-        formData.append('categories', JSON.stringify(categories))
+        formData.append("categories", JSON.stringify(categories));
         //colours
-        formData.append('colours', JSON.stringify(colours))
+        formData.append("colours", JSON.stringify(colours));
         //selectedImages
-        formData.append('selectedImages', JSON.stringify(selectedImages))
+        formData.append("selectedImages", JSON.stringify(selectedImages));
         //price
-        formData.append('price', price.toString());
+        formData.append("price", String(price));
         //quantity
-        formData.append('quantity', quantity.toString())
+        formData.append("quantity", quantity.toString());
         //allsizes
-        formData.append('sizes', JSON.stringify(allsizes))
+        formData.append("sizes", JSON.stringify(allsizes));
         //sizeChartImage
-        formData.append('sizeChartImage', netImage)
-
-        fetch('/product/create_product', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) {
-            throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => {
-            console.error('There was an error!', error);
-        });
-
-        console.log('formData', formData)
-
-    }
+        formData.append("sizeChartImage", netImage);
+      
+        axios
+          .put("/product/create_product", formData, {
+            baseURL: API_URL,
+            withCredentials: true,
+            headers: {
+              Authorization: "Bearer " + (token || ""),
+              "Content-Type": "multipart/form-data",
+            },
+          })
+          .then((response) => {
+            console.log('response.data', response.data);
+          })
+          .catch((error) => {
+            console.error("There was an error!", error);
+          });
+      
+        console.log("formData", formData);
+      }
+      
 
     const SizeChartArr = [
         {id: 1, title: ' Описание размерной сетки UA', placeholder: 'Введите описание размерной сетки', leng: "ua"},
@@ -349,6 +356,22 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             <div className={s.element_wrapper}>
                                 <span className={s.id}> {`${el.id}.`}</span>
                                 <span className={s.text}>Загрузить фото</span>
+                                <Image
+                                className={ imageUrlArr[ind] ?    s.photo_item : s.photo_item_off }
+                                src={imageUrlArr[ind] ? imageUrlArr[ind] : ''}
+                                alt=""
+                                width={200}
+                                height={200}
+                                onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                                //   if(imageUrlArr[ind]){
+                                //   }else{
+                                //     const target = e.target as HTMLImageElement;
+                                //     // console.log('Error loading image:', target.src);
+                                //     // console.log('imageUrlArr', imageUrlArr)
+                                //     target.style.display = 'none';
+                                //   }
+                                }}
+                                />
                             </div>
                         </div>
                     })}
@@ -362,9 +385,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
 
 
                 <div className={s.net_wrapper}>
-
-
-
 
                     {SizeChartArr.map((obj)=>{
                         return <SizeChart key={obj.id} leng={obj.leng} id={obj.id} placeholder={obj.placeholder} title={obj.title} />
@@ -427,7 +447,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                     <button  className={s.btn_cancel}>Отменить</button>
                     
                     <input onClick={()=>{
-                        //@ts-ignore
                         sendFormData(objDataSend)
                     }} className={s.btn_send} value='Добавить товар' name="submit" id="" />
                 </div>
@@ -435,3 +454,4 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         </div>
     )
 }
+

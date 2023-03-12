@@ -40,11 +40,23 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
     //redux
     const modalAddCAtegory =  useSelector((state: RootState)=> state.modaleSlice.modalAddCAtegory)
     const titleDescription = useSelector((state: RootState)=> state.formData.price)
+
     const categories = useSelector((state: RootState)=> state.formData.categories)
-    const categoryArr = useSelector((state: RootState)=> state.admin.categoryArr)
-    console.log('modalAddCAtegory', modalAddCAtegory)
+    const categoryArr = useSelector((state: RootState)=> state.goods.fetchedCategories)
+    const newCategoryArr = [...categoryArr, {
+		id: 0.1,
+		ua: 'UAstring',
+		en: 'ENstring',
+		rs: 'RSstring',
+		ru: 'RUtring',
+		type: 'category',
+		createdAt: 'string',
+		updatedAt: 'string'
+	},]
+    // console.log('modalAddCAtegory', modalAddCAtegory)
     // console.log('categories', categories)
     // console.log('categoryArr', categoryArr)
+
     //state
     const [categoriesDisplay, setCategoriesDisplay ] = React.useState<boolean>(false)
 
@@ -147,19 +159,18 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
 
            
                         <div className={  categoriesDisplay ?  s.categorychose_wrapper : s.categorychose_wrapper_off }>
-
-                        {  categoryArr?.map((el, ind) =>{
+                            
+                        {  newCategoryArr?.map((el, ind) =>{
                         return el.id !== 0.1 ?
                          <div onClick={ (e) => { 
                             e.preventDefault()
                             e.stopPropagation(); 
-                            console.log('item') 
-                            console.log(el.id)
+                            
                             
                             setCategoriesDisplay(!categoriesDisplay);
                             dispatch(setCategories(el.id))
                             }}  key={ind} className={s.categorychose_item}>
-                            <span> {el.title} </span>
+                            <span> {el.ua} </span>
                         </div> 
                         
                         :

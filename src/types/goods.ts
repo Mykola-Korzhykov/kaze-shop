@@ -21,6 +21,7 @@ export interface fetchedColour {
 	updatedAt: any | null
 	label: string | null
 }
+
 export interface Goods {
 	id: number
 	title: {
@@ -37,7 +38,7 @@ export interface Goods {
 	}
 	price: number
 	quantity: number
-	images: string[]
+	images: { fileNames: string[], colourId: number; sizes: string[]}[]
 	sizeChartImage: string
 	sizes: string[]
 	colours: fetchedColour[]
@@ -46,3 +47,7 @@ export interface Goods {
 }
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 26aa442abdce5762f0ba43f65247b6154b0069d1

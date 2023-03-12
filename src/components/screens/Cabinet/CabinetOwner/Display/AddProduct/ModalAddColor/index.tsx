@@ -5,6 +5,9 @@ import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import { useAppDispatch } from '@/redux/hooks'
 import {setModalAddColor} from '../../../../../../../redux/slices/modal'
+import axios from "axios"
+import { API_URL } from "@/services"
+import { parseCookies } from "nookies"
 
 
 interface ModalAddColorProps {
@@ -32,16 +35,34 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = () => {
         hex: string
     }
 
-    function sendInputsState(obj: inputsStateType){
+    // function sendInputsState(obj: inputsStateType){
 
-        fetch('colours/create_colour',{
-            method: 'PUT',
-            body: JSON.stringify(obj)
-        }) .then(response => response.json())
-        .then(data => console.log(data))
+    //     fetch('colours/create_colour',{
+    //         method: 'PUT',
+    //         body: JSON.stringify(obj)
+    //     }) .then(response => response.json())
+    //     .then(data => console.log(data))
+    //     .catch(error => console.error(error));
+
+    // }
+
+    function sendInputsState(obj: inputsStateType) {
+        const cookies = parseCookies();
+        const token = cookies.accessToken;
+        
+        axios({
+        method: 'PUT',
+        url: 'colours/create_colour',
+        baseURL: API_URL,
+        withCredentials: true,
+        headers: {
+        Authorization: 'Bearer ' + (token || ''),
+        },
+        data: JSON.stringify(obj),
+        })
+        .then(response => console.log(response.data))
         .catch(error => console.error(error));
-
-    }
+        }
 
     const [inputsState, setInputsState] = React.useState<inputsStateType>({ua: '',  ru: '', rs: '', en: '', hex: '' })
 
@@ -79,9 +100,6 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = () => {
                             </label>
                          </div>
                 })}
-
-
-                    
 
                     <div className={s.input_inner}>
                         <span className={s.title}>Цветовой код</span>

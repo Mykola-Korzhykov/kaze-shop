@@ -13,7 +13,7 @@ import { API_URL } from "@/services";
 import axios from "axios";
 import { parseCookies } from "nookies";
 import { useAppDispatch } from "@/redux/hooks";
-import {getUsersRole} from '../../../../../redux/slices/admin'
+import {getUsersAdmin, getUsersRole} from '../../../../../redux/slices/admin'
 import {setChangeCheckbox} from '../../../../../redux/slices/admin'
 
 
@@ -23,7 +23,7 @@ interface UserProps {
     setUserOpenOK?: (n: number) => void,
     addContent: boolean, 
     editContent: boolean,
-    editWebSite:  boolean,
+    editWebsite:  boolean,
     isAdmin: boolean,
     email: string,
     phoneNumber: string,
@@ -33,22 +33,23 @@ interface UserProps {
 
 }
 
-export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebSite, isAdmin, email, phoneNumber , surname, name }) => {
+export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebsite, isAdmin, email, phoneNumber , surname, name }) => {
 
     // const [openUserMy, setOpenUserMy] = React.useState<boolean>(false)
     const openUser = id === idUserOpen ? true : false
 
-    console.log(`check user editContent${id}`, addContent )
+    // console.log(`check user editContent${id}`, addContent )
     const localUser = useSelector((state:RootState ) => state.admin.usersRole[id - 1])
-    console.log('localUser', localUser)
+    // console.log('UserRolefekfekflkwefnwklenrflwerfnwlenfklnelfnlkenklfnklenrfnwelnflkernfnweklnklenflknwkfnwkfr')
 
     const [activeCheckbox, setSctiveCheckbox] = React.useState<number | null>(null)
     const usersRole = useSelector((state: RootState )=> state.admin.usersRole)
+    
    
     const [UserRole, setUserRole] = React.useState<{
         addContent: boolean, 
         editContent: boolean,
-        editWebSite:  boolean,
+        editWebsite:  boolean,
         isAdmin: boolean,
         email: string,
         phoneNumber: string,
@@ -64,16 +65,27 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
         isAdmin: isAdmin,
         addContent: addContent,
         editContent: editContent,
-        editWebSite: editWebSite,}
+        editWebsite: editWebsite,}
     )
+
+    //  console.log('UserRole', UserRole)
+
+    function changeUserRole (role: string, bool: boolean){
+
+        setUserRole({
+            ...UserRole,
+            [role]: bool,
+        })
+    }
+
     
     const dispatch = useAppDispatch()
 
-    function sendUserRole(role: string, bool: boolean) {
-        console.log('clickfnnfnfnfnnfnfnffnfnnfnfnfnfnnfnfnfnfnnfnfnnfnfnfnnfnnfnfnfnfnfnfnfn')
+    function sendUserRole() {
+        // console.log('clickfnnfnfnfnnfnfnffnfnnfnfnfnfnnfnfnfnfnnfnfnnfnfnfnnfnnfnfnfnfnfnfnfn')
         const cookies = parseCookies();
         const token = cookies.accessToken;
-       
+        
         const instance = axios.create({
           baseURL: API_URL,
           withCredentials: true,
@@ -81,13 +93,11 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
             Authorization: 'Bearer ' + (token || ''),
           },
         });
-        
-        instance.put('/admin/create_admin', {
-          ...UserRole,
-          [role]: bool,
+        instance.patch('/admin/update_admin', {
+            ...UserRole
         })
           .then(() => {
-            dispatch(getUsersRole(activePaginatoinRole))
+            // dispatch(getUsersRole(activePaginatoinRole))
             // setUserRole((prevState) => ({
             //   ...prevState,
             //   [role]: bool,
@@ -98,14 +108,13 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
             console.error('Error while updating user role:', error);
           });
 
-          setUserRole(prevState => ({ ...prevState, [role]: bool, }))
+        //   setUserRole(prevState => ({ ...prevState, [role]: bool, }))
 
       }
 
-      React.useEffect(()=>{
-        dispatch(getUsersRole(activePaginatoinRole))
-      }, [])
-
+    //   React.useEffect(()=>{
+    //     dispatch(getUsersAdmin(activePaginatoinRole))
+    //   }, [])
 
     return (
         <div onClick={() => { setUserOpenOK(idUserOpen === id ? -1 : id) }} className={s.wrapper}>
@@ -147,8 +156,8 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
                     </label> */}
 
                     <label htmlFor={`editContent${id}`} className={s.checkbox_wrapper}>
-                        <input checked={editContent ? true : false} onChange={() =>  {
-                            sendUserRole('editContent', !UserRole.editContent)
+                        <input checked={UserRole.editContent ? true : false} onChange={() =>  {
+                            changeUserRole('editContent', !UserRole.editContent)
                             // setSctiveCheckbox(2)
                             // dispatch(setChangeCheckbox({id: id, branch: 'editContent', bool: !UserRole.editContent }))
                         } 
@@ -164,8 +173,8 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
 
                 <div className={s.checkbox_wrapper_second}>
                     <label  htmlFor={`addContent${id}`} className={s.checkbox_wrapper}>
-                        <input checked={addContent ? true : false} onChange={() => {
-                            sendUserRole('addContent', !UserRole.addContent)
+                        <input checked={UserRole.addContent ? true : false} onChange={() => {
+                            changeUserRole('addContent', !UserRole.addContent)
                             // setUserRole(prevState => ({ ...prevState, ['addContent']: !prevState.addContent }))
                             // dispatch(setChangeCheckbox({id: id, branch: 'addContent', bool: !UserRole.addContent }))
                             // setSctiveCheckbox(3)
@@ -176,14 +185,13 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
                         <span className={s.checkbox_text}> Добавление товара</span>
                     </label>
 
-                    
-                    <label htmlFor={`editWeb${id}`} className={s.checkbox_wrapper}>
-                            <input  checked={editWebSite ? true : false} onChange={() => {
-                                sendUserRole('editWebSite', !UserRole.editWebSite)
-                                // setUserRole(prevState => ({ ...prevState, ['editWebSite']: !prevState.editWebSite }))
+                    <label htmlFor={`editWebsite${id}`} className={s.checkbox_wrapper}>
+                            <input  checked={UserRole.editWebsite ? true : false} onChange={() => {
+                                changeUserRole('editWebsite', !UserRole.editWebsite)
+                                //setUserRole(prevState => ({ ...prevState, ['editWebSite']: !prevState.editWebSite }))
                                 // dispatch(setChangeCheckbox({id: id, branch: 'editWebSite', bool: !UserRole.editWebSite }))
                                 // setSctiveCheckbox(4)
-                            }} id={`editWeb${id}`} className={s.checkbox} type="checkbox" />
+                            }} id={`editWebsite${id}`} className={s.checkbox} type="checkbox" />
                             <span className={s.checkbox_label}>
                                 <Image className={s.checkbox_icon} src={checkbox_icon} alt='checkbox_icon' />
                             </span>
@@ -193,8 +201,8 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
                  
 
                         <label htmlFor={`isAdmin${id}`} className={s.checkbox_wrapper}>
-                        <input checked={isAdmin ? true : false} onChange={()=>{
-                            sendUserRole('isAdmin', !UserRole.isAdmin)
+                        <input checked={UserRole.isAdmin ? true : false} onChange={()=>{
+                            changeUserRole('isAdmin', !UserRole.isAdmin)
                         //    console.log(`user ${id}`, !UserRole.isAdmin)
                         //    dispatch(setChangeCheckbox({id: id, branch: 'isAdmin', bool: !UserRole.isAdmin }))
                         }} onClick={() => setSctiveCheckbox(1)} id={`isAdmin${id}`} className={s.checkbox} type="checkbox" />
@@ -215,6 +223,15 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
                     </label> */}
                 </div>
 
+                <div onClick={(e)=> {
+                    //  console.log('UserRole', UserRole)
+                    e.preventDefault()
+                    e.stopPropagation();
+                    setUserOpenOK(id)
+                     sendUserRole()
+                } } className={ openUser ?  s.btn_save : s.btn_save_off }>
+                    Сохранить
+                </div>
 
 
             </div>

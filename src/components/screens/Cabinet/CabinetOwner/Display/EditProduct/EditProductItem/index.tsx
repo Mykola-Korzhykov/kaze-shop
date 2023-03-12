@@ -2,14 +2,128 @@ import React from "react";
 import s from './EditProductItem.module.scss'
 import { useSelector } from "react-redux";
 import { RootState  } from "@/redux/store";
+import photo from '../../../../../../../assets/images/admin/img.png'
+import Image from "next/image";
+import openInput from '../../../../../../../assets/icons/cabinetAdmin/open_input.svg'
 //components 
 import {Input} from './Input'
 
+interface EditProductItemType {
+    id: number,
+    // price: number
+}
 
 
-export const EditProductItem = () =>{
+
+export const EditProductItem = ({id, }: EditProductItemType) =>{
+
+    const [choiseSize, setChoiseSize] = React.useState<boolean>(false)
+
+    console.log('EditProductItemID', id)
 
     const editProductItemId = useSelector((state: RootState)=> state.admin.editProductItemId)
+    const products = useSelector((state: RootState)=>state.admin.editProducts)
+
+
+    const userEdit = React.useState( {
+        id: 1,
+        title: {
+            ua: 'Павло',
+            ru:' Паша',
+            rs: 'хз',
+            en: 'The best',
+        },
+        description: {
+            ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
+            ru: 'на русс опис doprepwfieifweifipowerf',
+            rs: 'на rs опис лдощцаозщуцощауоазуцща',
+            en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
+        },
+        price: 300,
+        quantity: 100,
+        // { fileNames: string[], colourId: number; sizes: string[]}
+        images: [
+        {
+            fileNames: [photo, photo],
+            colourId: 3,
+            sizes: ["S", "M", "L"]
+        },
+        {
+            fileNames: [photo, photo],
+            colourId: 4,
+            sizes: ["S", "M", "L"]
+        },
+        ],
+          sizeChartImage: 'kfkf'
+          ,
+        sizes: ['X', 'XS'],
+        colours: [
+            {
+                label: 'Бежевый',
+                hex: '#FFE4C4',
+                id: 1,
+                type: 'colour',
+                ru: 'ru',
+                rs: 'rs',
+                en: 'en',
+                ua: 'ua',
+                createdAt: 'stringstringTest',
+                updatedAt: 'stringTest',
+            },
+            {
+                label: 'Капучинный',
+                hex: '#9F8E84',
+                id: 2,
+                type: 'colour',
+                ru: 'ru',
+                rs: 'rs',
+                en: 'en',
+                ua: 'ua',
+                createdAt: 'stringstringTest',
+                updatedAt: 'stringTest',
+            },
+            {
+                label: 'Синий',
+                hex: '#000080',
+                id: 3,
+                type: 'colour',
+                ru: 'ru',
+                rs: 'rs',
+                en: 'en',
+                ua: 'ua',
+                createdAt: 'stringstringTest',
+                updatedAt: 'stringTest',
+            },
+            {
+                label: 'Голубой',
+                hex: '#A6BEE5',
+                id: 4,
+                type: 'colour',
+                ru: 'ru',
+                rs: 'rs',
+                en: 'en',
+                ua: 'ua',
+                createdAt: 'stringstringTest',
+                updatedAt: 'stringTest',
+            },
+        ],
+        categories: [
+            {
+            id: 1,
+            ua: 'Категорія 1',
+            en: 'Категория 1',
+            rs:	'Категорія 1 rs',
+            ru: 'Категорія 1 ru',
+            type: 'category',
+            createdAt: 'any',
+            updatedAt: 'any',
+            }
+        ]
+    } )
+
+    // const activeProduct = products.find((el)=>{
+    //     return el.id === id
+    // })
 
     const  [inputs, setInputs] = React.useState([
         { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название товара', name: 'titleRU', disable: false,  },
@@ -36,7 +150,7 @@ export const EditProductItem = () =>{
         {inputs.map((obj, ind)=>{
             return <div  key={ind} className={s.inputs_wrapper}>
                 <Input 
-               
+                // price={price}
                 placeholder={obj.placeholder}
                 text={obj.text}
                 name={obj.name}
@@ -44,7 +158,7 @@ export const EditProductItem = () =>{
                 type={obj.type}
                 disable={obj.disable} 
                />
-              
+
             </div>
         })}
 
@@ -87,6 +201,17 @@ export const EditProductItem = () =>{
         </div>
 
         {/* размер товара делаю интуп и СЕТАЮ существующие в отдельную переменную , меняю ее в редактировке и отправляю при отправке */}
+
+        <div className={s.choice_size_wrapper}>
+            <span  className={s.choice_size_title}>
+                Размер товара
+            </span>
+           <label  htmlFor="choisesize">
+                <input readOnly id='choisesize' placeholder="Выберите размер" type="text"   />
+                <Image  src={openInput} alt='error' />
+           </label>
+
+        </div>
 
         {/* тоже самое с цветами , сатею в отдельную переменную, локальную переменную после чего с ней работаю и отправляю при отправке ее уже  */}
 

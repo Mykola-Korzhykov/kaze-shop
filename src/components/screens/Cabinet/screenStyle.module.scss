@@ -1,0 +1,42 @@
+// .backround_module{
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     width: 100vw;
+//     height: 100vh;
+//     background-color: red;
+// }
+
+.input_wrapper_off{
+    display: none;
+}
+
+//module window 
+
+.backround_module{
+    // position: absolute;
+    // top: 0;
+    // margin-left: -105px;
+    // // height: 180vh;
+    // width: 100vw; 
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    background: #0B0B0B;
+    opacity: 0.25;
+}
+
+.backroundModuleMore{
+    position: absolute;
+    top: 0;
+    margin-left: -105px;
+    height: 230vh;
+    width: 100vw;
+    
+    background: #0B0B0B;
+    opacity: 0.25;
+}

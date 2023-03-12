@@ -1,5 +1,5 @@
 import s from './reviewsImg.module.scss';
-import WomanImg from '../../../../../assets/images/main/reviews/reviews_woman.png';
+import WomanImg from '../../../../../assets/images/main/Reviews/photo.svg';
 import Image from 'next/image';
 
 

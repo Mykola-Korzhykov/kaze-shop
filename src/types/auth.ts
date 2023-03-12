@@ -90,3 +90,40 @@ export interface Product {
 	img: string
 	id: number
 }
+
+// admin slice 
+
+export interface ProductSend {
+	title: {
+		ua: string | null
+		ru: string | null
+		rs: string | null
+		en: string | null
+	}
+	description: {
+		ua: string | null
+		ru: string | null
+		rs: string | null
+		en: string | null
+	}
+	sizeChartImageDescription: {
+		ua: string | null
+		ru: string | null
+		rs: string | null
+		en: string | null
+	}
+	sizes: string[]
+	colourId: number | null
+	price: number | null
+	quantity: number | null
+	imagesjpg: null | any
+	allcoloursId: number[] | null
+	allsizes: string[] | null
+	categories: number[] | null
+	netData: string | null
+	arrObjMod: { fileNames: string[]; colourId: number; sizes: string[] }[]
+	//images: string [] | File []
+	images: any[]
+	id: number
+}
+

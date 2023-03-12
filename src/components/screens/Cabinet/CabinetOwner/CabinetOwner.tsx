@@ -15,7 +15,11 @@ import debounce from 'lodash.debounce';
 import { AddProduct } from './Display/AddProduct'
 import {EditProduct} from './Display/EditProduct'
 import {EditProductItem} from './Display/EditProduct/EditProductItem'
-import {setModalAddPhoto, setModalAddColor} from '../../../../redux/slices/modal'
+// import {setModalAddPhoto, setModalAddColor} from '../../../../redux/slices/modal'
+import ChangePasswordSetting from './Display/ChangePasswordSetting'
+import { useWhyDidYouUpdate } from 'ahooks';
+import {fetchCategories} from '../../../../redux/slices/goods'
+
 
 import Image from 'next/image';
 //icons
@@ -34,13 +38,15 @@ import icon_white4 from '../../../../assets/icons/cabinetAdmin/icon4_white.svg'
 import icon_white5 from '../../../../assets/icons/cabinetAdmin/icon5_white.svg'
 import icon_white6 from '../../../../assets/icons/cabinetAdmin/icon6_white.svg'
 import icon_white7 from '../../../../assets/icons/cabinetAdmin/icon7_white.svg'
+
+// import findUser from '../../../../../assets/icons/cabinetAdmin/findUser.svg'
 import findUser from '../../../../assets/icons/cabinetAdmin/findUser.svg'
 //types & redux
 import { ButtonType } from '../../../../types/auth'
 import { SizeItem } from "./Display/AddProduct/SizesItem";
 import {ModuleWindiw} from './Display/AddProduct/ModuleWindow'
-import {ModalAddCategory} from './Display/AddProduct/ModalAddCategory'
-import {ModalAddColor} from './Display/AddProduct/ModalAddColor'
+//import {ModalAddCategory} from './Display/AddProduct/ModalAddCategory'
+// import {ModalAddColor} from './Display/AddProduct/ModalAddColor'
 import {findUsersRole, getUsersRole, getUsersAdmin , findUsersAdmin} from '../../../../redux/slices/admin'
 import axios from "axios";
 import LogoutModal from "@/components/modals/LogoutModal/LogoutModal";
@@ -70,69 +76,88 @@ const buttonsObj: ButtonType[] = [
 //  let sizesArr = [{ id: 0, size: 'XS'}, { id: 1, size: 'S'},]
 //  const [sizesState, setSizesState] = React.useState(null)
 
+interface CabinetOwnerProps {
+    modalAddPhoto: boolean
+    modalAddCAtegory: boolean
+    imagesData: File[]
+    setImages: (n: any) => void
+    setCountPhoto: (n: number) => void
+    modalAddColor: boolean
+    setModalAddColor: (n: boolean) => void
+ 
 
+    
+}
 
-export const CabinetOwner: React.FC = () => {
+export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modalAddColor, setModalAddColor, setImages, modalAddPhoto }: CabinetOwnerProps) => {
     
     // const [modalAddColor, setModalAddColor] = React.useState<boolean>(false)
-    const modalAddColor =  useSelector((state: RootState) => state.modaleSlice.modalAddColor)
-    const [choiceColor, setChoiceColor] =React.useState<boolean>(false)
+    // const modalAddColor =  useSelector((state: RootState) => state.modaleSlice.modalAddColor)
+    // const [choiceColor, setChoiceColor] =React.useState<boolean>(false)
     // const [modalAddPhoto, setModalAddPhoto ] = React.useState<boolean>(false)
-    const modalAddPhoto = useSelector((state: RootState) => state.modaleSlice.modalAddPhoto)
-    const modalAddCAtegory =  useSelector((state: RootState) => state.modaleSlice.modalAddCAtegory)
+    // const modalAddPhoto = useSelector((state: RootState) => state.modaleSlice.modalAddPhoto)
+    // const modalAddCAtegory =  useSelector((state: RootState) => state.modaleSlice.modalAddCAtegory)
     // const [modalAddCAtegory, setModalAddCAtegory ] = React.useState<boolean>(false)
-    const [countPhoto, setCountPhoto] = React.useState<number>(1)
-    const [images, setImages] = React.useState([])
+    // const [countPhoto, setCountPhoto] = React.useState<number>(1)
+    // const [images, setImages] = React.useState<File[]>([])
 
     const dispatch = useAppDispatch()
    
+    
+    
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
-    console.log('ChangeUserPassword', ChangeUserPassword)
+    // console.log('ChangeUserPassword', ChangeUserPassword)
     const usersRoleUI = useSelector((state: RootState) => state.admin.usersRole)
-    console.log('usersRoleUI', usersRoleUI)
+    // console.log('usersRoleUI', usersRoleUI)
     // console.log('getUsersRole', getUsersRole)
+    // console.log('CabinetOwner useWhyDidYouUpdate', useWhyDidYouUpdate('CabinetOwner', props))
     const usersAdminUI = useSelector((state: RootState) => state.admin.usersAdmin)
     const editProductItemId = useSelector((state: RootState)=>state.admin.editProductItemId )
    // console.log('editProductItemId', editProductItemId)
     const [paginationLendthRole, setPaginationLendthRole] = React.useState<any[]>([])
     const [paginationLendthAdmin, setPaginationLendthAdmin] = React.useState<any[]>([])
-
     const colors = useSelector((state: RootState) => state.admin.colors)
     const [displayActive, setDisplayActive] = React.useState<number>(1)
     const [activePaginatoinRole, setActivePaginatoinRole] = React.useState<number>(1)
     const [activePaginatoinRoleAdmin, setActivePaginatoinAdmin] = React.useState<number>(1)
-    console.log('displayActive', displayActive)
-    //refresh
-    React.useEffect(() => {
-		const fetchUserData = async () => {
-			try {
-				const data = await Api().user.getMe()
-				setCookie(null, 'accessToken', data.accessToken, {
-					maxAge: 30 * 24 * 60 * 60,
-					path: '/',
-				})
-				if (data.user) {
-					dispatch(addUserInfo(data.user))
-				}
-                if (data.admin) {
-					dispatch(addUserInfo(data.admin))
-				}
-                if (data.owner) {
-					dispatch(addUserInfo(data.owner))
-				}
-			} catch (e) {
-				//router.push('/404')
-				console.log(e)
-			}
-		}
+    // console.log('displayActive', displayActive)
 
-		fetchUserData()
-	}, [dispatch])
+    React.useEffect(()=>{
+        dispatch(fetchCategories())
+    }, [])
+
+    //refresh
+    // React.useEffect(() => {
+	// 	const fetchUserData = async () => {
+	// 		try {
+	// 			const data = await Api().user.getMe()
+	// 			setCookie(null, 'accessToken', data.accessToken, {
+	// 				maxAge: 30 * 24 * 60 * 60,
+	// 				path: '/',
+	// 			})
+	// 			if (data.user) {
+	// 				dispatch(addUserInfo(data.user))
+	// 			}
+    //             if (data.admin) {
+	// 				dispatch(addUserInfo(data.admin))
+	// 			}
+    //             if (data.owner) {
+	// 				dispatch(addUserInfo(data.owner))
+	// 			}
+	// 		} catch (e) {
+	// 			console.log(e)
+	// 		}
+	// 	}
+
+	// 	fetchUserData()
+	// }, [dispatch])
+
+    
     // получення юзерів 
     React.useEffect(()=>{
        if( displayActive === 1 ){
         console.log('запыт getUsersRole')
-        // dispatch(getUsersRole(activePaginatoinRole))
+            dispatch(getUsersRole(activePaginatoinRole))
        }
         
      }, [activePaginatoinRole,  displayActive])
@@ -140,7 +165,7 @@ export const CabinetOwner: React.FC = () => {
     React.useEffect(()=>{
         if(displayActive === 2){
             console.log('запыт getUsersAdmin')
-            // dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
+            dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
         }
     }, [ activePaginatoinRoleAdmin, displayActive])
     // вираховування пагінації
@@ -176,36 +201,37 @@ export const CabinetOwner: React.FC = () => {
         dispatch(findUsersRole(term))
       }, 500);
 
-    const usersRole = usersRoleUI.map((el, ind) => <UserRole
+    const usersRole = usersRoleUI.map((el, ind) => <UserAdmin
     name={el.name}
-    editContent={el.editContent}
+    editContent={el.editContent} 
     surname={el.surname}
     phoneNumber={el.phoneNumber}
     email={el.email}
     isAdmin={el.isAdmin}
-    editWebSite={el.editWebSite}
+    editWebsite={el.editWebsite}
     addContent={el.addContent}
     key={ind} 
     setUserOpenOK={setUserOpen} 
     idUserOpen={idUserOpen} 
     id={el.id}
-    activePaginatoinRole={activePaginatoinRole}
+    activePaginatoinRoleAdmin={activePaginatoinRoleAdmin}
      
      />)
-    const usersAdmin = usersAdminUI.map((el, ind) => <UserAdmin 
+    const usersAdmin = usersAdminUI.map((el, ind) => <UserRole 
     name={el.name}
     editContent={el.editContent}
     surname={el.surname}
     phoneNumber={el.phoneNumber}
     email={el.email}
     isAdmin={el.isAdmin}
-    editWebSite={el.editWebSite}
+    editWebsite={el.editWebsite}
     addContent={el.addContent}
     key={ind} 
     id={el.id}
     setUserOpenOK={setUserOpen} 
     idUserOpen={idUserOpen} 
-    activePaginatoinRoleAdmin={activePaginatoinRoleAdmin}
+    activePaginatoinRole={activePaginatoinRole}
+    
      />)
 
     // console.log('choiceColor' , choiceColor)
@@ -217,7 +243,7 @@ export const CabinetOwner: React.FC = () => {
 
             <div className={s.nav_dekstop}>
                 {buttonsObj.map((obj, ind) => {
-                    return <Button chengeDisplayOK={setDisplayActive} key={ind} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
+                    return <Button displayActive={displayActive}  chengeDisplayOK={setDisplayActive} key={ind} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
                 })}
             </div>
 
@@ -225,7 +251,7 @@ export const CabinetOwner: React.FC = () => {
                 {buttonsObj.map((obj, ind) => {
 
                     return <Link className={s.link} href={`${obj.url}`} key={ind}>
-                        <Button chengeDisplayOK={setDisplayActive} key={obj.id} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
+                        <Button   displayActive={displayActive}  chengeDisplayOK={setDisplayActive} key={obj.id} id={obj.id} img_white={obj.img_white} img_grey={obj.img_grey} text={obj.text} />
                     </Link>
                 })}
             </div>
@@ -269,19 +295,19 @@ export const CabinetOwner: React.FC = () => {
                 </label>
               
                 {/* <div style={{ backround-color: `${props.color}`}}></div> */}
-                {displayActive === 1 ? usersAdmin : ''}
-                {displayActive === 2 ? usersRole : ''} 
+                {displayActive === 1 ? usersRole : ''} 
+                {displayActive === 2 ? usersAdmin : ''} 
                 {displayActive === 3 ? <AddProduct 
                 modalAddCAtegory={modalAddCAtegory} 
-                imagesData={images} setImages={setImages}  
+                imagesData={imagesData} setImages={setImages}  
                 setCountPhoto={setCountPhoto}  
                 modalAddColor={modalAddColor} 
                 setModalAddColor={setModalAddColor}   
                 modalAddPhoto={modalAddPhoto} /> : ''}
                 {displayActive === 4? <EditProduct /> : '' }
-                {displayActive === 5 ?  <ChangeUserPassword /> : ''} 
+                {displayActive === 5 ? <div> <ChangePasswordSetting />  </div>: ''} 
                 {displayActive === 6 ? <LogoutModal closeModal={setDisplayActive}  /> : ''} 
-                
+                {/* <ChangePasswordSetting /> */}
                 
                 {displayActive === 1 ?
                 <div className={s.pagination_wrapper}>
@@ -306,15 +332,15 @@ export const CabinetOwner: React.FC = () => {
                
                 
             </div >
-            {countPhoto > 0 && modalAddPhoto &&  choiceColor === false? <div style={{height: `${ 1450 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''}
+           {/* {countPhoto > 0 && modalAddPhoto &&  choiceColor === false? <div style={{height: `${ 1450 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''} */}
             {/* {modalAddPhoto  && countPhoto < 2 ? <div  className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''}  */}
-            {choiceColor? <div   style={{height: `${ 1450 +  colors.length * 25}px` }} className={ s.backround_module}></div> : ''} 
-            { modalAddCAtegory ?<div style={{height: '1450px'}} className={s.backround_module}></div> : ''}
+            {/* {choiceColor? <div   style={{height: `${ 1450 +  colors.length * 25}px` }} className={ s.backround_module}></div> : ''}  */}
+            {/* { modalAddCAtegory ?<div style={{height: '1450px'}} className={s.backround_module}></div> : ''} */}
 
 
-            {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  
-            {modalAddCAtegory ? <ModalAddCategory  /> : ''} 
-            {modalAddColor ? <ModalAddColor  /> : '' }
+            {/* {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}   */}
+            {/* {modalAddCAtegory ? <ModalAddCategory  /> : ''}  */}
+            {/* {modalAddColor ? <ModalAddColor  /> : '' } */}
             
             {/* <div className={s.module_wrapper}>
                     <div className={s.module_inner}>
