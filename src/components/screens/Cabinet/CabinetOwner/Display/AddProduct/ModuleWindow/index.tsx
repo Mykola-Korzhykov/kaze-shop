@@ -74,7 +74,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
   
     //modal backround
     const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
-    console.log('fetchColoursArr', fetchColoursArr)
+    // console.log('fetchColoursArr', fetchColoursArr)
     //   console.log('setModalAddColor', setModalAddColor)
     console.log('files', files)
      function generationObjModal () {
@@ -112,9 +112,9 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
         setImages( (prevArray: any) => [...prevArray,  event.target.files[0]])
     }
 
-    // React.useEffect(()=>{
-    //     dispatch(fetchColours())
-    // }, [])
+     React.useEffect(()=>{
+         dispatch(fetchColours())
+    }, [])
     
     
     return (
