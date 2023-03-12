@@ -8,9 +8,10 @@ import { useAppDispatch } from '@/redux/hooks'
 // import { setColors} from '../../../../../../../redux/slices/admin'
 import {setSizes, setColors, setImagesPng, removeAll, setAllcoloursId, setAllsizes, setArrObjMod} from '../../../../../../../redux/slices/formData'
 import { devNull } from "os"
-import {setModalAddPhoto} from '../../../../../../../redux/slices/modal'
+import {setModalAddPhoto, setModalAddColor} from '../../../../../../../redux/slices/modal'
 import {setImageUrl} from '../../../../../../../redux/slices/modal'
 import {fetchCategories} from '../../../../../../../redux/slices/goods'
+
 import {fetchColours} from '../../../../../../../redux/slices/goods'
 
 
@@ -30,6 +31,7 @@ interface ModuleWindiwProps {
     imagesData?: File[],
     setImages?: (n: any)=> void,
 }
+//setChoiceColor
 
 export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, setModalAddColor, modalAddColor, imagesData, setImages }: ModuleWindiwProps) => {
 
@@ -199,7 +201,10 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
 
                 <div className={s.input_inner}>
                     <span className={s.title}>Цвет</span>
-                    <span onClick={()=> { setChoiceColor(!choiceColor)}} className={s.input_choice_color}>
+                    <span onClick={(e)=> { 
+                      
+                        setChoiceColor(!choiceColor)
+                        }} className={s.input_choice_color}>
                         Выбрать цвет фотографии
                         {choiceColor ? <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M25 7L7 25" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -214,6 +219,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                                 return el.id !== -48093899940393 ? (
                                     <div onClick={()=> {
                                         dispatch(setColors(el.id))
+                                       
                                         setChoiceColor(!choiceColor)
                                     }} key={ind} className={s.color_wrapper}>
                                         <span className={s.color} style={{
@@ -225,7 +231,9 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                                         </span>
                                     </div>
                                 ) : <div onClick={()=> {
-                                    setModalAddColor(true)
+                                    // setModalAddColor(true)
+                                    //@ts-ignore
+                                    dispatch(setModalAddColor(true)) 
                                     setChoiceColor(!choiceColor)
                                     // dispatch()
                                 }} key={ind} className={s.color_wrapper}>

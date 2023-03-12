@@ -99,11 +99,11 @@ const Cabinet: FC = () => {
 			{/* style={{height: `${ 1450 +  colors.length * 25}px` }} */}
             {/* {choiceColor? <div   className={ s.backround_module}></div> : ''}  */}
             { modalAddCAtegory ?<div style={{height: '1450px'}} className={s.backround_module}></div> : ''}
-
+			{/* {choiceColor ? <div style={{height: '1450px'}} className={s.backround_module}></div> : ''} */}
 
             {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColorTurn} setModalAddColor={setModalAddColor} /> : ''}  
             {modalAddCAtegory ? <ModalAddCategory  /> : ''} 
-            {modalAddColorTurn ? <ModalAddColor  /> : '' }
+            {modalAddColorTurn ? <ModalAddColor  setChoiceColor={setChoiceColor}  /> : '' }
 			{/* {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  */}
 
 			</div>

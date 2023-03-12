@@ -9,14 +9,11 @@ import axios from "axios"
 import { API_URL } from "@/services"
 import { parseCookies } from "nookies"
 
-
 interface ModalAddColorProps {
-
+    setChoiceColor: (n: boolean) => void
 }
 
-
-
-export const ModalAddColor: React.FC<ModalAddColorProps> = () => {
+export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: ModalAddColorProps) => {
 
     const coloursArr = [
         {id: 0, text: 'Название цвета UA', placeholder: 'Введите название цвета', leng: 'ua'},
@@ -74,7 +71,7 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = () => {
 
             <div onClick={()=> dispatch(setModalAddColor(false)) } className={s.close_modal}>
 
-                <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg onClick={()=> setChoiceColor(false)} className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M25 7L7 25" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     <path d="M25 25L7 7" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
@@ -95,7 +92,7 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = () => {
                                 <input onBlur={(e)=> {
                                       
                                     setInputsState(prevState=>({...prevState, [obj.leng]: e.target.value}))
-                                    console.log('inputsState', inputsState)
+                                    // console.log('inputsState', inputsState)
                                 }}  key={ind} id={`colorname${obj.id}`} className={s.input_file} placeholder={obj.placeholder} type="text" />
                             </label>
                          </div>

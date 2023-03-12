@@ -144,6 +144,11 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         formData.append("sizes", JSON.stringify(allsizes));
         //sizeChartImage
         formData.append("sizeChartImage", netImage);
+
+        console.log("formDataChecktitle", formData.get('title'));
+        console.log("formDataCheckimages", formData.get('images'));
+        console.log("formDataCheckprice", formData.get('price'));
+        console.log("formDataChecksizeChartImage", formData.get('sizeChartImage'));
       
         axios
           .put("/product/create_product", formData, {
@@ -161,7 +166,10 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
             console.error("There was an error!", error);
           });
       
-        console.log("formData", formData);
+            // console.log("formDataChecktitle", formData.get('title'));
+            // console.log("formDataCheckimages", formData.get('images'));
+            // console.log("formDataCheckprice", formData.get('price'));
+            // console.log("formDataChecksizeChartImage", formData.get('sizeChartImage'));
       }
       
 
