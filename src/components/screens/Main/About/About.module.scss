@@ -1,158 +1,81 @@
-.wrapper{
-    margin-top: 100px;
-    // height: 642px;
-    margin-bottom: 144px;
+.about{
     display: flex;
-    max-width: 100%;
-    justify-content: center;
-    align-items: flex-end;
+    padding-bottom: 65px;
     gap: 30px;
-   
-    @media (max-width: 1160px) {
-        
-        
-    }
-    //переключаем на калом
-    @media (max-width: 700px) {
-        margin-top: 50px;
+    align-items: flex-end;
+
+    @media(max-width:768px){
         flex-direction: column;
         align-items: center;
-        margin-bottom: 58px;
-    }
-    @media (max-width: 700px) {
-        margin-top: 38px;
-
     }
 
-}
-
-.container {
-    padding-left: 105px;
-    padding-right: 105px;
-
-    @media (max-width: 1100px) {
-        padding-left: 32px;
-        padding-right: 32px;
-    }
-
-}
-
-.img_wrapper{
-    
-    .img{
-        margin-top: auto;
-        width: 495px;
-        height: 642px;
-        @media (max-width: 1160px) {
-        width: 296px;
-        height: 383.9px;
-    }
-    @media (max-width: 700px) {
-        width: 380px;
-        height: 416px;
-    }
-
-    }
-}
-
-
-
-.description_wrapper{
-    max-width: 705px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-
-    .title{
-        margin-bottom: 10px;
-        margin-top: auto;
-        // margin-top: 184px;
-        font-family: 'Russo One';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 40px;
-        line-height: 48px;
-
-    
-        color: #0B0B0B;
-
-        @media (max-width: 1160px) {
-            font-weight: 400;
-            font-size: 32px;
-            line-height: 39px;
-        }
-        @media (max-width: 700px) {
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-    
-        }
-    }
-
-    .description{
-        margin-bottom: 50px;
-        font-family: 'Georama', sans-serif;
-        font-style: normal;
-        font-weight: 400;
-        font-size: 24px;
-        line-height: 29px;
-
-        text-align: center;
-    
-        color: #0B0B0B;
-    
-        opacity: 0.3;
-
-        @media (max-width: 1160px) {
-            font-weight: 400;
-            font-size: 20px;
-            line-height: 19px;
-            margin-bottom: 45px;
-        }
-        @media (max-width: 834px) {
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 19px;
-        }
-        
-        @media (max-width: 700px) {
-            
-        }
-        
-    }
-
-    .link{
+    a{
         text-decoration: none;
     }
 
-    .btn{
-        background-color: #0B0B0B;
-        
-            background-color: #0B0B0B;
-            color: aliceblue;
-            width: 257px;
-            height: 56px;
-
-            display: flex;
-            align-items: center;
-            gap: 30px;
-
-        @media (max-width: 700px) {
-            margin-left: auto;
-            margin-right: auto;
+    &_img{
+        img{
+            object-fit: contain;
+            display: block;
         }
-
-        .btn_title {
-                margin-left: 24px;
-                font-family: 'Georama', sans-serif;
-                font-style: normal;
-                font-weight: 500;
-                font-size: 20px;
-                line-height: 24px;
-        
-                color: #FFFFFF;
+        @media (max-width:992px) {
+            img{
+                max-width: 300px;
+                max-height: 392px;
             }
+        }
+        @media (max-width:768px) {
+            img {
+                max-width: 380px;
+                max-height: 550px;
+            }
+        }
+        @media(max-width: 430px){
+            img{
+                max-height: 370px;
+                max-height: 370px;
+            }
+        }
     }
 
+    &_description{
+        h2{
+            font-family: 'Russo One';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 40px;
+            line-height: 48px;
+            color: #0B0B0B;
+
+            @media (max-width: 992px) {
+                font-size: 32px;
+                line-height: 39px;
+            }
+        }
+    
+        p{
+            font-family: 'Neue Haas Grotesk Display Pro';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 29px;
+            color: #0b0b0b4a;
+            margin: 20px 0 50px 0;
+
+             @media (max-width: 992px) {
+                 font-size: 16px;
+                 line-height: 19px;
+                 margin: 10px 0 50px 0;
+             }
+        }
+        @media(max-width:768px){
+           text-align: center;
+        }
+    }
 }
 
+.instagram_btn{
+   @media (max-width: 768px) {
+         margin: 0 auto;
+   }
+}

@@ -1,50 +1,5 @@
-// .wrapper{
-//     display: flex;
-//     align-items: center;
-//     height: 777px;
-
-//     .photo_wrapper{
-//         position: relative;
-//         height: 677px;
-//     }
-
-//     .title{
-//         position: absolute;
-//         bottom: 95px;
-//         left: -45px;
-//         transform: rotate(-90deg);
-
-//         font-family: 'Russo One';
-//         font-style: normal;
-//         font-weight: 400;
-//         font-size: 48px;
-//         // line-height: 58px;
-
-    
-//         color: #0B0B0B;
-//     }
-// }
-
-// .slide{
-
-// }
-
-// .currunt_slide{
-//     background-color: red;
-// }
-
-// .slide{
-
-// }
-
-
-.keen_slider{
+.reviews {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    color: #fff;
-   
-height: 242px;
-   
+    gap: 55px;
+    padding-bottom: 100px;
 }

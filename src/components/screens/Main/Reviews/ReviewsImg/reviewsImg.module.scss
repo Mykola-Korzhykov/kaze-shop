@@ -1,0 +1,21 @@
+.review_img {
+    position: relative;
+
+    img {
+        display: block;
+        object-fit: cover;
+    }
+
+    h3 {
+        font-family: 'Russo One';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 48px;
+        line-height: 58px;
+        color: #0B0B0B;
+        transform: rotate(-90deg) translate(50%, -50%);
+        position: absolute;
+        bottom: 0;
+        left: -5%;
+    }
+}
