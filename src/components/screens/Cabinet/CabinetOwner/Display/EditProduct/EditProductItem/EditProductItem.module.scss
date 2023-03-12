@@ -374,6 +374,7 @@
     height: 52px;
     border: #9D9D9D solid 1.5px;
     border-bottom: none;
+    cursor: pointer;
 
     .title{
         font-family: 'Georama', sans-serif;
@@ -394,3 +395,17 @@
     display: none;
 }
 
+//selected wrapper
+
+.select_colors_wrapper{
+    display: flex;
+    margin-top: 20px;
+    row-gap: 20px;
+    column-gap: 30px;
+    flex-wrap: wrap;
+
+}
+
+.item_wrapper{
+
+}

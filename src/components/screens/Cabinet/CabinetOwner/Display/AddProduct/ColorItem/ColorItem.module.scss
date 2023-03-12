@@ -1,0 +1,43 @@
+.wrapper{
+    display: flex;
+    width: 139px;
+    height: 44px;
+    column-gap: 10px;
+    border: 1.5px solid #9D9D9D;
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 400px;
+    width: min-content;
+    align-items: center;
+    cursor: pointer;
+
+}
+
+.color{
+    display: block;
+    width: 24px;
+    height: 24px;
+    border: 1px solid #000000;
+}
+
+
+.title{
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+
+    color: #9D9D9D;
+
+}
+
+.close{
+   display: flex;
+   align-items: center;
+
+
+}
+

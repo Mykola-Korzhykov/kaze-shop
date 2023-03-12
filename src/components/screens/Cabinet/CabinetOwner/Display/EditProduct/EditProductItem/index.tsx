@@ -8,6 +8,7 @@ import openInput from '../../../../../../../assets/icons/cabinetAdmin/open_input
 //components 
 import {Input} from './Input'
 import {SizeItem} from '../../AddProduct/SizesItem'
+import {ColorItem} from '../../AddProduct/ColorItem'
 //types 
 import {Goods} from '../../../../../../../types/goods'
 
@@ -24,7 +25,7 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
     const [choiceColors, setChoiceColors] = React.useState<boolean>(false)
     const sizesItems = useSelector((state: RootState)=> state.admin.sizesItems)
 
-    console.log('EditProductItemID', id)
+    // console.log('EditProductItemID', id)
 
     const editProductItemId = useSelector((state: RootState)=> state.admin.editProductItemId)
     const products = useSelector((state: RootState)=>state.admin.editProducts)
@@ -67,6 +68,102 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
           ,
         sizes: ['X', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS'],
         colours: [
+            {
+                label: 'Бежевый',
+                hex: '#FFE4C4',
+                id: 1,
+                type: 'colour',
+                ru: 'ru',
+                rs: 'rs',
+                en: 'en',
+                ua: 'ua',
+                createdAt: 'stringstringTest',
+                updatedAt: 'stringTest',
+            },
+            {
+                label: 'Капучинный',
+                hex: '#9F8E84',
+                id: 2,
+                type: 'colour',
+                ru: 'ru',
+                rs: 'rs',
+                en: 'en',
+                ua: 'ua',
+                createdAt: 'stringstringTest',
+                updatedAt: 'stringTest',
+            },
+            {
+                label: 'Синий',
+                hex: '#000080',
+                id: 3,
+                type: 'colour',
+                ru: 'ru',
+                rs: 'rs',
+                en: 'en',
+                ua: 'ua',
+                createdAt: 'stringstringTest',
+                updatedAt: 'stringTest',
+            },
+            {
+                label: 'Голубой',
+                hex: '#A6BEE5',
+                id: 4,
+                type: 'colour',
+                ru: 'ru',
+                rs: 'rs',
+                en: 'en',
+                ua: 'ua',
+                createdAt: 'stringstringTest',
+                updatedAt: 'stringTest',
+            },
+            {
+                label: 'Бежевый',
+                hex: '#FFE4C4',
+                id: 1,
+                type: 'colour',
+                ru: 'ru',
+                rs: 'rs',
+                en: 'en',
+                ua: 'ua',
+                createdAt: 'stringstringTest',
+                updatedAt: 'stringTest',
+            },
+            {
+                label: 'Капучинный',
+                hex: '#9F8E84',
+                id: 2,
+                type: 'colour',
+                ru: 'ru',
+                rs: 'rs',
+                en: 'en',
+                ua: 'ua',
+                createdAt: 'stringstringTest',
+                updatedAt: 'stringTest',
+            },
+            {
+                label: 'Синий',
+                hex: '#000080',
+                id: 3,
+                type: 'colour',
+                ru: 'ru',
+                rs: 'rs',
+                en: 'en',
+                ua: 'ua',
+                createdAt: 'stringstringTest',
+                updatedAt: 'stringTest',
+            },
+            {
+                label: 'Голубой',
+                hex: '#A6BEE5',
+                id: 4,
+                type: 'colour',
+                ru: 'ru',
+                rs: 'rs',
+                en: 'en',
+                ua: 'ua',
+                createdAt: 'stringstringTest',
+                updatedAt: 'stringTest',
+            },
             {
                 label: 'Бежевый',
                 hex: '#FFE4C4',
@@ -170,14 +267,7 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
 
             </div>
         })}
-
-
-       
-
-        
-
         </div>
-
 
         <div className={s.addphoto_wrapper}>
             <span className={s.title}>Добавить фото товара</span>
@@ -222,7 +312,6 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                 setChoiseSize(!choiseSize)
            }} className={s.input_colours} disabled id='choisesize' placeholder="Выберите размер" type="text"   />
                 <Image className={choiseSize ? `${s.input_icon_on} ${s.input_icon}` : `${ s.input_icon_off} ${s.input_icon}` } src={openInput} alt='error' />
-
            </label>
 
            <div className={ choiseSize ?  s.choise_set_wrapper :  s.choise_set_wrapper_off }>
@@ -246,36 +335,56 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
         </div>
 
 
-        <div onClick={()=>{
+            <div onClick={()=>{
                 setChoiceColors(!choiceColors)
-            }} className={s.colours_select_wrapper}>
-            <div className={s.title}>
-                Цвет товара
+                // console.log('click')
+                }} className={s.colours_select_wrapper}>
+                <div className={s.title}>
+                    Цвет товара
+                </div>
+                <label className={s.label_colors} htmlFor="colorsbyproduct">
+                    Выберите цвет
+                    <input onClick={(e) => {
+                        e.stopPropagation();
+                    }}  className={s.input_colors} id="colorsbyproduct" type="text" />
+                    <Image className={choiseSize ? `${s.input_icon_on} ${s.input_icon}` : `${ s.input_icon_off} ${s.input_icon}` } src={openInput} alt='error' />
+                </label>
+                <div className={ choiceColors? s.choice_colors_wrapper : s.choice_colors_wrapper_off }>
+                    {colors.map((el, ind)=>{
+                        return <div key={ind} className={s.item_wrapper}>
+                            <span 
+                                style={{
+                                    marginLeft: '20px',
+                                    backgroundColor: `${el.hex}`,
+                                    display: 'block',
+                                    height: '23px',
+                                    width: '23px'
+                                }}
+                                className={s.color}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                }}
+                            />
+                            <span
+                                className={s.title}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                }}
+                            >
+                                {el.label}
+                            </span>
+                        </div>
+                    })}
+                </div>
+
+
             </div>
-            <label className={s.label_colors} htmlFor="colorsbyproduct">
-                
-                Выберите цвет
-                <input  className={s.input_colors} id="colorsbyproduct" type="text" />
-                <Image className={choiseSize ? `${s.input_icon_on} ${s.input_icon}` : `${ s.input_icon_off} ${s.input_icon}` } src={openInput} alt='error' />
-            </label>
 
-            <div className={ choiceColors? s.choice_colors_wrapper : s.choice_colors_wrapper_off }>
-                {colors.map((el, ind)=>{
-                    return <div className={s.item_wrapper}>
-                        <span  style={{
-                            marginLeft: '20px',
-                            backgroundColor: `${el.hex}`,
-                            display: 'block',
-                            height: '23px',
-                            width: '23px' }}className={s.color}>  </span>
-
-                        <span className={s.title}> {el.label}  </span>
-
-                    </div>
-                })}
-
+            <div className={s.select_colors_wrapper}>
+                     {userEdit.colours?.map((el, ind)=>{
+                        return < ColorItem key={ind} hex={el.hex} label={el.label} /> 
+                     })}
             </div>
-        </div>
 
         {/* тоже самое с цветами , сатею в отдельную переменную, локальную переменную после чего с ней работаю и отправляю при отправке ее уже  */}
 
