@@ -17,7 +17,7 @@ import {EditProduct} from './Display/EditProduct'
 import {EditProductItem} from './Display/EditProduct/EditProductItem'
 // import {setModalAddPhoto, setModalAddColor} from '../../../../redux/slices/modal'
 import ChangePasswordSetting from './Display/ChangePasswordSetting'
-import { useWhyDidYouUpdate } from 'ahooks';
+// import { useWhyDidYouUpdate } from 'ahooks';
 import {fetchCategories} from '../../../../redux/slices/goods'
 
 

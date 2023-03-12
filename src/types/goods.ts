@@ -47,7 +47,7 @@ export interface Goods {
 }
 
 
-<<<<<<< HEAD
-=======
+// <<<<<<< HEAD
+// =======
 
->>>>>>> 26aa442abdce5762f0ba43f65247b6154b0069d1
+// >>>>>>> 26aa442abdce5762f0ba43f65247b6154b0069d1
