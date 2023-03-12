@@ -69,7 +69,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const newColoursArr = fetchColoursArr ? [...fetchColoursArr, {
          hex: '#A6BEE5',
 		id: -48093899940393,
-		ru: 'ru',
+		ru: 'Добавить цвет',
 		rs: 'rs',
 		en: 'en',
 		ua: 'Добавить цвет',
@@ -221,7 +221,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                                         }}>
                                         </span>
                                         <span className={s.title}>
-                                            {el.ua}
+                                            {el.ru}
                                         </span>
                                     </div>
                                 ) : <div onClick={()=> {
@@ -236,7 +236,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                                     </svg>
 
                                         <span className={s.title}>
-                                            {el.ua}
+                                            {el.ru}
                                         </span>
                                        
                                 </div>
