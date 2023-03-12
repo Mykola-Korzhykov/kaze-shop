@@ -1,35 +1,89 @@
-import React from 'react'
-import s from './Main.module.scss'
-import Image from 'next/image';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/redux/store';
-import Product from './BuyProducts/Product'
-//imgs
-import { CSSTransition } from 'react-transition-group';
+import s from "./Main.module.scss";
+import Product from '../../../assets/images/main/slideItem/woman_slider_item.png';
+import Product1 from '../../../assets/images/main/slideItem/accessories.png';
+import React from "react";
+import BuyProducts from "./BuyProducts/BuyProducts";
+import Slider from "./Slider/Slider";
+import About from "./About/About";
+import Reviews from "./Reviews/Reviews";
 
-import product1 from '../../../assets/images/main/products/product1.svg'
-import product2 from '../../../assets/images/main/products/product2.svg'
-import product3 from '../../../assets/images/main/products/product3.svg'
-//components
-import BuyProducts from './BuyProducts';
-import ProductFitnes from './ProductFitnes'
-import About from './About'
-import ProductsAccessories from './ProductsAccessories'
-import Reviews from './Reviews'
-import FAQ from './FAQ/FAQ'
+
+const mockSliderProps = [
+    {
+        img: Product,
+        title: 'Лосины ТайДай',
+        price: '78$',
+    },
+    {
+        img: Product,
+        title: 'Лосины ТайДай',
+        price: '78$',
+    },
+    {
+        img: Product,
+        title: 'Лосины ТайДай',
+        price: '78$',
+    },
+    {
+        img: Product,
+        title: 'Лосины ТайДай',
+        price: '78$',
+    },
+    {
+        img: Product,
+        title: 'Лосины ТайДай',
+        price: '78$',
+    },
+    {
+        img: Product,
+        title: 'Лосины ТайДай',
+        price: '78$',
+    }
+];
+
+const mockSliderProps1 = [
+    {
+        img: Product1,
+        title: 'Хай тек серая',
+        price: '48$',
+    },
+    {
+        img: Product1,
+        title: 'Хай тек серая',
+        price: '78$',
+    },
+    {
+        img: Product1,
+        title: 'Хай тек серая',
+        price: '88$',
+    },
+    {
+        img: Product1,
+        title: 'Хай тек серая',
+        price: '28$',
+    },
+    {
+        img: Product1,
+        title: 'Хай тек серая',
+        price: '38$',
+    },
+    {
+        img: Product1,
+        title: 'Хай тек серая',
+        price: '48$',
+    }
+]
 
 const Main = () => {
+    return (
+        <div className={s.wrapper}>
+            <BuyProducts />
+            <Slider items={mockSliderProps} title='Фитнес одежда' />
+            <About />
+            <Slider items={mockSliderProps1} title='Аксессуары' />
+            <Reviews />
+        </div>
+    );
+};
 
-	return (
-		<div className={s.wrapper}>
-			{/* //<BuyProducts /> 
-			<ProductFitnes /> 
-			 <About /> 
-			<ProductsAccessories /> 
-			<Reviews />
-			<FAQ /> */}
-		</div>
-	)
-}
-
-export default Main
+export default Main;

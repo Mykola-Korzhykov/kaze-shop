@@ -1,0 +1,12 @@
+.button_box{
+    display: flex;
+    margin-top: 20px;
+    
+    button{
+        &:first-child {
+            flex-grow: 2;
+            border-right: none;
+
+        }
+    }
+}

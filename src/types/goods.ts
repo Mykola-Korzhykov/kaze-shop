@@ -44,3 +44,5 @@ export interface Goods {
 	categories: fetchedCategory[]
 	// reviews: ReturnedReview[] | [];
 }
+
+
