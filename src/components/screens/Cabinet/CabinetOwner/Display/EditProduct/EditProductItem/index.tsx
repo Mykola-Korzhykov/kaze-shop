@@ -75,6 +75,9 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
+                type: 'colour' ,
+                createdAt: 'test',
+                updatedAt:'test',
             },
             {
                 hex: '#9F8E84',
@@ -83,6 +86,9 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
+                type: 'colour' ,
+                createdAt: 'test',
+                updatedAt:'test',
             },
             {
                 hex: '#000080',
@@ -91,6 +97,9 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
+                type: 'colour' ,
+                createdAt: 'test',
+                updatedAt:'test',
             },
             {
                 hex: '#A6BEE5',
@@ -99,6 +108,9 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
+                type: 'colour' ,
+                createdAt: 'test',
+                updatedAt:'test',
             },
             {
                 hex: '#FFE4C4',
@@ -107,6 +119,9 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
+                type: 'colour' ,
+                createdAt: 'test',
+                updatedAt:'test',
             },
             {
                 hex: '#9F8E84',
@@ -115,6 +130,9 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
+                type: 'colour' ,
+                createdAt: 'test',
+                updatedAt:'test',
             },
             {
                 hex: '#000080',
@@ -123,6 +141,9 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
+                type: 'colour' ,
+                createdAt: 'test',
+                updatedAt:'test',
             },
             {
                 hex: '#A6BEE5',
@@ -131,6 +152,9 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                 rs: 'rs',
                 en: 'en',
                 ua: 'ua',
+                type: 'colour' ,
+                createdAt: 'test',
+                updatedAt:'test',
             },
             
         ],

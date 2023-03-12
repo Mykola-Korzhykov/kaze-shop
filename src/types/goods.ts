@@ -21,14 +21,18 @@ export interface fetchedColour {
 	//updatedAt: any | null
 	//label: string | null
 
-	id: number,
-	ua: string,
-	ru: string,
-	rs: string,
-	en: string,
-	hex: string,
+	id: number | null
+ ua: string | null
+ en: string | null
+ rs: string | null
+ ru: string | null
+ hex: string | null
+ type: 'colour' | null
+ createdAt: any | null
+ updatedAt: any | null
 
 }
+
 
 export interface Goods {
 	id: number

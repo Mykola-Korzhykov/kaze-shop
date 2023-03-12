@@ -366,6 +366,9 @@ const initialState: initialStateType = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
+			type: 'colour' ,
+			createdAt: 'test',
+			updatedAt:'test',
 		},
 		{
 			hex: '#9F8E84',
@@ -374,6 +377,9 @@ const initialState: initialStateType = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
+			type: 'colour' ,
+			createdAt: 'test',
+			updatedAt:'test',
 		},
 		{
 			hex: '#000080',
@@ -382,6 +388,9 @@ const initialState: initialStateType = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
+			type: 'colour' ,
+			createdAt: 'test',
+			updatedAt:'test',
 		},
 		{
 			hex: '#A6BEE5',
@@ -390,6 +399,9 @@ const initialState: initialStateType = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
+			type: 'colour' ,
+			createdAt: 'test',
+			updatedAt:'test',
 		},
 	],
 	categories: [
@@ -445,6 +457,9 @@ const initialState: initialStateType = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
+			type: 'colour' ,
+			createdAt: 'test',
+			updatedAt:'test',
 		},
 		{
 			hex: '#9F8E84',
@@ -453,6 +468,9 @@ const initialState: initialStateType = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
+			type: 'colour' ,
+			createdAt: 'test',
+			updatedAt:'test',
 		},
 		{
 			hex: '#000080',
@@ -461,6 +479,9 @@ const initialState: initialStateType = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
+			type: 'colour' ,
+			createdAt: 'test',
+			updatedAt:'test',
 		},
 		{
 			hex: '#A6BEE5',
@@ -469,6 +490,9 @@ const initialState: initialStateType = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
+			type: 'colour' ,
+			createdAt: 'test',
+			updatedAt:'test',
 		},
 	],
 	categories: [
@@ -524,6 +548,9 @@ const initialState: initialStateType = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
+			type: 'colour' ,
+			createdAt: 'test',
+			updatedAt:'test',
 		},
 		{
 			hex: '#9F8E84',
@@ -532,6 +559,9 @@ const initialState: initialStateType = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
+			type: 'colour' ,
+			createdAt: 'test',
+			updatedAt:'test',
 		},
 		{
 			hex: '#000080',
@@ -540,6 +570,9 @@ const initialState: initialStateType = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
+			type: 'colour' ,
+			createdAt: 'test',
+			updatedAt:'test',
 		},
 		{
 			hex: '#A6BEE5',
@@ -548,6 +581,9 @@ const initialState: initialStateType = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
+			type: 'colour' ,
+			createdAt: 'test',
+			updatedAt:'test',
 		},
 	],
 	categories: [
