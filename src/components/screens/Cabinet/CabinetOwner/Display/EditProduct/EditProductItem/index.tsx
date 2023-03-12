@@ -7,6 +7,9 @@ import Image from "next/image";
 import openInput from '../../../../../../../assets/icons/cabinetAdmin/open_input.svg'
 //components 
 import {Input} from './Input'
+import {SizeItem} from '../../AddProduct/SizesItem'
+//types 
+import {Goods} from '../../../../../../../types/goods'
 
 interface EditProductItemType {
     id: number,
@@ -18,6 +21,7 @@ interface EditProductItemType {
 export const EditProductItem = ({id, }: EditProductItemType) =>{
 
     const [choiseSize, setChoiseSize] = React.useState<boolean>(false)
+    const sizesItems = useSelector((state: RootState)=> state.admin.sizesItems)
 
     console.log('EditProductItemID', id)
 
@@ -25,7 +29,7 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
     const products = useSelector((state: RootState)=>state.admin.editProducts)
 
 
-    const userEdit = React.useState( {
+    const [userEdit, setUserEdit] = React.useState<Goods>( {
         id: 1,
         title: {
             ua: 'Павло',
@@ -43,20 +47,21 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
         quantity: 100,
         // { fileNames: string[], colourId: number; sizes: string[]}
         images: [
+            
         {
-            fileNames: [photo, photo],
+            fileNames: ['fllflf', 'lfllf'],
             colourId: 3,
             sizes: ["S", "M", "L"]
         },
         {
-            fileNames: [photo, photo],
+            fileNames: ['lflflf', 'fllflflf'],
             colourId: 4,
             sizes: ["S", "M", "L"]
         },
         ],
           sizeChartImage: 'kfkf'
           ,
-        sizes: ['X', 'XS'],
+        sizes: ['X', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS'],
         colours: [
             {
                 label: 'Бежевый',
@@ -197,7 +202,6 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
             </label>
             <input className={s.input_file} id='uploadnet' name="net_file" type="file"  />
           </div>
-
         </div>
 
         {/* размер товара делаю интуп и СЕТАЮ существующие в отдельную переменную , меняю ее в редактировке и отправляю при отправке */}
@@ -206,15 +210,38 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
             <span  className={s.choice_size_title}>
                 Размер товара
             </span>
-           <label  htmlFor="choisesize">
-                <input readOnly id='choisesize' placeholder="Выберите размер" type="text"   />
-                <Image  src={openInput} alt='error' />
+           <label className={s.choice_size_label} onClick={()=>{
+                setChoiseSize(!choiseSize)
+           }}  htmlFor="choisesize">
+                Выберите размер
+                <input onClick={()=>{
+                setChoiseSize(!choiseSize)
+           }} className={s.input_colours} disabled id='choisesize' placeholder="Выберите размер" type="text"   />
+                <Image className={choiseSize ? `${s.input_icon_on} ${s.input_icon}` : `${ s.input_icon_off} ${s.input_icon}` } src={openInput} alt='error' />
+
            </label>
+
+           <div className={ choiseSize ?  s.choise_set_wrapper :  s.choise_set_wrapper_off }>
+                {sizesItems.map((el, ind)=>{
+                    return <div  key={ind} className={s.choise_set_item}>
+                        <span className={s.choise_set_title}>
+                            {el.size}
+                        </span>
+                    </div>
+                })}
+           </div>
+
+           <div className={s.selected_sizes}>
+                {userEdit?.sizes.map((el, ind)=>{
+                    return <span className={s.selected_sizes_item} key={ind}  > 
+                            <SizeItem key={ind} id={ind} size={el} />
+                        </span>
+                })}
+           </div>
 
         </div>
 
         {/* тоже самое с цветами , сатею в отдельную переменную, локальную переменную после чего с ней работаю и отправляю при отправке ее уже  */}
-
 
         <div className={s.send_wrapper}>
             <span className={s.send_cancel}>Отмена</span>
