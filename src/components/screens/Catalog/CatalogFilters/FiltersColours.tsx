@@ -25,10 +25,10 @@ const FiltersColours = () => {
 		<div className={s.colors_wrapper}>
 			<p className={s.filters_title}>Цвет:</p>
 			<div className={s.filters_body}>
-				{COLORS.map(el => {
+				{fetchedColours.map(el => {
 					return (
 						<FiltersCheckbox
-							label={el.label}
+							label={el.ua}
 							color={el.hex}
 							key={el.id}
 							type='colour'

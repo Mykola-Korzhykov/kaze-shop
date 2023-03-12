@@ -17,11 +17,11 @@ const FiltersCategories = () => {
 		<div className={s.colors_wrapper}>
 			<p className={s.filters_title}>Категории:</p>
 			<div className={s.filters_body}>
-				{CATEGORIES.map((el, id) => {
+				{fetchedCategories.map((el, id) => {
 					return (
 						<FiltersCheckbox
 							key={id}
-							label={el.label}
+							label={el.ua}
 							color={'white'}
 							type='category'
 							itemId={el.id}
