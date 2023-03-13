@@ -12,7 +12,7 @@ const SlideItem = ({ img, reviewsText, name, className, ...props }: SlideItemInt
             </div>
             <div className={s.item_description}>
                 <h5>{name}</h5>
-                <p>{reviewsText}</p>
+                <p style={{ minHeight: 'fit-content' }}>{reviewsText}</p>
                 <Stars />
             </div>
         </div>

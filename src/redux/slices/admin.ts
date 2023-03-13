@@ -9,7 +9,7 @@ import { API_URL } from '../../services'
 //types 
 import {ProductSend} from '../../types/auth'
 import {fetchedColour, Goods} from '../../types/goods'
-import photo from '../../assets/images/main/About/girl.svg'
+import photo from '../../assets/images/main/About/girl.png';
 
 
 // хардкор

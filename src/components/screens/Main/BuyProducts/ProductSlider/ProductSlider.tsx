@@ -2,7 +2,7 @@ import "keen-slider/keen-slider.min.css";
 
 import React from "react";
 import SlideItem from "../../Slider/SliderItem/SlideItem";
-import Product from '../../../../../assets/images/main/products/product1.svg';
+import Product from '../../../../../assets/images/main/products/product1.png';
 
 import cn from 'classnames';
 

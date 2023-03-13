@@ -4,13 +4,11 @@ import s from './slider.module.scss';
 import SlideItem from './SliderItem/SlideItem';
 import cn from 'classnames';
 import { useKeenSlider } from 'keen-slider/react';
-import React from 'react';
 import ProductBottomButton from '../ProductBottomButton/ProductBottomButton';
 import { SliderInterface } from './Slider.interface';
 
 const Slider = ({ title, items }: SliderInterface): JSX.Element => {
-    
-    const [currentSlide, setCurrentSlide] = React.useState(0);
+
     const [sliderRef, instanceRef] = useKeenSlider({
         slides: {
             perView: 4,
@@ -25,10 +23,6 @@ const Slider = ({ title, items }: SliderInterface): JSX.Element => {
             }
         },
         loop: true,
-        initial: 0,
-        slideChanged(slider) {
-            setCurrentSlide(slider.track.details.rel)
-        }
     })
     return (
         <div className={cn(s.slider_box, 'container')}>

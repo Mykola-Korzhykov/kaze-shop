@@ -1,5 +1,13 @@
 .reviews {
     display: flex;
-    gap: 55px;
-    padding-bottom: 100px;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 35px;
+    margin-bottom: 100px;
+    width: 100%;
+
+    @media (max-width:768px) {
+        flex-direction: column;
+        align-items: center;
+    }
 }
