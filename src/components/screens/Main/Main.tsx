@@ -7,6 +7,7 @@ import Slider from "./Slider/Slider";
 import About from "./About/About";
 import Reviews from "./Reviews/Reviews";
 import FAQ from "./FAQ/FAQ";
+import Footer from "@/components/Footer/Footer";
 
 
 const mockSliderProps = [
@@ -83,7 +84,8 @@ const Main = () => {
             <About />
             <Slider items={mockSliderProps1} title='Аксессуары' />
             <Reviews />
-            <FAQ/>
+            <FAQ />
+            <Footer/>
         </div>
     );
 };
