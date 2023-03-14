@@ -6,6 +6,7 @@ import BuyProducts from "./BuyProducts/BuyProducts";
 import Slider from "./Slider/Slider";
 import About from "./About/About";
 import Reviews from "./Reviews/Reviews";
+import FAQ from "./FAQ/FAQ";
 
 
 const mockSliderProps = [
@@ -82,6 +83,7 @@ const Main = () => {
             <About />
             <Slider items={mockSliderProps1} title='Аксессуары' />
             <Reviews />
+            <FAQ/>
         </div>
     );
 };
