@@ -6,4 +6,5 @@ export interface SlideItemInterface
     img: string | StaticImageData;
     name: string;
     reviewsText: string;
+    grade: number;
 }
