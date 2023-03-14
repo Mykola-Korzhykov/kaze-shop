@@ -17,8 +17,6 @@ const mokLinkData = [
 			link: '#'
 		},
 	],
-
-
 	[
 		{
 			name: 'Повсегдневное белье',
