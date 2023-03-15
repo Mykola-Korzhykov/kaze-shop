@@ -1,7 +1,6 @@
 // import React from "react"
 // import { useSelector } from "react-redux"
 // import { RootState } from "@/redux/store"
-// import s from './addProduct.module.scss'
 // //comonets
 // // import { InputTextItem } from '../../../components/screens/Cabinet/CabinetAdmin/Display/AddProduct/InputText'
 // import Link from "next/link"

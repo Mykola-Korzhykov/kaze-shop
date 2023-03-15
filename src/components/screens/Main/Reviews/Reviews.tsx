@@ -1,5 +1,5 @@
 import ReviewImg from './ReviewsImg/ReviewsImg';
-import s from './reviews.module.scss';
+import s from './Reviews.module.scss';
 import ReviewsSlider from './ReviewsSlider/ReviewsSlider';
 
 
