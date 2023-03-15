@@ -131,7 +131,7 @@
 import React from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
-import s from './AddProduct.module.scss'
+import s from './addProduct.module.scss';
 //components
 import { InputTextItem } from '../../../components/screens/Cabinet/CabinetOwner/Display/AddProduct/InputText'
 // import {ModalAddCategory} from '../AddProduct/ModalAddCategory'
