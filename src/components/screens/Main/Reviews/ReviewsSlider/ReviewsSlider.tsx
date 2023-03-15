@@ -45,7 +45,7 @@ const carousel: KeenSliderPlugin = (slider) => {
     const z = 300
     function rotate() {
         const activeSlide = slider.track.absToRel(slider.track.details.abs);
-        const width = slider.container.clientWidth / 3;
+        const width = slider.container.clientHeight / 3;
 
         slider.slides.forEach((item, i) => {
 
@@ -56,9 +56,20 @@ const carousel: KeenSliderPlugin = (slider) => {
             // } else {
             //     item.style.width = '100%'
             // }
-        })
-        console.log(activeSlide)
+            const prev = activeSlide === 0 ? 0 : activeSlide - 1;
+            const next = activeSlide + 1;
+            const minWidth = item.clientWidth / 100 * 70;
+            const maxWidth = slider.container.clientWidth;
+            const track = slider.track.details.progress * 100;
+            // if (track) {
+            //     item.style.maxWidth = (item.clientWidth + 1) + 'px';
 
+            // }
+            // if (next === i && item.clientWidth > minWidth) {
+            //     item.style.maxWidth = item.clientWidth - 1 + 'px';
+            // }
+            console.log(track / 5, slider.track.details.position)
+        })
     }
     slider.on('created', () => {
         const activeSlide = slider.track.absToRel(slider.track.details.abs);

@@ -1,4 +1,3 @@
-import s from "./Main.module.scss";
 import Product from '../../../assets/images/main/products/product1.png';
 import Product1 from '../../../assets/images/main/ProductsAccessories/product2.png';
 import React from "react";
@@ -78,7 +77,7 @@ const mockSliderProps1 = [
 
 const Main = () => {
     return (
-        <div className={s.wrapper}>
+        <div>
             <BuyProducts />
             <Slider items={mockSliderProps} title='Фитнес одежда' />
             <About />

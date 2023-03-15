@@ -6,56 +6,71 @@ const mokLinkData = [
 	[
 		{
 			name: 'Лосины',
-			link: '#'
+			link: '/catalog',
+			id: 1,
 		},
 		{
 			name: 'Сумки',
-			link: '#'
+			link: '/catalog',
+			id: 2,
 		},
 		{
 			name: 'Топы',
-			link: '#'
+			link: '/catalog',
+			id: 3,
+
 		},
 	],
 	[
 		{
 			name: 'Повсегдневное белье',
-			link: '#'
+			link: '/catalog',
+			id: 4,
 		},
 		{
 			name: 'Велосипедки',
-			link: '#'
+			link: '/catalog',
+			id: 5,
 		},
 		{
 			name: 'Костюмы',
-			link: '#'
+			link: '/catalog',
+			id: 6,
+
 		},
 	],
 	[
 		{
 			name: 'Доставка и возврат',
-			link: '#'
+			link: '/delivery',
+			id: 7,
 		},
 		{
 			name: 'Про бренд',
-			link: '#'
-		}, {
+			link: '/about',
+			id: 8
+		},
+		{
 			name: 'FAQ',
-			link: '#'
+			link: '/faq',
+			id: 9
 		},
 	],
 	[
 		{
 			name: 'Instagram',
-			link: '#'
+			link: 'https://instagram.com',
+			id: 9,
 		},
 		{
 			name: 'Facebook',
-			link: '#'
+			link: 'https://facebook.com',
+			id: 10,
 		},
 		{
 			name: 'TikTok',
-			link: '#'
+			link: 'https://tiktok.com',
+			id: 11,
 		}
 	]
 ]
@@ -72,9 +87,13 @@ const Footer = (): JSX.Element => {
 							return (
 								<div key={i}>
 									{item.map(({ name, link }, i) => {
-										return (
-											<Link key={i} href={link}>{name}</Link>
-										)
+										if (name === '/catalog') {
+											return <Link href={link} key={i}>{name}</Link>
+										}
+										if (['Instagram', 'Facebook', 'TikTok'].includes(name)) {
+											return <Link href={link} target='_blank' key={i}>{name}</Link>
+										}
+										return <Link href={link} key={i}>{name}</Link>
 									})}
 								</div>
 							)
