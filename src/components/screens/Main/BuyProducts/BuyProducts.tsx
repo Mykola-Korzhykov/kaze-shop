@@ -1,4 +1,4 @@
-import s from "./buyProducts.module.scss";
+import s from "./BuyProducts.module.scss";
 import ArrowRight from "../../../../assets/images/main/ArrowRight.svg";
 
 import Link from "next/link";

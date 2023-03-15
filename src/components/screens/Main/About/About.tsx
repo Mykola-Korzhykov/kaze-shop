@@ -1,4 +1,4 @@
-import s from "./about.module.scss";
+import s from "./About.module.scss";
 import woman from "../../../../assets/images/main/About/girl.png";
 
 import Image from "next/image";

@@ -1,6 +1,9 @@
+import { fetchGoodsByCategory } from '@/redux/slices/goods';
+import { Goods } from '@/types/goods';
+import { AsyncThunkAction, Dispatch, AnyAction } from '@reduxjs/toolkit';
 import Link from 'next/link';
 import { HeaderLogo } from '../Header';
-import s from './footer.module.scss';
+import s from './Footer.module.scss';
 
 const mokLinkData = [
 	[
@@ -86,9 +89,13 @@ const Footer = (): JSX.Element => {
 						{mokLinkData.map((item, i) => {
 							return (
 								<div key={i}>
-									{item.map(({ name, link }, i) => {
+									{item.map(({ name, link, id }, i) => {
 										if (name === '/catalog') {
-											return <Link href={link} key={i}>{name}</Link>
+											return <Link href={link}
+												onClick={() => dispatch(fetchGoodsByCategory(id))}
+												key={i}>
+												{name}
+											</Link>	
 										}
 										if (['Instagram', 'Facebook', 'TikTok'].includes(name)) {
 											return <Link href={link} target='_blank' key={i}>{name}</Link>
@@ -110,3 +117,7 @@ const Footer = (): JSX.Element => {
 }
 
 export default Footer
+function dispatch(arg0: AsyncThunkAction<Goods[], number, { rejectValue: string; state?: unknown; dispatch?: Dispatch<AnyAction>; extra?: unknown; serializedErrorType?: unknown; pendingMeta?: unknown; fulfilledMeta?: unknown; rejectedMeta?: unknown; }>) {
+	throw new Error('Function not implemented.');
+}
+
