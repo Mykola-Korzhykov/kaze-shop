@@ -70,7 +70,7 @@ export const fetchCategories = createAsyncThunk<
 	// console.log('fetchCategories запит пошел')
 	try {
 		const data = await Api().goods.getGategories()
-		return data
+		return data.data
 	} catch (e) {
 		return rejectWithValue(e.response.data.rawErrors[0].ua)
 	}
@@ -84,7 +84,7 @@ export const fetchColours = createAsyncThunk<
 	// console.log('fetchColours запит пошел')
 	try {
 		const data = await Api().goods.getColours()
-		return data
+		return data.data
 	} catch (e) {
 		return rejectWithValue(e.response.data.rawErrors[0].ua)
 	}

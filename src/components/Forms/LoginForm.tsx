@@ -26,13 +26,31 @@ const LoginForm = () => {
 		try {
 			setLoginLoading(true)
 			const data = await Api().user.login(dto)
-			console.log('my user:', data.user)
+
 			setCookie(null, 'accessToken', data.accessToken, {
 				maxAge: 30 * 24 * 60 * 60,
 				path: '/',
 			})
 			if (data.user) {
 				dispatch(addUserInfo(data.user))
+				localStorage.setItem(
+					'expireDate',
+					new Date(new Date().setDate(new Date().getDate() + 7)) + ''
+				)
+			}
+			if (data.owner) {
+				dispatch(addUserInfo(data.owner))
+				localStorage.setItem(
+					'expireDate',
+					new Date(new Date().setDate(new Date().getDate() + 1)) + ''
+				)
+			}
+			if (data.admin) {
+				dispatch(addUserInfo(data.admin))
+				localStorage.setItem(
+					'expireDate',
+					new Date(new Date().setDate(new Date().getDate() + 2)) + ''
+				)
 			}
 			router.push('/cabinet')
 		} catch (err) {
@@ -64,7 +82,11 @@ const LoginForm = () => {
 					isPassword={true}
 				/>
 				<div className='auth_detail'>
-					<CheckBox isChecked={isRemember} setIsChecked={setIsRemember} text="Запомнить меня" />
+					<CheckBox
+						isChecked={isRemember}
+						setIsChecked={setIsRemember}
+						text='Запомнить меня'
+					/>
 					<Link href={'/forgot'} className='auth_detail_link'>
 						Забыл пароль
 					</Link>

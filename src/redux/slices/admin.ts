@@ -29,7 +29,7 @@ export const findUsersRole = createAsyncThunk(
       },
     });
     const response = await instance.get(`/user/find_users?page=1&pageSize=10&v=${params}`);
-    return response.data;
+    return response.data.data;
   }
 );
 
@@ -47,7 +47,7 @@ export const getUsersRole = createAsyncThunk(
 		const response = await instance.get(
 			`/user/get_users?page=${params}&pageSize=10`
 		)
-		return response.data
+		return response.data.data
 	}
 )
 
@@ -63,7 +63,7 @@ export const findUsersAdmin = createAsyncThunk(
       },
     });
     const response = await instance.get(`/admin/find_admin?page=1&pageSize=10&v=${params}`);
-    return response.data;
+    return response.data.data;
   }
 );
 
@@ -81,7 +81,7 @@ export const getUsersAdmin = createAsyncThunk(
 		const response = await instance.get(
 			`/admin/get_admins?page=${params}&pageSize=10`
 		)
-		return response.data
+		return response.data.data
 	}
 )
 
