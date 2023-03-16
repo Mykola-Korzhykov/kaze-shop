@@ -380,8 +380,8 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                                     border: '#9D9D9D solid 1.5px'
                                 }} className={s.text}>Удалить сет</span> : <span className={s.text}>Загрузить фото</span>}
                                 
-                                {imageUrlArr[ind]?.map((el)=>{
-                                    return  <Image
+                                {imageUrlArr[ind]?.map((el, ind)=>{
+                                    return  <Image key={ind}
                                     className={ el ? s.photo_item : s.photo_item_off }
                                     src={el}
                                     alt=""
