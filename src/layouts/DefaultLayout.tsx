@@ -7,7 +7,10 @@ const RussoOne = Russo_One({
 	weight: '400',
 	subsets: ['latin', 'cyrillic'],
 })
-const DefaultLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
+const DefaultLayout: FC<{ children: React.ReactNode; showFooter?: boolean }> = ({
+	children,
+	showFooter,
+}) => {
 	const [isSticky, setIsSticky] = useState<boolean>(false)
 	const [headerHeight, setHeaderHeight] = useState<number | undefined>(0)
 
@@ -48,7 +51,7 @@ const DefaultLayout: FC<{ children: React.ReactNode }> = ({ children }) => {
 			<div className='wrapper'>
 				<Header isSticky={isSticky} headerRef={headerRef} />
 				{children}
-				{/* <Footer /> */}
+				{showFooter && <Footer />}
 			</div>
 		</>
 	)

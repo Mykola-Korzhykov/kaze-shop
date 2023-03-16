@@ -8,7 +8,20 @@ import CompareModal from './CompareModal'
 const Compare = () => {
 	const [sizeActive, setSizeActive] = React.useState<boolean>(false)
 	const [colorActive, setColorActive] = React.useState<boolean>(false)
-	const [showModal, setShowModal] = React.useState<boolean>(true)
+	const [showModal, setShowModal] = React.useState<boolean>(false)
+	const [selectedSizeEl, setSelectedSizeEl] = React.useState<{
+		label: string
+		id: number
+	} | null>(null)
+	const SIZES = [
+		{ label: 'XS', id: 1 },
+		{ label: 'XS-S', id: 2 },
+		{ label: 'S', id: 3 },
+		{ label: 'M', id: 5 },
+	]
+	React.useEffect(() => {
+		setSelectedSizeEl(SIZES[0])
+	}, [])
 	return (
 		<>
 			{showModal && <CompareModal setShowModal={setShowModal} />}
@@ -38,6 +51,29 @@ const Compare = () => {
 												sizeActive ? `${s.open}` : ''
 											}`}
 										>
+											{selectedSizeEl?.label}
+										</button>
+										{sizeActive && (
+											<div className={s.size_droplist}>
+												{SIZES.filter(el => el.id !== selectedSizeEl.id).map(el => {
+													return (
+														<button
+															onClick={() => setSelectedSizeEl(el)}
+															key={el.id}
+															className={s.size_btn}
+														>
+															{el.label}
+														</button>
+													)
+												})}
+											</div>
+										)}
+										{/* <button
+											onClick={() => setSizeActive(prev => !prev)}
+											className={`${s.size_btn} ${
+												sizeActive ? `${s.open}` : ''
+											}`}
+										>
 											XL
 										</button>
 										{sizeActive && (
@@ -46,7 +82,7 @@ const Compare = () => {
 												<button className={s.size_btn}>XXL</button>
 												<button className={s.size_btn}>S</button>
 											</div>
-										)}
+										)} */}
 									</div>
 									<div className={s.select_color}>
 										<button

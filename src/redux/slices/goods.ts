@@ -7,7 +7,9 @@ import { AxiosError } from 'axios'
 
 type GoodsSlice = {
 	goods: Goods[] | null
+	product?: Goods | null
 	compareProduct: Goods | null
+	compareOfferProducts: Goods[] | null
 	basketOfProducts: Goods[] | null
 	loadingStatus: 'loading' | 'error' | 'idle'
 	page: number
@@ -24,7 +26,7 @@ type GoodsSlice = {
 }
 
 export const fetchGoods = createAsyncThunk<
-	Goods[],
+	{ products: Goods[]; totalProducts: number },
 	null,
 	{ rejectValue: string }
 >('goods/fetchAllGoods', async (_, { getState, rejectWithValue }) => {
@@ -128,6 +130,7 @@ const initialState: GoodsSlice = {
 	goods: null,
 	page: 1,
 	compareProduct: null,
+	compareOfferProducts: null,
 	basketOfProducts: null,
 	loadingStatus: 'idle',
 	sortType: '',
@@ -137,207 +140,8 @@ const initialState: GoodsSlice = {
 	filterCategories: [],
 	filterSizes: [],
 	filterColours: [],
-
-	fetchedColours: [
-	// 	{
-	// 		hex: '#FFE4C4',
-	// 		id: 1,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Бежевый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#9F8E84',
-	// 		id: 2,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Капучинный',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-
-	// 	},
-	// 	{
-	// 		hex: '#000080',
-	// 		id: 3,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Синий',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#A6BEE5',
-	// 		id: 4,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Голубой',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#0B0B0B',
-	// 		id: 5,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Коричневый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#24514C',
-	// 		id: 6,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Изумрудный',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#FFC0CB',
-	// 		id: 7,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Розовый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#800080',
-	// 		id: 8,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Фиолетовый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#0B0B0B',
-	// 		id: 52,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Черный',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#829E86',
-	// 		id: 432,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Оливковый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#fff',
-	// 		id: 34314,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Белый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#808080',
-	// 		id: 13413413413,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Серый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#525A5B',
-	// 		id: 57567,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Графитовый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// {
-	// 		hex: '#F2E2D8',
-	// 		id: 75756756,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Пудровый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	],
-	fetchedCategories: [
-	// {
-	// 	id: 1,
-	// 	ua: 'UAstring',
-	// 	en: 'ENstring',
-	// 	rs: 'RSstring',
-	// 	ru: 'RUtring',
-	// 	type: 'category',
-	// 	createdAt: 'string',
-	// 	updatedAt: 'string'
-	// },
-	// {
-	// 	id: 2,
-	// 	ua: 'UAstring',
-	// 	en: 'ENstring',
-	// 	rs: 'RSstring',
-	// 	ru: 'RUtring',
-	// 	type: 'category',
-	// 	createdAt: 'string',
-	// 	updatedAt: 'string'
-	// },
-	// {
-	// 	id: 3,
-	// 	ua: 'UAstring',
-	// 	en: 'ENstring',
-	// 	rs: 'RSstring',
-	// 	ru: 'RUtring',
-	// 	type: 'category',
-	// 	createdAt: 'string',
-	// 	updatedAt: 'string'
-	// },
-	// {
-	// 	id: 4,
-	// 	ua: 'UAstring',
-	// 	en: 'ENstring',
-	// 	rs: 'RSstring',
-	// 	ru: 'RUtring',
-	// 	type: 'category',
-	// 	createdAt: 'string',
-	// 	updatedAt: 'string'
-	// }
-
-	],
+	fetchedColours: [],
+	fetchedCategories: [],
 	language: 'ua',
 }
 
@@ -392,7 +196,8 @@ const goodsSlice = createSlice({
 	extraReducers: builder => {
 		builder.addCase(fetchGoods.fulfilled, (state, action) => {
 			state.loadingStatus = 'idle'
-			state.goods = action.payload
+			state.goods = action.payload.products
+			state.totalProducts = action.payload.totalProducts
 		}),
 			builder.addCase(fetchGoods.pending, state => {
 				state.loadingStatus = 'loading'
@@ -468,7 +273,6 @@ export const {
 	setFilterSize,
 	setSortType,
 	setPage,
-	setHeaderCategory,
 } = goodsSlice.actions
 
 export default goodsSlice.reducer
