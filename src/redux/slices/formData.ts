@@ -144,6 +144,10 @@ export const formData = createSlice({
             state.arrObjMod.push(action.payload) 
 
         },
+        removearrObjMod: (state, action: PayloadAction< number>)=>{
+            console.log('click state ')
+            state.arrObjMod.splice(action.payload, 1)
+        },
         setImages: (state, action: PayloadAction<File>) =>{
             
             state.images.push(action.payload) 
@@ -165,6 +169,7 @@ export const {
     setCategories,
     setNetData,
     setSizeChartImageDescription,
-    setArrObjMod} = formData.actions
+    setArrObjMod,
+    removearrObjMod} = formData.actions
 
 export default formData.reducer

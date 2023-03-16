@@ -9,7 +9,7 @@ interface ModalType {
     modalAddCAtegory: boolean
     choiceColor: boolean
     countPhoto: number,
-    imageUrlArr: string[]
+    imageUrlArr: string[][]
     
 }
 
@@ -20,9 +20,9 @@ const initialState: ModalType = {
     choiceColor: false,
     countPhoto: 1,
     //для отобржения фото после загрузки 
-    imageUrlArr: [] 
-
+    imageUrlArr: []
 }
+
 // const [countPhoto, setCountPhoto] = React.useState<number>(1)
 const modaleSlice  = createSlice({
 	name: 'user',
@@ -43,7 +43,7 @@ const modaleSlice  = createSlice({
         setChoiceColorDispatch: (state, action) =>{
             // state.choiceColor = action.payload
         },
-        setImageUrl:(state, action: PayloadAction<string>) =>{
+        setImageUrl:(state, action: PayloadAction<string[]>) =>{
             state.imageUrlArr.push(action.payload)
         }
 

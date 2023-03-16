@@ -51,11 +51,11 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const selectedSizes = useSelector((state: RootState)=> state.formData.sizes)
    // const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
     const sizesItems =  useSelector((state: RootState)=> state.admin.sizesItems)
-    //get
+    //getinput_choice_photo
     const categories =  useSelector((state: RootState)=> state.goods.fetchedCategories)
     const fetchedCategories =  useSelector((state: RootState)=> state.goods.fetchedCategories)
     const colourId =  useSelector((state: RootState)=> state.formData.colourId)
-    const ArrObjMod =  useSelector((state: RootState)=> state.formData.arrObjMod)
+    const arrObjMods =  useSelector((state: RootState)=> state.formData.arrObjMod)
     const images = useSelector((state: RootState)=> state.formData.images)
     const fetchColoursArr = useSelector((state: RootState)=> state.goods.fetchedColours)
     // id: number | null
@@ -68,6 +68,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
 	// createdAt: any | null
 	// updatedAt: any | null
 	// label: string | null
+
     const newColoursArr = fetchColoursArr ? [...fetchColoursArr, {
          hex: '#A6BEE5',
 		id: -48093899940393,
@@ -108,15 +109,28 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
         dispatch(removeAll())
         setFiles([])
         dispatch(setModalAddPhoto(false))
-        const file = files[0];
+        // const file = files[0];
+        // const url = URL.createObjectURL(file);
+        const urls = [];
+
+        for (let i = 0; i < files.length; i++) {
+        const file = files[i];
         const url = URL.createObjectURL(file);
+        urls.push(url);
+        }
+
         // setImageUrl(url)
-        dispatch(setImageUrl(url))
+        dispatch(setImageUrl(urls))
      }
 
    
      
-    const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>)=>{
+    const handleFileUploadPng = (event: React.ChangeEvent<HTMLInputElement>)=>{
+        setFiles(  (prevArray: any) => [...prevArray,  event.target.files[0]] )
+        setImages( (prevArray: any) => [...prevArray,  event.target.files[0]])
+    }
+
+    const handleFileUploadJpg = (event: React.ChangeEvent<HTMLInputElement>)=>{
         
         setFiles(  (prevArray: any) => [...prevArray,  event.target.files[0]] )
         setImages( (prevArray: any) => [...prevArray,  event.target.files[0]])
@@ -148,11 +162,20 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
 
             <div className={s.inputs_wrapper}>
                 <div className={s.input_inner}>
-                    <span className={s.title}>Фотографии </span>
+                    <span className={s.title}> Фотография в jpg  </span>
                     <label className={s.label_input_file} htmlFor="uploadfileaddphotojpg">
                         Загрузите фотографию
-                        <input  key={Math.random()} ref={inputRef} multiple onChange={handleFileUpload} id="uploadfileaddphotojpg" className={s.input_file} placeholder='Загрузите фотографию' type="file" />
+                        <input  key={Math.random()} ref={inputRef} multiple onChange={handleFileUploadPng} id="uploadfileaddphotojpg" className={s.input_file} placeholder='Загрузите фотографию' type="file" />
 
+
+                    </label>
+                </div>
+
+                <div className={s.input_inner}>
+                    <span className={s.title}>Фотография в png  </span>
+                    <label className={s.label_input_file} htmlFor="uploadfileaddphotojpg">
+                        Загрузите фотографию
+                        <input  key={Math.random()} ref={inputRef} multiple onChange={handleFileUploadJpg} id="uploadfileaddphotojpg" className={s.input_file} placeholder='Загрузите фотографию' type="file" />
 
                     </label>
                 </div>
@@ -182,7 +205,11 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                         <div className={ choiceSize ? `${s.choice_photo_wrapper} ${s.choice_photo_on}` : `${s.choice_photo_wrapper} ${s.choice_photo_off}`  }>
                             {sizesItems.map((el, ind)=>{
                                 return <span onClick={
-                                    ()=>  dispatch(setSizes(el.size)) 
+                                    ()=> {
+                                        if(!selectedSizes.includes(el.size)){
+                                            dispatch(setSizes(el.size)) 
+                                        }   
+                                    }
                                 } key={ind} className={s.item_choice_photo}>
                                     {el.size}
                                 </span>

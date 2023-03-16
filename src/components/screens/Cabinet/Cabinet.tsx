@@ -89,14 +89,14 @@ const Cabinet: FC = () => {
 				)}
 				{user?.user?.type === 'ADMIN' && <CabinetAdmin />}
 
-				{/* <CabinetOwner 
+				<CabinetOwner 
 				modalAddCAtegory={modalAddCAtegory} 
                 imagesData={images} setImages={setImages}  
                 setCountPhoto={setCountPhoto}  
 				modalAddPhoto={modalAddPhoto}
                 modalAddColor={modalAddColorTurn} 
                 setModalAddColor={setModalAddColor}   
-                />    */}
+                /> 
 				{/* <CabinetAdmin /> */}
 
 				{/* <div className={s.backround_module}></div>  */}
