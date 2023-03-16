@@ -6,9 +6,9 @@ import s from './CatalogItems.module.scss'
 import CatalogItem from './CatalogItem'
 const CatalogItems = () => {
 	const goods = useAppSelector(selectGoods)
-	const renderGoods = (arr: Goods[]) => {
-		if (arr.length === 0) {
-			;<h1>Товари з таким запитом не знайдені!</h1>
+	const renderGoods = (arr: Goods[] | null) => {
+		if (!arr) {
+			return <h1>Товари за таким запитом не знайдені!</h1>
 		}
 		return arr?.map(product => {
 			return <CatalogItem product={product} key={product.id} />
@@ -16,13 +16,13 @@ const CatalogItems = () => {
 	}
 	return (
 		<div className={s.wrapper}>
+			{/* <CatalogItem />
 			<CatalogItem />
 			<CatalogItem />
 			<CatalogItem />
 			<CatalogItem />
-			<CatalogItem />
-			<CatalogItem />
-			{/* {renderGoods(goods)} */}
+			<CatalogItem /> */}
+			{renderGoods(goods)}
 		</div>
 	)
 }

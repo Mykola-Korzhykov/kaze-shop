@@ -61,6 +61,24 @@ export const fetchGoodsByCategory = createAsyncThunk<
 		}
 	}
 )
+export const fetchCompareOfferProducts = createAsyncThunk<
+	Goods[],
+	number,
+	{ rejectValue: string }
+>(
+	'goods/fetchCompareOfferProducts',
+	async (categoryId: number, { getState, rejectWithValue }) => {
+		const state = getState() as RootState
+		const goodsState = state.goods
+		const pageNumber = goodsState.page
+		try {
+			const data = await Api().goods.getProductsWithAnotherCategory(categoryId)
+			return data
+		} catch (e) {
+			return rejectWithValue(e.response.data.rawErrors[0].ua)
+		}
+	}
+)
 
 export const fetchCategories = createAsyncThunk<
 	fetchedCategory[],
@@ -192,6 +210,10 @@ const goodsSlice = createSlice({
 				state.page = 1
 			}
 		},
+		addProductToBasket(state, action: PayloadAction<Goods>) {
+			state.basketOfProducts.push(action.payload)
+			state.compareProduct = action.payload
+		},
 	},
 	extraReducers: builder => {
 		builder.addCase(fetchGoods.fulfilled, (state, action) => {
@@ -250,6 +272,17 @@ const goodsSlice = createSlice({
 				state.loadingStatus = 'error'
 				state.errors = action.payload
 			}),
+			builder.addCase(fetchCompareOfferProducts.fulfilled, (state, action) => {
+				state.loadingStatus = 'idle'
+				state.compareOfferProducts = action.payload
+			}),
+			builder.addCase(fetchCompareOfferProducts.pending, (state, action) => {
+				state.loadingStatus = 'loading'
+			}),
+			builder.addCase(fetchCompareOfferProducts.rejected, (state, action) => {
+				state.loadingStatus = 'error'
+				state.errors = action.payload
+			}),
 			builder.addDefaultCase((state, action) => {
 				const [type] = action.type.split('/').splice(-1)
 				if (type === 'rejected') {
@@ -273,6 +306,7 @@ export const {
 	setFilterSize,
 	setSortType,
 	setPage,
+	addProductToBasket,
 } = goodsSlice.actions
 
 export default goodsSlice.reducer
