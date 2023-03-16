@@ -1,26 +1,33 @@
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useAppSelector, useAppDispatch } from '@/redux/hooks'
 import s from './Compare.module.scss'
 import cartImage from '../../../assets/images/cartItem.png'
 import catalogItem from '../../../assets/images/compare.png'
 import CompareModal from './CompareModal'
+import { useRouter } from 'next/router'
 const Compare = () => {
+	const router = useRouter()
+	const compareProduct = useAppSelector(state => state.goods.compareProduct)
 	const [sizeActive, setSizeActive] = React.useState<boolean>(false)
 	const [colorActive, setColorActive] = React.useState<boolean>(false)
 	const [showModal, setShowModal] = React.useState<boolean>(false)
-	const [selectedSizeEl, setSelectedSizeEl] = React.useState<{
-		label: string
-		id: number
-	} | null>(null)
-	const SIZES = [
-		{ label: 'XS', id: 1 },
-		{ label: 'XS-S', id: 2 },
-		{ label: 'S', id: 3 },
-		{ label: 'M', id: 5 },
-	]
+	const [selectedSizeEl, setSelectedSizeEl] = React.useState<string | null>(
+		null
+	)
+	const [selectedColorEl, setSelectedColorEl] = React.useState<string | null>(
+		null
+	)
+	const SIZES = ['XS-S', 'S', 'XS']
+	const COLOURS = ['#ffc0cb', 'red', 'black']
 	React.useEffect(() => {
-		setSelectedSizeEl(SIZES[0])
+		if (!compareProduct) {
+			router.push('/catalog')
+		} else {
+			setSelectedSizeEl(compareProduct.sizes[0])
+			setSelectedColorEl(compareProduct.hexes[0])
+		}
 	}, [])
 	return (
 		<>
@@ -40,8 +47,8 @@ const Compare = () => {
 							</div>
 							<div className={s.main_content}>
 								<div className={s.main_text}>
-									<p className={s.main_title}>Лосины Тай Дай</p>
-									<p className={s.main_price}>78$</p>
+									<p className={s.main_title}>{compareProduct?.title?.ua}</p>
+									<p className={s.main_price}>{compareProduct?.price}</p>
 								</div>
 								<div className={s.selects}>
 									<div className={s.select_size}>
@@ -51,38 +58,25 @@ const Compare = () => {
 												sizeActive ? `${s.open}` : ''
 											}`}
 										>
-											{selectedSizeEl?.label}
+											{selectedSizeEl}
 										</button>
 										{sizeActive && (
 											<div className={s.size_droplist}>
-												{SIZES.filter(el => el.id !== selectedSizeEl.id).map(el => {
-													return (
-														<button
-															onClick={() => setSelectedSizeEl(el)}
-															key={el.id}
-															className={s.size_btn}
-														>
-															{el.label}
-														</button>
-													)
-												})}
+												{SIZES.filter(el => el !== selectedSizeEl).map(
+													(el, idx) => {
+														return (
+															<button
+																onClick={() => setSelectedSizeEl(el)}
+																key={idx + '' + new Date()}
+																className={s.size_btn}
+															>
+																{el}
+															</button>
+														)
+													}
+												)}
 											</div>
 										)}
-										{/* <button
-											onClick={() => setSizeActive(prev => !prev)}
-											className={`${s.size_btn} ${
-												sizeActive ? `${s.open}` : ''
-											}`}
-										>
-											XL
-										</button>
-										{sizeActive && (
-											<div className={s.size_droplist}>
-												<button className={s.size_btn}>M</button>
-												<button className={s.size_btn}>XXL</button>
-												<button className={s.size_btn}>S</button>
-											</div>
-										)} */}
 									</div>
 									<div className={s.select_color}>
 										<button
@@ -91,19 +85,23 @@ const Compare = () => {
 												colorActive ? `${s.open}` : ''
 											}`}
 										>
-											<p style={{ backgroundColor: '#CB9919' }}></p>
+											<p style={{ backgroundColor: selectedColorEl }}></p>
 										</button>
 										{colorActive && (
 											<div className={s.color_droplist}>
-												<button className={s.color_btn}>
-													<p style={{ backgroundColor: '#7C5F72' }}></p>
-												</button>
-												<button className={s.color_btn}>
-													<p style={{ backgroundColor: '#607C5F' }}></p>
-												</button>
-												<button className={s.color_btn}>
-													<p style={{ backgroundColor: '#747C5F' }}></p>
-												</button>
+												{COLOURS.filter(el => el !== selectedColorEl).map(
+													(el, idx) => {
+														return (
+															<button
+																onClick={() => setSelectedColorEl(el)}
+																key={idx + '' + new Date()}
+																className={s.color_btn}
+															>
+																<p style={{ backgroundColor: el }}></p>
+															</button>
+														)
+													}
+												)}
 											</div>
 										)}
 									</div>
