@@ -3,7 +3,8 @@ import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import s from './AddProduct.module.scss'
 //components & redux
-import {setModalAddPhoto} from '../../../../../../redux/slices/modal'
+import {removearrObjMod} from '../../../../../../redux/slices/formData'
+import {setModalAddPhoto, removeimageUrlArr} from '../../../../../../redux/slices/modal'
 import { InputTextItem } from './InputText'
 // import {ModalAddCategory} from '../AddProduct/ModalAddCategory'
 import {setAddPhotoState} from '../../../../../../redux/slices/admin'
@@ -27,9 +28,7 @@ interface AddProductProps {
     imagesData: File[],
     setImages: (n: any)=> void,
     modalAddCAtegory: boolean,
-   
 }
-  
 
 interface formDataType {
         images: File[] ,
@@ -86,7 +85,12 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
     const quantity =  useSelector((state: RootState)=> state.formData.quantity)
     const netImage =  useSelector((state: RootState)=> state.formData.netData)
     const allsizes =  useSelector((state: RootState)=> state.formData.allsizes)
+
+    //
+    const arrObjMods =  useSelector((state: RootState)=> state.formData.arrObjMod)
     console.log('imageUrlArr', imageUrlArr)
+    console.log(' imageUrlArr[ind]',  imageUrlArr[0])
+    // imageUrlArr[ind]
 
    let  objDataSend = {
         images: imagesData,
@@ -202,7 +206,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         { id: 5, type: 'text', text: 'Описание товара UA', placeholder: 'Введите описание товара', name: 'descriptionUA',disable: false },
         { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', name: 'descriptionSRB',disable: false },
         { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false },
-        { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', name: 'text', disable: false },
+        { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара', name: 'text', disable: false },
         { id: 9, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false },
         { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false },
         // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', name: 'text', disable: true, colors: colors },
@@ -363,23 +367,62 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                         return <div key={ind} onClick={()=> dispatch(setModalAddPhoto(!modalAddPhoto))} className={s.addphoto_wrapper}>
                             <div className={s.element_wrapper}>
                                 <span className={s.id}> {`${el.id}.`}</span>
-                                <span className={s.text}>Загрузить фото</span>
-                                <Image
-                                className={ imageUrlArr[ind] ?    s.photo_item : s.photo_item_off }
-                                src={imageUrlArr[ind] ? imageUrlArr[ind] : ''}
-                                alt=""
-                                width={200}
-                                height={200}
-                                onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                                //   if(imageUrlArr[ind]){
-                                //   }else{
-                                //     const target = e.target as HTMLImageElement;
-                                //     // console.log('Error loading image:', target.src);
-                                //     // console.log('imageUrlArr', imageUrlArr)
-                                //     target.style.display = 'none';
-                                //   }
-                                }}
-                                />
+                                    {/* определение загруженого обьекта */}
+                                {arrObjMods[ind]? <span onClick={(e)=>{
+                                    dispatch(removearrObjMod(ind))
+                                    dispatch(removeimageUrlArr(ind))
+
+                                    console.log('removearrObjMod', removearrObjMod)
+                                    console.log('click', ind)
+                                    console.log('arrObjMods', arrObjMods)
+                                    e.stopPropagation()
+                                    
+                                }} style={{
+                                    color: '#9D9D9D', 
+                                    border: '#9D9D9D solid 1.5px'
+                                }} className={s.text}>Удалить сет</span> : 
+                                
+                                <span className={s.text}>Загрузить фото</span>}
+                                
+                                {imageUrlArr[ind]?.map((el, ind)=>{
+                                    return  <Image key={ind}
+                                    className={ el ? s.photo_item : s.photo_item_off }
+                                    src={el}
+                                    alt=""
+                                    width={200}
+                                    height={200}
+                                    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                                    //   if(imageUrlArr[ind]){
+                                    //   }else{
+                                    //     const target = e.target as HTMLImageElement;
+                                    //     // console.log('Error loading image:', target.src);
+                                    //     // console.log('imageUrlArr', imageUrlArr)
+                                    //     target.style.display = 'none';
+                                    //   }
+                                    }}
+                                    />
+                                })}
+                                {/* {imageUrlArr[ind].fileNames.map((el)=>{
+                                    console.log('el', el)
+                                    console.log('arrObjMods[ind]', arrObjMods[ind])
+                                    return  <Image
+                                    className={ imageUrlArr[ind] ?    s.photo_item : s.photo_item_off }
+                                    src={imageUrlArr[ind] ? imageUrlArr[ind] : ''}
+                                    alt=""
+                                    width={200}
+                                    height={200}
+                                    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+                                    //   if(imageUrlArr[ind]){
+                                    //   }else{
+                                    //     const target = e.target as HTMLImageElement;
+                                    //     // console.log('Error loading image:', target.src);
+                                    //     // console.log('imageUrlArr', imageUrlArr)
+                                    //     target.style.display = 'none';
+                                    //   }
+                                    }}
+                                    />
+                                })} */}
+                               
                             </div>
                         </div>
                     })}

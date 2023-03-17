@@ -17,7 +17,11 @@ export const SizeItem = ({size, id}: SizeItemPropsType) => {
 
  return(
     <div onClick={()=>{dispatch(removeSizes(size))}} className={s.wrapper}>
-        <span  className={s.size}>
+        <span 
+        // style={{
+        //     width: id ===  0 ? '35px' : 'min-content'
+        // }}
+        className={s.size}>
             {size}
         </span>
         <span   className={s.remove}>

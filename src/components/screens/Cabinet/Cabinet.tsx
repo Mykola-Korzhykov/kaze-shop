@@ -35,6 +35,7 @@ const Cabinet: FC = () => {
 	const modalAddColorTurn = useSelector(
 		(state: RootState) => state.modaleSlice.modalAddColor
 	)
+	//imagesData
 	const [images, setImages] = React.useState<File[]>([])
 
 	console.log('modalAddColorTurn', modalAddColorTurn)
@@ -96,7 +97,7 @@ const Cabinet: FC = () => {
 				modalAddPhoto={modalAddPhoto}
                 modalAddColor={modalAddColorTurn} 
                 setModalAddColor={setModalAddColor}   
-                />    */}
+                />  */}
 				{/* <CabinetAdmin /> */}
 
 				{/* <div className={s.backround_module}></div>  */}
