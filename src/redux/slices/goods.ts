@@ -10,7 +10,8 @@ type GoodsSlice = {
 	product?: Goods | null
 	compareProduct: Goods | null
 	compareOfferProducts: Goods[] | null
-	basketOfProducts: Goods[] | null
+	compareOfferProductModal: Goods | null
+	basketOfProducts: Goods[]
 	loadingStatus: 'loading' | 'error' | 'idle'
 	page: number
 	totalProducts: number
@@ -63,7 +64,7 @@ export const fetchGoodsByCategory = createAsyncThunk<
 	}
 )
 export const fetchCompareOfferProducts = createAsyncThunk<
-	Goods[],
+	{ products: Goods[] },
 	number,
 	{ rejectValue: string }
 >(
@@ -153,7 +154,8 @@ const initialState: GoodsSlice = {
 	page: 1,
 	compareProduct: null,
 	compareOfferProducts: null,
-	basketOfProducts: null,
+	compareOfferProductModal: null,
+	basketOfProducts: [],
 	loadingStatus: 'idle',
 	sortType: '',
 	totalProducts: 0,
@@ -170,9 +172,9 @@ const initialState: GoodsSlice = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
-			type: 'colour' ,
+			type: 'colour',
 			createdAt: 'test',
-			updatedAt:'test',
+			updatedAt: 'test',
 		},
 		{
 			hex: '#9F8E84',
@@ -181,9 +183,9 @@ const initialState: GoodsSlice = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
-			type: 'colour' ,
+			type: 'colour',
 			createdAt: 'test',
-			updatedAt:'test',
+			updatedAt: 'test',
 		},
 		{
 			hex: '#000080',
@@ -192,9 +194,9 @@ const initialState: GoodsSlice = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
-			type: 'colour' ,
+			type: 'colour',
 			createdAt: 'test',
-			updatedAt:'test',
+			updatedAt: 'test',
 		},
 		{
 			hex: '#A6BEE5',
@@ -203,18 +205,17 @@ const initialState: GoodsSlice = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
-			type: 'colour' ,
+			type: 'colour',
 			createdAt: 'test',
-			updatedAt:'test',
+			updatedAt: 'test',
 		},
-
 	],
 	fetchedCategories: [
 		{
 			id: 1,
 			ua: 'Категорія 1',
 			en: 'Категория 1',
-			rs:	'Категорія 1 rs',
+			rs: 'Категорія 1 rs',
 			ru: 'Категорія 1 ru',
 			type: 'category',
 			createdAt: 'any',
@@ -224,7 +225,7 @@ const initialState: GoodsSlice = {
 			id: 2,
 			ua: 'Категорія 2',
 			en: 'Категория 3',
-			rs:	'Категорія 2 rs',
+			rs: 'Категорія 2 rs',
 			ru: 'Категорія 2 ru',
 			type: 'category',
 			createdAt: 'any',
@@ -234,7 +235,7 @@ const initialState: GoodsSlice = {
 			id: 3,
 			ua: 'Категорія 3',
 			en: 'Категория 3',
-			rs:	'Категорія 2 rs',
+			rs: 'Категорія 2 rs',
 			ru: 'Категорія 3 ru',
 			type: 'category',
 			createdAt: 'any',
@@ -244,7 +245,7 @@ const initialState: GoodsSlice = {
 			id: 4,
 			ua: 'Категорія 4',
 			en: 'Категория 4',
-			rs:	'Категорія 4 rs',
+			rs: 'Категорія 4 rs',
 			ru: 'Категорія 4 ru',
 			type: 'category',
 			createdAt: 'any',
@@ -254,13 +255,12 @@ const initialState: GoodsSlice = {
 			id: 2,
 			ua: 'Категорія 4',
 			en: 'Категория 4',
-			rs:	'Категорія 4 rs',
+			rs: 'Категорія 4 rs',
 			ru: 'Категорія 4 ru',
 			type: 'category',
 			createdAt: 'any',
 			updatedAt: 'any',
-		}
-
+		},
 	],
 	language: 'ua',
 }
@@ -315,6 +315,9 @@ const goodsSlice = createSlice({
 		addProductToBasket(state, action: PayloadAction<Goods>) {
 			state.basketOfProducts.push(action.payload)
 			state.compareProduct = action.payload
+		},
+		addCompareProductToModal(state, action: PayloadAction<Goods>) {
+			state.compareOfferProductModal = action.payload
 		},
 	},
 	extraReducers: builder => {
@@ -379,7 +382,7 @@ const goodsSlice = createSlice({
 			}),
 			builder.addCase(fetchCompareOfferProducts.fulfilled, (state, action) => {
 				state.loadingStatus = 'idle'
-				state.compareOfferProducts = action.payload
+				state.compareOfferProducts = action.payload.products
 			}),
 			builder.addCase(fetchCompareOfferProducts.pending, (state, action) => {
 				state.loadingStatus = 'loading'
@@ -413,6 +416,7 @@ export const {
 	setPage,
 	addProductToBasket,
 	setHeaderCategory,
+	addCompareProductToModal,
 } = goodsSlice.actions
 
 export default goodsSlice.reducer

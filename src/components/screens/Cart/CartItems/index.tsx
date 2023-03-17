@@ -6,8 +6,8 @@ import s from './CartItems.module.scss'
 import CartItem from './CartItem'
 const CartItems = () => {
 	const basketOfProducts = useAppSelector(state => state.goods.basketOfProducts)
-	const renderGoods = (arr: Goods[] | null) => {
-		if (!arr) {
+	const renderGoods = (arr: Goods[] | []) => {
+		if (arr.length === 0) {
 			return (
 				<ErrorModal
 					title='Ваша корзина пуста'

@@ -2,6 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useAppSelector, useAppDispatch } from '@/redux/hooks'
+import { fetchCompareOfferProducts } from '@/redux/slices/goods'
 import s from './Compare.module.scss'
 import cartImage from '../../../assets/images/cartItem.png'
 import catalogItem from '../../../assets/images/compare.png'
@@ -9,6 +10,7 @@ import CompareModal from './CompareModal'
 import { useRouter } from 'next/router'
 const Compare = () => {
 	const router = useRouter()
+	const dispatch = useAppDispatch()
 	const compareProduct = useAppSelector(state => state.goods.compareProduct)
 	const [sizeActive, setSizeActive] = React.useState<boolean>(false)
 	const [colorActive, setColorActive] = React.useState<boolean>(false)
@@ -25,6 +27,7 @@ const Compare = () => {
 		if (!compareProduct) {
 			router.push('/catalog')
 		} else {
+			dispatch(fetchCompareOfferProducts(compareProduct.categories[0].id))
 			setSelectedSizeEl(compareProduct.sizes[0])
 			setSelectedColorEl(compareProduct.hexes[0])
 		}

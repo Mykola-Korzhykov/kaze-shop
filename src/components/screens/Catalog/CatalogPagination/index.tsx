@@ -1,17 +1,18 @@
 import React, { FC } from 'react'
-import { useAppDispatch } from '@/redux/hooks'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { setPage } from '@/redux/slices/goods'
 import s from './CatalogPagination.module.scss'
 const CatalogPagination: FC = () => {
 	const PAGES = [1, 2, 3, 4, 5]
 	const dispatch = useAppDispatch()
+	const totalProducts = useAppSelector(state => state.goods.totalProducts)
 	const paginationHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const button: HTMLButtonElement = e.currentTarget
 		dispatch(setPage(+button.value))
 	}
 	return (
 		<div className={s.paginationWrapper}>
-			{PAGES.map((el, id) => {
+			{new Array(Math.ceil(totalProducts / 10)).fill(null).map((el, id) => {
 				return (
 					<button
 						value={el}
@@ -19,7 +20,7 @@ const CatalogPagination: FC = () => {
 						key={id}
 						className={s.paginationItem}
 					>
-						{el}
+						{id + 1}
 					</button>
 				)
 			})}

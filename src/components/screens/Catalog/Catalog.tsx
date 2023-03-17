@@ -41,14 +41,14 @@ const Catalog: FC = () => {
 					<div className='page_coordinator'>
 						<Link href='/'>Главная</Link> | <span>Каталог</span>
 					</div>
-					{loadingStatus === 'error' ? (
+					{/* {loadingStatus === 'error' ? (
 						<ErrorModal
 							title='505'
 							buttonText='Вернуться на главную'
 							buttonHref='/'
 							description={error}
 						/>
-					) : !goods ? (
+					) : !goods?.length ? (
 						<h1>Товари за таким запитом не знайдені!</h1>
 					) : (
 						<>
@@ -57,11 +57,11 @@ const Catalog: FC = () => {
 							<CatalogItems />
 							<CatalogPagination />
 						</>
-					)}
-					{/* <CatalogHeader />
+					)} */}
+					<CatalogHeader />
 					{filtersOpened && <CatalogFilters />}
 					<CatalogItems />
-					<CatalogPagination /> */}
+					<CatalogPagination />
 				</div>
 			</main>
 		</CatalogContext.Provider>
