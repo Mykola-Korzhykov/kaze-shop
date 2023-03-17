@@ -4,7 +4,7 @@ import { RootState } from "@/redux/store"
 import s from './AddProduct.module.scss'
 //components & redux
 import {removearrObjMod} from '../../../../../../redux/slices/formData'
-import {setModalAddPhoto} from '../../../../../../redux/slices/modal'
+import {setModalAddPhoto, removeimageUrlArr} from '../../../../../../redux/slices/modal'
 import { InputTextItem } from './InputText'
 // import {ModalAddCategory} from '../AddProduct/ModalAddCategory'
 import {setAddPhotoState} from '../../../../../../redux/slices/admin'
@@ -370,6 +370,8 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                                     {/* определение загруженого обьекта */}
                                 {arrObjMods[ind]? <span onClick={(e)=>{
                                     dispatch(removearrObjMod(ind))
+                                    dispatch(removeimageUrlArr(ind))
+                                    
                                     console.log('removearrObjMod', removearrObjMod)
                                     console.log('click', ind)
                                     console.log('arrObjMods', arrObjMods)
@@ -378,7 +380,9 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                                 }} style={{
                                     color: '#9D9D9D', 
                                     border: '#9D9D9D solid 1.5px'
-                                }} className={s.text}>Удалить сет</span> : <span className={s.text}>Загрузить фото</span>}
+                                }} className={s.text}>Удалить сет</span> : 
+                                
+                                <span className={s.text}>Загрузить фото</span>}
                                 
                                 {imageUrlArr[ind]?.map((el, ind)=>{
                                     return  <Image key={ind}

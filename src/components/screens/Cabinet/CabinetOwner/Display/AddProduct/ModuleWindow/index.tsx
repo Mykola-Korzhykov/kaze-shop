@@ -1,6 +1,7 @@
 import React from "react"
 import s from './ModuleWindow.module.scss'
 import { SizeItem } from "../SizesItem"
+import Image from "next/image"
 //redux
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
@@ -13,6 +14,7 @@ import {setImageUrl} from '../../../../../../../redux/slices/modal'
 import {fetchCategories} from '../../../../../../../redux/slices/goods'
 
 import {fetchColours} from '../../../../../../../redux/slices/goods'
+
 
 
 interface ModuleWindowImagesProps {
@@ -38,11 +40,8 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const inputRef = React.useRef<HTMLInputElement>(null);
 
     const dispatch = useAppDispatch()
-
-   
-    
     //local state 
-    const [files, setFiles] = React.useState([])
+    const [files, setFiles] = React.useState<File[]>([])
     // const [arrObjMod, setArrObjMod] = React.useState([])
     const [allFiles, setAllFiles] = React.useState([])
     //redux state
@@ -58,6 +57,12 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const arrObjMods =  useSelector((state: RootState)=> state.formData.arrObjMod)
     const images = useSelector((state: RootState)=> state.formData.images)
     const fetchColoursArr = useSelector((state: RootState)=> state.goods.fetchedColours)
+    //images local show
+    const [jpgImageShow, setJpgImageShow ] = React.useState<File>(null)
+    const [pngImagesShow, setPngImagesShow ] = React.useState<File[]>([])
+    // const [pngImageShowUrl, setPngImageShowUrl ] = React.useState<File>([])
+    // const pngImageShowUrl = pngImageShow.map((el)=> URL.createObjectURL(el))
+
     // id: number | null
 	// ua: string | null
 	// en: string | null
@@ -68,7 +73,6 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
 	// createdAt: any | null
 	// updatedAt: any | null
 	// label: string | null
-
     const newColoursArr = fetchColoursArr ? [...fetchColoursArr, {
          hex: '#A6BEE5',
 		id: -48093899940393,
@@ -81,8 +85,8 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const [choiceSize, setChoiceSize] = React.useState<boolean>(false)
     // console.log('fetchColoursArr', fetchColoursArr)
     //   console.log('setModalAddColor', setModalAddColor)
-    console.log('files', files)
-     function generationObjModal () {
+
+    function generationObjModal () {
         const obj = {
             fileNames: files.map((el)=>{
                 return el.name
@@ -102,10 +106,12 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
         dispatch(setAllcoloursId(colourId))
         dispatch(setAllsizes(obj.sizes))
         dispatch(setArrObjMod(obj))
-       
+
         // setImages([...imagesData, ...files])
-        // console.log('ArrObjMod', ArrObjMod)
-        
+        console.log('arrObjMods', arrObjMods)
+        console.log('files', files)
+        console.log('imagesData', imagesData)
+
         dispatch(removeAll())
         setFiles([])
         dispatch(setModalAddPhoto(false))
@@ -119,32 +125,66 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
         urls.push(url);
         }
 
+        // const innetFiles: File[] = files.shift()
+        //     const urlsPng = innetFiles.map((el)=>{
+        //         return URL.createObjectURL(el)
+        // })
+        // setPngImageShow(urlsPng)
+
         // setImageUrl(url)
         dispatch(setImageUrl(urls))
      }
 
-   
-     
+
+
     const handleFileUploadPng = (event: React.ChangeEvent<HTMLInputElement>)=>{
-        setFiles(  (prevArray: any) => [...prevArray,  event.target.files[0]] )
-        setImages( (prevArray: any) => [...prevArray,  event.target.files[0]])
+
+        setFiles((prevArray: File[]) => [...prevArray,  event.target.files[0]])
+        setImages( (prevArray: File[]) => [...prevArray,  event.target.files[0]])
+        setPngImagesShow((prevArray: File[]) => [...prevArray,  event.target.files[0]])
+        // const url = URL.createObjectURL(event.target.files[0])
+        // setPngImageShowUrl((prevArray: string[]) => [...prevArray,  url])
     }
 
     const handleFileUploadJpg = (event: React.ChangeEvent<HTMLInputElement>)=>{
-        
-        setFiles(  (prevArray: any) => [...prevArray,  event.target.files[0]] )
-        setImages( (prevArray: any) => [...prevArray,  event.target.files[0]])
+
+        setJpgImageShow(event.target.files[0])
+        // set photo setFiles
+        const hasJpgFiles = files.some((image) => {
+            return image.name.endsWith(".jpg");
+        });
+        //   console.log('hasJpgImage', hasJpgFiles)
+        if(hasJpgFiles){
+            return
+        }else{
+            setFiles((prevArray: File[]) => [event.target.files[0], ...prevArray])
+        }
+          //set photo setImages
+        const hasJpgImages = imagesData.some((image) => {
+            return image.name.endsWith(".jpg");
+        });
+        if(hasJpgImages){
+            return 
+        }else{
+            setImages( (prevArray: File[]) => [event.target.files[0], ...prevArray,])
+        }
     }
 
-     React.useEffect(()=>{
-         dispatch(fetchColours())
+    // React.useEffect(()=>{
+    //     if(pngImageShow){
+    //         const urls = pngImageShow.map((el: any) => URL.createObjectURL(el))
+    //         setPngImageShowUrl(urls)
+    //     }
+    // }, [pngImageShow])
+
+    React.useEffect(()=>{
+        dispatch(fetchColours())
     }, [])
     
     
     return (
         <div  style={  modalAddColor  ? {visibility: 'hidden'} :  {visibility: 'visible'}} className={s.module_wrapper}>
 
-       
         <div className={s.module_inner}>
 
         <div onClick={()=> dispatch(setModalAddPhoto(false))  } className={s.close_modal}>
@@ -152,7 +192,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
             <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M25 7L7 25" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M25 25L7 7" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-             </svg>
+            </svg>
         </div>
 
             <div className={s.title_wrapper}>
@@ -163,21 +203,124 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
             <div className={s.inputs_wrapper}>
                 <div className={s.input_inner}>
                     <span className={s.title}> Фотография в jpg  </span>
-                    <label className={s.label_input_file} htmlFor="uploadfileaddphotojpg">
-                        Загрузите фотографию
-                        <input  key={Math.random()} ref={inputRef} multiple onChange={handleFileUploadPng} id="uploadfileaddphotojpg" className={s.input_file} placeholder='Загрузите фотографию' type="file" />
-
-
+                    <label style={{
+                            backgroundColor: jpgImageShow ? `#9D9D9D ` : '',
+                            color:  jpgImageShow ? `black ` : '#9D9D9D ',
+                            border: jpgImageShow ?  `black 1.5px solid` : `#9D9D9D 1.5px solid`,
+                            opacity: jpgImageShow  ?  `0.4` : `1`
+                        }} className={s.label_input_file} htmlFor="uploadfileaddphotojpg">
+                        {jpgImageShow  ? `Фото загружено ` : `Загрузите фотографию`}  
+                        <input 
+                        disabled={jpgImageShow ? true : false}  
+                        // accept={jpgImage ? '' : 'e'}
+                        key={Math.random()} 
+                        ref={inputRef} 
+                        onChange={handleFileUploadJpg} 
+                        id="uploadfileaddphotojpg" 
+                        className={s.input_file} 
+                        placeholder='Загрузите фотографию' 
+                        type="file"
+                        name="uploadfileaddphotojpg"
+                        />
                     </label>
+                        {/* выбраные фото */}
+
+                    {jpgImageShow &&
+                        <div className={s.image_selecte_wrapper}>
+                            <span onClick={()=>{
+                                    console.log('jpgImageShow', jpgImageShow)
+                                    setJpgImageShow(null)
+                                //убираем эту фотку с загального массива фоток 
+                                setImages((prevArray: File[]) => {
+                                    const newArray = [...prevArray];
+                                    console.log('')
+                                    const activeIndex = newArray.indexOf(jpgImageShow)
+                                    newArray.splice(activeIndex, 1);
+                                    return newArray;
+                                    })
+                                //удаляем эту фотку с локального стейта ( массива ) фоток
+                                setFiles((prevArray: File[]) => {
+                                    const newArray = [...prevArray];
+                                    const activeIndex = newArray.indexOf(jpgImageShow)
+                                    // console.log('activeIndex', activeIndex)
+                                    newArray.splice(activeIndex, 1);
+                                    return newArray;
+                                    })
+                                    
+                            }} className={s.img_wrapper}>
+                                <span className={s.img_backround}></span>
+                                <svg className={s.remove_photo} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18.75 5.25L5.25 18.75" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M18.75 18.75L5.25 5.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                                <Image 
+                                width={70} 
+                                height={102} 
+                                className={s.imges_selected} style={{
+                                }} src={ URL.createObjectURL(jpgImageShow)} alt={'photo'} />
+                            </span>
+                    </div>
+                    }
                 </div>
 
                 <div className={s.input_inner}>
                     <span className={s.title}>Фотография в png  </span>
-                    <label className={s.label_input_file} htmlFor="uploadfileaddphotojpg">
+                    <label className={s.label_input_file} htmlFor="uploadfileaddphotopng">
                         Загрузите фотографию
-                        <input  key={Math.random()} ref={inputRef} multiple onChange={handleFileUploadJpg} id="uploadfileaddphotojpg" className={s.input_file} placeholder='Загрузите фотографию' type="file" />
-
+                        <input  
+                            key={Math.random()} 
+                            ref={inputRef} 
+                            multiple 
+                            onChange={handleFileUploadPng} 
+                            id="uploadfileaddphotopng" 
+                            className={s.input_file} 
+                            placeholder='Загрузите фотографию' 
+                            type="file"
+                            name="uploadfileaddphotojpg"
+                            />
+                            
                     </label>
+
+                    <div className={s.png_show_wrapper}>
+                        {pngImagesShow && pngImagesShow.map((el: File, ind)=>{
+                            return <span onClick={()=>{
+                                console.log('Deletefiles', files)
+                                console.log('DeleteImagesData', imagesData)
+                                //console.log('click')
+                                //убираем рендеринг какой - фотки 
+                                setPngImagesShow((prevArray: File[]) => {
+                                    const newArray = [...prevArray];
+                                    newArray.splice(ind, 1);
+                                    return newArray;
+                                  })
+                                //убираем эту фотку с загального массива фоток 
+                                setImages((prevArray: File[]) => {
+                                    const newArray = [...prevArray];
+                                    const activeIndex = newArray.indexOf(el)
+                                    newArray.splice(activeIndex, 1);
+                                    return newArray;
+                                  })
+                                //удаляем эту фотку с локального стейта ( массива ) фоток
+                                setFiles((prevArray: File[]) => {
+                                    const newArray = [...prevArray];
+                                    const activeIndex = newArray.indexOf(el)
+                                    newArray.splice(activeIndex, 1);
+                                    return newArray;
+                                  })
+                            }} className={s.png_show_item} key={ind}>
+                             <span className={s.img_backround}></span>
+                            <svg className={s.remove_photo} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18.75 5.25L5.25 18.75" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M18.75 18.75L5.25 5.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <Image 
+                                width={70} 
+                                height={102} 
+                                className={s.imges_selected} style={{
+                                }} src={ URL.createObjectURL(el) } alt={'photo'} />          
+                            </span>
+                        })}
+                    </div>
                 </div>
 
                 {/* <div className={s.input_inner}>

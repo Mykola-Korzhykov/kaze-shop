@@ -35,6 +35,7 @@ const Cabinet: FC = () => {
 	const modalAddColorTurn = useSelector(
 		(state: RootState) => state.modaleSlice.modalAddColor
 	)
+	//imagesData
 	const [images, setImages] = React.useState<File[]>([])
 
 	console.log('modalAddColorTurn', modalAddColorTurn)
@@ -89,14 +90,14 @@ const Cabinet: FC = () => {
 				)}
 				{user?.user?.type === 'ADMIN' && <CabinetAdmin />}
 
-				<CabinetOwner 
+				{/* <CabinetOwner 
 				modalAddCAtegory={modalAddCAtegory} 
                 imagesData={images} setImages={setImages}  
                 setCountPhoto={setCountPhoto}  
 				modalAddPhoto={modalAddPhoto}
                 modalAddColor={modalAddColorTurn} 
                 setModalAddColor={setModalAddColor}   
-                /> 
+                />  */}
 				{/* <CabinetAdmin /> */}
 
 				{/* <div className={s.backround_module}></div>  */}

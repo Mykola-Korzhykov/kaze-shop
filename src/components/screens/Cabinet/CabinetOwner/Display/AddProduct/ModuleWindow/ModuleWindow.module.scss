@@ -132,6 +132,12 @@
         
         }
 
+        // .imges_selected{
+        //     width: 400px;
+        //     height: 400px;
+        //     display: block;
+        // }
+
         .open_icon{
             width: 24px;
             height: 24px;
@@ -182,6 +188,114 @@
         color: #FFFFFF;
     }
 }
+
+//выбраные фото 
+
+.image_selecte_wrapper{
+    transition: all 0.3s;
+    width: 70px;
+    height: 102px;
+    // background-color: #9D9D9D;
+
+    .img_wrapper{
+        position: relative;
+        width: 70px;
+        height: 102px;
+        // transition: all 0.3s;
+        // background-color: #9D9D9D;
+
+        // .imges_selected{
+        //     background-color: #9D9D9D;
+        // }
+        .img_backround{
+            position: absolute;
+            transition: all 0.3s;
+
+            // top: 0;
+            // bottom: 0;
+            // right: 0;
+            // left: 0;
+            width: 70px;
+            height: 102px;
+            z-index: 2;
+           
+            opacity: 0;
+        }
+
+        .remove_photo{
+            transition: all 0.3s;
+            opacity: 0;
+            position: absolute;
+            z-index: 3;
+            top: 35px;
+            left: 22px;
+        }
+    }
+
+    .img_wrapper:hover{
+        display: block;
+        max-width: 70px;
+        max-height: 102px;
+
+        .img_backround{
+            background-color: black;
+            opacity: 0.4;
+        }
+
+        .remove_photo{
+            opacity: 1;
+        }
+    }
+}
+
+//png_show_wrapper (png) 
+
+.png_show_wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+
+    .png_show_item{
+        position: relative;
+        // max-width: 70px;
+        // max-height: 102px;
+        .img_backround{
+            transition: all 0.3s;
+            position: absolute;
+            background-color: black;
+            // opacity: 0.4;
+            opacity: 0;
+            z-index: 1;
+            height: 100%;
+            width: 100%;
+        }
+        .imges_selected{
+            max-width: 70px;
+            max-height: 102px;
+        }
+
+        .remove_photo{
+            transition: all 0.3s;
+            opacity: 0;
+            z-index: 2;
+            position: absolute;
+            top: 35px;
+            left: 22px;
+        }
+    }
+
+    .png_show_item:hover{
+        .img_backround{
+            opacity: 0.4;
+        }
+
+        .remove_photo{
+            opacity: 1;
+        }
+    }
+}
+
+
 
 .sizes{
     width: 100%;
@@ -271,5 +385,8 @@
     width: 23px;
 }
 
+
+
+// 
 
 
