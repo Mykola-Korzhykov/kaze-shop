@@ -44,14 +44,15 @@ export const fetchGoods = createAsyncThunk<
 })
 
 export const fetchGoodsByCategory = createAsyncThunk<
-	Goods[],
+	{ products: Goods[]; totalProducts: number },
 	number,
 	{ rejectValue: string }
 >(
 	'goods/fetchGoodsByCategory',
-	async (categoryId: number, { getState, rejectWithValue }) => {
+	async (categoryId, { getState, rejectWithValue }) => {
 		const state = getState() as RootState
 		const goodsState = state.goods
+		// const category = goodsState.headerCategory
 		const pageNumber = goodsState.page
 		try {
 			const data = await Api().goods.getGoodsByCategory(pageNumber, categoryId)
@@ -72,7 +73,10 @@ export const fetchCompareOfferProducts = createAsyncThunk<
 		const goodsState = state.goods
 		const pageNumber = goodsState.page
 		try {
-			const data = await Api().goods.getProductsWithAnotherCategory(categoryId)
+			const data = await Api().goods.getProductsWithAnotherCategory(
+				pageNumber,
+				categoryId
+			)
 			return data
 		} catch (e) {
 			return rejectWithValue(e.response.data.rawErrors[0].ua)
@@ -109,7 +113,7 @@ export const fetchColours = createAsyncThunk<
 })
 
 export const filterGoods = createAsyncThunk<
-	Goods[],
+	{ products: Goods[]; totalProducts: number },
 	null,
 	{ rejectValue: string }
 >('goods/filterGoods', async (_, { getState, rejectWithValue }) => {
@@ -230,7 +234,8 @@ const goodsSlice = createSlice({
 			}),
 			builder.addCase(filterGoods.fulfilled, (state, action) => {
 				state.loadingStatus = 'idle'
-				state.goods = action.payload
+				state.goods = action.payload.products
+				state.totalProducts = action.payload.totalProducts
 			}),
 			builder.addCase(filterGoods.pending, (state, action) => {
 				state.loadingStatus = 'loading'
@@ -263,7 +268,9 @@ const goodsSlice = createSlice({
 			}),
 			builder.addCase(fetchGoodsByCategory.fulfilled, (state, action) => {
 				state.loadingStatus = 'idle'
-				state.goods = action.payload
+				state.goods = action.payload.products
+				state.totalProducts = action.payload.totalProducts
+				// state.goods = action.payload
 			}),
 			builder.addCase(fetchGoodsByCategory.pending, (state, action) => {
 				state.loadingStatus = 'loading'
@@ -307,6 +314,7 @@ export const {
 	setSortType,
 	setPage,
 	addProductToBasket,
+	setHeaderCategory,
 } = goodsSlice.actions
 
 export default goodsSlice.reducer

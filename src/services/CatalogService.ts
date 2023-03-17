@@ -36,8 +36,10 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		)
 		return data
 	},
-	async getProductsWithAnotherCategory(categoryId: number) {
-		const { data } = await instance.post(`product?categoryId${categoryId}`)
+	async getProductsWithAnotherCategory(page: number, categoryId: number) {
+		const { data } = await instance.get(
+			`product/compare?page=${page}&pageSize=10&categories=${categoryId}`
+		)
 		return data
 	},
 	async addToBasket(productId: number) {
@@ -48,7 +50,13 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 	},
 	async addToFavorites(productId: number) {
 		const { data } = await instance.post(
-			`product/addFavourite?productId${productId}`
+			`product/addBookmarkProduct?productId=${productId}`
+		)
+		return data
+	},
+	async addToRecentlyViews(productId: number) {
+		const { data } = await instance.post(
+			`product/addWatchedProduct?productId=${productId}`
 		)
 		return data
 	},

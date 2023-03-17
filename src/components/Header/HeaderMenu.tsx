@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { useAppDispatch } from "@/redux/hooks";
-import { fetchGoodsByCategory } from "@/redux/slices/goods";
+import { fetchGoodsByCategory, setHeaderCategory } from "@/redux/slices/goods";
 import Link from "next/link";
 import cl from "./Header.module.scss";
 const HeaderMenu: FC<{ classNameToggle: boolean }> = ({ classNameToggle }) => {
@@ -45,6 +45,7 @@ const HeaderMenu: FC<{ classNameToggle: boolean }> = ({ classNameToggle }) => {
 
     const headerLinkHandler = (elLink: string, elId: number) => {
         if (elLink === "/catalog") {
+            dispatch(setHeaderCategory(elId))
             dispatch(fetchGoodsByCategory(elId));
         }
     };

@@ -1,5 +1,6 @@
 import { fetchGoodsByCategory } from '@/redux/slices/goods';
 import { Goods } from '@/types/goods';
+import { useAppDispatch } from '@/redux/hooks';
 import { AsyncThunkAction, Dispatch, AnyAction } from '@reduxjs/toolkit';
 import Link from 'next/link';
 import { HeaderLogo } from '../Header';
@@ -78,6 +79,7 @@ const mokLinkData = [
 	]
 ]
 const Footer = (): JSX.Element => {
+	const dispatch = useAppDispatch()
 	return (
 		<footer className={s.footer}>
 			<div className='container'>
@@ -117,7 +119,7 @@ const Footer = (): JSX.Element => {
 }
 
 export default Footer
-function dispatch(arg0: AsyncThunkAction<Goods[], number, { rejectValue: string; state?: unknown; dispatch?: Dispatch<AnyAction>; extra?: unknown; serializedErrorType?: unknown; pendingMeta?: unknown; fulfilledMeta?: unknown; rejectedMeta?: unknown; }>) {
-	throw new Error('Function not implemented.');
-}
+// function dispatch(arg0: AsyncThunkAction<Goods[], number, { rejectValue: string; state?: unknown; dispatch?: Dispatch<AnyAction>; extra?: unknown; serializedErrorType?: unknown; pendingMeta?: unknown; fulfilledMeta?: unknown; rejectedMeta?: unknown; }>) {
+// 	throw new Error('Function not implemented.');
+// }
 
