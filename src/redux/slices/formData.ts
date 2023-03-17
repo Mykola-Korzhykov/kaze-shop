@@ -12,7 +12,7 @@ export interface initialStateType {
         ru: string | null,
         rs: string | null,
         en: string | null,
-      },
+    },
       sizeChartImageDescription: {
         ua: string | null,
         ru: string | null,
@@ -117,12 +117,17 @@ export const formData = createSlice({
         //allSizes
         setAllsizes:  (state, action: PayloadAction<string[]>) =>{
             state.allsizes = [...state.allsizes, ...action.payload]
-
         },
         //AllCategories
         setCategories:  (state, action: PayloadAction<number>) =>{
-            console.log('вход к категориям')
-            state.categories.push(action.payload)
+            //по прозьбе бекендера оставил тип данных - массив. 
+            //учитывая то, что категория должна быть только одна я при наявности ее под первым индексом ее удаляю
+            if(state.categories[0]){
+                state.categories.splice(0, 1)
+                state.categories.push(action.payload)
+            }else{
+                state.categories.push(action.payload)
+            }
 
         },
         setNetData: (state, action: PayloadAction<string>) =>{

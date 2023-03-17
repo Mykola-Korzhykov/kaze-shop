@@ -53,6 +53,18 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
 		createdAt: 'string',
 		updatedAt: 'string'
 	},]
+
+    const activeCategories = categoryArr.find((el)=>{
+        return el.id === categories[0]
+    })
+
+    console.log('categoriesfjfjfjfjfjjf', categories)
+
+
+
+    
+
+
     // console.log('modalAddCAtegory', modalAddCAtegory)
     // console.log('categories', categories)
     // console.log('categoryArr', categoryArr)
@@ -154,21 +166,26 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
             {type === 'select' ?  
                 <label
                  className={s.select__wrapper} htmlFor="selectCategory">
-                        <input onClick={ (e) => { console.log('[[[[[');  setCategoriesDisplay(!categoriesDisplay); }}  id='selectCategory' readOnly className={s.input} type={type} placeholder={placeholder} />
+                        <input 
+                        onClick={(e) => { console.log('[[[[[');  setCategoriesDisplay(!categoriesDisplay); }}  
+                        id='selectCategory' 
+                        readOnly 
+                        className={s.input} 
+                        type={type}
+                        placeholder={activeCategories ? activeCategories.ru : placeholder  } />
                         <Image  className={`${s.select_img}`} src={selectIcon} alt="My Image" />
 
-           
                         <div className={  categoriesDisplay ?  s.categorychose_wrapper : s.categorychose_wrapper_off }>
                             
                         {  newCategoryArr?.map((el, ind) =>{
                         return el.id !== 0.1 ?
-                         <div onClick={ (e) => { 
+                        <div onClick={ (e) => { 
                             e.preventDefault()
                             e.stopPropagation(); 
                             
                             
                             setCategoriesDisplay(!categoriesDisplay);
-                            dispatch(setCategories(el.id))
+                            dispatch(setCategories( el.id))
                             }}  key={ind} className={s.categorychose_item}>
                             <span> {el.ua} </span>
                         </div> 
@@ -180,7 +197,7 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
                             e.preventDefault()
                             e.stopPropagation();
                             dispatch(setModalAddCAtegory(true)) 
-                           
+                            
                             setCategoriesDisplay(!categoriesDisplay);
                             }} 
                         
@@ -204,6 +221,8 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
 
                         </div>
                 </label>  
+
+               
        
             // <label htmlFor="categoruProduct" className={s.select__wrapper}>
                     
@@ -216,6 +235,10 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
             ''
             
             } 
+
+        
         </div>
     )
 }
+
+// categories

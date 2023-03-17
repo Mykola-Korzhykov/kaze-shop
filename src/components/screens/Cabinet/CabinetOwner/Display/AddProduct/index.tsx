@@ -206,7 +206,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         { id: 5, type: 'text', text: 'Описание товара UA', placeholder: 'Введите описание товара', name: 'descriptionUA',disable: false },
         { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', name: 'descriptionSRB',disable: false },
         { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false },
-        { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', name: 'text', disable: false },
+        { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара', name: 'text', disable: false },
         { id: 9, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false },
         { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false },
         // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', name: 'text', disable: true, colors: colors },
@@ -371,7 +371,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                                 {arrObjMods[ind]? <span onClick={(e)=>{
                                     dispatch(removearrObjMod(ind))
                                     dispatch(removeimageUrlArr(ind))
-                                    
+
                                     console.log('removearrObjMod', removearrObjMod)
                                     console.log('click', ind)
                                     console.log('arrObjMods', arrObjMods)
