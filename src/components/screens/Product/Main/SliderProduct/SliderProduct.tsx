@@ -45,7 +45,7 @@ const Slider = ({ images, className, ...props }: SliderProductInterface) => {
             <div ref={sliderRef} className='keen-slider'>
                 {images.map((item, i) => {
                     return <Image key={i} src={item} alt={`slide ${i + 1}`}
-                        className={`keen-slider__slide number-slide${i}`} />
+                        className={`keen-slider__slide number-slide${i}`} quality={100} />
                 })}
             </div>
 

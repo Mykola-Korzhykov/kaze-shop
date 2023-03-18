@@ -3,6 +3,7 @@ import Slider from '../Main/Slider/Slider';
 import Main from './Main/Main';
 import Product1 from '../../../assets/images/main/ProductsAccessories/product2.png';
 import Reviews from '../Main/Reviews/Reviews';
+import Feedback from './Feedback/Feedback';
 
 const mockSliderProps1 = [
     {
@@ -45,6 +46,7 @@ const OneProduct = (): JSX.Element => {
             <Main />
             <Slider title='Вы недавно смотрели' items={mockSliderProps1} />
             <Reviews />
+            <Feedback />
         </div>
 
     );

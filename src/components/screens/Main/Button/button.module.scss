@@ -5,19 +5,30 @@
     padding: 16px 24px;
     border: none;
     transition: 0.4s background;
+    @media (max-width:576px) {
+        @media (hover: none) {
+            &.back {
+                &:hover {
+                    background: inherit;
+                }
+            }
+        }
+    }
 
     &.black {
         background: #0B0B0B;
         border: 1.5px solid transparent;
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                background: #9D9D9D;
+            }
+        }
 
         svg {
             path {
                 stroke: #fff;
             }
         }
-         &:hover {
-             background: #9D9D9D;
-         }
 
          &:active {
              background: #0B0B0B;
@@ -27,28 +38,29 @@
          &.transparent {
              background: transparent;
              border: 1.5px solid #0B0B0B;
+              @media (hover: hover) and (pointer: fine) {
+                  &:hover {
+                      background: #0B0B0B;
+
+                     span {
+                         color: #fff;
+                         }
+
+                     svg {
+                         path {
+                             stroke: #fff;
+                             }
+                             }
+                             }
+                             }
 
              span {
                  color: #0B0B0B;
-             }
+                 }
 
              svg {
                  path {
                      stroke: #0B0B0B;
-                 }
-             }
-
-             &:hover {
-                 background: #0B0B0B;
-
-                 span {
-                     color: #fff;
-                 }
-
-                 svg {
-                     path {
-                         stroke: #fff;
-                     }
                  }
              }
 

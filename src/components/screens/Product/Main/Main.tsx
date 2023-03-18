@@ -51,7 +51,7 @@ const Main = () => {
                             <Button color="transparent">В один клик</Button>
                         </div>
                         <div className={s.main_photo}>
-                            <Image src={productPhoto} alt={"Лосины Тай Дай"} priority={true} />
+                            <Image src={productPhoto} alt={"Лосины Тай Дай"} priority={true} quality={100} />
                         </div>
                         <Slider images={mockSlideImg} className={s.main_slider} />
                         <div className={s.text}>
