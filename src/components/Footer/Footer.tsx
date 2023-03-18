@@ -1,6 +1,6 @@
-import { useAppDispatch } from '@/redux/hooks';
 import { fetchGoodsByCategory } from '@/redux/slices/goods';
 import { Goods } from '@/types/goods';
+import { useAppDispatch } from '@/redux/hooks';
 import { AsyncThunkAction, Dispatch, AnyAction } from '@reduxjs/toolkit';
 import Link from 'next/link';
 import { HeaderLogo } from '../Header';

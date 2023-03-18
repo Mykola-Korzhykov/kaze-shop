@@ -27,8 +27,7 @@ const Signup: NextPage = () => {
 	const [errorMessage, setErrorMessage] = useState<string>('')
 	const [signUpLoading, setSignUpLoading] = useState<boolean>(false)
 	const [phoneNumberValue, setPhoneNumberValue] = useState<string>('')
-	const [phoneNumberError, setPhoneNumberError] =
-		useState<string>('')
+	const [phoneNumberError, setPhoneNumberError] = useState<string>('')
 	const [passwordShown, setPasswordShown] = useState(false)
 	const [confirmPasswordShown, setConfirmPasswordShown] = useState(false)
 	const [privacyPolicyState, setPrivacyPolicyState] = useState<boolean>(false)
@@ -37,29 +36,27 @@ const Signup: NextPage = () => {
 		resolver: yupResolver(RegisterFormSchema),
 	})
 
-	const [initialTop, setInitialTop] = useState(0);
-	const [isStickyImage, setIsStickyImage] = useState<boolean>(false);
+	const [initialTop, setInitialTop] = useState(0)
+	const [isStickyImage, setIsStickyImage] = useState<boolean>(false)
 
-	const imageRef = useRef(null);
-	const coordRef = useRef(null);
+	const imageRef = useRef(null)
+	const coordRef = useRef(null)
 
 	const handleScroll = () => {
-		const imageRect = imageRef.current.getBoundingClientRect();
-		const shouldBeSticky = imageRect.top <= 80 && window.pageYOffset > 100;
+		const imageRect = imageRef.current.getBoundingClientRect()
+		const shouldBeSticky = imageRect.top <= 80 && window.pageYOffset > 100
 
-
-		setIsStickyImage(shouldBeSticky);
-	};
-
+		setIsStickyImage(shouldBeSticky)
+	}
 
 	useEffect(() => {
-		setInitialTop(imageRef.current.offsetTop);
-		window.addEventListener("scroll", handleScroll);
+		setInitialTop(imageRef.current.offsetTop)
+		window.addEventListener('scroll', handleScroll)
 
 		return () => {
-			window.removeEventListener("scroll", handleScroll);
-		};
-	}, []);
+			window.removeEventListener('scroll', handleScroll)
+		}
+	}, [])
 
 	const handlePhoneNumberValue = (value: string) => {
 		/* if (!phoneNumberValue.startsWith('38') || phoneNumberValue.length < 9) {
@@ -87,6 +84,24 @@ const Signup: NextPage = () => {
 				})
 				if (data.user) {
 					dispatch(addUserInfo(data.user))
+					localStorage.setItem(
+						'expireDate',
+						new Date(new Date().setDate(new Date().getDate() + 7)) + ''
+					)
+				}
+				if (data.owner) {
+					dispatch(addUserInfo(data.owner))
+					localStorage.setItem(
+						'expireDate',
+						new Date(new Date().setDate(new Date().getDate() + 1)) + ''
+					)
+				}
+				if (data.admin) {
+					dispatch(addUserInfo(data.admin))
+					localStorage.setItem(
+						'expireDate',
+						new Date(new Date().setDate(new Date().getDate() + 2)) + ''
+					)
 				}
 				router.push('/cabinet')
 			}
@@ -111,7 +126,12 @@ const Signup: NextPage = () => {
 
 	return (
 		<SpinnerLayout>
-			<MetaHead pageTitle="Sign Up" title="Sign Up" description="Sign Up - page" preview="https://kaze-shop.online/previews/signup-preview.png" />
+			<MetaHead
+				pageTitle='Sign Up'
+				title='Sign Up'
+				description='Sign Up - page'
+				preview='https://kaze-shop.online/previews/signup-preview.png'
+			/>
 			<main className='content'>
 				<div className='container'>
 					<div className='page_coordinator' ref={coordRef}>
@@ -133,11 +153,15 @@ const Signup: NextPage = () => {
 									left: isStickyImage ? coordRef.current.offsetLeft : '',
 									zIndex: 1,
 									paddingTop: isStickyImage ? 80 : 0,
-									height: isStickyImage ? 550 + 80 : 550
+									height: isStickyImage ? 550 + 80 : 550,
 								}}
 							/>
 						</div>
-						<div className={`auth_form reg_form ${isStickyImage ? 'sticky_form' : ''}`}>
+						<div
+							className={`auth_form reg_form ${
+								isStickyImage ? 'sticky_form' : ''
+							}`}
+						>
 							<h3 className='auth_title'>Регистрация</h3>
 							<form onSubmit={signupForm.handleSubmit(onSubmit)}>
 								<div className='register_form'>
@@ -269,7 +293,14 @@ const Signup: NextPage = () => {
 										</span>
 									</div>
 								</div>
-								<CheckBox isChecked={privacyPolicyState} setIsChecked={setPrivacyPolicyState} text="Я согласен с условиями" linkText="Политики конфиденциальности" linkUrl="https://docs.google.com/document/d/1tHo2_05AP3DrhMG3_jjheWCNUKqCD8tMv7EKd_AYTFg/edit" customClass="privacy_checkbox" />
+								<CheckBox
+									isChecked={privacyPolicyState}
+									setIsChecked={setPrivacyPolicyState}
+									text='Я согласен с условиями'
+									linkText='Политики конфиденциальности'
+									linkUrl='https://docs.google.com/document/d/1tHo2_05AP3DrhMG3_jjheWCNUKqCD8tMv7EKd_AYTFg/edit'
+									customClass='privacy_checkbox'
+								/>
 								{errorMessage && (
 									<span className='auth_error'>{errorMessage}</span>
 								)}

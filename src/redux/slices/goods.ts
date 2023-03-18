@@ -7,8 +7,11 @@ import { AxiosError } from 'axios'
 
 type GoodsSlice = {
 	goods: Goods[] | null
+	product?: Goods | null
 	compareProduct: Goods | null
-	basketOfProducts: Goods[] | null
+	compareOfferProducts: Goods[] | null
+	compareOfferProductModal: Goods | null
+	basketOfProducts: Goods[]
 	loadingStatus: 'loading' | 'error' | 'idle'
 	page: number
 	totalProducts: number
@@ -24,7 +27,7 @@ type GoodsSlice = {
 }
 
 export const fetchGoods = createAsyncThunk<
-	Goods[],
+	{ products: Goods[]; totalProducts: number },
 	null,
 	{ rejectValue: string }
 >('goods/fetchAllGoods', async (_, { getState, rejectWithValue }) => {
@@ -42,17 +45,39 @@ export const fetchGoods = createAsyncThunk<
 })
 
 export const fetchGoodsByCategory = createAsyncThunk<
-	Goods[],
+	{ products: Goods[]; totalProducts: number },
 	number,
 	{ rejectValue: string }
 >(
 	'goods/fetchGoodsByCategory',
+	async (categoryId, { getState, rejectWithValue }) => {
+		const state = getState() as RootState
+		const goodsState = state.goods
+		// const category = goodsState.headerCategory
+		const pageNumber = goodsState.page
+		try {
+			const data = await Api().goods.getGoodsByCategory(pageNumber, categoryId)
+			return data
+		} catch (e) {
+			return rejectWithValue(e.response.data.rawErrors[0].ua)
+		}
+	}
+)
+export const fetchCompareOfferProducts = createAsyncThunk<
+	{ products: Goods[] },
+	number,
+	{ rejectValue: string }
+>(
+	'goods/fetchCompareOfferProducts',
 	async (categoryId: number, { getState, rejectWithValue }) => {
 		const state = getState() as RootState
 		const goodsState = state.goods
 		const pageNumber = goodsState.page
 		try {
-			const data = await Api().goods.getGoodsByCategory(pageNumber, categoryId)
+			const data = await Api().goods.getProductsWithAnotherCategory(
+				pageNumber,
+				categoryId
+			)
 			return data
 		} catch (e) {
 			return rejectWithValue(e.response.data.rawErrors[0].ua)
@@ -68,7 +93,7 @@ export const fetchCategories = createAsyncThunk<
 	// console.log('fetchCategories запит пошел')
 	try {
 		const data = await Api().goods.getGategories()
-		return data
+		return data.data
 	} catch (e) {
 		return rejectWithValue(e.response.data.rawErrors[0].ua)
 	}
@@ -82,14 +107,14 @@ export const fetchColours = createAsyncThunk<
 	// console.log('fetchColours запит пошел')
 	try {
 		const data = await Api().goods.getColours()
-		return data
+		return data.data
 	} catch (e) {
 		return rejectWithValue(e.response.data.rawErrors[0].ua)
 	}
 })
 
 export const filterGoods = createAsyncThunk<
-	Goods[],
+	{ products: Goods[]; totalProducts: number },
 	null,
 	{ rejectValue: string }
 >('goods/filterGoods', async (_, { getState, rejectWithValue }) => {
@@ -128,7 +153,9 @@ const initialState: GoodsSlice = {
 	goods: null,
 	page: 1,
 	compareProduct: null,
-	basketOfProducts: null,
+	compareOfferProducts: null,
+	compareOfferProductModal: null,
+	basketOfProducts: [],
 	loadingStatus: 'idle',
 	sortType: '',
 	totalProducts: 0,
@@ -137,206 +164,103 @@ const initialState: GoodsSlice = {
 	filterCategories: [],
 	filterSizes: [],
 	filterColours: [],
-
 	fetchedColours: [
-	// 	{
-	// 		hex: '#FFE4C4',
-	// 		id: 1,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Бежевый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#9F8E84',
-	// 		id: 2,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Капучинный',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-
-	// 	},
-	// 	{
-	// 		hex: '#000080',
-	// 		id: 3,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Синий',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#A6BEE5',
-	// 		id: 4,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Голубой',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#0B0B0B',
-	// 		id: 5,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Коричневый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#24514C',
-	// 		id: 6,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Изумрудный',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#FFC0CB',
-	// 		id: 7,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Розовый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#800080',
-	// 		id: 8,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Фиолетовый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#0B0B0B',
-	// 		id: 52,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Черный',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#829E86',
-	// 		id: 432,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Оливковый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#fff',
-	// 		id: 34314,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Белый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#808080',
-	// 		id: 13413413413,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Серый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// 	{
-	// 		hex: '#525A5B',
-	// 		id: 57567,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Графитовый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
-	// {
-	// 		hex: '#F2E2D8',
-	// 		id: 75756756,
-	// 		ru: 'ru',
-	// 		rs: 'rs',
-	// 		en: 'en',
-	// 		ua: 'Пудровый',
-	// 		type: 'colour' ,
-	// 		createdAt: 'test',
-	// 		updatedAt:'test',
-	// 	},
+		{
+			hex: '#FFE4C4',
+			id: 1,
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			type: 'colour',
+			createdAt: 'test',
+			updatedAt: 'test',
+		},
+		{
+			hex: '#9F8E84',
+			id: 2,
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			type: 'colour',
+			createdAt: 'test',
+			updatedAt: 'test',
+		},
+		{
+			hex: '#000080',
+			id: 3,
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			type: 'colour',
+			createdAt: 'test',
+			updatedAt: 'test',
+		},
+		{
+			hex: '#A6BEE5',
+			id: 4,
+			ru: 'ru',
+			rs: 'rs',
+			en: 'en',
+			ua: 'ua',
+			type: 'colour',
+			createdAt: 'test',
+			updatedAt: 'test',
+		},
 	],
 	fetchedCategories: [
-	// {
-	// 	id: 1,
-	// 	ua: 'UAstring',
-	// 	en: 'ENstring',
-	// 	rs: 'RSstring',
-	// 	ru: 'RUtring',
-	// 	type: 'category',
-	// 	createdAt: 'string',
-	// 	updatedAt: 'string'
-	// },
-	// {
-	// 	id: 2,
-	// 	ua: 'UAstring',
-	// 	en: 'ENstring',
-	// 	rs: 'RSstring',
-	// 	ru: 'RUtring',
-	// 	type: 'category',
-	// 	createdAt: 'string',
-	// 	updatedAt: 'string'
-	// },
-	// {
-	// 	id: 3,
-	// 	ua: 'UAstring',
-	// 	en: 'ENstring',
-	// 	rs: 'RSstring',
-	// 	ru: 'RUtring',
-	// 	type: 'category',
-	// 	createdAt: 'string',
-	// 	updatedAt: 'string'
-	// },
-	// {
-	// 	id: 4,
-	// 	ua: 'UAstring',
-	// 	en: 'ENstring',
-	// 	rs: 'RSstring',
-	// 	ru: 'RUtring',
-	// 	type: 'category',
-	// 	createdAt: 'string',
-	// 	updatedAt: 'string'
-	// }
-
+		{
+			id: 1,
+			ua: 'Категорія 1',
+			en: 'Категория 1',
+			rs: 'Категорія 1 rs',
+			ru: 'Категорія 1 ru',
+			type: 'category',
+			createdAt: 'any',
+			updatedAt: 'any',
+		},
+		{
+			id: 2,
+			ua: 'Категорія 2',
+			en: 'Категория 3',
+			rs: 'Категорія 2 rs',
+			ru: 'Категорія 2 ru',
+			type: 'category',
+			createdAt: 'any',
+			updatedAt: 'any',
+		},
+		{
+			id: 3,
+			ua: 'Категорія 3',
+			en: 'Категория 3',
+			rs: 'Категорія 2 rs',
+			ru: 'Категорія 3 ru',
+			type: 'category',
+			createdAt: 'any',
+			updatedAt: 'any',
+		},
+		{
+			id: 4,
+			ua: 'Категорія 4',
+			en: 'Категория 4',
+			rs: 'Категорія 4 rs',
+			ru: 'Категорія 4 ru',
+			type: 'category',
+			createdAt: 'any',
+			updatedAt: 'any',
+		},
+		{
+			id: 2,
+			ua: 'Категорія 4',
+			en: 'Категория 4',
+			rs: 'Категорія 4 rs',
+			ru: 'Категорія 4 ru',
+			type: 'category',
+			createdAt: 'any',
+			updatedAt: 'any',
+		},
 	],
 	language: 'ua',
 }
@@ -388,11 +312,19 @@ const goodsSlice = createSlice({
 				state.page = 1
 			}
 		},
+		addProductToBasket(state, action: PayloadAction<Goods>) {
+			state.basketOfProducts.push(action.payload)
+			state.compareProduct = action.payload
+		},
+		addCompareProductToModal(state, action: PayloadAction<Goods>) {
+			state.compareOfferProductModal = action.payload
+		},
 	},
 	extraReducers: builder => {
 		builder.addCase(fetchGoods.fulfilled, (state, action) => {
 			state.loadingStatus = 'idle'
-			state.goods = action.payload
+			state.goods = action.payload.products
+			state.totalProducts = action.payload.totalProducts
 		}),
 			builder.addCase(fetchGoods.pending, state => {
 				state.loadingStatus = 'loading'
@@ -403,7 +335,8 @@ const goodsSlice = createSlice({
 			}),
 			builder.addCase(filterGoods.fulfilled, (state, action) => {
 				state.loadingStatus = 'idle'
-				state.goods = action.payload
+				state.goods = action.payload.products
+				state.totalProducts = action.payload.totalProducts
 			}),
 			builder.addCase(filterGoods.pending, (state, action) => {
 				state.loadingStatus = 'loading'
@@ -436,12 +369,25 @@ const goodsSlice = createSlice({
 			}),
 			builder.addCase(fetchGoodsByCategory.fulfilled, (state, action) => {
 				state.loadingStatus = 'idle'
-				state.goods = action.payload
+				state.goods = action.payload.products
+				state.totalProducts = action.payload.totalProducts
+				// state.goods = action.payload
 			}),
 			builder.addCase(fetchGoodsByCategory.pending, (state, action) => {
 				state.loadingStatus = 'loading'
 			}),
 			builder.addCase(fetchGoodsByCategory.rejected, (state, action) => {
+				state.loadingStatus = 'error'
+				state.errors = action.payload
+			}),
+			builder.addCase(fetchCompareOfferProducts.fulfilled, (state, action) => {
+				state.loadingStatus = 'idle'
+				state.compareOfferProducts = action.payload.products
+			}),
+			builder.addCase(fetchCompareOfferProducts.pending, (state, action) => {
+				state.loadingStatus = 'loading'
+			}),
+			builder.addCase(fetchCompareOfferProducts.rejected, (state, action) => {
 				state.loadingStatus = 'error'
 				state.errors = action.payload
 			}),
@@ -468,7 +414,9 @@ export const {
 	setFilterSize,
 	setSortType,
 	setPage,
+	addProductToBasket,
 	setHeaderCategory,
+	addCompareProductToModal,
 } = goodsSlice.actions
 
 export default goodsSlice.reducer

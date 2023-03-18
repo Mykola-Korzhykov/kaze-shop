@@ -36,12 +36,28 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		)
 		return data
 	},
-	async saveGood(productId: number) {
-		const { data } = await instance.post(`product/save?productId${productId}`)
+	async getProductsWithAnotherCategory(page: number, categoryId: number) {
+		const { data } = await instance.get(
+			`product/compare?page=${page}&pageSize=10&categories=${categoryId}`
+		)
 		return data
 	},
 	async addToBasket(productId: number) {
-		const { data } = await instance.post(`product/addBasket?productId${productId}`)
+		const { data } = await instance.post(
+			`product/addBasket?productId${productId}`
+		)
+		return data
+	},
+	async addToFavorites(productId: number) {
+		const { data } = await instance.post(
+			`product/addBookmarkProduct?productId=${productId}`
+		)
+		return data
+	},
+	async addToRecentlyViews(productId: number) {
+		const { data } = await instance.post(
+			`product/addWatchedProduct?productId=${productId}`
+		)
 		return data
 	},
 })

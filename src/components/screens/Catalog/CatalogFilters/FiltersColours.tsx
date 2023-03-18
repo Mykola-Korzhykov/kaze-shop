@@ -25,7 +25,7 @@ const FiltersColours = () => {
 		<div className={s.colors_wrapper}>
 			<p className={s.filters_title}>Цвет:</p>
 			<div className={s.filters_body}>
-				{fetchedColours.map(el => {
+				{fetchedColours?.map(el => {
 					return (
 						<FiltersCheckbox
 							label={el.ua}
