@@ -59,8 +59,8 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const fetchColoursArr = useSelector((state: RootState)=> state.goods.fetchedColours)
     const selectedColor = fetchColoursArr.find((el)=> el.id === colourId)
     //images local show
-    const [jpgImageShow, setJpgImageShow ] = React.useState<File>(null)
-    const [pngImagesShow, setPngImagesShow ] = React.useState<File[]>([])
+    const [pngImageShow, setPngImageShow ] = React.useState<File>(null)
+    const [jpgImagesShow, setJpgImagesShow ] = React.useState<File[]>([])
     // const [pngImageShowUrl, setPngImageShowUrl ] = React.useState<File>([])
     // const pngImageShowUrl = pngImageShow.map((el)=> URL.createObjectURL(el))
 
@@ -131,31 +131,31 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
 
 
 
-    const handleFileUploadPng = (event: React.ChangeEvent<HTMLInputElement>)=>{
+    const handleFileUploadJpg = (event: React.ChangeEvent<HTMLInputElement>)=>{
 
         setFiles((prevArray: File[]) => [...prevArray,  event.target.files[0]])
         setImages( (prevArray: File[]) => [...prevArray,  event.target.files[0]])
-        setPngImagesShow((prevArray: File[]) => [...prevArray,  event.target.files[0]])
+        setJpgImagesShow((prevArray: File[]) => [...prevArray,  event.target.files[0]])
         // const url = URL.createObjectURL(event.target.files[0])
         // setPngImageShowUrl((prevArray: string[]) => [...prevArray,  url])
     }
 
-    const handleFileUploadJpg = (event: React.ChangeEvent<HTMLInputElement>)=>{
+    const handleFileUploadPng = (event: React.ChangeEvent<HTMLInputElement>)=>{
 
-        setJpgImageShow(event.target.files[0])
+        setPngImageShow(event.target.files[0])
         // set photo setFiles
         const hasJpgFiles = files.some((image) => {
-            return image.name.endsWith(".jpg");
+            return image.name.endsWith(".png");
         });
-        //   console.log('hasJpgImage', hasJpgFiles)
+            //console.log('hasJpgImage', hasJpgFiles)
         if(hasJpgFiles){
             return
         }else{
             setFiles((prevArray: File[]) => [event.target.files[0], ...prevArray])
         }
-          //set photo setImages
+            //set photo setImages
         const hasJpgImages = imagesData.some((image) => {
-            return image.name.endsWith(".jpg");
+            return image.name.endsWith(".png");
         });
         if(hasJpgImages){
             return 
@@ -196,46 +196,47 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
 
             <div className={s.inputs_wrapper}>
                 <div className={s.input_inner}>
-                    <span className={s.title}> Фотография в jpg  </span>
+                    <span className={s.title}> Фотография в png  </span>
                     <label style={{
-                            backgroundColor: jpgImageShow ? `#9D9D9D ` : '',
-                            color:  jpgImageShow ? `black ` : '#9D9D9D ',
-                            border: jpgImageShow ?  `black 1.5px solid` : `#9D9D9D 1.5px solid`,
-                            opacity: jpgImageShow  ?  `0.4` : `1`
+                            backgroundColor: pngImageShow ? `#9D9D9D ` : '',
+                            color:  pngImageShow ? `black ` : '#9D9D9D ',
+                            border: pngImageShow ?  `black 1.5px solid` : `#9D9D9D 1.5px solid`,
+                            opacity: pngImageShow  ?  `0.4` : `1`
                         }} className={s.label_input_file} htmlFor="uploadfileaddphotojpg">
-                        {jpgImageShow  ? `Фото загружено ` : `Загрузите фотографию`}  
+                        {pngImageShow  ? `Фото загружено ` : `Загрузите фотографию`}  
                         <input 
-                        disabled={jpgImageShow ? true : false}  
+                        accept="image/png"
+                        disabled={pngImageShow ? true : false}  
                         // accept={jpgImage ? '' : 'e'}
                         key={Math.random()} 
                         ref={inputRef} 
-                        onChange={handleFileUploadJpg} 
-                        id="uploadfileaddphotojpg" 
+                        onChange={handleFileUploadPng} 
+                        id="uploadfileaddphotopng" 
                         className={s.input_file} 
                         placeholder='Загрузите фотографию' 
                         type="file"
-                        name="uploadfileaddphotojpg"
+                        name="uploadfileaddphotopng"
                         />
                     </label>
                         {/* выбраные фото */}
 
-                    {jpgImageShow &&
+                    {pngImageShow &&
                         <div className={s.image_selecte_wrapper}>
                             <span onClick={()=>{
-                                    console.log('jpgImageShow', jpgImageShow)
-                                    setJpgImageShow(null)
+                                    console.log('pngImageShow', pngImageShow)
+                                    setPngImageShow(null)
                                 //убираем эту фотку с загального массива фоток 
                                 setImages((prevArray: File[]) => {
                                     const newArray = [...prevArray];
                                     console.log('')
-                                    const activeIndex = newArray.indexOf(jpgImageShow)
+                                    const activeIndex = newArray.indexOf(pngImageShow)
                                     newArray.splice(activeIndex, 1);
                                     return newArray;
                                     })
                                 //удаляем эту фотку с локального стейта ( массива ) фоток
                                 setFiles((prevArray: File[]) => {
                                     const newArray = [...prevArray];
-                                    const activeIndex = newArray.indexOf(jpgImageShow)
+                                    const activeIndex = newArray.indexOf(pngImageShow)
                                     // console.log('activeIndex', activeIndex)
                                     newArray.splice(activeIndex, 1);
                                     return newArray;
@@ -251,22 +252,23 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                                 width={70} 
                                 height={102} 
                                 className={s.imges_selected} style={{
-                                }} src={ URL.createObjectURL(jpgImageShow)} alt={'photo'} />
+                                }} src={ URL.createObjectURL(pngImageShow)} alt={'photo'} />
                             </span>
                     </div>
                     }
                 </div>
 
                 <div className={s.input_inner}>
-                    <span className={s.title}>Фотография в png  </span>
-                    <label className={s.label_input_file} htmlFor="uploadfileaddphotopng">
+                    <span className={s.title}>Фотография в jpg  </span>
+                    <label className={s.label_input_file} htmlFor="uploadfileaddphotojpg">
                         Загрузите фотографию
                         <input  
+                            accept="image/jpg"
                             key={Math.random()} 
                             ref={inputRef} 
                             multiple 
-                            onChange={handleFileUploadPng} 
-                            id="uploadfileaddphotopng" 
+                            onChange={handleFileUploadJpg} 
+                            id="uploadfileaddphotojpg" 
                             className={s.input_file} 
                             placeholder='Загрузите фотографию' 
                             type="file"
@@ -276,13 +278,13 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                     </label>
 
                     <div className={s.png_show_wrapper}>
-                        {pngImagesShow && pngImagesShow.map((el: File, ind)=>{
+                        {jpgImagesShow && jpgImagesShow.map((el: File, ind)=>{
                             return <span onClick={()=>{
                                 console.log('Deletefiles', files)
                                 console.log('DeleteImagesData', imagesData)
                                 //console.log('click')
                                 //убираем рендеринг какой - фотки 
-                                setPngImagesShow((prevArray: File[]) => {
+                                setJpgImagesShow((prevArray: File[]) => {
                                     const newArray = [...prevArray];
                                     newArray.splice(ind, 1);
                                     return newArray;
