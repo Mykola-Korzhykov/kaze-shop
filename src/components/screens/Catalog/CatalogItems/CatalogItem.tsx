@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import s from './CatalogItems.module.scss'
 import { useAppSelector, useAppDispatch } from '@/redux/hooks'
 import { selectAuthState } from '@/redux/slices/user'
-import { addProductToBasket } from '@/redux/slices/goods'
+import { addProductToCompareAndBasket } from '@/redux/slices/goods'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Goods } from '@/types/goods'
@@ -30,7 +30,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 		}
 	}
 	const basketButtonHandler = () => {
-		dispatch(addProductToBasket(product))
+		dispatch(addProductToCompareAndBasket(product))
 		router.push('/compare')
 	}
 
