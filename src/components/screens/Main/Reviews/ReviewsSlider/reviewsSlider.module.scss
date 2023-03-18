@@ -22,6 +22,9 @@
     @media (max-width:992px) {
         max-height: 360px;
     }
+    @media (max-width:430px) {
+        max-height: 420px;
+    }
 }
 
 
@@ -30,16 +33,16 @@
     flex-direction: column;
     gap: 25px;
     position: absolute;
-    left: -63px;
+    left: -62px;
     bottom: 30px;
+    button {
+        background-color: transparent;
+    }
+
 
     @media(max-width: 768px) {
         top: -200px;
-        right: -8px;
+        right: -9px;
         left: inherit;
     }
-}
-
-.btn {
-    background-color: transparent;
 }

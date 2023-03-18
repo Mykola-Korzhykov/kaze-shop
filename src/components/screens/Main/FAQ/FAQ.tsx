@@ -48,7 +48,7 @@ const FAQ = (): JSX.Element => {
                     Часто задаваемые вопросы
                 </h3>
                 <div className={s.faq_img}>
-                    <Image src={Girl} alt='girl photo' />
+                    <Image src={Girl} alt='girl photo' quality={100} />
                 </div>
                 <div className={s.faq_items}>
                     {mokItemData.map((item, i) => {

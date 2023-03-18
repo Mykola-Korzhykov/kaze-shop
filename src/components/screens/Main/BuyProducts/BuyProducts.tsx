@@ -2,12 +2,12 @@ import s from "./BuyProducts.module.scss";
 import ArrowRight from "../../../../assets/images/main/ArrowRight.svg";
 
 import Link from "next/link";
-import Image from "next/image";
+import Image from 'next/image';
 import ProductSlider from "./ProductSlider/ProductSlider";
 import { useKeenSlider } from "keen-slider/react";
 import Button from "../Button/Button";
 import cn from "classnames";
-import GirlPhoto from '../../../../assets/images/main/main_girl_photo.png';
+import GirlPhoto992 from '../../../../assets/images/main/main_girl_bg_992.png'; 
 
 const BuyProducts = (): JSX.Element => {
     const [sliderRef, instanceRef] = useKeenSlider({
@@ -25,12 +25,13 @@ const BuyProducts = (): JSX.Element => {
         },
         loop: true,
     });
+
     return (
         <div className={s.wrapper}>
             <div className={s.wrapper__box}>
                 <div className={s.offer}>
                     <div className={s.offer__bg}>
-                        <Image src={GirlPhoto} alt='girl photo' className={s.offer__bg_girl} />
+                        <Image src={GirlPhoto992} quality={100} alt='girl photo' className={s.offer__bg_girl} />
                         <div className={s.offer__bg_vertical}>
                             <Link href="/catalog">
                                 <span>Велосипедки</span>

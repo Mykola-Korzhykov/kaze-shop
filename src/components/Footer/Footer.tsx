@@ -79,7 +79,7 @@ const mokLinkData = [
 	]
 ]
 const Footer = (): JSX.Element => {
-	const dispatch = useAppDispatch()
+	const dispatch = useAppDispatch();
 	return (
 		<footer className={s.footer}>
 			<div className='container'>
@@ -117,9 +117,6 @@ const Footer = (): JSX.Element => {
 		</footer>
 	)
 }
+export default Footer;
 
-export default Footer
-// function dispatch(arg0: AsyncThunkAction<Goods[], number, { rejectValue: string; state?: unknown; dispatch?: Dispatch<AnyAction>; extra?: unknown; serializedErrorType?: unknown; pendingMeta?: unknown; fulfilledMeta?: unknown; rejectedMeta?: unknown; }>) {
-// 	throw new Error('Function not implemented.');
-// }
 

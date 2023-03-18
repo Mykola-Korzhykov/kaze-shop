@@ -8,21 +8,9 @@
 
     &__box {
         margin: 0 auto;
-        height: 700px;
         display: flex;
         max-width: 1440px;
         position: relative;
-
-
-        @media (max-width:992px) {
-            height: 865px;
-        }
-
-        @media (max-width:768px) {
-            height: 860px;
-        }
-
-
 
         .btn_slider_block {
             position: absolute;
@@ -44,7 +32,12 @@
             @media (max-width:576px) {
                 right: 0;
                 width: 100%;
+                text-align: center;
+                position: inherit;
+                margin-top: -40%;
             }
+
+
         }
 
         &_bottom {
@@ -68,8 +61,12 @@
 
             @media (max-width:576px) {
                 padding: 0 24px 24px;
-                width: 100%;
-                align-items: center;
+                display: inline-flex;
+                width: auto;
+            }
+
+            @media (max-width:430px) {
+                display: flex;
             }
         }
     }
@@ -78,7 +75,14 @@
         height: 100%;
         position: relative;
         max-width: 1230px;
-        flex-grow: 2;
+        width: 100%;
+
+        @media(max-width:430px) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
 
         &__bg {
             height: 100%;
@@ -93,13 +97,19 @@
             }
 
             &_girl {
-                position: absolute;
-                bottom: 0;
-                left: 25%;
                 z-index: 2;
+                margin: 0 auto;
+                display: block;
+                object-fit: contain;
+                height: 100%;
 
-                @media (max-width:1200px) {
-                    left: 10%;
+                @media (max-width:768px) {
+                    padding-left: 20px;
+                }
+
+                @media (max-width:576px) {
+                    left: 5%;
+                    width: 100%;
                 }
             }
 
@@ -119,7 +129,7 @@
                 }
 
                 span {
-                    font-family: "Neue Haas Grotesk Display Pro";
+                    font-family: 'Georama', sans-serif;
                     font-style: normal;
                     font-weight: 500;
                     font-size: 20px;
@@ -131,26 +141,26 @@
 
         &__title {
             display: flex;
-            gap: 50px;
-            padding: 0 24px 60px 80px;
+            gap: 0 50px;
             z-index: 3;
+            position: absolute;
+            top: 25%;
+            left: 13%;
 
             @media(max-width: 1200px) {
-                padding: 0 0 110px 0;
+
+                top: 25%;
+                left: 50%;
+                transform: translate(-50%);
             }
 
             @media (max-width:992px) {
+                gap: 0 35px;
+            }
+
+            @media (max-width: 576px) {
+                top: 17%;
                 flex-wrap: wrap;
-                justify-content: flex-end;
-            }
-
-            @media (max-width:768px) {
-                padding: 200px 40px 74px 88px;
-                gap: 25px;
-            }
-
-            @media (max-width: 430px) {
-                padding: 250px 20px 74px 40px;
             }
 
             span {
@@ -194,8 +204,9 @@
 
     .next__slide {
         max-width: 150px;
+        padding: 0 24px;
         flex-grow: 1;
-        height: 100%;
+        min-height: 100%;
         background-color: #fff;
         display: flex;
         justify-content: center;

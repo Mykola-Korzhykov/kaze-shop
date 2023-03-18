@@ -19,9 +19,15 @@
             width: 98%;
         }
 
+        @media(max-width:600px) {
+            width: 97%;
+        }
         @media(max-width:576px) {
             width: 97%;
         }
+         @media(max-width:500px) {
+             width: 96%;
+         }
     }
 
     @media(max-width:1200px) {

@@ -10,7 +10,7 @@ const SlideItem = ({ img, reviewsText, name, className, grade, ...props }: Slide
     return (
         <div className={cn(s.item, className)} {...props}>
             <div className={s.item_img}>
-                <Image src={img} alt="product photo" />
+                <Image src={img} alt="product photo" quality={100} />
             </div>
             <div className={s.item_description}>
                 <div className={s.item_description_title}>

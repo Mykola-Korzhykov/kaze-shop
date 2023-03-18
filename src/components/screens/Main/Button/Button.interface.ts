@@ -6,4 +6,6 @@ export interface ToCartButtonInterface
         HTMLButtonElement
     > {
     children: ReactNode;
+    arrow?: boolean;
+    color?: "black" | "transparent";
 }

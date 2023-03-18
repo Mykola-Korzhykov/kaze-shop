@@ -7,7 +7,7 @@ const ReviewsImg = (): JSX.Element => {
     return (
 
         <div className={s.review_img}>
-            <Image src={WomanImg} alt="woman photo" />
+            <Image src={WomanImg} alt="woman photo" quality={100} />
             <div className={s.review_img_bg}></div>
             <h3>Отзывы</h3>
         </div>
