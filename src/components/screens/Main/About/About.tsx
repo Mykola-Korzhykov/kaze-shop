@@ -10,7 +10,7 @@ const About = (): JSX.Element => {
         <div className="container">
             <div className={s.about}>
                 <div className={s.about_img}>
-                    <Image src={woman} alt="woman" />
+                    <Image src={woman} alt="woman" quality={100} />
                 </div>
                 <div className={s.about_description}>
                     <h2>Kaze sport</h2>

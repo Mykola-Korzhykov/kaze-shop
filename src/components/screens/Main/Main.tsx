@@ -1,4 +1,4 @@
-import Product from '../../../assets/images/main/products/product1.png';
+import Product from '../../../assets/images/main/productsFitnes/product1.png';
 import Product1 from '../../../assets/images/main/ProductsAccessories/product2.png';
 import React from "react";
 import BuyProducts from "./BuyProducts/BuyProducts";

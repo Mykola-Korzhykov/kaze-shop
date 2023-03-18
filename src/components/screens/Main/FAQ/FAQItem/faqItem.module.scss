@@ -19,6 +19,13 @@
             }
         }
 
+        @media(max-width:768px) {
+            h3 {
+                &:hover {
+                    color: #9D9D9D;
+                }
+            }
+        }
         img {
             transition: 0.5s all ease-in-out;
         }

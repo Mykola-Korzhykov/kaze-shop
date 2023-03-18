@@ -4,7 +4,9 @@ import cn from 'classnames';
 import { KeenSliderPlugin, useKeenSlider } from 'keen-slider/react';
 import SlideItem from "./SlideItem/SlideItem";
 import s from './reviewsSlider.module.scss';
+import slideItemStyle from './SlideItem/slideItem.module.scss';
 import ArrowButton from "../../Slider/ArrowButton/ArrowButton";
+import { useEffect, useState } from "react";
 
 
 const mockSliderData = [
@@ -41,70 +43,27 @@ const mockSliderData = [
 ]
 
 
-const carousel: KeenSliderPlugin = (slider) => {
-    const z = 300
-    function rotate() {
-        const activeSlide = slider.track.absToRel(slider.track.details.abs);
-        const width = slider.container.clientHeight / 3;
 
-        slider.slides.forEach((item, i) => {
-
-            // if (activeSlide >= i) {
-            //     item.style.width = '70%';
-            // } else if (activeSlide <= i) {
-            //     item.style.width = '70%'
-            // } else {
-            //     item.style.width = '100%'
-            // }
-            const prev = activeSlide === 0 ? 0 : activeSlide - 1;
-            const next = activeSlide + 1;
-            const minWidth = item.clientWidth / 100 * 70;
-            const maxWidth = slider.container.clientWidth;
-            const track = slider.track.details.progress * 100;
-            // if (track) {
-            //     item.style.maxWidth = (item.clientWidth + 1) + 'px';
-
-            // }
-            // if (next === i && item.clientWidth > minWidth) {
-            //     item.style.maxWidth = item.clientWidth - 1 + 'px';
-            // }
-            console.log(track / 5, slider.track.details.position)
-        })
-    }
-    slider.on('created', () => {
-        const activeSlide = slider.track.absToRel(slider.track.details.abs);
-
-        slider.slides.forEach((element, idx) => {
-            if (activeSlide !== idx) {
-                return
-            }
-            // element.style.maxWidth = '600px';
-
-        })
-        // rotate()
-    })
-    slider.on('detailsChanged', rotate)
-    // slider.on('animationStopped', rotate)
-
-}
 
 const ReviewsSlider = () => {
+    const [isMobile, setIsMobile] = useState<boolean>(false);
     const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
         {
             slides: {
+                spacing: 30, 
                 perView: 3,
-                spacing: 30,
             },
             loop: true,
             rubberband: false,
             vertical: true,
-            initial: 0,
+            initial: 1,
             breakpoints: {
                 '(max-width:1200px)': {
                     slides: {
                         perView: 3,
                         spacing: 10,
                     },
+
                 },
                 '(max-width:992px)': {
                     slides: {
@@ -112,18 +71,78 @@ const ReviewsSlider = () => {
                         spacing: 10,
                     },
                 }
-            }
-
+            },
         },
-        [carousel]
     );
+    useEffect(() => {
+        const slider = instanceRef.current;
+        function rotate() {
+            let init: number = slider.track.details.rel + 1;
+            if (init === slider.slides.length) {
+                init = 0
+            }
+            slider.slides.forEach((item, i) => {
+
+                if (init === i) {
+                    item.style.maxWidth = '100%';
+                    item.style.opacity = '1';
+                    item.classList.remove(slideItemStyle.small);
+                    return
+                }
+
+                item.style.opacity = '0.5';
+                item.classList.add(slideItemStyle.small);
+
+                if (!isMobile) {
+                    item.style.maxWidth = '85%';
+                    return
+                }
+                item.style.maxWidth = '100%';
+
+            });
+        }
+        slider.on('created', () => {
+            slider.slides.forEach((element, idx) => {
+                if (slider.track.details.rel + 1 === idx) {
+                    element.style.maxWidth = '100%';
+                    element.classList.remove(slideItemStyle.small);
+                    return
+                }
+                element.style.opacity = '0.5';
+                element.classList.add(slideItemStyle.small);
+
+                if (!isMobile) {
+                    element.style.maxWidth = '85%';
+                    return;
+                }
+                element.style.maxWidth = '100%';
+            });
+        })
+        rotate();
+        slider.on('detailsChanged', rotate);
+    }, [isMobile]);
+
+    useEffect(() => {
+        const checkWidth = () => {
+            if (window.innerWidth < 768) {
+                setIsMobile(true);
+                return
+            }
+            setIsMobile(false);
+        };
+        checkWidth();
+        window.addEventListener('resize', checkWidth);
+        return () => window.removeEventListener('resize', checkWidth);
+    }, [isMobile])
+
     return (
         <div className={s.wrapper}>
             <div ref={sliderRef} className={cn(s.slider, 'keen-slider')}>
                 {mockSliderData.map((item, i) => <SlideItem key={i} {...item} className={cn(`keen-slider__slide number-slide${i + 1}`)} />)}
             </div>
             <div className={s.slider_btn}>
-                <ArrowButton position="up" onClick={() => instanceRef.current?.next()} />
+                <ArrowButton position="up" onClick={() => instanceRef.current?.next()}
+                />
                 <ArrowButton position="down" onClick={() => instanceRef.current?.prev()} />
             </div>
         </div>

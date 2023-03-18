@@ -3,7 +3,37 @@
     gap: 30px;
     align-items: center;
     border: 1.5px solid #9d9d9d;
-     position: relative;
+    position: relative;
+    transition: 0.3s max-width,
+    max-height,
+    opacity;
+
+    &.small {
+        h5 {
+            font-weight: 300;
+            font-size: 20px;
+            line-height: 24px;
+        }
+
+        p {
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 17px;
+        }
+
+        @media (max-width:850px) {
+            h5 {
+                font-size: 16px;
+                line-height: 19px;
+            }
+
+            p {
+                font-size: 12px;
+                line-height: 14px;
+            }
+        }
+    }
+
 
     @media (max-width: 1200px) {
         gap: 15px;
@@ -11,70 +41,83 @@
     }
 
     &_img {
+        transition: 0.4s all;
 
         img {
             display: block;
             object-fit: cover;
+        }
+        @media (max-width: 1200px) {
+            img {
+                max-width: 140px;
+                height: 100%;
+                }
+                }
+
+        @media (max-width: 992px) {
+            img {
+                max-width: 140px;
             }
-@media (max-width: 992px) {
-    img {
-        max-width: 140px;
-    }
-}
-
-@media (max-width: 992px) {
-    img {
-        max-width: 140px;
-    }
-}
-
-@media (max-width: 850px) {
-    img {
-        max-width: 120px;
-    }
-}
-}
-
-&_description {
-    // padding: 10px 10px 10px 0;
-&_title {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-
-    svg {
-        transform: rotate(-90deg)
         }
 
-        h5 {
-            font-family: "Neue Haas Grotesk Display Pro";
-            font-style: normal;
-            font-weight: 400;
-            font-size: 26px;
-            line-height: 31px;
-            color: #0b0b0b;
+        @media (max-width: 850px) {
+            img {
+                max-width: 140px;
+                }
+                }
 
-            @media (max-width: 1200px) {
-                font-size: 20px;
-                line-height: 25px;
-            }
-
-            @media (max-width: 850px) {
-                font-size: 20px;
-                line-height: 20px;
-            }
-
-            @media (max-width: 576px) {
-                font-size: 16px;
-                line-height: 19px;
-            }
-            }
-
+                @media (max-width: 430px) {
+                    img {
+                        max-width: 100px;
+                        height: 210px;
     }
+}
+                }
+
+    &_description {
+        transition: 0.4s all;
+        &_title {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            transition: 0.3s all;
+
+            svg {
+                transform: rotate(-90deg)
+            }
+
+            h5 {
+                font-family: 'Georama',
+                sans-serif;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 26px;
+                line-height: 31px;
+                color: #0b0b0b;
+                transition: 0.3s all;
+
+                @media (max-width: 1200px) {
+                    font-size: 20px;
+                    line-height: 25px;
+                }
+
+                @media (max-width: 850px) {
+                    font-size: 20px;
+                    line-height: 20px;
+                }
+
+                @media (max-width: 576px) {
+                    font-size: 16px;
+                    line-height: 19px;
+                }
+            }
+
+        }
     }
 
     p {
-        font-family: "Neue Haas Grotesk Display Pro";
+       font-family: 'Georama',
+       sans-serif;
         font-style: normal;
         font-weight: 400;
         font-size: 18px;
@@ -82,8 +125,9 @@
         color: #9d9d9d;
         margin: 10px 0 25px 0;
         max-height: 85px;
-        overflow-y: auto;
+        overflow-y: hidden;
         padding-right: 15px;
+        transition: 0.4s all;
         @media (max-width: 1200px) {
             font-size: 16px;
             line-height: 18px;
@@ -95,5 +139,8 @@
             font-size: 14px;
             line-height: 17px;
         }
+        @media(max-width:430px) {
+            max-height: 105px;
         }
-        }
+    }
+}
