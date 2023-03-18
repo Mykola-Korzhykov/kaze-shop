@@ -52,3 +52,33 @@ export interface Goods {
 	categories: fetchedCategory[]
 	// reviews: ReturnedReview[] | [];
 }
+
+export interface GoodsSend {
+	id: number
+	title: {
+		ua: string
+		ru: string
+		rs: string
+		en: string
+	}
+	description: {
+		ua: string
+		ru: string
+		rs: string
+		en: string
+	}
+	price: number
+	quantity: number
+	images: {
+		fileNames: string[] 
+		colourId: number
+		sizes: string[]
+	}[]
+	sizeChartImage: string
+	sizeChartImageDescription?: string
+	sizes: string[]
+	colours: fetchedColour[]
+	categories: fetchedCategory[]
+}
+
+

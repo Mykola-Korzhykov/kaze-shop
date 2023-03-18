@@ -105,6 +105,9 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
     //    allcoloursId: colours,
         allsizes: allsizes,
         netImage: netFile
+
+
+
    }
 
    console.log('objDataSend', objDataSend)
@@ -149,10 +152,12 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         //sizeChartImage
         formData.append("sizeChartImage", netImage);
 
-        console.log("formDataChecktitle", formData.get('title'));
-        console.log("formDataCheckimages", formData.get('images'));
-        console.log("formDataCheckprice", formData.get('price'));
-        console.log("formDataChecksizeChartImage", formData.get('sizeChartImage'));
+    
+
+        // console.log("formDataChecktitle", formData.get('title'));
+        // console.log("formDataCheckimages", formData.get('images'));
+        // console.log("formDataCheckprice", formData.get('price'));
+        // console.log("formDataChecksizeChartImage", formData.get('sizeChartImage'));
       
         axios
           .put("/product/create_product", formData, {
@@ -184,18 +189,12 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         {id: 4, title: ' Описание размерной сетки ENG', placeholder: 'Введите описание размерной сетки', leng: "en"},
     ]
 
-
     // const [netData, setNetData] = React.useState<null | string>(null)
-
- 
-
 
     // console.log('titleen', titleen)
     // console.log('netData', NetData)
     // console.log('setNetFile', netFile)
     // console.log('title', title)
-
-   
 
     const  [inputs, setInputs] = React.useState([
         { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', name: 'titleRU', disable: false,  },
@@ -207,11 +206,10 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', name: 'descriptionSRB',disable: false },
         { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false },
         { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара', name: 'text', disable: false },
-        { id: 9, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false },
-        { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false },
+        { id: 9, type: 'number', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false },
+        { id: 10, type: 'number', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false },
         // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', name: 'text', disable: true, colors: colors },
-        //{ id: 9, type: 'text', text: 'Выберите существующий товар', placeholder: 'Выберите существующий товар', label: 'text', disable: true },
-   
+        //{ id: 9, type: 'text', text
     ])
 
     const inputsFistWrapper_1 = inputs?.slice(0, 2)
@@ -351,7 +349,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                         <span onClick={()=>{
                         //    setCountPhoto(addPhotoState.length)
                         //    @ts-ignore
-                           dispatch(setAddPhotoState());
+                        dispatch(setAddPhotoState());
                         
 
                         } } className={s.btn}>

@@ -95,14 +95,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
             colourId: colourId,
             sizes: selectedSizes
         }
-    
-        // hex: '#A6BEE5',
-		// 	id: 4,
-		// 	ru: 'ru',
-		// 	rs: 'rs',
-		// 	en: 'en',
-		// 	ua: 'ua',
-
+        
         // dispatch(setArrObjMod(obj))  
         dispatch(setAllcoloursId(colourId))
         dispatch(setAllsizes(obj.sizes))

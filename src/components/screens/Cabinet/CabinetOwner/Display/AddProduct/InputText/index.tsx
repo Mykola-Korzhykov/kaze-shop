@@ -61,21 +61,12 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
     console.log('categoriesfjfjfjfjfjjf', categories)
 
 
-
-    
-
-
     // console.log('modalAddCAtegory', modalAddCAtegory)
     // console.log('categories', categories)
     // console.log('categoryArr', categoryArr)
 
     //state
     const [categoriesDisplay, setCategoriesDisplay ] = React.useState<boolean>(false)
-
-    //  function changeCategoriesDisplay ( id: number){
-    //     // e.stopPropagation();   . /
-    //     setCategoriesDisplay(!categoriesDisplay)
-    //  }
 
       function handleBlurSet(event: any) {
         
@@ -135,15 +126,18 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
  
    
     return (
+
         <div className={s.wrapper}>
             <div className={s.title}>
                 {text}
-                
             </div>
-            {disable == false && type === 'text' ?  <input name={name} onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder} /> : '' }
-            {disable == true  && type === 'text' && placeholder === 'Выберите существующий товар' ?  <input onClick={()=> console.log('p')} style={{cursor: 'pointer'}} readOnly className={s.input} type={type} placeholder={placeholder} /> : ''}
+            
+            {disable == false && type === 'text' ? <input id={`${id}`} name={name} onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder} /> : '' }
+            {disable == false && type === 'number' ?  <input id={`${id}`}  style={{WebkitAppearance: 'none', MozAppearance: 'textfield'}} name={name} onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder} /> : '' }
+            {disable == true  && type === 'text' && placeholder === 'Выберите существующий товар' ?  <input id={`${id}`} onClick={()=> console.log('p')} style={{cursor: 'pointer'}} readOnly className={s.input} type={type} placeholder={placeholder} /> : ''}
+
             {/* {disable == true  && type === 'text' && placeholder === 'Выбрать один цвет фотографии' ? 
-             <label className={s.select__wrapper} htmlFor="selectColor">
+                <label className={s.select__wrapper} htmlFor="selectColor">
                 <input onClick={()=> setModalAddColor(!modalAddColor)} style={{cursor: 'pointer'}} 
                 id='selectColor' 
                 readOnly 
