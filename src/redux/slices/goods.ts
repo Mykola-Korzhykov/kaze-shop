@@ -312,12 +312,32 @@ const goodsSlice = createSlice({
 				state.page = 1
 			}
 		},
-		addProductToBasket(state, action: PayloadAction<Goods>) {
+		addProductToCompareAndBasket(state, action: PayloadAction<Goods>) {
 			state.basketOfProducts.push(action.payload)
 			state.compareProduct = action.payload
 		},
 		addCompareProductToModal(state, action: PayloadAction<Goods>) {
 			state.compareOfferProductModal = action.payload
+		},
+		setSizeForProduct(
+			state,
+			action: PayloadAction<{ id: number; newSize: string }>
+		) {
+			const id = action.payload.id
+			const newSize = action.payload.newSize
+			const product = state.compareOfferProducts.filter(el => el.id === id)[0]
+			const firstSize = product.sizes[0]
+			product.sizes = [newSize, ...product.sizes, firstSize]
+		},
+		setColorForProduct(
+			state,
+			action: PayloadAction<{ id: number; newColor: string }>
+		) {
+			const id = action.payload.id
+			const newColor = action.payload.newColor
+			const product = state.compareOfferProducts.filter(el => el.id === id)[0]
+			const firstColor = product.hexes[0]
+			product.hexes = [newColor, ...product.hexes, firstColor]
 		},
 	},
 	extraReducers: builder => {
@@ -414,7 +434,7 @@ export const {
 	setFilterSize,
 	setSortType,
 	setPage,
-	addProductToBasket,
+	addProductToCompareAndBasket,
 	setHeaderCategory,
 	addCompareProductToModal,
 } = goodsSlice.actions
