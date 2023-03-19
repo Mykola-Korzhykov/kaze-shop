@@ -1,4 +1,5 @@
 import {} from '@/types/auth'
+import { CartProduct, sendProductToCart } from '@/types/goods'
 import { AxiosInstance, AxiosResponse } from 'axios'
 import { API_URL } from './index'
 export const GoodsApi = (instance: AxiosInstance) => ({
@@ -16,7 +17,7 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 	},
 	async getGoodsByCategory(page: number, categoryId: number) {
 		const { data } = await instance.get(
-			`/product?page=${page}&pageSize=10&categoryId=${categoryId}`
+			`/product/categories?page=${page}&pageSize=10&categories=${categoryId}`
 		)
 		return data
 	},
@@ -42,9 +43,17 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		)
 		return data
 	},
-	async addToBasket(productId: number) {
+	async getProduct(productId: number) {
+		const { data } = await instance.get(`product/productId=${productId}`)
+		return data
+	},
+	async addToCart(
+		productId: number,
+		product: { imageUrl: string; colourId: number; size: string }
+	) {
 		const { data } = await instance.post(
-			`product/addBasket?productId${productId}`
+			`cart/addProduct?productId=${productId}`,
+			product
 		)
 		return data
 	},

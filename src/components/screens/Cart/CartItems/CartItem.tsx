@@ -29,7 +29,13 @@ const CartItem: FC<{ product: Goods }> = ({ product }) => {
 					</div>
 				</div>
 				<div className={s.addition}>
-					<button className={`${s.btn} ${s.delete}`}></button>
+					<button
+						className={
+							product?.quantity === 1
+								? `${s.btn} ${s.delete}`
+								: `${s.btn} ${s.minus}`
+						}
+					></button>
 					<p className={s.count}>{product?.quantity}</p>
 					<button className={`${s.btn} ${s.plus}`}></button>
 					<p className={s.price}>{product?.price}</p>

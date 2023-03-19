@@ -18,12 +18,22 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 	const [selectedSizeEl, setSelectedSizeEl] = React.useState<string | null>(
 		null
 	)
-	const [selectedColorEl, setSelectedColorEl] = React.useState<string | null>(
-		null
-	)
+	const [selectedColorEl, setSelectedColorEl] = React.useState<{
+		colourId: number
+		hex: string
+	} | null>(null)
+	const addToCart = () => {
+		const productObj = {}
+		// request
+		//dispatch that delete this item
+		setShowModal(false)
+	}
 	React.useEffect(() => {
-		setSelectedSizeEl(compareOfferProductModal.sizes[0])
-		setSelectedColorEl(compareOfferProductModal.hexes[0])
+		setSelectedSizeEl(compareOfferProductModal?.sizes[0])
+		setSelectedColorEl({
+			colourId: compareOfferProductModal?.images[0].colour?.id,
+			hex: compareOfferProductModal?.images[0].colour?.hex,
+		})
 	}, [])
 	return (
 		<div className={s.modal}>
@@ -76,20 +86,25 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 									onClick={() => setColorActive(prev => !prev)}
 									className={`${s.color_btn} ${colorActive ? `${s.open}` : ''}`}
 								>
-									<p style={{ backgroundColor: selectedColorEl }}></p>
+									<p style={{ backgroundColor: selectedColorEl?.hex }}></p>
 								</button>
 								{colorActive && (
 									<div className={s.color_droplist}>
-										{compareOfferProductModal?.hexes
-											.filter(el => el !== selectedColorEl)
+										{compareOfferProductModal?.images
+											.filter(el => el.colour.id !== selectedColorEl.colourId)
 											.map((el, idx) => {
 												return (
 													<button
-														onClick={() => setSelectedColorEl(el)}
-														key={idx + '' + new Date()}
+														onClick={() =>
+															setSelectedColorEl({
+																colourId: el.colour.id,
+																hex: el.colour.hex,
+															})
+														}
+														key={el.colour.id}
 														className={s.color_btn}
 													>
-														<p style={{ backgroundColor: el }}></p>
+														<p style={{ backgroundColor: el.colour.hex }}></p>
 													</button>
 												)
 											})}
@@ -106,7 +121,10 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 					>
 						Отмена
 					</button>
-					<button className={`${s.modal_btn} ${s.modal_addBtn}`}>
+					<button
+						onClick={addToCart}
+						className={`${s.modal_btn} ${s.modal_addBtn}`}
+					>
 						Добавить в корзину
 					</button>
 				</div>

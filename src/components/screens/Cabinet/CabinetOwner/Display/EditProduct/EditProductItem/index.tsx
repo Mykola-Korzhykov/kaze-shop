@@ -51,21 +51,41 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
         price: 300,
         quantity: 100,
         // { fileNames: string[], colourId: number; sizes: string[]}
-        images: [
-            
+        images: [  
         {
-            fileNames: ['fllflf', 'lfllf'],
-            colourId: 3,
+            imagesPaths: ['fllflf', 'lfllf'],
+            colour: {
+                hex: '#FFE4C4',
+                id: 1,
+                ru: 'ru',
+                rs: 'rs',
+                en: 'en',
+                ua: 'ua',
+                type: 'colour' ,
+                createdAt: 'test',
+                updatedAt:'test',
+            },
             sizes: ["S", "M", "L"]
         },
         {
-            fileNames: ['lflflf', 'fllflflf'],
-            colourId: 4,
+            imagesPaths: ['lflflf', 'fllflflf'],
+            colour: {
+                hex: '#FFE4C4',
+                id: 1,
+                ru: 'ru',
+                rs: 'rs',
+                en: 'en',
+                ua: 'ua',
+                type: 'colour' ,
+                createdAt: 'test',
+                updatedAt:'test',
+            },
             sizes: ["S", "M", "L"]
         },
         ],
-          sizeChartImage: 'kfkf'
-          ,
+          sizeChartImage: 'kfkf',
+          sizeChartImageDescription: '21231231',
+          hexes: ['blue', 'red'],
         sizes: ['X', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS'],
         colours: [
             {

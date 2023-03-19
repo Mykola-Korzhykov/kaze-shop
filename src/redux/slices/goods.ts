@@ -2,7 +2,12 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 import { HYDRATE } from 'next-redux-wrapper'
 import { Api } from '@/services'
 import { RootState } from '../store'
-import { Goods, fetchedCategory, fetchedColour } from '../../types/goods'
+import {
+	Goods,
+	fetchedCategory,
+	fetchedColour,
+	sendProductToCart,
+} from '../../types/goods'
 import { AxiosError } from 'axios'
 
 type GoodsSlice = {
@@ -90,7 +95,6 @@ export const fetchCategories = createAsyncThunk<
 	null,
 	{ rejectValue: string }
 >('goods/fetchCategories', async (_, { rejectWithValue }) => {
-	// console.log('fetchCategories запит пошел')
 	try {
 		const data = await Api().goods.getGategories()
 		return data.data
@@ -99,12 +103,29 @@ export const fetchCategories = createAsyncThunk<
 	}
 })
 
+export const addProductToCart = createAsyncThunk<
+	{ cartProductId: number },
+	null,
+	{ rejectValue: string }
+>(
+	'goods/addProductToCart',
+	async (product: sendProductToCart, { rejectWithValue }) => {
+		try {
+			const productObj = Object.assign({}, product)
+			delete productObj.id
+			const data = await Api().goods.addToCart(product.id, productObj)
+			return data
+		} catch (e) {
+			return rejectWithValue(e.response.data.rawErrors[0].ua)
+		}
+	}
+)
+
 export const fetchColours = createAsyncThunk<
 	fetchedColour[],
 	null,
 	{ rejectValue: string }
 >('goods/fetchColours', async (_, { rejectWithValue }) => {
-	// console.log('fetchColours запит пошел')
 	try {
 		const data = await Api().goods.getColours()
 		return data.data
@@ -319,13 +340,14 @@ const goodsSlice = createSlice({
 		addCompareProductToModal(state, action: PayloadAction<Goods>) {
 			state.compareOfferProductModal = action.payload
 		},
-		setSizeForProduct(
-			state,
-			action: PayloadAction<{ id: number; newSize: string }>
-		) {
-			const id = action.payload.id
+		setSizeForProduct(state, action: PayloadAction<{ newSize: string }>) {
+			// const id = action.payload.id
+			// const newSize = action.payload.newSize
+			// const product = state.compareOfferProducts.filter(el => el.id === id)[0]
+			// const firstSize = product.sizes[0]
+			// product.sizes = [newSize, ...product.sizes, firstSize]
 			const newSize = action.payload.newSize
-			const product = state.compareOfferProducts.filter(el => el.id === id)[0]
+			const product = state.compareProduct
 			const firstSize = product.sizes[0]
 			product.sizes = [newSize, ...product.sizes, firstSize]
 		},
@@ -336,8 +358,7 @@ const goodsSlice = createSlice({
 			const id = action.payload.id
 			const newColor = action.payload.newColor
 			const product = state.compareOfferProducts.filter(el => el.id === id)[0]
-			const firstColor = product.hexes[0]
-			product.hexes = [newColor, ...product.hexes, firstColor]
+			product.hexes = [newColor, ...product.hexes]
 		},
 	},
 	extraReducers: builder => {
@@ -437,6 +458,8 @@ export const {
 	addProductToCompareAndBasket,
 	setHeaderCategory,
 	addCompareProductToModal,
+	setSizeForProduct,
+	setColorForProduct,
 } = goodsSlice.actions
 
 export default goodsSlice.reducer
