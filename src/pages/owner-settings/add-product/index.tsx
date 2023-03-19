@@ -129,219 +129,250 @@
 
 
 import React from "react"
-// import { useSelector } from "react-redux"
-// import { RootState } from "@/redux/store"
-// import s from './addProduct.module.scss';
-// //components
-// import { InputTextItem } from '../../../components/screens/Cabinet/CabinetOwner/Display/AddProduct/InputText'
-// // import {ModalAddCategory} from '../AddProduct/ModalAddCategory'
-// import {setAddPhotoState} from '../../../redux/slices/admin'
-// import { useAppDispatch } from '@/redux/hooks'
-// // import { ModuleWindiw } from "./ModuleWindow"
-// // import {SizeItem} from './SizesItem'
-// // import {setNetData} from '../../../../../../redux/slices/formData'
-// import {SizeChart} from '../../../components/screens/Cabinet/CabinetOwner/Display/AddProduct/sizeChart'
-// import {setModalAddPhoto} from '../../../redux/slices/modal'
-// import {ModuleWindiw} from '../../../components/screens/Cabinet/CabinetOwner/Display/AddProduct/ModuleWindow'
-// import Link from "next/link"
-// import { getUsersRole} from '../../../redux/slices/admin'
+import { useSelector } from "react-redux"
+import { RootState } from "@/redux/store"
+import s from './addProduct.module.scss';
+//components
+import { InputTextItem } from '../../../components/screens/Cabinet/CabinetOwner/Display/AddProduct/InputText'
+// import {ModalAddCategory} from '../AddProduct/ModalAddCategory'
+import {setAddPhotoState} from '../../../redux/slices/admin'
+import { useAppDispatch } from '@/redux/hooks'
+// import { ModuleWindiw } from "./ModuleWindow"
+// import {SizeItem} from './SizesItem'
+// import {setNetData} from '../../../../../../redux/slices/formData'
+import {SizeChart} from '../../../components/screens/Cabinet/CabinetOwner/Display/AddProduct/sizeChart'
+import {setModalAddPhoto} from '../../../redux/slices/modal'
+import {ModuleWindiw} from '../../../components/screens/Cabinet/CabinetOwner/Display/AddProduct/ModuleWindow'
+import Link from "next/link"
+import { getUsersRole} from '../../../redux/slices/admin'
 
-// interface AddProductProps {
-//     // setModalAddPhoto: (n: boolean)=> void,
-//     modalAddPhoto: boolean,
-//     setModalAddColor: (n: boolean)=> void,
-//     modalAddColor: boolean,
-//     // countPhoto: number, 
-//     setCountPhoto: (n: number)=> void
-//     imagesData: { fileNames: string[], colourId: number; sizes: string[];}[],
-//     setImages: (n: any)=> void,
-//     modalAddCAtegory: boolean,
-//     setModalAddCAtegory: (n: any)=> void,
-// }
+interface AddProductProps {
+    // setModalAddPhoto: (n: boolean)=> void,
+    modalAddPhoto: boolean,
+    setModalAddColor: (n: boolean)=> void,
+    modalAddColor: boolean,
+    // countPhoto: number, 
+    setCountPhoto: (n: number)=> void
+    imagesData: { fileNames: string[], colourId: number; sizes: string[];}[],
+    setImages: (n: any)=> void,
+    modalAddCAtegory: boolean,
+    setModalAddCAtegory: (n: any)=> void,
+}
   
 
 
-// interface formDataType {
-//         images: File[] ,
-//         title: {
-//             ua: string | null,
-//             ru: string | null,
-//             rs: string | null,
-//             en: string | null,
-//         };
-//         description: {
-//             ua: string | null,
-//             ru: string | null,
-//             rs: string | null,
-//             en: string | null,
-//         },
-//         sizeChartImageDescription: {
-//             ua: string | null,
-//             ru: string | null,
-//             rs: string | null,
-//             en: string | null,
-//           }
-//         categories: number[],
-//         colours: number[],
-//         selectedImages: {
-//             fileNames: string[],
-//             colourId: number;
-//             sizes: string[]
-//         }[],
-//         price: number | null,
-//         quantity: number | null,
-//         //дальше скажи під яким неймінгом тобі грузити ці свойства
-//         allcoloursId: number[] | null, //всі кольора 
-//         allsizes: string[] | null, // всі розміра
-//         // netData: string | null, // опис размерной сетки
-//         netImage: File //сама размерная сетка 
-// }
+interface formDataType {
+        images: File[] ,
+        title: {
+            ua: string | null,
+            ru: string | null,
+            rs: string | null,
+            en: string | null,
+        };
+        description: {
+            ua: string | null,
+            ru: string | null,
+            rs: string | null,
+            en: string | null,
+        },
+        sizeChartImageDescription: {
+            ua: string | null,
+            ru: string | null,
+            rs: string | null,
+            en: string | null,
+          }
+        categories: number[],
+        colours: number[],
+        selectedImages: {
+            fileNames: string[],
+            colourId: number;
+            sizes: string[]
+        }[],
+        price: number | null,
+        quantity: number | null,
+        //дальше скажи під яким неймінгом тобі грузити ці свойства
+        allcoloursId: number[] | null, //всі кольора 
+        allsizes: string[] | null, // всі розміра
+        // netData: string | null, // опис размерной сетки
+        netImage: File //сама размерная сетка 
+}
 
-// export const AddProduct = ({  setModalAddColor, modalAddColor, setCountPhoto, imagesData, setImages, modalAddCAtegory, setModalAddCAtegory}: AddProductProps) => {
+export const AddProduct = ({  setModalAddColor, modalAddColor, setCountPhoto, imagesData, setImages, modalAddCAtegory, setModalAddCAtegory}: AddProductProps) => {
 
-//     const [netFile, setNetFile] = React.useState<null | any>(null)
+    const [netFile, setNetFile] = React.useState<null | any>(null)
 
-//     console.log('getUsersRole', getUsersRole)
-//     // const NetData = useSelector((state: RootState)=> state.formData.netData)
-//     const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
-//     const modalAddPhoto = useSelector((state: RootState)=> state.modaleSlice.modalAddPhoto)
+    console.log('getUsersRole', getUsersRole)
+    // const NetData = useSelector((state: RootState)=> state.formData.netData)
+    const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
+    const modalAddPhoto = useSelector((state: RootState)=> state.modaleSlice.modalAddPhoto)
 
-//     //statesRedux
-//     const addPhotoState =  useSelector((state: RootState)=> state.admin.addPhotoState)
-//     const title = useSelector((state: RootState)=> state.formData.title)
-//     const description = useSelector((state: RootState)=> state.formData.description)
-//     const sizeChartImageDescription = useSelector((state: RootState)=> state.formData.sizeChartImageDescription)
-//     const categories = useSelector((state: RootState)=> state.formData.categories)
-//     const colours = useSelector((state: RootState)=> state.formData.allcoloursId)
-//     const selectedImages = useSelector((state: RootState)=> state.formData.arrObjMod)
-//     const price =  useSelector((state: RootState)=> state.formData.price)
-//     const quantity =  useSelector((state: RootState)=> state.formData.quantity)
-//     const netImage =  useSelector((state: RootState)=> state.formData.netData)
-//     const allsizes =  useSelector((state: RootState)=> state.formData.allsizes)
+    //statesRedux
+    const addPhotoState =  useSelector((state: RootState)=> state.admin.addPhotoState)
+    const title = useSelector((state: RootState)=> state.formData.title)
+    const description = useSelector((state: RootState)=> state.formData.description)
+    const sizeChartImageDescription = useSelector((state: RootState)=> state.formData.sizeChartImageDescription)
+    const categories = useSelector((state: RootState)=> state.formData.categories)
+    const colours = useSelector((state: RootState)=> state.formData.allcoloursId)
+    const selectedImages = useSelector((state: RootState)=> state.formData.arrObjMod)
+    const price =  useSelector((state: RootState)=> state.formData.price)
+    const quantity =  useSelector((state: RootState)=> state.formData.quantity)
+    const netImage =  useSelector((state: RootState)=> state.formData.netData)
+    const allsizes =  useSelector((state: RootState)=> state.formData.allsizes)
 
-//    let  objDataSend = {
-//         images: imagesData,
-//         title: title,
-//         description: description,
-//         sizeChartImageDescription: sizeChartImageDescription,
-//         categories: categories,
-//         colours: colours,
-//         selectedImages: selectedImages,
-//         price: price,
-//         quantity: quantity,
-//        // allcoloursId: colours,
-//         allsizes: allsizes,
-//         netImage: netFile
-//    }
+   let  objDataSend = {
+        images: imagesData,
+        title: title,
+        description: description,
+        sizeChartImageDescription: sizeChartImageDescription,
+        categories: categories,
+        colours: colours,
+        selectedImages: selectedImages,
+        price: price,
+        quantity: quantity,
+       // allcoloursId: colours,
+        allsizes: allsizes,
+        netImage: netFile
+   }
 
-// //    console.log('objDataSend', objDataSend)
+//    console.log('objDataSend', objDataSend)
   
 
-//     const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch()
 
-//     console.log('imagesData', imagesData)
-
-
-//     function sendFormData({images, title, description, sizeChartImageDescription, categories, colours, selectedImages, price, quantity, allcoloursId, allsizes, netImage  }: formDataType){
-
-//         const formData = new FormData();
-//         //images
-//         for(let i = 0;  i < images.length; i++){
-//             formData.append('images', images[i])
-//         }
-//         //title
-//         formData.append('title', JSON.stringify(title))
-//         //description
-//         formData.append('description', JSON.stringify(description))
-//         //sizeChartImageDescription
-//         formData.append('sizeChartImageDescription', JSON.stringify(sizeChartImageDescription))
-//         //categories
-//         formData.append('categories', JSON.stringify(categories))
-//         //colours
-//         formData.append('colours', JSON.stringify(colours))
-//         //selectedImages
-//         formData.append('selectedImages', JSON.stringify(selectedImages))
-//         //price
-//         formData.append('price', price.toString());
-//         //quantity
-//         formData.append('quantity', quantity.toString())
-//         //allsizes
-//         formData.append('sizes', JSON.stringify(allsizes))
-//         //sizeChartImage
-//         formData.append('sizeChartImage', netImage)
-
-//         fetch('/product/create_product', {
-//             method: 'POST',
-//             body: formData
-//         })
-//         .then(response => {
-//             if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//             }
-//             return response.json();
-//         })
-//         .then(data => {
-//             console.log(data);
-//         })
-//         .catch(error => {
-//             console.error('There was an error!', error);
-//         });
-
-//         console.log('formData', formData)
-
-//     }
-
-//     const SizeChartArr = [
-//         {id: 1, title: ' Описание размерной сетки UA', placeholder: 'Введите описание размерной сетки', leng: "ua"},
-//         {id: 2, title: ' Описание размерной сетки RU', placeholder: 'Введите описание размерной сетки', leng: "ru"},
-//         {id: 3, title: ' Описание размерной сетки SRB', placeholder: 'Введите описание размерной сетки', leng: "rs"},
-//         {id: 4, title: ' Описание размерной сетки ENG', placeholder: 'Введите описание размерной сетки', leng: "en"},
-//     ]
+    console.log('imagesData', imagesData)
 
 
-//     // const [netData, setNetData] = React.useState<null | string>(null)
+    function sendFormData({images, title, description, sizeChartImageDescription, categories, colours, selectedImages, price, quantity, allcoloursId, allsizes, netImage  }: formDataType){
+
+        const formData = new FormData();
+        //images
+        for(let i = 0;  i < images.length; i++){
+            formData.append('images', images[i])
+        }
+        //title
+        formData.append('title', JSON.stringify(title))
+        //description
+        formData.append('description', JSON.stringify(description))
+        //sizeChartImageDescription
+        formData.append('sizeChartImageDescription', JSON.stringify(sizeChartImageDescription))
+        //categories
+        formData.append('categories', JSON.stringify(categories))
+        //colours
+        formData.append('colours', JSON.stringify(colours))
+        //selectedImages
+        formData.append('selectedImages', JSON.stringify(selectedImages))
+        //price
+        formData.append('price', price.toString());
+        //quantity
+        formData.append('quantity', quantity.toString())
+        //allsizes
+        formData.append('sizes', JSON.stringify(allsizes))
+        //sizeChartImage
+        formData.append('sizeChartImage', netImage)
+
+        fetch('/product/create_product', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('There was an error!', error);
+        });
+
+        console.log('formData', formData)
+
+    }
+
+    const SizeChartArr = [
+        {id: 1, title: ' Описание размерной сетки UA', placeholder: 'Введите описание размерной сетки', leng: "ua"},
+        {id: 2, title: ' Описание размерной сетки RU', placeholder: 'Введите описание размерной сетки', leng: "ru"},
+        {id: 3, title: ' Описание размерной сетки SRB', placeholder: 'Введите описание размерной сетки', leng: "rs"},
+        {id: 4, title: ' Описание размерной сетки ENG', placeholder: 'Введите описание размерной сетки', leng: "en"},
+    ]
+
+
+    // const [netData, setNetData] = React.useState<null | string>(null)
 
  
 
 
-//     // console.log('titleen', titleen)
-//     // console.log('netData', NetData)
-//     // console.log('setNetFile', netFile)
-//     // console.log('title', title)
+    // console.log('titleen', titleen)
+    // console.log('netData', NetData)
+    // console.log('setNetFile', netFile)
+    // console.log('title', title)
 
    
 
-//     const  [inputs, setInputs] = React.useState([
-//         { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', name: 'titleRU', disable: false,  },
-//         { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название кнопки', name: 'titleUA', disable: false },
-//         { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название кнопки', name: 'titleSRB',  disable: false },
-//         { id: 3, type: 'text', text: 'Название товара ENG', placeholder: 'Введите название кнопки', name: 'titleENG',disable: false },
-//         { id: 4, type: 'text', text: 'Описание товара RU', placeholder: 'Введите описание товара', name: 'descriptionRU',disable: false },
-//         { id: 5, type: 'text', text: 'Описание товара UA', placeholder: 'Введите описание товара', name: 'descriptionUA',disable: false },
-//         { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', name: 'descriptionSRB',disable: false },
-//         { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false },
-//         { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', name: 'text', disable: false },
-//         { id: 9, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false },
-//         { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false },
-//         // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', name: 'text', disable: true, colors: colors },
-//         //{ id: 9, type: 'text', text: 'Выберите существующий товар', placeholder: 'Выберите существующий товар', label: 'text', disable: true },
+    const  [inputs, setInputs] = React.useState([
+        { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', name: 'titleRU', disable: false,  },
+        { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название кнопки', name: 'titleUA', disable: false },
+        { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название кнопки', name: 'titleSRB',  disable: false },
+        { id: 3, type: 'text', text: 'Название товара ENG', placeholder: 'Введите название кнопки', name: 'titleENG',disable: false },
+        { id: 4, type: 'text', text: 'Описание товара RU', placeholder: 'Введите описание товара', name: 'descriptionRU',disable: false },
+        { id: 5, type: 'text', text: 'Описание товара UA', placeholder: 'Введите описание товара', name: 'descriptionUA',disable: false },
+        { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', name: 'descriptionSRB',disable: false },
+        { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false },
+        { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', name: 'text', disable: false },
+        { id: 9, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false },
+        { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false },
+        // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', name: 'text', disable: true, colors: colors },
+        //{ id: 9, type: 'text', text: 'Выберите существующий товар', placeholder: 'Выберите существующий товар', label: 'text', disable: true },
    
-//     ])
+    ])
 
-//     const inputsFistWrapper_1 = inputs?.slice(0, 2)
-//     const inputsFistWrapper_2 = inputs?.slice(2, 4)
-//     const inputsFistWrapper_3 = inputs?.slice(4, 6)
-//     const inputsFistWrapper_4 = inputs?.slice(6, 8)
-//     const inputsFistWrapper_5 = inputs?.slice(8, 10)
-//     const inputsFistWrapper_6 = inputs?.slice(10, 11)
+    const inputsFistWrapper_1 = inputs?.slice(0, 2)
+    const inputsFistWrapper_2 = inputs?.slice(2, 4)
+    const inputsFistWrapper_3 = inputs?.slice(4, 6)
+    const inputsFistWrapper_4 = inputs?.slice(6, 8)
+    const inputsFistWrapper_5 = inputs?.slice(8, 10)
+    const inputsFistWrapper_6 = inputs?.slice(10, 11)
     
-//     // const inputsSecondWrapper = inputs?.slice(inputs.length - 1, inputs.length)
+    // const inputsSecondWrapper = inputs?.slice(inputs.length - 1, inputs.length)
 
 
 
 
     
-//     return (
+    return (
+        <></>
+    )
+}
+
+export default AddProduct
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // <main className='content'>
 // <div className='container'>
@@ -519,9 +550,9 @@ import React from "react"
 
 
 
-//                     {SizeChartArr.map((obj)=>{
+//                     {/* {SizeChartArr.map((obj)=>{
 //                         return <SizeChart key={obj.id} leng={obj.leng} id={obj.id} placeholder={obj.placeholder} title={obj.title} />
-//                     })}
+//                     })} */}
                     
 //                     {/* <span className={s.item_wrapper_1}>
 //                         Описание размерной сетки
@@ -594,9 +625,3 @@ import React from "react"
 // </div>
 // </main>
 
-
-//     )
-// }
-
-// export default AddProduct
-export default {}
