@@ -136,7 +136,7 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
             
             {disable == false && type === 'text' ? 
             <input id={`${id}`} 
-            name={name} 
+            name={name}
             onChange={(e)=>{
                 setInputsState( (prevState: any)=>{
                     const objCopy = {...prevState}
@@ -144,17 +144,18 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
                     return objCopy
                 })
             }}
+
             onBlur={handleBlurSet}
-            // className={ inputsState[id] ?  s.input : s.input_off_valid } 
+             className={ inputsState[id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
             style={{
                 border:  inputsState[id] ? '' : 'solid 1.5px red'
             }} 
-            className={  s.input } 
+            // className={  s.input } 
             type={type}
-            placeholder={placeholder} /> : '' }
+            placeholder={  inputsState[id] ? placeholder  :   `Это поле не может быть пустым`}  /> : '' }
 
             {disable == false && type === 'number' ?
-            <input id={`${id}`}  
+            <input id={`${id}`}
             onChange={(e)=>{
                 setInputsState( (prevState: any)=>{
                     const objCopy = {...prevState}
@@ -163,16 +164,16 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
                 })
             }}
             style={{
-                WebkitAppearance: 'none', 
+                WebkitAppearance: 'none',
                 MozAppearance: 'textfield',
                 border:  inputsState[id] ? '' : 'solid 1.5px red'
             }} 
             name={name} 
             onBlur={handleBlurSet} 
             // className={ inputsState[id] ?  s.input : `${s.input_off_valid} ${s.input}` } 
-            className={s.input} 
+            className={ inputsState[id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
             type={type} 
-            placeholder={  inputsState[id] ?  `Это поле не может быть пустым` : placeholder} /> : '' }
+            placeholder={  inputsState[id] ? placeholder  :   `Это поле не может быть пустым`} /> : '' }
 
             {/* {disable == true  && type === 'text' && placeholder === 'Выберите существующий товар' ?  <input id={`${id}`} 
             onClick={()=> console.log('p')} 

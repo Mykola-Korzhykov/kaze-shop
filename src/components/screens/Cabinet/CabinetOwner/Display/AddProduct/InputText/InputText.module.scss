@@ -46,13 +46,7 @@
     
 }
 
-.input_off_valid{
-    border: #e73232 solid 1.5px;
-}
 
-.input_off_valid::placeholder{
-    border: #e73232 solid 1.5px;
-}
 
 .input{
     flex-basis: 70%;
@@ -78,6 +72,15 @@
 
 
     color: #9D9D9D;
+}
+
+// .input_off_valid{
+//     border: #e73232 solid 1.5px;
+// }
+
+
+.input_off_valid::placeholder{
+    color: #e73232 ;
 }
 
 

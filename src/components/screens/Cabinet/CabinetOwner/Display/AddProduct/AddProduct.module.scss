@@ -291,4 +291,46 @@
     height: 102px;
 }
 
+.show_net_wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.show_net{
+    position: relative;
+    width: 308px;
+    height: 60px;
+    // background-color: red;
+}
+
+.show_net_hover{
+    transition: all 0.3s;
+    position: absolute;
+    background-color: #0B0B0B;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+}
+
+.remove_photo{
+    opacity: 0;
+    position: absolute;
+    top: 17px;
+    left: 140px;
+}
+
+.show_net:hover{
+
+    .remove_photo{
+        opacity: 1;
+    }
+
+    .show_net_hover{
+        opacity: 0.35;
+    }
+}
+
+
+
 

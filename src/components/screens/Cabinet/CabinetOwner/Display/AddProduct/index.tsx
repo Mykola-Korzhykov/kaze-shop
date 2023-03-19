@@ -70,6 +70,7 @@ interface formDataType {
 export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, setCountPhoto, imagesData, setImages, modalAddCAtegory}: AddProductProps) => {
 
     const [netFile, setNetFile] = React.useState<null | any>(null)
+    const [netFileShow, setNetFileShow] = React.useState<null | string>(null)
     // const NetData = useSelector((state: RootState)=> state.formData.netData)
     const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
     //statesRedux
@@ -121,10 +122,11 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
 
     console.log('imagesData', imagesData)
 
-
     function sendFormData({ images, title, description, sizeChartImageDescription, categories, colours, selectedImages, price, quantity, allsizes, netImage }: formDataType) {
         const cookies = parseCookies();
         const token = cookies.accessToken;
+        console.log('вошли в форму')
+        // console.log('sendFormData', sendFormData)
       
         const formData = new FormData();
         //images
@@ -426,9 +428,9 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                                     dispatch(removearrObjMod(ind))
                                     dispatch(removeimageUrlArr(ind))
 
-                                    console.log('removearrObjMod', removearrObjMod)
-                                    console.log('click', ind)
-                                    console.log('arrObjMods', arrObjMods)
+                                    // console.log('removearrObjMod', removearrObjMod)
+                                    // console.log('click', ind)
+                                    // console.log('arrObjMods', arrObjMods)
                                     e.stopPropagation()
                                     
                                 }} style={{
@@ -519,7 +521,30 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                         </label>
                         <input key={2}  onChange={(e)=>{
                             setNetFile(e.target.files[0])
+                            setNetFileShow(URL.createObjectURL(e.target.files[0]))
+
                         }} id='uploadnet' className={s.item_2} placeholder="Загрузить размерную сетку" type="file" />
+
+                            { netFileShow  && <div onClick={()=>{
+                                setNetFile(null)
+                                setNetFileShow(null)
+                            }} className={s.show_net_wrapper}>
+                                <span  className={s.show_net}>
+                                    <span className={s.show_net_hover}></span>
+                                    <svg className={s.remove_photo} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M18.75 5.25L5.25 18.75" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        <path d="M18.75 18.75L5.25 5.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <Image 
+                                    src={netFileShow} 
+                                    alt={'photo'}
+                                    width={ 308}
+                                    height={60}
+                                    />
+                                </span>
+                            </div> }
+                           
+                        
                     </span> 
                 </div>
 
@@ -552,16 +577,37 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                     </div>
                 </div> */}
 
-
-
-                
-
                 <div className={s.send_wrapper}>
                     <button  className={s.btn_cancel}>Отменить</button>
                     
-                    <input onClick={()=>{
-                        sendFormData(objDataSend)
-                    }} className={s.btn_send} value='Добавить товар' name="submit" id="" />
+                    <input
+                        onClick={()=>{
+                            console.log('resODODODOODODODODDODOODDODODOODOD', checkObjectValues(objDataSend))
+                            console.log('objDataSend', objDataSend)
+                            //создание на проверку валидность формы
+                            function checkObjectValues(obj: any) {
+                                for (const key in obj) {
+                                    if (obj[key] === null || obj[key] === '' || obj.selectedImages.length < 1  ) {
+                                        return false;
+                                    }
+                                }
+                                return true;
+                            }
+
+                            //проверка на валидность формы
+                            if(checkObjectValues(objDataSend) ) {
+                                
+                                sendFormData(objDataSend)
+                            }else{
+                                alert('заполни форму')
+                            }
+
+                        }} 
+                        className={s.btn_send} 
+                        value='Добавить товар' 
+                        name="submit" 
+                        id="" 
+                    />
                 </div>
             </form>
         </div>
