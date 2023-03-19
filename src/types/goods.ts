@@ -73,3 +73,33 @@ export interface CartProduct {
 		en: string
 	}
 }
+
+export interface GoodsSend {
+	id: number
+	title: {
+		ua: string
+		ru: string
+		rs: string
+		en: string
+	}
+	description: {
+		ua: string
+		ru: string
+		rs: string
+		en: string
+	}
+	price: number
+	quantity: number
+	images: {
+		fileNames: string[] | StaticImageData[];
+		colourId: number
+		sizes: string[]
+	}[]
+	sizeChartImage: string
+	sizeChartImageDescription?: string
+	sizes: string[]
+	colours: fetchedColour[]
+	categories: fetchedCategory[]
+}
+
+

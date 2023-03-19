@@ -27,22 +27,25 @@ interface InputItemProps {
     setModalAddColor?: (n: boolean)=> void
     modalAddColor?: boolean,
     modalAddCAtegory?: boolean, 
+    //inputs state
+    setInputsState: (n: any)=> void
+    inputsState: any
     // setModalAddCAtegory?: (n: boolean)=> void
     
 }
 
-export const InputTextItem = ({ id, type, text, placeholder, disable, name, colors, modalAddColor, setModalAddColor, }: InputItemProps) => {
+export const InputTextItem = ({ inputsState, setInputsState , id, type, text, placeholder, disable, name, colors, modalAddColor, setModalAddColor, }: InputItemProps) => {
 
     const dispatch = useAppDispatch()
     // const titleStore = useSelector((state: RootState)=> state.formData.title)
-    
-    
+
     //redux
     const modalAddCAtegory =  useSelector((state: RootState)=> state.modaleSlice.modalAddCAtegory)
     const titleDescription = useSelector((state: RootState)=> state.formData.price)
 
     const categories = useSelector((state: RootState)=> state.formData.categories)
     const categoryArr = useSelector((state: RootState)=> state.goods.fetchedCategories)
+
     const newCategoryArr = [...categoryArr, {
 		id: 0.1,
 		ua: 'UAstring',
@@ -58,24 +61,10 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
         return el.id === categories[0]
     })
 
-    console.log('categoriesfjfjfjfjfjjf', categories)
-
-
-
-    
-
-
-    // console.log('modalAddCAtegory', modalAddCAtegory)
-    // console.log('categories', categories)
-    // console.log('categoryArr', categoryArr)
-
     //state
     const [categoriesDisplay, setCategoriesDisplay ] = React.useState<boolean>(false)
 
-    //  function changeCategoriesDisplay ( id: number){
-    //     // e.stopPropagation();   . /
-    //     setCategoriesDisplay(!categoriesDisplay)
-    //  }
+    // const [validLocal, setValidLocal] = React.useState<boolean>(true)
 
       function handleBlurSet(event: any) {
         
@@ -117,64 +106,96 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
             const payload: number = event.target.value
             dispatch(setQuantity(Number(payload))) 
         }
-       //price
-       if(event.target.name === 'price'){
+        //price
+        if(event.target.name === 'price'){
         const payload: number = event.target.value
         dispatch(setPrice(Number(payload))) 
         }
 
+        // setInputsState((prevState: any)=>{
+        //     const prevStateCopy = {...prevState}
+        //     prevStateCopy[event.target.id] = event.target.value
+        //     return prevStateCopy
+        // })
+
         //setQuantity
-       
 
         // console.log('titleDescription', titleDescription)
         // console.log('titleStore' , titleStore)
         // console.log('obj',event.target.name )
         // console.log('Пользователь закончил ввод:', event.target.value);
-      }
-    
- 
-   
+    }
+
     return (
+
         <div className={s.wrapper}>
             <div className={s.title}>
-                {text}
-                
+                {text} 
+                {/* {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   } */}
             </div>
-            {disable == false && type === 'text' ?  <input name={name} onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder} /> : '' }
-            {disable == true  && type === 'text' && placeholder === 'Выберите существующий товар' ?  <input onClick={()=> console.log('p')} style={{cursor: 'pointer'}} readOnly className={s.input} type={type} placeholder={placeholder} /> : ''}
-            {/* {disable == true  && type === 'text' && placeholder === 'Выбрать один цвет фотографии' ? 
-             <label className={s.select__wrapper} htmlFor="selectColor">
-                <input onClick={()=> setModalAddColor(!modalAddColor)} style={{cursor: 'pointer'}} 
-                id='selectColor' 
-                readOnly 
-                className={s.input} 
-                type={type} 
-                placeholder={placeholder} />
-                <Image  className={`${s.select_img}`} src={selectIcon} alt="My Image" />
+            
+            {disable == false && type === 'text' ? 
+            <input id={`${id}`} 
+            name={name} 
+            onChange={(e)=>{
+                setInputsState( (prevState: any)=>{
+                    const objCopy = {...prevState}
+                    objCopy[id] = e.target.value.trim() !== '' ? true  : false
+                    return objCopy
+                })
+            }}
+            onBlur={handleBlurSet}
+            // className={ inputsState[id] ?  s.input : s.input_off_valid } 
+            style={{
+                border:  inputsState[id] ? '' : 'solid 1.5px red'
+            }} 
+            className={  s.input } 
+            type={type}
+            placeholder={placeholder} /> : '' }
 
-                <div style={{display: modalAddColor ? 'flex' : 'none' }} className={s.color_wrapper}>
-                    {colors?.map((obj)=>{
-                        return <div className={s.inner_color}>
-                            <span style={{ backgroundColor: `${obj.hex}`,}} className={s.color} > </span>
-                            <span className={s.color_title}>{obj.label}</span>
-                        </div>
-                    })}
-                </div>
-             </label>    
-            : ''} */}
+            {disable == false && type === 'number' ?
+            <input id={`${id}`}  
+            onChange={(e)=>{
+                setInputsState( (prevState: any)=>{
+                    const objCopy = {...prevState}
+                    objCopy[id] = e.target.value.trim() !== '' ? true  : false
+                    return objCopy
+                })
+            }}
+            style={{
+                WebkitAppearance: 'none', 
+                MozAppearance: 'textfield',
+                border:  inputsState[id] ? '' : 'solid 1.5px red'
+            }} 
+            name={name} 
+            onBlur={handleBlurSet} 
+            // className={ inputsState[id] ?  s.input : `${s.input_off_valid} ${s.input}` } 
+            className={s.input} 
+            type={type} 
+            placeholder={  inputsState[id] ?  `Это поле не может быть пустым` : placeholder} /> : '' }
+
+            {/* {disable == true  && type === 'text' && placeholder === 'Выберите существующий товар' ?  <input id={`${id}`} 
+            onClick={()=> console.log('p')} 
+            style={{cursor: 'pointer'}} 
+            readOnly 
+            className={s.input} 
+            type={type} 
+            placeholder={placeholder} /> : ''} */}
 
             {type === 'select' ?  
                 <label
-                 className={s.select__wrapper} htmlFor="selectCategory">
+                    className={s.select__wrapper} 
+                    htmlFor={`${id}`} >
                         <input 
                         onClick={(e) => { console.log('[[[[[');  setCategoriesDisplay(!categoriesDisplay); }}  
-                        id='selectCategory' 
+                        id={`${id}`} 
+                        
                         readOnly 
-                        className={s.input} 
+                        className={ inputsState[id] ?  s.input : s.input_off_valid } 
                         type={type}
                         placeholder={activeCategories ? activeCategories.ru : placeholder  } />
                         <Image  className={`${s.select_img}`} src={selectIcon} alt="My Image" />
-
+                        
                         <div className={  categoriesDisplay ?  s.categorychose_wrapper : s.categorychose_wrapper_off }>
                             
                         {  newCategoryArr?.map((el, ind) =>{
@@ -182,8 +203,18 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
                         <div onClick={ (e) => { 
                             e.preventDefault()
                             e.stopPropagation(); 
-                            
-                            
+                            setInputsState( (prevState: any)=>{
+                                const objCopy = {...prevState}
+                                objCopy[id] = el.ua !== '' ? true  : false
+                                return objCopy
+                            })  
+
+                            // setInputsState((prevState: any)=>{
+                            //     const prevStateCopy = {...prevState}
+                            //     prevStateCopy[id] = el.ua
+                            //     return prevStateCopy
+                            // })
+
                             setCategoriesDisplay(!categoriesDisplay);
                             dispatch(setCategories( el.id))
                             }}  key={ind} className={s.categorychose_item}>
@@ -197,7 +228,6 @@ export const InputTextItem = ({ id, type, text, placeholder, disable, name, colo
                             e.preventDefault()
                             e.stopPropagation();
                             dispatch(setModalAddCAtegory(true)) 
-                            
                             setCategoriesDisplay(!categoriesDisplay);
                             }} 
                         

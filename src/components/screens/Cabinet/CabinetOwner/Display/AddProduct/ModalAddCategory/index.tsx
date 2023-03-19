@@ -9,9 +9,6 @@ import axios from "axios"
 import {API_URL } from '../../../../../../../services/index'
 import { parseCookies } from 'nookies';
 
-
-
-
 interface ModalAddCategoryProps {
     // setModalAddCAtegory: (n: boolean)=> void,
     // modalAddCAtegory: boolean,
@@ -22,6 +19,7 @@ interface  inputsStateType {
     ru: string;
     rs: string;
     en: string;
+    hex: string
 }
 
 export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
@@ -29,7 +27,7 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
     
     const modalAddCAtegory = useSelector((state: RootState)=> state.modaleSlice.modalAddCAtegory)
 
-    const [stateInputs, setStateInputs] = React.useState<inputsStateType>({ua: '',  ru: '', rs: '', en: ''  })
+    const [stateInputs, setStateInputs] = React.useState<inputsStateType>({ua: '',  ru: '', rs: '', en: '', hex: ''  })
     
 
     // function sendStateInputs(obj: inputsStateType){
@@ -43,6 +41,31 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
     //         .catch(error => console.error(error));
 
     // }
+
+    // const [validationErrors, setValidationErrors] = React.useState({
+    //     choosecategoryUA: false,
+    //     choosecategoryRU: false,
+    //     choosecategoryEN: false,
+    //     choosecategoryRS: false
+    //   });
+      
+    //   const [valueInputs, setValueInputs] = React.useState({
+    //     choosecategoryUA: '',
+    //     choosecategoryRU: '',
+    //     choosecategoryEN: '',
+    //     choosecategoryRS: ''
+    //   });
+
+    //   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const { id, value } = e.target;
+    //     setStateInputs(prevState => ({ ...prevState, [id]: value }));
+    //     if (value.length === 0) {
+    //       setValidationErrors(prevState => ({ ...prevState, [id]: true }));
+    //     } else {
+    //       setValidationErrors(prevState => ({ ...prevState, [id]: false }));
+    //     }
+    //   };
+      
         
    
     function sendStateInputs(obj: inputsStateType) {

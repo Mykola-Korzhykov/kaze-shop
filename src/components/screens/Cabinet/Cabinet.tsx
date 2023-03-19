@@ -97,13 +97,13 @@ const Cabinet: FC = () => {
 				modalAddPhoto={modalAddPhoto}
                 modalAddColor={modalAddColorTurn} 
                 setModalAddColor={setModalAddColor}   
-                />  */}
+                /> */}
 				{/* <CabinetAdmin /> */}
 
 				{/* <div className={s.backround_module}></div>  */}
 				{countPhoto > 0 && modalAddPhoto ? (
 					<div
-						style={{ height: `${1450 + countPhoto * 125}px` }}
+						// style={{ height: `${1450 + countPhoto * 125}px` }}
 						className={s.backround_module}
 					></div>
 				) : (
@@ -115,7 +115,7 @@ const Cabinet: FC = () => {
 				{/* {choiceColor? <div   className={ s.backround_module}></div> : ''}  */}
 				{modalAddCAtegory ? (
 					<div
-						style={{ height: '1450px' }}
+						// style={{ height: '1450px' }}
 						className={s.backround_module}
 					></div>
 				) : (

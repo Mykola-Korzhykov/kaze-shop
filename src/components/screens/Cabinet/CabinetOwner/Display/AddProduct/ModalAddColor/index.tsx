@@ -15,7 +15,14 @@ interface ModalAddColorProps {
 
 export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: ModalAddColorProps) => {
 
-    const coloursArr = [
+    interface coloursArrType {
+        id: number,
+        text: string,
+        placeholder: string, 
+        leng: "ua" | "ru" | "en" | "rs"
+    }
+
+    const coloursArr: coloursArrType[] = [
         {id: 0, text: 'Название цвета UA', placeholder: 'Введите название цвета', leng: 'ua'},
         {id: 1, text: 'Название цвета RU', placeholder: 'Введите название цвета', leng: 'ru'},
         {id: 2, text: 'Название цвета EN', placeholder: 'Введите название цвета', leng: 'en'},
@@ -62,8 +69,54 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
         }
 
     const [inputsState, setInputsState] = React.useState<inputsStateType>({ua: '',  ru: '', rs: '', en: '', hex: '' })
-
+    const [validateHex, setValidateHex] = React.useState<boolean>(true)
     const dispatch = useAppDispatch()
+
+    const [validationErrors, setValidationErrors] = React.useState({
+        ua: false,
+        ru: false,
+        en: false,
+        rs: false
+    });
+
+    console.log('inputsState', inputsState)
+    console.log('validationErrors', validationErrors)
+    //   const [stateInputs, setStateInputs] = React.useState({
+    //     choosecategoryUA: '',
+    //     choosecategoryRU: '',
+    //     choosecategoryEN: '',
+    //     choosecategoryRS: ''
+    //   });
+
+      const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        
+        const { id, value } = e.target;
+        console.log('keyelement', id)
+        setInputsState(prevState => ({ ...prevState, [id]: value }));
+        if (value.length < 1) {
+          setValidationErrors(prevState => ({ ...prevState, [id]: true }));
+        } else {
+          setValidationErrors(prevState => ({ ...prevState, [id]: false }));
+        }
+      };
+
+      function validateHexInput(input: string) {
+        
+        
+        //Проверяем, что строка соответствует формату HEX
+        const regex =  /#([a-f0-9]{6}|[a-f0-9]{3})/gi;
+        return regex.test(input);
+      }
+
+      const handleInputColor = (e: React.ChangeEvent<HTMLInputElement>) =>{
+        const {id , value} = e.target
+        setInputsState(prevState => ({ ...prevState, [id]: value }));
+        if(validateHexInput(e.target.value)){
+            setValidateHex(true)
+        }else{
+            setValidateHex(false)
+        }
+      }
 
     return (
         <div className={s.module_wrapper}>
@@ -87,24 +140,54 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
 
                 {coloursArr.map((obj, ind)=>{
                     return <div key={ind} className={s.input_inner}>
-                            <span className={s.title}>{obj.text}</span>
-                            <label className={s.label_input_file} htmlFor={`colorname${obj.id}`}>
+                            <span className={s.title}>{obj.text} {validationErrors[obj.leng] && <span 
+                            style={{ 
+                                color: '#e73232',
+                                fontSize: '17px',
+                                marginLeft: '5px'
+                            
+                            }}
+                            
+                            
+                            > Это поле не может быть пустым </span> } </span>
+                                
+                            <label 
+                            className={s.label_input_file} 
+                            htmlFor={`colorname${obj.id}`}
+                            style={{ border: validationErrors[obj.leng] ? '#e73232 solid 1.5px' : '' }}
+                            >
+
                                 <input onBlur={(e)=> {
-                                      
-                                    setInputsState(prevState=>({...prevState, [obj.leng]: e.target.value}))
-                                    // console.log('inputsState', inputsState)
-                                }}  key={ind} id={`colorname${obj.id}`} className={s.input_file} placeholder={obj.placeholder} type="text" />
+                                      handleInput(e)
+                                }}   key={ind}
+                                id={obj.leng} 
+                                className={s.input_file} 
+                                placeholder={obj.placeholder} 
+                                type="text"
+                               
+                                />
                             </label>
                          </div>
                 })}
 
                     <div className={s.input_inner}>
-                        <span className={s.title}>Цветовой код</span>
-                        <label className={s.label_input_file} htmlFor="choosecategoryRU">
-                            <input onBlur={(e)=>{
-                                 setInputsState(prevState=>({...prevState, hex: e.target.value}))
+                        <span className={s.title}>
+                            Цветовой код <span style={{
+                                display: !validateHex ? 'inline' : 'none',
+                                color: '#e73232',
+                                fontSize: '17px',
+                                marginLeft: '5px',
+                                
+                                }}> Не верный код   </span>
+                        </span>
+                        <label  
+                            style={{ border: !validateHex ? '#e73232 solid 1.5px' : '' }}
+                          className={s.label_input_file} htmlFor="hex">
+                            <input onChange={(e)=>{
+                                handleInputColor(e)
+                                //  setInputsState(prevState=>({...prevState, hex: e.target.value}))
                                  console.log('inputsState', inputsState)
-                            }} id="choosecategoryRU" className={s.input_file} placeholder='#000000' type="text" />
+                            }} id="hex" className={s.input_file} placeholder='#000000' type="text" />
                         </label>
                     </div>
 
