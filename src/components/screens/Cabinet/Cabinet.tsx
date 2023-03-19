@@ -22,7 +22,7 @@ import { ModuleWindiw } from './CabinetOwner/Display/AddProduct/ModuleWindow'
 const Cabinet: FC = () => {
 	const dispatch = useAppDispatch()
 	const router = useRouter()
-	const user = useSelector((state: RootState) => state.user)
+	const user: RootState['user'] = useSelector((state: RootState) => state.user)
 	//states
 	const [countPhoto, setCountPhoto] = React.useState<number>(1)
 	const modalAddPhoto = useSelector(

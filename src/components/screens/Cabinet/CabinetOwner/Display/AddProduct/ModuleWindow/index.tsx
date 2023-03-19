@@ -61,19 +61,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     //images local show
     const [pngImageShow, setPngImageShow ] = React.useState<File>(null)
     const [jpgImagesShow, setJpgImagesShow ] = React.useState<File[]>([])
-    // const [pngImageShowUrl, setPngImageShowUrl ] = React.useState<File>([])
-    // const pngImageShowUrl = pngImageShow.map((el)=> URL.createObjectURL(el))
 
-    // id: number | null
-	// ua: string | null
-	// en: string | null
-	// rs: string | null
-	// ru: string | null
-	// hex: string | null
-	// type: 'colour' | null
-	// createdAt: any | null
-	// updatedAt: any | null
-	// label: string | null
     const newColoursArr = fetchColoursArr ? [...fetchColoursArr, {
          hex: '#A6BEE5',
 		id: -48093899940393,
@@ -87,7 +75,20 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     // console.log('fetchColoursArr', fetchColoursArr)
     //   console.log('setModalAddColor', setModalAddColor)
 
+    function checkValiedForm (obj: any){
+
+        for(const key in obj){
+            if(obj[key] === null || (Array.isArray(obj[key]) && obj[key].length < 1)){
+                return false
+            }
+        }
+        return true
+    }
+
     function generationObjModal () {
+
+
+
         const obj = {
             fileNames: files.map((el)=>{
                 return el.name
@@ -95,16 +96,25 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
             colourId: colourId,
             sizes: selectedSizes
         }
-        
-        // dispatch(setArrObjMod(obj))  
+        //fully state form ( window modal)
+        const allStateForm = {
+            pngImageShow: pngImageShow,
+            jpgImagesShow: jpgImagesShow,
+            colourId: colourId,
+            sizes: selectedSizes,
+        }
+
+        if(checkValiedForm(allStateForm)){
+              // dispatch(setArrObjMod(obj))  
         dispatch(setAllcoloursId(colourId))
         dispatch(setAllsizes(obj.sizes))
         dispatch(setArrObjMod(obj))
 
+        // console.log('obj', obj)
         // setImages([...imagesData, ...files])
-        console.log('arrObjMods', arrObjMods)
-        console.log('files', files)
-        console.log('imagesData', imagesData)
+        // console.log('arrObjMods', arrObjMods)
+        // console.log('files', files)
+        // console.log('imagesData', imagesData)
 
         dispatch(removeAll())
         setFiles([])
@@ -127,6 +137,12 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
 
         // setImageUrl(url)
         dispatch(setImageUrl(urls))
+       }else{
+           alert('заполните полностью форму')
+       }
+
+       
+
      }
 
 
@@ -174,8 +190,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     React.useEffect(()=>{
         dispatch(fetchColours())
     }, [])
-    
-    
+
     return (
         <div  style={  modalAddColor  ? {visibility: 'hidden'} :  {visibility: 'visible'}} className={s.module_wrapper}>
 
