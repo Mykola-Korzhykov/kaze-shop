@@ -2,9 +2,12 @@ import React, { FC } from "react";
 import { useAppDispatch } from "@/redux/hooks";
 import { fetchGoodsByCategory, setHeaderCategory } from "@/redux/slices/goods";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import cl from "./Header.module.scss";
+import { Router } from "next/router";
 const HeaderMenu: FC<{ classNameToggle: boolean }> = ({ classNameToggle }) => {
     const dispatch = useAppDispatch();
+    const router = useRouter()
     const HeadersCategories = [
         {
             label: "Личный кабинет",
@@ -47,6 +50,7 @@ const HeaderMenu: FC<{ classNameToggle: boolean }> = ({ classNameToggle }) => {
         if (elLink === "/catalog") {
             dispatch(setHeaderCategory(elId))
             dispatch(fetchGoodsByCategory(elId));
+            router.push('/catalog')
         }
     };
 

@@ -21,9 +21,15 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 	const [selectedColorEl, setSelectedColorEl] = React.useState<string | null>(
 		null
 	)
+	const addToCart = () => {
+		const productObj = {}
+		// request
+		//dispatch that delete this item
+		setShowModal(false)
+	}
 	React.useEffect(() => {
-		setSelectedSizeEl(compareOfferProductModal.sizes[0])
-		setSelectedColorEl(compareOfferProductModal.hexes[0])
+		setSelectedSizeEl(compareOfferProductModal?.sizes[0])
+		setSelectedColorEl(compareOfferProductModal?.hexes[0])
 	}, [])
 	return (
 		<div className={s.modal}>
@@ -106,7 +112,7 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 					>
 						Отмена
 					</button>
-					<button className={`${s.modal_btn} ${s.modal_addBtn}`}>
+					<button onClick={addToCart} className={`${s.modal_btn} ${s.modal_addBtn}`}>
 						Добавить в корзину
 					</button>
 				</div>

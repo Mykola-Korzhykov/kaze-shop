@@ -1,10 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
-import { useAppSelector } from '@/redux/hooks'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { useRouter } from 'next/router'
 import catalogItem from '../../../assets/images/compare.png'
+import { setSizeForProduct, setColorForProduct } from '../../../redux/slices/goods'
 import s from './Compare.module.scss'
 const CompareMainItem = () => {
+	const dispatch = useAppDispatch()
 	const router = useRouter()
 	const [sizeActive, setSizeActive] = React.useState<boolean>(false)
 	const [colorActive, setColorActive] = React.useState<boolean>(false)
@@ -14,12 +16,13 @@ const CompareMainItem = () => {
 	const [selectedColorEl, setSelectedColorEl] = React.useState<string | null>(
 		null
 	)
+	const selectSizeHandler = () => {}
 	React.useEffect(() => {
 		if (!compareProduct) {
 			router.push('/catalog')
 		} else {
-			setSelectedSizeEl(compareProduct.sizes[0])
-			setSelectedColorEl(compareProduct.hexes[0])
+			setSelectedSizeEl(compareProduct?.sizes[0])
+			setSelectedColorEl(compareProduct?.hexes[0])
 		}
 	}, [])
 	const compareProduct = useAppSelector(state => state.goods.compareProduct)
