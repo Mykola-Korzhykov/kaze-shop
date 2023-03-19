@@ -131,7 +131,7 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
         <div className={s.wrapper}>
             <div className={s.title}>
                 {text} 
-                {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   }
+                {/* {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   } */}
             </div>
             
             {disable == false && type === 'text' ? 
@@ -146,6 +146,9 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
             }}
             onBlur={handleBlurSet}
             // className={ inputsState[id] ?  s.input : s.input_off_valid } 
+            style={{
+                border:  inputsState[id] ? '' : 'solid 1.5px red'
+            }} 
             className={  s.input } 
             type={type}
             placeholder={placeholder} /> : '' }
@@ -163,7 +166,6 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
                 WebkitAppearance: 'none', 
                 MozAppearance: 'textfield',
                 border:  inputsState[id] ? '' : 'solid 1.5px red'
-            
             }} 
             name={name} 
             onBlur={handleBlurSet} 
@@ -182,8 +184,8 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
 
             {type === 'select' ?  
                 <label
-                 className={s.select__wrapper} 
-                 htmlFor={`${id}`} >
+                    className={s.select__wrapper} 
+                    htmlFor={`${id}`} >
                         <input 
                         onClick={(e) => { console.log('[[[[[');  setCategoriesDisplay(!categoriesDisplay); }}  
                         id={`${id}`} 
