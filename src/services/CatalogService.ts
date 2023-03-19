@@ -1,5 +1,5 @@
 import {} from '@/types/auth'
-import { CartProduct } from '@/types/goods'
+import { CartProduct, sendProductToCart } from '@/types/goods'
 import { AxiosInstance, AxiosResponse } from 'axios'
 import { API_URL } from './index'
 export const GoodsApi = (instance: AxiosInstance) => ({
@@ -47,9 +47,12 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		const { data } = await instance.get(`product/productId=${productId}`)
 		return data
 	},
-	async addToCart(productId: number, product: CartProduct) {
+	async addToCart(
+		productId: number,
+		product: { imageUrl: string; colourId: number; size: string }
+	) {
 		const { data } = await instance.post(
-			`product/addBasket?productId${productId}`,
+			`cart/addProduct?productId=${productId}`,
 			product
 		)
 		return data

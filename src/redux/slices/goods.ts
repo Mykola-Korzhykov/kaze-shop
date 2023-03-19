@@ -6,7 +6,7 @@ import {
 	Goods,
 	fetchedCategory,
 	fetchedColour,
-	CartProduct,
+	sendProductToCart,
 } from '../../types/goods'
 import { AxiosError } from 'axios'
 
@@ -104,15 +104,17 @@ export const fetchCategories = createAsyncThunk<
 })
 
 export const addProductToCart = createAsyncThunk<
-	fetchedCategory[],
+	{ cartProductId: number },
 	null,
 	{ rejectValue: string }
 >(
 	'goods/addProductToCart',
-	async (product: CartProduct, { rejectWithValue }) => {
+	async (product: sendProductToCart, { rejectWithValue }) => {
 		try {
-			const data = await Api().goods.addToCart(product.id, product)
-			return data.data
+			const productObj = Object.assign({}, product)
+			delete productObj.id
+			const data = await Api().goods.addToCart(product.id, productObj)
+			return data
 		} catch (e) {
 			return rejectWithValue(e.response.data.rawErrors[0].ua)
 		}

@@ -40,21 +40,21 @@ export interface Goods {
 	price: number
 	quantity: number
 	images: {
-		fileNames: string[] | StaticImageData[]
-		colourId: number
+		imagesPaths: string[]
+		colour: fetchedColour
 		sizes: string[]
 	}[]
 	sizeChartImage: string
-	sizeChartImageDescription?: string
+	sizeChartImageDescription: string
 	sizes: string[]
-	hexes?: string[]
+	hexes: string[]
 	colours: fetchedColour[]
 	categories: fetchedCategory[]
 	// reviews: ReturnedReview[] | [];
 }
 
 export interface CartProduct {
-    id: number
+	id: number
 	image: string
 	hex: string
 	size: string
@@ -74,6 +74,13 @@ export interface CartProduct {
 	}
 }
 
+export interface sendProductToCart {
+	id: number
+	imageUrl: string
+	colourId: number
+	size: string
+}
+
 export interface GoodsSend {
 	id: number
 	title: {
@@ -91,7 +98,7 @@ export interface GoodsSend {
 	price: number
 	quantity: number
 	images: {
-		fileNames: string[] | StaticImageData[];
+		fileNames: string[] | StaticImageData[]
 		colourId: number
 		sizes: string[]
 	}[]
@@ -101,5 +108,3 @@ export interface GoodsSend {
 	colours: fetchedColour[]
 	categories: fetchedCategory[]
 }
-
-

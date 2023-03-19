@@ -31,8 +31,9 @@ export const Api = (
 		async error => {
 			const originalRequest = error.config
 			if (
-				error.response.status == 401 &&
 				error.config &&
+				error.response &&
+				error.response.status === 401 &&
 				!error.config._isRetry
 			) {
 				originalRequest._isRetry = true
