@@ -144,20 +144,20 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
 
         setPngImageShow(event.target.files[0])
         // set photo setFiles
-        const hasJpgFiles = files.some((image) => {
+        const hasPngFiles = files.some((image) => {
             return image.name.endsWith(".png");
         });
             //console.log('hasJpgImage', hasJpgFiles)
-        if(hasJpgFiles){
+        if(hasPngFiles){
             return
         }else{
             setFiles((prevArray: File[]) => [event.target.files[0], ...prevArray])
         }
             //set photo setImages
-        const hasJpgImages = imagesData.some((image) => {
+        const hasPngImages = imagesData.some((image) => {
             return image.name.endsWith(".png");
         });
-        if(hasJpgImages){
+        if(hasPngImages){
             return 
         }else{
             setImages( (prevArray: File[]) => [event.target.files[0], ...prevArray,])
@@ -202,7 +202,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                             color:  pngImageShow ? `black ` : '#9D9D9D ',
                             border: pngImageShow ?  `black 1.5px solid` : `#9D9D9D 1.5px solid`,
                             opacity: pngImageShow  ?  `0.4` : `1`
-                        }} className={s.label_input_file} htmlFor="uploadfileaddphotojpg">
+                        }} className={s.label_input_file} htmlFor="uploadfileaddphotopng">
                         {pngImageShow  ? `Фото загружено ` : `Загрузите фотографию`}  
                         <input 
                         accept="image/png"

@@ -9,7 +9,7 @@ const SlideItem = ({ img, title, price, className, children, ...props }: SlideIt
     return (
         <>
             <div className={cn(s.slide_item, className)} {...props}>
-                <Image src={img} alt={title} />
+                <Image src={img} alt={title} quality={100} />
                 <h3>{title}</h3>
                 <span>{price}</span>
             </div>

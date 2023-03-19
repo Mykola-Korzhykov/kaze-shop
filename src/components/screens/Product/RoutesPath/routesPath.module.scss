@@ -1,0 +1,37 @@
+.path {
+    font-family: "Georama", sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: #9D9D9D;
+
+    div {
+        display: inline-block;
+
+        b {
+            font-weight: 500;
+            color: #0d0d0d;
+        }
+
+        &:last-child {
+            span {
+                color: transparent;
+            }
+        }
+
+    }
+
+    a {
+        color: #9D9D9D;
+        text-decoration: none;
+    }
+
+    span {
+        display: inline-block;
+        padding: 0 5px;
+    }
+
+
+
+}

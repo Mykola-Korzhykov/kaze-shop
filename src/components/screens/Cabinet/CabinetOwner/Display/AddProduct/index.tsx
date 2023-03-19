@@ -180,7 +180,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
             // console.log("formDataCheckprice", formData.get('price'));
             // console.log("formDataChecksizeChartImage", formData.get('sizeChartImage'));
       }
-      
+
 
     const SizeChartArr = [
         {id: 1, title: ' Описание размерной сетки UA', placeholder: 'Введите описание размерной сетки', leng: "ua"},
@@ -196,7 +196,16 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
     // console.log('setNetFile', netFile)
     // console.log('title', title)
 
-    const  [inputs, setInputs] = React.useState([
+    interface Input {
+        id: number;
+        type: string;
+        text: string;
+        placeholder: string;
+        name: string;
+        disable: boolean;
+    }
+
+    const  [inputs, setInputs] = React.useState<Input[]>([
         { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', name: 'titleRU', disable: false,  },
         { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название кнопки', name: 'titleUA', disable: false },
         { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название кнопки', name: 'titleSRB',  disable: false },
@@ -211,6 +220,37 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', name: 'text', disable: true, colors: colors },
         //{ id: 9, type: 'text', text
     ])
+
+    interface InputsStateValidType {
+        [key: number]: boolean;
+    }
+
+    const inputsStateInition =  inputs.reduce((accumulator, currentValue) => {
+        accumulator[currentValue.id] = true;
+        return accumulator;
+    }, {} as InputsStateValidType)
+
+    const [inputsState, setInputsState] = React.useState<InputsStateValidType>(inputsStateInition)
+
+    // const sizeChartState =   SizeChartArr.reduce((accumulator, currentValue) => {
+    //     accumulator[currentValue.id] = '';
+    //     return accumulator;
+    // }, {} as InputsState)
+
+    // const [SizeChartState, setSizeChartState] = React.useState<InputsState>(sizeChartState)
+   
+
+    // interface InputsStateValid {
+    //     [key: number]: boolean;
+    // }
+
+    const initialValidChartState: InputsStateValidType = SizeChartArr.reduce((accumulator, currentValue) => {
+        accumulator[currentValue.id] = true;
+        return accumulator;
+    }, {} as InputsStateValidType);
+
+    const [validChartState, setValidChartState] = React.useState(initialValidChartState)
+
 
     const inputsFistWrapper_1 = inputs?.slice(0, 2)
     const inputsFistWrapper_2 = inputs?.slice(2, 4)
@@ -236,7 +276,10 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             key={obj.id} id={obj.id} 
                             type={obj.type} 
                             text={obj.text} 
-                            placeholder={obj.placeholder} />
+                            placeholder={obj.placeholder}
+                            setInputsState={setInputsState}
+                            inputsState={inputsState}
+                            />
                         })}
                     </div>
 
@@ -250,8 +293,13 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             type={obj.type} 
                             text={obj.text} 
                             placeholder={obj.placeholder}
+                            //states
                             setModalAddColor={setModalAddColor}
-                            modalAddColor={modalAddColor} />
+                            modalAddColor={modalAddColor} 
+                            setInputsState={setInputsState}
+                            inputsState={inputsState}
+
+                            />
                         })}
                     </div>
                 </div>
@@ -267,13 +315,17 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             text={obj.text} 
                             placeholder={obj.placeholder}
                             setModalAddColor={setModalAddColor}
-                            modalAddColor={modalAddColor} />
+                            modalAddColor={modalAddColor} 
+                            setInputsState={setInputsState}
+                            inputsState={inputsState}
+                            />
                         })}
                     </div>
 
                     <div className={s.wrapper_inner }>
                         {inputsFistWrapper_4?.map((obj) => {
                             return <InputTextItem
+                            setInputsState={setInputsState}
                             name={obj.name}
                              setModalAddColor={setModalAddColor}
                              modalAddColor={modalAddColor} 
@@ -283,7 +335,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                              text={obj.text} 
                              placeholder={obj.placeholder}
                              modalAddCAtegory={modalAddCAtegory}
-                           
+                             inputsState={inputsState}
                              />
                         })}
                     </div>
@@ -305,6 +357,8 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             setModalAddColor={setModalAddColor}
                             modalAddColor={modalAddColor}
                             modalAddCAtegory={modalAddCAtegory}
+                            setInputsState={setInputsState}
+                            inputsState={inputsState}
                               />
                             
                             
@@ -324,7 +378,9 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             setModalAddColor={setModalAddColor}
                             modalAddColor={modalAddColor}
                             modalAddCAtegory={modalAddCAtegory}
-                              />
+                            setInputsState={setInputsState}
+                            inputsState={inputsState}
+                            />
                            
                             
                         })}
@@ -436,7 +492,15 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                 <div className={s.net_wrapper}>
 
                     {SizeChartArr.map((obj)=>{
-                        return <SizeChart key={obj.id} leng={obj.leng} id={obj.id} placeholder={obj.placeholder} title={obj.title} />
+                        return <SizeChart 
+                        key={obj.id} 
+                        leng={obj.leng} 
+                        id={obj.id} 
+                        placeholder={obj.placeholder} 
+                        title={obj.title} 
+                        valid={validChartState[obj.id] }
+                        setValid={setValidChartState}
+                        />
                     })}
                     
                     {/* <span className={s.item_wrapper_1}>

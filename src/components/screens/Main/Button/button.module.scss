@@ -3,16 +3,70 @@
     justify-content: space-around;
     gap: 30px;
     padding: 16px 24px;
-    background: #0B0B0B;
     border: none;
     transition: 0.4s background;
-
-    &:hover {
-        background: #9D9D9D;
+    @media (max-width:576px) {
+        @media (hover: none) {
+            &.back {
+                &:hover {
+                    background: inherit;
+                }
+            }
+        }
     }
 
-    &:active {
+    &.black {
         background: #0B0B0B;
+        border: 1.5px solid transparent;
+        @media (hover: hover) and (pointer: fine) {
+            &:hover {
+                background: #9D9D9D;
+            }
+        }
+
+        svg {
+            path {
+                stroke: #fff;
+            }
+        }
+
+         &:active {
+             background: #0B0B0B;
+         }
+         }
+
+         &.transparent {
+             background: transparent;
+             border: 1.5px solid #0B0B0B;
+              @media (hover: hover) and (pointer: fine) {
+                  &:hover {
+                      background: #0B0B0B;
+
+                     span {
+                         color: #fff;
+                         }
+
+                     svg {
+                         path {
+                             stroke: #fff;
+                             }
+                             }
+                             }
+                             }
+
+             span {
+                 color: #0B0B0B;
+                 }
+
+             svg {
+                 path {
+                     stroke: #0B0B0B;
+                 }
+             }
+
+             &:active {
+                 background: #9D9D9D;
+             }
     }
 
     span {

@@ -48,7 +48,7 @@ const Catalog: FC = () => {
 							buttonHref='/'
 							description={error}
 						/>
-					) : !goods ? (
+					) : !goods?.length ? (
 						<h1>Товари за таким запитом не знайдені!</h1>
 					) : (
 						<>

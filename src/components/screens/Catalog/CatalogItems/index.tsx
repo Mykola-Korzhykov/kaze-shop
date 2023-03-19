@@ -7,9 +7,9 @@ import CatalogItem from './CatalogItem'
 const CatalogItems = () => {
 	const goods = useAppSelector(selectGoods)
 	const renderGoods = (arr: Goods[] | null) => {
-		if (!arr) {
-			return <h1>Товари за таким запитом не знайдені!</h1>
-		}
+		// if (!arr) {
+		// 	return <h1>Товари за таким запитом не знайдені!</h1>
+		// }
 		return arr?.map(product => {
 			return <CatalogItem product={product} key={product.id} />
 		})

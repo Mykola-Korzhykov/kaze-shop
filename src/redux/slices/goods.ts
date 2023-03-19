@@ -10,7 +10,8 @@ type GoodsSlice = {
 	product?: Goods | null
 	compareProduct: Goods | null
 	compareOfferProducts: Goods[] | null
-	basketOfProducts: Goods[] | null
+	compareOfferProductModal: Goods | null
+	basketOfProducts: Goods[]
 	loadingStatus: 'loading' | 'error' | 'idle'
 	page: number
 	totalProducts: number
@@ -44,14 +45,15 @@ export const fetchGoods = createAsyncThunk<
 })
 
 export const fetchGoodsByCategory = createAsyncThunk<
-	Goods[],
+	{ products: Goods[]; totalProducts: number },
 	number,
 	{ rejectValue: string }
 >(
 	'goods/fetchGoodsByCategory',
-	async (categoryId: number, { getState, rejectWithValue }) => {
+	async (categoryId, { getState, rejectWithValue }) => {
 		const state = getState() as RootState
 		const goodsState = state.goods
+		// const category = goodsState.headerCategory
 		const pageNumber = goodsState.page
 		try {
 			const data = await Api().goods.getGoodsByCategory(pageNumber, categoryId)
@@ -62,7 +64,7 @@ export const fetchGoodsByCategory = createAsyncThunk<
 	}
 )
 export const fetchCompareOfferProducts = createAsyncThunk<
-	Goods[],
+	{ products: Goods[] },
 	number,
 	{ rejectValue: string }
 >(
@@ -72,7 +74,10 @@ export const fetchCompareOfferProducts = createAsyncThunk<
 		const goodsState = state.goods
 		const pageNumber = goodsState.page
 		try {
-			const data = await Api().goods.getProductsWithAnotherCategory(categoryId)
+			const data = await Api().goods.getProductsWithAnotherCategory(
+				pageNumber,
+				categoryId
+			)
 			return data
 		} catch (e) {
 			return rejectWithValue(e.response.data.rawErrors[0].ua)
@@ -109,7 +114,7 @@ export const fetchColours = createAsyncThunk<
 })
 
 export const filterGoods = createAsyncThunk<
-	Goods[],
+	{ products: Goods[]; totalProducts: number },
 	null,
 	{ rejectValue: string }
 >('goods/filterGoods', async (_, { getState, rejectWithValue }) => {
@@ -149,7 +154,8 @@ const initialState: GoodsSlice = {
 	page: 1,
 	compareProduct: null,
 	compareOfferProducts: null,
-	basketOfProducts: null,
+	compareOfferProductModal: null,
+	basketOfProducts: [],
 	loadingStatus: 'idle',
 	sortType: '',
 	totalProducts: 0,
@@ -166,9 +172,9 @@ const initialState: GoodsSlice = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
-			type: 'colour' ,
+			type: 'colour',
 			createdAt: 'test',
-			updatedAt:'test',
+			updatedAt: 'test',
 		},
 		{
 			hex: '#9F8E84',
@@ -177,9 +183,9 @@ const initialState: GoodsSlice = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
-			type: 'colour' ,
+			type: 'colour',
 			createdAt: 'test',
-			updatedAt:'test',
+			updatedAt: 'test',
 		},
 		{
 			hex: '#000080',
@@ -188,9 +194,9 @@ const initialState: GoodsSlice = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
-			type: 'colour' ,
+			type: 'colour',
 			createdAt: 'test',
-			updatedAt:'test',
+			updatedAt: 'test',
 		},
 		{
 			hex: '#A6BEE5',
@@ -199,18 +205,17 @@ const initialState: GoodsSlice = {
 			rs: 'rs',
 			en: 'en',
 			ua: 'ua',
-			type: 'colour' ,
+			type: 'colour',
 			createdAt: 'test',
-			updatedAt:'test',
+			updatedAt: 'test',
 		},
-
 	],
 	fetchedCategories: [
 		{
 			id: 1,
 			ua: 'Категорія 1',
 			en: 'Категория 1',
-			rs:	'Категорія 1 rs',
+			rs: 'Категорія 1 rs',
 			ru: 'Категорія 1 ru',
 			type: 'category',
 			createdAt: 'any',
@@ -220,7 +225,7 @@ const initialState: GoodsSlice = {
 			id: 2,
 			ua: 'Категорія 2',
 			en: 'Категория 3',
-			rs:	'Категорія 2 rs',
+			rs: 'Категорія 2 rs',
 			ru: 'Категорія 2 ru',
 			type: 'category',
 			createdAt: 'any',
@@ -230,7 +235,7 @@ const initialState: GoodsSlice = {
 			id: 3,
 			ua: 'Категорія 3',
 			en: 'Категория 3',
-			rs:	'Категорія 2 rs',
+			rs: 'Категорія 2 rs',
 			ru: 'Категорія 3 ru',
 			type: 'category',
 			createdAt: 'any',
@@ -240,7 +245,7 @@ const initialState: GoodsSlice = {
 			id: 4,
 			ua: 'Категорія 4',
 			en: 'Категория 4',
-			rs:	'Категорія 4 rs',
+			rs: 'Категорія 4 rs',
 			ru: 'Категорія 4 ru',
 			type: 'category',
 			createdAt: 'any',
@@ -250,13 +255,12 @@ const initialState: GoodsSlice = {
 			id: 2,
 			ua: 'Категорія 4',
 			en: 'Категория 4',
-			rs:	'Категорія 4 rs',
+			rs: 'Категорія 4 rs',
 			ru: 'Категорія 4 ru',
 			type: 'category',
 			createdAt: 'any',
 			updatedAt: 'any',
-		}
-
+		},
 	],
 	language: 'ua',
 }
@@ -308,9 +312,32 @@ const goodsSlice = createSlice({
 				state.page = 1
 			}
 		},
-		addProductToBasket(state, action: PayloadAction<Goods>) {
+		addProductToCompareAndBasket(state, action: PayloadAction<Goods>) {
 			state.basketOfProducts.push(action.payload)
 			state.compareProduct = action.payload
+		},
+		addCompareProductToModal(state, action: PayloadAction<Goods>) {
+			state.compareOfferProductModal = action.payload
+		},
+		setSizeForProduct(
+			state,
+			action: PayloadAction<{ id: number; newSize: string }>
+		) {
+			const id = action.payload.id
+			const newSize = action.payload.newSize
+			const product = state.compareOfferProducts.filter(el => el.id === id)[0]
+			const firstSize = product.sizes[0]
+			product.sizes = [newSize, ...product.sizes, firstSize]
+		},
+		setColorForProduct(
+			state,
+			action: PayloadAction<{ id: number; newColor: string }>
+		) {
+			const id = action.payload.id
+			const newColor = action.payload.newColor
+			const product = state.compareOfferProducts.filter(el => el.id === id)[0]
+			const firstColor = product.hexes[0]
+			product.hexes = [newColor, ...product.hexes, firstColor]
 		},
 	},
 	extraReducers: builder => {
@@ -328,7 +355,8 @@ const goodsSlice = createSlice({
 			}),
 			builder.addCase(filterGoods.fulfilled, (state, action) => {
 				state.loadingStatus = 'idle'
-				state.goods = action.payload
+				state.goods = action.payload.products
+				state.totalProducts = action.payload.totalProducts
 			}),
 			builder.addCase(filterGoods.pending, (state, action) => {
 				state.loadingStatus = 'loading'
@@ -361,7 +389,9 @@ const goodsSlice = createSlice({
 			}),
 			builder.addCase(fetchGoodsByCategory.fulfilled, (state, action) => {
 				state.loadingStatus = 'idle'
-				state.goods = action.payload
+				state.goods = action.payload.products
+				state.totalProducts = action.payload.totalProducts
+				// state.goods = action.payload
 			}),
 			builder.addCase(fetchGoodsByCategory.pending, (state, action) => {
 				state.loadingStatus = 'loading'
@@ -372,7 +402,7 @@ const goodsSlice = createSlice({
 			}),
 			builder.addCase(fetchCompareOfferProducts.fulfilled, (state, action) => {
 				state.loadingStatus = 'idle'
-				state.compareOfferProducts = action.payload
+				state.compareOfferProducts = action.payload.products
 			}),
 			builder.addCase(fetchCompareOfferProducts.pending, (state, action) => {
 				state.loadingStatus = 'loading'
@@ -404,7 +434,9 @@ export const {
 	setFilterSize,
 	setSortType,
 	setPage,
-	addProductToBasket,
+	addProductToCompareAndBasket,
+	setHeaderCategory,
+	addCompareProductToModal,
 } = goodsSlice.actions
 
 export default goodsSlice.reducer

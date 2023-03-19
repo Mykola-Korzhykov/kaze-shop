@@ -2,13 +2,14 @@ import React, { FC } from 'react'
 import s from './CatalogItems.module.scss'
 import { useAppSelector, useAppDispatch } from '@/redux/hooks'
 import { selectAuthState } from '@/redux/slices/user'
-import { addProductToBasket } from '@/redux/slices/goods'
+import { addProductToCompareAndBasket } from '@/redux/slices/goods'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Goods } from '@/types/goods'
 import { useRouter } from 'next/router'
 import catalogImg from '../../../../assets/images/catalogItem.png'
 import catalogImg2 from '../../../../assets/images/catalogImg2.png'
+import { Api } from '@/services'
 interface ICatalogItemProps {
 	product?: Goods
 }
@@ -21,14 +22,33 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 	const router = useRouter()
 	const saveButtonHandler = () => {
 		if (isAuth) {
-			console.log('auth')
+			try {
+				Api().goods.addToFavorites(product?.id)
+			} catch (e) {}
 		} else {
 			router.push('/login')
 		}
 	}
 	const basketButtonHandler = () => {
-		dispatch(addProductToBasket(product))
+		dispatch(addProductToCompareAndBasket(product))
 		router.push('/compare')
+	}
+
+	const addToLastViews = () => {
+		if (isAuth) {
+			try {
+				Api().goods.addToRecentlyViews(product?.id)
+			} catch (e) {}
+		}
+		const recentlyViewedProductsJSON = localStorage.getItem(
+			'recentlyViewedProducts'
+		)
+		const recentlyViewedProducts = JSON.parse(recentlyViewedProductsJSON)
+		if (!recentlyViewedProducts) {
+			localStorage.setItem('recentlyViewedProducts', String(product?.id))
+		}else {
+			localStorage.setItem('recentlyViewedProducts', String(product?.id))
+		}
 	}
 
 	return (
@@ -38,14 +58,15 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 					className={s.imgWrapper}
 					onMouseEnter={onMouseEnter}
 					onMouseLeave={onMouseLeave}
+					onClick={addToLastViews}
 				>
 					{isHovering ? (
 						<Image
-						className={s.img}
-						src={catalogImg2}
-						alt='Лосины Тай дай'
-						quality={95}
-					/>
+							className={s.img}
+							src={catalogImg2}
+							alt='Лосины Тай дай'
+							quality={95}
+						/>
 					) : (
 						<Image
 							className={s.img}

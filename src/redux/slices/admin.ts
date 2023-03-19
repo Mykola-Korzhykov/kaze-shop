@@ -8,7 +8,7 @@ import axios from 'axios'
 import { API_URL } from '../../services'
 //types 
 import {ProductSend} from '../../types/auth'
-import {fetchedColour, Goods} from '../../types/goods'
+import {fetchedColour, Goods, GoodsSend} from '../../types/goods'
 import photo from '../../assets/images/main/About/girl.png';
 
 
@@ -126,7 +126,8 @@ export interface initialStateType {
 	products: ProductSend[]
 	editProductItemId: number,
     displayActive: number,
-    editProducts: Goods[]
+
+    editProducts: GoodsSend[]
 	// colours: fetchedColour[]
 
 }

@@ -13,14 +13,19 @@
 
     &_title {
         font-family: 'Russo One';
+        color: #0B0B0B;
         font-style: normal;
         font-weight: 400;
-        font-size: 32px;
-        line-height: 39px;
-        color: #0B0B0B;
-        text-align: center;
+        font-size: 48px;
+        line-height: 125%;
         margin-bottom: 40px;
         grid-column: 1/3;
+
+        @media(max-width:992px) {
+              font-size: 32px;
+              line-height: 39px;
+              text-align: center;
+        }
 
         @media (max-width:768px) {
             grid-row: 2/2;
