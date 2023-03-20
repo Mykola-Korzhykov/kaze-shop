@@ -98,6 +98,8 @@
             color: #9D9D9D;
         }
 
+      
+
         .input_choice_photo{
             padding: 14px 20px;
             border: 1.5px solid #9D9D9D;
@@ -151,6 +153,10 @@
             // height: 0.5px;
             // width: 0.5px;
             // visibility: hidden;
+        }
+
+        .input_file_invalid::placeholder{
+            color: #e73232;
         }
         
     }

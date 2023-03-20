@@ -62,7 +62,8 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
         headers: {
         Authorization: 'Bearer ' + (token || ''),
         },
-        data: JSON.stringify(obj),
+        // data: JSON.stringify(obj),
+        data: obj,
         })
         .then(response => console.log(response.data))
         .catch(error => console.error(error));
@@ -76,8 +77,10 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
         ua: false,
         ru: false,
         en: false,
-        rs: false
+        rs: false,
+        hex: false,
     });
+
 
     console.log('inputsState', inputsState)
     console.log('validationErrors', validationErrors)
@@ -88,35 +91,38 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
     //     choosecategoryRS: ''
     //   });
 
-      const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        
-        const { id, value } = e.target;
-        console.log('keyelement', id)
-        setInputsState(prevState => ({ ...prevState, [id]: value }));
-        if (value.length < 1) {
-          setValidationErrors(prevState => ({ ...prevState, [id]: true }));
-        } else {
-          setValidationErrors(prevState => ({ ...prevState, [id]: false }));
-        }
-      };
-
-      function validateHexInput(input: string) {
-        
-        
+    function validateHexInput(input: string) {
         //Проверяем, что строка соответствует формату HEX
         const regex =  /#([a-f0-9]{6}|[a-f0-9]{3})/gi;
         return regex.test(input);
       }
 
-      const handleInputColor = (e: React.ChangeEvent<HTMLInputElement>) =>{
-        const {id , value} = e.target
-        setInputsState(prevState => ({ ...prevState, [id]: value }));
-        if(validateHexInput(e.target.value)){
-            setValidateHex(true)
+      const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        
+        const { id, value } = e.target;
+        setInputsState(prevState => ({ ...prevState, [id]: value.trim() }));
+        //check input hex or title
+        if(id === 'hex'){
+          if(validateHexInput(e.target.value) && e.target.value.length > 6){
+            setValidationErrors(prevState => ({ ...prevState, hex: false }));
+          }else{
+            setValidationErrors(prevState => ({ ...prevState, hex: true }));
+          }
         }else{
-            setValidateHex(false)
+            if (value.length < 1) {
+                setValidationErrors(prevState => ({ ...prevState, [id]: true }));
+                
+            } else {
+                setValidationErrors(prevState => ({ ...prevState, [id]: false }));
+            }
         }
-      }
+
+        console.log('validationErrors', validationErrors)
+      };
+
+      
+
+     
 
     return (
         <div className={s.module_wrapper}>
@@ -140,7 +146,8 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
 
                 {coloursArr.map((obj, ind)=>{
                     return <div key={ind} className={s.input_inner}>
-                            <span className={s.title}>{obj.text} {validationErrors[obj.leng] && <span 
+                            <span className={s.title}>{obj.text} 
+                            {/* {validationErrors[obj.leng] && <span 
                             style={{ 
                                 color: '#e73232',
                                 fontSize: '17px',
@@ -149,7 +156,9 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
                             }}
                             
                             
-                            > Это поле не может быть пустым </span> } </span>
+                            > Это поле не может быть пустым </span> }  */}
+                            
+                            </span>
                                 
                             <label 
                             className={s.label_input_file} 
@@ -157,23 +166,23 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
                             style={{ border: validationErrors[obj.leng] ? '#e73232 solid 1.5px' : '' }}
                             >
 
-                                <input onBlur={(e)=> {
-                                      handleInput(e)
+                                <input 
+                                onChange={(e)=> {
+                                    handleInput(e)
                                 }}   key={ind}
                                 id={obj.leng} 
-                                className={s.input_file} 
-                                placeholder={obj.placeholder} 
+                                className={  validationErrors[obj.leng] ? `${s.input_file} ${s.input_file_invalid}`  : s.input_file} 
+                                placeholder={ validationErrors[obj.leng] ? 'Это поле не может быть пустым' : obj.placeholder} 
                                 type="text"
-                               
                                 />
                             </label>
-                         </div>
+                        </div>
                 })}
 
                     <div className={s.input_inner}>
                         <span className={s.title}>
                             Цветовой код <span style={{
-                                display: !validateHex ? 'inline' : 'none',
+                                display: validationErrors.hex  ? 'inline' : 'none',
                                 color: '#e73232',
                                 fontSize: '17px',
                                 marginLeft: '5px',
@@ -181,20 +190,42 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
                                 }}> Не верный код   </span>
                         </span>
                         <label  
-                            style={{ border: !validateHex ? '#e73232 solid 1.5px' : '' }}
+                            style={{ border: validationErrors.hex ? '#e73232 solid 1.5px' : '' }}
                           className={s.label_input_file} htmlFor="hex">
                             <input onChange={(e)=>{
-                                handleInputColor(e)
-                                //  setInputsState(prevState=>({...prevState, hex: e.target.value}))
+                                handleInput(e)
+
+                                //setInputsState(prevState=>({...prevState, hex: e.target.value}))
                                  console.log('inputsState', inputsState)
-                            }} id="hex" className={s.input_file} placeholder='#000000' type="text" />
+                            }} id="hex" 
+                            className={     s.input_file}
+                            placeholder='#000000'
+                            type="text" />
                         </label>
                     </div>
 
                     <button onClick={()=>{
-                        dispatch(setModalAddColor(false))
-                        sendInputsState(inputsState)
-                        console.log('inputsStateColors', inputsState)
+                        const valied = Object.values(validationErrors).every((el)=>{
+                            return el !== true 
+                        }) && Object.values(inputsState).every((el)=>{
+                            return el !== ''
+                        })
+
+                        if(valied){
+                            dispatch(setModalAddColor(false))
+                            sendInputsState(inputsState)
+                        }else{
+                            for(const key in inputsState){
+                                if(inputsState[key as keyof inputsStateType] === '' ){
+                                    setValidationErrors((prevState)=>{
+                                        const copyObj = {...prevState, [key]: true}
+                                        return copyObj
+                                    })
+                                }
+                            }
+
+                            alert('проверьте корректность формы')
+                        }
                     }} className={s.btn_add}>
                         Добавить цветовой код
                     </button>

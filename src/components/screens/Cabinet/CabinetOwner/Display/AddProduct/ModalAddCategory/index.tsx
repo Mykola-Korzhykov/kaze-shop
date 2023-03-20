@@ -116,7 +116,7 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
                             }} className={s.label_input_file} htmlFor="choosecategoryUA">
                                 
                             <input key={1} 
-                            
+                            required
                             onChange={(e)=>{
                                 setValidInputs((prevState: InputsStateValidType) => ({ ...prevState, ua: e.target.value.trim() !== '' ? true : false  }))
                             }}
@@ -140,6 +140,7 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
                             }} className={s.label_input_file} htmlFor="choosecategoryRU">
                            
                             <input 
+                            required
                             key={2} 
                              onChange={(e)=>{
                                 setValidInputs((prevState: InputsStateValidType) => ({ ...prevState, ru: e.target.value.trim() !== '' ? true : false  }))
@@ -164,6 +165,7 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
                             }}  className={s.label_input_file} htmlFor="choosecategoryEN">
                            
                             <input
+                            required
                              onChange={(e)=>{
                                 setValidInputs((prevState: InputsStateValidType) => ({ ...prevState, en: e.target.value.trim() !== '' ? true : false  }))
                             }}
@@ -188,6 +190,7 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
                             }} className={s.label_input_file} htmlFor="choosecategoryRS">
                            
                             <input 
+                            required
                              onChange={(e)=>{
                                 setValidInputs((prevState: InputsStateValidType) => ({ ...prevState, rs: e.target.value.trim() !== '' ? true : false  }))
                             }}
