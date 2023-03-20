@@ -7,6 +7,7 @@ import {
 	fetchedCategory,
 	fetchedColour,
 	sendProductToCart,
+	CartProduct,
 } from '../../types/goods'
 import { AxiosError } from 'axios'
 
@@ -16,8 +17,11 @@ type GoodsSlice = {
 	compareProduct: Goods | null
 	compareOfferProducts: Goods[] | null
 	compareOfferProductModal: Goods | null
-	basketOfProducts: Goods[]
+	cartProductId: number | null
+	updateCompareProduct: sendProductToCart
+	basketOfProducts: CartProduct[]
 	loadingStatus: 'loading' | 'error' | 'idle'
+	cartLoadingStatus: 'loading' | 'error' | 'idle'
 	page: number
 	totalProducts: number
 	language: 'ua' | 'rs' | 'en' | 'ru'
@@ -103,24 +107,6 @@ export const fetchCategories = createAsyncThunk<
 	}
 })
 
-export const addProductToCart = createAsyncThunk<
-	{ cartProductId: number },
-	null,
-	{ rejectValue: string }
->(
-	'goods/addProductToCart',
-	async (product: sendProductToCart, { rejectWithValue }) => {
-		try {
-			const productObj = Object.assign({}, product)
-			delete productObj.id
-			const data = await Api().goods.addToCart(product.id, productObj)
-			return data
-		} catch (e) {
-			return rejectWithValue(e.response.data.rawErrors[0].ua)
-		}
-	}
-)
-
 export const fetchColours = createAsyncThunk<
 	fetchedColour[],
 	null,
@@ -161,14 +147,72 @@ export const filterGoods = createAsyncThunk<
 	}
 })
 
-// id: number
-// 	ua: string
-// 	en: string
-// 	rs: string
-// 	ru: string
-// 	type: 'category'
-// 	createdAt: any
-// 	updatedAt: any
+// CART THUNKS
+
+export const addProductToCart = createAsyncThunk<
+	{ cartProductId: number },
+	sendProductToCart,
+	{ rejectValue: string }
+>(
+	'goods/addProductToCart',
+	async (product: sendProductToCart, { rejectWithValue }) => {
+		try {
+			const productObj = Object.assign({}, product)
+			delete productObj.id
+			const data = await Api().goods.addToCart(product.id, productObj)
+			return data
+		} catch (e) {
+			return rejectWithValue(e.response.data.rawErrors[0].ua)
+		}
+	}
+)
+
+export const updateCartProduct = createAsyncThunk<
+	{ cartProductId: number },
+	null,
+	{ rejectValue: string }
+>('goods/updateCartProduct', async (_, { getState, rejectWithValue }) => {
+	try {
+		const state = getState() as RootState
+		const goodsState = state.goods
+		const updateProductObj = goodsState.updateCompareProduct
+		const cartProductId = goodsState.cartProductId
+		delete updateProductObj.id
+		const data = await Api().goods.updateProduct(
+			cartProductId,
+			updateProductObj
+		)
+		return data
+	} catch (e) {
+		return rejectWithValue(e.response.data.rawErrors[0].ua)
+	}
+})
+
+export const deleteCartProduct = createAsyncThunk<
+	{ cartProductId: number },
+	number,
+	{ rejectValue: string }
+>('goods/deleteCartProduct', async (cartProductId: number, { rejectWithValue }) => {
+	try {
+		const data = await Api().goods.deleteProduct(cartProductId)
+		return data
+	} catch (e) {
+		return rejectWithValue(e.response.data.rawErrors[0].ua)
+	}
+})
+
+export const getCartProducts = createAsyncThunk<
+	{ cartProducts: CartProduct[] },
+	null,
+	{ rejectValue: string }
+>('goods/getCartProducts', async (_, { rejectWithValue }) => {
+	try {
+		const data = await Api().goods.getCartProducts()
+		return data
+	} catch (e) {
+		return rejectWithValue(e.response.data.rawErrors[0].ua)
+	}
+})
 
 const initialState: GoodsSlice = {
 	goods: null,
@@ -176,8 +220,11 @@ const initialState: GoodsSlice = {
 	compareProduct: null,
 	compareOfferProducts: null,
 	compareOfferProductModal: null,
+	cartProductId: null,
+	updateCompareProduct: { id: null, imageUrl: '', colourId: 0, size: '' },
 	basketOfProducts: [],
 	loadingStatus: 'idle',
+	cartLoadingStatus: 'idle',
 	sortType: '',
 	totalProducts: 0,
 	errors: '',
@@ -333,32 +380,20 @@ const goodsSlice = createSlice({
 				state.page = 1
 			}
 		},
-		addProductToCompareAndBasket(state, action: PayloadAction<Goods>) {
-			state.basketOfProducts.push(action.payload)
+		addProductToCompare(state, action: PayloadAction<Goods>) {
+			// state.basketOfProducts.push(action.payload)
 			state.compareProduct = action.payload
 		},
 		addCompareProductToModal(state, action: PayloadAction<Goods>) {
 			state.compareOfferProductModal = action.payload
 		},
-		setSizeForProduct(state, action: PayloadAction<{ newSize: string }>) {
-			// const id = action.payload.id
-			// const newSize = action.payload.newSize
-			// const product = state.compareOfferProducts.filter(el => el.id === id)[0]
-			// const firstSize = product.sizes[0]
-			// product.sizes = [newSize, ...product.sizes, firstSize]
-			const newSize = action.payload.newSize
-			const product = state.compareProduct
-			const firstSize = product.sizes[0]
-			product.sizes = [newSize, ...product.sizes, firstSize]
+		deleteCompareOfferProduct(state, action: PayloadAction<number>) {
+			state.compareOfferProducts = state.compareOfferProducts.filter(
+				el => el.id !== action.payload
+			)
 		},
-		setColorForProduct(
-			state,
-			action: PayloadAction<{ id: number; newColor: string }>
-		) {
-			const id = action.payload.id
-			const newColor = action.payload.newColor
-			const product = state.compareOfferProducts.filter(el => el.id === id)[0]
-			product.hexes = [newColor, ...product.hexes]
+		setUpdateCompareProduct(state, action: PayloadAction<sendProductToCart>) {
+			state.updateCompareProduct = action.payload
 		},
 	},
 	extraReducers: builder => {
@@ -432,6 +467,28 @@ const goodsSlice = createSlice({
 				state.loadingStatus = 'error'
 				state.errors = action.payload
 			}),
+			builder.addCase(addProductToCart.fulfilled, (state, action) => {
+				state.cartLoadingStatus = 'idle'
+				state.cartProductId = action.payload.cartProductId
+			}),
+			builder.addCase(addProductToCart.pending, (state, action) => {
+				state.cartLoadingStatus = 'loading'
+			}),
+			builder.addCase(addProductToCart.rejected, (state, action) => {
+				state.cartLoadingStatus = 'error'
+				state.errors = action.payload
+			}),
+			builder.addCase(getCartProducts.fulfilled, (state, action) => {
+				state.loadingStatus = 'idle'
+				state.basketOfProducts = action.payload.cartProducts
+			}),
+			builder.addCase(getCartProducts.pending, (state, action) => {
+				state.loadingStatus = 'loading'
+			}),
+			builder.addCase(getCartProducts.rejected, (state, action) => {
+				state.loadingStatus = 'error'
+				state.errors = action.payload
+			}),
 			builder.addDefaultCase((state, action) => {
 				const [type] = action.type.split('/').splice(-1)
 				if (type === 'rejected') {
@@ -454,12 +511,12 @@ export const {
 	setFilterColour,
 	setFilterSize,
 	setSortType,
+	setUpdateCompareProduct,
 	setPage,
-	addProductToCompareAndBasket,
+	addProductToCompare,
 	setHeaderCategory,
 	addCompareProductToModal,
-	setSizeForProduct,
-	setColorForProduct,
+	deleteCompareOfferProduct,
 } = goodsSlice.actions
 
 export default goodsSlice.reducer

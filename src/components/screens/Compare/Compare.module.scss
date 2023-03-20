@@ -120,6 +120,8 @@
 .content {
 	display: flex;
 	align-items: center;
+	justify-content: space-between;
+	width: 100%;
 }
 .imgWrapper {
 	margin-right: 30px;
@@ -151,6 +153,8 @@
 	font-size: 22px;
 	line-height: 27px;
 	color: #0b0b0b;
+	word-wrap: break-word;
+	max-width: 100%;
 	@media (max-width: 880px) {
 		font-size: 20px;
 		line-height: 24px;
@@ -174,6 +178,8 @@
 	color: #9d9d9d;
 	margin-top: 5px;
 	margin-bottom: 20px;
+	word-wrap: break-word;
+	max-width: 100%;
 	@media (max-width: 880px) {
 		font-size: 14px;
 		line-height: 17px;
@@ -509,6 +515,8 @@
 		color: #9d9d9d;
 		margin-bottom: 30px;
 		margin-top: 15px;
+		word-wrap: break-word;
+		max-width: 316px;
 	}
 	&_text {
 		width: 100%;
