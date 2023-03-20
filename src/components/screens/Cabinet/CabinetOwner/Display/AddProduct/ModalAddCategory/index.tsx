@@ -28,10 +28,12 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
     const modalAddCAtegory = useSelector((state: RootState)=> state.modaleSlice.modalAddCAtegory)
 
     const [stateInputs, setStateInputs] = React.useState<inputsStateType>({ua: '',  ru: '', rs: '', en: '', hex: ''  })
-    
+    interface InputsStateValidType {
+        [key: string]: boolean;
+    }
+    const [validInputs, setValidInputs] = React.useState<InputsStateValidType>({ua: true,  ru: true, rs: true, en: true, hex: true})
 
     // function sendStateInputs(obj: inputsStateType){
-
     //     fetch('categories/create_category', {
     //         method: 'PUT',
     //         body: JSON.stringify(obj)
@@ -39,7 +41,6 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
     //         .then(response => response.json())
     //         .then(data => console.log(data))
     //         .catch(error => console.error(error));
-
     // }
 
     // const [validationErrors, setValidationErrors] = React.useState({
@@ -65,9 +66,7 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
     //       setValidationErrors(prevState => ({ ...prevState, [id]: false }));
     //     }
     //   };
-      
-        
-   
+
     function sendStateInputs(obj: inputsStateType) {
         const cookies = parseCookies();
         const token = cookies.accessToken;
@@ -80,7 +79,8 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
         headers: {
             Authorization: 'Bearer ' + (token || ''),
         },
-        data: JSON.stringify(obj),
+        // data: JSON.stringify(obj),
+        data: obj,
         })
         .then(response => console.log('response.data', response.data))
         .catch(error => console.error(error));
@@ -109,52 +109,124 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
                 <div className={s.inputs_wrapper}>
                     <div className={s.input_inner}>
                         <span className={s.title}>Категория (Украинский)</span>
-                        <label className={s.label_input_file} htmlFor="choosecategoryUA">
+                        <label style={{
+                            
+                            border: validInputs.ua ? '1.5px solid #9D9D9D' :  '1.5px solid #e73232'
+                            
+                            }} className={s.label_input_file} htmlFor="choosecategoryUA">
                                 
-                            <input key={1} onBlur={(e)=>{
+                            <input key={1} 
+                            
+                            onChange={(e)=>{
+                                setValidInputs((prevState: InputsStateValidType) => ({ ...prevState, ua: e.target.value.trim() !== '' ? true : false  }))
+                            }}
+                            onBlur={(e)=>{
                               setStateInputs(prevState => ({ ...prevState, ua: e.target.value  }));
                               console.log('setStateInputs', stateInputs )
-                            }} id="choosecategoryUA" className={s.input_file} placeholder='Введите категорию' type="text" />
+                            }} 
+                            id="choosecategoryUA" 
+                            className={ validInputs.ua ? s.input_file : `${s.input_file} ${s.input_file_invalid}`  }
+                            placeholder={validInputs.ua ? 'Введите категорию' : 'Это поле не может быть пустым' }    
+                            type="text" />
                         </label>
                     </div>
 
                     <div className={s.input_inner}>
                         <span className={s.title}>Категория (Русский)</span>
-                        <label className={s.label_input_file} htmlFor="choosecategoryRU">
+                        <label style={{
+                            
+                            border: validInputs.ru ? '1.5px solid #9D9D9D' :  '1.5px solid #e73232'
+                            
+                            }} className={s.label_input_file} htmlFor="choosecategoryRU">
                            
-                            <input key={2} onBlur={(e)=>{
+                            <input 
+                            key={2} 
+                             onChange={(e)=>{
+                                setValidInputs((prevState: InputsStateValidType) => ({ ...prevState, ru: e.target.value.trim() !== '' ? true : false  }))
+                            }}
+                            onBlur={(e)=>{
                               setStateInputs(prevState => ({ ...prevState, ru: e.target.value  }));
                               console.log('setStateInputs', stateInputs )
-                            }} id="choosecategoryRU" className={s.input_file} placeholder='Введите категорию' type="text" />
+                            }} 
+                            id="choosecategoryRU" 
+                            className={ validInputs.ru ? s.input_file : `${s.input_file} ${s.input_file_invalid}`  }
+                            placeholder={validInputs.ru ? 'Введите категорию' : 'Это поле не может быть пустым' }  
+                            type="text" />
                         </label>
                     </div>
 
                     <div className={s.input_inner}>
                         <span className={s.title}>Категория (Английский)</span>
-                        <label  className={s.label_input_file} htmlFor="choosecategoryEN">
+                        <label style={{
+                            
+                            border: validInputs.en ? '1.5px solid #9D9D9D' :  '1.5px solid #e73232'
+                            
+                            }}  className={s.label_input_file} htmlFor="choosecategoryEN">
                            
-                            <input 
-                            key={3} onBlur={(e)=>{
+                            <input
+                             onChange={(e)=>{
+                                setValidInputs((prevState: InputsStateValidType) => ({ ...prevState, en: e.target.value.trim() !== '' ? true : false  }))
+                            }}
+                            key={3} 
+                            onBlur={(e)=>{
                                 setStateInputs(prevState => ({ ...prevState, en: e.target.value  }));
                                 console.log('setStateInputs', stateInputs )
-                              }} id="choosecategoryEN" className={s.input_file} placeholder='Введите категорию' type="text" />
+                              }} 
+                              id="choosecategoryEN" 
+                              className={ validInputs.en ? s.input_file : `${s.input_file} ${s.input_file_invalid}`  }
+                              placeholder={validInputs.en ? 'Введите категорию' : 'Это поле не может быть пустым' }  
+                              type="text" />
                         </label>
                     </div>
 
                     <div className={s.input_inner}>
                         <span className={s.title}>Категория (Сербский)</span>
-                        <label className={s.label_input_file} htmlFor="choosecategoryRS">
+                        <label style={{
+                            
+                            border: validInputs.rs ? '1.5px solid #9D9D9D' :  '1.5px solid #e73232'
+                            
+                            }} className={s.label_input_file} htmlFor="choosecategoryRS">
                            
-                            <input key={4} onBlur={(e)=>{
+                            <input 
+                             onChange={(e)=>{
+                                setValidInputs((prevState: InputsStateValidType) => ({ ...prevState, rs: e.target.value.trim() !== '' ? true : false  }))
+                            }}
+                            key={4} 
+                            onBlur={(e)=>{
                               setStateInputs(prevState => ({ ...prevState, rs: e.target.value  }));
                               console.log('setStateInputs', stateInputs )
-                            }} id="choosecategoryRS" className={s.input_file} placeholder='Введите категорию' type="text" />
+                            }} 
+                            id="choosecategoryRS" 
+                            className={ validInputs.rs ? s.input_file : `${s.input_file} ${s.input_file_invalid}`  } 
+                            placeholder={validInputs.rs ? 'Введите категорию' : 'Это поле не может быть пустым' }  
+                            type="text" />
                         </label>
                     </div>
 
                     <button onClick={()=>{
-                        sendStateInputs(stateInputs)
-                        dispatch(setModalAddCAtegory(false))
+
+                        const valid = Object.values(validInputs).every((el)=>{
+                            return  el !== false
+                        }) && Object.values(stateInputs).every((el)=>{
+                            return  el !== ''
+                        })
+
+                        if(valid){
+                            sendStateInputs(stateInputs)
+                            dispatch(setModalAddCAtegory(false))
+                        }else{
+                            for(const key in stateInputs){
+                                const value = stateInputs[key as keyof inputsStateType];
+                                if(value === ''){
+                                    setValidInputs((prevState: any) => {
+                                        const copyObject = {...prevState}
+                                        copyObject[key] = false
+                                        return copyObject
+                                    });
+                                }
+                            }
+                            alert('заполните пожалуйста всю форму')
+                        }
                         }} className={s.btn_add}>
                         Добавить категорию
                     </button>
