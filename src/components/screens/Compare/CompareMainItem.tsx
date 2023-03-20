@@ -12,6 +12,7 @@ const CompareMainItem = () => {
 	const updateCompareProduct = useAppSelector(
 		state => state.goods.updateCompareProduct
 	)
+	console.log('updateCompareProduct', updateCompareProduct)
 	const router = useRouter()
 	const [sizeActive, setSizeActive] = React.useState<boolean>(false)
 	const [colorActive, setColorActive] = React.useState<boolean>(false)
