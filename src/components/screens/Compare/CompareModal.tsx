@@ -1,14 +1,15 @@
 import React, { FC } from 'react'
 import s from './Compare.module.scss'
+import {
+	addProductToCart,
+	deleteCompareOfferProduct,
+} from '@/redux/slices/goods'
 import { useAppSelector, useAppDispatch } from '@/redux/hooks'
 import Image from 'next/image'
 import compareModal from '../../../assets/images/compareModal.png'
 const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 	setShowModal,
 }) => {
-	const closeModal = () => {
-		setShowModal(false)
-	}
 	const compareOfferProductModal = useAppSelector(
 		state => state.goods.compareOfferProductModal
 	)
@@ -22,10 +23,31 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 		colourId: number
 		hex: string
 	} | null>(null)
+
+	const closeModal = () => {
+		setShowModal(false)
+	}
+
 	const addToCart = () => {
-		const productObj = {}
-		// request
-		//dispatch that delete this item
+		// if it is an array of Goods[0] a way to find an object of image where colourId equal to need id and return 1 image (png)
+		// const neededImage = compareOfferProductModal
+		// 	.find(obj => obj?.images?.some(img => img?.colour?.id === 12))
+		// 	.images.find(img => img?.colour?.id === 12)
+		// const imagePath = neededImage.imagesPaths[0]
+
+		const matchingImageObj = compareOfferProductModal.images.find(image => {
+			return image.colour && image.colour.id === selectedColorEl?.colourId
+		})
+
+		dispatch(
+			addProductToCart({
+				id: compareOfferProductModal?.id,
+				imageUrl: matchingImageObj.imagesPaths[0],
+				colourId: selectedColorEl?.colourId,
+				size: selectedSizeEl,
+			})
+		)
+		dispatch(deleteCompareOfferProduct(compareOfferProductModal?.id))
 		setShowModal(false)
 	}
 	React.useEffect(() => {

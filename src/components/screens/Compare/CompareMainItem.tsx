@@ -1,16 +1,18 @@
 import React from 'react'
 import Image from 'next/image'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
+import { setUpdateCompareProduct } from '@/redux/slices/goods'
 import { useRouter } from 'next/router'
 import catalogItem from '../../../assets/images/compare.png'
-import {
-	setSizeForProduct,
-	setColorForProduct,
-} from '../../../redux/slices/goods'
+
 import s from './Compare.module.scss'
 const CompareMainItem = () => {
 	const dispatch = useAppDispatch()
 	const compareProduct = useAppSelector(state => state.goods.compareProduct)
+	const updateCompareProduct = useAppSelector(
+		state => state.goods.updateCompareProduct
+	)
+	console.log('updateCompareProduct', updateCompareProduct)
 	const router = useRouter()
 	const [sizeActive, setSizeActive] = React.useState<boolean>(false)
 	const [colorActive, setColorActive] = React.useState<boolean>(false)
@@ -21,7 +23,23 @@ const CompareMainItem = () => {
 		colourId: number
 		hex: string
 	} | null>(null)
-	const selectSizeHandler = () => {}
+	const selectSizeHandler = (el: string) => {
+		dispatch(setUpdateCompareProduct({ ...updateCompareProduct, size: el }))
+		setSelectedSizeEl(el)
+	}
+	const selectColorHandler = (el: { colourId: number; hex: string }) => {
+		const matchingImageObj = compareProduct.images.find(image => {
+			return image.colour && image.colour.id === el.colourId
+		})
+		dispatch(
+			setUpdateCompareProduct({
+				...updateCompareProduct,
+				colourId: el.colourId,
+				imageUrl: matchingImageObj.imagesPaths[0],
+			})
+		)
+		setSelectedColorEl(el)
+	}
 	React.useEffect(() => {
 		if (!compareProduct) {
 			router.push('/catalog')
@@ -31,6 +49,19 @@ const CompareMainItem = () => {
 				colourId: compareProduct?.images[0].colour?.id,
 				hex: compareProduct?.images[0].colour?.hex,
 			})
+			const matchingImageObj = compareProduct.images.find(image => {
+				return (
+					image.colour &&
+					image.colour.id === compareProduct?.images[0].colour?.id
+				)
+			})
+			const updateObj = {
+				id: compareProduct.id,
+				imageUrl: matchingImageObj.imagesPaths[0],
+				colourId: compareProduct?.images[0].colour?.id,
+				size: compareProduct?.sizes[0],
+			}
+			dispatch(setUpdateCompareProduct(updateObj))
 		}
 	}, [])
 
@@ -65,7 +96,7 @@ const CompareMainItem = () => {
 									.map((el, idx) => {
 										return (
 											<button
-												onClick={() => setSelectedSizeEl(el)}
+												onClick={() => selectSizeHandler(el)}
 												key={idx + '' + new Date()}
 												className={s.size_btn}
 											>
@@ -91,7 +122,7 @@ const CompareMainItem = () => {
 										return (
 											<button
 												onClick={() =>
-													setSelectedColorEl({
+													selectColorHandler({
 														colourId: el.colour.id,
 														hex: el.colour.hex,
 													})

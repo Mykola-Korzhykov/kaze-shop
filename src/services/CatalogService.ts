@@ -57,6 +57,26 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		)
 		return data
 	},
+	async updateProduct(
+		cartProductId: number,
+		product: { imageUrl: string; colourId: number; size: string }
+	) {
+		const { data } = await instance.patch(
+			`cart/updateProduct?cartProductId=${cartProductId}`,
+			product
+		)
+		return data
+	},
+	async deleteProduct(cartProductId: number) {
+		const { data } = await instance.delete(
+			`cart/deleteProduct?cartProductId=${cartProductId}`
+		)
+		return data
+	},
+	async getCartProducts() {
+		const { data } = await instance.get(`cart/getProducts`)
+		return data
+	},
 	async addToFavorites(productId: number) {
 		const { data } = await instance.post(
 			`product/addBookmarkProduct?productId=${productId}`

@@ -2,10 +2,10 @@ import React, { FC } from 'react'
 import s from './CatalogItems.module.scss'
 import { useAppSelector, useAppDispatch } from '@/redux/hooks'
 import { selectAuthState } from '@/redux/slices/user'
-import { addProductToCompareAndBasket } from '@/redux/slices/goods'
+import { addProductToCompare, addProductToCart } from '@/redux/slices/goods'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Goods } from '@/types/goods'
+import { Goods, sendProductToCart } from '@/types/goods'
 import { useRouter } from 'next/router'
 import catalogImg from '../../../../assets/images/catalogItem.png'
 import catalogImg2 from '../../../../assets/images/catalogImg2.png'
@@ -30,7 +30,15 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 		}
 	}
 	const basketButtonHandler = () => {
-		dispatch(addProductToCompareAndBasket(product))
+		dispatch(
+			addProductToCart({
+				id: product?.id,
+				imageUrl: product?.images[0].imagesPaths[0],
+				colourId: product?.images[0].colour?.id,
+				size: product?.sizes[0],
+			})
+		)
+		dispatch(addProductToCompare(product))
 		router.push('/compare')
 	}
 
@@ -46,7 +54,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 		const recentlyViewedProducts = JSON.parse(recentlyViewedProductsJSON)
 		if (!recentlyViewedProducts) {
 			localStorage.setItem('recentlyViewedProducts', String(product?.id))
-		}else {
+		} else {
 			localStorage.setItem('recentlyViewedProducts', String(product?.id))
 		}
 	}

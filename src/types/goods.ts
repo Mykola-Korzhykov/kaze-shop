@@ -65,7 +65,7 @@ export interface CartProduct {
 	hex: string
 	size: string
 	price: string
-	quantity: string
+	quantity: number
 	title: {
 		ua: string
 		ru: string
