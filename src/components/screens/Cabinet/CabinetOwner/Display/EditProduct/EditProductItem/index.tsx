@@ -132,7 +132,7 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
         })} */}
 
         {userEdit.images.map((el, ind)=>{
-            return  <div  className={s.item}>
+            return  <div key={ind}  className={s.item}>
                         <div className={s.info_wrapper}>
                             <span className={s.index}>{`${ind + 1}.`}</span>  
                             <span className={s.button_product}
@@ -146,8 +146,8 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                         
                             {el &&   
                             <div className={s.photos_wrapper}>
-                                {el.imagesPaths.map((el: any)=>{
-                                    return  <span className={s.photo_wrapper}>
+                                {el.imagesPaths.map((el: any, ind)=>{
+                                    return  <span key={ind} className={s.photo_wrapper}>
                                                 <Image  
                                                 src={el}
                                                 alt={'photo'}
