@@ -10,7 +10,7 @@ import { API_URL } from '../../services'
 import {ProductSend} from '../../types/auth'
 import {fetchedColour, Goods, GoodsSend} from '../../types/goods'
 import photo from '../../assets/images/main/About/girl.png';
-
+import photoTest from '../../assets/images/product/slider/photo.png'
 
 // хардкор
 import imgProduct from '../../assets/images/admin/img.svg'
@@ -98,6 +98,7 @@ export interface User {
 }
 
 export interface initialStateType {
+	userEdit: Goods
 	usersRole: User[]
 	usersAdmin: User[]
 	inputs: {
@@ -123,16 +124,176 @@ export interface initialStateType {
 	categoryArr: { id: number; title: string }[]
 	loading: boolean
 	error: string
+	//editProducts
 	products: ProductSend[]
 	editProductItemId: number,
     displayActive: number,
+	countPhotos: any[],
 
     editProducts: GoodsSend[]
 	// colours: fetchedColour[]
-
 }
 
 const initialState: initialStateType = {
+
+	userEdit:  {
+		id: 1,
+		title: {
+			ua: 'Павло',
+			ru:' Паша',
+			rs: 'хз',
+			en: 'The best',
+		},
+		description: {
+			ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
+			ru: 'на русс опис doprepwfieifweifipowerf',
+			rs: 'на rs опис лдощцаозщуцощауоазуцща',
+			en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
+		},
+		price: 300,
+		quantity: 100,
+		// { fileNames: string[], colourId: number; sizes: string[]}
+		images: [  
+		{
+			imagesPaths: [photoTest, photoTest],
+			colour: {
+				hex: '#FFE4C4',
+				id: 1,
+				ru: 'ru',
+				rs: 'rs',
+				en: 'en',
+				ua: 'ua',
+				type: 'colour' ,
+				createdAt: 'test',
+				updatedAt:'test',
+			},
+			sizes: ["S", "M", "L"]
+		},
+		{
+			imagesPaths: [photoTest, photoTest],
+			colour: {
+				hex: '#FFE4C4',
+				id: 1,
+				ru: 'ru',
+				rs: 'rs',
+				en: 'en',
+				ua: 'ua',
+				type: 'colour' ,
+				createdAt: 'test',
+				updatedAt:'test',
+			},
+			sizes: ["S", "M", "L"]
+		},
+		],
+		  sizeChartImage: 'kfkf',
+		  sizeChartImageDescription: '21231231',
+		  hexes: ['blue', 'red'],
+		sizes: ['X', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS'],
+		colours: [
+			{
+				hex: '#FFE4C4',
+				id: 1,
+				ru: 'ru',
+				rs: 'rs',
+				en: 'en',
+				ua: 'ua',
+				type: 'colour' ,
+				createdAt: 'test',
+				updatedAt:'test',
+			},
+			{
+				hex: '#9F8E84',
+				id: 2,
+				ru: 'ru',
+				rs: 'rs',
+				en: 'en',
+				ua: 'ua',
+				type: 'colour' ,
+				createdAt: 'test',
+				updatedAt:'test',
+			},
+			{
+				hex: '#000080',
+				id: 3,
+				ru: 'ru',
+				rs: 'rs',
+				en: 'en',
+				ua: 'ua',
+				type: 'colour' ,
+				createdAt: 'test',
+				updatedAt:'test',
+			},
+			{
+				hex: '#A6BEE5',
+				id: 4,
+				ru: 'ru',
+				rs: 'rs',
+				en: 'en',
+				ua: 'ua',
+				type: 'colour' ,
+				createdAt: 'test',
+				updatedAt:'test',
+			},
+			{
+				hex: '#FFE4C4',
+				id: 1,
+				ru: 'ru',
+				rs: 'rs',
+				en: 'en',
+				ua: 'ua',
+				type: 'colour' ,
+				createdAt: 'test',
+				updatedAt:'test',
+			},
+			{
+				hex: '#9F8E84',
+				id: 2,
+				ru: 'ru',
+				rs: 'rs',
+				en: 'en',
+				ua: 'ua',
+				type: 'colour' ,
+				createdAt: 'test',
+				updatedAt:'test',
+			},
+			{
+				hex: '#000080',
+				id: 3,
+				ru: 'ru',
+				rs: 'rs',
+				en: 'en',
+				ua: 'ua',
+				type: 'colour' ,
+				createdAt: 'test',
+				updatedAt:'test',
+			},
+			{
+				hex: '#A6BEE5',
+				id: 4,
+				ru: 'ru',
+				rs: 'rs',
+				en: 'en',
+				ua: 'ua',
+				type: 'colour' ,
+				createdAt: 'test',
+				updatedAt:'test',
+			},
+			
+		],
+		categories: [
+			{
+			id: 1,
+			ua: 'Категорія 1',
+			en: 'Категория 1',
+			rs:	'Категорія 1 rs',
+			ru: 'Категорія 1 ru',
+			type: 'category',
+			createdAt: 'any',
+			updatedAt: 'any',
+			},
+		],
+	},
+
 	usersAdmin: [
         //  {
         //      id: 1,
@@ -601,6 +762,8 @@ const initialState: initialStateType = {
 	]
 } ,
 ],
+//реализовую с помощью массива
+countPhotos: []
 // id: number
 // title: {
 //     ua: string
@@ -663,7 +826,13 @@ export const admin: Slice<initialStateType> = createSlice({
             //@ts-ignore
             state.usersRole[action.payload.id - 1][action.payload.branch] = action.payload.bool;
           },
-        
+		  //пушишь все обьекты , при добавлении товару пушишь number (для добавление еще одного айтома) , потом при добалении товара реплейсишь его под нужный индекс
+		addCountPhotos:(state) => {
+			console.log('вход в стейт')
+			state.userEdit.images.push(null)
+
+        },
+
 
 	},
 
@@ -736,7 +905,8 @@ export const {
 	setAddPhotoState,
 	setUsers,
 	setEditProductItemId,
-    setChangeCheckbox
+    setChangeCheckbox,
+	addCountPhotos
 } = admin.actions
 
 export default admin.reducer

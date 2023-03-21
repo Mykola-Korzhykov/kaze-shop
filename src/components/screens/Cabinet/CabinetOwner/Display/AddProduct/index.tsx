@@ -126,7 +126,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         const cookies = parseCookies();
         const token = cookies.accessToken;
         console.log('вошли в форму')
-        // console.log('sendFormData', sendFormData)
+        // console.log('objDataSend', objDataSend)
       
         const formData = new FormData();
         //images
@@ -584,7 +584,8 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                         onClick={()=>{
                             console.log('resODODODOODODODODDODOODDODODOODOD', checkObjectValues(objDataSend))
                             console.log('objDataSend', objDataSend)
-                            //создание на проверку валидность формы
+                            // console.log('objDataSend', objDataSend)
+                            //создание на проверку валидности формы
                             function checkObjectValues(obj: any) {
                                 for (const key in obj) {
                                     if (obj[key] === null || obj[key] === '' || obj.selectedImages.length < 1  ) {
@@ -596,9 +597,9 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
 
                             //проверка на валидность формы
                             if(checkObjectValues(objDataSend) ) {
-                                
                                 sendFormData(objDataSend)
                             }else{
+                                console.log('objDataSend', objDataSend)
                                 alert('заполни форму')
                             }
 

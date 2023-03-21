@@ -33,6 +33,10 @@ interface ModuleWindiwProps {
     imagesData?: File[],
     setImages?: (n: any)=> void,
 }
+
+// interface keyOfallValiedForm {
+//     key
+// }
 //setChoiceColor
 
 export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, setModalAddColor, modalAddColor, imagesData, setImages }: ModuleWindiwProps) => {
@@ -58,6 +62,19 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const images = useSelector((state: RootState)=> state.formData.images)
     const fetchColoursArr = useSelector((state: RootState)=> state.goods.fetchedColours)
     const selectedColor = fetchColoursArr.find((el)=> el.id === colourId)
+    //all valied forms
+
+// pngImageShow,
+//                         jpgImagesShow: jpgImagesShow,
+//                         colourId: colourId,
+//                         sizes: selectedSizes,
+    const [allValiedForm, setAllValiedForm ] = React.useState({
+        pngImageShow: false,
+        jpgImagesShow: false, 
+        colourId: false,
+        sizes: false
+    })
+
     //images local show
     const [pngImageShow, setPngImageShow ] = React.useState<File>(null)
     const [jpgImagesShow, setJpgImagesShow ] = React.useState<File[]>([])
@@ -85,9 +102,9 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
         return true
     }
 
+    console.log('allValiedForm', allValiedForm)
+
     function generationObjModal () {
-
-
 
         const obj = {
             fileNames: files.map((el)=>{
@@ -96,16 +113,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
             colourId: colourId,
             sizes: selectedSizes
         }
-        //fully state form ( window modal)
-        const allStateForm = {
-            pngImageShow: pngImageShow,
-            jpgImagesShow: jpgImagesShow,
-            colourId: colourId,
-            sizes: selectedSizes,
-        }
 
-        if(checkValiedForm(allStateForm)){
-              // dispatch(setArrObjMod(obj))  
         dispatch(setAllcoloursId(colourId))
         dispatch(setAllsizes(obj.sizes))
         dispatch(setArrObjMod(obj))
@@ -137,13 +145,8 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
 
         // setImageUrl(url)
         dispatch(setImageUrl(urls))
-       }else{
-           alert('заполните полностью форму')
-       }
-
-       
-
-     }
+      
+    }
 
 
 
@@ -435,7 +438,35 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                             }) : ''}
                         </div>
                    </div>
-                <button onClick={generationObjModal} className={s.btn}>
+                <button onClick={ ()=>{
+
+                    const allStateForm = {
+                        pngImageShow: pngImageShow,
+                        jpgImagesShow: jpgImagesShow,
+                        colourId: colourId,
+                        sizes: selectedSizes,
+                    }
+
+                    for (const key in allStateForm) {
+                        //@ts-ignore
+                        if (allStateForm[key] === null || (Array.isArray(allStateForm[key]) && allStateForm[key].length < 1)) {
+                          setAllValiedForm(prevState => {
+                            return {...prevState, [key]: true};
+                          });
+                        }
+                      }
+
+                      
+
+                    if(checkValiedForm(allStateForm)){
+                        generationObjModal()
+                    }else{
+
+
+                        alert('заполните форму полность')
+                    }
+                    
+                } } className={s.btn}>
                     Добавить фотографию
                 </button>
             </div>

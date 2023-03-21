@@ -108,7 +108,6 @@ export const formData = createSlice({
             state.sizes = []
             state.colourId = null
             state.imagesjpg = []
-    
         },
         //allcoloursId
         setAllcoloursId:  (state, action: PayloadAction<any>) =>{

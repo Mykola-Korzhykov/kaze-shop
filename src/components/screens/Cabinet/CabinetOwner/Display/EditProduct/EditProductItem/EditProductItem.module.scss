@@ -22,11 +22,15 @@
 //add photo 
 
 .addphoto_wrapper{
+ 
+    // cursor: pointer;
     margin-top: 30px;
     display: flex;
     justify-content: space-between;
-
 }
+
+
+
 
 .title{
     font-family: 'Georama', sans-serif;
@@ -42,6 +46,7 @@
 }
 
 .btn{
+    cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,6 +55,76 @@
     background-color: black;
     border-radius: 5px;
 }
+
+//add photos/products
+
+.photos_wrapper{
+   
+    // background-color: red;
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+
+    
+
+    .item{
+        // height: 102px;
+        // margin-top: 10px;
+        display: flex;
+        column-gap: 30px;
+        align-items: start;
+        // height: 100px;
+        // width: 30px;
+        // background-color: #0B0B0B;
+
+        .info_wrapper{
+
+            display: flex;
+            column-gap: 30px;
+
+            .index{
+                // height: 56px;
+                font-family: 'Neue Haas Grotesk Display Pro';
+                font-style: normal;
+                font-weight: 500;
+                font-size: 20px;
+                line-height: 24px;
+                
+                display: flex;
+                align-items: center;
+            }
+
+            .button_product{
+                cursor: pointer;
+                width: 190px;
+                height: 56px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+        
+                font-family: 'Georama', sans-serif;
+                font-style: normal;
+                font-weight: 400;
+                font-size: 20px;
+                line-height: 24px;  
+            
+            }
+        }
+
+        .photos_wrapper{
+            max-height: 102px;
+            flex-wrap: wrap;
+            display: flex;
+            column-gap: 30px;
+        }
+
+        
+    }
+
+
+    
+}
+
 
 //net 
 
@@ -73,7 +148,6 @@
 }
 
 .input{
-   
     height: 50px;
     outline: none;
     padding-left: 15px;

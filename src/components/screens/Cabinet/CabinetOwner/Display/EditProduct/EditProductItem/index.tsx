@@ -2,6 +2,9 @@ import React from "react";
 import s from './EditProductItem.module.scss'
 import { useSelector } from "react-redux";
 import { RootState  } from "@/redux/store";
+import {addCountPhotos} from '../../../../../../../redux/slices/admin'
+import { useAppDispatch, useAppSelector } from '@/redux/hooks'
+import photoTest from '../../../../../../../assets/images/product/slider/photo.png'
 import photo from '../../../../../../../assets/images/admin/img.png'
 import Image from "next/image";
 import openInput from '../../../../../../../assets/icons/cabinetAdmin/open_input.svg'
@@ -11,19 +14,21 @@ import {SizeItem} from '../../AddProduct/SizesItem'
 import {ColorItem} from '../../AddProduct/ColorItem'
 //types 
 import {Goods} from '../../../../../../../types/goods'
+import {ImageData}  from '../../../../../../../types/goods'
 
 interface EditProductItemType {
     id: number,
     // price: number
 }
 
-
-
 export const EditProductItem = ({id, }: EditProductItemType) =>{
+
+    const dispatch = useAppDispatch()
 
     const [choiseSize, setChoiseSize] = React.useState<boolean>(false)
     const [choiceColors, setChoiceColors] = React.useState<boolean>(false)
     const sizesItems = useSelector((state: RootState)=> state.admin.sizesItems)
+    const userEdit = useSelector((state: RootState)=> state.admin.userEdit)
 
     // console.log('EditProductItemID', id)
 
@@ -31,166 +36,22 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
     const products = useSelector((state: RootState)=>state.admin.editProducts)
     const colors = useSelector((state: RootState)=>state.goods.fetchedColours)
 
-    console.log('colors', colors)
+    // console.log('userEdit', userEdit.images[0].imagesPaths)
 
+    interface ImageData {
+        imagesPaths: string[];
+        record: Record<string, string>;
+        sizes: string[];
+    }
 
-    const [userEdit, setUserEdit] = React.useState<Goods>( {
-        id: 1,
-        title: {
-            ua: 'Павло',
-            ru:' Паша',
-            rs: 'хз',
-            en: 'The best',
-        },
-        description: {
-            ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
-            ru: 'на русс опис doprepwfieifweifipowerf',
-            rs: 'на rs опис лдощцаозщуцощауоазуцща',
-            en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
-        },
-        price: 300,
-        quantity: 100,
-        // { fileNames: string[], colourId: number; sizes: string[]}
-        images: [  
-        {
-            imagesPaths: ['fllflf', 'lfllf'],
-            colour: {
-                hex: '#FFE4C4',
-                id: 1,
-                ru: 'ru',
-                rs: 'rs',
-                en: 'en',
-                ua: 'ua',
-                type: 'colour' ,
-                createdAt: 'test',
-                updatedAt:'test',
-            },
-            sizes: ["S", "M", "L"]
-        },
-        {
-            imagesPaths: ['lflflf', 'fllflflf'],
-            colour: {
-                hex: '#FFE4C4',
-                id: 1,
-                ru: 'ru',
-                rs: 'rs',
-                en: 'en',
-                ua: 'ua',
-                type: 'colour' ,
-                createdAt: 'test',
-                updatedAt:'test',
-            },
-            sizes: ["S", "M", "L"]
-        },
-        ],
-          sizeChartImage: 'kfkf',
-          sizeChartImageDescription: '21231231',
-          hexes: ['blue', 'red'],
-        sizes: ['X', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS'],
-        colours: [
-            {
-                hex: '#FFE4C4',
-                id: 1,
-                ru: 'ru',
-                rs: 'rs',
-                en: 'en',
-                ua: 'ua',
-                type: 'colour' ,
-                createdAt: 'test',
-                updatedAt:'test',
-            },
-            {
-                hex: '#9F8E84',
-                id: 2,
-                ru: 'ru',
-                rs: 'rs',
-                en: 'en',
-                ua: 'ua',
-                type: 'colour' ,
-                createdAt: 'test',
-                updatedAt:'test',
-            },
-            {
-                hex: '#000080',
-                id: 3,
-                ru: 'ru',
-                rs: 'rs',
-                en: 'en',
-                ua: 'ua',
-                type: 'colour' ,
-                createdAt: 'test',
-                updatedAt:'test',
-            },
-            {
-                hex: '#A6BEE5',
-                id: 4,
-                ru: 'ru',
-                rs: 'rs',
-                en: 'en',
-                ua: 'ua',
-                type: 'colour' ,
-                createdAt: 'test',
-                updatedAt:'test',
-            },
-            {
-                hex: '#FFE4C4',
-                id: 1,
-                ru: 'ru',
-                rs: 'rs',
-                en: 'en',
-                ua: 'ua',
-                type: 'colour' ,
-                createdAt: 'test',
-                updatedAt:'test',
-            },
-            {
-                hex: '#9F8E84',
-                id: 2,
-                ru: 'ru',
-                rs: 'rs',
-                en: 'en',
-                ua: 'ua',
-                type: 'colour' ,
-                createdAt: 'test',
-                updatedAt:'test',
-            },
-            {
-                hex: '#000080',
-                id: 3,
-                ru: 'ru',
-                rs: 'rs',
-                en: 'en',
-                ua: 'ua',
-                type: 'colour' ,
-                createdAt: 'test',
-                updatedAt:'test',
-            },
-            {
-                hex: '#A6BEE5',
-                id: 4,
-                ru: 'ru',
-                rs: 'rs',
-                en: 'en',
-                ua: 'ua',
-                type: 'colour' ,
-                createdAt: 'test',
-                updatedAt:'test',
-            },
-            
-        ],
-        categories: [
-            {
-            id: 1,
-            ua: 'Категорія 1',
-            en: 'Категория 1',
-            rs:	'Категорія 1 rs',
-            ru: 'Категорія 1 ru',
-            type: 'category',
-            createdAt: 'any',
-            updatedAt: 'any',
-            }
-        ]
-    } )
+    React.useEffect(()=>{
+        
+    }, [])
+
+   
+
+    // const [arrPhotos, setArrPhotos] = React.useState<any>([...userEdit.images])
+    // console.log('arrPhotos', arrPhotos)
 
     // const activeProduct = products.find((el)=>{
     //     return el.id === id
@@ -215,7 +76,7 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
     return (
         <>
         <div  style={ editProductItemId >= 1 ? {display : 'block'} : {display : 'none'}}  >
-       
+
         <div style={ editProductItemId >= 1 ? {display : 'flex'} : {display : 'none'}} className={s.wrapper}>
         
         {inputs.map((obj, ind)=>{
@@ -236,7 +97,12 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
 
         <div className={s.addphoto_wrapper}>
             <span className={s.title}>Добавить фото товара</span>
-            <span className={s.btn}>
+            <span className={s.btn }  onClick={(e)=>{
+                console.log('click')
+                // e.stopPropagation()
+                //@ts-ignore
+                dispatch(addCountPhotos()) 
+            }}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M3.75 12H20.25" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M12 3.75V20.25" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -246,6 +112,57 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
         </div>
 
        {/* мепаю вофо существующих товаров  */}
+
+       <div className={s.photos_wrapper}>
+
+       {/* {userEdit.images.map((el: any, ind: number) => {
+            return (
+                <div className={s.item}>
+                    <span className={s.index}>{ind}</span>
+                    <span className={s.button_product}>lflflfllflflf</span>
+                    <div className={s.photos_wrapper}>
+                        {el.imagesPaths.map((el: any)=>{
+                            return  <span className={s.photo_wrapper}>
+                                        <Image src={el} alt={'photo'}/>
+                                    </span>
+                        })}
+                    </div>
+                </div>
+            );
+        })} */}
+
+        {userEdit.images.map((el, ind)=>{
+            return  <div  className={s.item}>
+                        <div className={s.info_wrapper}>
+                            <span className={s.index}>{`${ind + 1}.`}</span>  
+                            <span className={s.button_product}
+                                    style={{
+                                        color: el !== null ? `${el.colour.hex}` : '#0B0B0B',
+                                        border: el !== null ? `${el.colour.hex} solid 1.5px` : '#0B0B0B solid 1.5px',
+                                        
+                                    }} 
+                                        > {el !== null ? 'Удалить сет' : 'Загрузить фото' }</span>
+                        </div>
+                        
+                            {el &&   
+                            <div className={s.photos_wrapper}>
+                                {el.imagesPaths.map((el: any)=>{
+                                    return  <span className={s.photo_wrapper}>
+                                                <Image  
+                                                src={el}
+                                                alt={'photo'}
+                                                width={70}
+                                                height={102}
+                                                
+                                                />
+                                            </span>
+                                })}
+                            </div>} 
+                           
+                    </div>
+        })}
+
+       </div>
 
         <div className={s.net_wrapper}>
 

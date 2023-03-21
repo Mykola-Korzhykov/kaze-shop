@@ -23,6 +23,12 @@ export interface fetchedColour {
 	updatedAt: any | null
 }
 
+export interface ImageData {
+	imagesPaths: string[] ;
+	sizes: string[];
+	colour: fetchedColour
+  }
+
 export interface Goods {
 	id: number
 	title: {
@@ -40,7 +46,7 @@ export interface Goods {
 	price: number
 	quantity: number
 	images: {
-		imagesPaths: string[]
+		imagesPaths: string[] | File[] | StaticImageData[]
 		colour: fetchedColour
 		sizes: string[]
 	}[]
