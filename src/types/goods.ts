@@ -46,6 +46,36 @@ export interface Goods {
 	price: number
 	quantity: number
 	images: {
+		imagesPaths: string[]
+		colour: fetchedColour
+		sizes: string[]
+	}[]
+	sizeChartImage: string
+	sizeChartImageDescription: string
+	sizes: string[]
+	hexes: string[]
+	colours: fetchedColour[]
+	categories: fetchedCategory[]
+	// reviews: ReturnedReview[] | [];
+}
+
+export interface GoodsEditTest {
+	id: number
+	title: {
+		ua: string
+		ru: string
+		rs: string
+		en: string
+	}
+	description: {
+		ua: string
+		ru: string
+		rs: string
+		en: string
+	}
+	price: number
+	quantity: number
+	images: {
 		imagesPaths: string[] | File[] | StaticImageData[]
 		colour: fetchedColour
 		sizes: string[]
@@ -58,6 +88,7 @@ export interface Goods {
 	categories: fetchedCategory[]
 	// reviews: ReturnedReview[] | [];
 }
+
 
 export interface CartProduct {
 	id: number
