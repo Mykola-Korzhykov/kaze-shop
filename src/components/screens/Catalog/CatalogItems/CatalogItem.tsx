@@ -71,14 +71,14 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 					{isHovering ? (
 						<Image
 							className={s.img}
-							src={catalogImg2}
+							src={product.images[0]?.imagesPaths[1] ?? catalogImg}
 							alt='Лосины Тай дай'
 							quality={95}
 						/>
 					) : (
 						<Image
 							className={s.img}
-							src={catalogImg}
+							src={product?.images[0]?.imagesPaths[2] ?? catalogImg2}
 							alt='Лосины Тай дай'
 							quality={95}
 						/>

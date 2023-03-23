@@ -12,7 +12,6 @@ const CompareMainItem = () => {
 	const updateCompareProduct = useAppSelector(
 		state => state.goods.updateCompareProduct
 	)
-	console.log('updateCompareProduct', updateCompareProduct)
 	const router = useRouter()
 	const [sizeActive, setSizeActive] = React.useState<boolean>(false)
 	const [colorActive, setColorActive] = React.useState<boolean>(false)
@@ -69,7 +68,7 @@ const CompareMainItem = () => {
 		<div className={s.main_item}>
 			<div className={s.main_imgWrapper}>
 				<Image
-					src={catalogItem}
+					src={compareProduct?.images[0]?.imagesPaths[1] ?? catalogItem}
 					alt='Cart image'
 					className={s.main_img}
 					priority={true}

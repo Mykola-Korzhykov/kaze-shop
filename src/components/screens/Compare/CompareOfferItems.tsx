@@ -25,7 +25,7 @@ const CompareOfferItems: FC<{ setShowModal: (state: boolean) => void }> = ({
 					<div className={s.item} key={product?.id}>
 						<div className={s.imgWrapper}>
 							<Image
-								src={cartImage}
+								src={product?.images[0]?.imagesPaths[1] ?? cartImage}
 								alt='Cart image'
 								className={s.img}
 								priority={true}
