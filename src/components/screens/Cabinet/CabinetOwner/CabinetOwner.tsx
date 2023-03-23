@@ -55,15 +55,6 @@ import ChangeUserPassword from '../../../ChangeUserPassword/ChangeUserPassword'
 
 // export const heidthcal = 9;
 
-const buttonsObj: ButtonType[] = [
-    { id: 1, img_grey: icon1, img_white: icon_white1, text: 'Выдать роль', url: '/owner-settings/role-settings' },
-    { id: 2, img_grey: icon2, img_white: icon_white2, text: 'Администраторы', url: '/owner-settings/admin-settings' },
-    // { id: 3, img_grey: icon3, img_white: icon_white3, text: 'Редактировать сайт' },
-    { id: 3, img_grey: icon4, img_white: icon_white4, text: 'Добавить товар', url: '/owner-settings/add-product' },
-    { id: 4, img_grey: icon5, img_white: icon_white5, text: 'Редактировать товар' },
-    { id: 5, img_grey: icon6, img_white: icon_white6, text: 'Настройки' },
-    { id: 6, img_grey: icon7, img_white: icon_white7, text: 'Выход' }
-]
 
 // const sizesItems = [
 //     { id: 0, size: 'XS'},
@@ -84,12 +75,29 @@ interface CabinetOwnerProps {
     setCountPhoto: (n: number) => void
     modalAddColor: boolean
     setModalAddColor: (n: boolean) => void
- 
-
-    
+    role: 'OWNER' | 'ADMIN' | 'USER' 
 }
 
-export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modalAddColor, setModalAddColor, setImages, modalAddPhoto }: CabinetOwnerProps) => {
+export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modalAddColor, setModalAddColor, setImages, modalAddPhoto, role }: CabinetOwnerProps) => {
+
+    const buttonsObj: ButtonType[] = role === 'OWNER' ?  [
+        { id: 1, img_grey: icon1, img_white: icon_white1, text: 'Выдать роль', url: '/owner-settings/role-settings' },
+        { id: 2, img_grey: icon2, img_white: icon_white2, text: 'Администраторы', url: '/owner-settings/admin-settings' },
+        // { id: 3, img_grey: icon3, img_white: icon_white3, text: 'Редактировать сайт' },
+        { id: 3, img_grey: icon4, img_white: icon_white4, text: 'Добавить товар', url: '/owner-settings/add-product' },
+        { id: 4, img_grey: icon5, img_white: icon_white5, text: 'Редактировать товар' },
+        { id: 5, img_grey: icon6, img_white: icon_white6, text: 'Настройки' },
+        { id: 6, img_grey: icon7, img_white: icon_white7, text: 'Выход' }
+    ] : 
+    [
+        // { id: 1, img_grey: icon1, img_white: icon_white1, text: 'Выдать роль', url: '/owner-settings/role-settings' },
+        // { id: 2, img_grey: icon2, img_white: icon_white2, text: 'Администраторы', url: '/owner-settings/admin-settings' },
+        // { id: 3, img_grey: icon3, img_white: icon_white3, text: 'Редактировать сайт' },
+        { id: 3, img_grey: icon4, img_white: icon_white4, text: 'Добавить товар', url: '/owner-settings/add-product' },
+        { id: 4, img_grey: icon5, img_white: icon_white5, text: 'Редактировать товар' },
+        { id: 5, img_grey: icon6, img_white: icon_white6, text: 'Настройки' },
+        { id: 6, img_grey: icon7, img_white: icon_white7, text: 'Выход' }
+    ]
     
     // const [modalAddColor, setModalAddColor] = React.useState<boolean>(false)
     // const modalAddColor =  useSelector((state: RootState) => state.modaleSlice.modalAddColor)

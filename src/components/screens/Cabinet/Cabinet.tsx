@@ -85,8 +85,9 @@ const Cabinet: FC = () => {
 				</div>
 
 				{user && user.user?.type === 'USER' ? <CabinetTabs /> : ''}
-				{user?.user?.type === 'OWNER' && (
+				{user?.user?.type === 'OWNER' || user?.user?.type === 'ADMIN' && (
 					<CabinetOwner
+						role={user?.user?.type}
 						modalAddCAtegory={modalAddCAtegory}
 						imagesData={images}
 						setImages={setImages}
@@ -96,9 +97,11 @@ const Cabinet: FC = () => {
 						setModalAddColor={setModalAddColor}
 					/>
 				)}
-				{user?.user?.type === 'ADMIN' && <CabinetAdmin />}
+				
+				{/* {user?.user?.type === 'ADMIN' && <CabinetAdmin />} */}
 
 				{/* <CabinetOwner 
+				role={"OWNER"}
 				modalAddCAtegory={modalAddCAtegory} 
                 imagesData={images} setImages={setImages}  
                 setCountPhoto={setCountPhoto}  
@@ -106,6 +109,7 @@ const Cabinet: FC = () => {
                 modalAddColor={modalAddColorTurn} 
                 setModalAddColor={setModalAddColor}   
                 /> */}
+
 				{/* <CabinetAdmin /> */}
 
 				{/* <div className={s.backround_module}></div>  */}

@@ -95,10 +95,10 @@
 //module window 
 
 .backround_for_modal{
-    width: 150vw;
+    width: calc(150vw + 1100px) ;
     top: -200px;
     height: 120%;
-    left: -110px;
+    left: -1100px;
     background-color: black;
     opacity: 0.25;
     position: absolute;

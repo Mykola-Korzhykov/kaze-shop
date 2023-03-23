@@ -1,20 +1,25 @@
 
 
 .module_wrapper{
-   
+
     // margin-left: -105px;
     position: absolute;
-    top: 0;
+    top: 220px;
     height: 100%;
     width: 90%;
     margin-top:250px;
-   
+    
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
     z-index:  101;
+
+    @media(max-width:1050px) {
+        
+        top: 710px;
+    }
 }
 
 .module_inner{

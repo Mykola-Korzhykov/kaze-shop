@@ -32,7 +32,7 @@
 
 .wrapper_inner {
        width: 100%;
-    // min-width: 0px;
+    //min-width: 0px;
         // @media (max-width: 1050px) {
         //     width: 100%;
         //     margin-bottom: 30px;
@@ -51,10 +51,9 @@
     margin-top: 30px;
 }
 
-
 .descriprion{
     width: 100%;
-    // min-width: 0px;
+    //min-width: 0px;
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
@@ -187,7 +186,6 @@
         font-weight: 500;
         font-size: 20px;
         line-height: 24px;
-        
         color: #0B0B0B;
 
 
@@ -204,13 +202,12 @@
     }
 }
 
-
-
 //module window 
 
 .module_wrapper{
     position: absolute;
     top: 0;
+    
     height: 100vh;
     width: 100vw;
     background: #0B0B0B;
