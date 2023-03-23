@@ -3,7 +3,6 @@ import s from './EditProductItem.module.scss'
 import { useSelector } from "react-redux";
 import { RootState  } from "@/redux/store";
 import {addCountPhotos} from '../../../../../../../redux/slices/admin'
-import {setModalAddEditProduct} from '../../../../../../../redux/slices/modal'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import photoTest from '../../../../../../../assets/images/product/slider/photo.png'
 import photo from '../../../../../../../assets/images/admin/img.png'
@@ -159,7 +158,7 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                                             </span>
                                 })}
                             </div>} 
-                            
+                           
                     </div>
         })}
 
@@ -220,7 +219,7 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
 
             <div onClick={()=>{
                 setChoiceColors(!choiceColors)
-                //console.log('click')
+                // console.log('click')
                 }} className={s.colours_select_wrapper}>
                 <div className={s.title}>
                     Цвет товара
