@@ -7,7 +7,7 @@ import CartItem from './CartItem'
 const CartItems = () => {
 	const basketOfProducts = useAppSelector(state => state.goods.basketOfProducts)
 	const renderGoods = (arr: CartProductItem[] | []) => {
-		if (arr.length === 0) {
+		if (arr?.length === 0) {
 			return (
 				<ErrorModal
 					title='Ваша корзина пуста'
@@ -23,7 +23,7 @@ const CartItems = () => {
 		})
 	}
 	return <div className={s.wrapper}>
-		{renderGoods(basketOfProducts.cartProducts)}
+		{renderGoods(basketOfProducts?.cartProducts)}
 	</div>
 }
 export default CartItems

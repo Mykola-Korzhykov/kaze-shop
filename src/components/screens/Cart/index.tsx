@@ -11,12 +11,11 @@ const Cart = () => {
 	const loadingStatus = useAppSelector(state => state.goods.loadingStatus)
 	const cartLoadingStatus = useAppSelector(state => state.goods.cartLoadingStatus)
 	React.useEffect(() => {
-		// dispatch(getCartProducts())
+		dispatch(getCartProducts())
 	}, [])
 	return (
 		<>
 			{loadingStatus === 'loading' && <Spinner />}
-			
 			<main className='content'>
 				<div className='container'>
 					<div className='page_coordinator'>

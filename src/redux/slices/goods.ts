@@ -48,7 +48,7 @@ export const fetchGoods = createAsyncThunk<
 		return data
 	} catch (e) {
 		if ('rawErrors' in e.response.data) {
-			return rejectWithValue(e.response.data.rawErrors[0].ua)
+			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
 		}
 	}
 })
@@ -68,7 +68,7 @@ export const fetchGoodsByCategory = createAsyncThunk<
 			const data = await Api().goods.getGoodsByCategory(pageNumber, categoryId)
 			return data
 		} catch (e) {
-			return rejectWithValue(e.response.data.rawErrors[0].ua)
+			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
 		}
 	}
 )
@@ -89,7 +89,7 @@ export const fetchCompareOfferProducts = createAsyncThunk<
 			)
 			return data
 		} catch (e) {
-			return rejectWithValue(e.response.data.rawErrors[0].ua)
+			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
 		}
 	}
 )
@@ -103,7 +103,7 @@ export const fetchCategories = createAsyncThunk<
 		const data = await Api().goods.getGategories()
 		return data.data
 	} catch (e) {
-		return rejectWithValue(e.response.data.rawErrors[0].ua)
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
 	}
 })
 
@@ -116,7 +116,7 @@ export const fetchColours = createAsyncThunk<
 		const data = await Api().goods.getColours()
 		return data.data
 	} catch (e) {
-		return rejectWithValue(e.response.data.rawErrors[0].ua)
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
 	}
 })
 
@@ -162,10 +162,11 @@ export const addProductToCart = createAsyncThunk<
 			const data = await Api().goods.addToCart(product.id, productObj)
 			return data
 		} catch (e) {
-			return rejectWithValue(e.response.data.rawErrors[0].ua)
+			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
 		}
 	}
 )
+
 
 export const updateCartProduct = createAsyncThunk<
 	{ cartProductId: number },
@@ -184,7 +185,7 @@ export const updateCartProduct = createAsyncThunk<
 		)
 		return data
 	} catch (e) {
-		return rejectWithValue(e.response.data.rawErrors[0].ua)
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
 	}
 })
 
@@ -197,7 +198,7 @@ export const deleteCartProduct = createAsyncThunk<
 		const data = await Api().goods.deleteProduct(cartProductId)
 		return data
 	} catch (e) {
-		return rejectWithValue(e.response.data.rawErrors[0].ua)
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
 	}
 })
 
@@ -210,7 +211,7 @@ export const getCartProducts = createAsyncThunk<
 		const data = await Api().goods.getCartProducts()
 		return data
 	} catch (e) {
-		return rejectWithValue(e.response.data.rawErrors[0].ua)
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
 	}
 })
 
