@@ -14,6 +14,7 @@ import openInput from '../../../../../../../assets/icons/cabinetAdmin/open_input
 import {Input} from './Input'
 import {SizeItem} from '../../AddProduct/SizesItem'
 import {ColorItem} from '../../AddProduct/ColorItem'
+import {SizeChart} from '../../../Display/AddProduct/sizeChart'
 //types 
 import {Goods} from '../../../../../../../types/goods'
 import {ImageData}  from '../../../../../../../types/goods'
@@ -50,7 +51,12 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
         
     }, [])
 
-   
+    const SizeChartArr = [
+        {id: 1, title: ' Описание размерной сетки UA', placeholder: 'Введите описание размерной сетки', leng: "ua"},
+        {id: 2, title: ' Описание размерной сетки RU', placeholder: 'Введите описание размерной сетки', leng: "ru"},
+        {id: 3, title: ' Описание размерной сетки SRB', placeholder: 'Введите описание размерной сетки', leng: "rs"},
+        {id: 4, title: ' Описание размерной сетки ENG', placeholder: 'Введите описание размерной сетки', leng: "en"},
+    ]
 
     // const [arrPhotos, setArrPhotos] = React.useState<any>([...userEdit.images])
     // console.log('arrPhotos', arrPhotos)
@@ -182,19 +188,62 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
 
         <div className={s.net_wrapper}>
 
-          <div className={s.desription_net_wrapper}>
+            <div className={s.net_inputs}>
+                <div className={s.input_wrapper}>
+                    <span className={s.net_title}>
+                        Описание размерной сетки UA
+                    </span>
+                    <input placeholder="Введите описание" className={s.input_inner} type="text" />
+                </div>
+                <div className={s.input_wrapper}>
+                    <span className={s.net_title}>
+                        Описание размерной сетки RU
+                    </span>
+                    <input placeholder="Введите описание" className={s.input_inner} type="text" />
+                </div>
+            </div>
+
+            <div className={s.net_inputs}>
+                <div className={s.input_wrapper}>
+                    <span className={s.net_title}>
+                        Описание размерной сетки SRB
+                    </span>
+                    <input placeholder="Введите описание" className={s.input_inner} type="text" />
+                </div>
+                <div className={s.input_wrapper}>
+                    <span className={s.net_title}>
+                        Описание размерной сетки SRB
+                    </span>
+                    <input placeholder="Введите описание" className={s.input_inner} type="text" />
+                </div>
+            </div>
+
+        {/* {SizeChartArr.map((obj)=>{
+                        return <SizeChart 
+                        key={obj.id} 
+                        leng={obj.leng} 
+                        id={obj.id} 
+                        placeholder={obj.placeholder} 
+                        title={obj.title} 
+                        // valid={validChartState[obj.id] }
+                        // setValid={setValidChartState}
+                        />
+                    })} */}
+
+          {/* <div className={s.desription_net_wrapper}>
             <span className={s.title}>Описание размерной сетки</span>
             <input className={s.input} name="desription_net" type="text" placeholder={'Описание размерной сетки'} />
-          </div>
+          </div> */}
 
-          <div className={s.file_net_wrapper}>
+        </div>
+
+        <div className={s.file_net_wrapper}>
             <span className={s.title}>Загрузите размерную сетку</span>
             <label className={s.label} htmlFor="uploadnet">
                 Изменить размерную сетку
             </label>
             <input className={s.input_file} id='uploadnet' name="net_file" type="file"  />
           </div>
-        </div>
 
         {/* размер товара делаю интуп и СЕТАЮ существующие в отдельную переменную , меняю ее в редактировке и отправляю при отправке */}
 
