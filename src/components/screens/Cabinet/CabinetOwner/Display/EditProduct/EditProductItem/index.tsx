@@ -136,13 +136,27 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
             return  <div key={ind}  className={s.item}>
                         <div className={s.info_wrapper}>
                             <span className={s.index}>{`${ind + 1}.`}</span>  
-                            <span className={s.button_product}
+
+                           { el !== null ? <span className={s.button_product}
                                     style={{
-                                        color: el !== null ? `${el.colour.hex}` : '#0B0B0B',
-                                        border: el !== null ? `${el.colour.hex} solid 1.5px` : '#0B0B0B solid 1.5px',
+                                        color:  `${el.colour.hex}` ,
+                                        border:  `${el.colour.hex} solid 1.5px`,
                                         
                                     }} 
-                                        > {el !== null ? 'Удалить сет' : 'Загрузить фото' }</span>
+                                        > Удалить сет</span> : 
+
+                                        <span  style={{
+                                            color:  '#0B0B0B',
+                                            border: '#0B0B0B solid 1.5px',
+                                            
+                                        }} 
+                                        className={s.button_product_add}
+                                        onClick={()=> {
+                                            dispatch(setModalAddEditProduct(true))
+                                        }}
+                                        > Загрузить фото </span>
+                                        
+                            } 
                         </div>
                         
                             {el &&   

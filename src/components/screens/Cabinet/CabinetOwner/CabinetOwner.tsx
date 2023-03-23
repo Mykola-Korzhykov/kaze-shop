@@ -102,6 +102,19 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
     // const [images, setImages] = React.useState<File[]>([])
 
     const dispatch = useAppDispatch()
+
+    const modalAddPhotoTurn = useSelector(
+		(state: RootState) => state.modaleSlice.modalAddPhoto
+	)
+	const [choiceColor, setChoiceColor] = React.useState<boolean>(false)
+	const modalAddCAtegoryTurn = useSelector(
+		(state: RootState) => state.modaleSlice.modalAddCAtegory
+	)
+	const modalAddColorTurn = useSelector(
+		(state: RootState) => state.modaleSlice.modalAddColor
+	)
+	const modalEditProductTurn = useSelector(
+		(state: RootState) => state.modaleSlice.modalAddEditProduct)
    
     
     
@@ -238,7 +251,18 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
 
     return (
         <div className={s.wrapper}>
-
+            {/* { modalAddColorTurn &&
+                <div className={s.backround_for_modal}></div>
+            } */}
+            { modalAddCAtegoryTurn &&
+                <div className={s.backround_for_modal}></div>
+            }
+            { modalEditProductTurn &&
+                <div className={s.backround_for_modal}></div>
+            }
+            { modalAddPhotoTurn &&
+                <div className={s.backround_for_modal}></div>
+            }
             
 
             <div className={s.nav_dekstop}>

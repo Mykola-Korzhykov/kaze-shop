@@ -28,7 +28,7 @@ interface ModalEditProductProps {
     setImages?: (n: any)=> void,
 }
 
-const ModalEditProduct = ({  modalAddPhoto,  setChoiceColor, choiceColor, setModalAddColor, modalAddColor, imagesData, setImages }: ModalEditProductProps) =>{
+export const ModalEditProduct = ({  modalAddPhoto,  setChoiceColor, choiceColor, setModalAddColor, modalAddColor, imagesData, setImages }: ModalEditProductProps) =>{
 
     const inputRef = React.useRef<HTMLInputElement>(null);
 
@@ -115,7 +115,7 @@ const ModalEditProduct = ({  modalAddPhoto,  setChoiceColor, choiceColor, setMod
 
         dispatch(removeAll())
         setFiles([])
-        dispatch(setModalAddPhoto(false))
+        dispatch(setModalAddEditProduct(false))
         // const file = files[0];
         // const url = URL.createObjectURL(file);
         const urls = [];
@@ -173,14 +173,14 @@ const ModalEditProduct = ({  modalAddPhoto,  setChoiceColor, choiceColor, setMod
     }
 
 
-    (
+  return  (
         <div  style={  modalAddColor  ? {visibility: 'hidden'} :  {visibility: 'visible'}} className={s.module_wrapper}>
 
         <div className={s.module_inner}>
 
-        <div onClick={()=> dispatch(setModalAddPhoto(false))  } className={s.close_modal}>
+        <div onClick={()=> dispatch(setModalAddEditProduct(false))  } className={s.close_modal}>
 
-            <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg  className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M25 7L7 25" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M25 25L7 7" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

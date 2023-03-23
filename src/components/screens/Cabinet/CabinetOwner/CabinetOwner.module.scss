@@ -1,4 +1,5 @@
 .wrapper{
+    position: relative;
     display: flex;
     gap: 30px;
     // height: 900px;
@@ -93,10 +94,24 @@
 
 //module window 
 
+.backround_for_modal{
+    width: 150vw;
+    top: -200px;
+    height: 120%;
+    left: -110px;
+    background-color: black;
+    opacity: 0.25;
+    position: absolute;
+    z-index: 100;
+}
+
 .backround_module{
     position: absolute;
     top: 0;
-    margin-left: -105px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    // margin-left: -105px;
     // height: 180vh;
     width: 100vw; 
 

@@ -19,7 +19,7 @@ interface  inputsStateType {
     ru: string;
     rs: string;
     en: string;
-    hex: string
+    // hex: string
 }
 
 export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
@@ -27,11 +27,11 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
     
     const modalAddCAtegory = useSelector((state: RootState)=> state.modaleSlice.modalAddCAtegory)
 
-    const [stateInputs, setStateInputs] = React.useState<inputsStateType>({ua: '',  ru: '', rs: '', en: '', hex: ''  })
+    const [stateInputs, setStateInputs] = React.useState<inputsStateType>({ua: '',  ru: '', rs: '', en: ''  })
     interface InputsStateValidType {
         [key: string]: boolean;
     }
-    const [validInputs, setValidInputs] = React.useState<InputsStateValidType>({ua: true,  ru: true, rs: true, en: true, hex: true})
+    const [validInputs, setValidInputs] = React.useState<InputsStateValidType>({ua: true,  ru: true, rs: true, en: true})
 
     // function sendStateInputs(obj: inputsStateType){
     //     fetch('categories/create_category', {
@@ -208,16 +208,19 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
 
                     <button onClick={()=>{
 
-                        const valid = Object.values(validInputs).every((el)=>{
-                            return  el !== false
-                        }) && Object.values(stateInputs).every((el)=>{
+                        const valid = Object.values(validInputs).some((el)=>{
+                            return  el === true
+                        }) 
+                        && Object.values(stateInputs).every((el)=>{
                             return  el !== ''
                         })
 
                         if(valid){
                             sendStateInputs(stateInputs)
                             dispatch(setModalAddCAtegory(false))
-                        }else{
+                        }
+                        else{
+                            console.log('validKkk', valid)
                             for(const key in stateInputs){
                                 const value = stateInputs[key as keyof inputsStateType];
                                 if(value === ''){

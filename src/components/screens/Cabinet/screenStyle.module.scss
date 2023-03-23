@@ -13,21 +13,26 @@
 
 //module window 
 
+.backround_for_modal{
+    width: 400px;
+    height: 150%;
+    background-color: red;
+    position: absolute;
+}
+
 .backround_module{
-    // position: absolute;
-    // top: 0;
-    // margin-left: -105px;
-    // // height: 180vh;
-    // width: 100vw; 
 
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    // top: 0;
+    // left: 0;
+    // bottom: 0;
+    // right: 0;
+    // height: 100vh;
+    // width: 100vw;
+    // bottom: 0;
 
-    background: #0B0B0B;
-    opacity: 0.25;
+    // background: #0B0B0B;
+    // opacity: 0.25;
 }
 
 .backroundModuleMore{

@@ -16,6 +16,7 @@ const Cart = () => {
 	return (
 		<>
 			{loadingStatus === 'loading' && <Spinner />}
+			
 			<main className='content'>
 				<div className='container'>
 					<div className='page_coordinator'>

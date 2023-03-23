@@ -11,6 +11,7 @@ import axios from 'axios'
 const CabinetPage: NextPage = () => {
 	return (
 		<SpinnerLayout>
+			
 			<Cabinet />
 		</SpinnerLayout>
 	)

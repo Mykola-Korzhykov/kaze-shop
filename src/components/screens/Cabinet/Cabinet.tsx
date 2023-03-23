@@ -18,6 +18,10 @@ import { setModalAddPhoto, setModalAddColor } from '../../../redux/slices/modal'
 import { ModalAddCategory } from './../Cabinet/CabinetOwner/Display/AddProduct/ModalAddCategory'
 import { ModalAddColor } from './../Cabinet/CabinetOwner/Display/AddProduct/ModalAddColor'
 import { ModuleWindiw } from './CabinetOwner/Display/AddProduct/ModuleWindow'
+import {ModalEditProduct} from '../../../components/screens/Cabinet/CabinetOwner/Display/AddProduct/ModalEditProduct/index'
+import { divide } from 'lodash'
+
+
 
 const Cabinet: FC = () => {
 	const dispatch = useAppDispatch()
@@ -34,6 +38,9 @@ const Cabinet: FC = () => {
 	)
 	const modalAddColorTurn = useSelector(
 		(state: RootState) => state.modaleSlice.modalAddColor
+	)
+	const modalEditProductTurn = useSelector(
+		(state: RootState) => state.modaleSlice.modalAddEditProduct
 	)
 	//imagesData
 	const [images, setImages] = React.useState<File[]>([])
@@ -69,6 +76,7 @@ const Cabinet: FC = () => {
 			fetchUserData()
 		}
 	}, [dispatch])
+
 	return (
 		<main className='content'>
 			<div className='container'>
@@ -101,28 +109,28 @@ const Cabinet: FC = () => {
 				{/* <CabinetAdmin /> */}
 
 				{/* <div className={s.backround_module}></div>  */}
-				{countPhoto > 0 && modalAddPhoto ? (
+				{/* {countPhoto > 0 && modalAddPhoto ? (
 					<div
 						// style={{ height: `${1450 + countPhoto * 125}px` }}
 						className={s.backround_module}
 					></div>
 				) : (
 					''
-				)}
+				)} */}
 				{/* {countPhoto > 0 && modalAddPhoto &&  choiceColor === false? <div style={{height: `${ 1450 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''} */}
 				{/* {modalAddPhoto  && countPhoto < 2 ? <div  className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''}  */}
 				{/* style={{height: `${ 1450 +  colors.length * 25}px` }} */}
 				{/* {choiceColor? <div   className={ s.backround_module}></div> : ''}  */}
-				{modalAddCAtegory ? (
+				{/* {modalAddCAtegory ? (
 					<div
 						// style={{ height: '1450px' }}
 						className={s.backround_module}
 					></div>
 				) : (
 					''
-				)}
+				)} */}
 				{/* {choiceColor ? <div style={{height: '1450px'}} className={s.backround_module}></div> : ''} */}
-
+				
 				{modalAddPhoto ? (
 					<ModuleWindiw
 						imagesData={images}
@@ -143,6 +151,26 @@ const Cabinet: FC = () => {
 				) : (
 					''
 				)}
+
+				{modalEditProductTurn && <ModalEditProduct 
+						imagesData={images}
+						setImages={setImages}
+						setChoiceColor={setChoiceColor}
+						choiceColor={choiceColor}
+						modalAddPhoto={modalAddPhoto}
+						setModalAddPhoto={setModalAddPhoto}
+						modalAddColor={modalAddColorTurn}
+						setModalAddColor={setModalAddColor}
+				/>}
+				{/* {modalEditProductTurn ? (
+					<div
+						// style={{ height: '1450px' }}
+						className={s.backround_module}
+					></div>
+				) : (
+					''
+				)} */}
+
 				
 				{/* {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  */}
 			</div>
