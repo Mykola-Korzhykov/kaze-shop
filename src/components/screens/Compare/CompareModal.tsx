@@ -64,8 +64,12 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 					<div className={s.modal_imgWrapper}>
 						<Image
 							className={s.modal_img}
-							src={compareOfferProductModal.images[0]?.imagesPaths[1] ?? compareModal}
-							fill
+							src={
+								compareOfferProductModal.images[0]?.imagesPaths[1] ??
+								compareModal
+							}
+							width={195}
+							height={189}
 							alt='compare modal img'
 						/>
 					</div>

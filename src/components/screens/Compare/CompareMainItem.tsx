@@ -69,7 +69,8 @@ const CompareMainItem = () => {
 			<div className={s.main_imgWrapper}>
 				<Image
 					src={compareProduct?.images[0]?.imagesPaths[1] ?? catalogItem}
-					fill
+					width={316}
+					height={306}
 					alt='Cart image'
 					className={s.main_img}
 					priority={true}
