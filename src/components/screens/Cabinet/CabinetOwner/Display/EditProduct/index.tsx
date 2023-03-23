@@ -1,6 +1,8 @@
 import React from "react";
 import s from './EditProduct.module.scss'
 import { useSelector } from "react-redux";
+import { useAppDispatch } from "@/redux/hooks";
+import { fetchGoods } from "@/redux/slices/goods";
 import { RootState  } from "@/redux/store";
 //components 
 import {Item} from './Item'
@@ -8,7 +10,7 @@ import {EditProductItem} from './EditProductItem'
 // 
 
 export const EditProduct = () =>{
-
+    const dispatch = useAppDispatch()
     const products = useSelector((state: RootState)=>state.admin.editProducts)
     const editProductItemId = useSelector((state: RootState)=>state.admin.editProductItemId )
     const [activeId, setActiveId] = React.useState(0)
@@ -20,7 +22,9 @@ export const EditProduct = () =>{
     })
 
     // console.log('activeProductEdit', activeProductEdit)
-
+    React.useEffect(() => {
+        dispatch(fetchGoods())
+    }, [])
     return (
 
       <>

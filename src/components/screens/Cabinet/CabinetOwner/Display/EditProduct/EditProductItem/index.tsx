@@ -27,12 +27,11 @@ interface EditProductItemType {
 export const EditProductItem = ({id, }: EditProductItemType) =>{
 
     const dispatch = useAppDispatch()
-
+    
     const [choiseSize, setChoiseSize] = React.useState<boolean>(false)
     const [choiceColors, setChoiceColors] = React.useState<boolean>(false)
     const sizesItems = useSelector((state: RootState)=> state.admin.sizesItems)
     const userEdit = useSelector((state: RootState)=> state.admin.userEdit)
-
     // console.log('EditProductItemID', id)
 
     const editProductItemId = useSelector((state: RootState)=> state.admin.editProductItemId)
@@ -61,22 +60,22 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
     // const [arrPhotos, setArrPhotos] = React.useState<any>([...userEdit.images])
     // console.log('arrPhotos', arrPhotos)
 
-    // const activeProduct = products.find((el)=>{
-    //     return el.id === id
-    // })
+    const activeProduct = products.find((el)=>{
+        return el.id === editProductItemId
+    })
 
     const  [inputs, setInputs] = React.useState([
-        { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название товара', name: 'titleRU', disable: false,  },
-        { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название товара', name: 'titleUA', disable: false },
-        { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название товара', name: 'titleSRB',  disable: false },
-        { id: 3, type: 'text', text: 'Название товара ENG', placeholder: 'Введите название товара', name: 'titleENG',disable: false },
-        { id: 4, type: 'text', text: 'Описание товара RU', placeholder: 'Введите описание товара', name: 'descriptionRU',disable: false },
-        { id: 5, type: 'text', text: 'Описание товара UA', placeholder: 'Введите описание товара', name: 'descriptionUA',disable: false },
-        { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', name: 'descriptionSRB',disable: false },
-        { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false },
-        { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', name: 'text', disable: false },
-        { id: 9, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false },
-        { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false },
+        { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название товара', name: 'titleRU', disable: false,  value: activeProduct?.title?.ru },
+        { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название товара', name: 'titleUA', disable: false ,value: activeProduct?.title?.ua},
+        { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название товара', name: 'titleSRB',  disable: false ,value: activeProduct?.title?.rs},
+        { id: 3, type: 'text', text: 'Название товара ENG', placeholder: 'Введите название товара', name: 'titleENG',disable: false ,value: activeProduct?.title?.en},
+        { id: 4, type: 'text', text: 'Описание товара RU', placeholder: 'Введите описание товара', name: 'descriptionRU',disable: false ,value: activeProduct?.description?.ru},
+        { id: 5, type: 'text', text: 'Описание товара UA', placeholder: 'Введите описание товара', name: 'descriptionUA',disable: false ,value: activeProduct?.description?.ua},
+        { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', name: 'descriptionSRB',disable: false ,value: activeProduct?.description?.rs},
+        { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false ,value: activeProduct?.description?.en},
+        { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', name: 'text', disable: false ,value: activeProduct?.categories[0]?.ru},
+        { id: 9, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false ,value: activeProduct?.price},
+        { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false ,value: activeProduct?.quantity},
         // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', name: 'text', disable: true, colors: colors },
         //{ id: 9, type: 'text', text: 'Выберите существующий товар', placeholder: 'Выберите существующий товар', label: 'text', disable: true },
     ])
@@ -97,6 +96,7 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                 id={obj.id} 
                 type={obj.type}
                 disable={obj.disable} 
+                value={obj.value}
                />
 
             </div>
@@ -175,7 +175,6 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                                                 alt={'photo'}
                                                 width={70}
                                                 height={102}
-                                                
                                                 />
                                             </span>
                                 })}
@@ -193,13 +192,13 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                     <span className={s.net_title}>
                         Описание размерной сетки UA
                     </span>
-                    <input placeholder="Введите описание" className={s.input_inner} type="text" />
+                    <input placeholder="Введите описание" className={s.input_inner} type="text" value={ activeProduct?.sizeChartImageDescription}/>
                 </div>
                 <div className={s.input_wrapper}>
                     <span className={s.net_title}>
                         Описание размерной сетки RU
                     </span>
-                    <input placeholder="Введите описание" className={s.input_inner} type="text" />
+                    <input value={ activeProduct?.title?.ua} placeholder="Введите описание" className={s.input_inner} type="text" />
                 </div>
             </div>
 
@@ -208,13 +207,13 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                     <span className={s.net_title}>
                         Описание размерной сетки SRB
                     </span>
-                    <input placeholder="Введите описание" className={s.input_inner} type="text" />
+                    <input value={ activeProduct?.title?.ua} placeholder="Введите описание" className={s.input_inner} type="text" />
                 </div>
                 <div className={s.input_wrapper}>
                     <span className={s.net_title}>
                         Описание размерной сетки SRB
                     </span>
-                    <input placeholder="Введите описание" className={s.input_inner} type="text" />
+                    <input  value={ activeProduct?.title?.ua} placeholder="Введите описание" className={s.input_inner} type="text" />
                 </div>
             </div>
 

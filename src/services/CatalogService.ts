@@ -74,7 +74,7 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		return data
 	},
 	async getCartProducts() {
-		const { data } = await instance.get(`cart/getProducts`)
+		const { data } = await instance.get(`cart/`)
 		return data
 	},
 	async addToFavorites(productId: number) {

@@ -14,15 +14,17 @@ const CartItem: FC<{ product: CartProductItem }> = ({ product }) => {
 	const addProductHandler = () => {
 		dispatch(
 			addProductToCart({
-				id: product?.id,
+				id: product?.productId,
 				imageUrl: product?.imageUrl,
 				colourId: product?.colourId,
 				size: product?.size,
 			})
 		)
+		dispatch(getCartProducts())
 	}
 	const minusProductHandler = () => {
 		dispatch(deleteCartProduct(product?.id))
+		dispatch(getCartProducts())
 	}
 	return (
 		<div className={s.block}>

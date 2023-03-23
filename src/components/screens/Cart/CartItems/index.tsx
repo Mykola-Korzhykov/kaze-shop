@@ -7,7 +7,7 @@ import CartItem from './CartItem'
 const CartItems = () => {
 	const basketOfProducts = useAppSelector(state => state.goods.basketOfProducts)
 	const renderGoods = (arr: CartProductItem[] | []) => {
-		if (arr?.length === 0) {
+		if (!arr) {
 			return (
 				<ErrorModal
 					title='Ваша корзина пуста'

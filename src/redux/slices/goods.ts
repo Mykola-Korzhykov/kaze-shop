@@ -130,6 +130,7 @@ export const filterGoods = createAsyncThunk<
 	const goodsState = state.goods
 	const sortBy = goodsState.sortType
 	const pageNumber = goodsState.page
+	console.log(pageNumber)
 	const categoriesStr = goodsState.filterCategories.join(',')
 	const coloursStr = goodsState.filterColours.join(',')
 	const sizesStr = goodsState.filterSizes.join(',')
@@ -149,6 +150,30 @@ export const filterGoods = createAsyncThunk<
 
 // CART THUNKS
 
+export const updateCartProduct = createAsyncThunk<
+	{ cartProductId: number },
+	null,
+	{ rejectValue: string }
+>('products/updateCartProduct', async (_, { getState, rejectWithValue }) => {
+	try {
+		const state = getState() as RootState
+		const goodsState = state.goods
+		const updateProduct = goodsState.updateCompareProduct
+		const cartProductId = goodsState.cartProductId
+		const updateProductObj = Object.assign({}, updateProduct)
+		delete updateProductObj?.id
+		const data = await Api().goods.updateProduct(
+			cartProductId,
+			updateProductObj
+		)
+		console.log('api',Api().goods.updateProduct)
+		return data
+	} catch (e) {
+		console.log('action failed')
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ru)
+	}
+})
+
 export const addProductToCart = createAsyncThunk<
 	{ cartProductId: number },
 	sendProductToCart,
@@ -167,43 +192,24 @@ export const addProductToCart = createAsyncThunk<
 	}
 )
 
-
-export const updateCartProduct = createAsyncThunk<
-	{ cartProductId: number },
-	null,
-	{ rejectValue: string }
->('goods/updateCartProduct', async (_, { getState, rejectWithValue }) => {
-	try {
-		const state = getState() as RootState
-		const goodsState = state.goods
-		const updateProductObj = goodsState.updateCompareProduct
-		const cartProductId = goodsState.cartProductId
-		delete updateProductObj.id
-		const data = await Api().goods.updateProduct(
-			cartProductId,
-			updateProductObj
-		)
-		return data
-	} catch (e) {
-		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
-	}
-})
-
 export const deleteCartProduct = createAsyncThunk<
 	{ cartProductId: number },
 	number,
 	{ rejectValue: string }
->('goods/deleteCartProduct', async (cartProductId: number, { rejectWithValue }) => {
-	try {
-		const data = await Api().goods.deleteProduct(cartProductId)
-		return data
-	} catch (e) {
-		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
+>(
+	'goods/deleteCartProduct',
+	async (cartProductId: number, { rejectWithValue }) => {
+		try {
+			const data = await Api().goods.deleteProduct(cartProductId)
+			return data
+		} catch (e) {
+			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
+		}
 	}
-})
+)
 
 export const getCartProducts = createAsyncThunk<
-	{ cartProducts: CartProduct },
+	{ cart: CartProduct },
 	null,
 	{ rejectValue: string }
 >('goods/getCartProducts', async (_, { rejectWithValue }) => {
@@ -481,12 +487,22 @@ const goodsSlice = createSlice({
 			}),
 			builder.addCase(getCartProducts.fulfilled, (state, action) => {
 				state.loadingStatus = 'idle'
-				state.basketOfProducts = action.payload.cartProducts
+				state.basketOfProducts = action.payload.cart
 			}),
 			builder.addCase(getCartProducts.pending, (state, action) => {
 				state.loadingStatus = 'loading'
 			}),
 			builder.addCase(getCartProducts.rejected, (state, action) => {
+				state.loadingStatus = 'error'
+				state.errors = action.payload
+			}),
+			builder.addCase(updateCartProduct.fulfilled, (state, action) => {
+				state.loadingStatus = 'idle'
+			}),
+			builder.addCase(updateCartProduct.pending, (state, action) => {
+				state.loadingStatus = 'loading'
+			}),
+			builder.addCase(updateCartProduct.rejected, (state, action) => {
 				state.loadingStatus = 'error'
 				state.errors = action.payload
 			}),
