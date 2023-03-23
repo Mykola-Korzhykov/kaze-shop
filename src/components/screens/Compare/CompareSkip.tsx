@@ -1,10 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { useAppDispatch } from '@/redux/hooks'
-import {
-	updateCartProduct,
-	filterGoods,
-} from '@/redux/slices/goods'
+import { updateCartProduct } from '@/redux/slices/goods'
 import s from './Compare.module.scss'
 
 const CompareSkip = () => {
@@ -12,17 +9,11 @@ const CompareSkip = () => {
 	const dispatch = useAppDispatch()
 	const skipButtonHandler = () => {
 		dispatch(updateCartProduct())
-		console.log('button clicked')
+		router.push('/cart')
 	}
 	return (
 		<div className={s.skip_wrapper}>
-			<button
-				onClick={() => {
-					console.log('func')
-					dispatch(updateCartProduct())
-				}}
-				className={s.skip}
-			>
+			<button onClick={skipButtonHandler} className={s.skip}>
 				Пропустить
 			</button>
 		</div>
