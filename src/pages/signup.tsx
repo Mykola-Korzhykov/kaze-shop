@@ -109,8 +109,8 @@ const Signup: NextPage = () => {
 			setSignUpLoading(false)
 			console.warn('Register error', err)
 			if (err.response) {
-				console.warn('Register error', err.response.data.message)
-				setErrorMessage(err.response.data.message)
+				// index it is language
+				setErrorMessage(err.response.data.rawErrors[0]?.error)
 			} else {
 				router.push('/404')
 			}

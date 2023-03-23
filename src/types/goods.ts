@@ -24,10 +24,10 @@ export interface fetchedColour {
 }
 
 export interface ImageData {
-	imagesPaths: string[] ;
-	sizes: string[];
+	imagesPaths: string[]
+	sizes: string[]
 	colour: fetchedColour
-  }
+}
 
 export interface Goods {
 	id: number
@@ -89,14 +89,12 @@ export interface GoodsEditTest {
 	// reviews: ReturnedReview[] | [];
 }
 
-
-export interface CartProduct {
+export interface CartProductItem {
 	id: number
-	image: string
-	hex: string
 	size: string
 	price: string
-	quantity: number
+	imageUrl: string
+	colourId: number
 	title: {
 		ua: string
 		ru: string
@@ -109,6 +107,25 @@ export interface CartProduct {
 		rs: string
 		en: string
 	}
+	colour: {
+		id: number
+		ua: string
+		en: string
+		rs: string
+		ru: string
+		hex: string
+		type: string
+		createdAt: any
+		updatedAt: any
+	}
+	productId: number
+	quantity: number
+}
+export interface CartProduct {
+	id: number
+	cartStatus: string
+	totalPrice: string
+	cartProducts: CartProductItem[]
 }
 
 export interface sendProductToCart {
