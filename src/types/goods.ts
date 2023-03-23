@@ -59,6 +59,37 @@ export interface Goods {
 	// reviews: ReturnedReview[] | [];
 }
 
+export interface GoodsEditTest {
+	id: number
+	title: {
+		ua: string
+		ru: string
+		rs: string
+		en: string
+	}
+	description: {
+		ua: string
+		ru: string
+		rs: string
+		en: string
+	}
+	price: number
+	quantity: number
+	images: {
+		imagesPaths: string[] | File[] | StaticImageData[]
+		colour: fetchedColour
+		sizes: string[]
+	}[]
+	sizeChartImage: string
+	sizeChartImageDescription: string
+	sizes: string[]
+	hexes: string[]
+	colours: fetchedColour[]
+	categories: fetchedCategory[]
+	// reviews: ReturnedReview[] | [];
+}
+
+
 export interface CartProduct {
 	id: number
 	image: string
@@ -104,7 +135,7 @@ export interface GoodsSend {
 	price: number
 	quantity: number
 	images: {
-		fileNames: string[] | StaticImageData[] | File[]
+		fileNames: string[] | StaticImageData[]
 		colourId: number
 		sizes: string[]
 	}[]

@@ -7,6 +7,7 @@ interface ModalType {
 	modalAddPhoto: boolean
     modalAddColor: boolean
     modalAddCAtegory: boolean
+    modalAddEditProduct: boolean
     choiceColor: boolean
     countPhoto: number,
     imageUrlArr: string[][]
@@ -20,7 +21,8 @@ const initialState: ModalType = {
     choiceColor: false,
     countPhoto: 1,
     //для отобржения фото после загрузки 
-    imageUrlArr: []
+    imageUrlArr: [],
+    modalAddEditProduct: false
 }
 
 // const [countPhoto, setCountPhoto] = React.useState<number>(1)
@@ -48,7 +50,10 @@ const modaleSlice  = createSlice({
         },
         removeimageUrlArr: (state, action: PayloadAction<number>) =>{
             state.imageUrlArr.splice(action.payload, 1)
-        }
+        },
+        setModalAddEditProduct:  (state, action) =>{
+            state.modalAddEditProduct = action.payload
+        },
 	},
 })
 
@@ -62,6 +67,8 @@ export const {
     setModalAddCAtegory, 
     setChoiceColorDispatch, 
     setImageUrl,
-    removeimageUrlArr } = modaleSlice.actions
+    removeimageUrlArr,
+    setModalAddEditProduct
+    } = modaleSlice.actions
 
 export default modaleSlice.reducer

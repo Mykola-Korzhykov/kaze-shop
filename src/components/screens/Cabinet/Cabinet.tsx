@@ -143,6 +143,7 @@ const Cabinet: FC = () => {
 				) : (
 					''
 				)}
+				
 				{/* {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  */}
 			</div>
 		</main>
