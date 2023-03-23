@@ -10,8 +10,8 @@ interface SizeChartProps {
     title: string,
     placeholder: string,
     leng: string,
-    valid: boolean,
-    setValid: (s: any) => void
+    valid?: boolean,
+    setValid?: (s: any) => void
 }
 
 export const SizeChart = ({title, placeholder, id, leng, valid, setValid }: SizeChartProps)=> {
