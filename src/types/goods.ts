@@ -46,7 +46,7 @@ export interface Goods {
 	price: number
 	quantity: number
 	images: {
-		imagesPaths: string[] | File[] | StaticImageData[]
+		imagesPaths: string[]
 		colour: fetchedColour
 		sizes: string[]
 	}[]
@@ -104,7 +104,7 @@ export interface GoodsSend {
 	price: number
 	quantity: number
 	images: {
-		fileNames: string[] | StaticImageData[]
+		fileNames: string[] | StaticImageData[] | File[]
 		colourId: number
 		sizes: string[]
 	}[]

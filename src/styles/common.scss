@@ -786,3 +786,11 @@ button[type='submit'] {
 		}
 	}
 }
+
+.cartLoading {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: #9d9d9d;
+	opacity: .3;
+}
