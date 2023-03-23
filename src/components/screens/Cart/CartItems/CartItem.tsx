@@ -2,13 +2,13 @@ import React, { FC } from 'react'
 import Image from 'next/image'
 import s from './CartItems.module.scss'
 import cartImage from '../../../../assets/images/cartItem.png'
-import { CartProduct } from '@/types/goods'
+import { CartProductItem } from '@/types/goods'
 import {
 	addProductToCart,
 	deleteCartProduct,
 	getCartProducts,
 } from '@/redux/slices/goods'
-const CartItem: FC<{ product: CartProduct }> = ({ product }) => {
+const CartItem: FC<{ product: CartProductItem }> = ({ product }) => {
 	const addProductHandler = () => {}
 	const minusProductHandler = () => {}
 	return (
@@ -28,7 +28,7 @@ const CartItem: FC<{ product: CartProduct }> = ({ product }) => {
 					<p className={s.descr}>{product?.description?.ua}</p>
 					<div className={s.size}>
 						<div className={s.checkbox}>
-							<p style={{ backgroundColor: product?.hex }}></p>
+							<p style={{ backgroundColor: product?.colour?.hex }}></p>
 						</div>
 						<p className={s.format}>
 							Размер - <span>{product?.size}</span>

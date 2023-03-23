@@ -3,7 +3,9 @@ import s from './EditProductItem.module.scss'
 import { useSelector } from "react-redux";
 import { RootState  } from "@/redux/store";
 import {addCountPhotos} from '../../../../../../../redux/slices/admin'
+import {setModalAddEditProduct} from '../../../../../../../redux/slices/modal'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
+
 import photoTest from '../../../../../../../assets/images/product/slider/photo.png'
 import photo from '../../../../../../../assets/images/admin/img.png'
 import Image from "next/image";

@@ -19,7 +19,7 @@ type GoodsSlice = {
 	compareOfferProductModal: Goods | null
 	cartProductId: number | null
 	updateCompareProduct: sendProductToCart
-	basketOfProducts: CartProduct[]
+	basketOfProducts: CartProduct
 	loadingStatus: 'loading' | 'error' | 'idle'
 	cartLoadingStatus: 'loading' | 'error' | 'idle'
 	page: number
@@ -202,7 +202,7 @@ export const deleteCartProduct = createAsyncThunk<
 })
 
 export const getCartProducts = createAsyncThunk<
-	{ cartProducts: CartProduct[] },
+	{ cartProducts: CartProduct },
 	null,
 	{ rejectValue: string }
 >('goods/getCartProducts', async (_, { rejectWithValue }) => {
@@ -222,7 +222,7 @@ const initialState: GoodsSlice = {
 	compareOfferProductModal: null,
 	cartProductId: null,
 	updateCompareProduct: { id: null, imageUrl: '', colourId: 0, size: '' },
-	basketOfProducts: [],
+	basketOfProducts: null,
 	loadingStatus: 'idle',
 	cartLoadingStatus: 'idle',
 	sortType: '',
