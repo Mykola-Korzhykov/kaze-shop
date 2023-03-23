@@ -14,6 +14,7 @@ interface ItemPropsType {
     id: number
 }
 
+
 export const Item = ({photo, price, title, setActiveId, id }: ItemPropsType) =>{
 
     console.log('photo', photo)

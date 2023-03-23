@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
 import { setPage } from '@/redux/slices/goods'
 import s from './CatalogPagination.module.scss'
+import { filterGoods } from '@/redux/slices/goods'
 const CatalogPagination: FC = () => {
 	const PAGES = [1, 2, 3, 4, 5]
 	const dispatch = useAppDispatch()
@@ -9,6 +10,7 @@ const CatalogPagination: FC = () => {
 	const paginationHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const button: HTMLButtonElement = e.currentTarget
 		dispatch(setPage(+button.value))
+		dispatch(filterGoods())
 	}
 	return (
 		<div className={s.paginationWrapper}>

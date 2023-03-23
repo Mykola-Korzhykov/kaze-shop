@@ -2,15 +2,15 @@
 const nextConfig = {
 	reactStrictMode: false,
 	i18n: {
-		locales: ["ru"],
-		defaultLocale: "ru",
+			locales: ["ru"],
+			defaultLocale: "ru",
 	},
 	devIndicators: {
-		buildActivity: false,
+			buildActivity: false,
 	},
 	images: {
-    domains: ['api.kaze-shop.online'],
-  },
+	domains: ['[::1]'],
+},
 
 }
 

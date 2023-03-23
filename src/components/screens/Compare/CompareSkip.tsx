@@ -1,9 +1,9 @@
 import React from 'react'
-import Link from 'next/link'
-import { Router, useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { useAppDispatch } from '@/redux/hooks'
 import { updateCartProduct } from '@/redux/slices/goods'
 import s from './Compare.module.scss'
+
 const CompareSkip = () => {
 	const router = useRouter()
 	const dispatch = useAppDispatch()

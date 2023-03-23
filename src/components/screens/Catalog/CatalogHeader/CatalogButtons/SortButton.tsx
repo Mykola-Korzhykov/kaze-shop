@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { useAppDispatch } from '@/redux/hooks'
 import { setSortType } from '@/redux/slices/goods'
+import { filterGoods } from '@/redux/slices/goods'
 import s from './CatalogButtons.module.scss'
 type Props = {
 	text: string
@@ -22,9 +23,11 @@ const SortButton: FC<Props> = ({ text }) => {
 	}
 	const sortByIncrease = () => {
 		dispatch(setSortType('ASC'))
+		dispatch(filterGoods())
 	}
 	const sortByDecrease = () => {
 		dispatch(setSortType('DEC'))
+		dispatch(filterGoods())
 	}
 	React.useEffect(() => {
 		document.addEventListener('click', handleClickOutside, true)

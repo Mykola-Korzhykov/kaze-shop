@@ -14,21 +14,25 @@ const CartItem: FC<{ product: CartProductItem }> = ({ product }) => {
 	const addProductHandler = () => {
 		dispatch(
 			addProductToCart({
-				id: product?.id,
+				id: product?.productId,
 				imageUrl: product?.imageUrl,
 				colourId: product?.colourId,
 				size: product?.size,
 			})
 		)
+		dispatch(getCartProducts())
 	}
 	const minusProductHandler = () => {
 		dispatch(deleteCartProduct(product?.id))
+		dispatch(getCartProducts())
 	}
 	return (
 		<div className={s.block}>
 			<div className={s.imgWrapper}>
 				<Image
-					src={cartImage}
+					src={product?.imageUrl ?? cartImage}
+					width={94}
+					height={153}
 					alt='Cart image'
 					className={s.img}
 					priority={true}

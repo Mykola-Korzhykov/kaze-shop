@@ -15,10 +15,11 @@ interface InputProps {
     id: number,
     type: string,
     disable: boolean,
+    value?: string | number
     // price: number
 }
 
-export const Input = ({text, placeholder, name, id, type, disable,}: InputProps) =>{
+export const Input = ({text, placeholder, name, id, type, disable,value}: InputProps) =>{
 
     const dispatch = useAppDispatch()
     const [categoriesDisplay, setCategoriesDisplay] = React.useState<boolean>(false)
@@ -85,7 +86,7 @@ export const Input = ({text, placeholder, name, id, type, disable,}: InputProps)
 
         {disable == false && type === 'text' ?  <div className={s.wrapper}>
             <div className={s.title}>{text}</div>
-            <input onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder !== 'Введите название товара' && placeholder !== 'Введите описание товара' ?  placeholder : placeholder } name={name}/>
+            <input onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder !== 'Введите название товара' && placeholder !== 'Введите описание товара' ?  placeholder : placeholder } name={name} value={value}/>
         </div> : '' }
         {/* next */}
 
@@ -109,6 +110,7 @@ export const Input = ({text, placeholder, name, id, type, disable,}: InputProps)
                 console.log('[[[[[');
                 setCategoriesDisplay(!categoriesDisplay);
             }}
+            
             id='selectCategory'
             readOnly
             className={s.input_category}

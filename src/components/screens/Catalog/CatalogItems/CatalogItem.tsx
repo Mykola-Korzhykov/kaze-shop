@@ -72,14 +72,18 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 						<Image
 							className={s.img}
 							src={product.images[0]?.imagesPaths[1] ?? catalogImg}
-							alt='Лосины Тай дай'
+							width={285}
+							height={360}
+							alt={product?.title?.en}
 							quality={95}
 						/>
 					) : (
 						<Image
 							className={s.img}
 							src={product?.images[0]?.imagesPaths[2] ?? catalogImg2}
-							alt='Лосины Тай дай'
+							width={285}
+							height={360}
+							alt={product?.title?.en}
 							quality={95}
 						/>
 					)}
