@@ -29,9 +29,9 @@ const Catalog: FC = () => {
 		dispatch(fetchCategories())
 		dispatch(fetchColours())
 	}, [dispatch])
-	useEffect(() => {
-		dispatch(filterGoods())
-	}, [sortType, page, dispatch])
+	// useEffect(() => {
+	// 	dispatch(filterGoods())
+	// }, [sortType, page, dispatch])
 
 	return (
 		<CatalogContext.Provider value={{ filtersOpened, setFiltersOpened }}>

@@ -28,7 +28,8 @@ const CartItem: FC<{ product: CartProductItem }> = ({ product }) => {
 		<div className={s.block}>
 			<div className={s.imgWrapper}>
 				<Image
-					src={cartImage}
+					src={product?.imageUrl ?? cartImage}
+					fill
 					alt='Cart image'
 					className={s.img}
 					priority={true}
