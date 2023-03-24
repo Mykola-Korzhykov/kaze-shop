@@ -10,7 +10,7 @@ const CatalogPagination: FC = () => {
 	const paginationHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const button: HTMLButtonElement = e.currentTarget
 		dispatch(setPage(+button.value))
-		dispatch(filterGoods())
+		// dispatch(filterGoods())
 	}
 	return (
 		<div className={s.paginationWrapper}>

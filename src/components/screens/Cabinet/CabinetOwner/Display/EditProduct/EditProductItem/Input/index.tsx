@@ -16,15 +16,33 @@ interface InputProps {
     type: string,
     disable: boolean,
     value?: string | number
+    setInputsState: (n: any)=> void
+    inputsState: any
     // price: number
 }
 
-export const Input = ({text, placeholder, name, id, type, disable,value}: InputProps) =>{
+export const Input = ({text, placeholder, name, id, type, disable,value, setInputsState,inputsState}: InputProps) =>{
 
     const dispatch = useAppDispatch()
     const [categoriesDisplay, setCategoriesDisplay] = React.useState<boolean>(false)
-    const categoryArr = useSelector((state: RootState)=> state.admin.categoryArr)
-    
+  
+    const categories = useSelector((state: RootState)=> state.formData.categories)
+    const categoryArr = useSelector((state: RootState)=> state.goods.fetchedCategories)
+
+    const newCategoryArr = [...categoryArr, {
+		id: 0.1,
+		ua: 'UAstring',
+		en: 'ENstring',
+		rs: 'RSstring',
+		ru: 'RUtring',
+		type: 'category',
+		createdAt: 'string',
+		updatedAt: 'string'
+	},]
+
+    const activeCategories = categoryArr.find((el)=>{
+        return el.id === categories[0]
+    })
     
     function handleBlurSet(event: any) {
         
@@ -86,6 +104,7 @@ export const Input = ({text, placeholder, name, id, type, disable,value}: InputP
 
         {disable == false && type === 'text' ?  <div className={s.wrapper}>
             <div className={s.title}>{text}</div>
+
             <input onBlur={handleBlurSet}  
             className={s.input} 
             type={type} 
@@ -93,6 +112,9 @@ export const Input = ({text, placeholder, name, id, type, disable,value}: InputP
             name={name} 
             // value={value}
             />
+
+            <input onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder !== 'Введите название товара' && placeholder !== 'Введите описание товара' ?  placeholder : placeholder } name={name} value={value} />
+
         </div> : '' }
         {/* next */}
 
@@ -101,8 +123,7 @@ export const Input = ({text, placeholder, name, id, type, disable,value}: InputP
             <input onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder !== 'Введите цену' && placeholder !== 'Введите количество товаров' ? 'какие - то данные ' : placeholder  } name={name}/>
         </div> : '' }
         next */}
-        {disable == true  && type === 'text' && placeholder === 'Выберите существующий товар' ?  <input onClick={()=> console.log('p')} style={{cursor: 'pointer'}} readOnly className={s.input} type={type} placeholder={placeholder} /> : ''}
-        {/* next */}
+        
 
         {disable == false && type === 'number' ?  <div className={s.wrapper}>
             <div className={s.title}>{text}</div>
@@ -119,19 +140,22 @@ export const Input = ({text, placeholder, name, id, type, disable,value}: InputP
 
         {type === 'select' ?  
         
-        <label className={s.select__wrapper} htmlFor="selectCategory">
+        <label className={s.select__wrapper}  htmlFor={`${id}`} >
              <div className={s.title}>{text}</div>
             <input
+            
             onClick={(e) => {
                 setCategoriesDisplay(!categoriesDisplay);
             }}
             
-            id='selectCategory'
+            id={`${id}`} 
             readOnly
-            className={s.input_category}
+            className={ inputsState[id] ?  s.input : s.input_off_valid } 
             type={type}
-            placeholder={placeholder}
-          
+
+       
+            placeholder={activeCategories ? activeCategories.ru : placeholder  } 
+
             />
             <Image className={`${s.select_img}`} src={selectIcon} alt="My Image" />
             <div className={categoriesDisplay ? s.categorychose_wrapper : s.categorychose_wrapper_off}>
@@ -145,11 +169,17 @@ export const Input = ({text, placeholder, name, id, type, disable,value}: InputP
                     console.log(el.id);
                     setCategoriesDisplay(!categoriesDisplay);
                     dispatch(setCategories(el.id));
+                    setInputsState( (prevState: any)=>{
+                        const objCopy = {...prevState}
+                        objCopy[id] = el.ua !== '' ? true  : false
+                        return objCopy
+                    })  
+
                     }}
                     key={ind}
                     className={s.categorychose_item}
                 >
-                    <span> {el.title} </span>
+                    <span> {el.ru} </span>
                 </div>
                
                 ) : (
@@ -195,7 +225,7 @@ export const Input = ({text, placeholder, name, id, type, disable,value}: InputP
             })}
             </div>
         </label> : (
-            <div></div>
+            null
         )}
 
         

@@ -408,6 +408,7 @@ const goodsSlice = createSlice({
 			state.loadingStatus = 'idle'
 			state.goods = action.payload.products
 			state.totalProducts = action.payload.totalProducts
+
 		}),
 			builder.addCase(fetchGoods.pending, state => {
 				state.loadingStatus = 'loading'

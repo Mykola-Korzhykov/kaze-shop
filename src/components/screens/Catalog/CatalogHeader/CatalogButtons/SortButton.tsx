@@ -26,7 +26,7 @@ const SortButton: FC<Props> = ({ text }) => {
 		dispatch(filterGoods())
 	}
 	const sortByDecrease = () => {
-		dispatch(setSortType('DEC'))
+		dispatch(setSortType('DESC'))
 		dispatch(filterGoods())
 	}
 	React.useEffect(() => {
