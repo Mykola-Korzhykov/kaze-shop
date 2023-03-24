@@ -86,7 +86,13 @@ export const Input = ({text, placeholder, name, id, type, disable,value}: InputP
 
         {disable == false && type === 'text' ?  <div className={s.wrapper}>
             <div className={s.title}>{text}</div>
-            <input onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder !== 'Введите название товара' && placeholder !== 'Введите описание товара' ?  placeholder : placeholder } name={name} value={value}/>
+            <input onBlur={handleBlurSet}  
+            className={s.input} 
+            type={type} 
+            placeholder={placeholder !== 'Введите название товара' && placeholder !== 'Введите описание товара' ?  placeholder : placeholder } 
+            name={name} 
+            // value={value}
+            />
         </div> : '' }
         {/* next */}
 
@@ -100,7 +106,14 @@ export const Input = ({text, placeholder, name, id, type, disable,value}: InputP
 
         {disable == false && type === 'number' ?  <div className={s.wrapper}>
             <div className={s.title}>{text}</div>
-            <input onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder !== 'Введите название товара' && placeholder !== 'Введите описание товара' ?  placeholder : placeholder } name={name} value={value}/>
+            <input 
+            onBlur={handleBlurSet}  
+            className={s.input} 
+            type={type} 
+            placeholder={placeholder !== 'Введите название товара' && placeholder !== 'Введите описание товара' ?  placeholder : placeholder } 
+            name={name}
+            
+            />
         </div> : '' }
 
 
@@ -110,7 +123,6 @@ export const Input = ({text, placeholder, name, id, type, disable,value}: InputP
              <div className={s.title}>{text}</div>
             <input
             onClick={(e) => {
-                console.log('[[[[[');
                 setCategoriesDisplay(!categoriesDisplay);
             }}
             
@@ -119,6 +131,7 @@ export const Input = ({text, placeholder, name, id, type, disable,value}: InputP
             className={s.input_category}
             type={type}
             placeholder={placeholder}
+          
             />
             <Image className={`${s.select_img}`} src={selectIcon} alt="My Image" />
             <div className={categoriesDisplay ? s.categorychose_wrapper : s.categorychose_wrapper_off}>

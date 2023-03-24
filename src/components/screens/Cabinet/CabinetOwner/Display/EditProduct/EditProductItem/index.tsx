@@ -30,6 +30,7 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
     
     const [choiseSize, setChoiseSize] = React.useState<boolean>(false)
     const [choiceColors, setChoiceColors] = React.useState<boolean>(false)
+    const [netFile, setNetFile] =  React.useState<null | File>(null)
     const sizesItems = useSelector((state: RootState)=> state.admin.sizesItems)
     const userEdit = useSelector((state: RootState)=> state.admin.userEdit)
     // console.log('EditProductItemID', id)
@@ -38,7 +39,9 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
     const products = useSelector((state: RootState)=>state.admin.editProducts)
     const colors = useSelector((state: RootState)=>state.goods.fetchedColours)
 
+
     // console.log('userEdit', userEdit.images[0].imagesPaths)
+
 
     interface ImageData {
         imagesPaths: string[];
@@ -74,8 +77,8 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
         { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', name: 'descriptionSRB',disable: false ,value: activeProduct?.description?.rs},
         { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false ,value: activeProduct?.description?.en},
         { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара ', name: 'text', disable: false ,value: activeProduct?.categories[0]?.ru},
-        { id: 9, type: 'text', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false ,value: activeProduct?.price},
-        { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false ,value: activeProduct?.quantity},
+        { id: 9, type: 'number', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false ,value: activeProduct?.price},
+        { id: 10, type: 'number', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false , value: activeProduct?.quantity},
         // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', name: 'text', disable: true, colors: colors },
         //{ id: 9, type: 'text', text: 'Выберите существующий товар', placeholder: 'Выберите существующий товар', label: 'text', disable: true },
     ])
@@ -241,8 +244,34 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
             <label className={s.label} htmlFor="uploadnet">
                 Изменить размерную сетку
             </label>
-            <input className={s.input_file} id='uploadnet' name="net_file" type="file"  />
-          </div>
+            <input 
+            onChange={(e)=>{
+                setNetFile(e.target.files[0])
+            }}
+            className={s.input_file} 
+            id='uploadnet' 
+            name="net_file" 
+            type="file"
+            
+            />
+        </div>
+        {netFile && 
+            <div className={s.net_file_wrapper}>
+                <div className={s.net_file_inner}>
+                    <span className={s.net_backround}></span>
+                    <svg className={s.remove_photo} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M18.75 5.25L5.25 18.75" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            <path d="M18.75 18.75L5.25 5.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <Image className={s.net_file}
+                    width={308}
+                    height={60}
+                    src={URL.createObjectURL(netFile)} 
+                    alt={'photo'} />
+                </div>
+            </div>
+        }
+        
 
         {/* размер товара делаю интуп и СЕТАЮ существующие в отдельную переменную , меняю ее в редактировке и отправляю при отправке */}
 

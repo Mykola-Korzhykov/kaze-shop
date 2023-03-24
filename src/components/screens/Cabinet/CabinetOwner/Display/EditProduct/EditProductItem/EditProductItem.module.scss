@@ -454,7 +454,51 @@
     margin-bottom: 30px;
 }
 
-//
+//net_file
+
+.net_file_wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+
+    .net_file_inner{
+        cursor: pointer;
+        position: relative;
+        width: 308px;
+        height: 60px;
+
+        .net_backround{
+            transition: all 0.4s;
+            position: absolute;
+            width: 308px;
+            height: 60px;
+            background-color: #0B0B0B;
+            opacity: 0;
+        }
+        .remove_photo{
+            transition: all 0.2s;
+            opacity: 0;
+            position: absolute;
+            top: 17px;
+            left: 140px;
+        }
+        .net_file{
+            
+        }
+    }
+    
+}
+
+.net_file_inner:hover{
+    .net_backround{
+        opacity: 0.3;
+    }
+
+    .remove_photo{
+        opacity: 1;
+    }
+}
+
 
 .selected_sizes{
     margin-top: 20px;
@@ -467,7 +511,6 @@
 .selected_sizes_item{
     height:  44px;
 }
-
 
 //colors 
 
