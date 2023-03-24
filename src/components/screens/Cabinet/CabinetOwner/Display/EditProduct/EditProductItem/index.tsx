@@ -5,7 +5,7 @@ import { RootState  } from "@/redux/store";
 import {addCountPhotos} from '../../../../../../../redux/slices/admin'
 import {setModalAddEditProduct} from '../../../../../../../redux/slices/modal'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-
+import { InputTextItem } from "../../AddProduct/InputText";
 import photoTest from '../../../../../../../assets/images/product/slider/photo.png'
 import photo from '../../../../../../../assets/images/admin/img.png'
 import Image from "next/image";
@@ -26,6 +26,8 @@ interface EditProductItemType {
 
 export const EditProductItem = ({id, }: EditProductItemType) =>{
 
+    
+
     const dispatch = useAppDispatch()
     
     const [choiseSize, setChoiseSize] = React.useState<boolean>(false)
@@ -37,7 +39,11 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
     const editProductItemId = useSelector((state: RootState)=> state.admin.editProductItemId)
     const products = useSelector((state: RootState)=>state.admin.editProducts)
     const colors = useSelector((state: RootState)=>state.goods.fetchedColours)
-
+     const goods = useSelector((state: RootState)=>state.goods.goods)
+    //chosen product
+    const activeProduct = products.find((el)=>{
+        return el.id === editProductItemId
+    })
     // console.log('userEdit', userEdit.images[0].imagesPaths)
 
     interface ImageData {
@@ -60,9 +66,7 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
     // const [arrPhotos, setArrPhotos] = React.useState<any>([...userEdit.images])
     // console.log('arrPhotos', arrPhotos)
 
-    const activeProduct = products.find((el)=>{
-        return el.id === editProductItemId
-    })
+  
 
     const  [inputs, setInputs] = React.useState([
         { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название товара', name: 'titleRU', disable: false,  value: activeProduct?.title?.ru },
@@ -80,6 +84,16 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
         //{ id: 9, type: 'text', text: 'Выберите существующий товар', placeholder: 'Выберите существующий товар', label: 'text', disable: true },
     ])
 
+    interface InputsStateValidType {
+        [key: number]: boolean;
+    }
+    const inputsStateInition =  inputs.reduce((accumulator, currentValue) => {
+        accumulator[currentValue.id] = true;
+        return accumulator;
+    }, {} as InputsStateValidType)
+
+    const [inputsState, setInputsState] = React.useState<InputsStateValidType>(inputsStateInition)
+
     return (
         <>
         <div  style={ editProductItemId >= 1 ? {display : 'block'} : {display : 'none'}}  >
@@ -96,7 +110,8 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                 id={obj.id} 
                 type={obj.type}
                 disable={obj.disable} 
-                value={obj.value}
+                setInputsState={setInputsState}
+                inputsState={inputsState}
                />
 
             </div>
@@ -192,7 +207,7 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                     <span className={s.net_title}>
                         Описание размерной сетки UA
                     </span>
-                    <input placeholder="Введите описание" className={s.input_inner} type="text" value={ activeProduct?.sizeChartImageDescription}/>
+                    <input value={ activeProduct?.title?.ru}  placeholder="Введите описание" className={s.input_inner} type="text" />
                 </div>
                 <div className={s.input_wrapper}>
                     <span className={s.net_title}>
@@ -207,7 +222,7 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                     <span className={s.net_title}>
                         Описание размерной сетки SRB
                     </span>
-                    <input value={ activeProduct?.title?.ua} placeholder="Введите описание" className={s.input_inner} type="text" />
+                    <input defaultValue={ activeProduct?.title?.ua} placeholder="Введите описание" className={s.input_inner} type="text" />
                 </div>
                 <div className={s.input_wrapper}>
                     <span className={s.net_title}>

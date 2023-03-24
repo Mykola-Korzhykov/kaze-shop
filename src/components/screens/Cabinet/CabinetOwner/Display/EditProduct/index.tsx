@@ -12,6 +12,7 @@ import {EditProductItem} from './EditProductItem'
 export const EditProduct = () =>{
     const dispatch = useAppDispatch()
     const products = useSelector((state: RootState)=>state.admin.editProducts)
+   
     const editProductItemId = useSelector((state: RootState)=>state.admin.editProductItemId )
     const [activeId, setActiveId] = React.useState(0)
 
