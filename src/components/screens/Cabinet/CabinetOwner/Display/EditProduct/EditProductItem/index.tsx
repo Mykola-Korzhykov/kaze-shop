@@ -21,7 +21,7 @@ import {ImageData}  from '../../../../../../../types/goods'
 
 interface EditProductItemType {
     id: number,
-    // price: number
+    //price: number
 }
 
 export const EditProductItem = ({id, }: EditProductItemType) =>{

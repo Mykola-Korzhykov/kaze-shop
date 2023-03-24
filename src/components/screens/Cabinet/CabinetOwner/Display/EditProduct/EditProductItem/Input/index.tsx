@@ -98,7 +98,10 @@ export const Input = ({text, placeholder, name, id, type, disable,value}: InputP
         {disable == true  && type === 'text' && placeholder === 'Выберите существующий товар' ?  <input onClick={()=> console.log('p')} style={{cursor: 'pointer'}} readOnly className={s.input} type={type} placeholder={placeholder} /> : ''}
         {/* next */}
 
-
+        {disable == false && type === 'number' ?  <div className={s.wrapper}>
+            <div className={s.title}>{text}</div>
+            <input onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder !== 'Введите название товара' && placeholder !== 'Введите описание товара' ?  placeholder : placeholder } name={name} value={value}/>
+        </div> : '' }
 
 
         {type === 'select' ?  
