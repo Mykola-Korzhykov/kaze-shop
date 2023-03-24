@@ -9,7 +9,7 @@ export type ApiReturnType = {
 	user: ReturnType<typeof UserApi>
 	goods: ReturnType<typeof GoodsApi>
 }
-export const API_URL = 'https://api.kaze-shop.online'
+export const API_URL = 'https://api.kaze-shop.online/api'
 
 export const Api = (
 	ctx?: NextPageContext | GetServerSidePropsContext

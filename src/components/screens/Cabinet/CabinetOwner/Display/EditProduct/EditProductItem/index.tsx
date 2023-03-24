@@ -113,7 +113,6 @@ export const EditProductItem = ({id, }: EditProductItemType) =>{
                 setInputsState={setInputsState}
                 inputsState={inputsState}
                />
-
             </div>
         })}
         </div>
