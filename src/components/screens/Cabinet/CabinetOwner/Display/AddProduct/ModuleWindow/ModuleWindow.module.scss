@@ -13,7 +13,7 @@
 .module_wrapper{
 
     position: absolute;
-    top: 0;
+    top: 220px;
     height: 100%;
     width: 100vw;
     margin-top: 210px;
@@ -23,6 +23,13 @@
     justify-content: center;
     left: 50%;
     transform: translateX(-50%);
+
+    @media(max-width:1050px) {
+        // top: 220px;
+        top: 710px;
+    }
+
+    
    
     // margin-left: -105px;
     // position: absolute;

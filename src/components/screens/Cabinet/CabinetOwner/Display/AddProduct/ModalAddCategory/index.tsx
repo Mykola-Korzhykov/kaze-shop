@@ -2,6 +2,7 @@ import React from "react"
 import s from './ModalAddCategory.module.scss'
 //redux
 import { useSelector } from "react-redux"
+import { CSSProperties } from 'react';
 import { RootState } from "@/redux/store"
 import { useAppDispatch } from '@/redux/hooks'
 import {setModalAddCAtegory} from '../../../../../../../redux/slices/modal'
@@ -85,11 +86,16 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
         .then(response => console.log('response.data', response.data))
         .catch(error => console.error(error));
     }
-  
+
     const dispatch = useAppDispatch()
 
     return (
-        <div style={ modalAddCAtegory ?  {  display: 'flex'} :{  display: 'none'} } className={s.module_wrapper}>
+        <div
+        style={{
+            display: modalAddCAtegory ? 'flex' : 'none',
+            
+            }}
+            className={s.module_wrapper}>
             <div className={s.module_inner}>
 
             <div onClick={()=> dispatch(setModalAddCAtegory(false)) } className={s.close_modal}>
