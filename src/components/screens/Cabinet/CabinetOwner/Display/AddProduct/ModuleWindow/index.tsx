@@ -15,8 +15,6 @@ import {fetchCategories} from '../../../../../../../redux/slices/goods'
 
 import {fetchColours} from '../../../../../../../redux/slices/goods'
 
-
-
 interface ModuleWindowImagesProps {
     fileNames: string[];
     colourId: number;

@@ -1,16 +1,17 @@
-import React from "react"
+import React, {useRef} from "react"
 import s from './InputText.module.scss'
 import selectIcon from '../../../../../../../assets/icons/cabinetAdmin/selectIcon.svg'
 import Image from 'next/image';
 //redux
+
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store"
 import {setTitle, setDescription, setPrice, setCategories, setQuantity} from '../../../../../../../redux/slices/formData'
 import { useAppDispatch } from '@/redux/hooks'
 import {setModalAddCAtegory} from '../../../../../../../redux/slices/modal'
-// import {initialStateType, } from '../../../../../../../redux/slices/formData'
 
 interface InputItemProps {
+    value? : any
     id: number,
     type: string,
     text: string,
@@ -29,16 +30,29 @@ interface InputItemProps {
     modalAddCAtegory?: boolean, 
     //inputs state
     setInputsState: (n: any)=> void
-    inputsState: any
+    inputsState: any,
+    ref: any
     // setModalAddCAtegory?: (n: boolean)=> void
-    
 }
 
-export const InputTextItem = ({ inputsState, setInputsState , id, type, text, placeholder, disable, name, colors, modalAddColor, setModalAddColor, }: InputItemProps) => {
+export const InputTextItem = ({ inputsState, setInputsState , id, type, text, placeholder, disable, name, colors, modalAddColor, setModalAddColor, value}: InputItemProps) => {
+
+    // { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', name: 'titleRU', disable: false,  },
+    // { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название кнопки', name: 'titleUA', disable: false },
+    // { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название кнопки', name: 'titleSRB',  disable: false },
+    // { id: 3, type: 'text', text: 'Название товара ENG', placeholder: 'Введите название кнопки', name: 'titleENG',disable: false },
+    // { id: 4, type: 'text', text: 'Описание товара RU', placeholder: 'Введите описание товара', name: 'descriptionRU',disable: false },
+    // { id: 5, type: 'text', text: 'Описание товара UA', placeholder: 'Введите описание товара', name: 'descriptionUA',disable: false },
+    // { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', name: 'descriptionSRB',disable: false },
+    // { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false },
+    // { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара', name: 'text', disable: false },
+    // { id: 9, type: 'number', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false },
+    // { id: 10, type: 'number', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false },
+    
+    
+
 
     const dispatch = useAppDispatch()
-    // const titleStore = useSelector((state: RootState)=> state.formData.title)
-
     //redux
     const modalAddCAtegory =  useSelector((state: RootState)=> state.modaleSlice.modalAddCAtegory)
     const titleDescription = useSelector((state: RootState)=> state.formData.price)
@@ -64,9 +78,7 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
     //state
     const [categoriesDisplay, setCategoriesDisplay ] = React.useState<boolean>(false)
 
-    // const [validLocal, setValidLocal] = React.useState<boolean>(true)
-
-      function handleBlurSet(event: any) {
+    function handleBlurSet(event: any) {
         
         if(event.target.name === 'titleRU' ){
             const payload: any = {branch: 'ru', title: event.target.value}
@@ -136,6 +148,7 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
             
             {disable == false && type === 'text' ? 
             <input id={`${id}`} 
+            value={value}
             name={name}
             onChange={(e)=>{
                 setInputsState( (prevState: any)=>{
@@ -144,18 +157,17 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
                     return objCopy
                 })
             }}
-
             onBlur={handleBlurSet}
-             className={ inputsState[id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
+            className={ inputsState[id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
             style={{
                 border:  inputsState[id] ? '' : 'solid 1.5px red'
             }} 
-            // className={  s.input } 
             type={type}
             placeholder={  inputsState[id] ? placeholder  :   `Это поле не может быть пустым`}  /> : '' }
 
             {disable == false && type === 'number' ?
             <input id={`${id}`}
+            value={value}
             onChange={(e)=>{
                 setInputsState( (prevState: any)=>{
                     const objCopy = {...prevState}
@@ -170,18 +182,9 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
             }} 
             name={name} 
             onBlur={handleBlurSet} 
-            // className={ inputsState[id] ?  s.input : `${s.input_off_valid} ${s.input}` } 
             className={ inputsState[id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
             type={type} 
             placeholder={  inputsState[id] ? placeholder  :   `Это поле не может быть пустым`} /> : '' }
-
-            {/* {disable == true  && type === 'text' && placeholder === 'Выберите существующий товар' ?  <input id={`${id}`} 
-            onClick={()=> console.log('p')} 
-            style={{cursor: 'pointer'}} 
-            readOnly 
-            className={s.input} 
-            type={type} 
-            placeholder={placeholder} /> : ''} */}
 
             {type === 'select' ?  
                 <label
@@ -209,12 +212,6 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
                                 objCopy[id] = el.ua !== '' ? true  : false
                                 return objCopy
                             })  
-
-                            // setInputsState((prevState: any)=>{
-                            //     const prevStateCopy = {...prevState}
-                            //     prevStateCopy[id] = el.ua
-                            //     return prevStateCopy
-                            // })
 
                             setCategoriesDisplay(!categoriesDisplay);
                             dispatch(setCategories( el.id))
@@ -252,15 +249,6 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
 
                         </div>
                 </label>  
-
-               
-       
-            // <label htmlFor="categoruProduct" className={s.select__wrapper}>
-                    
-            //         <select className={s.select} placeholder={placeholder} name="categoruProduct" id="categoruProduct">
-            //             <option className={s.p} style={{ 'color': 'red' }} value="" disabled selected>Выберите категорию товара </option>
-            //         </select>
-            // </label> 
             : 
 
             ''

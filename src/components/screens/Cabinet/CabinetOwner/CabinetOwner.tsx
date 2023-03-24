@@ -205,8 +205,7 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
         }
         setPaginationLendthAdmin(arrAdminPagination)
 
-        // console.log('arrRolePagination', arrRolePagination)
-        // console.log('arrAdminPagination', arrAdminPagination)
+       
     }, [usersRoleUI, usersAdminUI])
 
     // console.log('users', users)

@@ -56,24 +56,17 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
         editWebsite: editWebsite,}
     )
     
-    console.log('UserAdmin', UserAdmin)
     const dispatch = useAppDispatch()
-    // console.log(useWhyDidYouUpdate('UserAdmin',{ activePaginatoinRoleAdmin, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebSite, isAdmin, email, phoneNumber , surname, name  }))
-    
-    // function changeUserRole (role: string, bool: boolean){
-        
-    // }
-       
+
     function sendUserAdmin(role: string, bool: boolean) {
         const cookies = Cookies.get()
         const token = cookies.accessToken
-      
         const instance = axios.create({
-          baseURL: API_URL,
-          withCredentials: true,
-          headers: {
+            baseURL: API_URL,
+            withCredentials: true,
+            headers: {
             Authorization: 'Bearer ' + (token || ''),
-          },
+        },
         })
 
         
@@ -88,24 +81,11 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
         })
         
           .then(response => {
-
-           
-            // dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
-            // setUserAdmin(prevState => ({
-            //   ...prevState,
-            //   [role]: bool,
-            // }))
           })
           .catch(error => {
             console.error('Error updating user admin:', error)
           })
-
-        //   setUserAdmin(prevState => ({ ...prevState, [role]: bool, }))
       }
-
-    //  React.useEffect(()=>{
-    //    dispatch(getUsersRole(activePaginatoinRoleAdmin))
-    //   }, [])
 
     return (
         <div onClick={() => { setUserOpenOK(idUserOpen === id ? -1 : id) }} className={s.wrapper}>
@@ -142,13 +122,8 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
 
                     <label htmlFor={`isAdmin${id}`} className={s.checkbox_wrapper}>
                         <input checked={UserAdmin.isAdmin ? true : false} onChange={()=>{
-                        //    changeUserRole('isAdmin', !UserAdmin.isAdmin)
 
-                           sendUserAdmin('isAdmin', !UserAdmin.isAdmin)
-                        //    setUserAdmin(prevState => ({
-                        //     ...prevState,
-                        //     'isAdmin': !UserAdmin.isAdmin,
-                        //   }))
+                            sendUserAdmin('isAdmin', !UserAdmin.isAdmin)
 
                         }} onClick={() => setSctiveCheckbox(1)} id={`isAdmin${id}`} className={s.checkbox} type="checkbox" />
                         <span className={s.checkbox_label}>
@@ -156,44 +131,9 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
                         </span>
                         <span  className={s.checkbox_text}> Сделать администратором</span>
                     </label>
-
-                    {/* <label htmlFor={`editRpoduct${id}`} className={s.checkbox_wrapper}>
-                        <input onClick={() => setSctiveCheckbox(2)} id={`editRpoduct${id}`} className={s.checkbox} type="checkbox" />
-                        <span className={s.checkbox_label}>
-                            <Image className={s.checkbox_icon} src={checkbox_icon} alt='checkbox_icon' />
-                        </span>
-                        <span className={s.checkbox_text}> Редактирование товара</span>
-                    </label> */}
                 </div>
 
-                {/* <div className={s.checkbox_wrapper_second}>
-                    <label htmlFor={`addProduct${id}`} className={s.checkbox_wrapper}>
-                        <input onClick={() => setSctiveCheckbox(3)} id={`addProduct${id}`} className={s.checkbox} type="checkbox" />
-                        <span className={s.checkbox_label}>
-                            <Image className={s.checkbox_icon} src={checkbox_icon} alt='checkbox_icon' />
-                        </span>
-                        <span className={s.checkbox_text}> Добавление товара</span>
-                    </label>
-
-                    <label htmlFor={`editSite${id}`} className={s.checkbox_wrapper}>
-                        <input onClick={() => setSctiveCheckbox(4)} id={`editSite${id}`} className={s.checkbox} type="checkbox" />
-                        <span className={s.checkbox_label}>
-                            <Image className={s.checkbox_icon} src={checkbox_icon} alt='checkbox_icon' />
-                        </span>
-                        <span className={s.checkbox_text}> Редактирование сайта</span>
-                    </label>
-                </div> */}
-
-
-
             </div>
-
-            {/* <div onClick={()=> {
-                // console.log('UserAdmin', UserAdmin)
-                sendUserAdmin()
-            }} className={ openUser ?  s.btn_save : s.btn_save_off }>
-                Сохранить
-            </div> */}
         </div>
     )
 }

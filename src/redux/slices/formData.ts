@@ -153,8 +153,36 @@ export const formData = createSlice({
             state.arrObjMod.splice(action.payload, 1)
         },
         setImages: (state, action: PayloadAction<File>) =>{
-            
             state.images.push(action.payload) 
+        },
+        clearForm: (state) =>{
+            
+            state.title.ua = null 
+            state.title.ru = null 
+            state.title.rs = null 
+            state.title.en = null 
+
+            state.description.ua = null 
+            state.description.ru = null 
+            state.description.rs = null 
+            state.description.en = null 
+
+            state.sizeChartImageDescription.ua = ''
+            state.sizeChartImageDescription.ru = ''
+            state.sizeChartImageDescription.rs = ''
+            state.sizeChartImageDescription.en = ''
+
+            state.sizes = []
+            state.colourId = null
+            state.price=  null
+            state.quantity = null 
+            state.imagesjpg = []
+            state.allcoloursId = [],
+            state.allsizes = []
+            state.categories = []
+            state.netData = null
+            state.arrObjMod = []
+            state.images = []
 
         },
     },
@@ -174,6 +202,7 @@ export const {
     setNetData,
     setSizeChartImageDescription,
     setArrObjMod,
-    removearrObjMod} = formData.actions
+    removearrObjMod,
+    clearForm} = formData.actions
 
 export default formData.reducer

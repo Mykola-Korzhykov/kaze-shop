@@ -1,9 +1,9 @@
-import React from "react"
+import React, { useRef } from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import s from './AddProduct.module.scss'
 //components & redux
-import {removearrObjMod} from '../../../../../../redux/slices/formData'
+import {removearrObjMod, clearForm} from '../../../../../../redux/slices/formData'
 import {setModalAddPhoto, removeimageUrlArr} from '../../../../../../redux/slices/modal'
 import { InputTextItem } from './InputText'
 // import {ModalAddCategory} from '../AddProduct/ModalAddCategory'
@@ -93,7 +93,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
     console.log(' imageUrlArr[ind]',  imageUrlArr[0])
     // imageUrlArr[ind]
 
-   let  objDataSend = {
+   let objDataSend = {
         images: imagesData,
         title: title,
         description: description,
@@ -103,7 +103,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         selectedImages: selectedImages,
         price: price,
         quantity: quantity,
-    //    allcoloursId: colours,
+    //   allcoloursId: colours,
         allsizes: allsizes,
         netImage: netFile
 
@@ -112,11 +112,8 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
    }
 
    console.log('objDataSend', objDataSend)
-  
 
     // const selectedImages = useSelector((state: RootState)=> state.formData.)
-    
-
 
     const dispatch = useAppDispatch()
 
@@ -125,8 +122,8 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
     function sendFormData({ images, title, description, sizeChartImageDescription, categories, colours, selectedImages, price, quantity, allsizes, netImage }: formDataType) {
         const cookies = parseCookies();
         const token = cookies.accessToken;
-        console.log('вошли в форму')
-        // console.log('objDataSend', objDataSend)
+        //console.log('вошли в форму')
+        
       
         const formData = new FormData();
         //images
@@ -176,11 +173,20 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
           .catch((error) => {
             console.error("There was an error!", error);
           });
-      
             // console.log("formDataChecktitle", formData.get('title'));
             // console.log("formDataCheckimages", formData.get('images'));
             // console.log("formDataCheckprice", formData.get('price'));
             // console.log("formDataChecksizeChartImage", formData.get('sizeChartImage'));
+
+            
+            console.log('inputRefs', inputRefs)
+            inputRefs.current.forEach(inputRef => {
+                inputRef.value = "";
+            });
+
+            
+            console.log('objDataSendInnerForm', objDataSend)
+
       }
 
 
@@ -205,23 +211,26 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         placeholder: string;
         name: string;
         disable: boolean;
+        value?: any
     }
 
     const  [inputs, setInputs] = React.useState<Input[]>([
-        { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', name: 'titleRU', disable: false,  },
-        { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название кнопки', name: 'titleUA', disable: false },
-        { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название кнопки', name: 'titleSRB',  disable: false },
+        { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', name: 'titleRU', disable: false, value: null  },
+        { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название кнопки', name: 'titleUA', disable: false, value: null},
+        { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название кнопки', name: 'titleSRB',  disable: false, value: null },
         { id: 3, type: 'text', text: 'Название товара ENG', placeholder: 'Введите название кнопки', name: 'titleENG',disable: false },
-        { id: 4, type: 'text', text: 'Описание товара RU', placeholder: 'Введите описание товара', name: 'descriptionRU',disable: false },
-        { id: 5, type: 'text', text: 'Описание товара UA', placeholder: 'Введите описание товара', name: 'descriptionUA',disable: false },
-        { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', name: 'descriptionSRB',disable: false },
-        { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false },
-        { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара', name: 'text', disable: false },
-        { id: 9, type: 'number', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false },
-        { id: 10, type: 'number', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false },
+        { id: 4, type: 'text', text: 'Описание товара RU', placeholder: 'Введите описание товара', name: 'descriptionRU',disable: false, value: null },
+        { id: 5, type: 'text', text: 'Описание товара UA', placeholder: 'Введите описание товара', name: 'descriptionUA',disable: false, value: null },
+        { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', name: 'descriptionSRB',disable: false, value: null },
+        { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false, value: null },
+        { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара', name: 'text', disable: false, value: null },
+        { id: 9, type: 'number', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false, value: null },
+        { id: 10, type: 'number', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false, value: null },
         // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', name: 'text', disable: true, colors: colors },
         //{ id: 9, type: 'text', text
     ])
+
+    const inputRefs = useRef([]);
 
     interface InputsStateValidType {
         [key: number]: boolean;
@@ -240,7 +249,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
     // }, {} as InputsState)
 
     // const [SizeChartState, setSizeChartState] = React.useState<InputsState>(sizeChartState)
-   
 
     // interface InputsStateValid {
     //     [key: number]: boolean;
@@ -253,7 +261,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
 
     const [validChartState, setValidChartState] = React.useState(initialValidChartState)
 
-
     const inputsFistWrapper_1 = inputs?.slice(0, 2)
     const inputsFistWrapper_2 = inputs?.slice(2, 4)
     const inputsFistWrapper_3 = inputs?.slice(4, 6)
@@ -261,7 +268,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
     const inputsFistWrapper_5 = inputs?.slice(8, 10)
     const inputsFistWrapper_6 = inputs?.slice(10, 11)
     
-    // const inputsSecondWrapper = inputs?.slice(inputs.length - 1, inputs.length)
+    //const inputsSecondWrapper = inputs?.slice(inputs.length - 1, inputs.length)
 
 
     return (
@@ -271,7 +278,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
 
                 <div className={s.inputs_wrapper}>
                     <div className={s.wrapper_inner }>
-                        {inputsFistWrapper_1?.map((obj) => {
+                        {inputsFistWrapper_1?.map((obj, ) => {
                             return <InputTextItem  
                             name={obj.name}
                             disable={obj.disable} 
@@ -281,6 +288,8 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             placeholder={obj.placeholder}
                             setInputsState={setInputsState}
                             inputsState={inputsState}
+                            ref={(el: HTMLInputElement) => (inputRefs.current[obj.id] = el)}
+                            // value={obj.value}
                             />
                         })}
                     </div>
@@ -300,6 +309,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             modalAddColor={modalAddColor} 
                             setInputsState={setInputsState}
                             inputsState={inputsState}
+                            ref={(el: HTMLInputElement) => (inputRefs.current[obj.id] = el)}
 
                             />
                         })}
@@ -320,6 +330,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             modalAddColor={modalAddColor} 
                             setInputsState={setInputsState}
                             inputsState={inputsState}
+                            ref={(el: HTMLInputElement) => (inputRefs.current[obj.id] = el)}
                             />
                         })}
                     </div>
@@ -338,6 +349,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                              placeholder={obj.placeholder}
                              modalAddCAtegory={modalAddCAtegory}
                              inputsState={inputsState}
+                             ref={(el: HTMLInputElement) => (inputRefs.current[obj.id] = el)}
                              />
                         })}
                     </div>
@@ -361,6 +373,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             modalAddCAtegory={modalAddCAtegory}
                             setInputsState={setInputsState}
                             inputsState={inputsState}
+                            ref={(el: HTMLInputElement) => (inputRefs.current[obj.id] = el)}
                               />
                             
                             
@@ -382,6 +395,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             modalAddCAtegory={modalAddCAtegory}
                             setInputsState={setInputsState}
                             inputsState={inputsState}
+                            ref={(el: HTMLInputElement) => (inputRefs.current[obj.id] = el)}
                             />
                            
                             
@@ -543,7 +557,7 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                                     />
                                 </span>
                             </div> }
-                           
+                            
                         
                     </span> 
                 </div>
