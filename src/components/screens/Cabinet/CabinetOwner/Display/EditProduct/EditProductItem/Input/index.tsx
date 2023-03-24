@@ -113,7 +113,6 @@ export const Input = ({text, placeholder, name, id, type, disable,value, setInpu
             // value={value}
             />
 
-            <input onBlur={handleBlurSet}  className={s.input} type={type} placeholder={placeholder !== 'Введите название товара' && placeholder !== 'Введите описание товара' ?  placeholder : placeholder } name={name} value={value} />
 
         </div> : '' }
         {/* next */}
