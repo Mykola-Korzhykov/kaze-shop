@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 export interface initialStateType {
+
     title: {
         ua: string | null,
         ru: string | null,
@@ -34,7 +35,7 @@ export interface initialStateType {
 
 const initialState: initialStateType = {
     title: {
-        ua: null,
+        ua: null ,
         ru: null,
         rs: null,
         en: null,
@@ -62,7 +63,6 @@ const initialState: initialStateType = {
       netData: null,
       arrObjMod: [],
       images: []
-
 }
 
 export const formData = createSlice({

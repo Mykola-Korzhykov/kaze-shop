@@ -87,6 +87,8 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
     const quantity =  useSelector((state: RootState)=> state.formData.quantity)
     const netImage =  useSelector((state: RootState)=> state.formData.netData)
     const allsizes =  useSelector((state: RootState)=> state.formData.allsizes)
+    const [checkForm, setCheckForm] = React.useState<boolean>(false)
+    const formData = useSelector((state: RootState)=> state.formData)
 
     //
     const arrObjMods =  useSelector((state: RootState)=> state.formData.arrObjMod)
@@ -148,8 +150,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         //sizeChartImage
         formData.append("sizeChartImage", netImage);
 
-    
-
         // console.log("formDataChecktitle", formData.get('title'));
         // console.log("formDataCheckimages", formData.get('images'));
         // console.log("formDataCheckprice", formData.get('price'));
@@ -174,7 +174,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
             // console.log("formDataCheckprice", formData.get('price'));
             // console.log("formDataChecksizeChartImage", formData.get('sizeChartImage'));
 
-            
             console.log('inputRefs', inputRefs)
             inputRefs.current.forEach(inputRef => {
                 inputRef.value = "";
@@ -199,21 +198,23 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         placeholder: string;
         name: string;
         disable: boolean;
-        value?: any
+        // value?: any,
+        key?: string 
+        lang? : string
     }
 
     const  [inputs, setInputs] = React.useState<Input[]>([
-        { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', name: 'titleRU', disable: false, value: null  },
-        { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название кнопки', name: 'titleUA', disable: false, value: null},
-        { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название кнопки', name: 'titleSRB',  disable: false, value: null },
-        { id: 3, type: 'text', text: 'Название товара ENG', placeholder: 'Введите название кнопки', name: 'titleENG',disable: false },
-        { id: 4, type: 'text', text: 'Описание товара RU', placeholder: 'Введите описание товара', name: 'descriptionRU',disable: false, value: null },
-        { id: 5, type: 'text', text: 'Описание товара UA', placeholder: 'Введите описание товара', name: 'descriptionUA',disable: false, value: null },
-        { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', name: 'descriptionSRB',disable: false, value: null },
-        { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false, value: null },
-        { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара', name: 'text', disable: false, value: null },
-        { id: 9, type: 'number', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false, value: null },
-        { id: 10, type: 'number', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false, value: null },
+        { id: 0, type: 'text', text: 'Название товара RU', placeholder: 'Введите название кнопки', name: 'titleRU', disable: false, key: 'title' , lang: 'ru' },
+        { id: 1, type: 'text', text: 'Название товара UA', placeholder: 'Введите название кнопки', name: 'titleUA', disable: false, key: 'title', lang: 'ua'},
+        { id: 2, type: 'text', text: 'Название товара SRB', placeholder: 'Введите название кнопки', name: 'titleSRB',  disable: false, key: 'title' , lang: 'rs'},
+        { id: 3, type: 'text', text: 'Название товара ENG', placeholder: 'Введите название кнопки', name: 'titleENG',disable: false, key: 'title', lang: 'en' },
+        { id: 4, type: 'text', text: 'Описание товара RU', placeholder: 'Введите описание товара', name: 'descriptionRU',disable: false,  key: 'description', lang: 'ru'  },
+        { id: 5, type: 'text', text: 'Описание товара UA', placeholder: 'Введите описание товара', name: 'descriptionUA',disable: false,  key: 'description', lang: 'ua' },
+        { id: 6, type: 'text', text: 'Описание товара SRB', placeholder: 'Введите описание товара', name: 'descriptionSRB',disable: false,  key: 'description', lang: 'rs'  },
+        { id: 7, type: 'text', text: 'Описание товара ENG', placeholder: 'Введите описание товара', name: 'descriptionENG',disable: false, key: 'description', lang: 'en'  },
+        { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара', name: 'text', disable: false, key: 'categories'},
+        { id: 9, type: 'number', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false,  key: 'price'},
+        { id: 10, type: 'number', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false, key: 'quantity'},
     ])
 
     const inputRefs = useRef([]);
@@ -243,7 +244,9 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
     const inputsFistWrapper_5 = inputs?.slice(8, 10)
     const inputsFistWrapper_6 = inputs?.slice(10, 11)
 
+//@ts-ignore
 
+console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
 
 
 
@@ -362,11 +365,21 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                                         objCopy[obj.id] = e.target.value.trim() !== '' ? true  : false
                                         return objCopy
                                     })
+                                    handleBlurSet(e)
                                 }}
-                                onBlur={handleBlurSet}
-                                className={ inputsState[obj.id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
+                                // onBlur={handleBlurSet}
+                                // || checkForm && formData[obj.key][obj.lang]
+                                // @ts-ignore
+                                // className={ (checkForm && formData[obj.key][obj.lang] !== null &&  checkForm && formData[obj.key][obj.lang] !== '') && inputsState[obj.id]    ?  s.input : `${s.input} ${s.input_off_valid}`  } 
+                                className={ (!checkForm || (checkForm && formData[obj.key][obj.lang] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]
+                                            ? s.input
+                                            : `${s.input} ${s.input_off_valid}`
+                                            }
                                 style={{
-                                    border:  inputsState[obj.id] ? '' : 'solid 1.5px red'
+                                    // @ts-ignore
+                                    border:  (!checkForm || (checkForm && formData[obj.key][obj.lang] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]
+                                    ? ''
+                                    : 'solid 1.5px red'
                                 }} 
                                 type={obj.type}
                                 placeholder={obj.placeholder}  /> }
@@ -378,12 +391,13 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                     <div className={s.wrapper_inner }>
                         {inputsFistWrapper_2?.map((obj)=>{
                             return (
+                                 // @ts-ignore
                                 <div className={s.wrapper_inner_input}>
                                 <div className={s.title}>
                                     {obj.text} 
                                     {/* {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   } */}
                                 </div>
-                                
+
                                 {obj.disable == false && obj.type === 'text' &&
                                 <input id={`${obj.id}`} 
                                 name={obj.name}
@@ -393,13 +407,22 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                                         objCopy[obj.id] = e.target.value.trim() !== '' ? true  : false
                                         return objCopy
                                     })
+                                    handleBlurSet(e)
                                 }}
-                                onBlur={handleBlurSet}
-                                className={ inputsState[obj.id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
+                                // onBlur={handleBlurSet}
+                                 // @ts-ignore
+                                className={ (!checkForm || (checkForm && formData[obj.key][obj.lang] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]
+                                            ? s.input
+                                            : `${s.input} ${s.input_off_valid}`
+                                            }
                                 style={{
-                                    border:  inputsState[obj.id] ? '' : 'solid 1.5px red'
+                                    // @ts-ignore
+                                    border:  (!checkForm || (checkForm && formData[obj.key][obj.lang] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]
+                                    ? ''
+                                    : 'solid 1.5px red'
                                 }} 
                                 type={obj.type}
+                                 // @ts-ignore
                                 placeholder={obj.placeholder}  /> }
                                 </div>
                             )
@@ -411,12 +434,12 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                     <div className={s.wrapper_inner }>
                     {inputsFistWrapper_3?.map((obj)=>{
                             return (
+                                 // @ts-ignore
                                 <div className={s.wrapper_inner_input}>
                                 <div className={s.title}>
                                     {obj.text} 
                                     {/* {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   } */}
                                 </div>
-                                
                                 {obj.disable == false && obj.type === 'text' &&
                                 <input id={`${obj.id}`} 
                                 name={obj.name}
@@ -426,12 +449,20 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                                         objCopy[obj.id] = e.target.value.trim() !== '' ? true  : false
                                         return objCopy
                                     })
+                                    handleBlurSet(e)
                                 }}
-                                onBlur={handleBlurSet}
-                                className={ inputsState[obj.id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
+                                // onBlur={handleBlurSet} 
+                                 // @ts-ignore
+                                className={ (!checkForm || (checkForm && formData[obj.key][obj.lang] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]
+                                ? s.input
+                                : `${s.input} ${s.input_off_valid}`
+                                }
                                 style={{
-                                    border:  inputsState[obj.id] ? '' : 'solid 1.5px red'
-                                }} 
+                                    // @ts-ignore
+                                    border:  (!checkForm || (checkForm && formData[obj.key][obj.lang] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]
+                                    ? ''
+                                    : 'solid 1.5px red'
+                                }}
                                 type={obj.type}
                                 placeholder={obj.placeholder}  /> }
                                 </div>
@@ -457,12 +488,20 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                                         objCopy[obj.id] = e.target.value.trim() !== '' ? true  : false
                                         return objCopy
                                     })
+                                    handleBlurSet(e)
                                 }}
-                                onBlur={handleBlurSet}
-                                className={ inputsState[obj.id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
+                                // onBlur={handleBlurSet}
+                                 // @ts-ignore
+                                className={ (!checkForm || (checkForm && formData[obj.key][obj.lang] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]
+                                ? s.input
+                                : `${s.input} ${s.input_off_valid}`
+                                }
                                 style={{
-                                    border:  inputsState[obj.id] ? '' : 'solid 1.5px red'
-                                }} 
+                                    // @ts-ignore
+                                    border:  (!checkForm || (checkForm && formData[obj.key][obj.lang] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]
+                                    ? ''
+                                    : 'solid 1.5px red'
+                                }}
                                 type={obj.type}
                                 placeholder={obj.placeholder}  /> }
                                 </div>
@@ -474,7 +513,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                 <div className={s.inputs_wrapper}>
                     <div className={s.wrapper_inner }>
                     {inputsFistWrapper_5?.map((obj) => {
-                            
 
                         return (
                             <div className={s.wrapper_inner_input} key={obj.id}>
@@ -482,7 +520,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                                     {obj.text} 
                                     {/* {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   } */}
                                 </div>
-                                
                                 {obj.type === 'select' ?  
                                     <label className={s.select__wrapper} htmlFor={`${obj.id}`}>
                                         <input 
@@ -492,7 +529,11 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                                             }}  
                                             id={`${obj.id}`} 
                                             readOnly 
-                                            className={inputsState[obj.id] ? s.input : s.input_off_valid} 
+                                            // @ts-ignore
+                                            className={(!checkForm || (checkForm && formData[obj.key].length > 0)) && inputsState[obj.id]  ?  s.input : `${s.input} ${s.input_off_valid}`  }
+                                            // @ts-ignore
+                                            style={{border: (!checkForm || (checkForm && formData[obj.key].length > 0)) && inputsState[obj.id] ? 'solid 1.5px #9D9D9D' : 'solid 1.5px #E73232' }}
+                                            // className={ inputsState[obj.id] ? s.input : s.input_off_valid} 
                                             type={obj.type}
                                             placeholder={activeCategories ? activeCategories.ru : obj.placeholder} 
                                         />
@@ -555,15 +596,18 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                                                 objCopy[obj.id] = e.target.value.trim() !== '' ? true  : false
                                                 return objCopy
                                             })
+                                            handleBlurSet(e)
                                         }}
                                         style={{
                                             WebkitAppearance: 'none',
                                             MozAppearance: 'textfield',
-                                            border:  inputsState[obj.id] ? '' : 'solid 1.5px red'
+                                            // @ts-ignore
+                                            border:  (!checkForm || (checkForm && formData[obj.key] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id] ?  '' : 'solid 1.5px red'
                                         }} 
                                         name={obj.name} 
-                                        onBlur={handleBlurSet} 
-                                        className={ inputsState[obj.id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
+                                        // onBlur={handleBlurSet} 
+                                        // @ts-ignore
+                                        className={(!checkForm || (checkForm && formData[obj.key] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]  ?  s.input : `${s.input} ${s.input_off_valid}`  } 
                                         type={obj.type} 
                                         placeholder={ obj.placeholder } />
                                 }
@@ -574,28 +618,42 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                     </div>
 
                     <div className={s.wrapper_inner }>
+                    
                         {inputsFistWrapper_6?.map((obj) => {
-                            return <InputTextItem  
-                            name={obj.name} 
-                            disable={obj.disable} 
-                            key={obj.id} 
-                            id={obj.id}
-                            type={obj.type} 
-                            text={obj.text} 
-                            placeholder={obj.placeholder}
-                            setModalAddColor={setModalAddColor}
-                            modalAddColor={modalAddColor}
-                            modalAddCAtegory={modalAddCAtegory}
-                            setInputsState={setInputsState}
-                            inputsState={inputsState}
-                            ref={(el: HTMLInputElement) => (inputRefs.current[obj.id] = el)}
-                            />
-                           
-                            
+                            return (
+                                    <div className={s.wrapper_inner_input}>
+                                        <div className={s.title}>{obj.text}</div>
+                                        <input
+                                        id={`${obj.id}`}
+                                        onChange={(e) => {
+                                            setInputsState((prevState: any) => {
+                                            const objCopy = { ...prevState };
+                                            objCopy[obj.id] = e.target.value.trim() !== '' ? true : false;
+                                            return objCopy;
+                                            });
+                                        }}
+                                        style={{
+                                            WebkitAppearance: 'none',
+                                            MozAppearance: 'textfield',
+                                             // @ts-ignore
+                                            border: (!checkForm || (checkForm && formData[obj.key] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id] ? '' : 'solid 1.5px red',
+                                        }}
+                                        name={obj.name}
+                                        onBlur={handleBlurSet}
+                                         // @ts-ignore
+                                        // className={ (checkForm && formData[obj.key][obj.lang] !== null &&  checkForm && formData[obj.key][obj.lang] !== '') && inputsState[obj.id]    ?  s.input : `${s.input} ${s.input_off_valid}`  } 
+                                        className={ (!checkForm || (checkForm && formData[obj.key] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]
+                                        ? s.input
+                                        : `${s.input} ${s.input_off_valid}`
+                                        }
+                                        type={obj.type}
+                                        placeholder={obj.placeholder}
+                                        />
+                                    </div>
+                            );
                         })}
                     </div>
-
-                </div>
+            </div>
 
                 {/* <div className={s.second_wrapper}>
                     {inputsSecondWrapper?.map((obj) => {
@@ -799,6 +857,8 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             if(checkObjectValues(objDataSend) ) {
                                 sendFormData(objDataSend)
                             }else{
+                                setCheckForm(true)
+                                console.log('setCheckForm', checkForm)
                                 console.log('objDataSend', objDataSend)
                                 alert('заполни форму')
                             }
