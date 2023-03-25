@@ -3,7 +3,6 @@ import s from './InputText.module.scss'
 import selectIcon from '../../../../../../../assets/icons/cabinetAdmin/selectIcon.svg'
 import Image from 'next/image';
 //redux
-
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store"
 import {setTitle, setDescription, setPrice, setCategories, setQuantity} from '../../../../../../../redux/slices/formData'
@@ -48,8 +47,6 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
     // { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара', name: 'text', disable: false },
     // { id: 9, type: 'number', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false },
     // { id: 10, type: 'number', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false },
-    
-    
 
 
     const dispatch = useAppDispatch()
@@ -79,7 +76,6 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
     const [categoriesDisplay, setCategoriesDisplay ] = React.useState<boolean>(false)
 
     function handleBlurSet(event: any) {
-        
         if(event.target.name === 'titleRU' ){
             const payload: any = {branch: 'ru', title: event.target.value}
             dispatch(setTitle(payload)) 
@@ -148,7 +144,6 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
             
             {disable == false && type === 'text' ? 
             <input id={`${id}`} 
-            value={value}
             name={name}
             onChange={(e)=>{
                 setInputsState( (prevState: any)=>{
@@ -163,11 +158,10 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
                 border:  inputsState[id] ? '' : 'solid 1.5px red'
             }} 
             type={type}
-            placeholder={  inputsState[id] ? placeholder  :   `Это поле не может быть пустым`}  /> : '' }
+            placeholder={placeholder}  /> : '' }
 
             {disable == false && type === 'number' ?
             <input id={`${id}`}
-            value={value}
             onChange={(e)=>{
                 setInputsState( (prevState: any)=>{
                     const objCopy = {...prevState}
@@ -184,7 +178,7 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
             onBlur={handleBlurSet} 
             className={ inputsState[id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
             type={type} 
-            placeholder={  inputsState[id] ? placeholder  :   `Это поле не может быть пустым`} /> : '' }
+            placeholder={ placeholder } /> : '' }
 
             {type === 'select' ?  
                 <label
@@ -237,14 +231,10 @@ export const InputTextItem = ({ inputsState, setInputsState , id, type, text, pl
                                     </svg>
                             </span>
                             <span className={s.categorychose_item_add}>
-                               Добавить категорию
+                                Добавить категорию
                             </span>
 
-
-
-
                         </div>
-                           
                         })  }
 
                         </div>

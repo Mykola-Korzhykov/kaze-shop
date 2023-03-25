@@ -81,13 +81,14 @@ interface CabinetOwnerProps {
 export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modalAddColor, setModalAddColor, setImages, modalAddPhoto, role }: CabinetOwnerProps) => {
 
     const buttonsObj: ButtonType[] = role === 'OWNER' ?  [
-        { id: 1, img_grey: icon1, img_white: icon_white1, text: 'Выдать роль', url: '/owner-settings/role-settings' },
-        { id: 2, img_grey: icon2, img_white: icon_white2, text: 'Администраторы', url: '/owner-settings/admin-settings' },
+        { id: 1, img_grey: icon1, img_white: icon_white1, text: 'Выдать роль', url: '/settings/role-settings' },
+        { id: 2, img_grey: icon2, img_white: icon_white2, text: 'Администраторы', url: '/settings/admin-settings' },
         // { id: 3, img_grey: icon3, img_white: icon_white3, text: 'Редактировать сайт' },
-        { id: 3, img_grey: icon4, img_white: icon_white4, text: 'Добавить товар', url: '/owner-settings/add-product' },
+        { id: 3, img_grey: icon4, img_white: icon_white4, text: 'Добавить товар', url: '/settings/add-product' },
         { id: 4, img_grey: icon5, img_white: icon_white5, text: 'Редактировать товар' },
-        { id: 5, img_grey: icon6, img_white: icon_white6, text: 'Настройки' },
-        { id: 6, img_grey: icon7, img_white: icon_white7, text: 'Выход' }
+        { id: 5, img_grey: icon6, img_white: icon_white6, text: 'Настройки', url: '/settings/settings-password' },
+        { id: 6, img_grey: icon7, img_white: icon_white7, text: 'Выход', url: '/settings/logout-modal' } 
+        // logout-modal
     ] : 
     [
         // { id: 1, img_grey: icon1, img_white: icon_white1, text: 'Выдать роль', url: '/owner-settings/role-settings' },
@@ -267,7 +268,6 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
             { modalAddPhotoTurn &&
                 <div className={s.backround_for_modal}></div>
             }
-            
 
             <div className={s.nav_dekstop}>
                 {buttonsObj.map((obj, ind) => {
@@ -286,7 +286,6 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
 
             <div className={s.display}>
 
-
                 <label htmlFor="findUser" className={displayActive === 1  ? s.input_wrapper_on : s.input_wrapper_off}>
                     Пользователь
                     <div className={s.input_wrapper}>
@@ -297,7 +296,6 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
                                 debouncedSearchRole(e.target.value.toLowerCase().split(' ').join(','))
                                 console.log('debouncedSearchRole', e.target.value.toLowerCase().split(' ').join(','))
                             }
-                           
                         }} className={s.input} id='findUser' type="findUser" />
                         <Image src={findUser} alt='findUser' />
                     </div>
@@ -308,25 +306,22 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
                     Пользователь
                     <div className={s.input_wrapper}>
                         <input onChange={(e)=>{
-                          if (e.target.value === '' || e.target.value === ' ') {
+                        if (e.target.value === '' || e.target.value === ' ') {
                             dispatch(getUsersAdmin(activePaginatoinAdmin))
-                          }else{
+                        }else{
                             debouncedSearchAdmin(e.target.value.toLowerCase().split(' ').join(','))
                             
                             console.log('debouncedSearchAdmin', e.target.value.toLowerCase().split(' ').join(','))
-                          }
-                           
+                        }
                         }} className={s.input} id='findUser' type="findUser" />
                         <Image src={findUser} alt='findUser' />
                     </div>
-
                 </label>
-              
                 {/* <div style={{ backround-color: `${props.color}`}}></div> */}
                 {displayActive === 1 ? usersRole : ''} 
                 {displayActive === 2 ? usersAdmin : ''} 
                 {displayActive === 3 ? <AddProduct 
-                modalAddCAtegory={modalAddCAtegory} 
+                modalAddCAtegory={modalAddCAtegory}
                 imagesData={imagesData} setImages={setImages}  
                 setCountPhoto={setCountPhoto}  
                 modalAddColor={modalAddColor} 
@@ -357,7 +352,6 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
                     })}
                 </div> : ''
                 }
-               
                 
             </div >
            {/* {countPhoto > 0 && modalAddPhoto &&  choiceColor === false? <div style={{height: `${ 1450 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''} */}

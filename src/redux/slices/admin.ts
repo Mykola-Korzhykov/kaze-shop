@@ -811,7 +811,7 @@ export const admin: Slice<initialStateType> = createSlice({
 		) => {
 			state.colors.push(action.payload)
 		},
-		setAddPhotoState: state => {
+		setAddPhotoState: (state) => {
 			state.addPhotoState.push({
 				id: state.addPhotoState[state.addPhotoState.length - 1].id + 1,
 			})

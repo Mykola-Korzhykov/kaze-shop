@@ -157,7 +157,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         // console.log("formDataCheckimages", formData.get('images'));
         // console.log("formDataCheckprice", formData.get('price'));
         // console.log("formDataChecksizeChartImage", formData.get('sizeChartImage'));
-      
         axios
           .put("/product/create_product", formData, {
             baseURL: API_URL,
@@ -184,10 +183,9 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                 inputRef.value = "";
             });
 
-            
             console.log('objDataSendInnerForm', objDataSend)
 
-      }
+    }
 
 
     const SizeChartArr = [
@@ -197,12 +195,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         {id: 4, title: ' Описание размерной сетки ENG', placeholder: 'Введите описание размерной сетки', leng: "en"},
     ]
 
-    // const [netData, setNetData] = React.useState<null | string>(null)
-
-    // console.log('titleen', titleen)
-    // console.log('netData', NetData)
-    // console.log('setNetFile', netFile)
-    // console.log('title', title)
 
     interface Input {
         id: number;
@@ -226,8 +218,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         { id: 8, type: 'select', text: 'Категория товара', placeholder: 'Выберите категорию товара', name: 'text', disable: false, value: null },
         { id: 9, type: 'number', text: 'Цена в долларах', placeholder: 'Введите цену', name: 'price', disable: false, value: null },
         { id: 10, type: 'number', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false, value: null },
-        // { id: 8, type: 'text', text: 'Цвет', placeholder: 'Выбрать один цвет фотографии', name: 'text', disable: true, colors: colors },
-        //{ id: 9, type: 'text', text
     ])
 
     const inputRefs = useRef([]);
@@ -414,7 +404,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                 </div> */}
 
             </div>
-
                 <div className={s.addphoto_wrapper}>
                     <div className={s.descriprion}>
                         <span className={s.title}>Добавить фото товара</span>
@@ -422,7 +411,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                         //    setCountPhoto(addPhotoState.length)
                         //    @ts-ignore
                         dispatch(setAddPhotoState());
-                        
 
                         } } className={s.btn}>
                         <svg className={s.img} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -598,8 +586,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                         onClick={()=>{
                             console.log('resODODODOODODODODDODOODDODODOODOD', checkObjectValues(objDataSend))
                             console.log('objDataSend', objDataSend)
-                            // console.log('objDataSend', objDataSend)
-                            //создание на проверку валидности формы
                             function checkObjectValues(obj: any) {
                                 for (const key in obj) {
                                     if (obj[key] === null || obj[key] === '' || obj.selectedImages.length < 1  ) {
@@ -628,4 +614,3 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         </div>
     )
 }
-
