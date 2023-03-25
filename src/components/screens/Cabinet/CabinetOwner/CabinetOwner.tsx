@@ -175,13 +175,13 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
 
     
     // получення юзерів 
-    React.useEffect(()=>{
-       if( displayActive === 1 ){
-        console.log('запыт getUsersRole')
-            dispatch(getUsersRole(activePaginatoinRole))
-       }
+    // React.useEffect(()=>{
+    //    if( displayActive === 1 ){
+    //     console.log('запыт getUsersRole')
+    //         dispatch(getUsersRole(activePaginatoinRole))
+    //    }
         
-     }, [activePaginatoinRole,  displayActive])
+    //  }, [activePaginatoinRole,  displayActive])
      //получення адмінів 
     React.useEffect(()=>{
         if(displayActive === 2){
@@ -191,7 +191,7 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
     }, [ activePaginatoinRoleAdmin, displayActive])
     // вираховування пагінації
     React.useEffect(()=>{
-        let countoRolePagination = Math.ceil(usersAdminUI.length / 10)
+        let countoRolePagination = Math.ceil(usersRoleUI.length / 10)
         let arrRolePagination : number[] = []
         for(let i = 1;  i <  countoRolePagination + 1; i++){
             arrRolePagination.push(i)
@@ -203,9 +203,9 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
         for(let i = 1;  i <  countAdminPagination + 1; i++){
             arrAdminPagination.push(i)
         }
+
         setPaginationLendthAdmin(arrAdminPagination)
 
-       
     }, [usersRoleUI, usersAdminUI])
 
     // console.log('users', users)
@@ -252,7 +252,7 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
     idUserOpen={idUserOpen} 
     activePaginatoinRole={activePaginatoinRole}
     
-     />)
+    />)
 
     // console.log('choiceColor' , choiceColor)
 
