@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector , } from "react-redux";
 import s from './CabinetOwner.module.scss'
 import { Button } from './Buttons/Button'
-import { UserAdmin } from './UsersRole/UserAdmin'
-import { UserRole } from './UserAdmin/UserRole'
+import { UserRole } from './UsersRole/UserRole'
+import { UserAdmin } from './UserAdmin/UserAdmin'
 import { RootState } from "@/redux/store";
 import { useAppDispatch } from "@/redux/hooks";
 import Link from "next/link";
@@ -140,7 +140,7 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
     const colors = useSelector((state: RootState) => state.admin.colors)
     const [displayActive, setDisplayActive] = React.useState<number>(1)
     const [activePaginatoinRole, setActivePaginatoinRole] = React.useState<number>(1)
-    const [activePaginatoinRoleAdmin, setActivePaginatoinAdmin] = React.useState<number>(1)
+    const [activePaginatoinAdmin, setActivePaginatoinAdmin] = React.useState<number>(1)
     // console.log('displayActive', displayActive)
 
     React.useEffect(()=>{
@@ -183,19 +183,22 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
         
     //  }, [activePaginatoinRole,  displayActive])
      //получення адмінів 
-    React.useEffect(()=>{
-        if(displayActive === 2){
-            console.log('запыт getUsersAdmin')
-            dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
-        }
-    }, [ activePaginatoinRoleAdmin, displayActive])
+    // React.useEffect(()=>{
+    //     if(displayActive === 2){
+    //         console.log('запыт getUsersAdmin')
+    //         dispatch(getUsersAdmin(activePaginatoinAdmin))
+    //     }
+    // }, [ activePaginatoinAdmin, displayActive])
     // вираховування пагінації
     React.useEffect(()=>{
+        //скок сраниц нужно чтобы было
         let countoRolePagination = Math.ceil(usersRoleUI.length / 10)
+        //инициализаия массива страниц
         let arrRolePagination : number[] = []
         for(let i = 1;  i <  countoRolePagination + 1; i++){
             arrRolePagination.push(i)
         }
+        //сетинг инициализации страниц
         setPaginationLendthRole(arrRolePagination)
 
         let countAdminPagination = Math.ceil(usersAdminUI.length / 10)
@@ -221,7 +224,7 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
         dispatch(findUsersRole(term))
       }, 500);
 
-    const usersRole = usersRoleUI.map((el, ind) => <UserAdmin
+    const usersRole = usersRoleUI.map((el, ind) => <UserRole
     name={el.name}
     editContent={el.editContent} 
     surname={el.surname}
@@ -234,10 +237,9 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
     setUserOpenOK={setUserOpen} 
     idUserOpen={idUserOpen} 
     id={el.id}
-    activePaginatoinRoleAdmin={activePaginatoinRoleAdmin}
-     
-     />)
-    const usersAdmin = usersAdminUI.map((el, ind) => <UserRole 
+    />)
+
+    const usersAdmin = usersAdminUI.map((el, ind) => <UserAdmin
     name={el.name}
     editContent={el.editContent}
     surname={el.surname}
@@ -250,8 +252,6 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
     id={el.id}
     setUserOpenOK={setUserOpen} 
     idUserOpen={idUserOpen} 
-    activePaginatoinRole={activePaginatoinRole}
-    
     />)
 
     // console.log('choiceColor' , choiceColor)
@@ -312,7 +312,7 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
                     <div className={s.input_wrapper}>
                         <input onChange={(e)=>{
                           if (e.target.value === '' || e.target.value === ' ') {
-                            dispatch(getUsersAdmin(activePaginatoinRoleAdmin))
+                            dispatch(getUsersAdmin(activePaginatoinAdmin))
                           }else{
                             debouncedSearchAdmin(e.target.value.toLowerCase().split(' ').join(','))
                             
@@ -356,7 +356,7 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
                         return <span key={el} onClick={()=>{
                             setActivePaginatoinAdmin(el)
 
-                        }} className={ activePaginatoinRoleAdmin === el ?  s.item_active : s.item}>{el}</span>
+                        }} className={ activePaginatoinAdmin === el ?  s.item_active : s.item}>{el}</span>
                     })}
                 </div> : ''
                 }

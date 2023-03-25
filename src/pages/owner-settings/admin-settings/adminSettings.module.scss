@@ -30,3 +30,65 @@
         color: #0B0B0B;
     }
 }
+
+//find users
+.input_wrapper_on{
+
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    align-items: center;
+
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    max-width: 804px;
+
+
+    color: #000000;
+
+    .text{
+        @media (max-width: 550px) {
+            display: none;
+        }
+    }
+    .input_wrapper{
+        display: flex;
+        justify-content: flex-end;
+        @media (max-width: 550px) {
+            width: 100%;
+        }
+       
+
+    .input {
+        padding-left: 10px;
+        background: none;
+        width: 100%;
+        border: none;
+        // border-radius: 8px;
+        // margin-right: 5px;
+        border: #000000 solid 1px;
+        border-right: none;
+    }
+
+    .input::placeholder {
+        font-family: 'Georama', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+        color: #000000;
+    }
+
+    .input:focus {
+        outline: none;
+        // border: none;
+        // box-shadow: 0 0 5px #999;
+    }
+    }
+    
+}

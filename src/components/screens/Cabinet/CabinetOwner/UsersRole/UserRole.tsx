@@ -1,7 +1,7 @@
 import React from "react";
 import Image from 'next/image';
 import ArrowUser from '../../../../../assets/icons/ArrowUser.svg'
-import s from './UserAdmin.module.scss'
+import s from './UserRole.module.scss'
 //icons
 import userIcone from '../../../../../assets/icons/User/user_icon.svg'
 import phoneIcone from '../../../../../assets/icons/User/phone_icon.svg'
@@ -26,15 +26,15 @@ interface UserProps {
     phoneNumber: string,
     surname: string,
     name: string,
-    activePaginatoinRoleAdmin: number
+    activePaginatoinRole?: number
 }
 
-export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebsite, isAdmin, email, phoneNumber , surname, name  }) => {
+export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebsite, isAdmin, email, phoneNumber , surname, name  }) => {
 
     const openUser = id === idUserOpen ? true : false
     const [activeCheckbox, setSctiveCheckbox] = React.useState<number | null>(null)
    
-    const [UserAdmin, setUserAdmin] = React.useState<{
+    const [UserRole, setUserRole] = React.useState<{
         addContent: boolean, 
         editContent: boolean,
         editWebsite:  boolean,
@@ -58,7 +58,7 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
     
     const dispatch = useAppDispatch()
 
-    function sendUserAdmin(role: string, bool: boolean) {
+    function sendUserRole(role: string, bool: boolean) {
         const cookies = Cookies.get()
         const token = cookies.accessToken
         const instance = axios.create({
@@ -70,13 +70,13 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
         })
 
         
-        setUserAdmin({
-            ...UserAdmin,
+        setUserRole({
+            ...UserRole,
             [role]: bool,
         })
       
         instance.put('/admin/create_admin', {
-            ...UserAdmin,
+            ...UserRole,
             [role]: bool,
         })
         
@@ -121,9 +121,9 @@ export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinRoleAdmin, setU
                 <div className={s.checkbox_wrapper_first}>
 
                     <label htmlFor={`isAdmin${id}`} className={s.checkbox_wrapper}>
-                        <input checked={UserAdmin.isAdmin ? true : false} onChange={()=>{
+                        <input checked={UserRole.isAdmin ? true : false} onChange={()=>{
 
-                            sendUserAdmin('isAdmin', !UserAdmin.isAdmin)
+                            sendUserRole('isAdmin', !UserRole.isAdmin)
 
                         }} onClick={() => setSctiveCheckbox(1)} id={`isAdmin${id}`} className={s.checkbox} type="checkbox" />
                         <span className={s.checkbox_label}>

@@ -1,7 +1,7 @@
 import React from "react";
 import Image from 'next/image';
 import ArrowUser from '../../../../../assets/icons/ArrowUser.svg'
-import s from './UserRole.module.scss'
+import s from './UserAdmin.module.scss'
 //icons
 import userIcone from '../../../../../assets/icons/User/user_icon.svg'
 import phoneIcone from '../../../../../assets/icons/User/phone_icon.svg'
@@ -29,24 +29,23 @@ interface UserProps {
     phoneNumber: string,
     surname: string,
     name: string,
-    activePaginatoinRole: number
+    activePaginatoinAdmin?: number
 
 }
 
-export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebsite, isAdmin, email, phoneNumber , surname, name }) => {
+export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinAdmin, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebsite, isAdmin, email, phoneNumber , surname, name }) => {
 
     // const [openUserMy, setOpenUserMy] = React.useState<boolean>(false)
     const openUser = id === idUserOpen ? true : false
 
     // console.log(`check user editContent${id}`, addContent )
     const localUser = useSelector((state:RootState ) => state.admin.usersRole[id - 1])
-    // console.log('UserRolefekfekflkwefnwklenrflwerfnwlenfklnelfnlkenklfnklenrfnwelnflkernfnweklnklenflknwkfnwkfr')
+    // console.log('UserAdminfekfekflkwefnwklenrflwerfnwlenfklnelfnlkenklfnklenrfnwelnflkernfnweklnklenflknwkfnwkfr')
 
     const [activeCheckbox, setSctiveCheckbox] = React.useState<number | null>(null)
     const usersRole = useSelector((state: RootState )=> state.admin.usersRole)
     
-   
-    const [UserRole, setUserRole] = React.useState<{
+    const [UserAdmin, setUserAdmin] = React.useState<{
         addContent: boolean, 
         editContent: boolean,
         editWebsite:  boolean,
@@ -57,7 +56,7 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
         name: string,
         id: number,
     }>(
-       { id: id,
+        { id: id,
         name: name,
         surname: surname,
         email: email,
@@ -68,12 +67,12 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
         editWebsite: editWebsite,}
     )
 
-    //  console.log('UserRole', UserRole)
+    //  console.log('UserAdmin', UserAdmin)
 
-    function changeUserRole (role: string, bool: boolean){
+    function changeUserAdmin (role: string, bool: boolean){
 
-        setUserRole({
-            ...UserRole,
+        setUserAdmin({
+            ...UserAdmin,
             [role]: bool,
         })
     }
@@ -81,7 +80,7 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
     
     const dispatch = useAppDispatch()
 
-    function sendUserRole() {
+    function sendUserAdmin() {
         // console.log('clickfnnfnfnfnnfnfnffnfnnfnfnfnfnnfnfnfnfnnfnfnnfnfnfnnfnnfnfnfnfnfnfnfn')
         const cookies = parseCookies();
         const token = cookies.accessToken;
@@ -94,11 +93,11 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
           },
         });
         instance.patch('/admin/update_admin', {
-            ...UserRole
+            ...UserAdmin
         })
           .then(() => {
-            // dispatch(getUsersRole(activePaginatoinRole))
-            // setUserRole((prevState) => ({
+            // dispatch(getUsersRole(activePaginatoinAdmin))
+            // setUserAdmin((prevState) => ({
             //   ...prevState,
             //   [role]: bool,
             // }))
@@ -108,12 +107,12 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
             console.error('Error while updating user role:', error);
           });
 
-        //   setUserRole(prevState => ({ ...prevState, [role]: bool, }))
+        //   setUserAdmin(prevState => ({ ...prevState, [role]: bool, }))
 
       }
 
     //   React.useEffect(()=>{
-    //     dispatch(getUsersAdmin(activePaginatoinRole))
+    //     dispatch(getUsersAdmin(activePaginatoinAdmin))
     //   }, [])
 
     return (
@@ -156,10 +155,10 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
                     </label> */}
 
                     <label htmlFor={`editContent${id}`} className={s.checkbox_wrapper}>
-                        <input checked={UserRole.editContent ? true : false} onChange={() =>  {
-                            changeUserRole('editContent', !UserRole.editContent)
+                        <input checked={UserAdmin.editContent ? true : false} onChange={() =>  {
+                            changeUserAdmin('editContent', !UserAdmin.editContent)
                             // setSctiveCheckbox(2)
-                            // dispatch(setChangeCheckbox({id: id, branch: 'editContent', bool: !UserRole.editContent }))
+                            // dispatch(setChangeCheckbox({id: id, branch: 'editContent', bool: !UserAdmin.editContent }))
                         } 
                            
                         }
@@ -173,10 +172,10 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
 
                 <div className={s.checkbox_wrapper_second}>
                     <label  htmlFor={`addContent${id}`} className={s.checkbox_wrapper}>
-                        <input checked={UserRole.addContent ? true : false} onChange={() => {
-                            changeUserRole('addContent', !UserRole.addContent)
-                            // setUserRole(prevState => ({ ...prevState, ['addContent']: !prevState.addContent }))
-                            // dispatch(setChangeCheckbox({id: id, branch: 'addContent', bool: !UserRole.addContent }))
+                        <input checked={UserAdmin.addContent ? true : false} onChange={() => {
+                            changeUserAdmin('addContent', !UserAdmin.addContent)
+                            // setUserAdmin(prevState => ({ ...prevState, ['addContent']: !prevState.addContent }))
+                            // dispatch(setChangeCheckbox({id: id, branch: 'addContent', bool: !UserAdmin.addContent }))
                             // setSctiveCheckbox(3)
                         }} id={`addContent${id}`} className={s.checkbox} type="checkbox" />
                         <span className={s.checkbox_label}>
@@ -186,10 +185,10 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
                     </label>
 
                     <label htmlFor={`editWebsite${id}`} className={s.checkbox_wrapper}>
-                            <input  checked={UserRole.editWebsite ? true : false} onChange={() => {
-                                changeUserRole('editWebsite', !UserRole.editWebsite)
-                                //setUserRole(prevState => ({ ...prevState, ['editWebSite']: !prevState.editWebSite }))
-                                // dispatch(setChangeCheckbox({id: id, branch: 'editWebSite', bool: !UserRole.editWebSite }))
+                            <input  checked={UserAdmin.editWebsite ? true : false} onChange={() => {
+                                changeUserAdmin('editWebsite', !UserAdmin.editWebsite)
+                                //setUserAdmin(prevState => ({ ...prevState, ['editWebSite']: !prevState.editWebSite }))
+                                // dispatch(setChangeCheckbox({id: id, branch: 'editWebSite', bool: !UserAdmin.editWebSite }))
                                 // setSctiveCheckbox(4)
                             }} id={`editWebsite${id}`} className={s.checkbox} type="checkbox" />
                             <span className={s.checkbox_label}>
@@ -201,10 +200,10 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
                  
 
                         <label htmlFor={`isAdmin${id}`} className={s.checkbox_wrapper}>
-                        <input checked={UserRole.isAdmin ? true : false} onChange={()=>{
-                            changeUserRole('isAdmin', !UserRole.isAdmin)
-                        //    console.log(`user ${id}`, !UserRole.isAdmin)
-                        //    dispatch(setChangeCheckbox({id: id, branch: 'isAdmin', bool: !UserRole.isAdmin }))
+                        <input checked={UserAdmin.isAdmin ? true : false} onChange={()=>{
+                            changeUserAdmin('isAdmin', !UserAdmin.isAdmin)
+                        //    console.log(`user ${id}`, !UserAdmin.isAdmin)
+                        //    dispatch(setChangeCheckbox({id: id, branch: 'isAdmin', bool: !UserAdmin.isAdmin }))
                         }} onClick={() => setSctiveCheckbox(1)} id={`isAdmin${id}`} className={s.checkbox} type="checkbox" />
                         <span className={s.checkbox_label}>
                             <Image className={s.checkbox_icon} src={checkbox_icon} alt='checkbox_icon' />
@@ -224,11 +223,11 @@ export const UserRole: React.FC<UserProps> = ({ activePaginatoinRole, setUserOpe
                 </div>
 
                 <div onClick={(e)=> {
-                    //  console.log('UserRole', UserRole)
+                    //  console.log('UserAdmin', UserAdmin)
                     e.preventDefault()
                     e.stopPropagation();
                     setUserOpenOK(id)
-                     sendUserRole()
+                     sendUserAdmin()
                 } } className={ openUser ?  s.btn_save : s.btn_save_off }>
                     Сохранить
                 </div>
