@@ -123,9 +123,7 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
 	)
 	const modalEditProductTurn = useSelector(
 		(state: RootState) => state.modaleSlice.modalAddEditProduct)
-   
-    
-    
+
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
     // console.log('ChangeUserPassword', ChangeUserPassword)
     const usersRoleUI = useSelector((state: RootState) => state.admin.usersRole)
@@ -214,15 +212,14 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
     // console.log('users', users)
 
     const [idUserOpen, setUserOpen] = React.useState<number>(0)
-    
-  
+
     const debouncedSearchAdmin = debounce((term) => {
         dispatch(findUsersAdmin(term))
-      }, 500);
+    }, 500);
 
-      const debouncedSearchRole = debounce((term) => {
+    const debouncedSearchRole = debounce((term) => {
         dispatch(findUsersRole(term))
-      }, 500);
+    }, 500);
 
     const usersRole = usersRoleUI.map((el, ind) => <UserRole
     name={el.name}

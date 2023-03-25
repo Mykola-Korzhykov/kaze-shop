@@ -1,3 +1,8 @@
+import React from "react";
+import { useAppDispatch } from '@/redux/hooks'
+import { findUsersAdmin, getUsersAdmin } from '@/redux/slices/admin'
+import { UserAdmin } from '@/components/screens/Cabinet/CabinetOwner/UserAdmin/UserAdmin'
+import debounce from 'lodash.debounce'
 //redux
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
@@ -11,18 +16,8 @@ import { Api } from '@/services'
 import Link from 'next/link'
 //icons 
 import findUser from '../../../assets/icons/cabinetAdmin/findUser.svg'
-// import findUser from '../../assets/icons/cabinetAdmin/findUser.svg'
-// import { UserAdmin } from '@/components/screens/Cabinet/CabinetOwner/UsersRole/UserAdmin'
 
-import React from "react";
-import { useAppDispatch } from '@/redux/hooks'
-import { findUsersAdmin, getUsersAdmin } from '@/redux/slices/admin'
-import { UserAdmin } from '@/components/screens/Cabinet/CabinetOwner/UserAdmin/UserAdmin'
-import debounce from 'lodash.debounce'
-
-
-
-const AdminSettings: React.FC = () => {
+const AdminSettings: NextPage = () => {
 
     const usersAdminUI = useSelector((state: RootState) => state.admin.usersAdmin)
     const [idUserOpen, setUserOpen] = React.useState<number>(0)
@@ -75,7 +70,6 @@ const AdminSettings: React.FC = () => {
                             
                             console.log('debouncedSearchAdmin', e.target.value.toLowerCase().split(' ').join(','))
                           }
-                           
                         }} className={s.input} id='findUser' type="findUser" />
                         <Image src={findUser} alt='findUser' />
                     </div>
@@ -101,7 +95,6 @@ const AdminSettings: React.FC = () => {
                     {paginationLendthAdmin.map((el)=>{
                         return <span key={el} onClick={()=>{
                             setActivePaginatoinAdmin(el)
-
                         }} className={ activePaginatoinAdmin === el ?  s.item_active : s.item}>{el}</span>
                     })}
             </div>

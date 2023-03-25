@@ -16,7 +16,6 @@ import { useAppDispatch } from "@/redux/hooks";
 import {getUsersAdmin, getUsersRole} from '../../../../../redux/slices/admin'
 import {setChangeCheckbox} from '../../../../../redux/slices/admin'
 
-
 interface UserProps {
     idUserOpen?: number,
     id: number,
@@ -30,7 +29,6 @@ interface UserProps {
     surname: string,
     name: string,
     activePaginatoinAdmin?: number
-
 }
 
 export const UserAdmin: React.FC<UserProps> = ({ activePaginatoinAdmin, setUserOpenOK, idUserOpen, id, addContent, editContent, editWebsite, isAdmin, email, phoneNumber , surname, name }) => {
