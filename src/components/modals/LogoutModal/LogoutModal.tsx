@@ -3,10 +3,12 @@ import cl from './LogoutModal.module.scss'
 import { Api } from '@/services'
 import { destroyCookie } from 'nookies'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 const LogoutModal: FC<{ closeModal: (tab: number) => void }> = ({
 	closeModal,
 }) => {
 	const [requestLoading, setRequestLoading] = useState<boolean>(false)
+	const [width, setWidth] = useState<null | number>(null);
 	const router = useRouter()
 	const closeModalFunc = () => {
 		closeModal(1)
@@ -22,6 +24,14 @@ const LogoutModal: FC<{ closeModal: (tab: number) => void }> = ({
 			router.push('/404')
 		}
 	}
+
+	React.useEffect(() => {
+	
+		setWidth(window.innerWidth);
+	
+	}, []);
+
+
 	return (
 		<div className={cl.modal}>
 			<div className={cl.modal_body}>
@@ -30,13 +40,30 @@ const LogoutModal: FC<{ closeModal: (tab: number) => void }> = ({
 					Нажмите на кнопку выйти, чтобы подтвердить действие
 				</p>
 				<div className={cl.modal_btns}>
+
+
+
+					{width > 900 ?
 					<button
-						disabled={requestLoading}
-						onClick={closeModalFunc}
-						className={cl.modal_cancel}
+					disabled={requestLoading}
+					onClick={closeModalFunc}
+					className={cl.modal_cancel}
 					>
 						Отмена
-					</button>
+					</button> 
+
+					:
+
+					<Link href={'/cabinet'}>
+					<button
+					disabled={requestLoading}
+					onClick={closeModalFunc}
+					className={cl.modal_cancel}
+					>
+					Отмена
+					</button> 
+					</Link>}
+					
 					<button
 						disabled={requestLoading}
 						onClick={logout}
