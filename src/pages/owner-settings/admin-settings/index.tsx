@@ -60,16 +60,15 @@ const AdminSettings: NextPage = () => {
             </div>
 
             <label htmlFor="findUser" className={ s.input_wrapper_on }>
-                   <span className={s.text}> Пользователь </span> 
+                <span className={s.text}> Пользователь </span> 
                     <div className={s.input_wrapper}>
                         <input onChange={(e)=>{
-                          if (e.target.value === '' || e.target.value === ' ') {
+                        if (e.target.value === '' || e.target.value === ' ') {
                             dispatch(getUsersAdmin(activePaginatoinAdmin))
-                          }else{
+                        }else{
                             debouncedSearchAdmin(e.target.value.toLowerCase().split(' ').join(','))
-                            
-                            console.log('debouncedSearchAdmin', e.target.value.toLowerCase().split(' ').join(','))
-                          }
+                            // console.log('debouncedSearchAdmin', e.target.value.toLowerCase().split(' ').join(','))
+                        }
                         }} className={s.input} id='findUser' type="findUser" />
                         <Image src={findUser} alt='findUser' />
                     </div>
