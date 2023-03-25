@@ -100,7 +100,7 @@ const Cabinet: FC = () => {
 
 				{/* {user?.user?.type === 'ADMIN' && <CabinetAdmin />} */}
 
-				<CabinetOwner 
+				{/* <CabinetOwner 
 				role={"OWNER"}
 				modalAddCAtegory={modalAddCAtegory} 
                 imagesData={images} setImages={setImages}  
@@ -108,7 +108,7 @@ const Cabinet: FC = () => {
 				modalAddPhoto={modalAddPhoto}
                 modalAddColor={modalAddColorTurn} 
                 setModalAddColor={setModalAddColor}   
-                />
+                /> */}
 
 				{/* <CabinetAdmin /> */}
 
