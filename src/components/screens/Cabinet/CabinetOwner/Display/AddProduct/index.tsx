@@ -348,8 +348,9 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
 
                 <div className={s.inputs_wrapper}>
                     <div className={s.wrapper_inner }>
-                        {inputsFistWrapper_1?.map((obj)=>{
+                        {inputsFistWrapper_1?.map((obj, ind)=>{
                             return (
+                            <div key={ind}>
                                 <div className={s.wrapper_inner_input}>
                                 <div className={s.title}>
                                     {obj.text} 
@@ -384,15 +385,17 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                                 type={obj.type}
                                 placeholder={obj.placeholder}  /> }
                                 </div>
+                            </div>
                             )
                         })}
                     </div>
 
                     <div className={s.wrapper_inner }>
-                        {inputsFistWrapper_2?.map((obj)=>{
+                        {inputsFistWrapper_2?.map((obj, ind)=>{
                             return (
                                  // @ts-ignore
-                                <div className={s.wrapper_inner_input}>
+                          
+                            <div key={ind} className={s.wrapper_inner_input}>
                                 <div className={s.title}>
                                     {obj.text} 
                                     {/* {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   } */}
@@ -424,7 +427,7 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                                 type={obj.type}
                                  // @ts-ignore
                                 placeholder={obj.placeholder}  /> }
-                                </div>
+                            </div>
                             )
                         })}
                     </div>
@@ -432,10 +435,10 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
 
                 <div className={s.inputs_wrapper}>
                     <div className={s.wrapper_inner }>
-                    {inputsFistWrapper_3?.map((obj)=>{
+                    {inputsFistWrapper_3?.map((obj, ind)=>{
                             return (
                                  // @ts-ignore
-                                <div className={s.wrapper_inner_input}>
+                            <div key={ind} className={s.wrapper_inner_input}>
                                 <div className={s.title}>
                                     {obj.text} 
                                     {/* {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   } */}
@@ -465,15 +468,15 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                                 }}
                                 type={obj.type}
                                 placeholder={obj.placeholder}  /> }
-                                </div>
+                            </div>
                             )
                         })}
                     </div>
 
                     <div className={s.wrapper_inner }>
-                        {inputsFistWrapper_4?.map((obj)=>{
+                        {inputsFistWrapper_4?.map((obj, ind)=>{
                             return (
-                                <div className={s.wrapper_inner_input}>
+                            <div key={ind} className={s.wrapper_inner_input}>
                                 <div className={s.title}>
                                     {obj.text} 
                                     {/* {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   } */}
@@ -504,7 +507,7 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                                 }}
                                 type={obj.type}
                                 placeholder={obj.placeholder}  /> }
-                                </div>
+                            </div>
                             )
                         })}
                     </div>
@@ -621,7 +624,7 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                     
                         {inputsFistWrapper_6?.map((obj) => {
                             return (
-                                    <div className={s.wrapper_inner_input}>
+                                    <div key={obj.id} className={s.wrapper_inner_input}>
                                         <div className={s.title}>{obj.text}</div>
                                         <input
                                         id={`${obj.id}`}
