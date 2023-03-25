@@ -3,8 +3,8 @@ import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
 import s from './AddProduct.module.scss'
 //components & redux
-import {removearrObjMod, clearForm} from '../../../../../../redux/slices/formData'
-import {setModalAddPhoto, removeimageUrlArr} from '../../../../../../redux/slices/modal'
+import {removearrObjMod, clearForm, setTitle, setDescription, setQuantity, setPrice, setCategories} from '../../../../../../redux/slices/formData'
+import {setModalAddPhoto, removeimageUrlArr, setModalAddCAtegory} from '../../../../../../redux/slices/modal'
 import { InputTextItem } from './InputText'
 // import {ModalAddCategory} from '../AddProduct/ModalAddCategory'
 import {setAddPhotoState} from '../../../../../../redux/slices/admin'
@@ -17,6 +17,7 @@ import axios from "axios"
 import {API_URL} from '../../../../../../services/index'
 import { parseCookies } from "nookies"
 import Image from "next/image"
+import selectIcon from '../../../../../../assets/icons/cabinetAdmin/selectIcon.svg'
 
 interface AddProductProps {
     // setModalAddPhoto: (n: boolean)=> void,
@@ -103,15 +104,12 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         selectedImages: selectedImages,
         price: price,
         quantity: quantity,
-    //   allcoloursId: colours,
+        //allcoloursId: colours,
         allsizes: allsizes,
         netImage: netFile
+    }
 
-
-
-   }
-
-   console.log('objDataSend', objDataSend)
+    console.log('objDataSend', objDataSend)
 
     // const selectedImages = useSelector((state: RootState)=> state.formData.)
 
@@ -124,11 +122,10 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
         const token = cookies.accessToken;
         //console.log('вошли в форму')
         
-      
         const formData = new FormData();
         //images
         for (let i = 0; i < images.length; i++) {
-          formData.append("images", images[i]);
+            formData.append("images", images[i]);
         }
         //title
         formData.append("title", JSON.stringify(title));
@@ -187,7 +184,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
 
     }
 
-
     const SizeChartArr = [
         {id: 1, title: ' Описание размерной сетки UA', placeholder: 'Введите описание размерной сетки', leng: "ua"},
         {id: 2, title: ' Описание размерной сетки RU', placeholder: 'Введите описание размерной сетки', leng: "ru"},
@@ -233,17 +229,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
 
     const [inputsState, setInputsState] = React.useState<InputsStateValidType>(inputsStateInition)
 
-    // const sizeChartState =   SizeChartArr.reduce((accumulator, currentValue) => {
-    //     accumulator[currentValue.id] = '';
-    //     return accumulator;
-    // }, {} as InputsState)
-
-    // const [SizeChartState, setSizeChartState] = React.useState<InputsState>(sizeChartState)
-
-    // interface InputsStateValid {
-    //     [key: number]: boolean;
-    // }
-
     const initialValidChartState: InputsStateValidType = SizeChartArr.reduce((accumulator, currentValue) => {
         accumulator[currentValue.id] = true;
         return accumulator;
@@ -257,8 +242,100 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
     const inputsFistWrapper_4 = inputs?.slice(6, 8)
     const inputsFistWrapper_5 = inputs?.slice(8, 10)
     const inputsFistWrapper_6 = inputs?.slice(10, 11)
-    
-    //const inputsSecondWrapper = inputs?.slice(inputs.length - 1, inputs.length)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //для инпутов логике 
+
+    // const categories = useSelector((state: RootState)=> state.formData.categories)
+    const categoryArr = useSelector((state: RootState)=> state.goods.fetchedCategories)
+
+    const newCategoryArr = [...categoryArr, {
+		id: 0.1,
+		ua: 'UAstring',
+		en: 'ENstring',
+		rs: 'RSstring',
+		ru: 'RUtring',
+		type: 'category',
+		createdAt: 'string',
+		updatedAt: 'string'
+	},]
+
+    const activeCategories = categoryArr.find((el)=>{
+        return el.id === categories[0]
+    })
+
+    //state
+    const [categoriesDisplay, setCategoriesDisplay ] = React.useState<boolean>(false)
+
+
+    function handleBlurSet(event: any) {
+        if(event.target.name === 'titleRU' ){
+            const payload: any = {branch: 'ru', title: event.target.value}
+            dispatch(setTitle(payload)) 
+        }
+        if(event.target.name === 'titleUA' ){
+            const payload: any = {branch: 'ua', title: event.target.value}
+            dispatch(setTitle(payload)) 
+        }
+        if(event.target.name === 'titleSRB' ){
+            const payload: any = {branch: 'rs', title: event.target.value}
+            dispatch(setTitle(payload)) 
+        }
+        if(event.target.name === 'titleENG' ){
+            const payload: any = {branch: 'en', title: event.target.value}
+            dispatch(setTitle(payload)) 
+        }
+        //descriptionRU
+        if(event.target.name === 'descriptionRU'){
+            const payload: any = {branch: 'ru', description: event.target.value}
+            dispatch(setDescription(payload)) 
+        }
+        if(event.target.name === 'descriptionUA'){
+            const payload: any = {branch: 'ua', description: event.target.value}
+            dispatch(setDescription(payload)) 
+        }
+        if(event.target.name === 'descriptionSRB'){
+            const payload: any = {branch: 'rs', description: event.target.value}
+            dispatch(setDescription(payload)) 
+        }
+        if(event.target.name === 'descriptionENG'){
+            const payload: any = {branch: 'en', description: event.target.value}
+            dispatch(setDescription(payload)) 
+        }
+         //quantity
+        if(event.target.name === 'quantity'){
+            const payload: number = event.target.value
+            dispatch(setQuantity(Number(payload))) 
+        }
+        //price
+        if(event.target.name === 'price'){
+        const payload: number = event.target.value
+        dispatch(setPrice(Number(payload))) 
+        }
+
+        // console.log('titleDescription', titleDescription)
+        // console.log('titleStore' , titleStore)
+        // console.log('obj',event.target.name )
+        // console.log('Пользователь закончил ввод:', event.target.value);
+    }
+
+
+
 
 
     return (
@@ -268,106 +345,232 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
 
                 <div className={s.inputs_wrapper}>
                     <div className={s.wrapper_inner }>
-                        {inputsFistWrapper_1?.map((obj, ) => {
-                            return <InputTextItem  
-                            name={obj.name}
-                            disable={obj.disable} 
-                            key={obj.id} id={obj.id} 
-                            type={obj.type} 
-                            text={obj.text} 
-                            placeholder={obj.placeholder}
-                            setInputsState={setInputsState}
-                            inputsState={inputsState}
-                            ref={(el: HTMLInputElement) => (inputRefs.current[obj.id] = el)}
-                            // value={obj.value}
-                            />
+                        {inputsFistWrapper_1?.map((obj)=>{
+                            return (
+                                <div className={s.wrapper_inner_input}>
+                                <div className={s.title}>
+                                    {obj.text} 
+                                    {/* {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   } */}
+                                </div>
+                                
+                                {obj.disable == false && obj.type === 'text' &&
+                                <input id={`${obj.id}`} 
+                                name={obj.name}
+                                onChange={(e)=>{
+                                    setInputsState( (prevState: any)=>{
+                                        const objCopy = {...prevState}
+                                        objCopy[obj.id] = e.target.value.trim() !== '' ? true  : false
+                                        return objCopy
+                                    })
+                                }}
+                                onBlur={handleBlurSet}
+                                className={ inputsState[obj.id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
+                                style={{
+                                    border:  inputsState[obj.id] ? '' : 'solid 1.5px red'
+                                }} 
+                                type={obj.type}
+                                placeholder={obj.placeholder}  /> }
+                                </div>
+                            )
                         })}
                     </div>
 
                     <div className={s.wrapper_inner }>
-                        {inputsFistWrapper_2?.map((obj) => {
-                            return <InputTextItem  
-                            name={obj.name}
-                            disable={obj.disable} 
-                            key={obj.id} 
-                            id={obj.id} 
-                            type={obj.type} 
-                            text={obj.text} 
-                            placeholder={obj.placeholder}
-                            //states
-                            setModalAddColor={setModalAddColor}
-                            modalAddColor={modalAddColor} 
-                            setInputsState={setInputsState}
-                            inputsState={inputsState}
-                            ref={(el: HTMLInputElement) => (inputRefs.current[obj.id] = el)}
-
-                            />
+                        {inputsFistWrapper_2?.map((obj)=>{
+                            return (
+                                <div className={s.wrapper_inner_input}>
+                                <div className={s.title}>
+                                    {obj.text} 
+                                    {/* {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   } */}
+                                </div>
+                                
+                                {obj.disable == false && obj.type === 'text' &&
+                                <input id={`${obj.id}`} 
+                                name={obj.name}
+                                onChange={(e)=>{
+                                    setInputsState( (prevState: any)=>{
+                                        const objCopy = {...prevState}
+                                        objCopy[obj.id] = e.target.value.trim() !== '' ? true  : false
+                                        return objCopy
+                                    })
+                                }}
+                                onBlur={handleBlurSet}
+                                className={ inputsState[obj.id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
+                                style={{
+                                    border:  inputsState[obj.id] ? '' : 'solid 1.5px red'
+                                }} 
+                                type={obj.type}
+                                placeholder={obj.placeholder}  /> }
+                                </div>
+                            )
                         })}
                     </div>
                 </div>
 
                 <div className={s.inputs_wrapper}>
                     <div className={s.wrapper_inner }>
-                        {inputsFistWrapper_3?.map((obj) => {
-                            return <InputTextItem  
-                            name={obj.name}
-                            disable={obj.disable} 
-                            key={obj.id} id={obj.id} 
-                            type={obj.type} 
-                            text={obj.text} 
-                            placeholder={obj.placeholder}
-                            setModalAddColor={setModalAddColor}
-                            modalAddColor={modalAddColor} 
-                            setInputsState={setInputsState}
-                            inputsState={inputsState}
-                            ref={(el: HTMLInputElement) => (inputRefs.current[obj.id] = el)}
-                            />
+                    {inputsFistWrapper_3?.map((obj)=>{
+                            return (
+                                <div className={s.wrapper_inner_input}>
+                                <div className={s.title}>
+                                    {obj.text} 
+                                    {/* {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   } */}
+                                </div>
+                                
+                                {obj.disable == false && obj.type === 'text' &&
+                                <input id={`${obj.id}`} 
+                                name={obj.name}
+                                onChange={(e)=>{
+                                    setInputsState( (prevState: any)=>{
+                                        const objCopy = {...prevState}
+                                        objCopy[obj.id] = e.target.value.trim() !== '' ? true  : false
+                                        return objCopy
+                                    })
+                                }}
+                                onBlur={handleBlurSet}
+                                className={ inputsState[obj.id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
+                                style={{
+                                    border:  inputsState[obj.id] ? '' : 'solid 1.5px red'
+                                }} 
+                                type={obj.type}
+                                placeholder={obj.placeholder}  /> }
+                                </div>
+                            )
                         })}
                     </div>
 
                     <div className={s.wrapper_inner }>
-                        {inputsFistWrapper_4?.map((obj) => {
-                            return <InputTextItem
-                            setInputsState={setInputsState}
-                            name={obj.name}
-                             setModalAddColor={setModalAddColor}
-                             modalAddColor={modalAddColor} 
-                             disable={obj.disable} 
-                             key={obj.id} id={obj.id} 
-                             type={obj.type} 
-                             text={obj.text} 
-                             placeholder={obj.placeholder}
-                             modalAddCAtegory={modalAddCAtegory}
-                             inputsState={inputsState}
-                             ref={(el: HTMLInputElement) => (inputRefs.current[obj.id] = el)}
-                             />
+                        {inputsFistWrapper_4?.map((obj)=>{
+                            return (
+                                <div className={s.wrapper_inner_input}>
+                                <div className={s.title}>
+                                    {obj.text} 
+                                    {/* {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   } */}
+                                </div>
+                                
+                                {obj.disable == false && obj.type === 'text' &&
+                                <input id={`${obj.id}`} 
+                                name={obj.name}
+                                onChange={(e)=>{
+                                    setInputsState( (prevState: any)=>{
+                                        const objCopy = {...prevState}
+                                        objCopy[obj.id] = e.target.value.trim() !== '' ? true  : false
+                                        return objCopy
+                                    })
+                                }}
+                                onBlur={handleBlurSet}
+                                className={ inputsState[obj.id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
+                                style={{
+                                    border:  inputsState[obj.id] ? '' : 'solid 1.5px red'
+                                }} 
+                                type={obj.type}
+                                placeholder={obj.placeholder}  /> }
+                                </div>
+                            )
                         })}
                     </div>
-
                 </div>
 
                 <div className={s.inputs_wrapper}>
-
                     <div className={s.wrapper_inner }>
-                        {inputsFistWrapper_5?.map((obj) => {
-                            return <InputTextItem   
-                            name={obj.name}
-                            disable={obj.disable} 
-                            key={obj.id} 
-                            id={obj.id}
-                            type={obj.type} 
-                            text={obj.text} 
-                            placeholder={obj.placeholder}
-                            setModalAddColor={setModalAddColor}
-                            modalAddColor={modalAddColor}
-                            modalAddCAtegory={modalAddCAtegory}
-                            setInputsState={setInputsState}
-                            inputsState={inputsState}
-                            ref={(el: HTMLInputElement) => (inputRefs.current[obj.id] = el)}
-                              />
+                    {inputsFistWrapper_5?.map((obj) => {
                             
-                            
-                        })}
+
+                        return (
+                            <div className={s.wrapper_inner_input} key={obj.id}>
+                                <div className={s.title}>
+                                    {obj.text} 
+                                    {/* {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   } */}
+                                </div>
+                                
+                                {obj.type === 'select' ?  
+                                    <label className={s.select__wrapper} htmlFor={`${obj.id}`}>
+                                        <input 
+                                            onClick={(e) => { 
+                                                console.log('[[[[[');
+                                                setCategoriesDisplay(!categoriesDisplay);
+                                            }}  
+                                            id={`${obj.id}`} 
+                                            readOnly 
+                                            className={inputsState[obj.id] ? s.input : s.input_off_valid} 
+                                            type={obj.type}
+                                            placeholder={activeCategories ? activeCategories.ru : obj.placeholder} 
+                                        />
+                                        <Image className={s.select_img} src={selectIcon} alt="My Image" />
+                                        
+                                        <div className={categoriesDisplay ? s.categorychose_wrapper : s.categorychose_wrapper_off}>
+                                            {newCategoryArr?.map((el, ind) => {
+                                                if (el.id !== 0.1) {
+                                                    return (
+                                                        <div 
+                                                            onClick={(e) => { 
+                                                                e.preventDefault();
+                                                                e.stopPropagation(); 
+                                                                setInputsState((prevState: any) => {
+                                                                    const objCopy = { ...prevState };
+                                                                    objCopy[obj.id] = el.ua !== '' ? true : false;
+                                                                    return objCopy;
+                                                                })  
+                                                                setCategoriesDisplay(!categoriesDisplay);
+                                                                dispatch(setCategories(el.id));
+                                                            }}  
+                                                            key={ind} 
+                                                            className={s.categorychose_item}
+                                                        >
+                                                            <span>{el.ua}</span>
+                                                        </div>
+                                                    );
+                                                } else {
+                                                    return (
+                                                        <div
+                                                            onClick={(e) => { 
+                                                                e.preventDefault();
+                                                                e.stopPropagation();
+                                                                dispatch(setModalAddCAtegory(true));
+                                                                setCategoriesDisplay(!categoriesDisplay);
+                                                            }} 
+                                                            key={ind} 
+                                                            className={s.categorychose_add}
+                                                        >
+                                                            <span className={s.categorychose_img}>
+                                                                <svg className={s.plus} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path d="M3.75 12H20.25" stroke="#9D9D9D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                                                    <path d="M12 3.75V20.25" stroke="#9D9D9D" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                                                                </svg>
+                                                            </span>
+                                                            <span className={s.categorychose_item_add}>
+                                                                Добавить категорию
+                                                            </span>
+                                                        </div>
+                                                    );
+                                                }
+                                            })}
+                                        </div>
+                                    </label>  
+                                    : 
+                                    <input id={`${obj.id}`}
+                                        onChange={(e)=>{
+                                            setInputsState( (prevState: any)=>{
+                                                const objCopy = {...prevState}
+                                                objCopy[obj.id] = e.target.value.trim() !== '' ? true  : false
+                                                return objCopy
+                                            })
+                                        }}
+                                        style={{
+                                            WebkitAppearance: 'none',
+                                            MozAppearance: 'textfield',
+                                            border:  inputsState[obj.id] ? '' : 'solid 1.5px red'
+                                        }} 
+                                        name={obj.name} 
+                                        onBlur={handleBlurSet} 
+                                        className={ inputsState[obj.id] ?  s.input : `${s.input} ${s.input_off_valid}`  } 
+                                        type={obj.type} 
+                                        placeholder={ obj.placeholder } />
+                                }
+                            </div>
+                        );
+                    })}
+
                     </div>
 
                     <div className={s.wrapper_inner }>
@@ -391,9 +594,6 @@ export const AddProduct = ({ modalAddPhoto, setModalAddColor, modalAddColor, set
                             
                         })}
                     </div>
-
-         
-
 
                 </div>
 
