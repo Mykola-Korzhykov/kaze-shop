@@ -51,6 +51,9 @@ import {findUsersRole, getUsersRole, getUsersAdmin , findUsersAdmin} from '../..
 import axios from "axios";
 import LogoutModal from "@/components/modals/LogoutModal/LogoutModal";
 import ChangeUserPassword from '../../../ChangeUserPassword/ChangeUserPassword'
+import {UsersAdmin} from '../../../../components/screens/Cabinet/CabinetOwner/Display/UsersAdmin'
+import {UsersRole} from '../../../../components/screens/Cabinet/CabinetOwner/Display/UsersRole'
+
 
 
 // export const heidthcal = 9;
@@ -124,22 +127,22 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
 	)
 	const modalEditProductTurn = useSelector(
 		(state: RootState) => state.modaleSlice.modalAddEditProduct)
+    const [displayActive, setDisplayActive] = React.useState<number>(1)
 
     // const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
     // console.log('ChangeUserPassword', ChangeUserPassword)
-    const usersRoleUI = useSelector((state: RootState) => state.admin.usersRole)
+    // const usersRoleUI = useSelector((state: RootState) => state.admin.usersRole)
     // console.log('usersRoleUI', usersRoleUI)
     // console.log('getUsersRole', getUsersRole)
     // console.log('CabinetOwner useWhyDidYouUpdate', useWhyDidYouUpdate('CabinetOwner', props))
-    const usersAdminUI = useSelector((state: RootState) => state.admin.usersAdmin)
-    const editProductItemId = useSelector((state: RootState)=>state.admin.editProductItemId )
+    // const usersAdminUI = useSelector((state: RootState) => state.admin.usersAdmin)
+    // const editProductItemId = useSelector((state: RootState)=>state.admin.editProductItemId )
    // console.log('editProductItemId', editProductItemId)
-    const [paginationLendthRole, setPaginationLendthRole] = React.useState<any[]>([])
-    const [paginationLendthAdmin, setPaginationLendthAdmin] = React.useState<any[]>([])
-    const colors = useSelector((state: RootState) => state.admin.colors)
-    const [displayActive, setDisplayActive] = React.useState<number>(1)
-    const [activePaginatoinRole, setActivePaginatoinRole] = React.useState<number>(1)
-    const [activePaginatoinAdmin, setActivePaginatoinAdmin] = React.useState<number>(1)
+    // const [paginationLendthRole, setPaginationLendthRole] = React.useState<any[]>([])
+    // const [paginationLendthAdmin, setPaginationLendthAdmin] = React.useState<any[]>([])
+    // const colors = useSelector((state: RootState) => state.admin.colors)
+    // const [activePaginatoinRole, setActivePaginatoinRole] = React.useState<number>(1)
+    // const [activePaginatoinAdmin, setActivePaginatoinAdmin] = React.useState<number>(1)
     // console.log('displayActive', displayActive)
 
     React.useEffect(()=>{
@@ -189,68 +192,68 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
     //     }
     // }, [ activePaginatoinAdmin, displayActive])
     // вираховування пагінації
-    React.useEffect(()=>{
-        //скок сраниц нужно чтобы было
-        let countoRolePagination = Math.ceil(usersRoleUI.length / 10)
-        //инициализаия массива страниц
-        let arrRolePagination : number[] = []
-        for(let i = 1;  i <  countoRolePagination + 1; i++){
-            arrRolePagination.push(i)
-        }
-        //сетинг инициализации страниц
-        setPaginationLendthRole(arrRolePagination)
+    // React.useEffect(()=>{
+    //     //скок сраниц нужно чтобы было
+    //     let countoRolePagination = Math.ceil(usersRoleUI.length / 10)
+    //     //инициализаия массива страниц
+    //     let arrRolePagination : number[] = []
+    //     for(let i = 1;  i <  countoRolePagination + 1; i++){
+    //         arrRolePagination.push(i)
+    //     }
+    //     //сетинг инициализации страниц
+    //     setPaginationLendthRole(arrRolePagination)
 
-        let countAdminPagination = Math.ceil(usersAdminUI.length / 10)
-        let arrAdminPagination: number[] = [];
-        for(let i = 1;  i <  countAdminPagination + 1; i++){
-            arrAdminPagination.push(i)
-        }
+    //     let countAdminPagination = Math.ceil(usersAdminUI.length / 10)
+    //     let arrAdminPagination: number[] = [];
+    //     for(let i = 1;  i <  countAdminPagination + 1; i++){
+    //         arrAdminPagination.push(i)
+    //     }
 
-        setPaginationLendthAdmin(arrAdminPagination)
+    //     setPaginationLendthAdmin(arrAdminPagination)
 
-    }, [usersRoleUI, usersAdminUI])
+    // }, [usersRoleUI, usersAdminUI])
 
     // console.log('users', users)
 
-    const [idUserOpen, setUserOpen] = React.useState<number>(0)
+    // const [idUserOpen, setUserOpen] = React.useState<number>(0)
 
-    const debouncedSearchAdmin = debounce((term) => {
-        dispatch(findUsersAdmin(term))
-    }, 500);
+    // const debouncedSearchAdmin = debounce((term) => {
+    //     dispatch(findUsersAdmin(term))
+    // }, 500);
 
-    const debouncedSearchRole = debounce((term) => {
-        dispatch(findUsersRole(term))
-    }, 500);
+    // const debouncedSearchRole = debounce((term) => {
+    //     dispatch(findUsersRole(term))
+    // }, 500);
 
-    const usersRole = usersRoleUI.map((el, ind) => <UserRole
-    name={el.name}
-    editContent={el.editContent} 
-    surname={el.surname}
-    phoneNumber={el.phoneNumber}
-    email={el.email}
-    isAdmin={el.isAdmin}
-    editWebsite={el.editWebsite}
-    addContent={el.addContent}
-    key={ind} 
-    setUserOpenOK={setUserOpen} 
-    idUserOpen={idUserOpen} 
-    id={el.id}
-    />)
+    // const usersRole = usersRoleUI.map((el, ind) => <UserRole
+    // name={el.name}
+    // editContent={el.editContent} 
+    // surname={el.surname}
+    // phoneNumber={el.phoneNumber}
+    // email={el.email}
+    // isAdmin={el.isAdmin}
+    // editWebsite={el.editWebsite}
+    // addContent={el.addContent}
+    // key={ind} 
+    // setUserOpenOK={setUserOpen} 
+    // idUserOpen={idUserOpen} 
+    // id={el.id}
+    // />)
 
-    const usersAdmin = usersAdminUI.map((el, ind) => <UserAdmin
-    name={el.name}
-    editContent={el.editContent}
-    surname={el.surname}
-    phoneNumber={el.phoneNumber}
-    email={el.email}
-    isAdmin={el.isAdmin}
-    editWebsite={el.editWebsite}
-    addContent={el.addContent}
-    key={ind} 
-    id={el.id}
-    setUserOpenOK={setUserOpen} 
-    idUserOpen={idUserOpen} 
-    />)
+    // const usersAdmin = usersAdminUI.map((el, ind) => <UserAdmin
+    // name={el.name}
+    // editContent={el.editContent}
+    // surname={el.surname}
+    // phoneNumber={el.phoneNumber}
+    // email={el.email}
+    // isAdmin={el.isAdmin}
+    // editWebsite={el.editWebsite}
+    // addContent={el.addContent}
+    // key={ind} 
+    // id={el.id}
+    // setUserOpenOK={setUserOpen} 
+    // idUserOpen={idUserOpen} 
+    // />)
 
     // console.log('choiceColor' , choiceColor)
 
@@ -286,7 +289,7 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
 
             <div className={s.display}>
 
-                <label htmlFor="findUser" className={displayActive === 1  ? s.input_wrapper_on : s.input_wrapper_off}>
+                {/* <label htmlFor="findUser" className={displayActive === 1  ? s.input_wrapper_on : s.input_wrapper_off}>
                     Пользователь
                     <div className={s.input_wrapper}>
                         <input onChange={(e)=>{
@@ -300,9 +303,9 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
                         <Image src={findUser} alt='findUser' />
                     </div>
 
-                </label>
+                </label> */}
                         {/* при дісплеї 2 ( роль поиск) */}
-                <label htmlFor="findUser" className={ displayActive === 2 ? s.input_wrapper_on : s.input_wrapper_off}>
+                {/* <label htmlFor="findUser" className={ displayActive === 2 ? s.input_wrapper_on : s.input_wrapper_off}>
                     Пользователь
                     <div className={s.input_wrapper}>
                         <input onChange={(e)=>{
@@ -316,10 +319,11 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
                         }} className={s.input} id='findUser' type="findUser" />
                         <Image src={findUser} alt='findUser' />
                     </div>
-                </label>
+                </label> */}
                 {/* <div style={{ backround-color: `${props.color}`}}></div> */}
-                {displayActive === 1 ? usersRole : ''} 
-                {displayActive === 2 ? usersAdmin : ''} 
+
+                {displayActive === 1 ? <UsersRole /> : ''} 
+                {displayActive === 2 ? <UsersAdmin /> : ''} 
                 {displayActive === 3 ? <AddProduct 
                 modalAddCAtegory={modalAddCAtegory}
                 imagesData={imagesData} setImages={setImages}  
@@ -331,8 +335,8 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
                 {displayActive === 5 ? <div> <ChangePasswordSetting />  </div>: ''} 
                 {displayActive === 6 ? <LogoutModal closeModal={setDisplayActive}  /> : ''} 
                 {/* <ChangePasswordSetting /> */}
-                
-                {displayActive === 1 ?
+
+                {/* {displayActive === 1 ?
                 <div className={s.pagination_wrapper}>
                     {paginationLendthRole.map((el)=>{
                         return <span key={el} onClick={()=>{
@@ -341,8 +345,8 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
                         }} className={ activePaginatoinRole === el ?  s.item_active : s.item}>{el}</span>
                     })}
                 </div> : ''
-                }
-                {displayActive === 2 ?
+                } */}
+                {/* {displayActive === 2 ?
                 <div className={s.pagination_wrapper}>
                     {paginationLendthAdmin.map((el)=>{
                         return <span key={el} onClick={()=>{
@@ -351,7 +355,7 @@ export const CabinetOwner = ({modalAddCAtegory, imagesData, setCountPhoto, modal
                         }} className={ activePaginatoinAdmin === el ?  s.item_active : s.item}>{el}</span>
                     })}
                 </div> : ''
-                }
+                } */}
                 
             </div >
            {/* {countPhoto > 0 && modalAddPhoto &&  choiceColor === false? <div style={{height: `${ 1450 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''} */}

@@ -11,26 +11,24 @@ import {ProductSend} from '../../types/auth'
 import {fetchedColour, Goods, GoodsSend, GoodsEditTest} from '../../types/goods'
 import photo from '../../assets/images/main/About/girl.png';
 import photoTest from '../../assets/images/product/slider/photo.png'
-
 // хардкор
 import imgProduct from '../../assets/images/admin/img.svg'
-
 import { RootState } from '../store';
 import Cookies from 'js-cookie';
 
 export const findUsersRole = createAsyncThunk(
-  'users/fetchUsersRole',
-  async (params: string[], thunkAPI) => {
-    const instance = axios.create({
-      baseURL: API_URL,
-      withCredentials: true,
-      headers: {
-        Authorization: 'Bearer ' + (Cookies.get('accessToken') || ''),
-      },
-    });
-    const response = await instance.get(`/user/find_users?page=1&pageSize=10&v=${params}`);
-    return response.data.data;
-  }
+	'users/fetchUsersRole',
+	async (params: string[], thunkAPI) => {
+		const instance = axios.create({
+			baseURL: API_URL,
+			withCredentials: true,
+			headers: {
+			Authorization: 'Bearer ' + (Cookies.get('accessToken') || ''),
+		},
+		});
+		const response = await instance.get(`/user/find_users?page=1&pageSize=10&v=${params}`);
+		return response.data.data;
+	}
 );
 
 
@@ -67,7 +65,6 @@ export const findUsersAdmin = createAsyncThunk(
   }
 );
 
-
 export const getUsersAdmin = createAsyncThunk(
 	'users/getAdmins',
 	async (params: number, thunkAPI) => {
@@ -100,7 +97,10 @@ export interface User {
 export interface initialStateType {
 	userEdit: GoodsEditTest
 	usersRole: User[]
-	usersAdmin: User[]
+	usersAdmin: User[],
+	usersRoleStatus: 'loading' | 'success' | 'error403' ,
+	usersAdminStatus: 'loading' | 'success' | 'error403' ,
+
 	inputs: {
 		id: number
 		text: string
@@ -185,9 +185,9 @@ const initialState: initialStateType = {
 			sizes: ["S", "M", "L"]
 		},
 		],
-		  sizeChartImage: 'kfkf',
-		  sizeChartImageDescription: '21231231',
-		  hexes: ['blue', 'red'],
+			sizeChartImage: 'kfkf',
+			sizeChartImageDescription: '21231231',
+			hexes: ['blue', 'red'],
 		sizes: ['X', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS'],
 		colours: [
 			{
@@ -278,7 +278,6 @@ const initialState: initialStateType = {
 				createdAt: 'test',
 				updatedAt:'test',
 			},
-			
 		],
 		categories: [
 			{
@@ -294,18 +293,20 @@ const initialState: initialStateType = {
 		],
 	},
 
+
+	usersRoleStatus: 'success',
 	usersAdmin: [
-         {
-             id: 1,
-             name: 'Pavlo',
-             surname: 'Kolumyp',
-             email:' pashawork@gmail.com',
-             phoneNumber: '+380688874920',
-             isAdmin: true,
-             addContent: false,
-             editContent: true,
-             editWebsite: false,
-         },
+        {
+            id: 1,
+            name: 'Pavlo',
+            surname: 'Kolumyp',
+            email:' pashawork@gmail.com',
+            phoneNumber: '+380688874920',
+            isAdmin: true,
+            addContent: false,
+            editContent: true,
+            editWebsite: false,
+        },
         {
             id: 2,
             name: 'Pavlo',
@@ -351,62 +352,65 @@ const initialState: initialStateType = {
             editWebsite: false,
         },
     ],
+
+	usersAdminStatus: 'success',
+
 	usersRole: [
-         {
-             id: 1,
-             name: 'Pavlo',
-             surname: 'Kolumyp',
-             email:' pashawork@gmail.com',
-             phoneNumber: '+380688874920',
-             isAdmin: true,
-             addContent: false,
-             editContent: false,
-             editWebsite: false,
-         },
-        {
-            id: 2,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: true,
-            addContent: false,
-            editContent: true,
-            editWebsite: false,
-        },
-        {
-            id: 3,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: true,
-            addContent: false,
-            editContent: true,
-            editWebsite: false,
-        },
-        {
-            id: 4,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: false,
-            addContent: false,
-            editContent: true,
-            editWebsite: false,
-        },
-        {
-            id: 5,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: false,
-            addContent: false,
-            editContent: true,
-            editWebsite: false,
-        },
+        // {
+        // 	id: 1,
+        //     name: 'Pavlo',
+        //     surname: 'Kolumyp',
+        //     email:' pashawork@gmail.com',
+        //     phoneNumber: '+380688874920',
+        //     isAdmin: true,
+        //     addContent: false,
+        //     editContent: false,
+        //     editWebsite: false,
+        // },
+        // {
+        //     id: 2,
+        //     name: 'Pavlo',
+        //     surname: 'Kolumyp',
+        //     email:' pashawork@gmail.com',
+        //     phoneNumber: '+380688874920',
+        //     isAdmin: true,
+        //     addContent: false,
+        //     editContent: true,
+        //     editWebsite: false,
+        // },
+        // {
+        //     id: 3,
+        //     name: 'Pavlo',
+        //     surname: 'Kolumyp',
+        //     email:' pashawork@gmail.com',
+        //     phoneNumber: '+380688874920',
+        //     isAdmin: true,
+        //     addContent: false,
+        //     editContent: true,
+        //     editWebsite: false,
+        // },
+        // {
+        //     id: 4,
+        //     name: 'Pavlo',
+        //     surname: 'Kolumyp',
+        //     email:' pashawork@gmail.com',
+        //     phoneNumber: '+380688874920',
+        //     isAdmin: false,
+        //     addContent: false,
+        //     editContent: true,
+        //     editWebsite: false,
+        // },
+        // {
+        //     id: 5,
+        //     name: 'Pavlo',
+        //     surname: 'Kolumyp',
+        //     email:' pashawork@gmail.com',
+        //     phoneNumber: '+380688874920',
+        //     isAdmin: false,
+        //     addContent: false,
+        //     editContent: true,
+        //     editWebsite: false,
+        // },
     ],
 	inputs: [],
 	sizesend: [{ id: 0, size: 'XS' }],
@@ -699,8 +703,8 @@ const initialState: initialStateType = {
         sizes: ["S", "M", "L"]
     },
     ],
-      sizeChartImage: 'kfkf'
-      ,
+    sizeChartImage: 'kfkf'
+    ,
 	sizes: ['X', 'XS'],
 	colours: [
 		{
@@ -825,74 +829,71 @@ export const admin: Slice<initialStateType> = createSlice({
         setChangeCheckbox: (state, action: PayloadAction<{id: number, branch: keyof User, bool: boolean}>) => {
             //@ts-ignore
             state.usersRole[action.payload.id - 1][action.payload.branch] = action.payload.bool;
-          },
+        },
 		  //пушишь все обьекты , при добавлении товару пушишь number (для добавление еще одного айтома) , потом при добалении товара реплейсишь его под нужный индекс
 		addCountPhotos:(state) => {
 			console.log('вход в стейт')
 			state.userEdit.images.push(null)
-
         },
-
-
 	},
 
 
     extraReducers: (builder) => {
         builder
         //пошук ролів
-          .addCase(findUsersRole.fulfilled, (state, action) => {
+        .addCase(findUsersRole.fulfilled, (state, action) => {
             state.usersRole = action.payload;
-          })
-          .addCase(findUsersRole.pending, (state) => {
+        })
+        .addCase(findUsersRole.pending, (state) => {
             state.loading = true;
-          })
-          .addCase(findUsersRole.rejected, (state, action) => {
+        })
+        .addCase(findUsersRole.rejected, (state, action) => {
             state.usersRole = []
             console.log('ошибка поиск юзеров')
             state.error = action.error.message;
             state.loading = false;
-          })
+        })
 
           //полученя юзерів 
-          .addCase(getUsersRole.fulfilled, (state, action) => {
+        .addCase(getUsersRole.fulfilled, (state, action) => {
             state.usersRole = action.payload;
-          })
-          .addCase(getUsersRole.pending, (state) => {
+        })
+        .addCase(getUsersRole.pending, (state) => {
             state.loading = true;
-          })
-          .addCase(getUsersRole.rejected, (state, action) => {
+        })
+        .addCase(getUsersRole.rejected, (state, action) => {
             state.usersRole = []
             console.log('ошибка получения юзеров')
             state.error = action.error.message;
             state.loading = false;
-          })
+        })
           //получення адмінів
-          .addCase(getUsersAdmin.fulfilled, (state, action) => {
+        .addCase(getUsersAdmin.fulfilled, (state, action) => {
             state.usersAdmin = action.payload;
-          })
-          .addCase(getUsersAdmin.pending, (state) => {
+        })
+        .addCase(getUsersAdmin.pending, (state) => {
             state.loading = true;
-          })
-          .addCase(getUsersAdmin.rejected, (state, action) => {
+        })
+        .addCase(getUsersAdmin.rejected, (state, action) => {
             state.usersAdmin = []
             console.log('ошибка получения админов')
             state.error = action.error.message;
             state.loading = false;
-          })
+        })
           // пошук адмінів через дебаунс 
-          .addCase(findUsersAdmin.fulfilled, (state, action) => {
+        .addCase(findUsersAdmin.fulfilled, (state, action) => {
             state.usersAdmin = action.payload;
-          })
-          .addCase(findUsersAdmin.pending, (state) => {
+        })
+        .addCase(findUsersAdmin.pending, (state) => {
             state.loading = true;
-          })
-          .addCase(findUsersAdmin.rejected, (state, action) => {
+        })
+        .addCase(findUsersAdmin.rejected, (state, action) => {
             state.usersAdmin = []
             console.log('ошибка поиск админов')
             state.error = action.error.message;
             state.loading = false;
-          })
-      },
+        })
+    },
 
 
     

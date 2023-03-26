@@ -1,0 +1,150 @@
+
+
+
+//main styles
+.wrapper {
+    border-top: 1.5px solid #9D9D9D;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 1200px) {
+        width: 100%;
+    }
+
+    @media (max-width: 1100px) {
+        width: 100%;
+    }
+}
+
+.input_wrapper_on{
+
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 18px;
+    align-items: center;
+
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    max-width: 804px;
+
+    color: #000000;
+
+    .text{
+        @media (max-width: 550px) {
+            display: none;
+        }
+    }
+
+    .input_wrapper{
+        display: flex;
+        justify-content: flex-end;
+        @media (max-width: 550px) {
+            width: 100%;
+        }
+
+    .input {
+        padding-left: 10px;
+        background: none;
+        width: 100%;
+        border: none;
+        // border-radius: 8px;
+        // margin-right: 5px;
+        border: #000000 solid 1px;
+        border-right: none;
+    }
+
+    .input::placeholder {
+        font-family: 'Georama', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 20px;
+        line-height: 24px;
+        color: #000000;
+    }
+
+    .input:focus {
+        outline: none;
+        // border: none;
+        // box-shadow: 0 0 5px #999;
+    }
+    }
+}
+
+.pagination_wrapper{
+    display: flex;
+    gap: 10px;
+    height: 20px;
+    justify-content: center;
+    max-width: 803px;
+
+    .item{
+        cursor: pointer;
+        color: #9D9D9D;
+    }
+
+    .item_active{
+        cursor: pointer;
+        color: #0B0B0B;
+    }
+}
+
+//narrow styles
+.title_wrapper{
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+
+    @media(max-width:400px) {
+        margin-top: 20px;
+    }
+}
+
+.title{
+    font-family: 'Russo One';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 48px;
+
+    @media(max-width:400px) {
+        font-size: 35px;
+        line-height: 40px;
+    }
+
+    @media(max-width:300px) {
+        font-size: 30px;
+        line-height: 37px;
+    }
+}
+
+.description{
+    font-family: 'Georama', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 29px;
+
+    /* black */
+
+    color: #0B0B0B;
+
+    opacity: 0.3;
+
+    @media(max-width:400px) {
+        margin-top: 8px;
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    @media(max-width:400px) {
+        margin-top: 8px;
+        font-size: 18px;
+        line-height: 22px;
+    }
+}

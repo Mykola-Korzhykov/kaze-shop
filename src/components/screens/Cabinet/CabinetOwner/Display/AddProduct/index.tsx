@@ -367,8 +367,7 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                                     })
                                     handleBlurSet(e)
                                 }}
-                                // onBlur={handleBlurSet}
-                                // || checkForm && formData[obj.key][obj.lang]
+                                onBlur={handleBlurSet}
                                 // @ts-ignore
                                 // className={ (checkForm && formData[obj.key][obj.lang] !== null &&  checkForm && formData[obj.key][obj.lang] !== '') && inputsState[obj.id]    ?  s.input : ${s.input} ${s.input_off_valid}  } 
                                 className={ (!checkForm || (checkForm && formData[obj.key][obj.lang] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]
@@ -410,7 +409,7 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                                     })
                                     handleBlurSet(e)
                                 }}
-                                // onBlur={handleBlurSet}
+                                onBlur={handleBlurSet}
                                  // @ts-ignore
                                 className={ (!checkForm || (checkForm && formData[obj.key][obj.lang] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]
                                             ? s.input
@@ -452,7 +451,7 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                                     })
                                     handleBlurSet(e)
                                 }}
-                                // onBlur={handleBlurSet} 
+                                onBlur={handleBlurSet} 
                                  // @ts-ignore
                                 className={ (!checkForm || (checkForm && formData[obj.key][obj.lang] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]
                                 ? s.input
@@ -491,7 +490,7 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                                     })
                                     handleBlurSet(e)
                                 }}
-                                // onBlur={handleBlurSet}
+                                onBlur={handleBlurSet}
                                  // @ts-ignore
                                 className={ (!checkForm || (checkForm && formData[obj.key][obj.lang] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]
                                 ? s.input
@@ -606,7 +605,7 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                                             border:  (!checkForm || (checkForm && formData[obj.key] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id] ?  '' : 'solid 1.5px red'
                                         }} 
                                         name={obj.name} 
-                                        // onBlur={handleBlurSet} 
+                                        onBlur={handleBlurSet} 
                                         // @ts-ignore
                                         className={(!checkForm || (checkForm && formData[obj.key] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]  ?  s.input : `${s.input} ${s.input_off_valid}`  } 
                                         type={obj.type} 
