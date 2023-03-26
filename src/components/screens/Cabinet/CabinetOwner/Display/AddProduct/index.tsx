@@ -350,7 +350,7 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                 <div className={s.wrapper_inner }>
                         {inputsFistWrapper_1?.map((obj)=>{
                             return (
-                                <div className={s.wrapper_inner_input}>
+                                <div key={obj.id} className={s.wrapper_inner_input}>
                                 <div className={s.title}>
                                     {obj.text} 
                                     {/* {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   } */}
