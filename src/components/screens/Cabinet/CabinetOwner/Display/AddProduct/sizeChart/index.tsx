@@ -12,13 +12,21 @@ interface SizeChartProps {
     leng: string,
     valid?: boolean,
     setValid?: (s: any) => void
+    checkForm: boolean
 }
 
-export const SizeChart = ({title, placeholder, id, leng, valid, setValid }: SizeChartProps)=> {
+interface SizeChartImageDescription {
+    ua: string;
+    ru: string;
+    rs: string;
+    en: string;
+  }
+
+export const SizeChart = ({title, placeholder, id, leng, valid, setValid, checkForm }: SizeChartProps)=> {
 
     const dispatch = useAppDispatch()
-    const p =  useSelector((state: RootState)=> state.formData.sizeChartImageDescription)
-    
+    const formData =  useSelector((state: RootState)=> state.formData)
+
     console.log('valid', valid)
 
     return (
@@ -34,7 +42,10 @@ export const SizeChart = ({title, placeholder, id, leng, valid, setValid }: Size
                    
                  </div>
                
-                <div  style={{border: valid? ''  : '#e73232 1.5px solid'  }} className={s.placeholder}>
+                <div  style={{
+                    border:  valid && (!checkForm || (checkForm && formData.sizeChartImageDescription[leng as keyof SizeChartImageDescription] !== '' )) ? ''  : '#e73232 1.5px solid'  
+                    
+                    }} className={s.placeholder}>
                     <input 
                     // style={{border: valid ? '' : '1px solid red'}}
                     onChange={(e)=>{
@@ -49,10 +60,11 @@ export const SizeChart = ({title, placeholder, id, leng, valid, setValid }: Size
                             e.target.value = e.target.value
                         }} 
                             
-                            
-                        placeholder={ valid ?  placeholder :  'Это поле не может быть пустым' }  
+                     
+                        placeholder={ placeholder }  
                         id={`sizechart${id}`} 
-                        className={ valid ?  `${s.input} ${s.input_valid}`  : `${s.input} ${s.input_off_valid}`    } 
+                        //@ts-ignore
+                        className={ valid && (!checkForm || (checkForm && formData.sizeChartImageDescription[leng] !== '' )) ?  `${s.input} ${s.input_valid}`  : `${s.input} ${s.input_off_valid}`    } 
                         type="text"
                         
                         />

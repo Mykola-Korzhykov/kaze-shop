@@ -347,13 +347,13 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
             <div className={s.inputs_text}>
 
                 <div className={s.inputs_wrapper}>
-                    <div className={s.wrapper_inner }>
-                        {inputsFistWrapper_1?.map((obj, ind)=>{
+                <div className={s.wrapper_inner }>
+                        {inputsFistWrapper_1?.map((obj)=>{
                             return (
-                            <div key={ind}>
                                 <div className={s.wrapper_inner_input}>
                                 <div className={s.title}>
                                     {obj.text} 
+                                    {/* {inputsState[id] ? <></> : <span  className={s.valid}> *Это поле не может быть пустым </span>   } */}
                                 </div>
                                 
                                 {obj.disable == false && obj.type === 'text' &&
@@ -370,7 +370,7 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                                 // onBlur={handleBlurSet}
                                 // || checkForm && formData[obj.key][obj.lang]
                                 // @ts-ignore
-                                // className={ (checkForm && formData[obj.key][obj.lang] !== null &&  checkForm && formData[obj.key][obj.lang] !== '') && inputsState[obj.id]    ?  s.input : `${s.input} ${s.input_off_valid}`  } 
+                                // className={ (checkForm && formData[obj.key][obj.lang] !== null &&  checkForm && formData[obj.key][obj.lang] !== '') && inputsState[obj.id]    ?  s.input : ${s.input} ${s.input_off_valid}  } 
                                 className={ (!checkForm || (checkForm && formData[obj.key][obj.lang] !== null && formData[obj.key][obj.lang] !== '')) && inputsState[obj.id]
                                             ? s.input
                                             : `${s.input} ${s.input_off_valid}`
@@ -384,7 +384,6 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                                 type={obj.type}
                                 placeholder={obj.placeholder}  /> }
                                 </div>
-                            </div>
                             )
                         })}
                     </div>
@@ -700,8 +699,8 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                                     border: '#9D9D9D solid 1.5px'
                                 }} className={s.text}>Удалить сет</span> : 
                                 
-                                <span className={s.text}>Загрузить фото</span>}
-                                
+                                <span className={ (!checkForm || (checkForm && formData.arrObjMod.length > 0) ) ?  `${s.text}` : `${s.text} ${s.text_invalible}`  }>Загрузить фото</span>}
+                                {/* arrObjMods */}
                                 {imageUrlArr[ind]?.map((el, ind)=>{
                                     return  <Image key={ind}
                                     className={ el ? s.photo_item : s.photo_item_off }
@@ -745,7 +744,6 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                         </div>
                     })}
                     </div>
-                  
                 </div>
 
 
@@ -764,6 +762,9 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                         title={obj.title} 
                         valid={validChartState[obj.id] }
                         setValid={setValidChartState}
+                        checkForm={checkForm}
+
+
                         />
                     })}
                     
@@ -776,11 +777,20 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                     </span> */}
 
 
-                    <span  className={s.item_wrapper_2}>
+                    <span  
+                        className={s.item_wrapper_2}
+                        
+                    >
                         Загрузите размерную сетку
-                        <label style={{ cursor: 'pointer'}} htmlFor="uploadnet" className={s.label}>
+                        <label 
+                            style={{ cursor: 'pointer', 
+                            }} 
+                            htmlFor="uploadnet" 
+                            className={  (!checkForm || (checkForm && netFileShow !== null)) ? `${s.label}`: `${s.label} ${s.label_invalabel}`  }>
                             Загрузить размерную сетку
                         </label>
+                        {/* label_invalabel */}
+                        {/* color: (!checkForm || (checkForm && netFileShow !== null)) ? '' : 'red' */}
                         <input key={2}  onChange={(e)=>{
                             setNetFile(e.target.files[0])
                             setNetFileShow(URL.createObjectURL(e.target.files[0]))

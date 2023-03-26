@@ -459,6 +459,11 @@
                 border: #0B0B0B solid 1px;
                 cursor: pointer;
             }
+
+            .text_invalible{
+                color: #e73232;
+                border: #e73232 1.5px solid;
+            }
         }
     }
 }
@@ -542,8 +547,13 @@
         }
 
         .label{
-            border: #0B0B0B 1.5px solid;
+            border: red 1.5px solid;
             padding: 13px 20px;
+        }
+
+        .label_invalabel{
+            border: #e73232 1.5px solid;
+            color: #e73232;
         }
     }
 }
