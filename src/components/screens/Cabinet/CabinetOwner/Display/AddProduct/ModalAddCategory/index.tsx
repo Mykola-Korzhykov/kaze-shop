@@ -20,7 +20,7 @@ interface  inputsStateType {
     ru: string;
     rs: string;
     en: string;
-    // hex: string
+    //hex: string
 }
 
 export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
@@ -33,6 +33,7 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
         [key: string]: boolean;
     }
     const [validInputs, setValidInputs] = React.useState<InputsStateValidType>({ua: true,  ru: true, rs: true, en: true})
+    const [checkForm, setCheckForm] = React.useState<boolean>(false)
 
     // function sendStateInputs(obj: inputsStateType){
     //     fetch('categories/create_category', {
@@ -132,7 +133,7 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
                             }} 
                             id="choosecategoryUA" 
                             className={ validInputs.ua ? s.input_file : `${s.input_file} ${s.input_file_invalid}`  }
-                            placeholder={validInputs.ua ? 'Введите категорию' : 'Это поле не может быть пустым' }    
+                            placeholder={ 'Введите категорию' }    
                             type="text" />
                         </label>
                     </div>
@@ -157,7 +158,7 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
                             }} 
                             id="choosecategoryRU" 
                             className={ validInputs.ru ? s.input_file : `${s.input_file} ${s.input_file_invalid}`  }
-                            placeholder={validInputs.ru ? 'Введите категорию' : 'Это поле не может быть пустым' }  
+                            placeholder={'Введите категорию'}  
                             type="text" />
                         </label>
                     </div>
@@ -182,7 +183,7 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
                               }} 
                               id="choosecategoryEN" 
                               className={ validInputs.en ? s.input_file : `${s.input_file} ${s.input_file_invalid}`  }
-                              placeholder={validInputs.en ? 'Введите категорию' : 'Это поле не может быть пустым' }  
+                              placeholder={'Введите категорию'}  
                               type="text" />
                         </label>
                     </div>
@@ -207,41 +208,59 @@ export const ModalAddCategory = ({ }: ModalAddCategoryProps) => {
                             }} 
                             id="choosecategoryRS" 
                             className={ validInputs.rs ? s.input_file : `${s.input_file} ${s.input_file_invalid}`  } 
-                            placeholder={validInputs.rs ? 'Введите категорию' : 'Это поле не может быть пустым' }  
+                            placeholder={'Введите категорию' }  
                             type="text" />
                         </label>
                     </div>
 
-                    <button onClick={()=>{
 
-                        const valid = Object.values(validInputs).some((el)=>{
-                            return  el === true
-                        }) 
-                        && Object.values(stateInputs).every((el)=>{
-                            return  el !== ''
-                        })
+                    <div className={s.btn_wrapper}>
+                        {
+                            checkForm && 
+                            <div className={s.check_form}>
+                                Чтобы добавить категорию, полностью заполните форму
+                            </div>
 
-                        if(valid){
-                            sendStateInputs(stateInputs)
-                            dispatch(setModalAddCAtegory(false))
+
                         }
-                        else{
-                            console.log('validKkk', valid)
-                            for(const key in stateInputs){
-                                const value = stateInputs[key as keyof inputsStateType];
-                                if(value === ''){
-                                    setValidInputs((prevState: any) => {
-                                        const copyObject = {...prevState}
-                                        copyObject[key] = false
-                                        return copyObject
-                                    });
-                                }
+
+
+                        <button 
+                            style={{ marginTop: checkForm ? '0px' : '50px'}}
+                            onClick={()=>{
+
+                            const valid = Object.values(validInputs).some((el)=>{
+                                return  el === true
+                            }) 
+                            && Object.values(stateInputs).every((el)=>{
+                                return  el !== ''
+                            })
+
+                            if(valid){
+                                sendStateInputs(stateInputs)
+                                dispatch(setModalAddCAtegory(false))
+                                setCheckForm(false)
                             }
-                            alert('заполните пожалуйста всю форму')
-                        }
-                        }} className={s.btn_add}>
-                        Добавить категорию
-                    </button>
+                            else{
+                                console.log('validKkk', valid)
+                                for(const key in stateInputs){
+                                    const value = stateInputs[key as keyof inputsStateType];
+                                    if(value === ''){
+                                        setValidInputs((prevState: any) => {
+                                            const copyObject = {...prevState}
+                                            copyObject[key] = false
+                                            return copyObject
+                                        });
+                                    }
+                                }
+                                setCheckForm(true)
+                            }
+                            }} className={s.btn_add}>
+                            Добавить категорию
+                        </button>
+
+                    </div>
+                   
 
                 </div>
             </div>

@@ -204,7 +204,7 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
                         
                         {checkForm && 
                             <div className={s.check_form}>
-                                Чтобы добавить фото товару, полностью заполните форму
+                                Чтобы добавить цвет, полностью заполните форму
                             </div>
                         }
 
