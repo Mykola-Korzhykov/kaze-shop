@@ -848,6 +848,12 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
                     </div>
                 </div> */}
 
+                {checkForm && 
+                <div className={s.check_form}>
+                    Чтобы добавить товар, полностью заполните форму
+                </div>
+                }
+
                 <div className={s.send_wrapper}>
                     <button  className={s.btn_cancel}>Отменить</button>
                     
@@ -866,12 +872,12 @@ console.log('formDataKey', formData[inputs[0].key][inputs[0].lang])
 
                             //проверка на валидность формы
                             if(checkObjectValues(objDataSend) ) {
+                                setCheckForm(false)
                                 sendFormData(objDataSend)
                             }else{
                                 setCheckForm(true)
                                 console.log('setCheckForm', checkForm)
                                 console.log('objDataSend', objDataSend)
-                                alert('заполни форму')
                             }
 
                         }} 

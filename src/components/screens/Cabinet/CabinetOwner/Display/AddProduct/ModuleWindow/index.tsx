@@ -60,13 +60,23 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
     const images = useSelector((state: RootState)=> state.formData.images)
     const fetchColoursArr = useSelector((state: RootState)=> state.goods.fetchedColours)
     const selectedColor = fetchColoursArr.find((el)=> el.id === colourId)
+    const [checkForm, setCheckForm] = React.useState<boolean>(false)
     //all valied forms
 
 // pngImageShow,
 //                         jpgImagesShow: jpgImagesShow,
 //                         colourId: colourId,
 //                         sizes: selectedSizes,
-    const [allValiedForm, setAllValiedForm ] = React.useState({
+
+
+    interface FormState {
+        pngImageShow: boolean;
+        jpgImagesShow: boolean;
+        colourId: boolean;
+        sizes: boolean;
+    }
+
+    const [allValiedForm, setAllValiedForm ] = React.useState<FormState>({
         pngImageShow: false,
         jpgImagesShow: false, 
         colourId: false,
@@ -214,11 +224,16 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                 <div className={s.input_inner}>
                     <span className={s.title}> Фотография в png  </span>
                     <label style={{
-                            backgroundColor: pngImageShow ? `#9D9D9D ` : '',
-                            color:  pngImageShow ? `black ` : '#9D9D9D ',
-                            border: pngImageShow ?  `black 1.5px solid` : `#9D9D9D 1.5px solid`,
+                            backgroundColor: pngImageShow ? `#9D9D9D ` : '' ,
+                            color:  pngImageShow ? `black ` :  (!checkForm) || (checkForm && !allValiedForm['pngImageShow']) ? '#9D9D9D ' : '#E73232',
+                            border: pngImageShow ?  `black 1.5px solid` :  (!checkForm) || (checkForm && !allValiedForm['pngImageShow']) ? `#9D9D9D 1.5px solid` : `#E73232 1.5px solid`,
                             opacity: pngImageShow  ?  `0.4` : `1`
-                        }} className={s.label_input_file} htmlFor="uploadfileaddphotopng">
+                        }} className={   
+                            !checkForm || (checkForm && !allValiedForm['pngImageShow'])
+                                ? s.label_input_file
+                                : `${s.label_input_file} ${s.input_invalid}`
+                            }
+                        htmlFor="uploadfileaddphotopng">
                         {pngImageShow  ? `Фото загружено ` : `Загрузите фотографию`}  
                         <input 
                         accept="image/png"
@@ -276,8 +291,10 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
 
                 <div className={s.input_inner}>
                     <span className={s.title}>Фотография в jpg  </span>
-                    <label className={s.label_input_file} htmlFor="uploadfileaddphotojpg">
-                        Загрузите фотографию
+                    <label className={
+                        (!checkForm) || (checkForm && !allValiedForm['pngImageShow']) ? `${s.label_input_file}` : `${s.label_input_file} ${s.input_invalid}`} 
+                        htmlFor="uploadfileaddphotojpg">
+                            Загрузите фотографию
                         <input  
                             accept="image/jpg"
                             key={Math.random()} 
@@ -285,13 +302,17 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                             multiple 
                             onChange={handleFileUploadJpg} 
                             id="uploadfileaddphotojpg" 
-                            className={s.input_file} 
+                            className={ 
+                                `${s.input_file}`
+                            
+                            
+                            } 
                             placeholder='Загрузите фотографию' 
                             type="file"
                             name="uploadfileaddphotojpg"
                             />
-                            
                     </label>
+                    {/* label_input_file_invalable */}
 
                     <div className={s.png_show_wrapper}>
                         {jpgImagesShow && jpgImagesShow.map((el: File, ind)=>{
@@ -304,23 +325,23 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                                     const newArray = [...prevArray];
                                     newArray.splice(ind, 1);
                                     return newArray;
-                                  })
+                                })
                                 //убираем эту фотку с загального массива фоток 
                                 setImages((prevArray: File[]) => {
                                     const newArray = [...prevArray];
                                     const activeIndex = newArray.indexOf(el)
                                     newArray.splice(activeIndex, 1);
                                     return newArray;
-                                  })
+                                })
                                 //удаляем эту фотку с локального стейта ( массива ) фоток
                                 setFiles((prevArray: File[]) => {
                                     const newArray = [...prevArray];
                                     const activeIndex = newArray.indexOf(el)
                                     newArray.splice(activeIndex, 1);
                                     return newArray;
-                                  })
+                                })
                             }} className={s.png_show_item} key={ind}>
-                             <span className={s.img_backround}></span>
+                            <span className={s.img_backround}></span>
                             <svg className={s.remove_photo} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M18.75 5.25L5.25 18.75" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M18.75 18.75L5.25 5.25" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -347,7 +368,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                     <span className={s.title}>Размер</span>
                     <span onClick={()=>{
                         setChoiceSize(!choiceSize)
-                    }} className={s.input_choice_photo}>
+                    }} className={  (!checkForm) || (checkForm && !allValiedForm['sizes']) ? `${s.input_choice_photo}` : `${s.input_choice_photo} ${s.input_invalid}`}>
                         Выбрать размер фотографии
                     {choiceSize ? <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M25 7L7 25" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -384,18 +405,20 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                 <div className={s.input_inner}>
                     <span className={s.title}>Цвет</span>
                     <span onClick={(e)=> { 
-                      
+
                         setChoiceColor(!choiceColor)
-                        }} className={s.input_choice_color}>
-                     { !colourId ? 'Выбрать цвет фотографии' :  <span className={s.selected_color_placeholder}>
+                        }} className={
+                            !checkForm || (checkForm && !allValiedForm['colourId'] ) ?  s.input_choice_color : ` ${s.input_choice_color} ${s.input_invalid}`
+                            }>
+                    { !colourId ? 'Выбрать цвет фотографии' :  <span className={s.selected_color_placeholder}>
                         <span className={s.color} style={{backgroundColor: `${selectedColor ? selectedColor.hex : ''}`}}></span>
                         <span className={s.text}> {selectedColor? selectedColor.ru : '' } </span>
-                     </span>}
+                    </span>}
                         {choiceColor ? <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M25 7L7 25" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                                 <path d="M25 25L7 7" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                             </svg> : 
-                             <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            </svg> : 
+                            <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M26 12L16 22L6 12" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>}
                     </span>
@@ -431,42 +454,58 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                                         <span className={s.title}>
                                             {el.ru}
                                         </span>
-                                       
                                 </div>
                             }) : ''}
                         </div>
-                   </div>
-                <button onClick={ ()=>{
+                </div>
 
-                    const allStateForm = {
-                        pngImageShow: pngImageShow,
-                        jpgImagesShow: jpgImagesShow,
-                        colourId: colourId,
-                        sizes: selectedSizes,
+
+                <div 
+                    className={s.btn_wrapper}
+                    style={{marginTop: checkForm ? '0px' : '20px' }}
+                >
+
+                    {checkForm &&
+                    <div className={s.check_form}>
+                        Чтобы добавить фото товару, полностью заполните форму
+                    </div>
                     }
 
-                    for (const key in allStateForm) {
-                        //@ts-ignore
-                        if (allStateForm[key] === null || (Array.isArray(allStateForm[key]) && allStateForm[key].length < 1)) {
-                          setAllValiedForm(prevState => {
-                            return {...prevState, [key]: true};
-                          });
+                    <button onClick={()=>{
+
+                        const allStateForm = {
+                            pngImageShow: pngImageShow,
+                            jpgImagesShow: jpgImagesShow,
+                            colourId: colourId,
+                            sizes: selectedSizes,
                         }
-                      }
 
-                      
+                        for (const key in allStateForm) {
+                            //@ts-ignore
+                            if (allStateForm[key] === null || (Array.isArray(allStateForm[key]) && allStateForm[key].length < 1)) {
+                                setAllValiedForm(prevState => {
+                                    return {...prevState, [key]: true};
+                                });
+                            }else{
+                                setAllValiedForm(prevState => {
+                                    return {...prevState, [key]: false};
+                                });
+                            }
+                        }
 
-                    if(checkValiedForm(allStateForm)){
-                        generationObjModal()
-                    }else{
+                        if(checkValiedForm(allStateForm)){
+                            setCheckForm(false)
+                            generationObjModal()
+                        }else{
+                            setCheckForm(true)
+                        }
 
+                        } } className={s.btn}>
+                        Добавить фотографию
+                    </button>
+                </div>
 
-                        alert('заполните форму полность')
-                    }
-                    
-                } } className={s.btn}>
-                    Добавить фотографию
-                </button>
+                
             </div>
         </div>
     </div>
