@@ -23,7 +23,7 @@
 }
 
 .module_inner{
-   
+
     position: relative;
     width: 601px;
     background-color: white;
@@ -167,39 +167,60 @@
         
     }
 
-    .btn{
-        display: flex;
-        padding: 16px 164px;
-        background-color: #000000;
+    .btn_wrapper{
+
+        .check_form{
+            font-family: 'Georama', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
         
+            color: #E73232;
+        
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+    
+        .btn{
+            display: flex;
+            padding: 16px 164px;
+            background-color: #000000;
+            
+    
+            font-family: 'Georama',
+            sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 24px;
+    
+            color: #FFFFFF;
+            width: 100%;
+    
+        }
 
-        font-family: 'Georama',
-        sans-serif;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 24px;
-
-        color: #FFFFFF;
-
+        .btn_add{
+            margin-top: 50px;
+            padding: 16px 174px;
+            background-color: #000000;
+            color: #FFFFFF;
+            border: none;
+        
+            font-family: 'Georama', sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 15px;
+           
+            cursor: pointer;
+            width: 100%;
+            // line-height: 24px;
+        }
     }
+
 }
 
-.btn_add{
-    margin-top: 50px;
-    padding: 16px 174px;
-    background-color: #000000;
-    color: #FFFFFF;
-    border: none;
 
-    font-family: 'Georama', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-   
-    cursor: pointer;
-    // line-height: 24px;
-}
 
 .label_input_file{
     position: relative;

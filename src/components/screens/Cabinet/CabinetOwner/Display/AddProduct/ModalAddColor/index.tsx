@@ -40,14 +40,12 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
     }
 
     // function sendInputsState(obj: inputsStateType){
-
     //     fetch('colours/create_colour',{
     //         method: 'PUT',
     //         body: JSON.stringify(obj)
     //     }) .then(response => response.json())
     //     .then(data => console.log(data))
     //     .catch(error => console.error(error));
-
     // }
 
     function sendInputsState(obj: inputsStateType) {
@@ -71,6 +69,7 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
 
     const [inputsState, setInputsState] = React.useState<inputsStateType>({ua: '',  ru: '', rs: '', en: '', hex: '' })
     const [validateHex, setValidateHex] = React.useState<boolean>(true)
+    const [checkForm, setCheckForm] = React.useState<boolean>(false)
     const dispatch = useAppDispatch()
 
     const [validationErrors, setValidationErrors] = React.useState({
@@ -118,11 +117,7 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
         }
 
         console.log('validationErrors', validationErrors)
-      };
-
-      
-
-     
+    };
 
     return (
         <div className={s.module_wrapper}>
@@ -152,7 +147,6 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
                                 color: '#e73232',
                                 fontSize: '17px',
                                 marginLeft: '5px'
-                            
                             }}
                             
                             
@@ -172,7 +166,7 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
                                 }}   key={ind}
                                 id={obj.leng} 
                                 className={  validationErrors[obj.leng] ? `${s.input_file} ${s.input_file_invalid}`  : s.input_file} 
-                                placeholder={ validationErrors[obj.leng] ? 'Это поле не может быть пустым' : obj.placeholder} 
+                                placeholder={obj.placeholder} 
                                 type="text"
                                 />
                             </label>
@@ -196,39 +190,55 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({setChoiceColor}: Mo
                                 handleInput(e)
 
                                 //setInputsState(prevState=>({...prevState, hex: e.target.value}))
-                                 console.log('inputsState', inputsState)
+                                console.log('inputsState', inputsState)
                             }} id="hex" 
-                            className={     s.input_file}
+                            className={s.input_file}
                             placeholder='#000000'
                             type="text" />
                         </label>
                     </div>
 
-                    <button onClick={()=>{
-                        const valied = Object.values(validationErrors).every((el)=>{
-                            return el !== true 
-                        }) && Object.values(inputsState).every((el)=>{
-                            return el !== ''
-                        })
-
-                        if(valied){
-                            dispatch(setModalAddColor(false))
-                            sendInputsState(inputsState)
-                        }else{
-                            for(const key in inputsState){
-                                if(inputsState[key as keyof inputsStateType] === '' ){
-                                    setValidationErrors((prevState)=>{
-                                        const copyObj = {...prevState, [key]: true}
-                                        return copyObj
-                                    })
-                                }
-                            }
-
-                            alert('проверьте корректность формы')
+                    <div 
+                        className={s.btn_wrapper}
+                        >
+                        
+                        {checkForm && 
+                            <div className={s.check_form}>
+                                Чтобы добавить фото товару, полностью заполните форму
+                            </div>
                         }
-                    }} className={s.btn_add}>
-                        Добавить цветовой код
+
+                    <button 
+                        style={{marginTop: checkForm ? '0px' : '20px' }}
+                        onClick={()=>{
+                            const valied = Object.values(validationErrors).every((el)=>{
+                                return el !== true 
+                            }) && Object.values(inputsState).every((el)=>{
+                                return el !== ''
+                            })
+
+                            if(valied){
+                                dispatch(setModalAddColor(false))
+                                sendInputsState(inputsState)
+                            }else{
+                                for(const key in inputsState){
+                                    if(inputsState[key as keyof inputsStateType] === '' ){
+                                        setValidationErrors((prevState)=>{
+                                            const copyObj = {...prevState, [key]: true}
+                                            return copyObj
+                                        })
+                                    }
+                                }
+                                setCheckForm(true)
+                            }
+                        }} className={s.btn_add}>
+                            Добавить цветовой код
                     </button>
+
+
+                    </div>
+                
+
 
                 </div>
             </div>
