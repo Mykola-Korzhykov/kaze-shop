@@ -23,7 +23,7 @@ interface AddProductProps {
     // setModalAddPhoto: (n: boolean)=> void,
     modalAddPhoto: boolean,
     setModalAddColor: (n: boolean)=> void,
-    modalAddColor: boolean,
+    modalAddColor?: boolean,
     // countPhoto: number, 
     setCountPhoto: (n: number)=> void
     imagesData: File[],

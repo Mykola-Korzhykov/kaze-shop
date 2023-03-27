@@ -369,7 +369,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                     <span onClick={()=>{
                         setChoiceSize(!choiceSize)
                     }} className={  (!checkForm) || (checkForm && !allValiedForm['sizes']) ? `${s.input_choice_photo}` : `${s.input_choice_photo} ${s.input_invalid}`}>
-                        Выбрать размер фотографии
+                        Выбрать размер
                     {choiceSize ? <svg className={s.open_icon} width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M25 7L7 25" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                                 <path d="M25 25L7 7" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -410,7 +410,7 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                         }} className={
                             !checkForm || (checkForm && !allValiedForm['colourId'] ) ?  s.input_choice_color : ` ${s.input_choice_color} ${s.input_invalid}`
                             }>
-                    { !colourId ? 'Выбрать цвет фотографии' :  <span className={s.selected_color_placeholder}>
+                    { !colourId ? 'Выбрать цвет' :  <span className={s.selected_color_placeholder}>
                         <span className={s.color} style={{backgroundColor: `${selectedColor ? selectedColor.hex : ''}`}}></span>
                         <span className={s.text}> {selectedColor? selectedColor.ru : '' } </span>
                     </span>}
@@ -423,7 +423,10 @@ export const ModuleWindiw = ({  modalAddPhoto,  setChoiceColor, choiceColor, set
                     </svg>}
                     </span>
                     {/* style={{top: selectedSizes?.length > 0 ? '500px' : '453.5px'}} */}
-                        <div  className={ choiceColor ?  s.color_wrapper_main :  s.color_wrapper_main_off }>
+                        <div  
+                        className={ choiceColor ?  s.color_wrapper_main :  s.color_wrapper_main_off }
+                        style={{}}
+                        >
                             { choiceColor ? newColoursArr?.map((el, ind)=>{
                                 return el.id !== -48093899940393 ? (
                                     <div onClick={()=> {

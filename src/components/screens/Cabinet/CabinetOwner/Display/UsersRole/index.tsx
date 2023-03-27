@@ -31,10 +31,11 @@ export const UsersRole: React.FC = () => {
         dispatch(findUsersRole(term))
     }, 500);
 
-    // React.useEffect(()=>{
-    //       // console.log('запыт getUsersRole')
-    //         dispatch(getUsersRole(activePaginatoinRole))
-    // }, [activePaginatoinRole ])
+    React.useEffect(()=>{
+          // console.log('запыт getUsersRole')
+            dispatch(getUsersRole(activePaginatoinRole))
+    }, [activePaginatoinRole ])
+
     return (
         <>
         
@@ -90,6 +91,32 @@ export const UsersRole: React.FC = () => {
                     </p>
 
                 </div>
+                }
+
+
+                {usersRoleStatus === 'error'  &&
+                    <div className={s.title_wrapper}>
+
+                        <div className={s.title}> Ошибка </div>
+                        {/* <p className={s.description}>
+                            В Вашем интернет магазине пока не зарегистрированных пользователей
+                        </p> */}
+
+                    </div>
+                }
+
+
+
+
+                {usersRoleStatus ===  'error403' &&
+                    <div className={s.title_wrapper}>
+
+                        <div className={s.title}> Администратор не подтвердил права </div>
+                        <p className={s.description}>
+                            Для того, чтобы администратор начал работать с сайтом, он должен подтвердить права на почте
+                        </p>
+
+                    </div>
                 }
 
 

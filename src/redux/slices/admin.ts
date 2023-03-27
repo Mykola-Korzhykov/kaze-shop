@@ -98,8 +98,8 @@ export interface initialStateType {
 	userEdit: GoodsEditTest
 	usersRole: User[]
 	usersAdmin: User[],
-	usersRoleStatus: 'loading' | 'success' | 'error403' ,
-	usersAdminStatus: 'loading' | 'success' | 'error403' ,
+	usersRoleStatus: 'loading' | 'success' | 'error403' | 'error' ,
+	usersAdminStatus: 'loading' | 'success' | 'error403' | 'error',
 
 	inputs: {
 		id: number
@@ -837,12 +837,12 @@ export const admin: Slice<initialStateType> = createSlice({
         },
 	},
 
-
     extraReducers: (builder) => {
         builder
         //пошук ролів
         .addCase(findUsersRole.fulfilled, (state, action) => {
             state.usersRole = action.payload;
+			state.usersRoleStatus = 'success'
         })
         .addCase(findUsersRole.pending, (state) => {
             state.loading = true;
@@ -852,11 +852,13 @@ export const admin: Slice<initialStateType> = createSlice({
             console.log('ошибка поиск юзеров')
             state.error = action.error.message;
             state.loading = false;
+			state.usersRoleStatus = action.error.code === '403' || 403 ? 'error403' : 'error'
         })
 
           //полученя юзерів 
         .addCase(getUsersRole.fulfilled, (state, action) => {
             state.usersRole = action.payload;
+			state.usersRoleStatus = 'success'
         })
         .addCase(getUsersRole.pending, (state) => {
             state.loading = true;
@@ -866,10 +868,12 @@ export const admin: Slice<initialStateType> = createSlice({
             console.log('ошибка получения юзеров')
             state.error = action.error.message;
             state.loading = false;
+			state.usersRoleStatus = action.error.code === '403' || 403 ? 'error403' : 'error'
         })
           //получення адмінів
         .addCase(getUsersAdmin.fulfilled, (state, action) => {
             state.usersAdmin = action.payload;
+			state.usersAdminStatus = 'success'
         })
         .addCase(getUsersAdmin.pending, (state) => {
             state.loading = true;
@@ -879,9 +883,11 @@ export const admin: Slice<initialStateType> = createSlice({
             console.log('ошибка получения админов')
             state.error = action.error.message;
             state.loading = false;
+			state.usersAdminStatus = action.error.code === '403' || 403 ? 'error403' : 'error'
         })
           // пошук адмінів через дебаунс 
         .addCase(findUsersAdmin.fulfilled, (state, action) => {
+			state.usersAdminStatus = 'success'
             state.usersAdmin = action.payload;
         })
         .addCase(findUsersAdmin.pending, (state) => {
@@ -892,6 +898,7 @@ export const admin: Slice<initialStateType> = createSlice({
             console.log('ошибка поиск админов')
             state.error = action.error.message;
             state.loading = false;
+			state.usersAdminStatus = action.error.code === '403' || 403 ? 'error403' : 'error'
         })
     },
 

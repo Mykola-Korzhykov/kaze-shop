@@ -7,6 +7,20 @@
 //     background-color: red;
 // }
 
+.container{
+    max-width: 1230px;
+	padding: 0 0px;
+	margin: 0 auto;
+
+	@media (max-width: 1300px) {
+		padding: 0 32px;
+	}
+
+	@media (max-width: 428px) {
+		padding: 0 12px;
+	}
+}
+
 .input_wrapper_off{
     display: none;
 }

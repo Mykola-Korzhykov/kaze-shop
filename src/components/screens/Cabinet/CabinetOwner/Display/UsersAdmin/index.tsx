@@ -20,10 +20,10 @@ export const UsersAdmin: React.FC = () => {
     const dispatch = useAppDispatch()
 
     // get users
-    // React.useEffect(()=>{
-    //     // console.log('пошел запрос1111')
-    //         dispatch(getUsersAdmin(activePaginatoinAdmin))
-    // }, [ activePaginatoinAdmin])
+    React.useEffect(()=>{
+        // console.log('пошел запрос1111')
+            dispatch(getUsersAdmin(activePaginatoinAdmin))
+    }, [ activePaginatoinAdmin])
 
     React.useEffect(()=>{
 
@@ -90,6 +90,31 @@ export const UsersAdmin: React.FC = () => {
                 </div>
         }
 
+                {usersAdminStatus ===  'error403' &&
+                    <div className={s.title_wrapper}>
+
+                        <div className={s.title}>Администратор не подтвердил права </div>
+                        <p className={s.description}>
+                            Для того, чтобы администратор начал работать с сайтом, он должен подтвердить права на почте
+                        </p>
+
+                    </div>
+                }
+
+            {usersAdminStatus === 'error'  &&
+                    <div className={s.title_wrapper}>
+
+                        <div className={s.title}> Ошибка </div>
+                        {/* <p className={s.description}>
+                            В Вашем интернет магазине пока не зарегистрированных пользователей
+                        </p> */}
+
+                    </div>
+                }
+
+
+
+
 
         
 
@@ -101,7 +126,7 @@ export const UsersAdmin: React.FC = () => {
                 }} className={ activePaginatoinAdmin === el ?  s.item_active : s.item}>{el}</span>
             })}
         </div>}
-            
+        
         
         
         

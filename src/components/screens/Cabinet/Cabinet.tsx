@@ -79,7 +79,7 @@ const Cabinet: FC = () => {
 
 	return (
 		<main className='content'>
-			<div className='container'>
+			<div className={s.container}>
 				<div className='page_coordinator'>
 					<Link href='#'>Главная</Link> | <span>Личный кабинет</span>
 				</div>
