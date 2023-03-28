@@ -7,7 +7,7 @@ import { useKeenSlider } from 'keen-slider/react';
 import ProductBottomButton from '../ProductBottomButton/ProductBottomButton';
 import { SliderInterface } from './Slider.interface';
 
-const Slider = ({ title, items }: SliderInterface): JSX.Element => {
+const Slider = ({ title, items, className }: SliderInterface): JSX.Element => {
 
     const [sliderRef, instanceRef] = useKeenSlider({
         slides: {
@@ -25,7 +25,7 @@ const Slider = ({ title, items }: SliderInterface): JSX.Element => {
         loop: true,
     })
     return (
-        <div className={cn(s.slider_box, 'container')}>
+        <div className={cn(s.slider_box, 'container', className)}>
             <div className={s.title_box}>
                 <h3>{ title}</h3>
                 <div>
