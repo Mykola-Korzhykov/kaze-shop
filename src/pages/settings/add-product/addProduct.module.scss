@@ -1,4 +1,3 @@
-
 // .container{
 //     // margin-top: 100px;
 // }
@@ -24,7 +23,6 @@
 //     // margin-top: 100px;
 // }
 
-
 // .inputs_text{
 //     margin-left: -30px;
 // }
@@ -33,8 +31,6 @@
 //     display: flex;
 //     width: 100%;
 
-    
-    
 //     @media (max-width: 1050px) {
 //             display: flex;
 //             flex-direction: column;
@@ -65,19 +61,17 @@
 //         //     flex-direction: column;
 //         // }
 
-      
 // }
 
 // .second_wrapper{
 //     margin-top: 30px;
 // }
 
-// //photo upload 
+// //photo upload
 
 // .net_wrapper{
 //     margin-top: 30px;
 // }
-
 
 // .descriprion{
 //     width: 100%;
@@ -85,7 +79,7 @@
 //     display: flex;
 //     justify-content: space-between;
 //     margin-top: 30px;
-    
+
 //     font-family: 'Georama', sans-serif;
 //     font-style: normal;
 //     font-weight: 500;
@@ -93,7 +87,6 @@
 //     line-height: 24px;
 
 //     color: #0B0B0B;
-    
 
 //     .btn{
 //         display: flex;
@@ -105,7 +98,7 @@
 //         background: #0B0B0B;
 //         border-radius: 5px;
 //         cursor: pointer;
-        
+
 //         .img{
 
 //         }
@@ -113,13 +106,13 @@
 // }
 
 // .addphoto{
-  
+
 //     display: flex;
 //     flex-direction: column;
 //     gap: 30px;
 
 //     .addphoto_wrapper{
-     
+
 //         width: 100%;
 //         // min-width: 0px;
 
@@ -133,7 +126,7 @@
 //             font-weight: 400;
 //             font-size: 20px;
 //             line-height: 24px;
-            
+
 //             color: #0B0B0B;
 
 //             .text{
@@ -144,7 +137,6 @@
 //         }
 //     }
 // }
-
 
 // //net
 // .net_wrapper{
@@ -179,18 +171,18 @@
 //             max-width: 100%;
 //             flex-grow: 1;
 //         }
-        
+
 //         color: #0B0B0B;
-       
+
 //         .item_1{
 //             padding: 14px 20px;
 //             border: 1.5px solid #9D9D9D;
-            
+
 //         }
 
 //         .item_1:focus {
 //             outline: none;
-            
+
 //         }
 //     }
 
@@ -199,7 +191,6 @@
 //         flex-direction: column;
 //         gap: 10px;
 //         flex-grow: 1;
-       
 
 //         @media (max-width: 1230px) {
 //             margin-top: 30px;
@@ -214,9 +205,8 @@
 //         font-weight: 500;
 //         font-size: 20px;
 //         line-height: 24px;
-        
-//         color: #0B0B0B;
 
+//         color: #0B0B0B;
 
 //         .item_2{
 //             width: 0.5px;
@@ -231,10 +221,7 @@
 //     }
 // }
 
-
-
-// //module window 
-
+//module window
 // .module_wrapper{
 //     position: absolute;
 //     top: 0;
@@ -244,8 +231,7 @@
 //     opacity: 0.25;
 // }
 
-
-// //send buttons 
+// //send buttons
 
 // .send_wrapper{
 //     margin-top: 30px;
@@ -274,9 +260,7 @@
 //     line-height: 24px;
 //     color: white;
 //     text-align: center;
-    
 
-    
 // }
 
 // .btn_cancel{
@@ -288,7 +272,7 @@
 //     gap: 24px;
 //     background: none;
 //     border: none;
-    
+
 //     width: 343px;
 //     height: 56px;
 
@@ -296,10 +280,9 @@
 //     font-style: normal;
 //     font-weight: 500;
 //     font-size: 20px;
-    
-    
+
 //     /* black */
-    
+
 //     border: 1.5px solid #0B0B0B;
 // }
 
@@ -308,35 +291,52 @@
 //     // min-width: 0px;
 // }
 
-.container{
-    max-width: 1230px;
-	padding: 0 0px;
-	margin: 0 auto;
-    // position: relative;
+.container {
+  max-width: 1230px;
+  padding: 0 0px;
+  margin: 0 auto;
+  // position: relative;
 
-	@media (max-width: 1300px) {
-		padding: 0 32px;
-	}
+  @media (max-width: 1300px) {
+    padding: 0 32px;
+  }
 
-	@media (max-width: 428px) {
-		padding: 0 12px;
-	}
+  @media (max-width: 428px) {
+    padding: 0 12px;
+  }
+  overflow: hidden;
 }
 
 .content {
-	// background-color: #e73232;
-	margin: 104px 0px 30px;
-    // position: relative;
+  overflow: hidden;
+
+  margin: 104px 0px 30px;
 }
 
-.backround_for_modal{
-    position: absolute;
-    width: calc(150vw + 1100px) ;
-    top: -200px;
-    height: 120%;
-    left: -1100px;
-    background-color: black;
-    opacity: 0.25;
-    
-    z-index: 100;
+.backround_for_modal {
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  width: 100vw;
+  top: -200px;
+  height: 120%;
+  // left: -1000px;
+  background-color: black;
+  opacity: 0.25;
+
+  z-index: 100;
 }
+
+.wrapper_add_product {
+  @media (max-width: 900px) {
+    margin-top: -30px;
+  }
+}
+
+// @media (max-width: 480px) {
+//     .backround_for_modal {
+//        width: 90%;
+//        margin-left: 5%;
+//        margin-right: 5%;
+//     }
+//   }

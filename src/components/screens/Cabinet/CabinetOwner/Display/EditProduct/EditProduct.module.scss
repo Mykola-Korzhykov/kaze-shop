@@ -1,13 +1,13 @@
-.wrapper{
-    display: flex;
-    gap: 30px;
-    flex-wrap: wrap;
+.wrapper {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
 
-    @media (max-width: 1150px) {
-       justify-content: space-around;
-	}
+  @media (max-width: 1150px) {
+    justify-content: space-around;
+  }
 }
 
-.wrapper_off{
-    display: none;
+.wrapper_off {
+  display: none;
 }
