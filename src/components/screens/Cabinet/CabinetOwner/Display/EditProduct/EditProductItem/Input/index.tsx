@@ -120,9 +120,9 @@ export const Input = ({
 	//   { id: 10, type: 'text', text: 'Количество товара', placeholder: 'Введите количество товаров', name: 'quantity', disable: false },
 
 	return (
-		<div className={s.wrapper}>
+		<div className={s.wrapper_inpurt_main}>
 			{type === 'text' ? (
-				<div className={s.wrapper}>
+				<div className={s.wrapper_inpurt_main}>
 					<div className={s.title}>{text}</div>
 
 					<input
@@ -151,7 +151,7 @@ export const Input = ({
         next */}
 
 			{type === 'number' ? (
-				<div className={s.wrapper}>
+				<div className={s.wrapper_inpurt_main}>
 					<div className={s.title}>{text}</div>
 					<input
 						onBlur={handleBlurSet}

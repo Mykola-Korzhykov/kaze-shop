@@ -6,10 +6,12 @@ import { addCountPhotos } from '../../../../../../../redux/slices/admin';
 import { setModalAddEditProduct } from '../../../../../../../redux/slices/modal';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { InputTextItem } from '../../AddProduct/InputText';
+import Image from 'next/image';
+//photos/icons
+import openInput from '../../../../../../../assets/icons/cabinetAdmin/open_input.svg';
+import selectIcon from '../../../../../../../assets/icons/cabinetAdmin/selectIcon.svg';
 import photoTest from '../../../../../../../assets/images/product/slider/photo.png';
 import photo from '../../../../../../../assets/images/admin/img.png';
-import Image from 'next/image';
-import openInput from '../../../../../../../assets/icons/cabinetAdmin/open_input.svg';
 //components
 import { Input } from './Input';
 import { SizeItem } from '../../AddProduct/SizesItem';
@@ -18,6 +20,13 @@ import { SizeChart } from '../../../Display/AddProduct/sizeChart';
 //types
 import { Goods } from '../../../../../../../types/goods';
 import { ImageData } from '../../../../../../../types/goods';
+import {
+	setCategories,
+	setDescription,
+	setPrice,
+	setQuantity,
+	setTitle,
+} from '@/redux/slices/formData';
 
 interface EditProductItemType {
 	id: number;
@@ -188,6 +197,90 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	const [inputsState, setInputsState] =
 		React.useState<InputsStateValidType>(inputsStateInition);
 
+	//логика для инпутов
+	//
+	//
+	//
+	//
+	//
+	//
+	//
+	//логика для инпутова
+
+	const [categoriesDisplay, setCategoriesDisplay] =
+		React.useState<boolean>(false);
+
+	const categories = useSelector(
+		(state: RootState) => state.formData.categories
+	);
+	const categoryArr = useSelector(
+		(state: RootState) => state.goods.fetchedCategories
+	);
+
+	const newCategoryArr = [
+		...categoryArr,
+		{
+			id: 0.1,
+			ua: 'UAstring',
+			en: 'ENstring',
+			rs: 'RSstring',
+			ru: 'RUtring',
+			type: 'category',
+			createdAt: 'string',
+			updatedAt: 'string',
+		},
+	];
+
+	const activeCategories = categoryArr.find((el) => {
+		return el.id === categories[0];
+	});
+
+	function handleBlurSet(event: any) {
+		if (event.target.name === 'titleRU') {
+			const payload: any = { branch: 'ru', title: event.target.value };
+			dispatch(setTitle(payload));
+		}
+		if (event.target.name === 'titleUA') {
+			const payload: any = { branch: 'ua', title: event.target.value };
+			dispatch(setTitle(payload));
+		}
+		if (event.target.name === 'titleSRB') {
+			const payload: any = { branch: 'rs', title: event.target.value };
+			dispatch(setTitle(payload));
+		}
+		if (event.target.name === 'titleENG') {
+			const payload: any = { branch: 'en', title: event.target.value };
+			dispatch(setTitle(payload));
+		}
+		//descriptionRU
+		if (event.target.name === 'descriptionRU') {
+			const payload: any = { branch: 'ru', description: event.target.value };
+			dispatch(setDescription(payload));
+		}
+		if (event.target.name === 'descriptionUA') {
+			const payload: any = { branch: 'ua', description: event.target.value };
+			dispatch(setDescription(payload));
+		}
+		if (event.target.name === 'descriptionSRB') {
+			const payload: any = { branch: 'rs', description: event.target.value };
+			dispatch(setDescription(payload));
+		}
+		if (event.target.name === 'descriptionENG') {
+			const payload: any = { branch: 'en', description: event.target.value };
+			dispatch(setDescription(payload));
+		}
+		//quantity
+		if (event.target.name === 'quantity') {
+			const payload: number = event.target.value;
+			dispatch(setQuantity(Number(payload)));
+		}
+		//price
+		if (event.target.name === 'price') {
+			const payload: number = event.target.value;
+			dispatch(setPrice(Number(payload)));
+		}
+	}
+
 	return (
 		<>
 			<div
@@ -204,16 +297,88 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 					{inputs.map((obj, ind) => {
 						return (
 							<div key={ind} className={s.inputs_wrapper}>
-								<Input
-									// price={price}
-									placeholder={obj.placeholder}
-									text={obj.text}
-									name={obj.name}
-									id={obj.id}
-									type={obj.type}
-									setInputsState={setInputsState}
-									inputsState={inputsState}
-								/>
+								{obj.type === 'text' ? (
+									<div className={s.wrapper_input_main}>
+										<div className={s.title}>{obj.text}</div>
+										<input
+											onBlur={handleBlurSet}
+											className={s.input}
+											type={obj.type}
+											placeholder={obj.placeholder}
+											name={obj.name}
+										/>
+									</div>
+								) : obj.type === 'number' ? (
+									<div className={s.wrapper_input_main}>
+										<div className={s.title}>{obj.text}</div>
+										<input
+											onBlur={handleBlurSet}
+											className={s.input}
+											type={obj.type}
+											placeholder={obj.placeholder}
+											name={obj.name}
+										/>
+									</div>
+								) : obj.type === 'select' ? (
+									<label className={s.select__wrapper} htmlFor={`${id}`}>
+										<div className={s.title}>{obj.text}</div>
+										<input
+											style={{ cursor: 'poiter' }}
+											onClick={(e) => {
+												setCategoriesDisplay(!categoriesDisplay);
+											}}
+											id={`${id}`}
+											readOnly
+											className={
+												inputsState[id]
+													? `${s.input} ${s.input_category}`
+													: `${s.input_off_valid} ${s.input_category}`
+											}
+											type={obj.type}
+											placeholder={
+												activeCategories ? activeCategories.ru : obj.placeholder
+											}
+										/>
+										<Image
+											className={`${s.select_img}`}
+											src={selectIcon}
+											alt="My Image"
+										/>
+										<div
+											className={
+												categoriesDisplay
+													? s.categorychose_wrapper
+													: s.categorychose_wrapper_off
+											}
+										>
+											{categoryArr?.map((el, ind) => {
+												return el.id !== 0.1 ? (
+													<div
+														onClick={(e) => {
+															e.preventDefault();
+															e.stopPropagation();
+															setCategoriesDisplay(!categoriesDisplay);
+															dispatch(setCategories(el.id));
+															setInputsState((prevState: any) => {
+																const objCopy = { ...prevState };
+																objCopy[id] = el.ua !== '' ? true : false;
+																return objCopy;
+															});
+														}}
+														key={ind}
+														className={s.categorychose_item}
+													>
+														<span> {el.ru} </span>
+													</div>
+												) : (
+													''
+												);
+											})}
+										</div>
+									</label>
+								) : (
+									''
+								)}
 							</div>
 						);
 					})}
@@ -224,8 +389,6 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 					<span
 						className={s.btn}
 						onClick={(e) => {
-							console.log('click');
-							// e.stopPropagation()
 							//@ts-ignore
 							dispatch(addCountPhotos());
 						}}
