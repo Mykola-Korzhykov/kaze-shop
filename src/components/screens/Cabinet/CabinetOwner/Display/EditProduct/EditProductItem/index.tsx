@@ -2,7 +2,10 @@ import React from 'react';
 import s from './EditProductItem.module.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { addCountPhotos } from '../../../../../../../redux/slices/admin';
+import {
+	addCountPhotos,
+	setEditProductItemId,
+} from '../../../../../../../redux/slices/admin';
 import { setModalAddEditProduct } from '../../../../../../../redux/slices/modal';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { InputTextItem } from '../../AddProduct/InputText';
@@ -13,7 +16,7 @@ import selectIcon from '../../../../../../../assets/icons/cabinetAdmin/selectIco
 import photoTest from '../../../../../../../assets/images/product/slider/photo.png';
 import photo from '../../../../../../../assets/images/admin/img.png';
 //components
-import { Input } from './Input';
+// import { Input } from './Input';
 import { SizeItem } from '../../AddProduct/SizesItem';
 import { ColorItem } from '../../AddProduct/ColorItem';
 import { SizeChart } from '../../../Display/AddProduct/sizeChart';
@@ -52,9 +55,10 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	const goods = useSelector((state: RootState) => state.goods.goods);
 	//chosen product
 	const activeProduct = products.find((el) => {
-		return el.id === editProductItemId;
+		return el.id === id;
 	});
 
+	console.log('activeProductPPP', activeProduct);
 	// console.log('userEdit', userEdit.images[0].imagesPaths)
 
 	interface ImageData {
@@ -186,6 +190,8 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		},
 	]);
 
+	console.log('inputsActiveProduct', activeProduct?.title?.ru);
+
 	interface InputsStateValidType {
 		[key: number]: boolean;
 	}
@@ -301,6 +307,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 									<div className={s.wrapper_input_main}>
 										<div className={s.title}>{obj.text}</div>
 										<input
+											defaultValue={obj.value}
 											onBlur={handleBlurSet}
 											className={s.input}
 											type={obj.type}
@@ -312,6 +319,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 									<div className={s.wrapper_input_main}>
 										<div className={s.title}>{obj.text}</div>
 										<input
+											defaultValue={obj.value}
 											onBlur={handleBlurSet}
 											className={s.input}
 											type={obj.type}
@@ -499,7 +507,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 						<div className={s.input_wrapper}>
 							<span className={s.net_title}>Описание размерной сетки UA</span>
 							<input
-								value={activeProduct?.title?.ru}
+								defaultValue={activeProduct?.title?.ru}
 								placeholder="Введите описание"
 								className={s.input_inner}
 								type="text"
@@ -508,7 +516,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 						<div className={s.input_wrapper}>
 							<span className={s.net_title}>Описание размерной сетки RU</span>
 							<input
-								value={activeProduct?.title?.ua}
+								defaultValue={activeProduct?.title?.ua}
 								placeholder="Введите описание"
 								className={s.input_inner}
 								type="text"
@@ -529,7 +537,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 						<div className={s.input_wrapper}>
 							<span className={s.net_title}>Описание размерной сетки SRB</span>
 							<input
-								value={activeProduct?.title?.ua}
+								defaultValue={activeProduct?.title?.ua}
 								placeholder="Введите описание"
 								className={s.input_inner}
 								type="text"
@@ -739,7 +747,10 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 
 				{/* тоже самое с цветами , сатею в отдельную переменную, локальную переменную после чего с ней работаю и отправляю при отправке ее уже  */}
 
-				<div className={s.send_wrapper}>
+				<div
+					onClick={() => dispatch(setEditProductItemId(-1))}
+					className={s.send_wrapper}
+				>
 					<span className={s.send_cancel}>Отмена</span>
 					<span className={s.send}>Изменить товар</span>
 				</div>
