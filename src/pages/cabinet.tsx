@@ -1,26 +1,23 @@
-import Cabinet from '@/components/screens/Cabinet/Cabinet'
-import SpinnerLayout from '@/layouts/SpinnerLayout'
-import { wrapper } from '@/redux/store'
-import { addUserInfo } from '@/redux/slices/user'
-import { withAuth } from '@/hoc/RequiredAuth'
-import { NextPage } from 'next'
-import { Api } from '@/services'
-import axios from 'axios'
-
+import Cabinet from '@/components/screens/Cabinet/Cabinet';
+import SpinnerLayout from '@/layouts/SpinnerLayout';
+import { wrapper } from '@/redux/store';
+import { addUserInfo } from '@/redux/slices/user';
+import { withAuth } from '@/hoc/RequiredAuth';
+import { NextPage } from 'next';
+import { Api } from '@/services';
+import axios from 'axios';
 
 const CabinetPage: NextPage = () => {
-	return (
-		<SpinnerLayout>
-			
-			<Cabinet />
-		</SpinnerLayout>
-	)
-}
+  return (
+    <SpinnerLayout>
+      <Cabinet />
+    </SpinnerLayout>
+  );
+};
 
-
-export const getServerSideProps = withAuth(async context => {
-	return { props: {} }
-})
+export const getServerSideProps = withAuth(async (context) => {
+  return { props: {} };
+});
 
 // export const getServerSideProps = wrapper.getServerSideProps(
 // 	store => async context => {
@@ -54,5 +51,4 @@ export const getServerSideProps = withAuth(async context => {
 // 	}
 // )
 
-export default CabinetPage
-
+export default CabinetPage;
