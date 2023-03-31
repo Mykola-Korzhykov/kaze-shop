@@ -5,8 +5,7 @@ import { ColorItemsInterface } from './ColorItems.interface';
 
 
 
-const ColorItems = ({ colors }: ColorItemsInterface) => {
-    const [activeElem, setActiveElem] = useState(0);
+const ColorItems = ({ colors, activeColor, setColor }: ColorItemsInterface) => {
 
     return (
         <div className={s.colors}>
@@ -14,9 +13,9 @@ const ColorItems = ({ colors }: ColorItemsInterface) => {
                 return (
                     <div
                         key={i}
-                        onClick={() => setActiveElem(i)}
+                        onClick={() => setColor(i)}
                         className={cn({
-                            [s.active]: activeElem === i
+                            [s.active]: activeColor === i
                         })}
                     >
                         <div style={{ background: el }}></div>

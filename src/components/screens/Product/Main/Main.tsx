@@ -9,6 +9,8 @@ import ColorItems from "./ColorItems/ColorItems";
 import Slider from "./SliderProduct/SliderProduct";
 import Link from "next/link";
 import SlideItem from '../../../../assets/images/product/slider/photo.png';
+import { initialState } from "@/types/singleProduct";
+import { useState } from "react";
 
 const mockSIze = ["XXS", "XS", "S", "M", "L", "XL", "M", "L", "XL"];
 const mockColor = [
@@ -23,7 +25,24 @@ const mockColor = [
     "#901",
 ];
 const mockSlideImg = [SlideItem, SlideItem, SlideItem, SlideItem, SlideItem, SlideItem]
-const Main = () => {
+const Main = ({ title, description, price, colours, sizes, images, sizeChartImage }: initialState) => {
+    console.log(images);
+    const [activeColor, setActiveColor] = useState<number>(0);
+    const [activeSize, setActiveSize] = useState<number>(0);
+
+    const availableSizes = images[activeColor].sizes;
+
+    const renderSlider = images.map((el, i) => {
+        if (activeColor === i) {
+            return <Slider key={i} images={el.imagesPaths} className={s.main_slider} />
+        }
+    });
+
+    const setColor = (i: number) => {
+        setActiveColor(i);
+        setActiveSize(0);
+    }
+
     return (
         <div className={s.main}>
             <div className={s.main_box}>
@@ -32,36 +51,32 @@ const Main = () => {
 
                     <div className={s.main_wrapper}>
                         <div className={s.title}>
-                            <h1>Лосины Тай Дай</h1>
+                            <h1>{title.ua}</h1>
                             <div>
-                                <b>78$</b>
+                                <b>{price}</b>
                                 <span>Осталось мало</span>
                             </div>
                         </div>
                         <div className={s.sizes}>
                             <h3>Size</h3>
-                            <SizeItems sizes={mockSIze} />
+                            <SizeItems sizes={availableSizes} setSize={setActiveSize} activeSize={activeSize} />
                         </div>
                         <div className={s.colors}>
                             <h3>Color</h3>
-                            <ColorItems colors={mockColor} />
+                            <ColorItems colors={colours.map(el => el.hex)} activeColor={activeColor} setColor={setColor} />
                         </div>
                         <div className={s.buttons}>
                             <Button arrow={false}>В корзину</Button>
                             <Button color="transparent">В один клик</Button>
                         </div>
                         <div className={s.main_photo}>
-                            <Image src={productPhoto} alt={"Лосины Тай Дай"} priority={true} quality={100} />
+                            <Image src={sizeChartImage} width={100} height={100} alt={"Лосины Тай Дай"} priority={true} quality={100} />
+
                         </div>
-                        <Slider images={mockSlideImg} className={s.main_slider} />
+                        {renderSlider}
                         <div className={s.text}>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur. Convallis
-                                suspendisse diam iaculis pulvinar odio curabitur
-                                mattis pellentesque eu. Massa condimentum dui at
-                                rutrum commodo pellentesque elit. Eu scelerisque
-                                arcu mattis nunc donec risus viverra. Vitae eros
-                                ipsum tempus et pellentesque purus.
+                                {description.ua}
                             </p>
                             <Link href=''>
                                 <span>Размерная сетка</span>

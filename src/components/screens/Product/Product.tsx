@@ -4,6 +4,8 @@ import Main from './Main/Main';
 import Product1 from '../../../assets/images/main/ProductsAccessories/product2.png';
 import Reviews from '../Main/Reviews/Reviews';
 import Feedback from './Feedback/Feedback';
+import { initialState } from '@/types/singleProduct';
+import { Console } from 'console';
 
 const mockSliderProps1 = [
     {
@@ -39,11 +41,11 @@ const mockSliderProps1 = [
 ]
 
 
-const OneProduct = (): JSX.Element => {
+const OneProduct = (data: initialState): JSX.Element => {
     return (
 
         <div>
-            <Main />
+            <Main {...data} />
             <Slider title='Вы недавно смотрели' items={mockSliderProps1} />
             <Reviews />
             <Feedback />

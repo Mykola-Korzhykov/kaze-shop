@@ -2,17 +2,20 @@
 const nextConfig = {
 	reactStrictMode: false,
 	i18n: {
-			locales: ["ru"],
-			defaultLocale: "ru",
+		locales: ['ru'],
+		defaultLocale: 'ru',
 	},
 	devIndicators: {
-			buildActivity: false,
+		buildActivity: false,
 	},
 	images: {
-	domains: ['[::1]'],
-},
+		// domains: ['[::1]'],
+		loader: 'custom',
+		loaderFile: './src/utils/customImgLoader.ts',
+	},
+};
 
-}
+
 
 module.exports = nextConfig
 

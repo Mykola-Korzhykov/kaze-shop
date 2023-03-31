@@ -1,3 +1,7 @@
+import { Dispatch, SetStateAction } from 'react';
+
 export interface ColorItemsInterface {
-    colors: string[];
+	colors: string[];
+	activeColor: number;
+	setColor: (i: number) => void;
 }
