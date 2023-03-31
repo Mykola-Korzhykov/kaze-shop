@@ -3,9 +3,11 @@ import Image from 'next/image';
 import Stars from '../Stars/Stars';
 import { SlideItemInterface } from './SlideItem.interface';
 import cn from 'classnames';
-import { useEffect, useRef, useState } from 'react';
+import { useAppSelector } from '@/redux/hooks';
 
 const SlideItem = ({ img, reviewsText, name, className, grade, ...props }: SlideItemInterface): JSX.Element => {
+    const owner = useAppSelector(store => store.user.user?.type === 'OWNER');
+    const admin = useAppSelector(store => store.user.user?.type === 'ADMIN');
 
     return (
         <div className={cn(s.item, className)} {...props}>
@@ -18,6 +20,11 @@ const SlideItem = ({ img, reviewsText, name, className, grade, ...props }: Slide
                 </div>
                 <p>{reviewsText}</p>
                 <Stars grade={grade} />
+                {owner || admin &&
+                    <svg className={s.delete} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M18.75 5.25L5.25 18.75" stroke="#0B0B0B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M18.75 18.75L5.25 5.25" stroke="#0B0B0B" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>}
             </div>
         </div>
     )

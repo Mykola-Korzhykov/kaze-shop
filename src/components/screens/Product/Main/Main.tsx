@@ -9,7 +9,7 @@ import ColorItems from "./ColorItems/ColorItems";
 import Slider from "./SliderProduct/SliderProduct";
 import Link from "next/link";
 import SlideItem from '../../../../assets/images/product/slider/photo.png';
-import { initialState } from "@/types/singleProduct";
+import { SingleProductData } from "@/types/singleProduct";
 import { useState } from "react";
 
 const mockSIze = ["XXS", "XS", "S", "M", "L", "XL", "M", "L", "XL"];
@@ -25,8 +25,8 @@ const mockColor = [
     "#901",
 ];
 const mockSlideImg = [SlideItem, SlideItem, SlideItem, SlideItem, SlideItem, SlideItem]
-const Main = ({ title, description, price, colours, sizes, images, sizeChartImage }: initialState) => {
-    console.log(images);
+const Main = ({ title, description, price, colours, images, sizeChartImage, quantity, categories }: SingleProductData) => {
+
     const [activeColor, setActiveColor] = useState<number>(0);
     const [activeSize, setActiveSize] = useState<number>(0);
 
@@ -37,7 +37,7 @@ const Main = ({ title, description, price, colours, sizes, images, sizeChartImag
             return <Slider key={i} images={el.imagesPaths} className={s.main_slider} />
         }
     });
-
+    const fewProduct = quantity > 5;
     const setColor = (i: number) => {
         setActiveColor(i);
         setActiveSize(0);
@@ -47,14 +47,14 @@ const Main = ({ title, description, price, colours, sizes, images, sizeChartImag
         <div className={s.main}>
             <div className={s.main_box}>
                 <div className={cn("container", s.main_bg)}>
-                    <RoutesPath />
+                    <RoutesPath categories={categories[0].ru} />
 
                     <div className={s.main_wrapper}>
                         <div className={s.title}>
                             <h1>{title.ua}</h1>
                             <div>
                                 <b>{price}</b>
-                                <span>Осталось мало</span>
+                                {fewProduct && <span>Осталось мало</span>}
                             </div>
                         </div>
                         <div className={s.sizes}>

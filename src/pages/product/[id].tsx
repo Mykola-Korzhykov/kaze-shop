@@ -4,7 +4,7 @@ import Footer from '@/components/Footer/Footer';
 import OneProduct from '@/components/screens/Product/Product';
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import { initialState } from '@/types/singleProduct';
+import { SingleProductData } from '@/types/singleProduct';
 import Spinner from '@/components/Spinner/Spinner';
 import { Api } from '@/services';
 import react from 'react'
@@ -24,7 +24,7 @@ export const getServerSideProps: GetServerSideProps<OneProductProps> = async (co
     const { id } = context.query;
 
     try {
-        const { data } = await axios.get<initialState>(process.env.NEXT_BASE_URL + `/product/${id}`);
+        const { data } = await axios.get<SingleProductData>(process.env.NEXT_BASE_URL + `/product/${id}`);
         return {
             props: { data },
         }
@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps<OneProductProps> = async (co
 }
 
 interface OneProductProps {
-    data: initialState
+    data: SingleProductData
 }
 
 

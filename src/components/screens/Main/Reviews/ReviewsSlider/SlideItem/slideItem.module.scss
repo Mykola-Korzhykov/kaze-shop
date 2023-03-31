@@ -7,6 +7,7 @@
     transition: 0.3s max-width,
     max-height,
     opacity;
+    position: relative;
 
     &.small {
         h5 {
@@ -142,5 +143,11 @@
         @media(max-width:430px) {
             max-height: 105px;
         }
+    }
+    .delete {
+        position: absolute;
+        top: 7px;
+        right: 7px;
+        cursor: pointer;
     }
 }

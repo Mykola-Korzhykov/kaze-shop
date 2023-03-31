@@ -5,7 +5,6 @@ import ArrowButton from '@/components/screens/Main/Slider/ArrowButton/ArrowButto
 import { SliderProductInterface } from './SliderProduct.interface';
 import Image from 'next/image';
 import cn from 'classnames';
-import { useEffect, useState } from 'react';
 
 
 const Slider = ({ images, className, ...props }: SliderProductInterface) => {
@@ -45,7 +44,7 @@ const Slider = ({ images, className, ...props }: SliderProductInterface) => {
             </div>
             <div ref={sliderRef} className='keen-slider'>
                 {images.map((item, i) => {
-                    return <Image key={i} src={item} width={180} height={222} alt={`slide ${i + 1}`}
+                    return <Image key={i} src={item} priority={true} width={180} height={222} alt={`slide ${i + 1}`}
                         className={`keen-slider__slide number-slide${i}`} quality={100} />
                 })}
             </div>

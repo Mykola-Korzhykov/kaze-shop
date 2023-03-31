@@ -1,4 +1,4 @@
-export interface initialState {
+export interface SingleProductData {
 	id: number;
 	title: Title;
 	description: Description;
