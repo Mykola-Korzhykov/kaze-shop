@@ -1,13 +1,10 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import Footer from '@/components/Footer/Footer';
 import OneProduct from '@/components/screens/Product/Product';
-import { useRouter } from 'next/router';
 import axios from 'axios';
 import { SingleProductData } from '@/types/singleProduct';
-import Spinner from '@/components/Spinner/Spinner';
-import { Api } from '@/services';
-import react from 'react'
+import { API_URL } from '../../services/index';
+
 import { GetServerSideProps } from 'next/types';
 
 const Product = ({ data }: OneProductProps): JSX.Element => {
@@ -24,7 +21,7 @@ export const getServerSideProps: GetServerSideProps<OneProductProps> = async (co
     const { id } = context.query;
 
     try {
-        const { data } = await axios.get<SingleProductData>(process.env.NEXT_BASE_URL + `/product/${id}`);
+        const { data } = await axios.get<SingleProductData>(API_URL + `/product/${id}`);
         return {
             props: { data },
         }
