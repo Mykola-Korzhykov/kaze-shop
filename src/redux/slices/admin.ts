@@ -188,7 +188,7 @@ const initialState: initialStateType = {
 			sizeChartImage: 'kfkf',
 			sizeChartImageDescription: '21231231',
 			hexes: ['blue', 'red'],
-		sizes: ['X', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS', 'XS'],
+		sizes: [],
 		colours: [
 			{
 				hex: '#FFE4C4',
@@ -798,15 +798,15 @@ export const admin: Slice<initialStateType> = createSlice({
 	name: 'admin',
 	initialState,
 	reducers: {
-		setSizes: (state, action: PayloadAction<{ id: number; size: string }>) => {
+		setSizes: (state, action: PayloadAction<string>) => {
 			//const found =  state.sizes.indexOf(action.payload.id)
-			state.sizesend.push(action.payload)
+			state.userEdit.sizes.push(action.payload)
 		},
-		removeSizes: (state, action) => {
+		removeSizes: (state, action: PayloadAction<string>) => {
 			// console.log('вход')
-			const found = state.sizesend.find(el => el.id === action.payload)
-			const index = state.sizesend.indexOf(found)
-			state.sizesend.splice(index, 1)
+			const found = state.userEdit.sizes.find(el => el === action.payload)
+			const index = state.userEdit.sizes.indexOf(found)
+			state.userEdit.sizes.splice(index, 1)
 		},
 
 		setColors: (
@@ -835,6 +835,7 @@ export const admin: Slice<initialStateType> = createSlice({
 			console.log('вход в стейт')
 			state.userEdit.images.push(null)
         },
+				
 	},
 
     extraReducers: (builder) => {

@@ -18,6 +18,8 @@ const CompareMainItem = () => {
 	const [selectedSizeEl, setSelectedSizeEl] = React.useState<string | null>(
 		null
 	)
+	console.log(compareProduct?.sizes)
+	console.log(selectedSizeEl)
 	const [selectedColorEl, setSelectedColorEl] = React.useState<{
 		colourId: number
 		hex: string

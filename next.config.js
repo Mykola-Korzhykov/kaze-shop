@@ -9,7 +9,7 @@ const nextConfig = {
 			buildActivity: false,
 	},
 	images: {
-	domains: ['[::1]'],
+	domains: ['api.kaze-shop.online'],
 },
 
 }

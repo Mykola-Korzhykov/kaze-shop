@@ -75,14 +75,26 @@ export const formData = createSlice({
                 state.title[branch] = title;
             }
         },
+        setSizeChartImageDescription: (state, action: PayloadAction<{ branch: keyof initialStateType['sizeChartImageDescription'], sizeChartImageDescription: string }>) =>{
+            // console.log('key', action.payload.branch)
+            // console.log('title', action.payload.sizeChartImageDescription)
+            const { branch, sizeChartImageDescription } = action.payload;
+            if (branch in state.sizeChartImageDescription) {
+                state.sizeChartImageDescription[branch] = sizeChartImageDescription;
+            }
+        },
         setDescription: (state, action: PayloadAction<{ branch: keyof initialStateType['description'], description: string }>) => {
             const { branch, description } = action.payload;
             if (branch in state.description) {
                 state.description[branch] = description;
             }
         },
-        setSizes: (state, action: PayloadAction<string>) => {
-            state.sizes.push(action.payload)
+        setSizes: (state, action: PayloadAction<string | string[]>) => {
+            if(typeof action.payload === 'string'){
+                state.sizes.push(action.payload)
+            }else {
+                state.sizes = action.payload
+            }
         },
         removeSizes: (state, action: PayloadAction<string>) =>{
             const found =  state.sizes.find((el)=> el === action.payload)
@@ -135,14 +147,7 @@ export const formData = createSlice({
 
         },
         //
-        setSizeChartImageDescription: (state, action: PayloadAction<{ branch: keyof initialStateType['sizeChartImageDescription'], sizeChartImageDescription: string }>) =>{
-            // console.log('key', action.payload.branch)
-            // console.log('title', action.payload.sizeChartImageDescription)
-            const { branch, sizeChartImageDescription } = action.payload;
-            if (branch in state.sizeChartImageDescription) {
-                state.sizeChartImageDescription[branch] = sizeChartImageDescription;
-            }
-        },
+       
         setArrObjMod: (state, action: PayloadAction<{ fileNames: string[], colourId: number; sizes: string[]}>) =>{
             
             state.arrObjMod.push(action.payload) 
