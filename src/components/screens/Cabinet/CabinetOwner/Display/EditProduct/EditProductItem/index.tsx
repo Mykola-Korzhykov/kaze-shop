@@ -2,7 +2,10 @@ import React from 'react';
 import s from './EditProductItem.module.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import { addCountPhotos } from '../../../../../../../redux/slices/admin';
+import {
+	addCountPhotos,
+	setEditProductItemId,
+} from '../../../../../../../redux/slices/admin';
 import { setModalAddEditProduct } from '../../../../../../../redux/slices/modal';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { InputTextItem } from '../../AddProduct/InputText';
@@ -13,7 +16,7 @@ import selectIcon from '../../../../../../../assets/icons/cabinetAdmin/selectIco
 import photoTest from '../../../../../../../assets/images/product/slider/photo.png';
 import photo from '../../../../../../../assets/images/admin/img.png';
 //components
-import { Input } from './Input';
+// import { Input } from './Input';
 import { SizeItem } from '../../AddProduct/SizesItem';
 import { ColorItem } from '../../AddProduct/ColorItem';
 import { SizeChart } from '../../../Display/AddProduct/sizeChart';
@@ -21,11 +24,14 @@ import { SizeChart } from '../../../Display/AddProduct/sizeChart';
 import { Goods } from '../../../../../../../types/goods';
 import { ImageData } from '../../../../../../../types/goods';
 import {
+	setSizes,
+	removeSizes,
 	setCategories,
 	setDescription,
 	setPrice,
 	setQuantity,
 	setTitle,
+	setSizeChartImageDescription,
 } from '@/redux/slices/formData';
 
 interface EditProductItemType {
@@ -35,10 +41,187 @@ interface EditProductItemType {
 
 export const EditProductItem = ({ id }: EditProductItemType) => {
 	const dispatch = useAppDispatch();
+	let activeCategories: any = null;
+	const activeProduct = {
+		id: 3,
+		title: {
+			ua: 'Павло',
+			ru: ' Паша',
+			rs: 'хз',
+			en: 'The best',
+		},
+		description: {
+			ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
+			ru: 'на русс опис doprepwfieifweifipowerf',
+			rs: 'на rs опис лдощцаозщуцощауоазуцща',
+			en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
+		},
+		sizeChartDescription: {
+			ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
+			ru: 'на русс опис doprepwfieifweifipowerf',
+			rs: 'на rs опис лдощцаозщуцощауоазуцща',
+			en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
+		},
+		price: 300,
+		quantity: 100,
+		// { fileNames: string[], colourId: number; sizes: string[]}
+		images: [
+			{
+				fileNames: [photo, photo],
+				colourId: 3,
+				sizes: ['S', 'M', 'L'],
+			},
+			{
+				fileNames: [photo, photo],
+				colourId: 4,
+				sizes: ['S', 'M', 'L'],
+			},
+		],
+		sizeChartImage: 'https://api.kaze-shop.online/public/products/sizeChartImageAccount (Like) (phone 428)/sizeChartImage/f725bb74-d200-4593-a8f0-bb8eb10619ba----Account (Like) (phone 428).jpg"',
+		sizes: ['M', 'XS', 'L'],
+		colours: [
+			{
+				hex: '#FFE4C4',
+				id: 1,
+				ru: 'ru',
+				rs: 'rs',
+				en: 'en',
+				ua: 'ua',
+				type: 'colour',
+				createdAt: 'test',
+				updatedAt: 'test',
+			},
+			{
+				hex: '#9F8E84',
+				id: 2,
+				ru: 'ru',
+				rs: 'rs',
+				en: 'en',
+				ua: 'ua',
+				type: 'colour',
+				createdAt: 'test',
+				updatedAt: 'test',
+			},
+			{
+				hex: '#000080',
+				id: 3,
+				ru: 'ru',
+				rs: 'rs',
+				en: 'en',
+				ua: 'ua',
+				type: 'colour',
+				createdAt: 'test',
+				updatedAt: 'test',
+			},
+			{
+				hex: '#A6BEE5',
+				id: 4,
+				ru: 'ru',
+				rs: 'rs',
+				en: 'en',
+				ua: 'ua',
+				type: 'colour',
+				createdAt: 'test',
+				updatedAt: 'test',
+			},
+		],
+		categories: [
+			{
+				id: 1,
+				ua: 'Лосини',
+				en: 'Лосини',
+				rs: 'Лосини',
+				ru: 'Лосини',
+				type: 'category',
+				createdAt: 'any',
+				updatedAt: 'any',
+			},
+		],
+	};
+	const [netFile, setNetFile] = React.useState<null | File | string>(null);
+	React.useEffect(() => {
+		// give initial state to reduxt data from selected product
+		//sizes
+		dispatch(setSizes(activeProduct.sizes))
+		//title
+		const payloadT: any = { branch: 'ua', title: activeProduct.title.ua };
+		dispatch(setTitle(payloadT));
+		const payloadT2: any = { branch: 'en', title: activeProduct.title.en };
+		dispatch(setTitle(payloadT2));
+		const payloadT3: any = { branch: 'ru', title: activeProduct.title.ru };
+		dispatch(setTitle(payloadT3));
+		const payloadT4: any = { branch: 'rs', title: activeProduct.title.rs };
+		dispatch(setTitle(payloadT4));
+		//description
 
+		const payloadD: any = {
+			branch: 'ru',
+			description: activeProduct.description.ru,
+		};
+		dispatch(setDescription(payloadD));
+
+		const payloadD2: any = {
+			branch: 'ua',
+			description: activeProduct.description.ua,
+		};
+		dispatch(setDescription(payloadD2));
+
+		const payloadD3: any = {
+			branch: 'rs',
+			description: activeProduct.description.rs,
+		};
+		dispatch(setDescription(payloadD3));
+
+		const payloadD4: any = {
+			branch: 'en',
+			description: activeProduct.description.en,
+		};
+		dispatch(setDescription(payloadD4));
+
+		//quantity
+
+		const payloadQ: number = activeProduct.quantity;
+		dispatch(setQuantity(Number(payloadQ)));
+
+		//price
+
+		const payloadP: number = activeProduct.price;
+		dispatch(setPrice(Number(payloadP)));
+
+		//sizeChartDescr
+
+		const payloadSd: any = {
+			branch: 'ua',
+			sizeChartImageDescription: activeProduct.sizeChartDescription.ua,
+		};
+		dispatch(setSizeChartImageDescription(payloadSd));
+
+		const payloadSd2: any = {
+			branch: 'ru',
+			sizeChartImageDescription: activeProduct.sizeChartDescription.ru,
+		};
+		dispatch(setSizeChartImageDescription(payloadSd2));
+
+		const payloadSd3: any = {
+			branch: 'rs',
+			sizeChartImageDescription: activeProduct.sizeChartDescription.rs,
+		};
+		dispatch(setSizeChartImageDescription(payloadSd3));
+
+		const payloadSd4: any = {
+			branch: 'en',
+			sizeChartImageDescription: activeProduct.sizeChartDescription.en,
+		};
+		dispatch(setSizeChartImageDescription(payloadSd4));
+		//category
+		activeCategories = activeProduct.categories[0]
+		//sizeChartImage
+		setNetFile(activeProduct.sizeChartImage)
+	}, []);
 	const [choiseSize, setChoiseSize] = React.useState<boolean>(false);
 	const [choiceColors, setChoiceColors] = React.useState<boolean>(false);
-	const [netFile, setNetFile] = React.useState<null | File>(null);
+	
+	const selectedSizes = useSelector((state: RootState) => state.formData.sizes);
 	const sizesItems = useSelector((state: RootState) => state.admin.sizesItems);
 	const userEdit = useSelector((state: RootState) => state.admin.userEdit);
 	// console.log('EditProductItemID', id)
@@ -48,13 +231,24 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	);
 	const products = useSelector((state: RootState) => state.admin.editProducts);
 	const colors = useSelector((state: RootState) => state.goods.fetchedColours);
-
+	const title = useSelector((state: RootState) => state.formData.title);
+	const descr = useSelector((state: RootState) => state.formData.description);
+	const price = useSelector((state: RootState) => state.formData.price);
+	const quantity = useSelector((state: RootState) => state.formData.quantity);
+	const sizeChartDescr = useSelector(
+		(state: RootState) => state.formData.sizeChartImageDescription
+	);
 	const goods = useSelector((state: RootState) => state.goods.goods);
 	//chosen product
-	const activeProduct = products.find((el) => {
-		return el.id === editProductItemId;
-	});
+	const activeProduct2 = products.find((el) => el.id === id);
+	// console.log('TITLE', title)
+	// console.log('DESCR', descr)
+	// console.log('PRICE', price)
+	// console.log('quantity', quantity)
+	console.log('SIZECHART', sizeChartDescr);
 
+	// console.log('activeProductPPP', activeProduct);
+	// console.log('prodcuts', products);
 	// console.log('userEdit', userEdit.images[0].imagesPaths)
 
 	interface ImageData {
@@ -102,7 +296,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			text: 'Название товара RU',
 			placeholder: 'Введите название товара',
 			name: 'titleRU',
-			value: activeProduct?.title?.ru,
+			value: activeProduct.title.ru,
 		},
 		{
 			id: 1,
@@ -110,7 +304,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			text: 'Название товара UA',
 			placeholder: 'Введите название товара',
 			name: 'titleUA',
-			value: activeProduct?.title?.ua,
+			value: activeProduct.title.ua,
 		},
 		{
 			id: 2,
@@ -118,7 +312,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			text: 'Название товара SRB',
 			placeholder: 'Введите название товара',
 			name: 'titleSRB',
-			value: activeProduct?.title?.rs,
+			value: activeProduct.title.rs,
 		},
 		{
 			id: 3,
@@ -126,7 +320,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			text: 'Название товара ENG',
 			placeholder: 'Введите название товара',
 			name: 'titleENG',
-			value: activeProduct?.title?.en,
+			value: activeProduct.title.en,
 		},
 		{
 			id: 4,
@@ -186,10 +380,12 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		},
 	]);
 
+	console.log('inputsActiveProduct', activeProduct?.title?.ru);
+
 	interface InputsStateValidType {
 		[key: number]: boolean;
 	}
-	const inputsStateInition = inputs.reduce((accumulator, currentValue) => {
+	const inputsStateInition = [...inputs].reduce((accumulator, currentValue) => {
 		accumulator[currentValue.id] = true;
 		return accumulator;
 	}, {} as InputsStateValidType);
@@ -230,8 +426,8 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			updatedAt: 'string',
 		},
 	];
-
-	const activeCategories = categoryArr.find((el) => {
+	
+	activeCategories = categoryArr.find((el) => {
 		return el.id === categories[0];
 	});
 
@@ -279,8 +475,37 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			const payload: number = event.target.value;
 			dispatch(setPrice(Number(payload)));
 		}
+		//sizeChartDescr
+		if (event.target.name === 'sizeChartDescrUA') {
+			const payload: any = {
+				branch: 'ua',
+				sizeChartImageDescription: event.target.value,
+			};
+			dispatch(setSizeChartImageDescription(payload));
+		}
+		if (event.target.name === 'sizeChartDescrRU') {
+			const payload: any = {
+				branch: 'ru',
+				sizeChartImageDescription: event.target.value,
+			};
+			dispatch(setSizeChartImageDescription(payload));
+		}
+		if (event.target.name === 'sizeChartDescrRS') {
+			const payload: any = {
+				branch: 'rs',
+				sizeChartImageDescription: event.target.value,
+			};
+			dispatch(setSizeChartImageDescription(payload));
+		}
+		if (event.target.name === 'sizeChartDescrEN') {
+			const payload: any = {
+				branch: 'en',
+				sizeChartImageDescription: event.target.value,
+			};
+			dispatch(setSizeChartImageDescription(payload));
+		}
 	}
-
+	console.log('inputts before', inputs);
 	return (
 		<>
 			<div
@@ -301,17 +526,20 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 									<div className={s.wrapper_input_main}>
 										<div className={s.title}>{obj.text}</div>
 										<input
+											defaultValue={obj.value}
 											onBlur={handleBlurSet}
 											className={s.input}
 											type={obj.type}
 											placeholder={obj.placeholder}
 											name={obj.name}
+											required
 										/>
 									</div>
 								) : obj.type === 'number' ? (
 									<div className={s.wrapper_input_main}>
 										<div className={s.title}>{obj.text}</div>
 										<input
+											defaultValue={obj.value}
 											onBlur={handleBlurSet}
 											className={s.input}
 											type={obj.type}
@@ -336,7 +564,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 											}
 											type={obj.type}
 											placeholder={
-												activeCategories ? activeCategories.ru : obj.placeholder
+												activeCategories ? activeCategories.ru : activeProduct.categories[0].ru
 											}
 										/>
 										<Image
@@ -499,19 +727,23 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 						<div className={s.input_wrapper}>
 							<span className={s.net_title}>Описание размерной сетки UA</span>
 							<input
-								value={activeProduct?.title?.ru}
+								onBlur={handleBlurSet}
+								defaultValue={activeProduct?.title?.ua}
 								placeholder="Введите описание"
 								className={s.input_inner}
 								type="text"
+								name="sizeChartDescrUA"
 							/>
 						</div>
 						<div className={s.input_wrapper}>
 							<span className={s.net_title}>Описание размерной сетки RU</span>
 							<input
-								value={activeProduct?.title?.ua}
+								onBlur={handleBlurSet}
+								defaultValue={activeProduct?.title?.ru}
 								placeholder="Введите описание"
 								className={s.input_inner}
 								type="text"
+								name="sizeChartDescrRU"
 							/>
 						</div>
 					</div>
@@ -520,19 +752,23 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 						<div className={s.input_wrapper}>
 							<span className={s.net_title}>Описание размерной сетки SRB</span>
 							<input
-								defaultValue={activeProduct?.title?.ua}
+								onBlur={handleBlurSet}
+								defaultValue={activeProduct?.title?.rs}
 								placeholder="Введите описание"
 								className={s.input_inner}
 								type="text"
+								name="sizeChartDescrRS"
 							/>
 						</div>
 						<div className={s.input_wrapper}>
-							<span className={s.net_title}>Описание размерной сетки SRB</span>
+							<span className={s.net_title}>Описание размерной сетки EN</span>
 							<input
-								value={activeProduct?.title?.ua}
+								onBlur={handleBlurSet}
+								defaultValue={activeProduct?.title?.rs}
 								placeholder="Введите описание"
 								className={s.input_inner}
 								type="text"
+								name="sizeChartDescrEN"
 							/>
 						</div>
 					</div>
@@ -601,7 +837,11 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 								className={s.net_file}
 								width={308}
 								height={60}
-								src={URL.createObjectURL(netFile)}
+								src={
+									typeof netFile === 'string'
+										? netFile
+										: URL.createObjectURL(netFile)
+								}
 								alt={'photo'}
 							/>
 						</div>
@@ -646,17 +886,31 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 							choiseSize ? s.choise_set_wrapper : s.choise_set_wrapper_off
 						}
 					>
-						{sizesItems.map((el, ind) => {
-							return (
-								<div key={ind} className={s.choise_set_item}>
-									<span className={s.choise_set_title}>{el.size}</span>
-								</div>
-							);
-						})}
+						{sizesItems
+							.filter((el) => !selectedSizes.includes(el.size))
+							.map((el, ind) => {
+								return (
+									<div
+										onClick={() => {
+											setChoiseSize(!choiseSize);
+											dispatch(setSizes(el.size));
+										}}
+										key={ind}
+										className={s.choise_set_item}
+									>
+										<span
+											style={{ cursor: 'pointer' }}
+											className={s.choise_set_title}
+										>
+											{el.size}
+										</span>
+									</div>
+								);
+							})}
 					</div>
 
 					<div className={s.selected_sizes}>
-						{userEdit?.sizes.map((el, ind) => {
+						{selectedSizes?.map((el, ind) => {
 							return (
 								<span className={s.selected_sizes_item} key={ind}>
 									<SizeItem key={ind} id={ind} size={el} />
@@ -666,7 +920,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 					</div>
 				</div>
 
-				<div
+				{/* <div
 					onClick={() => {
 						setChoiceColors(!choiceColors);
 						// console.log('click')
@@ -735,11 +989,14 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 					{userEdit.colours?.map((el, ind) => {
 						return <ColorItem key={ind} hex={el.hex} label={el.ua} />;
 					})}
-				</div>
+				</div> */}
 
 				{/* тоже самое с цветами , сатею в отдельную переменную, локальную переменную после чего с ней работаю и отправляю при отправке ее уже  */}
 
-				<div className={s.send_wrapper}>
+				<div
+					onClick={() => dispatch(setEditProductItemId(-1))}
+					className={s.send_wrapper}
+				>
 					<span className={s.send_cancel}>Отмена</span>
 					<span className={s.send}>Изменить товар</span>
 				</div>

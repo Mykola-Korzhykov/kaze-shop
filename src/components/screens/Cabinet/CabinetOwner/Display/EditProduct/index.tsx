@@ -27,6 +27,10 @@ export const EditProduct = () => {
 	React.useEffect(() => {
 		dispatch(fetchGoods());
 	}, []);
+
+	React.useEffect(() => {
+		const countPages = products.length / 10;
+	}, []);
 	return (
 		<>
 			<div className={editProductItemId === -1 ? s.wrapper : s.wrapper_off}>
@@ -42,6 +46,8 @@ export const EditProduct = () => {
 						/>
 					);
 				})}
+
+				<div className={s.pagination}></div>
 			</div>
 
 			{/* передача фото розмеров та цветов от activeProductEdit */}

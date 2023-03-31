@@ -1,24 +1,29 @@
-import '@/styles/reset.scss'
-import '@/styles/common.scss'
-import { useEffect } from 'react'
-import type { AppProps } from 'next/app'
-import Layout from '@/layouts/DefaultLayout'
-import { wrapper } from '../redux/store'
-import { Api } from '@/services'
-import React, { Suspense } from 'react'
-import { addUserInfo } from '@/redux/slices/user'
-import Spinner from '@/components/Spinner/Spinner'
+import '@/styles/reset.scss';
+import '@/styles/common.scss';
+import { useEffect } from 'react';
+import type { AppProps } from 'next/app';
+import Cookies from 'js-cookie';
+import Layout from '@/layouts/DefaultLayout';
+import { wrapper } from '../redux/store';
+import { Api } from '@/services';
+import React, { Suspense } from 'react';
+import { addUserInfo } from '@/redux/slices/user';
+import Spinner from '@/components/Spinner/Spinner';
 
-import { DefaultSeo } from 'next-seo'
-import SEO from '../../next-seo.config'
+import { DefaultSeo } from 'next-seo';
+import SEO from '../../next-seo.config';
 
 function App({ Component, pageProps }: AppProps) {
 	React.useEffect(() => {
+		const cartCookie = Cookies.get('_id');
 		const setUserCartToken = async () => {
-			await Api().user.refreshCartToken()
+			await Api().user.refreshCartToken();
+		};
+		if (!cartCookie) {
+			setUserCartToken();
 		}
-		setUserCartToken()
-	}, [])
+	}, []);
+	
 	return (
 		<Suspense fallback={<Spinner />}>
 			<DefaultSeo {...SEO} />
@@ -26,7 +31,7 @@ function App({ Component, pageProps }: AppProps) {
 				<Component {...pageProps} />
 			</Layout>
 		</Suspense>
-	)
+	);
 }
 
 // App.getInitialProps = async () => {
@@ -59,4 +64,4 @@ function App({ Component, pageProps }: AppProps) {
 // 		}
 // )
 
-export default wrapper.withRedux(App)
+export default wrapper.withRedux(App);

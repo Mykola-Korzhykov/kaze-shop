@@ -33,8 +33,8 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 		dispatch(
 			addProductToCart({
 				id: product?.id,
-				imageUrl: product?.images[0].imagesPaths[0],
-				colourId: product?.images[0].colour?.id,
+				imageUrl: product?.images[0]?.imagesPaths[0],
+				colourId: product?.images[0]?.colour?.id,
 				size: product?.sizes[0],
 			})
 		)
@@ -71,7 +71,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 					{isHovering ? (
 						<Image
 							className={s.img}
-							src={product.images[0]?.imagesPaths[1] ?? catalogImg}
+							src={product.images[1]?.imagesPaths[1] ?? catalogImg}
 							width={285}
 							height={360}
 							alt={product?.title?.en}
