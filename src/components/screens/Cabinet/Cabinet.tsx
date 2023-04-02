@@ -6,7 +6,7 @@ import { RootState } from '@/redux/store';
 import { useRouter } from 'next/router';
 import { addUserInfo } from '@/redux/slices/user';
 import Link from 'next/link';
-import { setCookie } from 'nookies';
+import { setCookie, destroyCookie } from 'nookies';
 import s from './screenStyle.module.scss';
 //components
 import ChangeUserPassword from '@/components/ChangeUserPassword/ChangeUserPassword';
@@ -69,7 +69,10 @@ const Cabinet: FC = () => {
 				}
 			} catch (e) {
 				//router.push('/404')
-				console.log(e);
+				// if (e?.response?.status === 400) {
+				// 	destroyCookie(undefined, 'accessToken');
+				// 	router.push('/');
+				// }
 			}
 		};
 
