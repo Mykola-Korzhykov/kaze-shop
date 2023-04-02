@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useAppDispatch } from '@/redux/hooks';
 import { setModalAddEditProduct } from '../../../../../../../redux/slices/modal';
-// import { setColors} from '../../../../../../../redux/slices/admin'
+
 import {
 	setSizes,
 	setColors,
@@ -159,13 +159,6 @@ export const ModalEditProduct = ({
 			urls.push(url);
 		}
 
-		// const innetFiles: File[] = files.shift()
-		//     const urlsPng = innetFiles.map((el)=>{
-		//         return URL.createObjectURL(el)
-		// })
-		// setPngImageShow(urlsPng)
-
-		// setImageUrl(url)
 		dispatch(setImageUrl(urls));
 	}
 

@@ -68,7 +68,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			let updatedObj: {
 				[key: string]: string;
 			} = {};
-			const arrObjModalCopy =  [...arrObjModal];
+			const arrObjModalCopy = [...arrObjModal];
 
 			const updatedArray = arrObjModalCopy.map((obj) => {
 				const { fileNames, ...rest } = obj;
@@ -76,13 +76,12 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 				delete rest.fileNames;
 				return { ...rest, imagesPaths: fileNames };
 			});
-			
-			console.log('FINISH ARR IMAGES',[ ...arrCopy, ...updatedArray])
-		 //@ts-ignore
+
+			console.log('FINISH ARR IMAGES', [...arrCopy, ...updatedArray]);
+			//@ts-ignore
 			setAllEditsImages(arrCopy.concat(updatedArray));
 		}
-		console.log('ModalArr', arrObjModal)
-		
+		console.log('ModalArr', arrObjModal);
 	}, [arrObjModal]);
 	let activeCategories: any = null;
 	const activeProduct = {
@@ -312,8 +311,8 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	// console.log('DESCR', descr)
 	// console.log('PRICE', price)
 	// console.log('quantity', quantity)
-	console.log('SIZECHART', sizeChartDescr);
-	console.log('allEditsImages', allEditsImages);
+	// console.log('SIZECHART', sizeChartDescr);
+	// console.log('allEditsImages', allEditsImages);
 	// console.log('activeProductPPP', activeProduct);
 	// console.log('prodcuts', products);
 	// console.log('userEdit', userEdit.images[0].imagesPaths)
@@ -740,7 +739,10 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 
 					{allEditsImages?.map((el, ind) => {
 						return (
-							<div key={ind + '' + el?.imagesPaths[1] + new Date()} className={s.item}>
+							<div
+								key={ind + '' + el?.imagesPaths[1] + new Date()}
+								className={s.item}
+							>
 								<div className={s.info_wrapper}>
 									<span className={s.index}>{`${ind + 1}.`}</span>
 
