@@ -32,6 +32,12 @@
 		font-size: 86px;
 		line-height: 104px;
 		color: #0b0b0b;
+		@media (max-width: 428px) {
+			font-size: 70px;
+		}
+		@media (max-width: 320px) {
+			font-size: 70px;
+		}
 	}
 	&_descr {
 		font-family: 'Georama';
@@ -43,6 +49,20 @@
 		opacity: 0.5;
 		margin-top: 24px;
 		margin-bottom: 40px;
+		text-align: center;
+		@media (max-width: 834px) {
+			font-size: 28px;
+			margin-top: 16px;
+		}
+		@media (max-width: 428px) {
+			font-size: 24px;
+			margin-bottom: 20px;
+		}
+		@media (max-width: 320px) {
+			margin-top: 8px;
+			margin-bottom: 20px;
+			font-size: 18px;
+		}
 	}
 	&_confirm {
 		padding: 16px 30px;
@@ -54,5 +74,79 @@
 		line-height: 24px;
 		background: #0b0b0b;
 		border: none;
+		@media (max-width: 320px) {
+			font-size: 15px;
+			line-height: 22px;
+		}
+	}
+}
+
+//smmodal styles for cart
+
+.smmodal {
+	&_title {
+		text-align: center;
+		font-family: 'Russo One';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 40px;
+		line-height: 48px;
+		color: #0b0b0b;
+		@media (max-width: 834px) {
+			font-size: 32px;
+			line-height: 39px;
+		}
+		@media (max-width: 428px) {
+			font-size: 24px;
+			line-height: 29px;
+		}
+		@media (max-width: 320px) {
+			font-size: 24px;
+			line-height: 29px;
+		}
+	}
+	&_descr {
+		text-align: center;
+		font-family: 'Georama';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 24px;
+		line-height: 29px;
+		color: #0b0b0b;
+		opacity: 0.5;
+		margin-top: 24px;
+		margin-bottom: 40px;
+		text-align: center;
+		@media (max-width: 834px) {
+			font-size: 20px;
+			line-height: 24px;
+			margin-top: 16px;
+		}
+		@media (max-width: 428px) {
+			font-size: 16px;
+			line-height: 19px;
+			margin-bottom: 20px;
+		}
+		@media (max-width: 320px) {
+			margin-top: 8px;
+			margin-bottom: 20px;
+			font-size: 16px;
+			line-height: 19px;
+		}
+	}
+	&_confirm {
+		padding: 16px 30px;
+		color: #ffffff;
+		font-family: 'Georama', sans-serif;
+		font-style: normal;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 24px;
+		background: #0b0b0b;
+		border: none;
+		@media (max-width: 320px) {
+			font-size: 15px;
+			line-height: 22px;
+		}
 	}
 }

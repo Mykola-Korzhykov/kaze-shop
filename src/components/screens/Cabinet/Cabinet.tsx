@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { Api } from '@/services';
 import { useSelector } from 'react-redux';
+import Spinner from '@/components/Spinner/Spinner';
 import { useAppDispatch } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
 import { useRouter } from 'next/router';
@@ -26,6 +27,9 @@ import { divide } from 'lodash';
 
 const Cabinet: FC = () => {
 	const dispatch = useAppDispatch();
+	const loadingStatus = useSelector(
+		(state: RootState) => state.goods.loadingStatus
+	);
 	const router = useRouter();
 	const user: RootState['user'] = useSelector((state: RootState) => state.user);
 	//states
@@ -82,6 +86,7 @@ const Cabinet: FC = () => {
 	}, [dispatch]);
 
 	return (
+		<>{loadingStatus === 'loading' && <Spinner />}
 		<main className="content">
 			<div className={s.container}>
 				<div className="page_coordinator">
@@ -185,7 +190,7 @@ const Cabinet: FC = () => {
 
 				{/* {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  */}
 			</div>
-		</main>
+		</main></>
 	);
 };
 

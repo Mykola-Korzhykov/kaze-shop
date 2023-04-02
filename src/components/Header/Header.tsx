@@ -18,7 +18,7 @@ const Header: FC<Props> = ({isSticky, headerRef}) => {
       <div className="container">
         <div className={cl.header__body}>
           <HeaderLogo />
-          <HeaderMenu classNameToggle={showBurgerMenu} />
+          <HeaderMenu classNameToggle={showBurgerMenu} toggleBurgerFunc={toogleBurgerMenu}/>
           <HeaderInfo toggleBurgerFunc={toogleBurgerMenu} showBurgerMenu={showBurgerMenu} />
         </div>
       </div>
