@@ -46,8 +46,8 @@ interface EditProductItemType {
 export const EditProductItem = ({ id }: EditProductItemType) => {
 	const dispatch = useAppDispatch();
 	const arrObjModal = useAppSelector((state) => state.formData.arrObjMod);
-	const imageUrlArr = useSelector(
-		(state: RootState) => state.modaleSlice.imageUrlArr
+	const arrObjModalSwow = useSelector(
+		(state: RootState) => state.admin.arrObjModalSwow
 	);
 	const [showPhotos, setAllShowPhotos] = React.useState<File[]>([]);
 	const [allEditsImages, setAllEditsImages] = React.useState<
@@ -802,8 +802,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 												dispatch(setModalAddEditProduct(true));
 											}}
 										>
-											{' '}
-											Загрузить фото{' '}
+											Загрузить фото
 										</span>
 									)}
 								</div>
