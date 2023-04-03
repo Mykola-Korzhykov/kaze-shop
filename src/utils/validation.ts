@@ -1,4 +1,4 @@
-import * as yup from 'yup'
+import * as yup from 'yup';
 
 export const LoginFormSchema = yup.object().shape({
 	email: yup
@@ -15,7 +15,7 @@ export const LoginFormSchema = yup.object().shape({
 			/(?=.*[0-9])(?=.*[a-z])[0-9a-zA-Z!@#.$%^&*]{8,}/g,
 			'Пароль должен содержать не менее 8 символов и хотя бы одну цыфру'
 		),
-})
+});
 
 export const RegisterFormSchema = yup
 	.object()
@@ -24,18 +24,24 @@ export const RegisterFormSchema = yup
 			.string()
 			.required('Name required')
 			.min(2, 'Minimum 2 symbols')
-			.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Используйте только слова'),
+			.matches(
+				/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/,
+				'Используйте только слова'
+			),
 		surname: yup
 			.string()
 			.required('Surname required')
 			.min(2, 'Minimum 2 symbols')
-			.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Используйте только слова'),
+			.matches(
+				/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/,
+				'Используйте только слова'
+			),
 
 		confirmPassword: yup
 			.string()
 			.oneOf([yup.ref('password'), null], 'Пароли должны совпадать'),
 	})
-	.concat(LoginFormSchema)
+	.concat(LoginFormSchema);
 
 export const ChangeUserInfoShema = yup.object().shape({
 	name: yup.string().required('Name required').min(2, 'Minimum 2 symbols'),
@@ -43,23 +49,35 @@ export const ChangeUserInfoShema = yup.object().shape({
 		.string()
 		.required('Surname required')
 		.min(2, 'Minimum 2 symbols')
-		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Используйте только слова'),
+		.matches(
+			/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/,
+			'Используйте только слова'
+		),
 	country: yup
 		.string()
 		.required('Country required')
 		.min(2, 'Minimum 2 symbols')
-		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Используйте только слова'),
+		.matches(
+			/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/,
+			'Используйте только слова'
+		),
 	city: yup
 		.string()
 		.required('City required')
 		.min(2, 'Minimum 2 symbols')
-		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Используйте только слова'),
+		.matches(
+			/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/,
+			'Используйте только слова'
+		),
 	postOffice: yup
 		.string()
 		.required('Post office required')
 		.min(2, 'Minimum 2 symbols')
-		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'Используйте только слова'),
-})
+		.matches(
+			/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/,
+			'Используйте только слова'
+		),
+});
 
 export const ChangeUserPasswordShema = yup.object().shape({
 	password: yup
@@ -72,7 +90,7 @@ export const ChangeUserPasswordShema = yup.object().shape({
 	confirmPassword: yup
 		.string()
 		.oneOf([yup.ref('password'), null], 'Пароли должны совпадать'),
-})
+});
 
 export const ForgotPasswordSchema = yup
 	.object()
@@ -84,7 +102,7 @@ export const ForgotPasswordSchema = yup
 			.min(8, 'Должно быть только 8 цыфр')
 			.max(8, 'Должно быть только 8 цыфр'),
 	})
-	.concat(ChangeUserPasswordShema)
+	.concat(ChangeUserPasswordShema);
 
 export const GetForgotPasswordCodeSchema = yup.object().shape({
 	email: yup
@@ -94,4 +112,10 @@ export const GetForgotPasswordCodeSchema = yup.object().shape({
 			/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 			'Неверный email'
 		),
-})
+});
+
+export const FeedbackFormSchema = yup.object().shape({
+	name: yup.string().required('Поле обязательное'),
+	surname: yup.string().required('Поле обязательное'),
+	review: yup.string().required('Поле обязательное'),
+});

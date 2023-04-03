@@ -92,7 +92,7 @@ const Cabinet: FC = () => {
 				<div className="page_coordinator">
 					<Link href="#">Главная</Link> | <span>Личный кабинет</span>
 				</div>
-
+				{/* <CabinetTabs />  */}
 				{user && user.user?.type === 'USER' ? <CabinetTabs /> : ''}
 				{user?.user?.type === 'OWNER' ||
 					(user?.user?.type === 'ADMIN' && (
