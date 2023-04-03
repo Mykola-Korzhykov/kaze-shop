@@ -40,21 +40,21 @@ const FeedBack = () => {
 			setRequestLoading(true);
 			const data = await Api().goods.sendFeedback(
 				{ ...dto, rating: selectedOption },
-				2
+				feedbackProduct?.productId
 			);
-
+			feedBackInfoForm.reset()
+			router.push(`/product/${feedbackProduct?.productId}`)
 			setRequestLoading(false);
 		} catch (err) {
 			setRequestLoading(false);
-
-			// router.push('/404');
+			router.push('/404');
 		}
 	};
-	// React.useEffect(() => {
-	// 	if (!feedbackProduct) {
-	// 		router.push('/');
-	// 	}
-	// }, [feedbackProduct]);
+	React.useEffect(() => {
+		if (!feedbackProduct) {
+			router.push('/');
+		}
+	}, [feedbackProduct]);
 	const FeedBacks = [
 		{ id: 1, optionText: 'Оцениваю на одну звездочку, все плохо!' },
 		{ id: 2, optionText: 'Недоволен работой(' },
