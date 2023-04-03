@@ -106,7 +106,7 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		},
 		productId: number
 	) {
-		const { data } = await instance.post(`feedback/${productId}`, feedback);
+		const { data } = await instance.put(`reviews/create_review?productId=${productId}`, feedback);
 		return data;
 	},
 });
