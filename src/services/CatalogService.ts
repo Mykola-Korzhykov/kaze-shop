@@ -90,7 +90,11 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		return data;
 	},
 	async getSingleProduct(productId: number) {
-		const { data } = await instance.post(`product/${productId}`);
+		const { data } = await instance.get(`product/${productId}`);
+		return data;
+	},
+	async deleteSingleProduct(productId: number) {
+		const { data } = await instance.delete(`product/${productId}`);
 		return data;
 	},
 });

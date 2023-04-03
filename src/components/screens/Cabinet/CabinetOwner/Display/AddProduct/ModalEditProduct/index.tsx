@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useAppDispatch } from '@/redux/hooks';
 import { setModalAddEditProduct } from '../../../../../../../redux/slices/modal';
-
+import { setArrObjModalSwow } from '../../../../../../../redux/slices/admin';
 import {
 	setSizes,
 	setColors,
@@ -24,6 +24,7 @@ import {
 } from '../../../../../../../redux/slices/modal';
 import { setImageUrl } from '../../../../../../../redux/slices/modal';
 import { fetchCategories } from '../../../../../../../redux/slices/goods';
+// import { setImageUrl } from '../../../../../../../redux/slices/modal';
 
 import { fetchColours } from '../../../../../../../redux/slices/goods';
 
@@ -78,6 +79,14 @@ export const ModalEditProduct = ({
 		(state: RootState) => state.goods.fetchedColours
 	);
 	const selectedColor = fetchColoursArr.find((el) => el.id === colourId);
+
+	const imageUrlArr = useSelector(
+		(state: RootState) => state.modaleSlice.imageUrlArr
+	);
+	const arrObjModalSwow = useSelector(
+		(state: RootState) => state.admin.arrObjModalSwow
+	);
+
 	//all valied forms
 
 	// pngImageShow,
@@ -129,8 +138,16 @@ export const ModalEditProduct = ({
 
 	function generationObjModal() {
 		const obj = {
-			fileNames: files.map((el) => {
+			imagesPaths: files.map((el) => {
 				return el.name;
+			}),
+			colourId: colourId,
+			sizes: selectedSizes,
+		};
+		[];
+		const objShowLocal = {
+			imagesPaths: files.map((el) => {
+				return URL.createObjectURL(el);
 			}),
 			colourId: colourId,
 			sizes: selectedSizes,
@@ -139,7 +156,11 @@ export const ModalEditProduct = ({
 		dispatch(setAllcoloursId(colourId));
 		dispatch(setAllsizes(obj.sizes));
 		dispatch(setArrObjMod(obj));
+		dispatch(setArrObjModalSwow(objShowLocal));
 
+		console.log('arrObjModalSwow', arrObjModalSwow);
+		// console.log('imagesData', imagesData);
+		console.log('imageUrlArr', imageUrlArr);
 		// console.log('obj', obj)
 		// setImages([...imagesData, ...files])
 		// console.log('arrObjMods', arrObjMods)

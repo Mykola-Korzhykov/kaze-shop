@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useAppDispatch } from '@/redux/hooks';
 // import { setColors} from '../../../../../../../redux/slices/admin'
+
 import {
 	setSizes,
 	setColors,
@@ -148,7 +149,7 @@ export const ModuleWindiw = ({
 
 	function generationObjModal() {
 		const obj = {
-			fileNames: files.map((el) => {
+			imagesPaths: files.map((el) => {
 				return el.name;
 			}),
 			colourId: colourId,
