@@ -98,7 +98,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			const filteredNewArr = newArr.filter((el) => el !== null);
 			setAllEditsImages(filteredNewArr);
 		}
-		console.log('ModalArr', arrObjModal);
+		// console.log('ModalArr', arrObjModal);
 	}, [arrObjModal]);
 
 	let activeCategories: any = null;
@@ -159,7 +159,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			},
 		],
 		sizeChartImage:
-			'https://api.kaze-shop.online/public/products/sizeChartImageAccount (Like) (phone 428)/sizeChartImage/f725bb74-d200-4593-a8f0-bb8eb10619ba----Account (Like) (phone 428).jpg"',
+			'https://distribution.faceit-cdn.net/images/fb48ddb3-b251-4361-9013-b4d1e86badce.jpeg',
 		sizes: ['M', 'XS', 'L'],
 		colours: [
 			{
@@ -231,7 +231,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	React.useEffect(() => {
 		// give initial state to reduxt data from selected product
 		//sizes
-		dispatch(setSizes(activeProduct.sizes));
+		dispatch(setSizes(activeProduct?.sizes));
 		//title
 		const payloadT: any = { branch: 'ua', title: activeProduct.title.ua };
 		dispatch(setTitle(payloadT));
@@ -916,8 +916,12 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 				{netFile && (
 					<div className={s.net_file_wrapper}>
 						<div className={s.net_file_inner}>
-							<span className={s.net_backround}></span>
+							<span
+								onClick={() => setNetFile(null)}
+								className={s.net_backround}
+							></span>
 							<svg
+								onClick={() => setNetFile(null)}
 								className={s.remove_photo}
 								width="24"
 								height="24"

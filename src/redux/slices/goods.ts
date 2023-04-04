@@ -1,57 +1,61 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
-import { HYDRATE } from 'next-redux-wrapper'
-import { Api } from '@/services'
-import { RootState } from '../store'
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { Api } from '@/services';
+import { RootState } from '../store';
 import {
 	Goods,
 	fetchedCategory,
 	fetchedColour,
 	sendProductToCart,
 	CartProduct,
-} from '../../types/goods'
-import { AxiosError } from 'axios'
+} from '../../types/goods';
+import { AxiosError } from 'axios';
 
 type GoodsSlice = {
-	goods: Goods[] | null
-	product?: Goods | null
-	compareProduct: Goods | null
-	compareOfferProducts: Goods[] | null
-	compareOfferProductModal: Goods | null
-	cartProductId: number | null
-	updateCompareProduct: sendProductToCart
-	basketOfProducts: CartProduct
-	loadingStatus: 'loading' | 'error' | 'idle'
-	cartLoadingStatus: 'loading' | 'error' | 'idle'
-	page: number
-	totalProducts: number
-	language: 'ua' | 'rs' | 'en' | 'ru'
-	errors: string | null
-	sortType: string
-	headerCategory: number
-	filterCategories: number[]
-	filterSizes: string[] | null
-	filterColours: number[] | null
-	fetchedColours: fetchedColour[] | null
-	fetchedCategories: fetchedCategory[] | null
-}
+	goods: Goods[] | null;
+	product?: Goods | null;
+	compareProduct: Goods | null;
+	compareOfferProducts: Goods[] | null;
+	compareOfferProductModal: Goods | null;
+	cartProductId: number | null;
+	updateCompareProduct: sendProductToCart;
+	basketOfProducts: CartProduct;
+	feedbackProduct: {
+		imageUrl: string;
+		productId: number;
+		productName: { ua: string; ru: string; rs: string; en: string };
+	} | null;
+	loadingStatus: 'loading' | 'error' | 'idle';
+	cartLoadingStatus: 'loading' | 'error' | 'idle';
+	page: number;
+	totalProducts: number;
+	language: 'ua' | 'rs' | 'en' | 'ru';
+	errors: string | null;
+	sortType: string;
+	headerCategory: number;
+	filterCategories: number[];
+	filterSizes: string[] | null;
+	filterColours: number[] | null;
+	fetchedColours: fetchedColour[] | null;
+	fetchedCategories: fetchedCategory[] | null;
+};
 
 export const fetchGoods = createAsyncThunk<
 	{ products: Goods[]; totalProducts: number },
 	null,
 	{ rejectValue: string }
 >('goods/fetchAllGoods', async (_, { getState, rejectWithValue }) => {
-	const state = getState() as RootState
-	const goodsState = state.goods
-	const pageNumber = goodsState.page
+	const state = getState() as RootState;
+	const goodsState = state.goods;
+	const pageNumber = goodsState.page;
 	try {
-		const data = await Api().goods.getGoods(pageNumber)
-		return data
+		const data = await Api().goods.getGoods(pageNumber);
+		return data;
 	} catch (e) {
 		if ('rawErrors' in e.response.data) {
-			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
+			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
 		}
 	}
-})
+});
 
 export const fetchGoodsByCategory = createAsyncThunk<
 	{ products: Goods[]; totalProducts: number },
@@ -60,18 +64,18 @@ export const fetchGoodsByCategory = createAsyncThunk<
 >(
 	'goods/fetchGoodsByCategory',
 	async (categoryId, { getState, rejectWithValue }) => {
-		const state = getState() as RootState
-		const goodsState = state.goods
+		const state = getState() as RootState;
+		const goodsState = state.goods;
 		// const category = goodsState.headerCategory
-		const pageNumber = goodsState.page
+		const pageNumber = goodsState.page;
 		try {
-			const data = await Api().goods.getGoodsByCategory(pageNumber, categoryId)
-			return data
+			const data = await Api().goods.getGoodsByCategory(pageNumber, categoryId);
+			return data;
 		} catch (e) {
-			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
+			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
 		}
 	}
-)
+);
 export const fetchCompareOfferProducts = createAsyncThunk<
 	{ products: Goods[] },
 	number,
@@ -79,20 +83,20 @@ export const fetchCompareOfferProducts = createAsyncThunk<
 >(
 	'goods/fetchCompareOfferProducts',
 	async (categoryId: number, { getState, rejectWithValue }) => {
-		const state = getState() as RootState
-		const goodsState = state.goods
-		const pageNumber = goodsState.page
+		const state = getState() as RootState;
+		const goodsState = state.goods;
+		const pageNumber = goodsState.page;
 		try {
 			const data = await Api().goods.getProductsWithAnotherCategory(
 				pageNumber,
 				categoryId
-			)
-			return data
+			);
+			return data;
 		} catch (e) {
-			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
+			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
 		}
 	}
-)
+);
 
 export const fetchCategories = createAsyncThunk<
 	fetchedCategory[],
@@ -100,12 +104,12 @@ export const fetchCategories = createAsyncThunk<
 	{ rejectValue: string }
 >('goods/fetchCategories', async (_, { rejectWithValue }) => {
 	try {
-		const data = await Api().goods.getGategories()
-		return data.data
+		const data = await Api().goods.getGategories();
+		return data.data;
 	} catch (e) {
-		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
 	}
-})
+});
 
 export const fetchColours = createAsyncThunk<
 	fetchedColour[],
@@ -113,27 +117,27 @@ export const fetchColours = createAsyncThunk<
 	{ rejectValue: string }
 >('goods/fetchColours', async (_, { rejectWithValue }) => {
 	try {
-		const data = await Api().goods.getColours()
-		return data.data
+		const data = await Api().goods.getColours();
+		return data.data;
 	} catch (e) {
-		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
 	}
-})
+});
 
 export const filterGoods = createAsyncThunk<
 	{ products: Goods[]; totalProducts: number },
 	null,
 	{ rejectValue: string }
 >('goods/filterGoods', async (_, { getState, rejectWithValue }) => {
-	const state = getState() as RootState
+	const state = getState() as RootState;
 
-	const goodsState = state.goods
-	const sortBy = goodsState.sortType
-	const pageNumber = goodsState.page
-	console.log(pageNumber)
-	const categoriesStr = goodsState.filterCategories.join(',')
-	const coloursStr = goodsState.filterColours.join(',')
-	const sizesStr = goodsState.filterSizes.join(',')
+	const goodsState = state.goods;
+	const sortBy = goodsState.sortType;
+	const pageNumber = goodsState.page;
+	console.log(pageNumber);
+	const categoriesStr = goodsState.filterCategories.join(',');
+	const coloursStr = goodsState.filterColours.join(',');
+	const sizesStr = goodsState.filterSizes.join(',');
 	try {
 		const data = await Api().goods.filterGoods(
 			pageNumber,
@@ -141,12 +145,12 @@ export const filterGoods = createAsyncThunk<
 			categoriesStr,
 			coloursStr,
 			sortBy
-		)
-		return data
+		);
+		return data;
 	} catch (e) {
-		return rejectWithValue(e.response.data.rawErrors[0].error)
+		return rejectWithValue(e.response.data.rawErrors[0].error);
 	}
-})
+});
 
 // CART THUNKS
 
@@ -156,23 +160,23 @@ export const updateCartProduct = createAsyncThunk<
 	{ rejectValue: string }
 >('products/updateCartProduct', async (_, { getState, rejectWithValue }) => {
 	try {
-		const state = getState() as RootState
-		const goodsState = state.goods
-		const updateProduct = goodsState.updateCompareProduct
-		const cartProductId = goodsState.cartProductId
-		const updateProductObj = Object.assign({}, updateProduct)
-		delete updateProductObj?.id
+		const state = getState() as RootState;
+		const goodsState = state.goods;
+		const updateProduct = goodsState.updateCompareProduct;
+		const cartProductId = goodsState.cartProductId;
+		const updateProductObj = Object.assign({}, updateProduct);
+		delete updateProductObj?.id;
 		const data = await Api().goods.updateProduct(
 			cartProductId,
 			updateProductObj
-		)
-		console.log('api',Api().goods.updateProduct)
-		return data
+		);
+		console.log('api', Api().goods.updateProduct);
+		return data;
 	} catch (e) {
-		console.log('action failed')
-		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ru)
+		console.log('action failed');
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ru);
 	}
-})
+});
 
 export const addProductToCart = createAsyncThunk<
 	{ cartProductId: number },
@@ -182,15 +186,15 @@ export const addProductToCart = createAsyncThunk<
 	'goods/addProductToCart',
 	async (product: sendProductToCart, { rejectWithValue }) => {
 		try {
-			const productObj = Object.assign({}, product)
-			delete productObj.id
-			const data = await Api().goods.addToCart(product.id, productObj)
-			return data
+			const productObj = Object.assign({}, product);
+			delete productObj.id;
+			const data = await Api().goods.addToCart(product.id, productObj);
+			return data;
 		} catch (e) {
-			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
+			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
 		}
 	}
-)
+);
 
 export const deleteCartProduct = createAsyncThunk<
 	{ cartProductId: number },
@@ -200,13 +204,13 @@ export const deleteCartProduct = createAsyncThunk<
 	'goods/deleteCartProduct',
 	async (cartProductId: number, { rejectWithValue }) => {
 		try {
-			const data = await Api().goods.deleteProduct(cartProductId)
-			return data
+			const data = await Api().goods.deleteProduct(cartProductId);
+			return data;
 		} catch (e) {
-			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
+			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
 		}
 	}
-)
+);
 
 export const getCartProducts = createAsyncThunk<
 	{ cart: CartProduct },
@@ -214,12 +218,12 @@ export const getCartProducts = createAsyncThunk<
 	{ rejectValue: string }
 >('goods/getCartProducts', async (_, { rejectWithValue }) => {
 	try {
-		const data = await Api().goods.getCartProducts()
-		return data
+		const data = await Api().goods.getCartProducts();
+		return data;
 	} catch (e) {
-		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua)
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
 	}
-})
+});
 
 const initialState: GoodsSlice = {
 	goods: null,
@@ -228,6 +232,7 @@ const initialState: GoodsSlice = {
 	compareOfferProducts: null,
 	compareOfferProductModal: null,
 	cartProductId: null,
+	feedbackProduct: null,
 	updateCompareProduct: { id: null, imageUrl: '', colourId: 0, size: '' },
 	basketOfProducts: null,
 	loadingStatus: 'idle',
@@ -338,191 +343,200 @@ const initialState: GoodsSlice = {
 		},
 	],
 	language: 'ua',
-}
+};
 
 const goodsSlice = createSlice({
 	name: 'goods',
 	initialState,
 	reducers: {
 		setGoods(state, action: PayloadAction<Goods[]>) {
-			state.goods = action.payload
+			state.goods = action.payload;
 		},
 		setFilterCategory(state, action: PayloadAction<number>) {
 			if (state.filterCategories.includes(action.payload)) {
 				state.filterCategories = state.filterCategories.filter(
-					el => el !== action.payload
-				)
+					(el) => el !== action.payload
+				);
 			} else {
-				state?.filterCategories?.push(action.payload)
+				state?.filterCategories?.push(action.payload);
 			}
 		},
 		setFilterSize(state, action: PayloadAction<string>) {
 			if (state.filterSizes.includes(action.payload)) {
 				state.filterSizes = state.filterSizes.filter(
-					el => el !== action.payload
-				)
+					(el) => el !== action.payload
+				);
 			} else {
-				state?.filterSizes?.push(action.payload)
+				state?.filterSizes?.push(action.payload);
 			}
 		},
 		setFilterColour(state, action: PayloadAction<number>) {
 			if (state.filterColours.includes(action.payload)) {
 				state.filterColours = state.filterColours.filter(
-					el => el !== action.payload
-				)
+					(el) => el !== action.payload
+				);
 			} else {
-				state?.filterColours?.push(action.payload)
+				state?.filterColours?.push(action.payload);
 			}
 		},
+		setFeedbackProduct(
+			state,
+			action: PayloadAction<{
+				imageUrl: string;
+				productId: number;
+				productName: { ua: string; ru: string; rs: string; en: string };
+			}>
+		) {
+			state.feedbackProduct = action.payload;
+		},
 		setSortType(state, action: PayloadAction<string>) {
-			state.sortType = action.payload
+			state.sortType = action.payload;
 		},
 		setHeaderCategory(state, action: PayloadAction<number>) {
-			state.headerCategory = action.payload
+			state.headerCategory = action.payload;
 		},
 		setPage(state, action: PayloadAction<number>) {
 			if (action.payload >= 1) {
-				state.page = action.payload
+				state.page = action.payload;
 			} else {
-				state.page = 1
+				state.page = 1;
 			}
 		},
 		addProductToCompare(state, action: PayloadAction<Goods>) {
 			// state.basketOfProducts.push(action.payload)
-			state.compareProduct = action.payload
+			state.compareProduct = action.payload;
 		},
 		addCompareProductToModal(state, action: PayloadAction<Goods>) {
-			state.compareOfferProductModal = action.payload
+			state.compareOfferProductModal = action.payload;
 		},
 		deleteCompareOfferProduct(state, action: PayloadAction<number>) {
 			state.compareOfferProducts = state.compareOfferProducts.filter(
-				el => el.id !== action.payload
-			)
+				(el) => el.id !== action.payload
+			);
 		},
 		setUpdateCompareProduct(state, action: PayloadAction<sendProductToCart>) {
-			state.updateCompareProduct = action.payload
+			state.updateCompareProduct = action.payload;
 		},
 	},
-	extraReducers: builder => {
+	extraReducers: (builder) => {
 		builder.addCase(fetchGoods.fulfilled, (state, action) => {
-			state.loadingStatus = 'idle'
-			state.goods = action.payload.products
-			state.totalProducts = action.payload.totalProducts
-
+			state.loadingStatus = 'idle';
+			state.goods = action.payload.products;
+			state.totalProducts = action.payload.totalProducts;
 		}),
-			builder.addCase(fetchGoods.pending, state => {
-				state.loadingStatus = 'loading'
+			builder.addCase(fetchGoods.pending, (state) => {
+				state.loadingStatus = 'loading';
 			}),
 			builder.addCase(fetchGoods.rejected, (state, action) => {
-				state.loadingStatus = 'error'
-				state.errors = action.payload
+				state.loadingStatus = 'error';
+				state.errors = action.payload;
 			}),
 			builder.addCase(filterGoods.fulfilled, (state, action) => {
-				state.loadingStatus = 'idle'
-				state.goods = action.payload.products
-				state.totalProducts = action.payload.totalProducts
+				state.loadingStatus = 'idle';
+				state.goods = action.payload.products;
+				state.totalProducts = action.payload.totalProducts;
 			}),
 			builder.addCase(filterGoods.pending, (state, action) => {
-				state.loadingStatus = 'loading'
+				state.loadingStatus = 'loading';
 			}),
 			builder.addCase(filterGoods.rejected, (state, action) => {
-				state.loadingStatus = 'error'
-				state.errors = action.payload
+				state.loadingStatus = 'error';
+				state.errors = action.payload;
 			}),
 			builder.addCase(fetchCategories.fulfilled, (state, action) => {
-				state.loadingStatus = 'idle'
-				state.fetchedCategories = action.payload
+				state.loadingStatus = 'idle';
+				state.fetchedCategories = action.payload;
 			}),
 			builder.addCase(fetchCategories.pending, (state, action) => {
-				state.loadingStatus = 'loading'
+				state.loadingStatus = 'loading';
 			}),
 			builder.addCase(fetchCategories.rejected, (state, action) => {
-				state.loadingStatus = 'error'
-				state.errors = action.payload
+				state.loadingStatus = 'error';
+				state.errors = action.payload;
 			}),
 			builder.addCase(fetchColours.fulfilled, (state, action) => {
-				state.loadingStatus = 'idle'
-				state.fetchedColours = action.payload
+				state.loadingStatus = 'idle';
+				state.fetchedColours = action.payload;
 			}),
 			builder.addCase(fetchColours.pending, (state, action) => {
-				state.loadingStatus = 'loading'
+				state.loadingStatus = 'loading';
 			}),
 			builder.addCase(fetchColours.rejected, (state, action) => {
-				state.loadingStatus = 'error'
-				state.errors = action.payload
+				state.loadingStatus = 'error';
+				state.errors = action.payload;
 			}),
 			builder.addCase(fetchGoodsByCategory.fulfilled, (state, action) => {
-				state.loadingStatus = 'idle'
-				state.goods = action.payload.products
-				state.totalProducts = action.payload.totalProducts
+				state.loadingStatus = 'idle';
+				state.goods = action.payload.products;
+				state.totalProducts = action.payload.totalProducts;
 				// state.goods = action.payload
 			}),
 			builder.addCase(fetchGoodsByCategory.pending, (state, action) => {
-				state.loadingStatus = 'loading'
+				state.loadingStatus = 'loading';
 			}),
 			builder.addCase(fetchGoodsByCategory.rejected, (state, action) => {
-				state.loadingStatus = 'error'
-				state.errors = action.payload
+				state.loadingStatus = 'error';
+				state.errors = action.payload;
 			}),
 			builder.addCase(fetchCompareOfferProducts.fulfilled, (state, action) => {
-				state.loadingStatus = 'idle'
-				state.compareOfferProducts = action.payload.products
+				state.loadingStatus = 'idle';
+				state.compareOfferProducts = action.payload.products;
 			}),
 			builder.addCase(fetchCompareOfferProducts.pending, (state, action) => {
-				state.loadingStatus = 'loading'
+				state.loadingStatus = 'loading';
 			}),
 			builder.addCase(fetchCompareOfferProducts.rejected, (state, action) => {
-				state.loadingStatus = 'error'
-				state.errors = action.payload
+				state.loadingStatus = 'error';
+				state.errors = action.payload;
 			}),
 			builder.addCase(addProductToCart.fulfilled, (state, action) => {
-				state.cartLoadingStatus = 'idle'
-				state.cartProductId = action.payload.cartProductId
+				state.cartLoadingStatus = 'idle';
+				state.cartProductId = action.payload.cartProductId;
 			}),
 			builder.addCase(addProductToCart.pending, (state, action) => {
-				state.cartLoadingStatus = 'loading'
+				state.cartLoadingStatus = 'loading';
 			}),
 			builder.addCase(addProductToCart.rejected, (state, action) => {
-				state.cartLoadingStatus = 'error'
-				state.errors = action.payload
+				state.cartLoadingStatus = 'error';
+				state.errors = action.payload;
 			}),
 			builder.addCase(getCartProducts.fulfilled, (state, action) => {
-				state.loadingStatus = 'idle'
-				state.basketOfProducts = action.payload.cart
+				state.loadingStatus = 'idle';
+				state.basketOfProducts = action.payload.cart;
 			}),
 			builder.addCase(getCartProducts.pending, (state, action) => {
-				state.loadingStatus = 'loading'
+				state.loadingStatus = 'loading';
 			}),
 			builder.addCase(getCartProducts.rejected, (state, action) => {
-				state.loadingStatus = 'error'
-				state.errors = action.payload
+				state.loadingStatus = 'error';
+				state.errors = action.payload;
 			}),
 			builder.addCase(updateCartProduct.fulfilled, (state, action) => {
-				state.loadingStatus = 'idle'
+				state.loadingStatus = 'idle';
 			}),
 			builder.addCase(updateCartProduct.pending, (state, action) => {
-				state.loadingStatus = 'loading'
+				state.loadingStatus = 'loading';
 			}),
 			builder.addCase(updateCartProduct.rejected, (state, action) => {
-				state.loadingStatus = 'error'
-				state.errors = action.payload
+				state.loadingStatus = 'error';
+				state.errors = action.payload;
 			}),
 			builder.addDefaultCase((state, action) => {
-				const [type] = action.type.split('/').splice(-1)
+				const [type] = action.type.split('/').splice(-1);
 				if (type === 'rejected') {
-					state.errors = action.payload
+					state.errors = action.payload;
 				} else {
-					state.errors = ''
+					state.errors = '';
 				}
-			})
+			});
 	},
-})
+});
 
-export const selectGoods = (state: RootState) => state.goods.goods
+export const selectGoods = (state: RootState) => state.goods.goods;
 export const selectFetchedColours = (state: RootState) =>
-	state.goods.fetchedColours
+	state.goods.fetchedColours;
 export const selectFetchedCategories = (state: RootState) =>
-	state.goods.fetchedCategories
+	state.goods.fetchedCategories;
 
 export const {
 	setFilterCategory,
@@ -535,9 +549,10 @@ export const {
 	setHeaderCategory,
 	addCompareProductToModal,
 	deleteCompareOfferProduct,
-} = goodsSlice.actions
+	setFeedbackProduct,
+} = goodsSlice.actions;
 
-export default goodsSlice.reducer
+export default goodsSlice.reducer;
 
 // When use next-redux-wrapper
 // [HYDRATE]: (state, action) => {
