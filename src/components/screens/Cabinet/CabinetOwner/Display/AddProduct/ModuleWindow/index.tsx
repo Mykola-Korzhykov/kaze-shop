@@ -149,7 +149,7 @@ export const ModuleWindiw = ({
 
 	function generationObjModal() {
 		const obj = {
-			imagesPaths: files.map((el) => {
+			fileNames: files.map((el) => {
 				return el.name;
 			}),
 			colourId: colourId,

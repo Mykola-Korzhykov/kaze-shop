@@ -28,7 +28,7 @@ export interface initialStateType {
 	allsizes: string[] | null;
 	categories: number[] | null;
 	netData: string | null;
-	arrObjMod: { imagesPaths: string[]; colourId: number; sizes: string[] }[];
+	arrObjMod: { fileNames: string[]; colourId: number; sizes: string[] }[];
 	images: File[];
 }
 
@@ -166,7 +166,7 @@ export const formData = createSlice({
 		setArrObjMod: (
 			state,
 			action: PayloadAction<{
-				imagesPaths: string[];
+				fileNames: string[];
 				colourId: number;
 				sizes: string[];
 			}>
