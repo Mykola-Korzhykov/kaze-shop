@@ -1,7 +1,7 @@
 import "keen-slider/keen-slider.min.css";
 import Product from '../../../../../assets/images/main/Reviews/Slider/PhotoItem1.png';
 import cn from 'classnames';
-import { KeenSliderPlugin, useKeenSlider } from 'keen-slider/react';
+import { useKeenSlider } from 'keen-slider/react';
 import SlideItem from "./SlideItem/SlideItem";
 import s from './reviewsSlider.module.scss';
 import slideItemStyle from './SlideItem/slideItem.module.scss';
@@ -85,6 +85,7 @@ const ReviewsSlider = () => {
 
                 if (init === i) {
                     item.style.maxWidth = '100%';
+                    // item.style.transform = 'scale(1)';
                     item.style.opacity = '1';
                     item.classList.remove(slideItemStyle.small);
                     return
@@ -95,9 +96,12 @@ const ReviewsSlider = () => {
 
                 if (!isMobile) {
                     item.style.maxWidth = '85%';
+                    // item.style.transform = 'scale(0.8)';
                     return
                 }
                 item.style.maxWidth = '100%';
+                // item.style.transform = 'scale(1)';
+
 
             });
         }
@@ -105,6 +109,8 @@ const ReviewsSlider = () => {
             slider.slides.forEach((element, idx) => {
                 if (slider.track.details.rel + 1 === idx) {
                     element.style.maxWidth = '100%';
+                    // element.style.transform = 'scale(1)';
+
                     element.classList.remove(slideItemStyle.small);
                     return
                 }
@@ -113,9 +119,11 @@ const ReviewsSlider = () => {
 
                 if (!isMobile) {
                     element.style.maxWidth = '85%';
+                    // element.style.transform = 'scale(0.8)';
                     return;
                 }
                 element.style.maxWidth = '100%';
+                // element.style.transform = 'scale(1)';
             });
         })
         rotate();

@@ -25,24 +25,29 @@ const mockColor = [
     "#901",
 ];
 const mockSlideImg = [SlideItem, SlideItem, SlideItem, SlideItem, SlideItem, SlideItem]
-const Main = ({ title, description, price, colours, images, sizeChartImage, quantity, categories }: SingleProductData) => {
+const Main = ({ title, description, price, images, sizes, quantity, categories }: SingleProductData) => {
 
     const [activeColor, setActiveColor] = useState<number>(0);
     const [activeSize, setActiveSize] = useState<number>(0);
 
-    const availableSizes = images[activeColor].sizes;
+    const availableColors = images.filter(el => {
+        const result = el.sizes.find(sizeItem => sizeItem.replace(/ /g, '') === sizes[activeSize].replace(/ /g, ''));
+        return result;
+    })
 
-    const renderSlider = images.map((el, i) => {
+    const renderSlider = availableColors.map((el, i) => {
         if (activeColor === i) {
             return <Slider key={i} images={el.imagesPaths} className={s.main_slider} />
         }
     });
-    const fewProduct = quantity > 5;
-    const setColor = (i: number) => {
-        setActiveColor(i);
-        setActiveSize(0);
+    const fewProduct = quantity < 5;
+
+    const setSize = (i: number) => {
+        setActiveColor(0);
+        setActiveSize(i);
     }
 
+    const mainImg = images[activeColor].imagesPaths[0]
     return (
         <div className={s.main}>
             <div className={s.main_box}>
@@ -59,18 +64,20 @@ const Main = ({ title, description, price, colours, images, sizeChartImage, quan
                         </div>
                         <div className={s.sizes}>
                             <h3>Size</h3>
-                            <SizeItems sizes={availableSizes} setSize={setActiveSize} activeSize={activeSize} />
+                            <SizeItems sizes={sizes} setSize={setSize} activeSize={activeSize} />
                         </div>
                         <div className={s.colors}>
                             <h3>Color</h3>
-                            <ColorItems colors={colours.map(el => el.hex)} activeColor={activeColor} setColor={setColor} />
+                            <ColorItems colors={availableColors.map(el => el.colour.hex)}
+                                activeColor={activeColor}
+                                setColor={setActiveColor} />
                         </div>
                         <div className={s.buttons}>
                             <Button arrow={false}>В корзину</Button>
                             <Button color="transparent">В один клик</Button>
                         </div>
                         <div className={s.main_photo}>
-                            <Image src={sizeChartImage} width={100} height={100} alt={"Лосины Тай Дай"} priority={true} quality={100} />
+                            <Image src={mainImg} width={100} height={100} alt={"Лосины Тай Дай"} priority={true} quality={100} />
 
                         </div>
                         {renderSlider}

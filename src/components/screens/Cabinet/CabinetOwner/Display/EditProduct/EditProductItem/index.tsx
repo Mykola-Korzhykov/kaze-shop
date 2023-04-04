@@ -6,7 +6,6 @@ import {
 	addCountPhotos,
 	setEditProductItemId,
 } from '../../../../../../../redux/slices/admin';
-import { fetchedColour } from '../../../../../../../types/goods';
 import { setModalAddEditProduct } from '../../../../../../../redux/slices/modal';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { InputTextItem } from '../../AddProduct/InputText';
@@ -42,48 +41,6 @@ interface EditProductItemType {
 
 export const EditProductItem = ({ id }: EditProductItemType) => {
 	const dispatch = useAppDispatch();
-	const arrObjModal = useAppSelector((state) => state.formData.arrObjMod);
-	const [allEditsImages, setAllEditsImages] = React.useState<
-		| null
-		| {
-				imagesPaths: string[] | File[];
-				sizes: string[];
-				colour: fetchedColour;
-		  }[]
-	>(null);
-	const deleteImageObj = (el: any) => {
-		const arrCopy = [...allEditsImages];
-		const elemId = arrCopy.findIndex((el) => el === el);
-		arrCopy.splice(elemId, 1);
-		setAllEditsImages(arrCopy);
-	};
-	const uploadPhoto = () => {
-		const arrCopy = [...allEditsImages];
-		arrCopy.push(null);
-		setAllEditsImages(arrCopy);
-	};
-	React.useEffect(() => {
-		if (allEditsImages) {
-			const arrCopy = [...allEditsImages];
-			let updatedObj: {
-				[key: string]: string;
-			} = {};
-			const arrObjModalCopy =  [...arrObjModal];
-
-			const updatedArray = arrObjModalCopy.map((obj) => {
-				const { fileNames, ...rest } = obj;
-				//@ts-ignore
-				delete rest.fileNames;
-				return { ...rest, imagesPaths: fileNames };
-			});
-			
-			console.log('FINISH ARR IMAGES',[ ...arrCopy, ...updatedArray])
-		 //@ts-ignore
-			setAllEditsImages(arrCopy.concat(updatedArray));
-		}
-		console.log('ModalArr', arrObjModal)
-		
-	}, [arrObjModal]);
 	let activeCategories: any = null;
 	const activeProduct = {
 		id: 3,
@@ -110,38 +67,17 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		// { fileNames: string[], colourId: number; sizes: string[]}
 		images: [
 			{
-				imagesPaths: [photo, photo],
-				colour: {
-					hex: '#FFE4C4',
-					id: 1,
-					ru: 'ru',
-					rs: 'rs',
-					en: 'en',
-					ua: 'ua',
-					type: 'colour',
-					createdAt: 'test',
-					updatedAt: 'test',
-				},
+				fileNames: [photo, photo],
+				colourId: 3,
 				sizes: ['S', 'M', 'L'],
 			},
 			{
-				imagesPaths: [photo, photo],
-				colour: {
-					hex: 'red',
-					id: 1,
-					ru: 'ru',
-					rs: 'rs',
-					en: 'en',
-					ua: 'ua',
-					type: 'colour',
-					createdAt: 'test',
-					updatedAt: 'test',
-				},
+				fileNames: [photo, photo],
+				colourId: 4,
 				sizes: ['S', 'M', 'L'],
 			},
 		],
-		sizeChartImage:
-			'https://api.kaze-shop.online/public/products/sizeChartImageAccount (Like) (phone 428)/sizeChartImage/f725bb74-d200-4593-a8f0-bb8eb10619ba----Account (Like) (phone 428).jpg"',
+		sizeChartImage: 'https://api.kaze-shop.online/public/products/sizeChartImageAccount (Like) (phone 428)/sizeChartImage/f725bb74-d200-4593-a8f0-bb8eb10619ba----Account (Like) (phone 428).jpg"',
 		sizes: ['M', 'XS', 'L'],
 		colours: [
 			{
@@ -206,7 +142,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	React.useEffect(() => {
 		// give initial state to reduxt data from selected product
 		//sizes
-		dispatch(setSizes(activeProduct.sizes));
+		dispatch(setSizes(activeProduct.sizes))
 		//title
 		const payloadT: any = { branch: 'ua', title: activeProduct.title.ua };
 		dispatch(setTitle(payloadT));
@@ -278,16 +214,13 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		};
 		dispatch(setSizeChartImageDescription(payloadSd4));
 		//category
-		activeCategories = activeProduct.categories[0];
+		activeCategories = activeProduct.categories[0]
 		//sizeChartImage
-		setNetFile(activeProduct.sizeChartImage);
-		//images
-		//@ts-ignore
-		setAllEditsImages(activeProduct.images);
+		setNetFile(activeProduct.sizeChartImage)
 	}, []);
 	const [choiseSize, setChoiseSize] = React.useState<boolean>(false);
 	const [choiceColors, setChoiceColors] = React.useState<boolean>(false);
-
+	
 	const selectedSizes = useSelector((state: RootState) => state.formData.sizes);
 	const sizesItems = useSelector((state: RootState) => state.admin.sizesItems);
 	const userEdit = useSelector((state: RootState) => state.admin.userEdit);
@@ -313,7 +246,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	// console.log('PRICE', price)
 	// console.log('quantity', quantity)
 	console.log('SIZECHART', sizeChartDescr);
-	console.log('allEditsImages', allEditsImages);
+
 	// console.log('activeProductPPP', activeProduct);
 	// console.log('prodcuts', products);
 	// console.log('userEdit', userEdit.images[0].imagesPaths)
@@ -493,7 +426,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			updatedAt: 'string',
 		},
 	];
-	console.log('IMAGES', userEdit.images);
+	
 	activeCategories = categoryArr.find((el) => {
 		return el.id === categories[0];
 	});
@@ -572,7 +505,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			dispatch(setSizeChartImageDescription(payload));
 		}
 	}
-
+	console.log('inputts before', inputs);
 	return (
 		<>
 			<div
@@ -631,9 +564,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 											}
 											type={obj.type}
 											placeholder={
-												activeCategories
-													? activeCategories.ru
-													: activeProduct.categories[0].ru
+												activeCategories ? activeCategories.ru : activeProduct.categories[0].ru
 											}
 										/>
 										<Image
@@ -685,12 +616,10 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 					<span className={s.title}>Добавить фото товара</span>
 					<span
 						className={s.btn}
-						// onClick={(e) => {
-						// 	//@ts-ignore
-						// 	// dispatch(addCountPhotos());
-
-						// }}
-						onClick={uploadPhoto}
+						onClick={(e) => {
+							//@ts-ignore
+							dispatch(addCountPhotos());
+						}}
 					>
 						<svg
 							width="24"
@@ -738,19 +667,18 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 						);
 					})} */}
 
-					{allEditsImages?.map((el, ind) => {
+					{userEdit.images.map((el, ind) => {
 						return (
-							<div key={ind + '' + el?.imagesPaths[1] + new Date()} className={s.item}>
+							<div key={ind} className={s.item}>
 								<div className={s.info_wrapper}>
 									<span className={s.index}>{`${ind + 1}.`}</span>
 
 									{el !== null ? (
 										<span
-											onClick={() => deleteImageObj(el)}
 											className={s.button_product}
 											style={{
-												color: `${el?.colour?.hex}`,
-												border: `${el?.colour?.hex} solid 1.5px`,
+												color: `${el.colour.hex}`,
+												border: `${el.colour.hex} solid 1.5px`,
 											}}
 										>
 											{' '}
@@ -775,7 +703,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 
 								{el && (
 									<div className={s.photos_wrapper}>
-										{el?.imagesPaths?.map((el: any, ind) => {
+										{el.imagesPaths.map((el: any, ind) => {
 											return (
 												<span key={ind} className={s.photo_wrapper}>
 													<Image

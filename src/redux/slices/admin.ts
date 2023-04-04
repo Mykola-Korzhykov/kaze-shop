@@ -172,7 +172,7 @@ const initialState: initialStateType = {
 		{
 			imagesPaths: [photoTest, photoTest],
 			colour: {
-				hex: 'red',
+				hex: '#FFE4C4',
 				id: 1,
 				ru: 'ru',
 				rs: 'rs',

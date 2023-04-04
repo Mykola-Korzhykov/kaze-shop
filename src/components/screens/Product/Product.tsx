@@ -47,7 +47,7 @@ const OneProduct = (data: SingleProductData): JSX.Element => {
             <Main {...data} />
             <Slider title='Вы недавно смотрели' items={mockSliderProps1} />
             <Reviews />
-            <Feedback />
+            <Feedback id={data.id} />
         </div>
 
     );
