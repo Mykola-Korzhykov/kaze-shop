@@ -8,6 +8,7 @@ import { RootState } from '@/redux/store';
 import { useAppDispatch } from '@/redux/hooks';
 import { setModalAddEditProduct } from '../../../../../../../redux/slices/modal';
 import { setArrObjModalSwow } from '../../../../../../../redux/slices/admin';
+import { editImagesFromModal } from '@/redux/slices/editProduct';
 import {
 	setSizes,
 	setColors,
@@ -152,6 +153,8 @@ export const ModalEditProduct = ({
 			colourId: colourId,
 			sizes: selectedSizes,
 		};
+
+		dispatch(editImagesFromModal(objShowLocal))
 
 		dispatch(setAllcoloursId(colourId));
 		dispatch(setAllsizes(obj.sizes));

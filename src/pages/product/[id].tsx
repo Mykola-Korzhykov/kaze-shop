@@ -4,39 +4,39 @@ import OneProduct from '@/components/screens/Product/Product';
 import axios from 'axios';
 import { SingleProductData } from '@/types/singleProduct';
 import { API_URL } from '../../services/index';
-
+import SpinnerLayout from '@/layouts/SpinnerLayout';
 import { GetServerSideProps } from 'next/types';
 
 const Product = ({ data }: OneProductProps): JSX.Element => {
-
-    return (
-        <>
-            <OneProduct {...data} />
-            <Footer />
-        </>
-    );
+	return (
+		<SpinnerLayout>
+			<OneProduct {...data} />
+			<Footer />
+		</SpinnerLayout>
+	);
 };
 
-export const getServerSideProps: GetServerSideProps<OneProductProps> = async (context) => {
-    const { id } = context.query;
+export const getServerSideProps: GetServerSideProps<OneProductProps> = async (
+	context
+) => {
+	const { id } = context.query;
 
-    try {
-        const { data } = await axios.get<SingleProductData>(API_URL + `/product/${id}`);
-        return {
-            props: { data },
-        }
-    } catch (e) {
-        return {
-            notFound: true
-        }
-    }
-}
+	try {
+		const { data } = await axios.get<SingleProductData>(
+			API_URL + `/product/${id}`
+		);
+		return {
+			props: { data },
+		};
+	} catch (e) {
+		return {
+			notFound: true,
+		};
+	}
+};
 
 interface OneProductProps {
-    data: SingleProductData
+	data: SingleProductData;
 }
-
-
-
 
 export default Product;

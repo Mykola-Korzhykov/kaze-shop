@@ -28,7 +28,11 @@ export interface initialStateType {
 	allsizes: string[] | null;
 	categories: number[] | null;
 	netData: string | null;
-	arrObjMod: { fileNames: string[]; colourId: number; sizes: string[] }[];
+	arrObjMod: {
+		fileNames: string[];
+		sizes: string[];
+		colourId: number;
+	}[];
 	images: File[];
 }
 
