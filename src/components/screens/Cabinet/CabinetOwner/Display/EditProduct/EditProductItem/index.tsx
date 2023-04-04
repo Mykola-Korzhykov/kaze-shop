@@ -86,10 +86,10 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			let arrObjModalCopy = [...arrObjModal];
 			// arrObjModalCopy = arrObjModalCopy.filter(el => !arrCopy.includes(el))
 			const updatedArray = arrObjModalCopy.map((obj) => {
-				const { imagesPaths, ...rest } = obj;
+				const { fileNames, ...rest } = obj;
 				//@ts-ignore
 				delete rest.imagesPaths;
-				return { ...rest, imagesPaths: imagesPaths };
+				return { ...rest, imagesPaths: fileNames };
 			});
 
 			console.log('FINISH ARR IMAGES', [...arrCopy, ...updatedArray]);

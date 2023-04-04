@@ -66,7 +66,7 @@ interface formDataType {
 	categories: number[];
 	colours: number[];
 	selectedImages: {
-		imagesPaths: string[];
+		fileNames: string[];
 		colourId: number;
 		sizes: string[];
 	}[];

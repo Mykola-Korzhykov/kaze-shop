@@ -138,7 +138,7 @@ export const ModalEditProduct = ({
 
 	function generationObjModal() {
 		const obj = {
-			imagesPaths: files.map((el) => {
+			fileNames: files.map((el) => {
 				return el.name;
 			}),
 			colourId: colourId,
@@ -146,7 +146,7 @@ export const ModalEditProduct = ({
 		};
 		[];
 		const objShowLocal = {
-			imagesPaths: files.map((el) => {
+			fileNames: files.map((el) => {
 				return URL.createObjectURL(el);
 			}),
 			colourId: colourId,
