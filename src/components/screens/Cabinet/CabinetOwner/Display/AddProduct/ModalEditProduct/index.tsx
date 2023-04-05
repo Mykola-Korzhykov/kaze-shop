@@ -135,8 +135,6 @@ export const ModalEditProduct = ({
 		return true;
 	}
 
-	console.log('allValiedForm', allValiedForm);
-
 	function generationObjModal() {
 		const obj = {
 			fileNames: files.map((el) => {

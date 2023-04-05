@@ -231,9 +231,9 @@ export const ModuleWindiw = ({
 	//     }
 	// }, [pngImageShow])
 
-	React.useEffect(() => {
-		dispatch(fetchColours());
-	}, []);
+	// React.useEffect(() => {
+	// 	dispatch(fetchColours());
+	// }, []);
 
 	return (
 		<div

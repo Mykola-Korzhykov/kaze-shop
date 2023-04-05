@@ -7,20 +7,19 @@
     transition: 0.3s max-width,
     max-height,
     min-width,
-    opacity;
-    position: relative;
+    opacity ease-in-out;
 
     &.small {
         opacity: 0.5;
         transition: 0.3s max-width,
         max-height,
         min-width,
-        opacity;
+        opacity ease-in-out;
         h5 {
             font-weight: 300;
             font-size: 20px;
             line-height: 24px;
-             transition: 0.3s all;
+            transition: 0.3s all;
         }
 
         p {
