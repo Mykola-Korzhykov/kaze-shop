@@ -39,7 +39,7 @@ const SizeChart = () => {
 				setRequestLoading(false);
 			} catch (e) {
 				setRequestLoading(false);
-				// router.push('/catalog');
+				router.push('/catalog');
 			}
 		};
 		fetchProductData();
