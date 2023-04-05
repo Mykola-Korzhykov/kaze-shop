@@ -199,7 +199,8 @@ export const AddProduct = ({
 		//sizeChartImage
 		formData.append('sizeChartImage', netImage);
 
-		// console.log("formDataChecktitle", formData.get('title'));
+		console.log('formDataselectedImages', formData.get('selectedImages'));
+		console.log('formDataimages', formData.get('images'));
 		// console.log("formDataCheckimages", formData.get('images'));
 		// console.log("formDataCheckprice", formData.get('price'));
 		// console.log("formDataChecksizeChartImage", formData.get('sizeChartImage'));

@@ -134,7 +134,6 @@ export const filterGoods = createAsyncThunk<
 	const goodsState = state.goods;
 	const sortBy = goodsState.sortType;
 	const pageNumber = goodsState.page;
-	console.log(pageNumber);
 	const categoriesStr = goodsState.filterCategories.join(',');
 	const coloursStr = goodsState.filterColours.join(',');
 	const sizesStr = goodsState.filterSizes.join(',');
@@ -170,10 +169,8 @@ export const updateCartProduct = createAsyncThunk<
 			cartProductId,
 			updateProductObj
 		);
-		console.log('api', Api().goods.updateProduct);
 		return data;
 	} catch (e) {
-		console.log('action failed');
 		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ru);
 	}
 });
@@ -245,50 +242,50 @@ const initialState: GoodsSlice = {
 	filterSizes: [],
 	filterColours: [],
 	fetchedColours: [
-		{
-			hex: '#FFE4C4',
-			id: 1,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour',
-			createdAt: 'test',
-			updatedAt: 'test',
-		},
-		{
-			hex: '#9F8E84',
-			id: 2,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour',
-			createdAt: 'test',
-			updatedAt: 'test',
-		},
-		{
-			hex: '#000080',
-			id: 3,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour',
-			createdAt: 'test',
-			updatedAt: 'test',
-		},
-		{
-			hex: '#A6BEE5',
-			id: 4,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour',
-			createdAt: 'test',
-			updatedAt: 'test',
-		},
+		// {
+		// 	hex: '#FFE4C4',
+		// 	id: 1,
+		// 	ru: 'ru',
+		// 	rs: 'rs',
+		// 	en: 'en',
+		// 	ua: 'ua',
+		// 	type: 'colour',
+		// 	createdAt: 'test',
+		// 	updatedAt: 'test',
+		// },
+		// {
+		// 	hex: '#9F8E84',
+		// 	id: 2,
+		// 	ru: 'ru',
+		// 	rs: 'rs',
+		// 	en: 'en',
+		// 	ua: 'ua',
+		// 	type: 'colour',
+		// 	createdAt: 'test',
+		// 	updatedAt: 'test',
+		// },
+		// {
+		// 	hex: '#000080',
+		// 	id: 3,
+		// 	ru: 'ru',
+		// 	rs: 'rs',
+		// 	en: 'en',
+		// 	ua: 'ua',
+		// 	type: 'colour',
+		// 	createdAt: 'test',
+		// 	updatedAt: 'test',
+		// },
+		// {
+		// 	hex: '#A6BEE5',
+		// 	id: 4,
+		// 	ru: 'ru',
+		// 	rs: 'rs',
+		// 	en: 'en',
+		// 	ua: 'ua',
+		// 	type: 'colour',
+		// 	createdAt: 'test',
+		// 	updatedAt: 'test',
+		// },
 	],
 	fetchedCategories: [
 		{

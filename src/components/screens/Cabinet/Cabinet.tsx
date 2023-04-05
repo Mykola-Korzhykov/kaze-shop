@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import Spinner from '@/components/Spinner/Spinner';
 import { useAppDispatch } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
+import { fetchColours } from '@/redux/slices/goods';
 import { useRouter } from 'next/router';
 import { addUserInfo } from '@/redux/slices/user';
 import Link from 'next/link';
@@ -51,7 +52,11 @@ const Cabinet: FC = () => {
 	const [images, setImages] = React.useState<File[]>([]);
 
 	console.log('modalAddColorTurn', modalAddColorTurn);
-
+	React.useEffect(() => {
+	
+		dispatch(fetchColours())
+		
+	}, [dispatch])
 	console.log('user', user);
 	React.useEffect(() => {
 		const fetchUserData = async () => {

@@ -6,20 +6,28 @@
     position: relative;
     transition: 0.3s max-width,
     max-height,
+    min-width,
     opacity;
     position: relative;
 
     &.small {
+        opacity: 0.5;
+        transition: 0.3s max-width,
+        max-height,
+        min-width,
+        opacity;
         h5 {
             font-weight: 300;
             font-size: 20px;
             line-height: 24px;
+             transition: 0.3s all;
         }
 
         p {
             font-weight: 300;
             font-size: 14px;
             line-height: 17px;
+            transition: 0.3s all;
         }
 
         @media (max-width:850px) {
@@ -33,6 +41,31 @@
                 line-height: 14px;
             }
         }
+         @media (max-width:768px) {
+             h5 {
+                 font-size: 20px;
+                 line-height: 20px;
+                 font-weight: 400;
+             }
+
+             p {
+                 font-size: 16px;
+                 line-height: 18px;
+                 font-weight: 400;
+             }
+         }
+
+         @media (max-width:576px) {
+             h5 {
+                 font-size: 16px;
+                 line-height: 19px;
+             }
+
+             p {
+                 font-size: 14px;
+                 line-height: 17px;
+             }
+         }
     }
 
 
@@ -42,7 +75,6 @@
     }
 
     &_img {
-        transition: 0.4s all;
 
         img {
             display: block;
@@ -76,7 +108,7 @@
                 }
 
     &_description {
-        transition: 0.4s all;
+        // transition: 0.3s all;
         &_title {
             display: flex;
             justify-content: space-between;
@@ -128,7 +160,7 @@
         max-height: 85px;
         overflow-y: hidden;
         padding-right: 15px;
-        transition: 0.4s all;
+        transition: 0.3s all;
         @media (max-width: 1200px) {
             font-size: 16px;
             line-height: 18px;

@@ -27,6 +27,7 @@ import { SizeChart } from '../../../Display/AddProduct/sizeChart';
 //types
 import { Goods } from '../../../../../../../types/goods';
 import { ImageData } from '../../../../../../../types/goods';
+import { setSizesFromServer } from '@/redux/slices/editProduct';
 import {
 	setSizes,
 	removeSizes,
@@ -45,10 +46,16 @@ interface EditProductItemType {
 
 export const EditProductItem = ({ id }: EditProductItemType) => {
 	const dispatch = useAppDispatch();
+	const fetchedColours = useAppSelector((state) => state.goods.fetchedColours);
+	const imagesFromModal = useAppSelector(
+		(state) => state.editProduct.imagesFromModal
+	);
 	const arrObjModal = useAppSelector((state) => state.formData.arrObjMod);
 	const arrObjModalSwow = useSelector(
 		(state: RootState) => state.admin.arrObjModalSwow
 	);
+	const [imagesFromServerLength, setImagesFromServerLength] =
+		React.useState<number>(0);
 	const [showPhotos, setAllShowPhotos] = React.useState<File[]>([]);
 	const [allEditsImages, setAllEditsImages] = React.useState<
 		| null
@@ -56,19 +63,22 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 				imagesPaths: string[] | File[];
 				sizes: string[];
 				colour: fetchedColour;
+				colourId?: number;
 		  }[]
 	>(null);
 	const deleteImageObj = (elObj: any) => {
-		// dispatch(removearrObjMod(elObj?.сolourId))
+		console.log('allElements', allEditsImages);
+		console.log('el that delete', elObj);
 		const arrCopy = [...allEditsImages];
 		const elemId = arrCopy.findIndex((el) => {
 			if ('colour' in el && 'colour' in elObj) {
 				console.log('deleted elem', elObj);
 				return el?.colour?.id === elObj?.colour?.id;
 			} else {
-				return el?.colour?.id === elObj?.colourId;
+				return el?.colourId === elObj?.colourId;
 			}
 		});
+		console.log('want delete', elemId);
 		arrCopy.splice(elemId, 1);
 		setAllEditsImages(arrCopy);
 	};
@@ -80,19 +90,22 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	React.useEffect(() => {
 		if (allEditsImages) {
 			const arrCopy = [...allEditsImages];
-			let updatedObj: {
-				[key: string]: string;
-			} = {};
-			let arrObjModalCopy = [...arrObjModal];
+			let arrObjModalCopy: {
+				fileNames: string[];
+				sizes: string[];
+				colourId: number;
+			}[] = [...arrObjModal];
 			// arrObjModalCopy = arrObjModalCopy.filter(el => !arrCopy.includes(el))
-			const updatedArray = arrObjModalCopy.map((obj) => {
-				const { fileNames, ...rest } = obj;
-				//@ts-ignore
-				delete rest.imagesPaths;
-				return { ...rest, imagesPaths: fileNames };
-			});
+			const updatedArray = [...arrObjModalCopy, ...imagesFromModal].map(
+				(obj) => {
+					//@ts-ignore
+					const { fileNames, ...rest } = obj;
+					//@ts-ignore
+					delete rest.imagesPaths;
+					return { ...rest, imagesPaths: fileNames };
+				}
+			);
 
-			console.log('FINISH ARR IMAGES', [...arrCopy, ...updatedArray]);
 			//@ts-ignore
 			const newArr = arrCopy.concat([updatedArray.pop()]);
 			const filteredNewArr = newArr.filter((el) => el !== null);
@@ -231,7 +244,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	React.useEffect(() => {
 		// give initial state to reduxt data from selected product
 		//sizes
-		dispatch(setSizes(activeProduct?.sizes));
+		dispatch(setSizesFromServer(activeProduct?.sizes));
 		//title
 		const payloadT: any = { branch: 'ua', title: activeProduct.title.ua };
 		dispatch(setTitle(payloadT));
@@ -309,15 +322,19 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		//images
 		//@ts-ignore
 		setAllEditsImages(activeProduct.images);
+		setImagesFromServerLength(activeProduct.images.length);
 	}, []);
 	const [choiseSize, setChoiseSize] = React.useState<boolean>(false);
 	const [choiceColors, setChoiceColors] = React.useState<boolean>(false);
 
-	const selectedSizes = useSelector((state: RootState) => state.formData.sizes);
+	// const selectedSizes = useSelector((state: RootState) => state.formData.sizes);
+	const selectedSizes = useSelector(
+		(state: RootState) => state.editProduct.sizesFromServer
+	);
 	const sizesItems = useSelector((state: RootState) => state.admin.sizesItems);
 	const userEdit = useSelector((state: RootState) => state.admin.userEdit);
 	// console.log('EditProductItemID', id)
-
+	console.log('sizes from', selectedSizes);
 	const editProductItemId = useSelector(
 		(state: RootState) => state.admin.editProductItemId
 	);
@@ -769,24 +786,32 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 						);
 					})} */}
 
-					{allEditsImages?.map((el, ind) => {
+					{allEditsImages?.map((el, ind1) => {
 						return (
 							<div
-								key={ind + '' + el?.imagesPaths[1] + new Date()}
+								key={ind1 + '' + el?.imagesPaths[1] + new Date()}
 								className={s.item}
 							>
 								<div className={s.info_wrapper}>
-									<span className={s.index}>{`${ind + 1}.`}</span>
+									<span className={s.index}>{`${ind1 + 1}.`}</span>
 
 									{el !== null ? (
 										<span
 											onClick={() => deleteImageObj(el)}
 											className={s.button_product}
 											style={{
-												color: `${el?.colour?.hex}`,
-												border: `${el?.colour?.hex}`
-													? `${el?.colour?.hex} solid 1.5px`
-													: '#0B0B0B solid 1.5px',
+												color: `${
+													el?.colour?.hex ??
+													fetchedColours.find(
+														(elem) => elem.id === el?.colourId
+													)?.hex + ''
+												}`,
+												border: `${
+													el?.colour?.hex ??
+													fetchedColours.find(
+														(elem) => elem.id === el?.colourId
+													)?.hex + ''
+												} solid 1.5px`,
 											}}
 										>
 											Удалить сет
@@ -1004,7 +1029,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 									<div
 										onClick={() => {
 											setChoiseSize(!choiseSize);
-											dispatch(setSizes(el.size));
+											dispatch(setSizesFromServer(el.size));
 										}}
 										key={ind}
 										className={s.choise_set_item}
@@ -1024,7 +1049,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 						{selectedSizes?.map((el, ind) => {
 							return (
 								<span className={s.selected_sizes_item} key={ind}>
-									<SizeItem key={ind} id={ind} size={el} />
+									<SizeItem isInEdit={true} key={ind} id={ind} size={el} />
 								</span>
 							);
 						})}
