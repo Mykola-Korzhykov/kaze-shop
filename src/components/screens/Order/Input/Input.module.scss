@@ -1,0 +1,55 @@
+//var
+$gray-color: #9D9D9D;
+$black-color: #000;
+$error-color: #E73232;
+
+.wrapper {
+    width: 100%;
+    font-family: sans-serif;
+
+    label {
+        span {
+            font-style: normal;
+            font-weight: 300;
+            font-size: 20px;
+            line-height: 24px;
+            padding-bottom: 10px;
+            display: block;
+        }
+    }
+
+    .input {
+        color: $gray-color;
+        padding: 14px 20px;
+        width: 100%;
+        font-style: normal;
+        font-weight: 300;
+        font-size: 18px;
+        line-height: 21px;
+        border: 2px solid $gray-color;
+        outline: none;
+        transition: 0.3s color, border-color;
+
+        &:focus {
+            border-color: $black-color;
+            color: $black-color;
+        }
+
+        &.error {
+            color: $error-color;
+            border-color: $error-color;
+
+            &::placeholder {
+                color: $error-color;
+            }
+        }
+    }
+
+    .errorMessage {
+        margin-top: 10px;
+    }
+
+    .error {
+        color: $error-color;
+    }
+}

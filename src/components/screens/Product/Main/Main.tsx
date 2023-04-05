@@ -25,7 +25,7 @@ const mockColor = [
     "#901",
 ];
 const mockSlideImg = [SlideItem, SlideItem, SlideItem, SlideItem, SlideItem, SlideItem]
-const Main = ({ title, description, price, images, sizes, quantity, categories }: SingleProductData) => {
+const Main = ({ id, title, description, price, images, sizes, quantity, categories }: SingleProductData) => {
 
     const [activeColor, setActiveColor] = useState<number>(0);
     const [activeSize, setActiveSize] = useState<number>(0);
@@ -85,7 +85,7 @@ const Main = ({ title, description, price, images, sizes, quantity, categories }
                             <p>
                                 {description.ua}
                             </p>
-                            <Link href=''>
+                            <Link href={`/sizeChart/${id}`}>
                                 <span>Размерная сетка</span>
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M3.75 12H20.25" stroke="#0B0B0B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
