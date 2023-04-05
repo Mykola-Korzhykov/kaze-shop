@@ -85,12 +85,10 @@ const ReviewsSlider = () => {
 
                 if (init === i) {
                     item.style.maxWidth = '100%';
-                    // item.style.opacity = '1';
                     item.classList.remove(slideItemStyle.small);
                     return
                 }
 
-                // item.style.opacity = '0.5';
                 item.classList.add(slideItemStyle.small);
 
                 if (!isMobile) {
@@ -108,7 +106,6 @@ const ReviewsSlider = () => {
                     element.classList.remove(slideItemStyle.small);
                     return
                 }
-                // element.style.opacity = '0.5';
                 element.classList.add(slideItemStyle.small);
 
                 if (!isMobile) {
