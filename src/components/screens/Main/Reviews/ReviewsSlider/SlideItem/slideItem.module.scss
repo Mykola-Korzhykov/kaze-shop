@@ -5,12 +5,11 @@
     border: 1.5px solid #9d9d9d;
     position: relative;
     transition: 0.3s max-width,
-        max-height,
-        opacity;
+    max-height,
+    opacity;
     position: relative;
 
     &.small {
-transition: font-size 0.4s;
         h5 {
             font-weight: 300;
             font-size: 20px;
@@ -21,7 +20,6 @@ transition: font-size 0.4s;
             font-weight: 300;
             font-size: 14px;
             line-height: 17px;
-            // transform: scaleY(0.85);
         }
 
         @media (max-width:850px) {
@@ -54,8 +52,8 @@ transition: font-size 0.4s;
             img {
                 max-width: 140px;
                 height: 100%;
-            }
-            }
+                }
+                }
 
         @media (max-width: 992px) {
             img {
@@ -66,16 +64,16 @@ transition: font-size 0.4s;
         @media (max-width: 850px) {
             img {
                 max-width: 140px;
-            }
-            }
+                }
+                }
 
-        @media (max-width: 430px) {
-            img {
-                max-width: 100px;
-                height: 210px;
-            }
-        }
-        }
+                @media (max-width: 430px) {
+                    img {
+                        max-width: 100px;
+                        height: 210px;
+    }
+}
+                }
 
     &_description {
         transition: 0.4s all;
@@ -91,7 +89,7 @@ transition: font-size 0.4s;
 
             h5 {
                 font-family: 'Georama',
-                    sans-serif;
+                sans-serif;
                 font-style: normal;
                 font-weight: 400;
                 font-size: 26px;
@@ -119,8 +117,8 @@ transition: font-size 0.4s;
     }
 
     p {
-        font-family: 'Georama',
-        sans-serif;
+       font-family: 'Georama',
+       sans-serif;
         font-style: normal;
         font-weight: 400;
         font-size: 18px;
@@ -130,8 +128,6 @@ transition: font-size 0.4s;
         max-height: 85px;
         overflow-y: hidden;
         padding-right: 15px;
-            transform: scaleY(1);
-
         transition: 0.4s all;
         @media (max-width: 1200px) {
             font-size: 16px;

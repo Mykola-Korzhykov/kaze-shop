@@ -14,7 +14,7 @@ const CartItems = () => {
 					buttonText='Перейти в каталог'
 					buttonHref='/catalog'
 					description='Перейдите в каталог, чтобы купить какой то продукт'
-					fontSize={56}
+					smallModal={true}
 				/>
 			)
 		}

@@ -3,16 +3,21 @@ import {
 	createAsyncThunk,
 	PayloadAction,
 	Slice,
-} from '@reduxjs/toolkit'
-import axios from 'axios'
-import { API_URL } from '../../services'
-//types 
-import {ProductSend} from '../../types/auth'
-import {fetchedColour, Goods, GoodsSend, GoodsEditTest} from '../../types/goods'
+} from '@reduxjs/toolkit';
+import axios from 'axios';
+import { API_URL } from '../../services';
+//types
+import { ProductSend } from '../../types/auth';
+import {
+	fetchedColour,
+	Goods,
+	GoodsSend,
+	GoodsEditTest,
+} from '../../types/goods';
 import photo from '../../assets/images/main/About/girl.png';
-import photoTest from '../../assets/images/product/slider/photo.png'
+import photoTest from '../../assets/images/product/slider/photo.png';
 // хардкор
-import imgProduct from '../../assets/images/admin/img.svg'
+import imgProduct from '../../assets/images/admin/img.svg';
 import { RootState } from '../store';
 import Cookies from 'js-cookie';
 
@@ -23,14 +28,15 @@ export const findUsersRole = createAsyncThunk(
 			baseURL: API_URL,
 			withCredentials: true,
 			headers: {
-			Authorization: 'Bearer ' + (Cookies.get('accessToken') || ''),
-		},
+				Authorization: 'Bearer ' + (Cookies.get('accessToken') || ''),
+			},
 		});
-		const response = await instance.get(`/user/find_users?page=1&pageSize=10&v=${params}`);
+		const response = await instance.get(
+			`/user/find_users?page=1&pageSize=10&v=${params}`
+		);
 		return response.data.data;
 	}
 );
-
 
 export const getUsersRole = createAsyncThunk(
 	'users/getUsers',
@@ -41,28 +47,29 @@ export const getUsersRole = createAsyncThunk(
 			headers: {
 				Authorization: 'Bearer ' + (Cookies.get('accessToken') || ''),
 			},
-		})
+		});
 		const response = await instance.get(
 			`/user/get_users?page=${params}&pageSize=10`
-		)
-		return response.data.data
+		);
+		return response.data.data;
 	}
-)
+);
 
 export const findUsersAdmin = createAsyncThunk(
-
-  'users/fetchUsersAdmin',
-  async (params: string[], thunkAPI) => {
-    const instance = axios.create({
-      baseURL: API_URL,
-      withCredentials: true,
-      headers: {
-        Authorization: 'Bearer ' + (Cookies.get('accessToken') || ''),
-      },
-    });
-    const response = await instance.get(`/admin/find_admin?page=1&pageSize=10&v=${params}`);
-    return response.data.data;
-  }
+	'users/fetchUsersAdmin',
+	async (params: string[], thunkAPI) => {
+		const instance = axios.create({
+			baseURL: API_URL,
+			withCredentials: true,
+			headers: {
+				Authorization: 'Bearer ' + (Cookies.get('accessToken') || ''),
+			},
+		});
+		const response = await instance.get(
+			`/admin/find_admin?page=1&pageSize=10&v=${params}`
+		);
+		return response.data.data;
+	}
 );
 
 export const getUsersAdmin = createAsyncThunk(
@@ -74,73 +81,79 @@ export const getUsersAdmin = createAsyncThunk(
 			headers: {
 				Authorization: 'Bearer ' + (Cookies.get('accessToken') || ''),
 			},
-		})
+		});
 		const response = await instance.get(
 			`/admin/get_admins?page=${params}&pageSize=10`
-		)
-		return response.data.data
+		);
+		return response.data.data;
 	}
-)
+);
 
 export interface User {
-	id: number
-	name: string
-	surname: string
-	email: string
-	phoneNumber: string
-	isAdmin: boolean
-	addContent: boolean
-	editContent: boolean
-	editWebsite: boolean
+	id: number;
+	name: string;
+	surname: string;
+	email: string;
+	phoneNumber: string;
+	isAdmin: boolean;
+	addContent: boolean;
+	editContent: boolean;
+	editWebsite: boolean;
 }
 
 export interface initialStateType {
-	userEdit: GoodsEditTest
-	usersRole: User[]
-	usersAdmin: User[],
-	usersRoleStatus: 'loading' | 'success' | 'error403' | 'error' ,
-	usersAdminStatus: 'loading' | 'success' | 'error403' | 'error',
+	userEdit: GoodsEditTest;
+	usersRole: User[];
+	usersAdmin: User[];
+	usersRoleStatus: 'loading' | 'success' | 'error403' | 'error';
+	usersAdminStatus: 'loading' | 'success' | 'error403' | 'error';
 
 	inputs: {
-		id: number
-		text: string
-		placeholder: string
-		label: string
-		type: string
-	}[]
+		id: number;
+		text: string;
+		placeholder: string;
+		label: string;
+		type: string;
+	}[];
 	sizesend: [
 		{
-			id: number
-			size: string
+			id: number;
+			size: string;
 		}
-	]
+	];
 	colors: {
-		label: string
-		hex: string | null
-		id: number
-	}[]
-	addPhotoState: { id: number }[]
-	sizesItems: { id: number; size: string }[]
-	categoryArr: { id: number; title: string }[]
-	loading: boolean
-	error: string
+		label: string;
+		hex: string | null;
+		id: number;
+	}[];
+	addPhotoState: { id: number }[];
+	sizesItems: { id: number; size: string }[];
+	categoryArr: { id: number; title: string }[];
+	loading: boolean;
+	error: string;
 	//editProducts
-	products: ProductSend[]
-	editProductItemId: number,
-    displayActive: number,
-	countPhotos: any[],
+	products: ProductSend[];
+	editProductItemId: number;
+	displayActive: number;
+	countPhotos: any[];
 
-    editProducts: GoodsSend[]
+	editProducts: GoodsSend[];
+	arrObjModalSwow: {
+		imagesPaths: string[] | File[];
+		colourId: number;
+		sizes: string[];
+	}[];
 	// colours: fetchedColour[]
 }
 
 const initialState: initialStateType = {
+	arrObjModalSwow: [],
 
-	userEdit:  {
+	userEdit: {
 		id: 1,
 		title: {
 			ua: 'Павло',
-			ru:' Паша',
+			ru: ' Паша',
 			rs: 'хз',
 			en: 'The best',
 		},
@@ -153,41 +166,41 @@ const initialState: initialStateType = {
 		price: 300,
 		quantity: 100,
 		// { fileNames: string[], colourId: number; sizes: string[]}
-		images: [  
-		{
-			imagesPaths: [photoTest, photoTest],
-			colour: {
-				hex: '#FFE4C4',
-				id: 1,
-				ru: 'ru',
-				rs: 'rs',
-				en: 'en',
-				ua: 'ua',
-				type: 'colour' ,
-				createdAt: 'test',
-				updatedAt:'test',
+		images: [
+			{
+				imagesPaths: [photoTest, photoTest],
+				colour: {
+					hex: '#FFE4C4',
+					id: 1,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
+				sizes: ['S', 'M', 'L'],
 			},
-			sizes: ["S", "M", "L"]
-		},
-		{
-			imagesPaths: [photoTest, photoTest],
-			colour: {
-				hex: '#FFE4C4',
-				id: 1,
-				ru: 'ru',
-				rs: 'rs',
-				en: 'en',
-				ua: 'ua',
-				type: 'colour' ,
-				createdAt: 'test',
-				updatedAt:'test',
+			{
+				imagesPaths: [photoTest, photoTest],
+				colour: {
+					hex: 'red',
+					id: 1,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
+				sizes: ['S', 'M', 'L'],
 			},
-			sizes: ["S", "M", "L"]
-		},
 		],
-			sizeChartImage: 'kfkf',
-			sizeChartImageDescription: '21231231',
-			hexes: ['blue', 'red'],
+		sizeChartImage: 'kfkf',
+		sizeChartImageDescription: '21231231',
+		hexes: ['blue', 'red'],
 		sizes: [],
 		colours: [
 			{
@@ -197,9 +210,9 @@ const initialState: initialStateType = {
 				rs: 'rs',
 				en: 'en',
 				ua: 'ua',
-				type: 'colour' ,
+				type: 'colour',
 				createdAt: 'test',
-				updatedAt:'test',
+				updatedAt: 'test',
 			},
 			{
 				hex: '#9F8E84',
@@ -208,9 +221,9 @@ const initialState: initialStateType = {
 				rs: 'rs',
 				en: 'en',
 				ua: 'ua',
-				type: 'colour' ,
+				type: 'colour',
 				createdAt: 'test',
-				updatedAt:'test',
+				updatedAt: 'test',
 			},
 			{
 				hex: '#000080',
@@ -219,9 +232,9 @@ const initialState: initialStateType = {
 				rs: 'rs',
 				en: 'en',
 				ua: 'ua',
-				type: 'colour' ,
+				type: 'colour',
 				createdAt: 'test',
-				updatedAt:'test',
+				updatedAt: 'test',
 			},
 			{
 				hex: '#A6BEE5',
@@ -230,9 +243,9 @@ const initialState: initialStateType = {
 				rs: 'rs',
 				en: 'en',
 				ua: 'ua',
-				type: 'colour' ,
+				type: 'colour',
 				createdAt: 'test',
-				updatedAt:'test',
+				updatedAt: 'test',
 			},
 			{
 				hex: '#FFE4C4',
@@ -241,9 +254,9 @@ const initialState: initialStateType = {
 				rs: 'rs',
 				en: 'en',
 				ua: 'ua',
-				type: 'colour' ,
+				type: 'colour',
 				createdAt: 'test',
-				updatedAt:'test',
+				updatedAt: 'test',
 			},
 			{
 				hex: '#9F8E84',
@@ -252,9 +265,9 @@ const initialState: initialStateType = {
 				rs: 'rs',
 				en: 'en',
 				ua: 'ua',
-				type: 'colour' ,
+				type: 'colour',
 				createdAt: 'test',
-				updatedAt:'test',
+				updatedAt: 'test',
 			},
 			{
 				hex: '#000080',
@@ -263,9 +276,9 @@ const initialState: initialStateType = {
 				rs: 'rs',
 				en: 'en',
 				ua: 'ua',
-				type: 'colour' ,
+				type: 'colour',
 				createdAt: 'test',
-				updatedAt:'test',
+				updatedAt: 'test',
 			},
 			{
 				hex: '#A6BEE5',
@@ -274,144 +287,143 @@ const initialState: initialStateType = {
 				rs: 'rs',
 				en: 'en',
 				ua: 'ua',
-				type: 'colour' ,
+				type: 'colour',
 				createdAt: 'test',
-				updatedAt:'test',
+				updatedAt: 'test',
 			},
 		],
 		categories: [
 			{
-			id: 1,
-			ua: 'Категорія 1',
-			en: 'Категория 1',
-			rs:	'Категорія 1 rs',
-			ru: 'Категорія 1 ru',
-			type: 'category',
-			createdAt: 'any',
-			updatedAt: 'any',
+				id: 1,
+				ua: 'Категорія 1',
+				en: 'Категория 1',
+				rs: 'Категорія 1 rs',
+				ru: 'Категорія 1 ru',
+				type: 'category',
+				createdAt: 'any',
+				updatedAt: 'any',
 			},
 		],
 	},
 
-
 	usersRoleStatus: 'success',
 	usersAdmin: [
-        {
-            id: 1,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: true,
-            addContent: false,
-            editContent: true,
-            editWebsite: false,
-        },
-        {
-            id: 2,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: true,
-            addContent: false,
-            editContent: true,
-            editWebsite: false,
-        },
-        {
-            id: 3,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: true,
-            addContent: false,
-            editContent: true,
-            editWebsite: false,
-        },
-        {
-            id: 4,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: true,
-            addContent: false,
-            editContent: true,
-            editWebsite: false,
-        },
-        {
-            id: 5,
-            name: 'Pavlo',
-            surname: 'Kolumyp',
-            email:' pashawork@gmail.com',
-            phoneNumber: '+380688874920',
-            isAdmin: true,
-            addContent: false,
-            editContent: true,
-            editWebsite: false,
-        },
-    ],
+		{
+			id: 1,
+			name: 'Pavlo',
+			surname: 'Kolumyp',
+			email: ' pashawork@gmail.com',
+			phoneNumber: '+380688874920',
+			isAdmin: true,
+			addContent: false,
+			editContent: true,
+			editWebsite: false,
+		},
+		{
+			id: 2,
+			name: 'Pavlo',
+			surname: 'Kolumyp',
+			email: ' pashawork@gmail.com',
+			phoneNumber: '+380688874920',
+			isAdmin: true,
+			addContent: false,
+			editContent: true,
+			editWebsite: false,
+		},
+		{
+			id: 3,
+			name: 'Pavlo',
+			surname: 'Kolumyp',
+			email: ' pashawork@gmail.com',
+			phoneNumber: '+380688874920',
+			isAdmin: true,
+			addContent: false,
+			editContent: true,
+			editWebsite: false,
+		},
+		{
+			id: 4,
+			name: 'Pavlo',
+			surname: 'Kolumyp',
+			email: ' pashawork@gmail.com',
+			phoneNumber: '+380688874920',
+			isAdmin: true,
+			addContent: false,
+			editContent: true,
+			editWebsite: false,
+		},
+		{
+			id: 5,
+			name: 'Pavlo',
+			surname: 'Kolumyp',
+			email: ' pashawork@gmail.com',
+			phoneNumber: '+380688874920',
+			isAdmin: true,
+			addContent: false,
+			editContent: true,
+			editWebsite: false,
+		},
+	],
 
 	usersAdminStatus: 'success',
 
 	usersRole: [
-        // {
-        // 	id: 1,
-        //     name: 'Pavlo',
-        //     surname: 'Kolumyp',
-        //     email:' pashawork@gmail.com',
-        //     phoneNumber: '+380688874920',
-        //     isAdmin: true,
-        //     addContent: false,
-        //     editContent: false,
-        //     editWebsite: false,
-        // },
-        // {
-        //     id: 2,
-        //     name: 'Pavlo',
-        //     surname: 'Kolumyp',
-        //     email:' pashawork@gmail.com',
-        //     phoneNumber: '+380688874920',
-        //     isAdmin: true,
-        //     addContent: false,
-        //     editContent: true,
-        //     editWebsite: false,
-        // },
-        // {
-        //     id: 3,
-        //     name: 'Pavlo',
-        //     surname: 'Kolumyp',
-        //     email:' pashawork@gmail.com',
-        //     phoneNumber: '+380688874920',
-        //     isAdmin: true,
-        //     addContent: false,
-        //     editContent: true,
-        //     editWebsite: false,
-        // },
-        // {
-        //     id: 4,
-        //     name: 'Pavlo',
-        //     surname: 'Kolumyp',
-        //     email:' pashawork@gmail.com',
-        //     phoneNumber: '+380688874920',
-        //     isAdmin: false,
-        //     addContent: false,
-        //     editContent: true,
-        //     editWebsite: false,
-        // },
-        // {
-        //     id: 5,
-        //     name: 'Pavlo',
-        //     surname: 'Kolumyp',
-        //     email:' pashawork@gmail.com',
-        //     phoneNumber: '+380688874920',
-        //     isAdmin: false,
-        //     addContent: false,
-        //     editContent: true,
-        //     editWebsite: false,
-        // },
-    ],
+		// {
+		// 	id: 1,
+		//     name: 'Pavlo',
+		//     surname: 'Kolumyp',
+		//     email:' pashawork@gmail.com',
+		//     phoneNumber: '+380688874920',
+		//     isAdmin: true,
+		//     addContent: false,
+		//     editContent: false,
+		//     editWebsite: false,
+		// },
+		// {
+		//     id: 2,
+		//     name: 'Pavlo',
+		//     surname: 'Kolumyp',
+		//     email:' pashawork@gmail.com',
+		//     phoneNumber: '+380688874920',
+		//     isAdmin: true,
+		//     addContent: false,
+		//     editContent: true,
+		//     editWebsite: false,
+		// },
+		// {
+		//     id: 3,
+		//     name: 'Pavlo',
+		//     surname: 'Kolumyp',
+		//     email:' pashawork@gmail.com',
+		//     phoneNumber: '+380688874920',
+		//     isAdmin: true,
+		//     addContent: false,
+		//     editContent: true,
+		//     editWebsite: false,
+		// },
+		// {
+		//     id: 4,
+		//     name: 'Pavlo',
+		//     surname: 'Kolumyp',
+		//     email:' pashawork@gmail.com',
+		//     phoneNumber: '+380688874920',
+		//     isAdmin: false,
+		//     addContent: false,
+		//     editContent: true,
+		//     editWebsite: false,
+		// },
+		// {
+		//     id: 5,
+		//     name: 'Pavlo',
+		//     surname: 'Kolumyp',
+		//     email:' pashawork@gmail.com',
+		//     phoneNumber: '+380688874920',
+		//     isAdmin: false,
+		//     addContent: false,
+		//     editContent: true,
+		//     editWebsite: false,
+		// },
+	],
 	inputs: [],
 	sizesend: [{ id: 0, size: 'XS' }],
 	colors: [
@@ -433,18 +445,16 @@ const initialState: initialStateType = {
 	],
 	addPhotoState: [{ id: 1 }],
 	sizesItems: [
-
-		{id: 0, size: 'XS'},
-		{id: 1, size: ' XS-S'},
-		{id: 2, size: 'S'},
-		{id: 3, size: 'S-M'},
-		{id: 4, size: 'M'},
-		{id: 5, size: 'L'},
-		{id: 6, size: 'L-XL'},
-		{id: 7, size: '2XL'},
-		{id: 8, size: '3XL'},
-		{id: 9, size: '4XL'},
-
+		{ id: 0, size: 'XS' },
+		{ id: 1, size: ' XS-S' },
+		{ id: 2, size: 'S' },
+		{ id: 3, size: 'S-M' },
+		{ id: 4, size: 'M' },
+		{ id: 5, size: 'L' },
+		{ id: 6, size: 'L-XL' },
+		{ id: 7, size: '2XL' },
+		{ id: 8, size: '3XL' },
+		{ id: 9, size: '4XL' },
 	],
 	categoryArr: [
 		{ id: 1, title: 'первая категоря' },
@@ -490,309 +500,302 @@ const initialState: initialStateType = {
 		},
 	],
 	editProductItemId: -1,
-    displayActive: 1,
-    editProducts:[
-        {
-	id: 1,
-	title: {
-		ua: 'Павло',
-		ru:' Паша',
-		rs: 'хз',
-		en: 'The best',
-	},
-	description: {
-		ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
-		ru: 'на русс опис doprepwfieifweifipowerf',
-		rs: 'на rs опис лдощцаозщуцощауоазуцща',
-		en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
-	},
-	price: 300,
-	quantity: 100,
-    // { fileNames: string[], colourId: number; sizes: string[]}
-	images: [
-    {
-        fileNames: [photo, photo],
-        colourId: 3,
-        sizes: ["S", "M", "L"]
-    },
-    {
-        fileNames: [photo, photo],
-        colourId: 4,
-        sizes: ["S", "M", "L"]
-    },
-    ],
-      sizeChartImage: 'kfkf'
-      ,
-	sizes: ['X', 'XS'],
-	colours: [
+	displayActive: 1,
+	editProducts: [
 		{
-			hex: '#FFE4C4',
 			id: 1,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour' ,
-			createdAt: 'test',
-			updatedAt:'test',
+			title: {
+				ua: 'Павло',
+				ru: ' Паша',
+				rs: 'хз',
+				en: 'The best',
+			},
+			description: {
+				ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
+				ru: 'на русс опис doprepwfieifweifipowerf',
+				rs: 'на rs опис лдощцаозщуцощауоазуцща',
+				en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
+			},
+			price: 300,
+			quantity: 100,
+			// { fileNames: string[], colourId: number; sizes: string[]}
+			images: [
+				{
+					fileNames: [photo, photo],
+					colourId: 3,
+					sizes: ['S', 'M', 'L'],
+				},
+				{
+					fileNames: [photo, photo],
+					colourId: 4,
+					sizes: ['S', 'M', 'L'],
+				},
+			],
+			sizeChartImage: 'kfkf',
+			sizes: ['X', 'XS'],
+			colours: [
+				{
+					hex: '#FFE4C4',
+					id: 1,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
+				{
+					hex: '#9F8E84',
+					id: 2,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
+				{
+					hex: '#000080',
+					id: 3,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
+				{
+					hex: '#A6BEE5',
+					id: 4,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
+			],
+			categories: [
+				{
+					id: 1,
+					ua: 'Категорія 1',
+					en: 'Категория 1',
+					rs: 'Категорія 1 rs',
+					ru: 'Категорія 1 ru',
+					type: 'category',
+					createdAt: 'any',
+					updatedAt: 'any',
+				},
+			],
 		},
 		{
-			hex: '#9F8E84',
 			id: 2,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour' ,
-			createdAt: 'test',
-			updatedAt:'test',
+			title: {
+				ua: 'Павло',
+				ru: ' Паша',
+				rs: 'хз',
+				en: 'The best',
+			},
+			description: {
+				ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
+				ru: 'на русс опис doprepwfieifweifipowerf',
+				rs: 'на rs опис лдощцаозщуцощауоазуцща',
+				en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
+			},
+			price: 300,
+			quantity: 100,
+			// { fileNames: string[], colourId: number; sizes: string[]}
+			images: [
+				{
+					fileNames: [photo, photo],
+					colourId: 3,
+					sizes: ['S', 'M', 'L'],
+				},
+				{
+					fileNames: [photo, photo],
+					colourId: 4,
+					sizes: ['S', 'M', 'L'],
+				},
+			],
+			sizeChartImage: 'kfkf',
+			sizes: ['X', 'XS'],
+			colours: [
+				{
+					hex: '#FFE4C4',
+					id: 1,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
+				{
+					hex: '#9F8E84',
+					id: 2,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
+				{
+					hex: '#000080',
+					id: 3,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
+				{
+					hex: '#A6BEE5',
+					id: 4,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
+			],
+			categories: [
+				{
+					id: 1,
+					ua: 'Категорія 1',
+					en: 'Категория 1',
+					rs: 'Категорія 1 rs',
+					ru: 'Категорія 1 ru',
+					type: 'category',
+					createdAt: 'any',
+					updatedAt: 'any',
+				},
+			],
 		},
 		{
-			hex: '#000080',
 			id: 3,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour' ,
-			createdAt: 'test',
-			updatedAt:'test',
-		},
-		{
-			hex: '#A6BEE5',
-			id: 4,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour' ,
-			createdAt: 'test',
-			updatedAt:'test',
+			title: {
+				ua: 'Павло',
+				ru: ' Паша',
+				rs: 'хз',
+				en: 'The best',
+			},
+			description: {
+				ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
+				ru: 'на русс опис doprepwfieifweifipowerf',
+				rs: 'на rs опис лдощцаозщуцощауоазуцща',
+				en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
+			},
+			price: 300,
+			quantity: 100,
+			// { fileNames: string[], colourId: number; sizes: string[]}
+			images: [
+				{
+					fileNames: [photo, photo],
+					colourId: 3,
+					sizes: ['S', 'M', 'L'],
+				},
+				{
+					fileNames: [photo, photo],
+					colourId: 4,
+					sizes: ['S', 'M', 'L'],
+				},
+			],
+			sizeChartImage: 'kfkf',
+			sizes: ['X', 'XS'],
+			colours: [
+				{
+					hex: '#FFE4C4',
+					id: 1,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
+				{
+					hex: '#9F8E84',
+					id: 2,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
+				{
+					hex: '#000080',
+					id: 3,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
+				{
+					hex: '#A6BEE5',
+					id: 4,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
+			],
+			categories: [
+				{
+					id: 1,
+					ua: 'Категорія 1',
+					en: 'Категория 1',
+					rs: 'Категорія 1 rs',
+					ru: 'Категорія 1 ru',
+					type: 'category',
+					createdAt: 'any',
+					updatedAt: 'any',
+				},
+			],
 		},
 	],
-	categories: [
-		{
-        id: 1,
-		ua: 'Категорія 1',
-		en: 'Категория 1',
-		rs:	'Категорія 1 rs',
-		ru: 'Категорія 1 ru',
-		type: 'category',
-		createdAt: 'any',
-		updatedAt: 'any',
-        }
-	]
-} ,
-{
-	id: 2,
-	title: {
-		ua: 'Павло',
-		ru:' Паша',
-		rs: 'хз',
-		en: 'The best',
-	},
-	description: {
-		ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
-		ru: 'на русс опис doprepwfieifweifipowerf',
-		rs: 'на rs опис лдощцаозщуцощауоазуцща',
-		en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
-	},
-	price: 300,
-	quantity: 100,
-    // { fileNames: string[], colourId: number; sizes: string[]}
-	images: [
-    {
-        fileNames: [photo, photo],
-        colourId: 3,
-        sizes: ["S", "M", "L"]
-    },
-    {
-        fileNames: [photo, photo],
-        colourId: 4,
-        sizes: ["S", "M", "L"]
-    },
-    ],
-      sizeChartImage: 'kfkf'
-      ,
-	sizes: ['X', 'XS'],
-	colours: [
-		{
-			hex: '#FFE4C4',
-			id: 1,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour' ,
-			createdAt: 'test',
-			updatedAt:'test',
-		},
-		{
-			hex: '#9F8E84',
-			id: 2,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour' ,
-			createdAt: 'test',
-			updatedAt:'test',
-		},
-		{
-			hex: '#000080',
-			id: 3,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour' ,
-			createdAt: 'test',
-			updatedAt:'test',
-		},
-		{
-			hex: '#A6BEE5',
-			id: 4,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour' ,
-			createdAt: 'test',
-			updatedAt:'test',
-		},
-	],
-	categories: [
-		{
-        id: 1,
-		ua: 'Категорія 1',
-		en: 'Категория 1',
-		rs:	'Категорія 1 rs',
-		ru: 'Категорія 1 ru',
-		type: 'category',
-		createdAt: 'any',
-		updatedAt: 'any',
-        }
-	]
-} ,
-{
-	id: 3,
-	title: {
-		ua: 'Павло',
-		ru:' Паша',
-		rs: 'хз',
-		en: 'The best',
-	},
-	description: {
-		ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
-		ru: 'на русс опис doprepwfieifweifipowerf',
-		rs: 'на rs опис лдощцаозщуцощауоазуцща',
-		en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
-	},
-	price: 300,
-	quantity: 100,
-    // { fileNames: string[], colourId: number; sizes: string[]}
-	images: [
-    {
-        fileNames: [photo, photo],
-        colourId: 3,
-        sizes: ["S", "M", "L"]
-    },
-    {
-        fileNames: [photo, photo],
-        colourId: 4,
-        sizes: ["S", "M", "L"]
-    },
-    ],
-    sizeChartImage: 'kfkf'
-    ,
-	sizes: ['X', 'XS'],
-	colours: [
-		{
-			hex: '#FFE4C4',
-			id: 1,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour' ,
-			createdAt: 'test',
-			updatedAt:'test',
-		},
-		{
-			hex: '#9F8E84',
-			id: 2,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour' ,
-			createdAt: 'test',
-			updatedAt:'test',
-		},
-		{
-			hex: '#000080',
-			id: 3,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour' ,
-			createdAt: 'test',
-			updatedAt:'test',
-		},
-		{
-			hex: '#A6BEE5',
-			id: 4,
-			ru: 'ru',
-			rs: 'rs',
-			en: 'en',
-			ua: 'ua',
-			type: 'colour' ,
-			createdAt: 'test',
-			updatedAt:'test',
-		},
-	],
-	categories: [
-		{
-        id: 1,
-		ua: 'Категорія 1',
-		en: 'Категория 1',
-		rs:	'Категорія 1 rs',
-		ru: 'Категорія 1 ru',
-		type: 'category',
-		createdAt: 'any',
-		updatedAt: 'any',
-        }
-	]
-} ,
-],
-//реализовую с помощью массива
-countPhotos: []
-// id: number
-// title: {
-//     ua: string
-//     ru: string
-//     rs: string
-//     en: string
-// }
-// description: {
-//     ua: string
-//     ru: string
-//     rs: string
-//     en: string
-// }
-// price: number
-// quantity: number
-// images: { fileNames: string[], colourId: number; sizes: string[]}[]
-// sizeChartImage: string
-// sizes: string[]
-// colours: fetchedColour[]
-// categories: fetchedCategory[]
-
-}
-
-
-
+	//реализовую с помощью массива
+	countPhotos: [],
+	// id: number
+	// title: {
+	//     ua: string
+	//     ru: string
+	//     rs: string
+	//     en: string
+	// }
+	// description: {
+	//     ua: string
+	//     ru: string
+	//     rs: string
+	//     en: string
+	// }
+	// price: number
+	// quantity: number
+	// images: { fileNames: string[], colourId: number; sizes: string[]}[]
+	// sizeChartImage: string
+	// sizes: string[]
+	// colours: fetchedColour[]
+	// categories: fetchedCategory[]
+};
 
 export const admin: Slice<initialStateType> = createSlice({
 	name: 'admin',
@@ -800,112 +803,120 @@ export const admin: Slice<initialStateType> = createSlice({
 	reducers: {
 		setSizes: (state, action: PayloadAction<string>) => {
 			//const found =  state.sizes.indexOf(action.payload.id)
-			state.userEdit.sizes.push(action.payload)
+			state.userEdit.sizes.push(action.payload);
 		},
 		removeSizes: (state, action: PayloadAction<string>) => {
 			// console.log('вход')
-			const found = state.userEdit.sizes.find(el => el === action.payload)
-			const index = state.userEdit.sizes.indexOf(found)
-			state.userEdit.sizes.splice(index, 1)
+			const found = state.userEdit.sizes.find((el) => el === action.payload);
+			const index = state.userEdit.sizes.indexOf(found);
+			state.userEdit.sizes.splice(index, 1);
 		},
 
 		setColors: (
 			state,
 			action: PayloadAction<{ label: string; hex: string; id: number }>
 		) => {
-			state.colors.push(action.payload)
+			state.colors.push(action.payload);
 		},
 		setAddPhotoState: (state) => {
 			state.addPhotoState.push({
 				id: state.addPhotoState[state.addPhotoState.length - 1].id + 1,
-			})
+			});
 		},
 		setUsers: (state, action: PayloadAction<User[]>) => {
-			state.usersRole = action.payload
+			state.usersRole = action.payload;
 		},
 		setEditProductItemId: (state, action: PayloadAction<number>) => {
-			state.editProductItemId = action.payload
+			state.editProductItemId = action.payload;
 		},
-        setChangeCheckbox: (state, action: PayloadAction<{id: number, branch: keyof User, bool: boolean}>) => {
-            //@ts-ignore
-            state.usersRole[action.payload.id - 1][action.payload.branch] = action.payload.bool;
-        },
-		  //пушишь все обьекты , при добавлении товару пушишь number (для добавление еще одного айтома) , потом при добалении товара реплейсишь его под нужный индекс
-		addCountPhotos:(state) => {
-			console.log('вход в стейт')
-			state.userEdit.images.push(null)
-        },
-				
+		setChangeCheckbox: (
+			state,
+			action: PayloadAction<{ id: number; branch: keyof User; bool: boolean }>
+		) => {
+			//@ts-ignore
+			state.usersRole[action.payload.id - 1][action.payload.branch] =
+				action.payload.bool;
+		},
+		//пушишь все обьекты , при добавлении товару пушишь number (для добавление еще одного айтома) , потом при добалении товара реплейсишь его под нужный индекс
+		addCountPhotos: (state) => {
+			console.log('вход в стейт');
+			state.userEdit.images.push(null);
+		},
+		setArrObjModalSwow: (state, action: PayloadAction<any>) => {
+			console.log('вход в стейт');
+			state.arrObjModalSwow.push(action.payload);
+		},
 	},
 
-    extraReducers: (builder) => {
-        builder
-        //пошук ролів
-        .addCase(findUsersRole.fulfilled, (state, action) => {
-            state.usersRole = action.payload;
-			state.usersRoleStatus = 'success'
-        })
-        .addCase(findUsersRole.pending, (state) => {
-            state.loading = true;
-        })
-        .addCase(findUsersRole.rejected, (state, action) => {
-            state.usersRole = []
-            console.log('ошибка поиск юзеров')
-            state.error = action.error.message;
-            state.loading = false;
-			state.usersRoleStatus = action.error.code === '403' || 403 ? 'error403' : 'error'
-        })
+	extraReducers: (builder) => {
+		builder
+			//пошук ролів
+			.addCase(findUsersRole.fulfilled, (state, action) => {
+				state.usersRole = action.payload;
+				state.usersRoleStatus = 'success';
+			})
+			.addCase(findUsersRole.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(findUsersRole.rejected, (state, action) => {
+				state.usersRole = [];
+				console.log('ошибка поиск юзеров');
+				state.error = action.error.message;
+				state.loading = false;
+				state.usersRoleStatus =
+					action.error.code === '403' || 403 ? 'error403' : 'error';
+			})
 
-          //полученя юзерів 
-        .addCase(getUsersRole.fulfilled, (state, action) => {
-            state.usersRole = action.payload;
-			state.usersRoleStatus = 'success'
-        })
-        .addCase(getUsersRole.pending, (state) => {
-            state.loading = true;
-        })
-        .addCase(getUsersRole.rejected, (state, action) => {
-            state.usersRole = []
-            console.log('ошибка получения юзеров')
-            state.error = action.error.message;
-            state.loading = false;
-			state.usersRoleStatus = action.error.code === '403' || 403 ? 'error403' : 'error'
-        })
-          //получення адмінів
-        .addCase(getUsersAdmin.fulfilled, (state, action) => {
-            state.usersAdmin = action.payload;
-			state.usersAdminStatus = 'success'
-        })
-        .addCase(getUsersAdmin.pending, (state) => {
-            state.loading = true;
-        })
-        .addCase(getUsersAdmin.rejected, (state, action) => {
-            state.usersAdmin = []
-            console.log('ошибка получения админов')
-            state.error = action.error.message;
-            state.loading = false;
-			state.usersAdminStatus = action.error.code === '403' || 403 ? 'error403' : 'error'
-        })
-          // пошук адмінів через дебаунс 
-        .addCase(findUsersAdmin.fulfilled, (state, action) => {
-			state.usersAdminStatus = 'success'
-            state.usersAdmin = action.payload;
-        })
-        .addCase(findUsersAdmin.pending, (state) => {
-            state.loading = true;
-        })
-        .addCase(findUsersAdmin.rejected, (state, action) => {
-            state.usersAdmin = []
-            console.log('ошибка поиск админов')
-            state.error = action.error.message;
-            state.loading = false;
-			state.usersAdminStatus = action.error.code === '403' || 403 ? 'error403' : 'error'
-        })
-    },
-
-
-    
-})
+			//полученя юзерів
+			.addCase(getUsersRole.fulfilled, (state, action) => {
+				state.usersRole = action.payload;
+				state.usersRoleStatus = 'success';
+			})
+			.addCase(getUsersRole.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(getUsersRole.rejected, (state, action) => {
+				state.usersRole = [];
+				console.log('ошибка получения юзеров');
+				state.error = action.error.message;
+				state.loading = false;
+				state.usersRoleStatus =
+					action.error.code === '403' || 403 ? 'error403' : 'error';
+			})
+			//получення адмінів
+			.addCase(getUsersAdmin.fulfilled, (state, action) => {
+				state.usersAdmin = action.payload;
+				state.usersAdminStatus = 'success';
+			})
+			.addCase(getUsersAdmin.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(getUsersAdmin.rejected, (state, action) => {
+				state.usersAdmin = [];
+				console.log('ошибка получения админов');
+				state.error = action.error.message;
+				state.loading = false;
+				state.usersAdminStatus =
+					action.error.code === '403' || 403 ? 'error403' : 'error';
+			})
+			// пошук адмінів через дебаунс
+			.addCase(findUsersAdmin.fulfilled, (state, action) => {
+				state.usersAdminStatus = 'success';
+				state.usersAdmin = action.payload;
+			})
+			.addCase(findUsersAdmin.pending, (state) => {
+				state.loading = true;
+			})
+			.addCase(findUsersAdmin.rejected, (state, action) => {
+				state.usersAdmin = [];
+				console.log('ошибка поиск админов');
+				state.error = action.error.message;
+				state.loading = false;
+				state.usersAdminStatus =
+					action.error.code === '403' || 403 ? 'error403' : 'error';
+			});
+	},
+});
 
 export const {
 	setSizes,
@@ -914,8 +925,9 @@ export const {
 	setAddPhotoState,
 	setUsers,
 	setEditProductItemId,
-    setChangeCheckbox,
-	addCountPhotos
-} = admin.actions
+	setChangeCheckbox,
+	addCountPhotos,
+	setArrObjModalSwow,
+} = admin.actions;
 
-export default admin.reducer
+export default admin.reducer;

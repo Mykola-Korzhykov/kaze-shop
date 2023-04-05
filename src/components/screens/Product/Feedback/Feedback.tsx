@@ -2,7 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import Button from '../../Main/Button/Button';
 import s from './feedback.module.scss';
-import { FeedbackProps } from './Fetback.interface';
+import { FeedbackProps } from './Feedback.interface'
 
 
 const Feedback = ({ id }: FeedbackProps) => {

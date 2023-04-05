@@ -1,7 +1,7 @@
-import {} from '@/types/auth'
-import { CartProduct, sendProductToCart } from '@/types/goods'
-import { AxiosInstance, AxiosResponse } from 'axios'
-import { API_URL } from './index'
+import {} from '@/types/auth';
+import { CartProduct, sendProductToCart } from '@/types/goods';
+import { AxiosInstance, AxiosResponse } from 'axios';
+import { API_URL } from './index';
 export const GoodsApi = (instance: AxiosInstance) => ({
 	async getGoods(page: number) {
 		const { data } = await instance.get(`/product?page=${page}&pageSize=10`);
@@ -90,7 +90,23 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		return data;
 	},
 	async getSingleProduct(productId: number) {
-		const { data } = await instance.post(`product/${productId}`);
+		const { data } = await instance.get(`product/${productId}`);
+		return data;
+	},
+	async deleteSingleProduct(productId: number) {
+		const { data } = await instance.delete(`product/${productId}`);
+		return data;
+	},
+	async sendFeedback(
+		feedback: {
+			name: string;
+			surname: string;
+			review: string;
+			rating: number;
+		},
+		productId: number
+	) {
+		const { data } = await instance.put(`reviews/create_review?productId=${productId}`, feedback);
 		return data;
 	},
 });

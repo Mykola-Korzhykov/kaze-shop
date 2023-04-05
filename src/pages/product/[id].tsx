@@ -1,12 +1,11 @@
 import React, { Suspense, useEffect } from 'react';
 import Footer from '@/components/Footer/Footer';
 import OneProduct from '@/components/screens/Product/Product';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { SingleProductData } from '@/types/singleProduct';
 import { API_URL } from '../../services/index';
 
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next/types';
-import Spinner from '../../components/Spinner/Spinner';
+import { GetStaticPaths, GetStaticProps } from 'next/types';
 import { AllCategory } from '@/types/allCategoryWithProducts';
 import SpinnerLayout from '@/layouts/SpinnerLayout';
 import ErrorPage from '../404';

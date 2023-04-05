@@ -1,12 +1,14 @@
 import React, { FC } from 'react';
 import { Api } from '@/services';
 import { useSelector } from 'react-redux';
+import Spinner from '@/components/Spinner/Spinner';
 import { useAppDispatch } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
+import { fetchColours } from '@/redux/slices/goods';
 import { useRouter } from 'next/router';
 import { addUserInfo } from '@/redux/slices/user';
 import Link from 'next/link';
-import { setCookie } from 'nookies';
+import { setCookie, destroyCookie } from 'nookies';
 import s from './screenStyle.module.scss';
 //components
 import ChangeUserPassword from '@/components/ChangeUserPassword/ChangeUserPassword';
@@ -26,6 +28,9 @@ import { divide } from 'lodash';
 
 const Cabinet: FC = () => {
 	const dispatch = useAppDispatch();
+	const loadingStatus = useSelector(
+		(state: RootState) => state.goods.loadingStatus
+	);
 	const router = useRouter();
 	const user: RootState['user'] = useSelector((state: RootState) => state.user);
 	//states
@@ -47,7 +52,11 @@ const Cabinet: FC = () => {
 	const [images, setImages] = React.useState<File[]>([]);
 
 	console.log('modalAddColorTurn', modalAddColorTurn);
-
+	React.useEffect(() => {
+	
+		dispatch(fetchColours())
+		
+	}, [dispatch])
 	console.log('user', user);
 	React.useEffect(() => {
 		const fetchUserData = async () => {
@@ -69,7 +78,10 @@ const Cabinet: FC = () => {
 				}
 			} catch (e) {
 				//router.push('/404')
-				console.log(e);
+				// if (e?.response?.status === 400) {
+				// 	destroyCookie(undefined, 'accessToken');
+				// 	router.push('/');
+				// }
 			}
 		};
 
@@ -79,12 +91,13 @@ const Cabinet: FC = () => {
 	}, [dispatch]);
 
 	return (
+		<>{loadingStatus === 'loading' && <Spinner />}
 		<main className="content">
 			<div className={s.container}>
 				<div className="page_coordinator">
 					<Link href="#">Главная</Link> | <span>Личный кабинет</span>
 				</div>
-
+				{/* <CabinetTabs />  */}
 				{user && user.user?.type === 'USER' ? <CabinetTabs /> : ''}
 				{user?.user?.type === 'OWNER' ||
 					(user?.user?.type === 'ADMIN' && (
@@ -182,7 +195,7 @@ const Cabinet: FC = () => {
 
 				{/* {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  */}
 			</div>
-		</main>
+		</main></>
 	);
 };
 

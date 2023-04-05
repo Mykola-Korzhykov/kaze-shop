@@ -7,11 +7,13 @@ import { RootState } from '@/redux/store';
 //components
 import { Item } from './Item';
 import { EditProductItem } from './EditProductItem';
+import Spinner from '@/components/Spinner/Spinner';
 //
 
 export const EditProduct = () => {
 	const dispatch = useAppDispatch();
 	const products = useSelector((state: RootState) => state.admin.editProducts);
+	// const products = useSelector((state: RootState) => state.goods.goods);
 
 	const editProductItemId = useSelector(
 		(state: RootState) => state.admin.editProductItemId
@@ -33,6 +35,7 @@ export const EditProduct = () => {
 	}, []);
 	return (
 		<>
+			
 			<div className={editProductItemId === -1 ? s.wrapper : s.wrapper_off}>
 				{products.map((obj, ind) => {
 					return (

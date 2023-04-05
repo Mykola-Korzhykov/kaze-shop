@@ -5,6 +5,7 @@ import { string } from 'yup';
 import photoNew from '../../../../../../../assets/images/admin/img.svg';
 import { setEditProductItemId } from '../../../../../../../redux/slices/admin';
 import { useAppDispatch } from '@/redux/hooks';
+import { Api } from '@/services';
 
 interface ItemPropsType {
 	photo?: any;
@@ -26,6 +27,10 @@ export const Item = ({
 
 	const dispatch = useAppDispatch();
 
+
+	const deleteProduct = async () => {
+		await Api().goods.deleteProduct(id)
+	}
 	// let photoiside;
 	// const [photoDone, sePhotoDone] = React.useState<any>()
 
@@ -64,7 +69,7 @@ export const Item = ({
 				>
 					Изменить
 				</button>
-				<span className={s.close_btn}>
+				<span onClick={deleteProduct} className={s.close_btn}>
 					<svg
 						width="30"
 						height="30"

@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import s from './EditProductItem.module.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import {
 	addCountPhotos,
 	setEditProductItemId,
+	setArrObjModalSwow,
 } from '../../../../../../../redux/slices/admin';
+import { removearrObjMod } from '@/redux/slices/formData';
+import { Api } from '@/services';
+import { fetchedColour } from '../../../../../../../types/goods';
 import { setModalAddEditProduct } from '../../../../../../../redux/slices/modal';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { InputTextItem } from '../../AddProduct/InputText';
@@ -23,6 +27,7 @@ import { SizeChart } from '../../../Display/AddProduct/sizeChart';
 //types
 import { Goods } from '../../../../../../../types/goods';
 import { ImageData } from '../../../../../../../types/goods';
+import { setSizesFromServer } from '@/redux/slices/editProduct';
 import {
 	setSizes,
 	removeSizes,
@@ -41,7 +46,76 @@ interface EditProductItemType {
 
 export const EditProductItem = ({ id }: EditProductItemType) => {
 	const dispatch = useAppDispatch();
+	const fetchedColours = useAppSelector((state) => state.goods.fetchedColours);
+	const imagesFromModal = useAppSelector(
+		(state) => state.editProduct.imagesFromModal
+	);
+	const arrObjModal = useAppSelector((state) => state.formData.arrObjMod);
+	const arrObjModalSwow = useSelector(
+		(state: RootState) => state.admin.arrObjModalSwow
+	);
+	const [imagesFromServerLength, setImagesFromServerLength] =
+		React.useState<number>(0);
+	const [showPhotos, setAllShowPhotos] = React.useState<File[]>([]);
+	const [allEditsImages, setAllEditsImages] = React.useState<
+		| null
+		| {
+				imagesPaths: string[] | File[];
+				sizes: string[];
+				colour: fetchedColour;
+				colourId?: number;
+		  }[]
+	>(null);
+	const deleteImageObj = (elObj: any) => {
+		console.log('allElements', allEditsImages);
+		console.log('el that delete', elObj);
+		const arrCopy = [...allEditsImages];
+		const elemId = arrCopy.findIndex((el) => {
+			if ('colour' in el && 'colour' in elObj) {
+				console.log('deleted elem', elObj);
+				return el?.colour?.id === elObj?.colour?.id;
+			} else {
+				return el?.colourId === elObj?.colourId;
+			}
+		});
+		console.log('want delete', elemId);
+		arrCopy.splice(elemId, 1);
+		setAllEditsImages(arrCopy);
+	};
+	const uploadPhoto = () => {
+		const arrCopy = [...allEditsImages];
+		arrCopy.push(null);
+		setAllEditsImages(arrCopy);
+	};
+	React.useEffect(() => {
+		if (allEditsImages) {
+			const arrCopy = [...allEditsImages];
+			let arrObjModalCopy: {
+				fileNames: string[];
+				sizes: string[];
+				colourId: number;
+			}[] = [...arrObjModal];
+			// arrObjModalCopy = arrObjModalCopy.filter(el => !arrCopy.includes(el))
+			const updatedArray = [...arrObjModalCopy, ...imagesFromModal].map(
+				(obj) => {
+					//@ts-ignore
+					const { fileNames, ...rest } = obj;
+					//@ts-ignore
+					delete rest.imagesPaths;
+					return { ...rest, imagesPaths: fileNames };
+				}
+			);
+
+			//@ts-ignore
+			const newArr = arrCopy.concat([updatedArray.pop()]);
+			const filteredNewArr = newArr.filter((el) => el !== null);
+			setAllEditsImages(filteredNewArr);
+		}
+		// console.log('ModalArr', arrObjModal);
+	}, [arrObjModal]);
+
 	let activeCategories: any = null;
+
 	const activeProduct = {
 		id: 3,
 		title: {
@@ -64,20 +138,41 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		},
 		price: 300,
 		quantity: 100,
-		// { fileNames: string[], colourId: number; sizes: string[]}
+		//{fileNames: string[], colourId: number; sizes: string[]}
 		images: [
 			{
-				fileNames: [photo, photo],
-				colourId: 3,
+				imagesPaths: [photo, photo],
+				colour: {
+					hex: 'blue',
+					id: 14234234,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
 				sizes: ['S', 'M', 'L'],
 			},
 			{
-				fileNames: [photo, photo],
-				colourId: 4,
+				imagesPaths: [photo, photo],
+				colour: {
+					hex: 'red',
+					id: 2423423,
+					ru: 'ru',
+					rs: 'rs',
+					en: 'en',
+					ua: 'ua',
+					type: 'colour',
+					createdAt: 'test',
+					updatedAt: 'test',
+				},
 				sizes: ['S', 'M', 'L'],
 			},
 		],
-		sizeChartImage: 'https://api.kaze-shop.online/public/products/sizeChartImageAccount (Like) (phone 428)/sizeChartImage/f725bb74-d200-4593-a8f0-bb8eb10619ba----Account (Like) (phone 428).jpg"',
+		sizeChartImage:
+			'https://distribution.faceit-cdn.net/images/fb48ddb3-b251-4361-9013-b4d1e86badce.jpeg',
 		sizes: ['M', 'XS', 'L'],
 		colours: [
 			{
@@ -138,11 +233,18 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			},
 		],
 	};
+
+	React.useEffect(() => {
+		activeProduct.images.forEach((el) => {
+			dispatch(setArrObjModalSwow(el));
+		});
+	}, []);
+
 	const [netFile, setNetFile] = React.useState<null | File | string>(null);
 	React.useEffect(() => {
 		// give initial state to reduxt data from selected product
 		//sizes
-		dispatch(setSizes(activeProduct.sizes))
+		dispatch(setSizesFromServer(activeProduct?.sizes));
 		//title
 		const payloadT: any = { branch: 'ua', title: activeProduct.title.ua };
 		dispatch(setTitle(payloadT));
@@ -214,21 +316,36 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		};
 		dispatch(setSizeChartImageDescription(payloadSd4));
 		//category
-		activeCategories = activeProduct.categories[0]
+		activeCategories = activeProduct.categories[0];
 		//sizeChartImage
-		setNetFile(activeProduct.sizeChartImage)
+		setNetFile(activeProduct.sizeChartImage);
+		//images
+		//@ts-ignore
+		setAllEditsImages(activeProduct.images);
+		setImagesFromServerLength(activeProduct.images.length);
 	}, []);
 	const [choiseSize, setChoiseSize] = React.useState<boolean>(false);
 	const [choiceColors, setChoiceColors] = React.useState<boolean>(false);
-	
-	const selectedSizes = useSelector((state: RootState) => state.formData.sizes);
+
+	// const selectedSizes = useSelector((state: RootState) => state.formData.sizes);
+	const selectedSizes = useSelector(
+		(state: RootState) => state.editProduct.sizesFromServer
+	);
 	const sizesItems = useSelector((state: RootState) => state.admin.sizesItems);
 	const userEdit = useSelector((state: RootState) => state.admin.userEdit);
 	// console.log('EditProductItemID', id)
-
+	console.log('sizes from', selectedSizes);
 	const editProductItemId = useSelector(
 		(state: RootState) => state.admin.editProductItemId
 	);
+	React.useEffect(() => {
+		const fetchSingleProduct = async () => {
+			try {
+				await Api().goods.getSingleProduct(editProductItemId);
+			} catch (e) {}
+		};
+		fetchSingleProduct();
+	}, [editProductItemId]);
 	const products = useSelector((state: RootState) => state.admin.editProducts);
 	const colors = useSelector((state: RootState) => state.goods.fetchedColours);
 	const title = useSelector((state: RootState) => state.formData.title);
@@ -245,8 +362,8 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	// console.log('DESCR', descr)
 	// console.log('PRICE', price)
 	// console.log('quantity', quantity)
-	console.log('SIZECHART', sizeChartDescr);
-
+	// console.log('SIZECHART', sizeChartDescr);
+	// console.log('allEditsImages', allEditsImages);
 	// console.log('activeProductPPP', activeProduct);
 	// console.log('prodcuts', products);
 	// console.log('userEdit', userEdit.images[0].imagesPaths)
@@ -380,8 +497,6 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		},
 	]);
 
-	console.log('inputsActiveProduct', activeProduct?.title?.ru);
-
 	interface InputsStateValidType {
 		[key: number]: boolean;
 	}
@@ -426,7 +541,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			updatedAt: 'string',
 		},
 	];
-	
+
 	activeCategories = categoryArr.find((el) => {
 		return el.id === categories[0];
 	});
@@ -505,7 +620,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			dispatch(setSizeChartImageDescription(payload));
 		}
 	}
-	console.log('inputts before', inputs);
+
 	return (
 		<>
 			<div
@@ -564,7 +679,9 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 											}
 											type={obj.type}
 											placeholder={
-												activeCategories ? activeCategories.ru : activeProduct.categories[0].ru
+												activeCategories
+													? activeCategories.ru
+													: activeProduct.categories[0].ru
 											}
 										/>
 										<Image
@@ -616,10 +733,12 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 					<span className={s.title}>Добавить фото товара</span>
 					<span
 						className={s.btn}
-						onClick={(e) => {
-							//@ts-ignore
-							dispatch(addCountPhotos());
-						}}
+						// onClick={(e) => {
+						// 	//@ts-ignore
+						// 	// dispatch(addCountPhotos());
+
+						// }}
+						onClick={uploadPhoto}
 					>
 						<svg
 							width="24"
@@ -667,21 +786,34 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 						);
 					})} */}
 
-					{userEdit.images.map((el, ind) => {
+					{allEditsImages?.map((el, ind1) => {
 						return (
-							<div key={ind} className={s.item}>
+							<div
+								key={ind1 + '' + el?.imagesPaths[1] + new Date()}
+								className={s.item}
+							>
 								<div className={s.info_wrapper}>
-									<span className={s.index}>{`${ind + 1}.`}</span>
+									<span className={s.index}>{`${ind1 + 1}.`}</span>
 
 									{el !== null ? (
 										<span
+											onClick={() => deleteImageObj(el)}
 											className={s.button_product}
 											style={{
-												color: `${el.colour.hex}`,
-												border: `${el.colour.hex} solid 1.5px`,
+												color: `${
+													el?.colour?.hex ??
+													fetchedColours.find(
+														(elem) => elem.id === el?.colourId
+													)?.hex + ''
+												}`,
+												border: `${
+													el?.colour?.hex ??
+													fetchedColours.find(
+														(elem) => elem.id === el?.colourId
+													)?.hex + ''
+												} solid 1.5px`,
 											}}
 										>
-											{' '}
 											Удалить сет
 										</span>
 									) : (
@@ -695,18 +827,18 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 												dispatch(setModalAddEditProduct(true));
 											}}
 										>
-											{' '}
-											Загрузить фото{' '}
+											Загрузить фото
 										</span>
 									)}
 								</div>
 
 								{el && (
 									<div className={s.photos_wrapper}>
-										{el.imagesPaths.map((el: any, ind) => {
+										{el?.imagesPaths?.map((el: any, ind) => {
 											return (
 												<span key={ind} className={s.photo_wrapper}>
 													<Image
+														//src={typeof el === 'string' ? URL.createObjectURL(el) : 3}
 														src={el}
 														alt={'photo'}
 														width={70}
@@ -809,8 +941,12 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 				{netFile && (
 					<div className={s.net_file_wrapper}>
 						<div className={s.net_file_inner}>
-							<span className={s.net_backround}></span>
+							<span
+								onClick={() => setNetFile(null)}
+								className={s.net_backround}
+							></span>
 							<svg
+								onClick={() => setNetFile(null)}
 								className={s.remove_photo}
 								width="24"
 								height="24"
@@ -893,7 +1029,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 									<div
 										onClick={() => {
 											setChoiseSize(!choiseSize);
-											dispatch(setSizes(el.size));
+											dispatch(setSizesFromServer(el.size));
 										}}
 										key={ind}
 										className={s.choise_set_item}
@@ -913,7 +1049,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 						{selectedSizes?.map((el, ind) => {
 							return (
 								<span className={s.selected_sizes_item} key={ind}>
-									<SizeItem key={ind} id={ind} size={el} />
+									<SizeItem isInEdit={true} key={ind} id={ind} size={el} />
 								</span>
 							);
 						})}

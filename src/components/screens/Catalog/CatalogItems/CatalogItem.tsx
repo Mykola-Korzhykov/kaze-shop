@@ -1,34 +1,35 @@
-import React, { FC } from 'react'
-import s from './CatalogItems.module.scss'
-import { useAppSelector, useAppDispatch } from '@/redux/hooks'
-import { selectAuthState } from '@/redux/slices/user'
-import { addProductToCompare, addProductToCart } from '@/redux/slices/goods'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Goods, sendProductToCart } from '@/types/goods'
-import { useRouter } from 'next/router'
-import catalogImg from '../../../../assets/images/catalogItem.png'
-import catalogImg2 from '../../../../assets/images/catalogImg2.png'
-import { Api } from '@/services'
+import React, { FC } from 'react';
+import s from './CatalogItems.module.scss';
+import { useAppSelector, useAppDispatch } from '@/redux/hooks';
+import { selectAuthState, selectUserInfo } from '@/redux/slices/user';
+import { addProductToCompare, addProductToCart } from '@/redux/slices/goods';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Goods, sendProductToCart } from '@/types/goods';
+import { useRouter } from 'next/router';
+import catalogImg from '../../../../assets/images/catalogItem.png';
+import catalogImg2 from '../../../../assets/images/catalogImg2.png';
+import { Api } from '@/services';
 interface ICatalogItemProps {
-	product?: Goods
+	product?: Goods;
 }
 const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
-	const dispatch = useAppDispatch()
-	const [isHovering, setIsHovered] = React.useState(false)
-	const onMouseEnter = () => setIsHovered(true)
-	const onMouseLeave = () => setIsHovered(false)
-	const isAuth = useAppSelector(selectAuthState)
-	const router = useRouter()
+	const dispatch = useAppDispatch();
+	const [isHovering, setIsHovered] = React.useState(false);
+	const onMouseEnter = () => setIsHovered(true);
+	const onMouseLeave = () => setIsHovered(false);
+	const isAuth = useAppSelector(selectAuthState);
+	const user = useAppSelector(selectUserInfo);
+	const router = useRouter();
 	const saveButtonHandler = () => {
-		if (isAuth) {
+		if (isAuth && user?.type === 'USER') {
 			try {
-				Api().goods.addToFavorites(product?.id)
+				Api().goods.addToFavorites(product?.id);
 			} catch (e) {}
 		} else {
-			router.push('/login')
+			router.push('/login');
 		}
-	}
+	};
 	const basketButtonHandler = () => {
 		dispatch(
 			addProductToCart({
@@ -37,27 +38,29 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 				colourId: product?.images[0]?.colour?.id,
 				size: product?.sizes[0],
 			})
-		)
-		dispatch(addProductToCompare(product))
-		router.push('/compare')
-	}
+		);
+		dispatch(addProductToCompare(product));
+		router.push('/compare');
+	};
 
 	const addToLastViews = () => {
-		if (isAuth) {
+		if (isAuth && user?.type === 'USER') {
 			try {
-				Api().goods.addToRecentlyViews(product?.id)
+				Api().goods.addToRecentlyViews(product?.id);
 			} catch (e) {}
 		}
 		const recentlyViewedProductsJSON = localStorage.getItem(
 			'recentlyViewedProducts'
-		)
-		const recentlyViewedProducts = JSON.parse(recentlyViewedProductsJSON)
-		if (!recentlyViewedProducts) {
-			localStorage.setItem('recentlyViewedProducts', String(product?.id))
-		} else {
-			localStorage.setItem('recentlyViewedProducts', String(product?.id))
+		);
+		const recentlyViewedProducts = JSON.parse(recentlyViewedProductsJSON) || [];
+		if (!recentlyViewedProducts?.includes(product?.id)) {
+			recentlyViewedProducts.push(product?.id);
+			localStorage.setItem(
+				'recentlyViewedProducts',
+				JSON.stringify(recentlyViewedProducts)
+			);
 		}
-	}
+	};
 
 	return (
 		<div className={s.catalogItem}>
@@ -100,7 +103,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 				<button onClick={saveButtonHandler} className={s.footer_icon}></button>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default CatalogItem
+export default CatalogItem;

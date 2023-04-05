@@ -25,9 +25,9 @@ const Catalog: FC = () => {
 	const [filtersOpened, setFiltersOpened] = useState<boolean>(false)
 
 	useEffect(() => {
-		dispatch(fetchGoods())
 		dispatch(fetchCategories())
 		dispatch(fetchColours())
+		dispatch(fetchGoods())
 	}, [dispatch])
 	
 	useEffect(() => {
