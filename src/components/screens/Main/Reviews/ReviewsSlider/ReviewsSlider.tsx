@@ -1,7 +1,7 @@
 import "keen-slider/keen-slider.min.css";
 import Product from '../../../../../assets/images/main/Reviews/Slider/PhotoItem1.png';
 import cn from 'classnames';
-import { KeenSliderPlugin, useKeenSlider } from 'keen-slider/react';
+import { useKeenSlider } from 'keen-slider/react';
 import SlideItem from "./SlideItem/SlideItem";
 import s from './reviewsSlider.module.scss';
 import slideItemStyle from './SlideItem/slideItem.module.scss';
@@ -85,12 +85,12 @@ const ReviewsSlider = () => {
 
                 if (init === i) {
                     item.style.maxWidth = '100%';
-                    item.style.opacity = '1';
+                    // item.style.opacity = '1';
                     item.classList.remove(slideItemStyle.small);
                     return
                 }
 
-                item.style.opacity = '0.5';
+                // item.style.opacity = '0.5';
                 item.classList.add(slideItemStyle.small);
 
                 if (!isMobile) {
@@ -108,7 +108,7 @@ const ReviewsSlider = () => {
                     element.classList.remove(slideItemStyle.small);
                     return
                 }
-                element.style.opacity = '0.5';
+                // element.style.opacity = '0.5';
                 element.classList.add(slideItemStyle.small);
 
                 if (!isMobile) {
@@ -124,7 +124,7 @@ const ReviewsSlider = () => {
 
     useEffect(() => {
         const checkWidth = () => {
-            if (window.innerWidth < 768) {
+            if (window.innerWidth <= 768) {
                 setIsMobile(true);
                 return
             }
