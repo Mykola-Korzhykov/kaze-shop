@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAppSelector } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import Link from 'next/link';
 import Spinner from '@/components/Spinner/Spinner';
 import { Api } from '@/services';
@@ -13,6 +13,7 @@ import FeedbackOption from './FeedbackOption';
 import { setFeedbackProduct } from '@/redux/slices/goods';
 import { Goods } from '@/types/goods';
 const FeedBack = () => {
+	const dispatch = useAppDispatch()
 	const [selectedOption, setSelectedOption] = React.useState<number>(4);
 	const [requestLoading, setRequestLoading] = React.useState<boolean>(false);
 	const toogleOption = (id: number) => {
@@ -27,16 +28,18 @@ const FeedBack = () => {
 		const fetchProductData = async () => {
 			try {
 				setRequestLoading(true);
-				const product: Goods = await Api().goods.getProduct(+id);
-				setFeedbackProduct({
+				const product: Goods = await Api().goods.getSingleProduct(id + '');
+				console.log(product)
+				dispatch(setFeedbackProduct({
 					imageUrl: product?.images[0]?.imagesPaths[0],
 					productId: product?.id,
 					productName: product?.title,
-				});
+				}));
+				
 				setRequestLoading(false);
 			} catch (e) {
 				setRequestLoading(false);
-				// router.push('/catalog');
+				router.push('/catalog');
 			}
 		};
 		fetchProductData();
@@ -89,12 +92,14 @@ const FeedBack = () => {
 				<div className="container">
 					<div className="page_coordinator">
 						<Link href="/">Главная</Link> | <Link href="/сatalog">Каталог</Link>{' '}
-						| <span>Лосины Тай Дай</span> | <span>Оставить отзыв</span>
+						| <span>{feedbackProduct?.productName?.ua}</span> |{' '}
+						<span>Оставить отзыв</span>
 					</div>
 					<div className={s.feedback_content}>
 						<div className={s.feedback_imgWrapper}>
 							<Image
 								src={
+									feedbackProduct?.imageUrl ??
 									'https://distribution.faceit-cdn.net/images/a18d674f-727b-4017-8dc3-a546876459e0.jpeg'
 								}
 								className={s.feedback_img}
@@ -149,9 +154,8 @@ const FeedBack = () => {
 										Напишите отзыв
 									</label>
 									<div className={s.feedback_input}>
-										<input
+										<textarea
 											placeholder="Что вы думаете о нашем магазине?"
-											type="text"
 											className=""
 											name="email"
 											{...feedBackInfoForm.register('review')}
@@ -180,7 +184,14 @@ const FeedBack = () => {
 								})}
 							</div>
 							<div className={s.feedback_btns}>
-								<button onClick={() => router.push(`/product/${id}`)} className={s.feedback_skip} type="submit">
+								<button
+									onClick={() => {
+										setRequestLoading(true)
+										router.push(`/product/${id}`)
+									}}
+									className={s.feedback_skip}
+									type="submit"
+								>
 									Отмена
 								</button>
 								<button className={s.feedback_submit} type="submit">

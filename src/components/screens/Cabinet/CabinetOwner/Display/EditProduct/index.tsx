@@ -4,16 +4,18 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/redux/hooks';
 import { fetchGoods } from '@/redux/slices/goods';
 import { RootState } from '@/redux/store';
+import { setActiveProduct } from '@/redux/slices/editProduct';
 //components
 import { Item } from './Item';
 import { EditProductItem } from './EditProductItem';
 import Spinner from '@/components/Spinner/Spinner';
 //
-
+import { setLoadingStatus } from '@/redux/slices/goods';
+import { Api } from '@/services';
 export const EditProduct = () => {
 	const dispatch = useAppDispatch();
-	const products = useSelector((state: RootState) => state.admin.editProducts);
-	// const products = useSelector((state: RootState) => state.goods.goods);
+	// const products = useSelector((state: RootState) => state.admin.editProducts);
+	const products = useSelector((state: RootState) => state.goods.goods);
 
 	const editProductItemId = useSelector(
 		(state: RootState) => state.admin.editProductItemId
@@ -22,25 +24,38 @@ export const EditProduct = () => {
 
 	const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-	const activeProductEdit = products.filter((el) => {
-		return el.id === activeId;
-	});
-
 	React.useEffect(() => {
 		dispatch(fetchGoods());
 	}, []);
 
 	React.useEffect(() => {
-		const countPages = products.length / 10;
+		const fetchSingleProduct = async () => {
+			try {
+				if (editProductItemId !== -1) {
+					dispatch(setLoadingStatus('loading'));
+					const data = await Api().goods.getSingleProduct(editProductItemId);
+					console.log('edit product item from server', data);
+					dispatch(setActiveProduct(data));
+					// console.log('edit product item from redux', activeProduct)
+					dispatch(setLoadingStatus('idle'));
+				}
+			} catch (e) {
+				dispatch(setLoadingStatus('error'));
+			}
+		};
+		fetchSingleProduct();
+	}, [editProductItemId]);
+
+	React.useEffect(() => {
+		const countPages = products?.length / 10;
 	}, []);
 	return (
 		<>
-			
 			<div className={editProductItemId === -1 ? s.wrapper : s.wrapper_off}>
-				{products.map((obj, ind) => {
+				{products?.map((obj, ind) => {
 					return (
 						<Item
-							photo={obj.images[0].fileNames[0]}
+							photo={obj.images[0].imagesPaths[0]}
 							price={obj.price}
 							id={obj.id}
 							setActiveId={setActiveId}

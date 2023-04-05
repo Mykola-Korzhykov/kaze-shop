@@ -29,7 +29,11 @@ export const Item = ({
 
 
 	const deleteProduct = async () => {
-		await Api().goods.deleteProduct(id)
+		try {
+			await Api().goods.deleteSingleProduct(id)
+		}catch(e) {
+			alert(e?.response?.data?.message || 'error')
+		}
 	}
 	// let photoiside;
 	// const [photoDone, sePhotoDone] = React.useState<any>()
@@ -56,7 +60,7 @@ export const Item = ({
 
 	return (
 		<div className={s.wrapper}>
-			<Image className={s.img} src={photo} alt="photo" />
+			<Image width={285} height={360} className={s.img} src={photo} alt="photo" />
 			<div className={s.title}> {title} </div>
 			<div className={s.price}> {`${price}$`}</div>
 			<div className={s.btn_wrapper}>

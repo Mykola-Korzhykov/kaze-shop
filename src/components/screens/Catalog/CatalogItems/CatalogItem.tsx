@@ -26,7 +26,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 			try {
 				Api().goods.addToFavorites(product?.id);
 			} catch (e) {}
-		} else {
+		} else if (!isAuth) {
 			router.push('/login');
 		}
 	};

@@ -14,7 +14,7 @@ const CatalogItems = () => {
 	return (
 		<>
 			{!goods?.length ? (
-				<h1>Товарів за таким запитом не знайдено</h1>
+				<h1 className='catalog_title'>Товарів за таким запитом не знайдено</h1>
 			) : (
 				<div className={s.wrapper}>{renderGoods(goods)}</div>
 			)}
