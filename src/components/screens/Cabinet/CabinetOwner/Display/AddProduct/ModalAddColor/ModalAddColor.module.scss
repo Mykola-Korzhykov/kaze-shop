@@ -1,245 +1,248 @@
 .module_wrapper {
-  // margin-left: -105px;
-  position: absolute;
-  top: 220px;
-  height: 100%;
-  // width: 90%;
-  margin-top: 250px;
+	// margin-left: -105px;
+	position: absolute;
+	// top: 220px;
+	top: 0px;
+	// height: 100%;
+	// width: 90%;
+	margin-top: 470px;
 
-  display: flex;
-  // align-items: center;
-  // justify-content: center;
-  // margin-left: auto;
-  // margin-right: auto;
-  z-index: 101;
+	display: flex;
+	// align-items: center;
+	// justify-content: center;
+	// margin-left: auto;
+	// margin-right: auto;
+	z-index: 101;
 
-  @media (max-width: 1050px) {
-    top: 710px;
-  }
+	@media (max-width: 1050px) {
+		top: 710px;
+	}
 }
 
 .module_inner {
-  position: relative;
-  width: 601px;
-  background-color: white;
-  padding: 20px 30px;
+	position: relative;
+	width: 601px;
+	background-color: white;
+	padding: 20px 30px;
+	margin-right: auto !important;
+	margin-left: auto !important;
 
-  @media (max-width: 680px) {
-    width: 80vw;
-  }
+	@media (max-width: 680px) {
+		width: 80vw;
+	}
 
-  @media (max-width: 400px) {
-    width: 91vw;
-  }
+	@media (max-width: 400px) {
+		width: 91vw;
+	}
 }
 
 .title_wrapper {
-  width: 100%;
-  display: flex;
-  gap: 15px;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 50px;
+	width: 100%;
+	display: flex;
+	gap: 15px;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 50px;
 
-  .title {
-    font-family: "Russo One";
-    font-style: normal;
-    font-weight: 400;
-    font-size: 32px;
-    line-height: 39px;
+	.title {
+		font-family: 'Russo One';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 32px;
+		line-height: 39px;
 
-    color: #0b0b0b;
+		color: #0b0b0b;
 
-    @media (max-width: 680px) {
-      max-width: 200px;
-      text-align: center;
-    }
-  }
+		@media (max-width: 680px) {
+			max-width: 200px;
+			text-align: center;
+		}
+	}
 
-  .subtitle {
-    width: 541px;
-    height: 44px;
-    font-family: "Georama", sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 22px;
-    text-align: center;
+	.subtitle {
+		width: 541px;
+		height: 44px;
+		font-family: 'Georama', sans-serif;
+		font-style: normal;
+		font-weight: 500;
+		font-size: 18px;
+		line-height: 22px;
+		text-align: center;
 
-    color: #0b0b0b;
+		color: #0b0b0b;
 
-    @media (max-width: 680px) {
-      max-width: 99%;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-  }
+		@media (max-width: 680px) {
+			max-width: 99%;
+			text-align: center;
+			margin-bottom: 20px;
+		}
+	}
 }
 
 .inputs_wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
 
-  .input_inner {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    // background-color: red;
+	.input_inner {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		// background-color: red;
 
-    .title {
-      font-family: "Georama", sans-serif;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 24px;
-      color: #0b0b0b;
-    }
+		.title {
+			font-family: 'Georama', sans-serif;
+			font-style: normal;
+			font-weight: 500;
+			font-size: 20px;
+			line-height: 24px;
+			color: #0b0b0b;
+		}
 
-    .label_input_file {
-      height: 50px;
-      width: 100%;
-      // padding: 14px 20px;
-      border: 1.5px solid #9d9d9d;
-      cursor: pointer;
-      position: relative;
+		.label_input_file {
+			height: 50px;
+			width: 100%;
+			// padding: 14px 20px;
+			border: 1.5px solid #9d9d9d;
+			cursor: pointer;
+			position: relative;
 
-      font-family: "Georama", sans-serif;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 18px;
-      line-height: 22px;
+			font-family: 'Georama', sans-serif;
+			font-style: normal;
+			font-weight: 400;
+			font-size: 18px;
+			line-height: 22px;
 
-      color: #9d9d9d;
-    }
+			color: #9d9d9d;
+		}
 
-    .input_choice_photo {
-      padding: 14px 20px;
-      border: 1.5px solid #9d9d9d;
-      display: flex;
-      justify-content: space-between;
-      cursor: pointer;
-      position: relative;
+		.input_choice_photo {
+			padding: 14px 20px;
+			border: 1.5px solid #9d9d9d;
+			display: flex;
+			justify-content: space-between;
+			cursor: pointer;
+			position: relative;
 
-      font-family: "Georama", sans-serif;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 18px;
-      line-height: 22px;
+			font-family: 'Georama', sans-serif;
+			font-style: normal;
+			font-weight: 400;
+			font-size: 18px;
+			line-height: 22px;
 
-      color: #9d9d9d;
-    }
+			color: #9d9d9d;
+		}
 
-    .input_choice_color {
-      padding: 14px 20px;
-      border: 1.5px solid #9d9d9d;
-      display: flex;
-      justify-content: space-between;
-      cursor: pointer;
+		.input_choice_color {
+			padding: 14px 20px;
+			border: 1.5px solid #9d9d9d;
+			display: flex;
+			justify-content: space-between;
+			cursor: pointer;
 
-      font-family: "Georama", sans-serif;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 18px;
-      line-height: 22px;
+			font-family: 'Georama', sans-serif;
+			font-style: normal;
+			font-weight: 400;
+			font-size: 18px;
+			line-height: 22px;
 
-      color: #9d9d9d;
-    }
+			color: #9d9d9d;
+		}
 
-    .input_file {
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
+		.input_file {
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			right: 0;
 
-      background: none;
-      outline: none;
-      padding: 14px 20px;
-      border: none;
-      // height: 0.5px;
-      // width: 0.5px;
-      // visibility: hidden;
-    }
+			background: none;
+			outline: none;
+			padding: 14px 20px;
+			border: none;
+			// height: 0.5px;
+			// width: 0.5px;
+			// visibility: hidden;
+		}
 
-    .input_file_invalid::placeholder {
-      color: #e73232;
-    }
-  }
+		.input_file_invalid::placeholder {
+			color: #e73232;
+		}
+	}
 
-  .btn_wrapper {
-    .check_form {
-      font-family: "Georama", sans-serif;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 16px;
-      line-height: 24px;
+	.btn_wrapper {
+		.check_form {
+			font-family: 'Georama', sans-serif;
+			font-style: normal;
+			font-weight: 400;
+			font-size: 16px;
+			line-height: 24px;
 
-      color: #e73232;
+			color: #e73232;
 
-      margin-top: 30px;
-      margin-bottom: 30px;
-    }
+			margin-top: 30px;
+			margin-bottom: 30px;
+		}
 
-    .btn {
-      display: flex;
-      padding: 16px 164px;
-      background-color: #000000;
+		.btn {
+			display: flex;
+			padding: 16px 164px;
+			background-color: #000000;
 
-      font-family: "Georama", sans-serif;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 20px;
-      line-height: 24px;
+			font-family: 'Georama', sans-serif;
+			font-style: normal;
+			font-weight: 500;
+			font-size: 20px;
+			line-height: 24px;
 
-      color: #ffffff;
-      width: 100%;
+			color: #ffffff;
+			width: 100%;
 
-      @media (max-width: 680px) {
-        padding: 16px 0px;
-      }
-    }
+			@media (max-width: 680px) {
+				padding: 16px 0px;
+			}
+		}
 
-    .btn_add {
-      margin-top: 50px;
-      padding: 16px 174px;
-      background-color: #000000;
-      color: #ffffff;
-      border: none;
+		.btn_add {
+			margin-top: 50px;
+			padding: 16px 174px;
+			background-color: #000000;
+			color: #ffffff;
+			border: none;
 
-      font-family: "Georama", sans-serif;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 15px;
+			font-family: 'Georama', sans-serif;
+			font-style: normal;
+			font-weight: 500;
+			font-size: 15px;
 
-      cursor: pointer;
-      width: 100%;
-      // line-height: 24px;
+			cursor: pointer;
+			width: 100%;
+			// line-height: 24px;
 
-      @media (max-width: 680px) {
-        padding: 16px 0px;
-      }
-    }
-  }
+			@media (max-width: 680px) {
+				padding: 16px 0px;
+			}
+		}
+	}
 }
 
 .label_input_file {
-  position: relative;
+	position: relative;
 }
 
 .close_modal {
-  cursor: pointer;
-  position: absolute;
-  top: 21.5px;
-  right: 30px;
+	cursor: pointer;
+	position: absolute;
+	top: 21.5px;
+	right: 30px;
 
-  // .open_icon{
-  //     width: 24px;
-  //     height: 24px;
+	// .open_icon{
+	//     width: 24px;
+	//     height: 24px;
 
-  // }
+	// }
 }
 
 .module_wrapper {
-  margin-left: 0px;
+	margin-left: 0px;
 }
