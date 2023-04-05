@@ -51,7 +51,12 @@ export interface Goods {
 		sizes: string[]
 	}[]
 	sizeChartImage: string
-	sizeChartImageDescription: string
+	sizeChartImageDescription:{
+		ua: string
+		ru: string
+		rs: string
+		en: string
+	}
 	sizes: string[]
 	hexes: string[]
 	colours: fetchedColour[]

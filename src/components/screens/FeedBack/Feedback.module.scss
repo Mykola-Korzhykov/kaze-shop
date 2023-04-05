@@ -4,6 +4,18 @@
 		gap: 30px;
 		align-items: flex-start;
 	}
+
+	&_imgWrapper {
+		@media (max-width: 630px) {
+			display: none;
+		}
+	}
+	&_img {
+		@media (max-width: 1026px) {
+			width: 235px;
+			height: 303px;
+		}
+	}
 	&_text {
 		width: 100%;
 		display: flex;
@@ -21,6 +33,9 @@
 		flex-direction: column;
 		width: 100%;
 		flex: 1 1 35%;
+		@media (max-width: 755px) {
+			flex: 1 1 65%;
+		}
 	}
 	&_label {
 		font-family: 'Georama';
@@ -49,7 +64,28 @@
 			border: 2px solid #9d9d9d;
 			transition: all 0.2s ease;
 		}
+		textarea {
+			font-family: 'Georama', sans-serif;
+			font-style: normal;
+			font-weight: 400;
+			font-size: 18px;
+			line-height: 22px;
+			width: 100%;
+			border: none;
+			padding: 14px 0px 14px 20px;
+			color: #0b0b0b;
+			outline: none;
+			background: transparent !important;
+			border: 2px solid #9d9d9d;
+			resize: none;
+			padding: 5px;
+			height: 50px;
+			resize: vertical;
+			max-height: 300px;
+			min-height: 100px;
+		}
 	}
+
 	&_descr {
 		font-family: 'Georama';
 		font-style: normal;
@@ -70,6 +106,8 @@
 	&_checkbox {
 		width: 30px;
 		height: 30px;
+		min-width: 30px;
+		min-height: 30px;
 		border: 1.5px solid #9d9d9d;
 	}
 	&_optionText {
@@ -103,8 +141,17 @@
 		display: flex;
 		gap: 30px;
 		margin-top: 24px;
+		@media (max-width: 834px) {
+			gap: 17px;
+		}
+		@media (max-width: 790px) {
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+		}
 	}
 	&_skip {
+		min-height: 56px;
 		border: 1.5px solid #0b0b0b;
 		font-family: 'Georama';
 		font-style: normal;
@@ -112,10 +159,17 @@
 		font-size: 20px;
 		line-height: 24px;
 		color: #0b0b0b;
-		padding: 16px 133px;
+		padding: 16px 88px;
 		background-color: #fff;
+		@media (max-width: 1078px) {
+			padding: 12px 63px;
+		}
+		@media (max-width: 790px) {
+			width: 100%;
+		}
 	}
 	&_submit {
+		min-height: 56px;
 		background: #0b0b0b;
 		font-family: 'Georama';
 		font-style: normal;
@@ -123,7 +177,13 @@
 		font-size: 20px;
 		line-height: 24px;
 		color: #ffffff;
-		padding: 16px 133px;
+		padding: 16px 88px;
 		border: none;
+		@media (max-width: 960px) {
+			padding: 12px 54px;
+		}
+		@media (max-width: 790px) {
+			width: 100%;
+		}
 	}
 }

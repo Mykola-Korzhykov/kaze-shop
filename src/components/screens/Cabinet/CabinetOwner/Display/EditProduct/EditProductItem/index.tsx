@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import s from './EditProductItem.module.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import Spinner from '@/components/Spinner/Spinner';
 import {
 	addCountPhotos,
 	setEditProductItemId,
@@ -27,7 +28,10 @@ import { SizeChart } from '../../../Display/AddProduct/sizeChart';
 //types
 import { Goods } from '../../../../../../../types/goods';
 import { ImageData } from '../../../../../../../types/goods';
-import { setSizesFromServer } from '@/redux/slices/editProduct';
+import {
+	setSizesFromServer,
+	setActiveProduct,
+} from '@/redux/slices/editProduct';
 import {
 	setSizes,
 	removeSizes,
@@ -67,18 +71,18 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		  }[]
 	>(null);
 	const deleteImageObj = (elObj: any) => {
-		console.log('allElements', allEditsImages);
-		console.log('el that delete', elObj);
+		// console.log('allElements', allEditsImages);
+		// console.log('el that delete', elObj);
 		const arrCopy = [...allEditsImages];
 		const elemId = arrCopy.findIndex((el) => {
 			if ('colour' in el && 'colour' in elObj) {
-				console.log('deleted elem', elObj);
+				// console.log('deleted elem', elObj);
 				return el?.colour?.id === elObj?.colour?.id;
 			} else {
 				return el?.colourId === elObj?.colourId;
 			}
 		});
-		console.log('want delete', elemId);
+		// console.log('want delete', elemId);
 		arrCopy.splice(elemId, 1);
 		setAllEditsImages(arrCopy);
 	};
@@ -116,7 +120,10 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 
 	let activeCategories: any = null;
 
-	const activeProduct = {
+	const activeProduct = useSelector(
+		(state: RootState) => state.editProduct.activeProduct
+	);
+	const activeProductR = {
 		id: 3,
 		title: {
 			ua: 'Павло',
@@ -130,7 +137,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			rs: 'на rs опис лдощцаозщуцощауоазуцща',
 			en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
 		},
-		sizeChartDescription: {
+		sizeChartImageDescription: {
 			ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
 			ru: 'на русс опис doprepwfieifweifipowerf',
 			rs: 'на rs опис лдощцаозщуцощауоазуцща',
@@ -235,7 +242,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	};
 
 	React.useEffect(() => {
-		activeProduct.images.forEach((el) => {
+		activeProduct?.images?.forEach((el) => {
 			dispatch(setArrObjModalSwow(el));
 		});
 	}, []);
@@ -246,84 +253,86 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		//sizes
 		dispatch(setSizesFromServer(activeProduct?.sizes));
 		//title
-		const payloadT: any = { branch: 'ua', title: activeProduct.title.ua };
+		const payloadT: any = { branch: 'ua', title: activeProduct?.title?.ua };
 		dispatch(setTitle(payloadT));
-		const payloadT2: any = { branch: 'en', title: activeProduct.title.en };
+		const payloadT2: any = { branch: 'en', title: activeProduct?.title?.en };
 		dispatch(setTitle(payloadT2));
-		const payloadT3: any = { branch: 'ru', title: activeProduct.title.ru };
+		const payloadT3: any = { branch: 'ru', title: activeProduct?.title?.ru };
 		dispatch(setTitle(payloadT3));
-		const payloadT4: any = { branch: 'rs', title: activeProduct.title.rs };
+		const payloadT4: any = { branch: 'rs', title: activeProduct?.title?.rs };
 		dispatch(setTitle(payloadT4));
 		//description
 
 		const payloadD: any = {
 			branch: 'ru',
-			description: activeProduct.description.ru,
+			description: activeProduct?.description?.ru,
 		};
 		dispatch(setDescription(payloadD));
 
 		const payloadD2: any = {
 			branch: 'ua',
-			description: activeProduct.description.ua,
+			description: activeProduct?.description?.ua,
 		};
 		dispatch(setDescription(payloadD2));
 
 		const payloadD3: any = {
 			branch: 'rs',
-			description: activeProduct.description.rs,
+			description: activeProduct?.description?.rs,
 		};
 		dispatch(setDescription(payloadD3));
 
 		const payloadD4: any = {
 			branch: 'en',
-			description: activeProduct.description.en,
+			description: activeProduct?.description?.en,
 		};
 		dispatch(setDescription(payloadD4));
 
 		//quantity
 
-		const payloadQ: number = activeProduct.quantity;
+		const payloadQ: number = activeProduct?.quantity;
 		dispatch(setQuantity(Number(payloadQ)));
 
 		//price
 
-		const payloadP: number = activeProduct.price;
-		dispatch(setPrice(Number(payloadP)));
+		const payloadP: string = activeProduct?.price + '';
+		const payloadPstr: number = +payloadP.slice(0, -1);
+
+		dispatch(setPrice(Number(payloadPstr)));
 
 		//sizeChartDescr
 
 		const payloadSd: any = {
 			branch: 'ua',
-			sizeChartImageDescription: activeProduct.sizeChartDescription.ua,
+			sizeChartImageDescription: activeProduct?.sizeChartImageDescription?.ua,
 		};
 		dispatch(setSizeChartImageDescription(payloadSd));
 
 		const payloadSd2: any = {
 			branch: 'ru',
-			sizeChartImageDescription: activeProduct.sizeChartDescription.ru,
+			sizeChartImageDescription: activeProduct?.sizeChartImageDescription?.ru,
 		};
 		dispatch(setSizeChartImageDescription(payloadSd2));
 
 		const payloadSd3: any = {
 			branch: 'rs',
-			sizeChartImageDescription: activeProduct.sizeChartDescription.rs,
+			sizeChartImageDescription: activeProduct?.sizeChartImageDescription?.rs,
 		};
 		dispatch(setSizeChartImageDescription(payloadSd3));
 
 		const payloadSd4: any = {
 			branch: 'en',
-			sizeChartImageDescription: activeProduct.sizeChartDescription.en,
+			sizeChartImageDescription: activeProduct?.sizeChartImageDescription?.en,
 		};
 		dispatch(setSizeChartImageDescription(payloadSd4));
 		//category
-		activeCategories = activeProduct.categories[0];
+		activeCategories = activeProduct?.categories[0];
 		//sizeChartImage
-		setNetFile(activeProduct.sizeChartImage);
+		setNetFile(activeProduct?.sizeChartImage);
 		//images
 		//@ts-ignore
-		setAllEditsImages(activeProduct.images);
-		setImagesFromServerLength(activeProduct.images.length);
-	}, []);
+		setAllEditsImages(activeProduct?.images);
+		setImagesFromServerLength(activeProduct?.images?.length);
+	}, [activeProduct]);
 	const [choiseSize, setChoiseSize] = React.useState<boolean>(false);
 	const [choiceColors, setChoiceColors] = React.useState<boolean>(false);
 
@@ -333,20 +342,12 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	);
 	const sizesItems = useSelector((state: RootState) => state.admin.sizesItems);
 	const userEdit = useSelector((state: RootState) => state.admin.userEdit);
-	// console.log('EditProductItemID', id)
-	console.log('sizes from', selectedSizes);
+
 	const editProductItemId = useSelector(
 		(state: RootState) => state.admin.editProductItemId
 	);
-	React.useEffect(() => {
-		const fetchSingleProduct = async () => {
-			try {
-				await Api().goods.getSingleProduct(editProductItemId);
-			} catch (e) {}
-		};
-		fetchSingleProduct();
-	}, [editProductItemId]);
-	const products = useSelector((state: RootState) => state.admin.editProducts);
+	
+
 	const colors = useSelector((state: RootState) => state.goods.fetchedColours);
 	const title = useSelector((state: RootState) => state.formData.title);
 	const descr = useSelector((state: RootState) => state.formData.description);
@@ -357,7 +358,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	);
 	const goods = useSelector((state: RootState) => state.goods.goods);
 	//chosen product
-	const activeProduct2 = products.find((el) => el.id === id);
+
 	// console.log('TITLE', title)
 	// console.log('DESCR', descr)
 	// console.log('PRICE', price)
@@ -373,8 +374,10 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		record: Record<string, string>;
 		sizes: string[];
 	}
-
-	React.useEffect(() => {}, []);
+	const cancelEditingProduct = () => {
+		dispatch(setActiveProduct(null));
+		dispatch(setEditProductItemId(-1));
+	};
 
 	const SizeChartArr = [
 		{
@@ -405,7 +408,8 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 
 	// const [arrPhotos, setArrPhotos] = React.useState<any>([...userEdit.images])
 	// console.log('arrPhotos', arrPhotos)
-
+	const payloadP: string = activeProduct?.price + '';
+	const payloadPstr: string = payloadP.slice(0, -1);
 	const [inputs, setInputs] = React.useState([
 		{
 			id: 0,
@@ -413,7 +417,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			text: 'Название товара RU',
 			placeholder: 'Введите название товара',
 			name: 'titleRU',
-			value: activeProduct.title.ru,
+			value: activeProduct?.title?.ru,
 		},
 		{
 			id: 1,
@@ -421,7 +425,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			text: 'Название товара UA',
 			placeholder: 'Введите название товара',
 			name: 'titleUA',
-			value: activeProduct.title.ua,
+			value: activeProduct?.title?.ua,
 		},
 		{
 			id: 2,
@@ -429,7 +433,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			text: 'Название товара SRB',
 			placeholder: 'Введите название товара',
 			name: 'titleSRB',
-			value: activeProduct.title.rs,
+			value: activeProduct?.title?.rs,
 		},
 		{
 			id: 3,
@@ -437,7 +441,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			text: 'Название товара ENG',
 			placeholder: 'Введите название товара',
 			name: 'titleENG',
-			value: activeProduct.title.en,
+			value: activeProduct?.title?.en,
 		},
 		{
 			id: 4,
@@ -485,7 +489,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			text: 'Цена в долларах',
 			placeholder: 'Введите цену',
 			name: 'price',
-			value: activeProduct?.price,
+			value: payloadPstr,
 		},
 		{
 			id: 10,
@@ -623,6 +627,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 
 	return (
 		<>
+		
 			<div
 				style={
 					editProductItemId >= 1 ? { display: 'block' } : { display: 'none' }
@@ -681,7 +686,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 											placeholder={
 												activeCategories
 													? activeCategories.ru
-													: activeProduct.categories[0].ru
+													: activeProduct?.categories[0]?.ru
 											}
 										/>
 										<Image
@@ -1023,7 +1028,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 						}
 					>
 						{sizesItems
-							.filter((el) => !selectedSizes.includes(el.size))
+							.filter((el) => !selectedSizes?.includes(el.size))
 							.map((el, ind) => {
 								return (
 									<div
@@ -1129,10 +1134,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 
 				{/* тоже самое с цветами , сатею в отдельную переменную, локальную переменную после чего с ней работаю и отправляю при отправке ее уже  */}
 
-				<div
-					onClick={() => dispatch(setEditProductItemId(-1))}
-					className={s.send_wrapper}
-				>
+				<div onClick={cancelEditingProduct} className={s.send_wrapper}>
 					<span className={s.send_cancel}>Отмена</span>
 					<span className={s.send}>Изменить товар</span>
 				</div>

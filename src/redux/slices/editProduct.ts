@@ -1,7 +1,9 @@
+import { Goods } from '@/types/goods';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 interface EditProductState {
+	activeProduct: Goods | null;
 	sizesFromServer: string[];
 	imagesFromModal: {
 		fileNames: string[];
@@ -13,6 +15,7 @@ interface EditProductState {
 const initialState: EditProductState = {
 	sizesFromServer: [],
 	imagesFromModal: [],
+	activeProduct: null,
 };
 
 const editProductSlice = createSlice({
@@ -41,10 +44,17 @@ const editProductSlice = createSlice({
 			const index = state.sizesFromServer.indexOf(found);
 			state.sizesFromServer.splice(index, 1);
 		},
+		setActiveProduct: (state, action: PayloadAction<Goods | null>) => {
+			state.activeProduct = action.payload;
+		},
 	},
 });
 
-export const { editImagesFromModal, setSizesFromServer,removeSizesFromServer } =
-	editProductSlice.actions;
+export const {
+	editImagesFromModal,
+	setSizesFromServer,
+	setActiveProduct,
+	removeSizesFromServer,
+} = editProductSlice.actions;
 
 export default editProductSlice.reducer;

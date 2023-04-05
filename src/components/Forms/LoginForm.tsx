@@ -57,8 +57,11 @@ const LoginForm = () => {
 			setLoginLoading(false)
 			console.warn('Register error', err)
 			if (err.response) {
-				console.warn('Register error after response', err.response.data.message)
-				setErrorMessage(err.response.data.rawErrors[0]?.error)
+				setErrorMessage(
+					err?.response?.data?.rawErrors?.length > 0
+						? err?.response?.data?.rawErrors[0]?.error
+						: err?.response?.data?.message
+				);
 			} else {
 				router.push('/404')
 			}

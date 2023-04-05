@@ -43,8 +43,8 @@ const Signup: NextPage = () => {
 	const coordRef = useRef(null);
 
 	const handleScroll = () => {
-		const imageRect = imageRef.current.getBoundingClientRect();
-		const shouldBeSticky = imageRect.top <= 80 && window.pageYOffset > 100;
+		const imageRect = imageRef?.current?.getBoundingClientRect();
+		const shouldBeSticky = imageRect?.top <= 80 && window.pageYOffset > 100;
 
 		setIsStickyImage(shouldBeSticky);
 	};

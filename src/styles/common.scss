@@ -4,7 +4,6 @@
 }
 
 .container {
-	
 	max-width: 1230px;
 	padding: 0 0px;
 	margin: 0 auto;
@@ -22,8 +21,6 @@
 	// background-color: #e73232;
 	margin: 104px 0px 30px;
 }
-
-
 
 .page_coordinator {
 	position: relative;
@@ -59,6 +56,15 @@
 	}
 }
 
+.catalog_title {
+	font-family: 'Russo One';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 40px;
+	line-height: 48px;
+	color: #0b0b0b;
+	text-align: center;
+}
 .error_input {
 	border-color: #e73232;
 	transition: all 0.2s ease;
@@ -309,8 +315,7 @@
 	}
 
 	&_privacy {
-		font-family: 'Georama',
-		sans-serif;
+		font-family: 'Georama', sans-serif;
 		font-style: normal;
 		font-weight: 500;
 		font-size: 20px;
@@ -796,5 +801,5 @@ button[type='submit'] {
 	height: 100%;
 	position: fixed;
 	background-color: #9d9d9d;
-	opacity: .3;
+	opacity: 0.3;
 }

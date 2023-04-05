@@ -1,7 +1,7 @@
 import '@/styles/reset.scss';
 import '@/styles/common.scss';
-import { useEffect } from 'react';
 import type { AppProps } from 'next/app';
+import CookiePolicy from '@/components/modals/CookiePolicy/CookiePolicy';
 import Cookies from 'js-cookie';
 import Layout from '@/layouts/DefaultLayout';
 import { wrapper } from '../redux/store';
@@ -15,8 +15,20 @@ import { DefaultSeo } from 'next-seo';
 import SEO from '../../next-seo.config';
 
 function App({ Component, pageProps }: AppProps) {
-	const dispatch = useAppDispatch()
+	const dispatch = useAppDispatch();
+	const [chowUseCookieModal, setChowUseCookieModal] =
+		React.useState<boolean>(false);
 	React.useEffect(() => {
+		//get cookie initial state from LS
+		let initialValue = false;
+		if (typeof window !== 'undefined') {
+			const saved = localStorage.getItem('allowCookie');
+			if (saved) {
+				initialValue = JSON.parse(saved);
+			}
+		}
+		setChowUseCookieModal(initialValue);
+		//cart id logic
 		const cartCookie = Cookies.get('_id');
 		const setUserCartToken = async () => {
 			await Api().user.refreshCartToken();
@@ -50,12 +62,15 @@ function App({ Component, pageProps }: AppProps) {
 			}
 		};
 	}, []);
-	
+
 	return (
 		<Suspense fallback={<Spinner />}>
 			<DefaultSeo {...SEO} />
 			<Layout>
 				<Component {...pageProps} />
+				{!chowUseCookieModal && (
+					<CookiePolicy setCookiePolicyState={setChowUseCookieModal} />
+				)}
 			</Layout>
 		</Suspense>
 	);
