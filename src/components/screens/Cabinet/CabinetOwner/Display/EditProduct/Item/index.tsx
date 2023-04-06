@@ -11,7 +11,7 @@ import { Goods } from '@/types/goods';
 
 interface ItemPropsType {
 	photo?: any;
-	price?: number;
+	price?: string;
 	title?: string;
 	setActiveId: (n: number) => void;
 	id: number;

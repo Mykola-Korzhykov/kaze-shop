@@ -123,123 +123,6 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	const activeProduct = useSelector(
 		(state: RootState) => state.editProduct.activeProduct
 	);
-	const activeProductR = {
-		id: 3,
-		title: {
-			ua: 'Павло',
-			ru: ' Паша',
-			rs: 'хз',
-			en: 'The best',
-		},
-		description: {
-			ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
-			ru: 'на русс опис doprepwfieifweifipowerf',
-			rs: 'на rs опис лдощцаозщуцощауоазуцща',
-			en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
-		},
-		sizeChartImageDescription: {
-			ua: 'на укр опис алклалцуацушатщукшацашцушаршшашар',
-			ru: 'на русс опис doprepwfieifweifipowerf',
-			rs: 'на rs опис лдощцаозщуцощауоазуцща',
-			en: ' на en опис оацзоащцущкаоцукаозукаоузкоауцщащз',
-		},
-		price: 300,
-		quantity: 100,
-		//{fileNames: string[], colourId: number; sizes: string[]}
-		images: [
-			{
-				imagesPaths: [photo, photo],
-				colour: {
-					hex: 'blue',
-					id: 14234234,
-					ru: 'ru',
-					rs: 'rs',
-					en: 'en',
-					ua: 'ua',
-					type: 'colour',
-					createdAt: 'test',
-					updatedAt: 'test',
-				},
-				sizes: ['S', 'M', 'L'],
-			},
-			{
-				imagesPaths: [photo, photo],
-				colour: {
-					hex: 'red',
-					id: 2423423,
-					ru: 'ru',
-					rs: 'rs',
-					en: 'en',
-					ua: 'ua',
-					type: 'colour',
-					createdAt: 'test',
-					updatedAt: 'test',
-				},
-				sizes: ['S', 'M', 'L'],
-			},
-		],
-		sizeChartImage:
-			'https://distribution.faceit-cdn.net/images/fb48ddb3-b251-4361-9013-b4d1e86badce.jpeg',
-		sizes: ['M', 'XS', 'L'],
-		colours: [
-			{
-				hex: '#FFE4C4',
-				id: 1,
-				ru: 'ru',
-				rs: 'rs',
-				en: 'en',
-				ua: 'ua',
-				type: 'colour',
-				createdAt: 'test',
-				updatedAt: 'test',
-			},
-			{
-				hex: '#9F8E84',
-				id: 2,
-				ru: 'ru',
-				rs: 'rs',
-				en: 'en',
-				ua: 'ua',
-				type: 'colour',
-				createdAt: 'test',
-				updatedAt: 'test',
-			},
-			{
-				hex: '#000080',
-				id: 3,
-				ru: 'ru',
-				rs: 'rs',
-				en: 'en',
-				ua: 'ua',
-				type: 'colour',
-				createdAt: 'test',
-				updatedAt: 'test',
-			},
-			{
-				hex: '#A6BEE5',
-				id: 4,
-				ru: 'ru',
-				rs: 'rs',
-				en: 'en',
-				ua: 'ua',
-				type: 'colour',
-				createdAt: 'test',
-				updatedAt: 'test',
-			},
-		],
-		categories: [
-			{
-				id: 1,
-				ua: 'Лосини',
-				en: 'Лосини',
-				rs: 'Лосини',
-				ru: 'Лосини',
-				type: 'category',
-				createdAt: 'any',
-				updatedAt: 'any',
-			},
-		],
-	};
 
 	React.useEffect(() => {
 		activeProduct?.images?.forEach((el) => {
@@ -325,7 +208,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		};
 		dispatch(setSizeChartImageDescription(payloadSd4));
 		//category
-		activeCategories = activeProduct?.categories[0];
+		dispatch(setCategories(activeProduct?.categories[0]?.id))
 		//sizeChartImage
 		setNetFile(activeProduct?.sizeChartImage);
 		//images
@@ -347,7 +230,8 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		(state: RootState) => state.admin.editProductItemId
 	);
 
-	const colors = useSelector((state: RootState) => state.goods.fetchedColours);
+	const category = useSelector((state: RootState) => state.formData.categories);
+
 	const title = useSelector((state: RootState) => state.formData.title);
 	const descr = useSelector((state: RootState) => state.formData.description);
 	const price = useSelector((state: RootState) => state.formData.price);
@@ -355,15 +239,20 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	const sizeChartDescr = useSelector(
 		(state: RootState) => state.formData.sizeChartImageDescription
 	);
-	const goods = useSelector((state: RootState) => state.goods.goods);
-	//chosen product
 
-	// console.log('TITLE', title)
-	// console.log('DESCR', descr)
-	// console.log('PRICE', price)
-	// console.log('quantity', quantity)
-	// console.log('SIZECHART', sizeChartDescr);
-	// console.log('allEditsImages', allEditsImages);
+	//chosen product
+	const getStateRedux = () => {
+		console.log('TITLE', title);
+		console.log('DESCR', descr);
+		console.log('PRICE', price);
+		console.log('quantity', quantity);
+		console.log('category', category)
+		console.log('SIZECHARTDESCR', sizeChartDescr);
+		console.log('SIZECHARTIMG', netFile);
+		console.log('sizes', selectedSizes);
+		console.log('allEditsImages', allEditsImages);
+	};
+
 	// console.log('activeProductPPP', activeProduct);
 	// console.log('prodcuts', products);
 	// console.log('userEdit', userEdit.images[0].imagesPaths)
@@ -1135,6 +1024,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 					<span className={s.send_cancel}>Отмена</span>
 					<span className={s.send}>Изменить товар</span>
 				</div>
+				<div onClick={getStateRedux}>get redux state of inputs </div>
 			</div>
 		</>
 	);
