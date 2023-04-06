@@ -64,7 +64,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 
 	return (
 		<div className={s.catalogItem}>
-			<Link href={`/product/${product?.id ?? 'productId'}`}>
+			<Link href={`/product/${product?.id}`}>
 				<div
 					className={s.imgWrapper}
 					onMouseEnter={onMouseEnter}

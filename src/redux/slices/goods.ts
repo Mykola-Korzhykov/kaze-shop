@@ -444,7 +444,7 @@ const goodsSlice = createSlice({
 				state.errors = action.payload;
 			}),
 			builder.addCase(fetchCategories.fulfilled, (state, action) => {
-				// state.loadingStatus = 'idle';
+				state.loadingStatus = 'idle';
 				state.fetchedCategories = action.payload;
 			}),
 			builder.addCase(fetchCategories.pending, (state, action) => {
@@ -455,7 +455,7 @@ const goodsSlice = createSlice({
 				state.errors = action.payload;
 			}),
 			builder.addCase(fetchColours.fulfilled, (state, action) => {
-				// state.loadingStatus = 'idle';
+				state.loadingStatus = 'idle';
 				state.fetchedColours = action.payload;
 			}),
 			builder.addCase(fetchColours.pending, (state, action) => {

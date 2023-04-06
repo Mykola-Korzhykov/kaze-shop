@@ -53,10 +53,8 @@ const Cabinet: FC = () => {
 
 	console.log('modalAddColorTurn', modalAddColorTurn);
 	React.useEffect(() => {
-	
-		dispatch(fetchColours())
-		
-	}, [dispatch])
+		dispatch(fetchColours());
+	}, [dispatch]);
 	console.log('user', user);
 	React.useEffect(() => {
 		const fetchUserData = async () => {
@@ -91,45 +89,46 @@ const Cabinet: FC = () => {
 	}, [dispatch]);
 
 	return (
-		<>{loadingStatus === 'loading' && <Spinner />}
-		<main className="content">
-			<div className={s.container}>
-				<div className="page_coordinator">
-					<Link href="#">Главная</Link> | <span>Личный кабинет</span>
-				</div>
-				{/* <CabinetTabs />  */}
-				{user && user.user?.type === 'USER' ? <CabinetTabs /> : ''}
-				{user?.user?.type === 'OWNER' ||
-					(user?.user?.type === 'ADMIN' && (
-						<CabinetOwner
-							role={user?.user?.type}
-							modalAddCAtegory={modalAddCAtegory}
-							imagesData={images}
-							setImages={setImages}
-							setCountPhoto={setCountPhoto}
-							modalAddPhoto={modalAddPhoto}
-							modalAddColor={modalAddColorTurn}
-							setModalAddColor={setModalAddColor}
-						/>
-					))}
+		<>
+			{loadingStatus === 'loading' && <Spinner />}
+			<main className="content">
+				<div className={s.container}>
+					<div className="page_coordinator">
+						<Link href="#">Главная</Link> | <span>Личный кабинет</span>
+					</div>
+					{/* <CabinetTabs />  */}
+					{user?.user?.type === 'USER' && <CabinetTabs />}
+					{user?.user?.type === 'OWNER' ||
+						(user?.user?.type === 'ADMIN' && (
+							<CabinetOwner
+								role={user?.user?.type}
+								modalAddCAtegory={modalAddCAtegory}
+								imagesData={images}
+								setImages={setImages}
+								setCountPhoto={setCountPhoto}
+								modalAddPhoto={modalAddPhoto}
+								modalAddColor={modalAddColorTurn}
+								setModalAddColor={setModalAddColor}
+							/>
+						))}
 
-				{/* {user?.user?.type === 'ADMIN' && <CabinetAdmin />} */}
+					{/* {user?.user?.type === 'ADMIN' && <CabinetAdmin />} */}
 
-				<CabinetOwner
-					role={'OWNER'}
-					modalAddCAtegory={modalAddCAtegory}
-					imagesData={images}
-					setImages={setImages}
-					setCountPhoto={setCountPhoto}
-					modalAddPhoto={modalAddPhoto}
-					modalAddColor={modalAddColorTurn}
-					setModalAddColor={setModalAddColor}
-				/>
+					<CabinetOwner
+						role={'OWNER'}
+						modalAddCAtegory={modalAddCAtegory}
+						imagesData={images}
+						setImages={setImages}
+						setCountPhoto={setCountPhoto}
+						modalAddPhoto={modalAddPhoto}
+						modalAddColor={modalAddColorTurn}
+						setModalAddColor={setModalAddColor}
+					/>
 
-				{/* <CabinetAdmin /> */}
+					{/* <CabinetAdmin /> */}
 
-				{/* <div className={s.backround_module}></div>  */}
-				{/* {countPhoto > 0 && modalAddPhoto ? (
+					{/* <div className={s.backround_module}></div>  */}
+					{/* {countPhoto > 0 && modalAddPhoto ? (
 					<div
 						// style={{ height: `${1450 + countPhoto * 125}px` }}
 						className={s.backround_module}
@@ -137,11 +136,11 @@ const Cabinet: FC = () => {
 				) : (
 					''
 				)} */}
-				{/* {countPhoto > 0 && modalAddPhoto &&  choiceColor === false? <div style={{height: `${ 1450 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''} */}
-				{/* {modalAddPhoto  && countPhoto < 2 ? <div  className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''}  */}
-				{/* style={{height: `${ 1450 +  colors.length * 25}px` }} */}
-				{/* {choiceColor? <div   className={ s.backround_module}></div> : ''}  */}
-				{/* {modalAddCAtegory ? (
+					{/* {countPhoto > 0 && modalAddPhoto &&  choiceColor === false? <div style={{height: `${ 1450 +  countPhoto * 125}px` }} className={s.backround_module}></div> : ''} */}
+					{/* {modalAddPhoto  && countPhoto < 2 ? <div  className={ choiceColor == true ? s.backroundModuleMore : s.backround_module}></div> : ''}  */}
+					{/* style={{height: `${ 1450 +  colors.length * 25}px` }} */}
+					{/* {choiceColor? <div   className={ s.backround_module}></div> : ''}  */}
+					{/* {modalAddCAtegory ? (
 					<div
 						// style={{ height: '1450px' }}
 						className={s.backround_module}
@@ -149,42 +148,42 @@ const Cabinet: FC = () => {
 				) : (
 					''
 				)} */}
-				{/* {choiceColor ? <div style={{height: '1450px'}} className={s.backround_module}></div> : ''} */}
+					{/* {choiceColor ? <div style={{height: '1450px'}} className={s.backround_module}></div> : ''} */}
 
-				{modalAddPhoto ? (
-					<ModuleWindiw
-						imagesData={images}
-						setImages={setImages}
-						setChoiceColor={setChoiceColor}
-						choiceColor={choiceColor}
-						modalAddPhoto={modalAddPhoto}
-						setModalAddPhoto={setModalAddPhoto}
-						modalAddColor={modalAddColorTurn}
-						setModalAddColor={setModalAddColor}
-					/>
-				) : (
-					''
-				)}
-				{modalAddCAtegory ? <ModalAddCategory /> : ''}
-				{modalAddColorTurn ? (
-					<ModalAddColor setChoiceColor={setChoiceColor} />
-				) : (
-					''
-				)}
+					{modalAddPhoto ? (
+						<ModuleWindiw
+							imagesData={images}
+							setImages={setImages}
+							setChoiceColor={setChoiceColor}
+							choiceColor={choiceColor}
+							modalAddPhoto={modalAddPhoto}
+							setModalAddPhoto={setModalAddPhoto}
+							modalAddColor={modalAddColorTurn}
+							setModalAddColor={setModalAddColor}
+						/>
+					) : (
+						''
+					)}
+					{modalAddCAtegory ? <ModalAddCategory /> : ''}
+					{modalAddColorTurn ? (
+						<ModalAddColor setChoiceColor={setChoiceColor} />
+					) : (
+						''
+					)}
 
-				{modalEditProductTurn && (
-					<ModalEditProduct
-						imagesData={images}
-						setImages={setImages}
-						setChoiceColor={setChoiceColor}
-						choiceColor={choiceColor}
-						modalAddPhoto={modalAddPhoto}
-						setModalAddPhoto={setModalAddPhoto}
-						modalAddColor={modalAddColorTurn}
-						setModalAddColor={setModalAddColor}
-					/>
-				)}
-				{/* {modalEditProductTurn ? (
+					{modalEditProductTurn && (
+						<ModalEditProduct
+							imagesData={images}
+							setImages={setImages}
+							setChoiceColor={setChoiceColor}
+							choiceColor={choiceColor}
+							modalAddPhoto={modalAddPhoto}
+							setModalAddPhoto={setModalAddPhoto}
+							modalAddColor={modalAddColorTurn}
+							setModalAddColor={setModalAddColor}
+						/>
+					)}
+					{/* {modalEditProductTurn ? (
 					<div
 						// style={{ height: '1450px' }}
 						className={s.backround_module}
@@ -193,9 +192,10 @@ const Cabinet: FC = () => {
 					''
 				)} */}
 
-				{/* {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  */}
-			</div>
-		</main></>
+					{/* {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  */}
+				</div>
+			</main>
+		</>
 	);
 };
 

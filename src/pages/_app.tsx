@@ -17,7 +17,7 @@ import SEO from '../../next-seo.config';
 function App({ Component, pageProps }: AppProps) {
 	const dispatch = useAppDispatch();
 	const [chowUseCookieModal, setChowUseCookieModal] =
-		React.useState<boolean>(false);
+		React.useState<boolean>(true);
 	React.useEffect(() => {
 		//get cookie initial state from LS
 		let initialValue = false;
