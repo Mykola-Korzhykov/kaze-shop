@@ -57,6 +57,7 @@ import LogoutModal from '@/components/modals/LogoutModal/LogoutModal';
 import ChangeUserPassword from '../../../ChangeUserPassword/ChangeUserPassword';
 import { UsersAdmin } from '../../../../components/screens/Cabinet/CabinetOwner/Display/UsersAdmin';
 import { UsersRole } from '../../../../components/screens/Cabinet/CabinetOwner/Display/UsersRole';
+import { ModalSentForm } from './Display/AddProduct/ModalSentForm';
 
 // export const heidthcal = 9;
 
@@ -195,6 +196,9 @@ export const CabinetOwner = ({
 	const modalEditProductTurn = useSelector(
 		(state: RootState) => state.modaleSlice.modalAddEditProduct
 	);
+	const sentProductForm = useSelector(
+		(state: RootState) => state.modaleSlice.sentProductForm
+	);
 	const [displayActive, setDisplayActive] = React.useState<number>(1);
 
 	// const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
@@ -329,9 +333,12 @@ export const CabinetOwner = ({
 			{/* { modalAddColorTurn &&
                 <div className={s.backround_for_modal}></div>
             } */}
+			{sentProductForm && <div className={s.backround_for_modal}></div>}
 			{modalAddCAtegoryTurn && <div className={s.backround_for_modal}></div>}
 			{modalEditProductTurn && <div className={s.backround_for_modal}></div>}
 			{modalAddPhotoTurn && <div className={s.backround_for_modal}></div>}
+			{modalAddPhotoTurn && <div className={s.backround_for_modal}></div>}
+			{sentProductForm && <ModalSentForm />}
 
 			<div className={s.nav_dekstop}>
 				{buttonsObj.map((obj, ind) => {

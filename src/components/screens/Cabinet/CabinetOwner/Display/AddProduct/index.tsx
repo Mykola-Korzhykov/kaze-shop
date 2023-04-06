@@ -24,6 +24,7 @@ import { useAppDispatch } from '@/redux/hooks';
 // import { ModuleWindiw } from "./ModuleWindow"
 // import {SizeItem} from './SizesItem'
 // import {setNetData} from '../../../../../../redux/slices/formData'
+import { setProductForm } from '@/redux/slices/modal';
 import { SizeChart } from './sizeChart';
 import axios from 'axios';
 import { API_URL } from '../../../../../../services/index';
@@ -219,6 +220,8 @@ export const AddProduct = ({
 			.catch((error) => {
 				console.error('There was an error!', error);
 			});
+		dispatch(setProductForm(true));
+
 		// console.log("formDataChecktitle", formData.get('title'));
 		// console.log("formDataCheckimages", formData.get('images'));
 		// console.log("formDataCheckprice", formData.get('price'));

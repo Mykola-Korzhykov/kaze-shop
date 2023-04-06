@@ -15,6 +15,7 @@ import ChangeUserPassword from '@/components/ChangeUserPassword/ChangeUserPasswo
 import CabinetTabs from '@/components/screens/Cabinet/CabinetTabs';
 import { CabinetOwner } from './CabinetOwner/CabinetOwner';
 import { CabinetAdmin } from './CabinetAdmin';
+
 //modal
 import {
 	setModalAddPhoto,
@@ -25,6 +26,7 @@ import { ModalAddColor } from './../Cabinet/CabinetOwner/Display/AddProduct/Moda
 import { ModuleWindiw } from './CabinetOwner/Display/AddProduct/ModuleWindow';
 import { ModalEditProduct } from '../../../components/screens/Cabinet/CabinetOwner/Display/AddProduct/ModalEditProduct/index';
 import { divide } from 'lodash';
+import { ModalSentForm } from './CabinetOwner/Display/AddProduct/ModalSentForm';
 
 const Cabinet: FC = () => {
 	const dispatch = useAppDispatch();
@@ -37,6 +39,9 @@ const Cabinet: FC = () => {
 	const [countPhoto, setCountPhoto] = React.useState<number>(1);
 	const modalAddPhoto = useSelector(
 		(state: RootState) => state.modaleSlice.modalAddPhoto
+	);
+	const sentProductForm = useSelector(
+		(state: RootState) => state.modaleSlice.sentProductForm
 	);
 	const [choiceColor, setChoiceColor] = React.useState<boolean>(false);
 	const modalAddCAtegory = useSelector(
@@ -183,6 +188,7 @@ const Cabinet: FC = () => {
 							setModalAddColor={setModalAddColor}
 						/>
 					)}
+					{/* {sentProductForm && <ModalSentForm />} */}
 					{/* {modalEditProductTurn ? (
 					<div
 						// style={{ height: '1450px' }}
