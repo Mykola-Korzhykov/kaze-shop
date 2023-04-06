@@ -6,6 +6,8 @@ import photoNew from '../../../../../../../assets/images/admin/img.svg';
 import { setEditProductItemId } from '../../../../../../../redux/slices/admin';
 import { useAppDispatch } from '@/redux/hooks';
 import { Api } from '@/services';
+import { setActiveProduct } from '@/redux/slices/editProduct';
+import { Goods } from '@/types/goods';
 
 interface ItemPropsType {
 	photo?: any;
@@ -13,9 +15,11 @@ interface ItemPropsType {
 	title?: string;
 	setActiveId: (n: number) => void;
 	id: number;
+	product: Goods
 }
 
 export const Item = ({
+	product,
 	photo,
 	price,
 	title,
@@ -66,6 +70,7 @@ export const Item = ({
 			<div className={s.btn_wrapper}>
 				<button
 					onClick={() => {
+						dispatch(setActiveProduct(product))
 						dispatch(setEditProductItemId(id));
 						setActiveId(id);
 					}}

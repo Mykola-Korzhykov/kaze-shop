@@ -94,7 +94,7 @@ const Cabinet: FC = () => {
 			<main className="content">
 				<div className={s.container}>
 					<div className="page_coordinator">
-						<Link href="#">Главная</Link> | <span>Личный кабинет</span>
+						<Link href="/">Главная</Link> | <span>Личный кабинет</span>
 					</div>
 					{/* <CabinetTabs />  */}
 					{user?.user?.type === 'USER' && <CabinetTabs />}

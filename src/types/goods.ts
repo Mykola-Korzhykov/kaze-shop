@@ -43,7 +43,7 @@ export interface Goods {
 		rs: string
 		en: string
 	}
-	price: number
+	price: string
 	quantity: number
 	images: {
 		imagesPaths: string[]

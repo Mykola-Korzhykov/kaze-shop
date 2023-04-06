@@ -294,7 +294,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 
 		//price
 
-		const payloadP: string = activeProduct?.price + '';
+		const payloadP: string = activeProduct?.price + ''; //
 		const payloadPstr: number = +payloadP.slice(0, -1);
 
 		dispatch(setPrice(Number(payloadPstr)));
@@ -346,7 +346,6 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	const editProductItemId = useSelector(
 		(state: RootState) => state.admin.editProductItemId
 	);
-	
 
 	const colors = useSelector((state: RootState) => state.goods.fetchedColours);
 	const title = useSelector((state: RootState) => state.formData.title);
@@ -410,7 +409,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	// console.log('arrPhotos', arrPhotos)
 	const payloadP: string = activeProduct?.price + '';
 	const payloadPstr: string = payloadP.slice(0, -1);
-	const [inputs, setInputs] = React.useState([
+	const inputs = [
 		{
 			id: 0,
 			type: 'text',
@@ -489,7 +488,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			text: 'Цена в долларах',
 			placeholder: 'Введите цену',
 			name: 'price',
-			value: payloadPstr,
+			value: activeProduct?.price?.slice(0, -1),
 		},
 		{
 			id: 10,
@@ -499,7 +498,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 			name: 'quantity',
 			value: activeProduct?.quantity,
 		},
-	]);
+	];
 
 	interface InputsStateValidType {
 		[key: number]: boolean;
@@ -591,7 +590,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		}
 		//price
 		if (event.target.name === 'price') {
-			const payload: number = event.target.value;
+			const payload: number | string = event.target.value;
 			dispatch(setPrice(Number(payload)));
 		}
 		//sizeChartDescr
@@ -627,7 +626,6 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 
 	return (
 		<>
-		
 			<div
 				style={
 					editProductItemId >= 1 ? { display: 'block' } : { display: 'none' }
@@ -1133,7 +1131,6 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 				</div> */}
 
 				{/* тоже самое с цветами , сатею в отдельную переменную, локальную переменную после чего с ней работаю и отправляю при отправке ее уже  */}
-
 				<div onClick={cancelEditingProduct} className={s.send_wrapper}>
 					<span className={s.send_cancel}>Отмена</span>
 					<span className={s.send}>Изменить товар</span>

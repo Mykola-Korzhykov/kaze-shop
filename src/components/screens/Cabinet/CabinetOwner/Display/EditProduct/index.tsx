@@ -55,6 +55,7 @@ export const EditProduct = () => {
 				{products?.map((obj, ind) => {
 					return (
 						<Item
+							product={obj}
 							photo={obj.images[0].imagesPaths[0]}
 							price={obj.price}
 							id={obj.id}

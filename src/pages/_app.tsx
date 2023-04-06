@@ -61,6 +61,7 @@ function App({ Component, pageProps }: AppProps) {
 				// }
 			}
 		};
+		fetchUserData()
 	}, []);
 
 	return (
