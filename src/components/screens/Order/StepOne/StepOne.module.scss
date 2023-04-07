@@ -1,0 +1,88 @@
+$gray-700: #0b0b0b;
+$gray-400: #9D9D9D;
+
+.step_one {
+    border-bottom: 2px solid $gray-400;
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .name {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 30px;
+
+        @media (max-width:768px) {
+            flex-direction: column;
+        }
+    }
+
+    .contacts {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 30px;
+
+        @media (max-width:768px) {
+            flex-direction: column;
+        }
+    }
+
+    .another_block {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, auto);
+        gap: 30px;
+
+        @media (max-width:768px) {
+            grid-template-columns: 1fr;
+            grid-template-rows: repeat(3, auto);
+        }
+    }
+
+    .another_name {
+        grid-column: 1/2;
+        grid-row: 1/2;
+
+        @media (max-width:768px) {
+            grid-column: 1/2;
+            grid-row: 1/2;
+        }
+    }
+
+    .another_surname {
+        grid-column: 2/3;
+        grid-row: 1/2;
+
+        @media (max-width:768px) {
+            grid-column: 1/2;
+            grid-row: 2/3;
+        }
+    }
+
+    .another_contacts {
+        grid-column: 1/2;
+        grid-row: 2/3;
+
+        @media (max-width:768px) {
+            grid-column: 1/2;
+            grid-row: 3/4;
+        }
+    }
+
+    .submit {
+        align-self: flex-end;
+        margin-top: 40px;
+        margin-bottom: 25px;
+
+        &:disabled {
+            background: $gray-700;
+            cursor: default;
+
+            &:hover {
+                background: $gray-700;
+            }
+        }
+    }
+}

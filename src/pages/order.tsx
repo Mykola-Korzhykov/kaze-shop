@@ -1,5 +1,5 @@
 import React from 'react';
-import Order from '../components/screens/Order';
+import Order from '../components/screens/Order/Order';
 
 
 const OrderPage = () => {

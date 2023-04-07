@@ -1,7 +1,8 @@
 export interface InputPhoneProps {
 	country: Array<string>;
-	masks: object;
+	masks?: object;
 	errorMessage?: string;
 	placeholder?: string;
 	label: string;
+	className?: string;
 }

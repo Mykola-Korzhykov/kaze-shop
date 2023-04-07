@@ -7,18 +7,23 @@
     div {
         border: 1.5px solid transparent;
         transition: 0.3s border;
-        cursor: pointer;
         padding: 5px;
 
-        div {
-            display: block;
+        .size43 {
             width: 31px;
             height: 31px;
+        }
+        .size30 {
+            width: 20px;
+            height: 20px;
         }
 
         &.active {
             border-color: #0b0b0b;
         }
+         &.cursor {
+             cursor: pointer;
+         }
     }
 
 }

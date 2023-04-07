@@ -1,3 +1,47 @@
+$bg-color: #F2F2F0;
+
 .order {
-    padding: 80px 0;
+    padding: 80px 0 100px 0;
+    background: $bg-color;
+
+    .path {
+        margin-top: 24px;
+        margin-bottom: 37px;
+    }
+
+    .form_block {
+        display: flex;
+        gap: 40px 30px;
+
+        @media(max-width:1200px) {
+            flex-direction: column;
+        }
+
+        .step {
+            flex: 1;
+        }
+
+
+        .step_one_title {
+            margin-bottom: 35px;
+        }
+
+        .step_two_title {
+            margin-top: 25px;
+        }
+
+        .step_one {
+            flex: 1;
+        }
+
+        .cart {
+            align-self: flex-start;
+            flex: 1;
+
+            @media(max-width:1200px) {
+                align-self: stretch;
+            }
+        }
+
+    }
 }
