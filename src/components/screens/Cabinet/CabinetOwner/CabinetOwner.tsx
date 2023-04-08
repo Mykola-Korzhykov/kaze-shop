@@ -416,7 +416,11 @@ export const CabinetOwner = ({
 				) : (
 					''
 				)}
-				{displayActive === 4 ? <EditProduct /> : ''}
+				{displayActive === 4 ? (
+					<EditProduct imagesData={imagesData} setImages={setImages} />
+				) : (
+					''
+				)}
 				{displayActive === 5 ? (
 					<div>
 						{' '}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import s from './EditProduct.module.scss';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/redux/hooks';
@@ -12,7 +12,10 @@ import Spinner from '@/components/Spinner/Spinner';
 //
 import { setLoadingStatus } from '@/redux/slices/goods';
 import { Api } from '@/services';
-export const EditProduct = () => {
+export const EditProduct: FC<{
+	imagesData: File[];
+	setImages: (n: any) => void;
+}> = ({ imagesData, setImages }) => {
 	const dispatch = useAppDispatch();
 	// const products = useSelector((state: RootState) => state.admin.editProducts);
 	const products = useSelector((state: RootState) => state.goods.goods);
@@ -72,7 +75,11 @@ export const EditProduct = () => {
 			{/* передача фото розмеров та цветов от activeProductEdit */}
 
 			<div className={s.wrapperEditProductItem}>
-				<EditProductItem id={activeId} />
+				<EditProductItem
+					id={activeId}
+					imagesData={imagesData}
+					setImages={setImages}
+				/>
 			</div>
 		</>
 	);

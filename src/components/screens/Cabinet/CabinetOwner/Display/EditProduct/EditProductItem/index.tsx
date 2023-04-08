@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import s from './EditProductItem.module.scss';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
-import Spinner from '@/components/Spinner/Spinner';
+import axios from 'axios';
+import { API_URL } from '@/services';
+import { parseCookies } from 'nookies';
 import {
 	addCountPhotos,
 	setEditProductItemId,
@@ -45,10 +47,15 @@ import {
 
 interface EditProductItemType {
 	id: number;
-	//price: number
+	imagesData: File[];
+	setImages: (n: any) => void;
 }
 
-export const EditProductItem = ({ id }: EditProductItemType) => {
+export const EditProductItem = ({
+	id,
+	imagesData,
+	setImages,
+}: EditProductItemType) => {
 	const dispatch = useAppDispatch();
 	const fetchedColours = useAppSelector((state) => state.goods.fetchedColours);
 	const imagesFromModal = useAppSelector(
@@ -220,11 +227,6 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		//sizeChartImage
 		setNetFile(activeProduct?.sizeChartImage);
 		//images
-		// const imgArr = activeProduct?.images
-		// for (let i = 0; i < imgArr?.length; i++) {
-		// 	//@ts-ignore
-		// 	imgArr[i]['index'] = i;
-		// }
 		//@ts-ignore
 		setAllEditsImages(activeProduct?.images ?? []);
 		setImagesFromServerLength(activeProduct?.images?.length);
@@ -255,6 +257,8 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 
 	//chosen product
 	const getStateRedux = async () => {
+		const cookies = parseCookies();
+		const token = cookies.accessToken;
 		const coloursArr = allEditsImages?.map((el) => {
 			if ('colour' in el) {
 				return el?.colour?.id;
@@ -312,13 +316,58 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		if (arrObjModal?.length <= 0) {
 			delete sendObj['selectedImages'];
 		}
-		console.log('SEND_OBJ', sendObj);
-		await Api().goods.updateEditProduct(activeProduct?.id, sendObj);
-	};
 
-	// console.log('activeProductPPP', activeProduct);
-	// console.log('prodcuts', products);
-	// console.log('userEdit', userEdit.images[0].imagesPaths)
+		const formData = new FormData();
+		//images
+		for (let i = 0; i < imagesData?.length; i++) {
+			formData.append('images', imagesData[i]);
+		}
+		//title
+		formData.append('title', JSON.stringify(title));
+		//description
+		formData.append('description', JSON.stringify(descr));
+		//price
+		formData.append('price', JSON.stringify(price));
+		//sizes
+		formData.append('sizes', JSON.stringify(selectedSizes));
+		// colours
+		formData.append('colours', JSON.stringify(coloursArr));
+		//quantity
+		formData.append('quantity', JSON.stringify(quantity));
+		//categories
+		formData.append('categories', JSON.stringify([activeCategory?.id]));
+		//sizeChartImageDescription
+		formData.append(
+			'sizeChartImageDescription',
+			JSON.stringify(sizeChartDescr)
+		);
+		//sizeChartImage
+		if (typeof netFile !== 'string') {
+			formData.append('sizeChartImage', JSON.stringify(netFile));
+		}
+		//selectedImages
+		if (arrObjModal?.length > 0) {
+			formData.append('selectedImages', JSON.stringify(arrObjModal));
+		}
+		console.log('SEND_OBJ', sendObj);
+		console.log('SEND_OBJ_FORMDATA', formData);
+		axios
+			.patch(`/product/update_product?productId=${activeProduct?.id}`, formData, {
+				baseURL: API_URL,
+				withCredentials: true,
+				headers: {
+					Authorization: 'Bearer ' + (token || ''),
+					'Content-Type': 'multipart/form-data',
+				},
+			})
+			.then((response) => {
+				console.log('response.data', response.data);
+			})
+			.catch((error) => {
+				console.error('There was an error!', error);
+			});
+		// await Api().goods.updateEditProduct(activeProduct?.id, sendObj);
+	};
 
 	interface ImageData {
 		imagesPaths: string[];
