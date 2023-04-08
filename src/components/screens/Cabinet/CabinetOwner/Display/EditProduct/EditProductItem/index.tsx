@@ -58,6 +58,10 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	const arrObjModalSwow = useSelector(
 		(state: RootState) => state.admin.arrObjModalSwow
 	);
+	const [deletedImagesIndexes, setDeletedImagesIndexes] = React.useState<
+		number[]
+	>([]);
+	const [activeCategory, setActiveCategory] = useState(null);
 	const [imagesFromServerLength, setImagesFromServerLength] =
 		React.useState<number>(0);
 	const [showPhotos, setAllShowPhotos] = React.useState<File[]>([]);
@@ -66,7 +70,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		| {
 				imagesPaths: string[] | File[];
 				sizes: string[];
-				colour: fetchedColour;
+				colour?: fetchedColour;
 				colourId?: number;
 		  }[]
 	>(null);
@@ -77,6 +81,9 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		const elemId = arrCopy.findIndex((el) => {
 			if ('colour' in el && 'colour' in elObj) {
 				// console.log('deleted elem', elObj);
+				const prevData = [...deletedImagesIndexes];
+				prevData.push(elObj?.colour?.id);
+				setDeletedImagesIndexes(prevData);
 				return el?.colour?.id === elObj?.colour?.id;
 			} else {
 				return el?.colourId === elObj?.colourId;
@@ -208,12 +215,18 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 		};
 		dispatch(setSizeChartImageDescription(payloadSd4));
 		//category
-		dispatch(setCategories(activeProduct?.categories[0]?.id))
+		dispatch(setCategories(activeProduct?.categories[0]?.id));
+		setActiveCategory(activeProduct?.categories[0]);
 		//sizeChartImage
 		setNetFile(activeProduct?.sizeChartImage);
 		//images
+		// const imgArr = activeProduct?.images
+		// for (let i = 0; i < imgArr?.length; i++) {
+		// 	//@ts-ignore
+		// 	imgArr[i]['index'] = i;
+		// }
 		//@ts-ignore
-		setAllEditsImages(activeProduct?.images);
+		setAllEditsImages(activeProduct?.images ?? []);
 		setImagesFromServerLength(activeProduct?.images?.length);
 	}, [activeProduct]);
 	const [choiseSize, setChoiseSize] = React.useState<boolean>(false);
@@ -241,16 +254,66 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 	);
 
 	//chosen product
-	const getStateRedux = () => {
-		console.log('TITLE', title);
-		console.log('DESCR', descr);
-		console.log('PRICE', price);
-		console.log('quantity', quantity);
-		console.log('category', category)
-		console.log('SIZECHARTDESCR', sizeChartDescr);
-		console.log('SIZECHARTIMG', netFile);
-		console.log('sizes', selectedSizes);
-		console.log('allEditsImages', allEditsImages);
+	const getStateRedux = async () => {
+		const coloursArr = allEditsImages?.map((el) => {
+			if ('colour' in el) {
+				return el?.colour?.id;
+			} else {
+				return el?.colourId;
+			}
+		});
+		const sendObj: {
+			title: {
+				ua: string;
+				ru: string;
+				rs: string;
+				en: string;
+			};
+			description: {
+				ua: string;
+				ru: string;
+				rs: string;
+				en: string;
+			};
+			price: number;
+			sizes: string[];
+			colours: number[];
+			quantity: number;
+			categories: number[];
+			selectedImages: {
+				fileNames: string[];
+				colourId: number;
+				sizes: string[];
+			}[];
+			sizeChartImageDescription: {
+				ua: string;
+				ru: string;
+				rs: string;
+				en: string;
+			};
+			sizeChartImage: File | string;
+			deletedImages: number[];
+		} = {
+			title: title,
+			description: descr,
+			sizeChartImageDescription: sizeChartDescr,
+			sizes: selectedSizes,
+			selectedImages: arrObjModal,
+			categories: [activeCategory?.id],
+			price: price,
+			quantity: quantity,
+			sizeChartImage: netFile,
+			colours: coloursArr,
+			deletedImages: deletedImagesIndexes,
+		};
+		if (typeof netFile === 'string') {
+			delete sendObj['sizeChartImage'];
+		}
+		if (arrObjModal?.length <= 0) {
+			delete sendObj['selectedImages'];
+		}
+		console.log('SEND_OBJ', sendObj);
+		await Api().goods.updateEditProduct(activeProduct?.id, sendObj);
 	};
 
 	// console.log('activeProductPPP', activeProduct);
@@ -570,11 +633,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 													: `${s.input_off_valid} ${s.input_category}`
 											}
 											type={obj.type}
-											placeholder={
-												activeCategories
-													? activeCategories.ru
-													: activeProduct?.categories[0]?.ru
-											}
+											placeholder={activeCategory?.ru}
 										/>
 										<Image
 											className={`${s.select_img}`}
@@ -596,6 +655,7 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 															e.stopPropagation();
 															setCategoriesDisplay(!categoriesDisplay);
 															dispatch(setCategories(el.id));
+															setActiveCategory(el);
 															setInputsState((prevState: any) => {
 																const objCopy = { ...prevState };
 																objCopy[id] = el.ua !== '' ? true : false;
@@ -1020,11 +1080,14 @@ export const EditProductItem = ({ id }: EditProductItemType) => {
 				</div> */}
 
 				{/* тоже самое с цветами , сатею в отдельную переменную, локальную переменную после чего с ней работаю и отправляю при отправке ее уже  */}
-				<div onClick={cancelEditingProduct} className={s.send_wrapper}>
-					<span className={s.send_cancel}>Отмена</span>
-					<span className={s.send}>Изменить товар</span>
+				<div className={s.send_wrapper}>
+					<span onClick={cancelEditingProduct} className={s.send_cancel}>
+						Отмена
+					</span>
+					<span onClick={getStateRedux} className={s.send}>
+						Изменить товар
+					</span>
 				</div>
-				<div onClick={getStateRedux}>get redux state of inputs </div>
 			</div>
 		</>
 	);
