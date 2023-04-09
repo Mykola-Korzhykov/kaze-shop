@@ -336,6 +336,8 @@ export const EditProductItem = ({
 		formData.append('quantity', JSON.stringify(quantity));
 		//categories
 		formData.append('categories', JSON.stringify([activeCategory?.id]));
+		//deleted images
+		formData.append('deletedImages', JSON.stringify(deletedImagesIndexes));
 		//sizeChartImageDescription
 		formData.append(
 			'sizeChartImageDescription',
@@ -350,23 +352,28 @@ export const EditProductItem = ({
 			formData.append('selectedImages', JSON.stringify(arrObjModal));
 		}
 		console.log('SEND_OBJ', sendObj);
-		console.log('SEND_OBJ_FORMDATA', formData);
 		axios
-			.patch(`/product/update_product?productId=${activeProduct?.id}`, formData, {
-				baseURL: API_URL,
-				withCredentials: true,
-				headers: {
-					Authorization: 'Bearer ' + (token || ''),
-					'Content-Type': 'multipart/form-data',
-				},
-			})
+			.patch(
+				`/product/update_product?productId=${activeProduct?.id}`,
+				formData,
+				{
+					baseURL: API_URL,
+					withCredentials: true,
+					headers: {
+						Authorization: 'Bearer ' + (token || ''),
+						'Content-Type': 'multipart/form-data',
+					},
+				}
+			)
 			.then((response) => {
-				console.log('response.data', response.data);
+				if (response?.status === 201) {
+					dispatch(setActiveProduct(null));
+					dispatch(setEditProductItemId(-1));
+				}
 			})
 			.catch((error) => {
 				console.error('There was an error!', error);
 			});
-		// await Api().goods.updateEditProduct(activeProduct?.id, sendObj);
 	};
 
 	interface ImageData {
@@ -1134,7 +1141,7 @@ export const EditProductItem = ({
 						Отмена
 					</span>
 					<span onClick={getStateRedux} className={s.send}>
-						Изменить товар
+						Изменить
 					</span>
 				</div>
 			</div>

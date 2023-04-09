@@ -4,12 +4,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { ChangeUserPasswordDto } from "@/types/auth";
 import { destroyCookie } from "nookies";
 import { ChangeUserPasswordShema } from "@/utils/validation";
-import cl from "../../styles/cabinet.module.scss";
+import cl from "../../../styles/cabinet.module.scss";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import hidenIcon from "../../assets/icons/closeIcone.svg";
-import showIcon from "../../assets/icons/show_eye.svg";
-import FormField from "../UI/FormField";
+import hidenIcon from "../../../assets/icons/closeIcone.svg";
+import showIcon from "../../../assets/icons/show_eye.svg";
+import FormField from "../../UI/FormField";
 import { Api } from "@/services";
 
 const ChangeUserPassword = () => {

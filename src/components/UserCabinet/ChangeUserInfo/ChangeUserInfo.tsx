@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ChangeUserInfoDto } from '@/types/auth'
 import { ChangeUserInfoShema } from '@/utils/validation'
-import cl from '../../styles/cabinet.module.scss'
+import cl from '../../../styles/cabinet.module.scss'
 import { Api } from '@/services'
 import { setCookie } from 'nookies'
 import { useAppDispatch, useAppSelector } from '@/redux/hooks'
@@ -36,19 +36,19 @@ const ChangeUserInfo = () => {
 				maxAge: 30 * 24 * 60 * 60,
 				path: '/',
 			})
-			if (data.user) {
-				dispatch(addUserInfo(data.user))
+			if (data?.user) {
+				dispatch(addUserInfo(data?.user))
 
-			} else if (data.admin) {
-				dispatch(addUserInfo(data.admin))
+			} else if (data?.admin) {
+				dispatch(addUserInfo(data?.admin))
 			}
 			setRequestLoading(false)
 		} catch (err) {
 			console.warn('Register error', err)
 			setRequestLoading(false)
 			if (err.response) {
-				console.warn('Register error after response', err.response.data.message)
-				setErrorMessage(err.response.data.message)
+				console.warn('Register error after response', err?.response?.data?.message)
+				setErrorMessage(err?.response?.data?.message)
 			} else {
 				router.push('/404')
 			}
