@@ -65,6 +65,7 @@ export const EditProductItem = ({
 	const arrObjModalSwow = useSelector(
 		(state: RootState) => state.admin.arrObjModalSwow
 	);
+	const [successSend, setSuccessSend] = useState<boolean>(false);
 	const [deletedImagesIndexes, setDeletedImagesIndexes] = React.useState<
 		number[]
 	>([]);
@@ -366,9 +367,12 @@ export const EditProductItem = ({
 				}
 			)
 			.then((response) => {
-				if (response?.status === 201) {
-					dispatch(setActiveProduct(null));
-					dispatch(setEditProductItemId(-1));
+				if (response?.status === 202) {
+					setSuccessSend(true);
+					setTimeout(() => {
+						dispatch(setActiveProduct(null));
+						dispatch(setEditProductItemId(-1));
+					}, 2500);
 				}
 			})
 			.catch((error) => {
