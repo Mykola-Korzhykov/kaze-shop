@@ -1,7 +1,7 @@
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import s from './InputPhone.module.scss';
-import React, { useState } from 'react';
+import React from 'react';
 import { InputPhoneProps } from './InputPhone.interface';
 import cn from 'classnames';
 

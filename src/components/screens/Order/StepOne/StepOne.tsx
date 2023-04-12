@@ -24,6 +24,10 @@ const StepOne = ({ className, ...props }: StepOneProps): JSX.Element => {
     const { register, handleSubmit, control, formState: { errors, isValid } } = useForm<OrderFormStepOneData>({
         mode: 'onBlur',
         resolver: yupResolver(OrderFormStepOne),
+        defaultValues: {
+            userPhoneNumber: '',
+            otherPersonPhoneNumber: '',
+        }
     });
 
 
@@ -36,11 +40,7 @@ const StepOne = ({ className, ...props }: StepOneProps): JSX.Element => {
     };
 
     const goStepTwo = async () => {
-        await new Promise<void>(res => {
-            dispatch(stepOneSuccess());
-            res();
-        });
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        dispatch(stepOneSuccess());
     }
 
     return (
@@ -55,6 +55,7 @@ const StepOne = ({ className, ...props }: StepOneProps): JSX.Element => {
                     initial={{ height: 'auto', opacity: 1 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0, transition: { duration: 0.5 } }}
+                    onAnimationComplete={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     onSubmit={handleSubmit(onSubmit)}>
                     <div className={s.name}>
                         <Input

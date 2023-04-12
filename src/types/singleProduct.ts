@@ -86,5 +86,6 @@ export const FormLoadStatus = {
 export interface FormLoadStatusType {
 	stepOne: typeof FormLoadStatus[keyof typeof FormLoadStatus];
 	stepTwo: typeof FormLoadStatus[keyof typeof FormLoadStatus];
+	orderNum: null | number;
 };
 

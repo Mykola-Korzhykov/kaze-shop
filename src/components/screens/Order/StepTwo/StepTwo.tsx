@@ -10,9 +10,10 @@ import { AnimatePresence, motion } from 'framer-motion';
 import cn from 'classnames';
 import DateInput from '../DateInput/DateInput';
 import Button from '../../Main/Button/Button';
-import { backToStepOne, stepTwoLoaded, stepTwoSuccess } from '@/redux/slices/order';
+import { backToStepOne, changeOrderNum, stepTwoLoaded, stepTwoSuccess } from '@/redux/slices/order';
 import { OrderFormStepTwo, OrderFormStepTwoData } from '@/utils/validation';
 import FormSpinner from '../FormSpinner/FormSpinner';
+import { useRouter } from 'next/router';
 
 
 const StepTwo = () => {
@@ -21,6 +22,7 @@ const StepTwo = () => {
     const [payCard, setPayCard] = useState<boolean>(false)
     const { stepOne, stepTwo } = useAppSelector(store => store.order)
     const dispatch = useAppDispatch();
+    const router = useRouter();
 
 
     const { register, handleSubmit, control, formState: { errors, isValid } } = useForm<OrderFormStepTwoData>({
@@ -33,18 +35,15 @@ const StepTwo = () => {
         delete validDataToSend.anotherDate;
 
         setTimeout(() => {
-            dispatch(stepTwoSuccess())
+            dispatch(stepTwoSuccess());
+            dispatch(changeOrderNum(2421));
+            router.push('/order_details');
         }, 2000);
         console.log(validDataToSend)
     };
 
     const goToStepOne = async () => {
-        await new Promise<void>(res => {
-            dispatch(backToStepOne());
-            res();
-        });
-
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        dispatch(backToStepOne());
     };
 
     return (
@@ -54,6 +53,7 @@ const StepTwo = () => {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1, transition: { duration: 0.5 } }}
                 exit={{ height: 0, opacity: 0, transition: { duration: 0.5 } }}
+                onAnimationComplete={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                 className={s.step_two}>
 
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -153,7 +153,7 @@ const StepTwo = () => {
                     </div>
 
                     <div className={s.submit_block}>
-                        <Button onClick={goToStepOne} color='transparent' arrow={false}>Назад</Button>
+                        <Button onClick={goToStepOne} type='button' color='transparent' arrow={false}>Назад</Button>
                         <Button
                             className={cn(s.submit, {
                                 [s.formInvalid]: !isValid

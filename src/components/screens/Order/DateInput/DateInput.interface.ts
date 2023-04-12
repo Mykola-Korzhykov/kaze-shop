@@ -7,7 +7,7 @@ export interface DateInputProps {
 	errorMessage?: string;
 	name?: string;
 	onChange?: (d: Date) => void;
-	value: Date;
+	value: Date | null;
 	onBlur?: Noop;
 	ref?: React.Ref<any>;
 	className?: string;

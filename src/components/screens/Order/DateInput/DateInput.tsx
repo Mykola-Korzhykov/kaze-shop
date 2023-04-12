@@ -6,12 +6,6 @@ import { DateInputProps } from './DateInput.interface';
 import cn from 'classnames';
 
 const DateInput = React.forwardRef<any, DateInputProps>(({ title, placeholder, errorMessage, value, onChange, onBlur, name, className, }: DateInputProps, ref) => {
-    // const [startDate, setStartDate] = useState<Date>();
-
-    // const changeDate = (d: Date) => {
-    //     onChange(d);
-    //     setStartDate(d);
-    // };
 
     return (
 
@@ -29,6 +23,7 @@ const DateInput = React.forwardRef<any, DateInputProps>(({ title, placeholder, e
                     onBlur={onBlur}
                     popperPlacement='bottom'
                     placeholderText={placeholder}
+                    ref={ref}
                     className={cn(s.date_picker, {
                         [s.active]: value,
                         [s.error]: errorMessage

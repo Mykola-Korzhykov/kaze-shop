@@ -120,3 +120,4 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		return data;
 	},
 });
+

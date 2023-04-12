@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import s from './Order.module.scss';
 import RoutesPath from '../Product/RoutesPath/RoutesPath';
 import StepOne from './StepOne/StepOne';
 import CartBlock from './CartBlock/CartBlock';
 import StepTitle from './StepTitle/OrderStep';
-import { useAppSelector } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import StepTwo from './StepTwo/StepTwo';
+import { orderInit } from '@/redux/slices/order';
 
 const mocCartItem = {
     id: 1,
@@ -23,6 +24,11 @@ const path = [{ path: 'Главная', href: '/' }, { path: 'Корзина', h
 
 const Order = (): JSX.Element => {
     const { stepOne, stepTwo } = useAppSelector(store => store.order);
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(orderInit());
+    }, [])
 
     return (
         <div className={s.order}>
@@ -43,3 +49,5 @@ const Order = (): JSX.Element => {
 };
 
 export default Order;
+
+

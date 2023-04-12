@@ -167,13 +167,18 @@ export const OrderFormStepTwo = yup.object({
 		then: yup.string().min(1, 'min 1 charset').max(10, 'max 10 charset'),
 	}),
 	anotherDate: yup.boolean(),
-	sendDate: yup.date().when('anotherDate', {
-		is: true,
-		then: yup
-			.date()
-			.typeError('enter the date')
-			.required('is a required field'),
-	}),
+	sendDate: yup
+		.date()
+		.typeError('enter the date')
+		.nullable()
+		.default(null)
+		.when('anotherDate', {
+			is: true,
+			then: yup
+				.date()
+				.typeError('enter the date')
+				.required('is a required field'),
+		}),
 	payInCash: yup.boolean(),
 	comment: yup.string().max(100, 'max 100 charset'),
 });
