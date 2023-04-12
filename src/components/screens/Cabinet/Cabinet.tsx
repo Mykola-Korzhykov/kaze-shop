@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { setCookie, destroyCookie } from 'nookies';
 import s from './screenStyle.module.scss';
 //components
-import ChangeUserPassword from '@/components/ChangeUserPassword/ChangeUserPassword';
+import ChangeUserPassword from '@/components/UserCabinet/ChangeUserPassword/ChangeUserPassword';
 import CabinetTabs from '@/components/screens/Cabinet/CabinetTabs';
 import { CabinetOwner } from './CabinetOwner/CabinetOwner';
 import { CabinetAdmin } from './CabinetAdmin';
@@ -83,9 +83,9 @@ const Cabinet: FC = () => {
 			}
 		};
 
-		if (!user?.user) {
-			fetchUserData();
-		}
+		// if (!user?.user) {
+		// 	fetchUserData();
+		// }
 	}, [dispatch]);
 
 	return (
@@ -96,7 +96,7 @@ const Cabinet: FC = () => {
 					<div className="page_coordinator">
 						<Link href="/">Главная</Link> | <span>Личный кабинет</span>
 					</div>
-					{/* <CabinetTabs />  */}
+					
 					{user?.user?.type === 'USER' && <CabinetTabs />}
 					{user?.user?.type === 'OWNER' ||
 						(user?.user?.type === 'ADMIN' && (
@@ -114,6 +114,7 @@ const Cabinet: FC = () => {
 
 					{/* {user?.user?.type === 'ADMIN' && <CabinetAdmin />} */}
 
+					{/* <CabinetTabs />  */}
 					<CabinetOwner
 						role={'OWNER'}
 						modalAddCAtegory={modalAddCAtegory}

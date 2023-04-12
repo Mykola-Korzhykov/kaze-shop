@@ -824,4 +824,14 @@ button[type='submit'] {
 	padding-left: 45px;
 	border-radius: 0;
 	transition: all 0.2s ease;
+	border: 2px solid #9d9d9d;
+}
+
+.auth_field div.auth_input input[type='tel'].auth_phoneInput .auth_dropdown {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	padding: 0;
+	background-color: #f5f5f5;
+	border: 1px solid red;
 }

@@ -10,6 +10,8 @@ import { ModalEditProduct } from '@/components/screens/Cabinet/CabinetOwner/Disp
 
 // state.modalAddEditProduct
 const EdirProduct: NextPage = () => {
+	//imagesData
+	const [images, setImages] = React.useState<File[]>([]);
 	const modalTurn = useSelector(
 		(state: RootState) => state.modaleSlice.modalAddEditProduct
 	);
@@ -39,7 +41,7 @@ const EdirProduct: NextPage = () => {
 						</div>
 
 						<div className={s.local_container}>
-							<EditProduct />
+							<EditProduct imagesData={images} setImages={setImages} />
 						</div>
 					</div>
 				</main>
