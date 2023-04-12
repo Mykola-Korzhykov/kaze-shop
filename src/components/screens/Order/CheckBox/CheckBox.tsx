@@ -1,19 +1,22 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useImperativeHandle, useRef, useState } from 'react';
 import { CheckBoxProps } from './CheckBox.interface';
 import cn from 'classnames';
-import s from './Checkbox.module.scss';
+import s from './Checkbox.module.scss'; 
 
-const CheckBox = ({ className, name, setCheck, checkView = 'checked', title, checked = false }: CheckBoxProps) => {
-    const inputRef = useRef<null | HTMLInputElement>()
+const CheckBox = React.forwardRef<HTMLInputElement, CheckBoxProps>(({ className, name, setCheck, onChange, checkView = 'checked', title, checked = false }: CheckBoxProps, ref) => {
+    const inputRef = useRef<null | HTMLInputElement>();
+
+    useImperativeHandle(ref, () => inputRef.current);
+
     const checkedInput = () => {
-        inputRef.current.click();
-        setCheck()
-    }
+        setCheck(inputRef.current.checked);
+    };
+
     return (
         <div className={cn(s.checkbox, className)}
         >
             <label onClick={checkedInput}>
-                <input ref={inputRef} type="checkbox" name={name} hidden />
+                <input ref={inputRef} type="checkbox" name={name} hidden onChange={onChange} />
                 <div className={cn(s.check, {
                     [s.active]: checked
                 })}
@@ -26,10 +29,14 @@ const CheckBox = ({ className, name, setCheck, checkView = 'checked', title, che
                         })}></b>
                     }
                 </div>
-                <h3>{title}</h3>
+                <h3 className={cn({
+                    [s.active]: checked
+                })}>{title}</h3>
             </label>
         </div>
     );
-};
+});
+
+CheckBox.displayName = 'CheckBox';
 
 export default CheckBox;

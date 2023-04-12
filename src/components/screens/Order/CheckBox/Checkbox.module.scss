@@ -18,7 +18,7 @@ $black-color:#0B0B0B;
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 30px;
+        min-width: 30px;
         height: 30px;
         transition: 0.3s border-color;
 
@@ -46,5 +46,10 @@ $black-color:#0B0B0B;
         font-size: 18px;
         line-height: 21px;
         color: $gray-color;
+        transition: 0.3s color;
+
+        &.active {
+            color: $black-color;
+        }
     }
 }

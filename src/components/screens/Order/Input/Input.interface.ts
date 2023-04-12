@@ -1,4 +1,5 @@
 import { DetailedHTMLProps } from 'react';
+import { ChangeHandler } from 'react-hook-form';
 
 export interface InputProps
 	extends DetailedHTMLProps<
@@ -10,4 +11,9 @@ export interface InputProps
 	placeholder: string;
 	type?: string;
 	errorMessage?: string;
+	onChange?: ChangeHandler;
+	onBlur?: ChangeHandler;
+	ref?: React.Ref<any>;
 }
+
+

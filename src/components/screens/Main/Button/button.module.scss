@@ -4,7 +4,7 @@
     gap: 30px;
     padding: 16px 24px;
     border: none;
-    transition: 0.4s background;
+    transition: 0.4s all;
     @media (max-width:576px) {
         @media (hover: none) {
             &.back {

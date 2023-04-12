@@ -1,0 +1,87 @@
+$black-color: #0B0B0B;
+$gray-color:#9D9D9D;
+$error-color: #E73232;
+
+.date {
+    font-family: sans-serif;
+
+    h3 {
+        font-style: normal;
+        font-weight: 300;
+        font-size: 20px;
+        line-height: 24px;
+        margin-bottom: 10px;
+    }
+
+    &_picker {
+        width: 100%;
+        padding: 14px 20px;
+        background-color: transparent;
+        outline: none;
+        color: $black-color;
+        border: 1.5px solid $gray-color;
+        transform: 0.4s all;
+
+        &::placeholder {
+            color: $gray-color;
+        }
+
+        &:focus {
+            border-color: $black-color;
+        }
+
+        &.active {
+            border-color: $black-color;
+        }
+
+        &.error {
+            border-color: $error-color;
+
+            &::placeholder {
+                color: $error-color;
+            }
+
+            &:focus {
+                border-color: $black-color;
+            }
+        }
+    }
+
+    &_wrapper {
+        position: relative;
+
+        .icon {
+            display: block;
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            top: calc(50% - 12px);
+            right: 20px;
+
+            &.active {
+                path {
+                    stroke: $black-color;
+                }
+            }
+
+            &.error {
+                path {
+                    stroke: $error-color;
+                }
+            }
+        }
+
+    }
+
+    .errorMessage {
+        display: block;
+        color: $error-color;
+        font-family: sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        margin-top: 10px;
+    }
+
+}

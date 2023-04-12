@@ -3,9 +3,13 @@ import s from './Input.module.scss';
 import { InputProps } from './Input.interface';
 import cn from 'classnames';
 
-const Input = ({ placeholder, name, label, errorMessage, type = 'text', className, ...props }: InputProps): JSX.Element => {
+const Input = React.forwardRef<HTMLInputElement, InputProps>(({ placeholder, name, label, errorMessage, type = 'text', onChange, onBlur, className, ...props }, ref): JSX.Element => {
     const [value, setValue] = useState<string>();
 
+    const changeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setValue(e.target.value);
+        onChange(e);
+    };
     return (
         <div className={s.wrapper}>
             <label htmlFor={name}>
@@ -19,14 +23,19 @@ const Input = ({ placeholder, name, label, errorMessage, type = 'text', classNam
                     type={type}
                     name={name}
                     placeholder={placeholder}
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
+                    onChange={changeValue}
+                    onBlur={onBlur}
+                    ref={ref}
                     {...props}
                 />
             </label>
-            <span className={cn(s.errorMessage, s.error)}>{errorMessage}</span>
+            <span
+                className={cn(s.errorMessage, s.error)}>{errorMessage}</span>
         </div>
     );
-};
+});
+
+Input.displayName = 'Input';
 
 export default Input;
+

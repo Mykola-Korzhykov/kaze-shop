@@ -119,3 +119,63 @@ export const FeedbackFormSchema = yup.object().shape({
 	surname: yup.string().required('Поле обязательное'),
 	review: yup.string().required('Поле обязательное'),
 });
+
+export const OrderFormStepOne = yup.object({
+	userName: yup.string().min(2, 'min 2 charset').max(25, 'max 25 charset'),
+	userSurname: yup.string().min(2, 'min 2 charset').max(25, 'max 25 charset'),
+	userEmail: yup
+		.string()
+		.email('invalid email')
+		.min(6, 'min 6 charset')
+		.max(30, 'max 30 charset'),
+	userPhoneNumber: yup.string().min(19, 'invalid phone'),
+	otherPerson: yup.boolean(),
+	otherPersonName: yup.string().when('otherPerson', {
+		is: true,
+		then: yup.string().min(2, 'min 2 charset').max(25, 'max 25 charset'),
+	}),
+	otherPersonSurname: yup.string().when('otherPerson', {
+		is: true,
+		then: yup.string().min(2, 'min 2 charset').max(25, 'max 25 charset'),
+	}),
+	otherPersonPhoneNumber: yup.string().when('otherPerson', {
+		is: true,
+		then: yup.string().min(19, 'invalid phone'),
+	}),
+});
+
+export type OrderFormStepOneData = yup.InferType<typeof OrderFormStepOne>;
+
+export const OrderFormStepTwo = yup.object({
+	country: yup.string().min(3, 'min 3 charset').max(25, 'max 25 charset'),
+	city: yup.string().min(3, 'min 3 charset').max(25, 'max 25 charset'),
+	сourierDelivery: yup.boolean(),
+	postOffice: yup.string().when('сourierDelivery', {
+		is: false,
+		then: yup.string().min(1, 'min 1 charset').max(15, 'max 15 charset'),
+	}),
+	street: yup.string().when('сourierDelivery', {
+		is: true,
+		then: yup.string().min(5, 'min 5 charset').max(25, 'max 25 charset'),
+	}),
+	house: yup.string().when('сourierDelivery', {
+		is: true,
+		then: yup.string().min(1, 'min 1 charset').max(10, 'max 10 charset'),
+	}),
+	apartment: yup.string().when('сourierDelivery', {
+		is: true,
+		then: yup.string().min(1, 'min 1 charset').max(10, 'max 10 charset'),
+	}),
+	anotherDate: yup.boolean(),
+	sendDate: yup.date().when('anotherDate', {
+		is: true,
+		then: yup
+			.date()
+			.typeError('enter the date')
+			.required('is a required field'),
+	}),
+	payInCash: yup.boolean(),
+	comment: yup.string().max(100, 'max 100 charset'),
+});
+
+export type OrderFormStepTwoData = yup.InferType<typeof OrderFormStepTwo>;

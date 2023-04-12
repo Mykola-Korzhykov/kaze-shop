@@ -4,6 +4,8 @@ import RoutesPath from '../Product/RoutesPath/RoutesPath';
 import StepOne from './StepOne/StepOne';
 import CartBlock from './CartBlock/CartBlock';
 import StepTitle from './StepTitle/OrderStep';
+import { useAppSelector } from '@/redux/hooks';
+import StepTwo from './StepTwo/StepTwo';
 
 const mocCartItem = {
     id: 1,
@@ -20,7 +22,7 @@ const mocCartItem = {
 const path = [{ path: 'Главная', href: '/' }, { path: 'Корзина', href: '/cart' }, { path: 'Оформление заказа', href: '/test' }];
 
 const Order = (): JSX.Element => {
-    const [handleCheck, setHandleCheck] = useState<boolean>(false);
+    const { stepOne, stepTwo } = useAppSelector(store => store.order);
 
     return (
         <div className={s.order}>
@@ -28,9 +30,10 @@ const Order = (): JSX.Element => {
                 <RoutesPath categories={path} className={s.path} />
                 <div className={s.form_block}>
                     <div className={s.step}>
-                        <StepTitle step={1} title='Контактная информация' active={true} className={s.step_one_title} />
+                        <StepTitle step={1} title='Контактная информация' active={stepOne !== 'success'} className={s.step_one_title} />
                         <StepOne />
-                        <StepTitle step={2} title='Доставка и оплата' active={false} className={s.step_two_title} />
+                        <StepTitle step={2} title='Доставка и оплата' active={stepOne === 'success'} className={s.step_two_title} />
+                        <StepTwo />
                     </div>
                     <CartBlock className={s.cart} />
                 </div>

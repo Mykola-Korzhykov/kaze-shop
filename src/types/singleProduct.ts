@@ -75,3 +75,16 @@ export interface Category {
 	createdAt: string;
 	updatedAt: string;
 }
+
+export const FormLoadStatus = {
+	idle: 'idle',
+	loading: 'loading',
+	error: 'error',
+	success: 'success',
+} as const;
+
+export interface FormLoadStatusType {
+	stepOne: typeof FormLoadStatus[keyof typeof FormLoadStatus];
+	stepTwo: typeof FormLoadStatus[keyof typeof FormLoadStatus];
+};
+
