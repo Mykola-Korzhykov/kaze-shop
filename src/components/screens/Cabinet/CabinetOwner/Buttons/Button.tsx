@@ -5,6 +5,11 @@ import Link from 'next/link';
 //types
 import { ButtonType } from '../../../../../types/auth';
 import { clearFormData } from '@/utils/clearFormData';
+import { useAppDispatch } from '@/redux/hooks';
+import { clearForm } from '@/redux/slices/formData';
+import { removeimageUrlArr } from '@/redux/slices/modal';
+import { RootState } from '@/redux/store';
+import { useSelector } from 'react-redux';
 
 interface ButtonProps {
 	id: number;
@@ -16,6 +21,9 @@ interface ButtonProps {
 	setNetFile: (f: File | any) => void;
 	setNetFileShow: (f: File | any) => void;
 	setImages: (f: File | any) => void;
+	setFiles: (a: any) => void;
+	setPngImageShow: (a: any) => void;
+	setJpgImagesShow: (a: any) => void;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -28,13 +36,24 @@ export const Button: React.FC<ButtonProps> = ({
 	setNetFile,
 	setNetFileShow,
 	setImages,
+	setFiles,
+	setPngImageShow,
+	setJpgImagesShow,
 }) => {
+	const dispatch = useAppDispatch();
+	const imageUrlArr = useSelector(
+		(state: RootState) => state.modaleSlice.imageUrlArr
+	);
 	function OKclearDataForm(id: number) {
 		if (id === 3 || id === 4) {
-			clearFormData();
 			setNetFile(null);
 			setNetFileShow(null);
 			setImages([]);
+			dispatch(clearForm());
+			dispatch(removeimageUrlArr({ from: 0, size: imageUrlArr.length }));
+			setFiles([]);
+			setPngImageShow(null);
+			setJpgImagesShow([]);
 		}
 	}
 	return (

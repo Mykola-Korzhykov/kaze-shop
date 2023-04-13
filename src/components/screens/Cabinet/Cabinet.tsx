@@ -55,6 +55,9 @@ const Cabinet: FC = () => {
 	);
 	//imagesData
 	const [images, setImages] = React.useState<File[]>([]);
+	const [files, setFiles] = React.useState<File[]>([]);
+	const [pngImageShow, setPngImageShow] = React.useState<File | null>(null);
+	const [jpgImagesShow, setJpgImagesShow] = React.useState<File[]>([]);
 
 	console.log('modalAddColorTurn', modalAddColorTurn);
 	React.useEffect(() => {
@@ -101,7 +104,7 @@ const Cabinet: FC = () => {
 					<div className="page_coordinator">
 						<Link href="/">Главная</Link> | <span>Личный кабинет</span>
 					</div>
-					
+
 					{user?.user?.type === 'USER' && <CabinetTabs />}
 					{user?.user?.type === 'OWNER' ||
 						(user?.user?.type === 'ADMIN' && (
@@ -114,6 +117,9 @@ const Cabinet: FC = () => {
 								modalAddPhoto={modalAddPhoto}
 								modalAddColor={modalAddColorTurn}
 								setModalAddColor={setModalAddColor}
+								setFiles={setFiles}
+								setPngImageShow={setPngImageShow}
+								setJpgImagesShow={setJpgImagesShow}
 							/>
 						))}
 
@@ -129,6 +135,9 @@ const Cabinet: FC = () => {
 						modalAddPhoto={modalAddPhoto}
 						modalAddColor={modalAddColorTurn}
 						setModalAddColor={setModalAddColor}
+						setFiles={setFiles}
+						setPngImageShow={setPngImageShow}
+						setJpgImagesShow={setJpgImagesShow}
 					/>
 
 					{/* <CabinetAdmin /> */}
@@ -166,6 +175,12 @@ const Cabinet: FC = () => {
 							setModalAddPhoto={setModalAddPhoto}
 							modalAddColor={modalAddColorTurn}
 							setModalAddColor={setModalAddColor}
+							files={files}
+							setFiles={setFiles}
+							pngImageShow={pngImageShow}
+							setPngImageShow={setPngImageShow}
+							jpgImagesShow={jpgImagesShow}
+							setJpgImagesShow={setJpgImagesShow}
 						/>
 					) : (
 						''
@@ -187,6 +202,12 @@ const Cabinet: FC = () => {
 							setModalAddPhoto={setModalAddPhoto}
 							modalAddColor={modalAddColorTurn}
 							setModalAddColor={setModalAddColor}
+							// files={files}
+							// setFiles={setFiles}
+							// pngImageShow={pngImageShow}
+							// setPngImageShow={setPngImageShow}
+							// jpgImagesShow={jpgImagesShow}
+							// setJpgImagesShow={setJpgImagesShow}
 						/>
 					)}
 

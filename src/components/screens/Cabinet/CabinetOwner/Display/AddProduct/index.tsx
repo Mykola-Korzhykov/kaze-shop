@@ -91,8 +91,6 @@ export const AddProduct = ({
 	netFileShow,
 	setNetFileShow,
 }: AddProductProps) => {
-	// const [netFile, setNetFile] = React.useState<null | any>(null);
-	// const [netFileShow, setNetFileShow] = React.useState<null | string>(null);
 	const [sizeChartClear, setSizeChartClear] = React.useState<number>(1);
 	// const NetData = useSelector((state: RootState)=> state.formData.netData)
 	const colors = useSelector((state: RootState) => state.goods.fetchedColours);

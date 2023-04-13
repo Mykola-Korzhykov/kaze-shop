@@ -42,12 +42,13 @@ interface ModuleWindiwProps {
 	modalAddColor?: boolean;
 	imagesData?: File[];
 	setImages?: (n: any) => void;
+	files: File[];
+	setFiles: (n: any) => void;
+	pngImageShow: File;
+	setPngImageShow: (n: any) => void;
+	jpgImagesShow: File[];
+	setJpgImagesShow: (n: any) => void;
 }
-
-// interface keyOfallValiedForm {
-//     key
-// }
-//setChoiceColor
 
 export const ModuleWindiw = ({
 	modalAddPhoto,
@@ -57,14 +58,20 @@ export const ModuleWindiw = ({
 	modalAddColor,
 	imagesData,
 	setImages,
+	setFiles,
+	files,
+	pngImageShow,
+	setPngImageShow,
+	jpgImagesShow,
+	setJpgImagesShow,
 }: ModuleWindiwProps) => {
 	const inputRef = React.useRef<HTMLInputElement>(null);
 
 	const dispatch = useAppDispatch();
 	//local state
-	const [files, setFiles] = React.useState<File[]>([]);
+	// const [files, setFiles] = React.useState<File[]>([]);
 	// const [arrObjMod, setArrObjMod] = React.useState([])
-	const [allFiles, setAllFiles] = React.useState([]);
+	// const [allFiles, setAllFiles] = React.useState([]);
 	//redux state
 	const allSizes = useSelector((state: RootState) => state.formData.allsizes);
 	const allcoloursId = useSelector(
@@ -91,12 +98,6 @@ export const ModuleWindiw = ({
 	const selectedColor = fetchColoursArr.find((el) => el.id === colourId);
 	const [checkForm, setCheckForm] = React.useState<boolean>(false);
 	//all valied forms
-
-	// pngImageShow,
-	//                         jpgImagesShow: jpgImagesShow,
-	//                         colourId: colourId,
-	//                         sizes: selectedSizes,
-
 	interface FormState {
 		pngImageShow: boolean;
 		jpgImagesShow: boolean;
@@ -111,8 +112,8 @@ export const ModuleWindiw = ({
 		sizes: false,
 	});
 
-	const [pngImageShow, setPngImageShow] = React.useState<File>(null);
-	const [jpgImagesShow, setJpgImagesShow] = React.useState<File[]>([]);
+	// const [pngImageShow, setPngImageShow] = React.useState<File | null>(null);
+	// const [jpgImagesShow, setJpgImagesShow] = React.useState<File[]>([]);
 
 	const newColoursArr = fetchColoursArr
 		? [

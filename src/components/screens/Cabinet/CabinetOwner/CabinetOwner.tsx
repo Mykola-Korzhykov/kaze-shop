@@ -81,6 +81,9 @@ interface CabinetOwnerProps {
 	modalAddColor: boolean;
 	setModalAddColor: (n: boolean) => void;
 	role: 'OWNER' | 'ADMIN' | 'USER';
+	setFiles: (a: any) => void;
+	setPngImageShow: (a: any) => void;
+	setJpgImagesShow: (a: any) => void;
 }
 
 export const CabinetOwner = ({
@@ -92,6 +95,9 @@ export const CabinetOwner = ({
 	setImages,
 	modalAddPhoto,
 	role,
+	setFiles,
+	setPngImageShow,
+	setJpgImagesShow,
 }: CabinetOwnerProps) => {
 	const buttonsObj: ButtonType[] =
 		role === 'OWNER'
@@ -362,6 +368,9 @@ export const CabinetOwner = ({
 							setNetFile={setNetFile}
 							setNetFileShow={setNetFileShow}
 							setImages={setImages}
+							setFiles={setFiles}
+							setPngImageShow={setPngImageShow}
+							setJpgImagesShow={setJpgImagesShow}
 						/>
 					);
 				})}
@@ -382,6 +391,9 @@ export const CabinetOwner = ({
 								setNetFile={setNetFile}
 								setNetFileShow={setNetFileShow}
 								setImages={setImages}
+								setFiles={setFiles}
+								setPngImageShow={setPngImageShow}
+								setJpgImagesShow={setJpgImagesShow}
 							/>
 						</Link>
 					);
