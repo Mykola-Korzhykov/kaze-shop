@@ -55,7 +55,6 @@ export const ModalEditProduct = ({
 	//local state
 	const [files, setFiles] = React.useState<File[]>([]);
 	// const [arrObjMod, setArrObjMod] = React.useState([])
-	const [allFiles, setAllFiles] = React.useState([]);
 	//redux state
 	const allSizes = useSelector((state: RootState) => state.formData.allsizes);
 	const allcoloursId = useSelector(
@@ -152,7 +151,7 @@ export const ModalEditProduct = ({
 			sizes: selectedSizes,
 		};
 
-		dispatch(editImagesFromModal(objShowLocal))
+		dispatch(editImagesFromModal(objShowLocal));
 
 		dispatch(setAllcoloursId(colourId));
 		dispatch(setAllsizes(obj.sizes));

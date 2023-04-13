@@ -188,15 +188,6 @@ const Cabinet: FC = () => {
 							setModalAddColor={setModalAddColor}
 						/>
 					)}
-					{/* {sentProductForm && <ModalSentForm />} */}
-					{/* {modalEditProductTurn ? (
-					<div
-						// style={{ height: '1450px' }}
-						className={s.backround_module}
-					></div>
-				) : (
-					''
-				)} */}
 
 					{/* {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  */}
 				</div>

@@ -200,6 +200,8 @@ export const CabinetOwner = ({
 		(state: RootState) => state.modaleSlice.sentProductForm
 	);
 	const [displayActive, setDisplayActive] = React.useState<number>(1);
+	const [netFile, setNetFile] = React.useState<null | any>(null);
+	const [netFileShow, setNetFileShow] = React.useState<null | string>(null);
 
 	// const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
 	// console.log('ChangeUserPassword', ChangeUserPassword)
@@ -333,12 +335,18 @@ export const CabinetOwner = ({
 			{/* { modalAddColorTurn &&
                 <div className={s.backround_for_modal}></div>
             } */}
-			{sentProductForm && <div className={s.backround_for_modal}></div>}
+			{sentProductForm.turn && <div className={s.backround_for_modal}></div>}
 			{modalAddCAtegoryTurn && <div className={s.backround_for_modal}></div>}
 			{modalEditProductTurn && <div className={s.backround_for_modal}></div>}
 			{modalAddPhotoTurn && <div className={s.backround_for_modal}></div>}
 			{modalAddPhotoTurn && <div className={s.backround_for_modal}></div>}
-			{sentProductForm && <ModalSentForm />}
+			{sentProductForm.turn && (
+				<ModalSentForm
+					title={sentProductForm.title}
+					subtitle={sentProductForm.subtitle}
+					btntitle={sentProductForm.btntitle}
+				/>
+			)}
 
 			<div className={s.nav_dekstop}>
 				{buttonsObj.map((obj, ind) => {
@@ -351,6 +359,9 @@ export const CabinetOwner = ({
 							img_white={obj.img_white}
 							img_grey={obj.img_grey}
 							text={obj.text}
+							setNetFile={setNetFile}
+							setNetFileShow={setNetFileShow}
+							setImages={setImages}
 						/>
 					);
 				})}
@@ -368,6 +379,9 @@ export const CabinetOwner = ({
 								img_white={obj.img_white}
 								img_grey={obj.img_grey}
 								text={obj.text}
+								setNetFile={setNetFile}
+								setNetFileShow={setNetFileShow}
+								setImages={setImages}
 							/>
 						</Link>
 					);
@@ -419,6 +433,10 @@ export const CabinetOwner = ({
 						modalAddColor={modalAddColor}
 						setModalAddColor={setModalAddColor}
 						modalAddPhoto={modalAddPhoto}
+						netFile={netFile}
+						setNetFile={setNetFile}
+						netFileShow={netFileShow}
+						setNetFileShow={setNetFileShow}
 					/>
 				) : (
 					''

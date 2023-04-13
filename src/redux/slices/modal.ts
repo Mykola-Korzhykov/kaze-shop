@@ -11,7 +11,12 @@ interface ModalType {
 	choiceColor: boolean;
 	countPhoto: number;
 	imageUrlArr: string[][];
-	sentProductForm: boolean;
+	sentProductForm: {
+		turn: boolean;
+		title: string;
+		subtitle: string;
+		btntitle: string;
+	};
 }
 
 const initialState: ModalType = {
@@ -23,7 +28,12 @@ const initialState: ModalType = {
 	//для отобржения фото после загрузки
 	imageUrlArr: [],
 	modalAddEditProduct: false,
-	sentProductForm: false,
+	sentProductForm: {
+		turn: false,
+		title: '',
+		subtitle: '',
+		btntitle: '',
+	},
 };
 
 // const [countPhoto, setCountPhoto] = React.useState<number>(1)
@@ -49,14 +59,28 @@ const modaleSlice = createSlice({
 		setImageUrl: (state, action: PayloadAction<string[]>) => {
 			state.imageUrlArr.push(action.payload);
 		},
-		removeimageUrlArr: (state, action: PayloadAction<number>) => {
-			state.imageUrlArr.splice(action.payload, 1);
+		removeimageUrlArr: (
+			state,
+			action: PayloadAction<{ from: number; size: number }>
+		) => {
+			state.imageUrlArr.splice(action.payload.from, action.payload.size);
 		},
 		setModalAddEditProduct: (state, action) => {
 			state.modalAddEditProduct = action.payload;
 		},
-		setProductForm: (state, action) => {
-			state.sentProductForm = action.payload;
+		setProductForm: (
+			state,
+			action: PayloadAction<{
+				turn: boolean;
+				title: string;
+				subtitle: string;
+				btntitle: string;
+			}>
+		) => {
+			state.sentProductForm.turn = action.payload.turn;
+			state.sentProductForm.title = action.payload.title;
+			state.sentProductForm.subtitle = action.payload.subtitle;
+			state.sentProductForm.btntitle = action.payload.btntitle;
 		},
 	},
 });

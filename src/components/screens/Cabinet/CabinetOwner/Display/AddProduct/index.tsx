@@ -17,13 +17,9 @@ import {
 	removeimageUrlArr,
 	setModalAddCAtegory,
 } from '../../../../../../redux/slices/modal';
-import { InputTextItem } from './InputText';
-// import {ModalAddCategory} from '../AddProduct/ModalAddCategory'
+// import { InputTextItem } from './InputText';
 import { setAddPhotoState } from '../../../../../../redux/slices/admin';
 import { useAppDispatch } from '@/redux/hooks';
-// import { ModuleWindiw } from "./ModuleWindow"
-// import {SizeItem} from './SizesItem'
-// import {setNetData} from '../../../../../../redux/slices/formData'
 import { setProductForm } from '@/redux/slices/modal';
 import { SizeChart } from './sizeChart';
 import axios from 'axios';
@@ -33,15 +29,17 @@ import Image from 'next/image';
 import selectIcon from '../../../../../../assets/icons/cabinetAdmin/selectIcon.svg';
 
 interface AddProductProps {
-	// setModalAddPhoto: (n: boolean)=> void,
 	modalAddPhoto: boolean;
 	setModalAddColor: (n: boolean) => void;
 	modalAddColor?: boolean;
-	// countPhoto: number,
 	setCountPhoto: (n: number) => void;
 	imagesData: File[];
 	setImages: (n: any) => void;
 	modalAddCAtegory: boolean;
+	netFile: File;
+	setNetFile: (f: File) => void;
+	netFileShow: string;
+	setNetFileShow: (s: string) => void;
 }
 
 interface formDataType {
@@ -88,9 +86,14 @@ export const AddProduct = ({
 	imagesData,
 	setImages,
 	modalAddCAtegory,
+	netFile,
+	setNetFile,
+	netFileShow,
+	setNetFileShow,
 }: AddProductProps) => {
-	const [netFile, setNetFile] = React.useState<null | any>(null);
-	const [netFileShow, setNetFileShow] = React.useState<null | string>(null);
+	// const [netFile, setNetFile] = React.useState<null | any>(null);
+	// const [netFileShow, setNetFileShow] = React.useState<null | string>(null);
+	const [sizeChartClear, setSizeChartClear] = React.useState<number>(1);
 	// const NetData = useSelector((state: RootState)=> state.formData.netData)
 	const colors = useSelector((state: RootState) => state.goods.fetchedColours);
 	//statesRedux
@@ -122,8 +125,8 @@ export const AddProduct = ({
 	const allsizes = useSelector((state: RootState) => state.formData.allsizes);
 	const [checkForm, setCheckForm] = React.useState<boolean>(false);
 	const formData = useSelector((state: RootState) => state.formData);
+	const inputRef = React.useRef(null);
 
-	//
 	const arrObjMods = useSelector(
 		(state: RootState) => state.formData.arrObjMod
 	);
@@ -202,9 +205,7 @@ export const AddProduct = ({
 
 		console.log('formDataselectedImages', formData.get('selectedImages'));
 		console.log('formDataimages', formData.get('images'));
-		// console.log("formDataCheckimages", formData.get('images'));
-		// console.log("formDataCheckprice", formData.get('price'));
-		// console.log("formDataChecksizeChartImage", formData.get('sizeChartImage'));
+
 		axios
 			.put('/product/create_product', formData, {
 				baseURL: API_URL,
@@ -220,42 +221,53 @@ export const AddProduct = ({
 			.catch((error) => {
 				console.error('There was an error!', error);
 			});
-		dispatch(setProductForm(true));
+		dispatch(
+			setProductForm({
+				turn: true,
+				title: 'Товар успешно добавлен',
+				subtitle: ' Нажмите “Готово” для того. чтобы продолжить',
+				btntitle: 'готово',
+			})
+		);
+		dispatch(clearForm());
+		dispatch(removeimageUrlArr({ from: 0, size: imageUrlArr.length }));
+		setImages([]);
+		setCountPhoto(0);
+		dispatch(removearrObjMod({ from: 0, size: arrObjMods.length }));
 
-		// console.log("formDataChecktitle", formData.get('title'));
-		// console.log("formDataCheckimages", formData.get('images'));
-		// console.log("formDataCheckprice", formData.get('price'));
-		// console.log("formDataChecksizeChartImage", formData.get('sizeChartImage'));
+		console.log('inputRefsmdmmdmdmdmdmdmdmdmd', inputRefs);
 
-		console.log('inputRefs', inputRefs);
-		inputRefs.current.forEach((inputRef) => {
-			inputRef.value = '';
+		let inputsSizeChart = inputRefs.current.filter((el) => {
+			return el !== undefined;
 		});
-
-		console.log('objDataSendInnerForm', objDataSend);
+		for (let i = 0; i < inputs.length; i++) {
+			inputsSizeChart[i].value = '';
+		}
+		setNetFileShow(null);
+		setNetFile(null);
 	}
 
 	const SizeChartArr = [
 		{
-			id: 1,
+			id: 11,
 			title: ' Описание размерной сетки UA',
 			placeholder: 'Введите описание размерной сетки',
 			leng: 'ua',
 		},
 		{
-			id: 2,
+			id: 12,
 			title: ' Описание размерной сетки RU',
 			placeholder: 'Введите описание размерной сетки',
 			leng: 'ru',
 		},
 		{
-			id: 3,
+			id: 13,
 			title: ' Описание размерной сетки SRB',
 			placeholder: 'Введите описание размерной сетки',
 			leng: 'rs',
 		},
 		{
-			id: 4,
+			id: 14,
 			title: ' Описание размерной сетки ENG',
 			placeholder: 'Введите описание размерной сетки',
 			leng: 'en',
@@ -384,8 +396,6 @@ export const AddProduct = ({
 		},
 	]);
 
-	const inputRefs = useRef([]);
-
 	interface InputsStateValidType {
 		[key: number]: boolean;
 	}
@@ -505,13 +515,20 @@ export const AddProduct = ({
 		// console.log('Пользователь закончил ввод:', event.target.value);
 	}
 
+	const inputRefs = useRef([]);
+
+	React.useEffect(() => {
+		// Назначаем каждой ссылке соответствующий элемент
+		inputRefs.current = inputRefs.current.slice(0, inputs.length);
+	}, [inputs]);
+
 	return (
 		<div className={s.wrapper}>
 			<form className={s.from} action="/submit-form" method="post">
 				<div className={s.inputs_text}>
 					<div className={s.inputs_wrapper}>
 						<div className={s.wrapper_inner}>
-							{inputsFistWrapper_1?.map((obj) => {
+							{inputsFistWrapper_1?.map((obj, index) => {
 								return (
 									<div key={obj.id} className={s.wrapper_inner_input}>
 										<div className={s.title}>
@@ -521,6 +538,7 @@ export const AddProduct = ({
 
 										{obj.disable == false && obj.type === 'text' && (
 											<input
+												ref={(ref) => (inputRefs.current[obj.id] = ref)}
 												id={`${obj.id}`}
 												name={obj.name}
 												onChange={(e) => {
@@ -577,6 +595,7 @@ export const AddProduct = ({
 
 										{obj.disable == false && obj.type === 'text' && (
 											<input
+												ref={(ref) => (inputRefs.current[obj.id] = ref)}
 												id={`${obj.id}`}
 												name={obj.name}
 												onChange={(e) => {
@@ -633,6 +652,7 @@ export const AddProduct = ({
 										</div>
 										{obj.disable == false && obj.type === 'text' && (
 											<input
+												ref={(ref) => (inputRefs.current[obj.id] = ref)}
 												id={`${obj.id}`}
 												name={obj.name}
 												onChange={(e) => {
@@ -686,6 +706,7 @@ export const AddProduct = ({
 
 										{obj.disable == false && obj.type === 'text' && (
 											<input
+												ref={(ref) => (inputRefs.current[obj.id] = ref)}
 												id={`${obj.id}`}
 												name={obj.name}
 												onChange={(e) => {
@@ -744,6 +765,7 @@ export const AddProduct = ({
 												htmlFor={`${obj.id}`}
 											>
 												<input
+													ref={(ref) => (inputRefs.current[obj.id] = ref)}
 													onClick={(e) => {
 														console.log('[[[[[');
 														setCategoriesDisplay(!categoriesDisplay);
@@ -860,6 +882,7 @@ export const AddProduct = ({
 											</label>
 										) : (
 											<input
+												ref={(ref) => (inputRefs.current[obj.id] = ref)}
 												id={`${obj.id}`}
 												onChange={(e) => {
 													setInputsState((prevState: any) => {
@@ -913,6 +936,7 @@ export const AddProduct = ({
 									<div key={obj.id} className={s.wrapper_inner_input}>
 										<div className={s.title}>{obj.text}</div>
 										<input
+											ref={(ref) => (inputRefs.current[obj.id] = ref)}
 											id={`${obj.id}`}
 											onChange={(e) => {
 												setInputsState((prevState: any) => {
@@ -1015,12 +1039,9 @@ export const AddProduct = ({
 										{arrObjMods[ind] ? (
 											<span
 												onClick={(e) => {
-													dispatch(removearrObjMod(ind));
-													dispatch(removeimageUrlArr(ind));
+													dispatch(removearrObjMod({ from: ind, size: 1 }));
+													dispatch(removeimageUrlArr({ from: ind, size: 1 }));
 
-													// console.log('removearrObjMod', removearrObjMod)
-													// console.log('click', ind)
-													// console.log('arrObjMods', arrObjMods)
 													e.stopPropagation();
 												}}
 												style={{
@@ -1055,38 +1076,10 @@ export const AddProduct = ({
 													height={200}
 													onError={(
 														e: React.SyntheticEvent<HTMLImageElement, Event>
-													) => {
-														//   if(imageUrlArr[ind]){
-														//   }else{
-														//     const target = e.target as HTMLImageElement;
-														//     // console.log('Error loading image:', target.src);
-														//     // console.log('imageUrlArr', imageUrlArr)
-														//     target.style.display = 'none';
-														//   }
-													}}
+													) => {}}
 												/>
 											);
 										})}
-										{/* {imageUrlArr[ind].fileNames.map((el)=>{
-                                    console.log('el', el)
-                                    console.log('arrObjMods[ind]', arrObjMods[ind])
-                                    return  <Image
-                                    className={ imageUrlArr[ind] ?    s.photo_item : s.photo_item_off }
-                                    src={imageUrlArr[ind] ? imageUrlArr[ind] : ''}
-                                    alt=""
-                                    width={200}
-                                    height={200}
-                                    onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-                                    //   if(imageUrlArr[ind]){
-                                    //   }else{
-                                    //     const target = e.target as HTMLImageElement;
-                                    //     // console.log('Error loading image:', target.src);
-                                    //     // console.log('imageUrlArr', imageUrlArr)
-                                    //     target.style.display = 'none';
-                                    //   }
-                                    }}
-                                    />
-                                })} */}
 									</div>
 								</div>
 							);
@@ -1099,6 +1092,7 @@ export const AddProduct = ({
 						return (
 							<SizeChart
 								key={obj.id}
+								inputRefs={inputRefs}
 								leng={obj.leng}
 								id={obj.id}
 								placeholder={obj.placeholder}
@@ -1106,17 +1100,11 @@ export const AddProduct = ({
 								valid={validChartState[obj.id]}
 								setValid={setValidChartState}
 								checkForm={checkForm}
+								sizeChartClear={sizeChartClear}
+								setSizeChartClear={setSizeChartClear}
 							/>
 						);
 					})}
-
-					{/* <span className={s.item_wrapper_1}>
-                        Описание размерной сетки
-                        <input onBlur={(e)=>{
-                            dispatch(setNetData(e.target.value))
-                            e.target.value = e.target.value
-                        }}  key={1}  className={s.item_1} placeholder="Введите описание размерной сетки" type="text" />
-                    </span> */}
 
 					<span className={s.item_wrapper_2}>
 						Загрузите размерную сетку
@@ -1131,8 +1119,6 @@ export const AddProduct = ({
 						>
 							Загрузить размерную сетку
 						</label>
-						{/* label_invalabel */}
-						{/* color: (!checkForm || (checkForm && netFileShow !== null)) ? '' : 'red' */}
 						<input
 							key={2}
 							onChange={(e) => {
@@ -1190,32 +1176,6 @@ export const AddProduct = ({
 				</div>
 
 				{/* module */}
-
-				{/* <div className={s.module_wrapper}>
-                    <div className={s.module_inner}>
-                        <div className={s.title_wrapper}>
-                            <div className={s.title}>Добавить фотографию</div>
-                            <div className={s.subtitle}>Для того, чтобы добавить фотографию</div>
-                        </div>
-
-                        <div className={s.inputs_wrapper}>
-                            <div className={s.input_inner}>
-                                <span className={s.title}>Фотография в png и jpg</span>
-                                <input placeholder='Загрузите фотографию' type="text" />
-                            </div>
-                            <div className={s.input_inner}>
-                                <span className={s.title}>Размер</span>
-                                <input placeholder='Выбрать размер фотографии' type="text" />
-                            </div>
-
-                            <div className={s.sizes}>
-                                {sizesArr.map((el)=>{
-                                    return <SizeItem size={el.size} />
-                                })}
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
 
 				{checkForm && (
 					<div className={s.check_form}>

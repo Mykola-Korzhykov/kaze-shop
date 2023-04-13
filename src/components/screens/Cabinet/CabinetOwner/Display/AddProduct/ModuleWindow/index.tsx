@@ -111,7 +111,6 @@ export const ModuleWindiw = ({
 		sizes: false,
 	});
 
-	//images local show
 	const [pngImageShow, setPngImageShow] = React.useState<File>(null);
 	const [jpgImagesShow, setJpgImagesShow] = React.useState<File[]>([]);
 
@@ -224,17 +223,6 @@ export const ModuleWindiw = ({
 		}
 	};
 
-	// React.useEffect(()=>{
-	//     if(pngImageShow){
-	//         const urls = pngImageShow.map((el: any) => URL.createObjectURL(el))
-	//         setPngImageShowUrl(urls)
-	//     }
-	// }, [pngImageShow])
-
-	// React.useEffect(() => {
-	// 	dispatch(fetchColours());
-	// }, []);
-
 	return (
 		<div
 			style={
@@ -306,7 +294,6 @@ export const ModuleWindiw = ({
 							<input
 								accept="image/png"
 								disabled={pngImageShow ? true : false}
-								// accept={jpgImage ? '' : 'e'}
 								key={Math.random()}
 								ref={inputRef}
 								onChange={handleFileUploadPng}

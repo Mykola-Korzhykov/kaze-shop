@@ -177,23 +177,25 @@ export const formData = createSlice({
 		) => {
 			state.arrObjMod.push(action.payload);
 		},
-		removearrObjMod: (state, action: PayloadAction<number>) => {
-			console.log('click state ');
-			state.arrObjMod.splice(action.payload, 1);
+		removearrObjMod: (
+			state,
+			action: PayloadAction<{ from: number; size: number }>
+		) => {
+			state.arrObjMod.splice(action.payload.from, action.payload.size);
 		},
 		setImages: (state, action: PayloadAction<File>) => {
 			state.images.push(action.payload);
 		},
 		clearForm: (state) => {
-			state.title.ua = null;
-			state.title.ru = null;
-			state.title.rs = null;
-			state.title.en = null;
+			state.title.ua = '';
+			state.title.ru = '';
+			state.title.rs = '';
+			state.title.en = '';
 
-			state.description.ua = null;
-			state.description.ru = null;
-			state.description.rs = null;
-			state.description.en = null;
+			state.description.ua = '';
+			state.description.ru = '';
+			state.description.rs = '';
+			state.description.en = '';
 
 			state.sizeChartImageDescription.ua = '';
 			state.sizeChartImageDescription.ru = '';
