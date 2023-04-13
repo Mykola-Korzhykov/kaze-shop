@@ -26,6 +26,7 @@ type GoodsSlice = {
 	} | null;
 	loadingStatus: 'loading' | 'error' | 'idle';
 	cartLoadingStatus: 'loading' | 'error' | 'idle';
+	catalogLoadingStatus: 'loading' | 'error' | 'idle';
 	page: number;
 	totalProducts: number;
 	language: 'ua' | 'rs' | 'en' | 'ru';
@@ -234,6 +235,7 @@ const initialState: GoodsSlice = {
 	basketOfProducts: null,
 	loadingStatus: 'idle',
 	cartLoadingStatus: 'idle',
+	catalogLoadingStatus: 'idle',
 	sortType: '',
 	totalProducts: 0,
 	errors: '',
@@ -414,25 +416,32 @@ const goodsSlice = createSlice({
 		setUpdateCompareProduct(state, action: PayloadAction<sendProductToCart>) {
 			state.updateCompareProduct = action.payload;
 		},
-		setLoadingStatus(state, action: PayloadAction<'loading' | 'error' | 'idle'>) {
+		setLoadingStatus(
+			state,
+			action: PayloadAction<'loading' | 'error' | 'idle'>
+		) {
 			state.loadingStatus = action.payload;
 		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchGoods.fulfilled, (state, action) => {
 			state.loadingStatus = 'idle';
+			state.catalogLoadingStatus = 'idle';
 			state.goods = action.payload.products;
 			state.totalProducts = action.payload.totalProducts;
 		}),
 			builder.addCase(fetchGoods.pending, (state) => {
 				state.loadingStatus = 'loading';
+				state.catalogLoadingStatus = 'loading';
 			}),
 			builder.addCase(fetchGoods.rejected, (state, action) => {
 				state.loadingStatus = 'error';
+				state.catalogLoadingStatus = 'error';
 				state.errors = action.payload;
 			}),
 			builder.addCase(filterGoods.fulfilled, (state, action) => {
 				state.loadingStatus = 'idle';
+
 				state.goods = action.payload.products;
 				state.totalProducts = action.payload.totalProducts;
 			}),
