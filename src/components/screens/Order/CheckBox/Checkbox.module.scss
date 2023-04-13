@@ -1,0 +1,55 @@
+$gray-color: #9D9D9D;
+$black-color:#0B0B0B;
+
+.checkbox {
+    font-family: sans-serif;
+    display: flex;
+
+    label {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        cursor: pointer;
+    }
+
+    .check {
+        border: 2px solid $gray-color;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 30px;
+        height: 30px;
+        transition: 0.3s border-color;
+
+        &.active {
+            border-color: $black-color;
+        }
+
+        .checked {
+            width: 24px;
+            height: 24px;
+            display: block;
+            background: url('../../../../assets/icons/Order/CheckBox_checked.svg') center/cover no-repeat;
+        }
+
+        .square {
+            width: 16px;
+            height: 16px;
+            display: block;
+            background: $black-color;
+        }
+    }
+
+    h3 {
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 21px;
+        color: $gray-color;
+        transition: 0.3s color;
+
+        &.active {
+            color: $black-color;
+        }
+    }
+}

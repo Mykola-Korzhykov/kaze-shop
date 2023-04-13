@@ -54,7 +54,7 @@ import {
 } from '../../../../redux/slices/admin';
 import axios from 'axios';
 import LogoutModal from '@/components/modals/LogoutModal/LogoutModal';
-import ChangeUserPassword from '../../../ChangeUserPassword/ChangeUserPassword';
+import ChangeUserPassword from '../../../UserCabinet/ChangeUserPassword/ChangeUserPassword';
 import { UsersAdmin } from '../../../../components/screens/Cabinet/CabinetOwner/Display/UsersAdmin';
 import { UsersRole } from '../../../../components/screens/Cabinet/CabinetOwner/Display/UsersRole';
 import { ModalSentForm } from './Display/AddProduct/ModalSentForm';
@@ -441,7 +441,11 @@ export const CabinetOwner = ({
 				) : (
 					''
 				)}
-				{displayActive === 4 ? <EditProduct /> : ''}
+				{displayActive === 4 ? (
+					<EditProduct imagesData={imagesData} setImages={setImages} />
+				) : (
+					''
+				)}
 				{displayActive === 5 ? (
 					<div>
 						{' '}

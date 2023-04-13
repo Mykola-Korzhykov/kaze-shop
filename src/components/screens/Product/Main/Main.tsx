@@ -33,7 +33,9 @@ const Main = ({ id, title, description, price, images, sizes, quantity, categori
     const availableColors = images.filter(el => {
         const result = el.sizes.find(sizeItem => sizeItem.replace(/ /g, '') === sizes[activeSize].replace(/ /g, ''));
         return result;
-    })
+    });
+
+    const path = [{ path: 'Главная', href: '/' }, { path: 'Каталог', href: '/catalog' }, { path: categories[0].ua, href: '/test' }];
 
     const renderSlider = availableColors.map((el, i) => {
         if (activeColor === i) {
@@ -52,7 +54,7 @@ const Main = ({ id, title, description, price, images, sizes, quantity, categori
         <div className={s.main}>
             <div className={s.main_box}>
                 <div className={cn("container", s.main_bg)}>
-                    <RoutesPath categories={categories[0].ru} />
+                    <RoutesPath categories={path} />
 
                     <div className={s.main_wrapper}>
                         <div className={s.title}>

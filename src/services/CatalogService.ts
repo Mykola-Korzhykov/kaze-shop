@@ -1,5 +1,5 @@
 import {} from '@/types/auth';
-import { CartProduct, sendProductToCart } from '@/types/goods';
+import { CartProduct, EditProduct, sendProductToCart } from '@/types/goods';
 import { AxiosInstance, AxiosResponse } from 'axios';
 import { API_URL } from './index';
 export const GoodsApi = (instance: AxiosInstance) => ({
@@ -67,6 +67,16 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		);
 		return data;
 	},
+	async updateEditProduct(
+		productId: number,
+		product: EditProduct
+	) {
+		const { data } = await instance.patch(
+			`product/update_product?productId=${productId}`,
+			product
+		);
+		return data;
+	},
 	async deleteProduct(cartProductId: number) {
 		const { data } = await instance.delete(
 			`cart/deleteProduct?cartProductId=${cartProductId}`
@@ -110,3 +120,4 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		return data;
 	},
 });
+

@@ -447,6 +447,7 @@
 
 .modal {
 	position: fixed;
+	overflow-y: scroll;
 	z-index: 10000;
 	left: 0;
 	top: 0;
@@ -465,10 +466,10 @@
 		align-items: center;
 		justify-content: center;
 		@media (max-width: 1034px) {
-			margin: 15% auto;
+			margin: 10% auto;
 		}
 		@media (max-width: 500px) {
-			margin: 22% auto;
+			margin: 20% auto;
 		}
 		@media (max-width: 640px) {
 			width: 90%;

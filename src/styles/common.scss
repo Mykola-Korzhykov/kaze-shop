@@ -177,32 +177,32 @@
 		}
 	}
 
-	&_phoneInput {
-		font-family: 'Georama', sans-serif !important;
-		font-style: normal !important;
-		font-weight: 400 !important;
-		font-size: 18px !important;
-		line-height: 22px !important;
-		color: #9d9d9d !important;
-		width: 95%;
-		border: none !important;
-		outline: none !important;
-		position: relative;
-		height: auto !important;
-		padding-left: 30px !important;
-	}
+	// &_phoneInput {
+	// 	font-family: 'Georama', sans-serif !important;
+	// 	font-style: normal !important;
+	// 	font-weight: 400 !important;
+	// 	font-size: 18px !important;
+	// 	line-height: 22px !important;
+	// 	color: #9d9d9d !important;
+	// 	width: 95%;
+	// 	border: none !important;
+	// 	outline: none !important;
+	// 	position: relative;
+	// 	height: auto !important;
+	// 	padding-left: 30px !important;
+	// }
 
-	&_dropdown {
-		border-radius: 0px !important;
-		left: 0 !important;
-	}
-	&_more {
-		font-size: 18px;
+	// &_dropdown {
+	// 	border-radius: 0px !important;
+	// 	left: 0 !important;
+	// }
+	// &_more {
+	// 	font-size: 18px;
 
-		@media (max-width: 800px) {
-			text-align: center;
-		}
-	}
+	// 	@media (max-width: 800px) {
+	// 		text-align: center;
+	// 	}
+	// }
 	&_detail {
 		display: flex;
 		justify-content: space-between;
@@ -489,52 +489,52 @@
 	}
 }
 
-.react-tel-input div.flag-dropdown {
-	left: 0 !important;
-	border-radius: 0px !important;
-	border: none !important;
-	border: 2px solid #9d9d9d !important;
-	width: 50px !important;
-	border-right: none !important;
-	background: none !important;
-	transition: all 0.2s ease !important;
-}
+// .react-tel-input div.flag-dropdown {
+// 	left: 0 !important;
+// 	border-radius: 0px !important;
+// 	border: none !important;
+// 	border: 2px solid #9d9d9d !important;
+// 	width: 50px !important;
+// 	border-right: none !important;
+// 	background: none !important;
+// 	transition: all 0.2s ease !important;
+// }
 
-.react-tel-input .selected-flag {
-	width: 50px !important;
-	border-right: 2px solid #9d9d9d !important;
-	background: none !important;
-	padding-left: 12px !important;
-	transition: all 0.2s ease !important;
-}
+// .react-tel-input .selected-flag {
+// 	width: 50px !important;
+// 	border-right: 2px solid #9d9d9d !important;
+// 	background: none !important;
+// 	padding-left: 12px !important;
+// 	transition: all 0.2s ease !important;
+// }
 
-.react-tel-input .form-control {
-	padding-left: 70px !important;
-	border: 2px solid #9d9d9d !important;
-	border-radius: 0 !important;
-	color: #0b0b0b !important;
-	transition: all 0.2s ease !important;
-	width: 100% !important;
+// .react-tel-input .form-control {
+// 	padding-left: 70px !important;
+// 	border: 2px solid #9d9d9d !important;
+// 	border-radius: 0 !important;
+// 	color: #0b0b0b !important;
+// 	transition: all 0.2s ease !important;
+// 	width: 100% !important;
 
-	&:focus {
-		& ~ .flag-dropdown .selected-flag,
-		& ~ .flag-dropdown {
-			border-right-color: #0b0b0b !important;
-			border-color: #0b0b0b !important;
-			transition: all 0.2s ease;
-		}
+// 	&:focus {
+// 		& ~ .flag-dropdown .selected-flag,
+// 		& ~ .flag-dropdown {
+// 			border-right-color: #0b0b0b !important;
+// 			border-color: #0b0b0b !important;
+// 			transition: all 0.2s ease;
+// 		}
 
-		border-color: #0b0b0b !important;
-	}
-}
+// 		border-color: #0b0b0b !important;
+// 	}
+// }
 
-.react-tel-input .country-list .country {
-	background-color: #f1f1f1 !important;
-}
+// .react-tel-input .country-list .country {
+// 	background-color: #f1f1f1 !important;
+// }
 
-.react-tel-input .country-list .country.highlight {
-	background-color: #fff !important;
-}
+// .react-tel-input .country-list .country.highlight {
+// 	background-color: #fff !important;
+// }
 
 /* ---- Scroll ---- */
 ::-webkit-scrollbar-track {
@@ -802,4 +802,36 @@ button[type='submit'] {
 	position: fixed;
 	background-color: #9d9d9d;
 	opacity: 0.3;
+}
+
+//auth
+
+.auth_field div.auth_input {
+	width: 100%;
+	position: relative;
+}
+
+.auth_field div.auth_input input[type='tel'].auth_phoneInput {
+	font-family: 'Georama', sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 18px;
+	line-height: 22px;
+	color: #9d9d9d;
+	width: 100%;
+	position: relative;
+	height: auto;
+	padding-left: 45px;
+	border-radius: 0;
+	transition: all 0.2s ease;
+	border: 2px solid #9d9d9d;
+}
+
+.auth_field div.auth_input input[type='tel'].auth_phoneInput .auth_dropdown {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	padding: 0;
+	background-color: #f5f5f5;
+	border: 1px solid red;
 }

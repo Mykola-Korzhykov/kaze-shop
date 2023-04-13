@@ -1,0 +1,49 @@
+$bg-color: #F2F2F0;
+$black-700: #0B0B0B;
+$black-300: #0b0b0b4d;
+
+
+.details {
+    background-color: $bg-color;
+    height: 100vh;
+    padding-top: 80px;
+
+    .routes {
+        margin-top: 24px;
+    }
+
+    &_order {
+        padding-top: 120px;
+        text-align: center;
+        max-width: 810px;
+        margin: 0 auto;
+        font-family: sans-serif;
+
+        h1 {
+            font-family: 'Russo One';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 40px;
+            line-height: 48px;
+            color: $black-700;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-style: normal;
+            font-weight: 300;
+            font-size: 24px;
+            line-height: 29px;
+            color: $black-300;
+            margin-bottom: 40px;
+        }
+    }
+
+
+
+    .link {
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+    }
+}

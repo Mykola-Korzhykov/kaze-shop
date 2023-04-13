@@ -8,6 +8,7 @@ import main from './slices/main';
 import formData from './slices/formData';
 import modaleSlice from './slices/modal';
 import editProduct from './slices/editProduct';
+import order from './slices/order';
 export function makeStore() {
 	return configureStore({
 		reducer: {
@@ -18,6 +19,7 @@ export function makeStore() {
 			formData,
 			modaleSlice,
 			editProduct,
+			order,
 		},
 	});
 }

@@ -1,24 +1,25 @@
-import React, { FC } from 'react'
-import cl from '../../../styles/cabinet.module.scss'
-import ChangeUserInfo from '@/components/ChangeUserInfo/ChangeUserInfo'
-import ChangeUserPassword from '@/components/ChangeUserPassword/ChangeUserPassword'
-import LogoutModal from '@/components/modals/LogoutModal/LogoutModal'
+import React, { FC } from 'react';
+import cl from '../../../styles/cabinet.module.scss';
+import ChangeUserInfo from '@/components/UserCabinet/ChangeUserInfo/ChangeUserInfo';
+import ChangeUserPassword from '@/components/UserCabinet/ChangeUserPassword/ChangeUserPassword';
+import SavedProducts from '@/components/UserCabinet/SavedProducts/SavedProducts';
+import LogoutModal from '@/components/modals/LogoutModal/LogoutModal';
 const CabinetTabs: FC = () => {
-	const [selectedTab, setSelectedTab] = React.useState<number | null>(1)
+	const [selectedTab, setSelectedTab] = React.useState<number | null>(1);
 
 	const toggleTab = React.useCallback(
 		(e: React.MouseEvent<HTMLButtonElement>) => {
 			const tabIndex = (e.target as HTMLButtonElement).getAttribute(
 				'data-tabindex'
-			)
+			);
 
-			const tabNumber = tabIndex || 1
-			setSelectedTab(+tabNumber)
-			const elX = e.clientX
-			window.scrollTo({ top: elX / 10, behavior: 'smooth' })
+			const tabNumber = tabIndex || 1;
+			setSelectedTab(+tabNumber);
+			const elX = e.clientX;
+			window.scrollTo({ top: elX / 10, behavior: 'smooth' });
 		},
 		[]
-	)
+	);
 
 	// console.log('ChangeUserPassword', ChangeUserPassword)
 
@@ -66,20 +67,31 @@ const CabinetTabs: FC = () => {
 					{selectedTab === 2 && <ChangeUserPassword />}
 				</div>
 				<div className={cl.cabinet_tab}>
-					<button className={cl.cabinet_tablink}>
+					<button data-tabindex={3} className={cl.cabinet_tablink}>
 						<span
 							className={`${cl.cabinet_icon} ${cl.cabinet_icon_history}`}
 						></span>
 						История заказов
 					</button>
 				</div>
-				<div className={cl.cabinet_tab}>
-					<button className={cl.cabinet_tablink}>
+				<div
+					className={selectedTab === 4 ? cl.cabinet_tab_active : cl.cabinet_tab}
+				>
+					<button
+						data-tabindex={4}
+						onClick={toggleTab}
+						className={
+							selectedTab === 4
+								? `${cl.cabinet_tablink} ${cl.cabinet_borderBottom}`
+								: cl.cabinet_tablink
+						}
+					>
 						<span
 							className={`${cl.cabinet_icon} ${cl.cabinet_icon_bookmarks}`}
 						></span>
 						Закладки
 					</button>
+					{selectedTab === 4 && <SavedProducts />}
 				</div>
 				<div className={cl.cabinet_tab}>
 					<button className={cl.cabinet_tablink}>
@@ -111,7 +123,7 @@ const CabinetTabs: FC = () => {
 				</div>
 			</div>
 		</>
-	)
-}
+	);
+};
 
-export default CabinetTabs
+export default CabinetTabs;

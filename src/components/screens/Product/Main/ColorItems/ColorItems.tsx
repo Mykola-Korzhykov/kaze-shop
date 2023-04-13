@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import s from './colorItems.module.scss';
 import cn from 'classnames';
 import { ColorItemsInterface } from './ColorItems.interface';
 
 
 
-const ColorItems = ({ colors, activeColor, setColor }: ColorItemsInterface) => {
+const ColorItems = ({ colors, activeColor, setColor, size = '43' }: ColorItemsInterface) => {
 
     return (
         <div className={s.colors}>
@@ -13,12 +12,16 @@ const ColorItems = ({ colors, activeColor, setColor }: ColorItemsInterface) => {
                 return (
                     <div
                         key={i}
-                        onClick={() => setColor(i)}
+                        onClick={() => setColor?.(i)}
                         className={cn({
-                            [s.active]: activeColor === i
+                            [s.active]: activeColor === i,
+                            [s.cursor]: setColor
                         })}
                     >
-                        <div style={{ background: el }}></div>
+                        <div className={cn({
+                            [s.size43]: size === '43',
+                            [s.size30]: size === '30',
+                        })} style={{ background: el }}></div>
                     </div>
                 )
             })}

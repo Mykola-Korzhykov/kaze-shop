@@ -1,55 +1,68 @@
 //var
-$gray-color: #9D9D9D;
+$gray-color: #9d9d9d;
 $black-color: #000;
-$error-color: #E73232;
+$error-color: #e73232;
 
 .wrapper {
-    width: 100%;
-    font-family: sans-serif;
+	width: 100%;
+	font-family: sans-serif;
 
-    label {
-        span {
-            font-style: normal;
-            font-weight: 300;
-            font-size: 20px;
-            line-height: 24px;
-            padding-bottom: 10px;
-            display: block;
-        }
-    }
+	label {
+		span {
+			font-style: normal;
+			font-weight: 300;
+			font-size: 20px;
+			line-height: 24px;
+			padding-bottom: 10px;
+			display: block;
+		}
+	}
 
-    .input {
-        color: $gray-color;
-        padding: 14px 20px;
-        width: 100%;
-        font-style: normal;
-        font-weight: 300;
-        font-size: 18px;
-        line-height: 21px;
-        border: 2px solid $gray-color;
-        outline: none;
-        transition: 0.3s color, border-color;
+	.input {
+		color: $black-color;
+		padding: 14px 20px;
+		width: 100%;
+		font-style: normal;
+		font-weight: 300;
+		font-size: 18px;
+		line-height: 21px;
+		border: 2px solid $gray-color;
+		background: transparent;
+		outline: none;
+		transition: 0.3s all;
 
-        &:focus {
-            border-color: $black-color;
-            color: $black-color;
-        }
+		&:focus {
+			border-color: $black-color;
+		}
 
-        &.error {
-            color: $error-color;
-            border-color: $error-color;
+		&.noEmpty {
+			border-color: $black-color;
+		}
 
-            &::placeholder {
-                color: $error-color;
-            }
-        }
-    }
+		&.error {
+			color: $error-color;
+			border-color: $error-color;
+			&:focus {
+				border-color: $black-color;
+				color: $black-color;
+			}
 
-    .errorMessage {
-        margin-top: 10px;
-    }
+			&::placeholder {
+				color: $error-color;
+			}
+			}
+			}
 
-    .error {
-        color: $error-color;
-    }
+	.errorMessage {
+		margin-top: 10px;
+		display: block;
+		font-style: normal;
+		font-weight: 400;
+		font-size: 16px;
+		line-height: 24px;
+	}
+
+	.error {
+		color: $error-color;
+	}
 }
