@@ -3,6 +3,7 @@ import s from './CatalogItems.module.scss';
 import { useAppSelector, useAppDispatch } from '@/redux/hooks';
 import { selectAuthState, selectUserInfo } from '@/redux/slices/user';
 import { addProductToCompare, addProductToCart } from '@/redux/slices/goods';
+import { setLoadingStatus } from '@/redux/slices/goods';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Goods, sendProductToCart } from '@/types/goods';
@@ -44,6 +45,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 	};
 
 	const addToLastViews = () => {
+		dispatch(setLoadingStatus('loading'))
 		if (isAuth && user?.type === 'USER') {
 			try {
 				Api().goods.addToRecentlyViews(product?.id);
