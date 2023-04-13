@@ -2,8 +2,9 @@
 const nextConfig = {
 	reactStrictMode: false,
 	i18n: {
-		locales: ['ru'],
-		defaultLocale: 'ru',
+		locales: ['ua', 'en'],
+		defaultLocale: 'ua',
+		localeDetection: false,
 	},
 	devIndicators: {
 		buildActivity: false,
@@ -15,6 +16,4 @@ const nextConfig = {
 	},
 };
 
-
-module.exports = nextConfig
-
+module.exports = nextConfig;

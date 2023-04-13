@@ -13,9 +13,11 @@ import { setCookie } from 'nookies';
 import { useAppDispatch } from '@/redux/hooks';
 import { DefaultSeo } from 'next-seo';
 import SEO from '../../next-seo.config';
+import { useRouter } from 'next/router';
 
 function App({ Component, pageProps }: AppProps) {
 	const dispatch = useAppDispatch();
+	const router = useRouter()
 	const [chowUseCookieModal, setChowUseCookieModal] =
 		React.useState<boolean>(true);
 	React.useEffect(() => {
@@ -56,12 +58,12 @@ function App({ Component, pageProps }: AppProps) {
 			} catch (e) {
 				//router.push('/404')
 				// if (e?.response?.status === 400) {
-				// 	destroyCookie(undefined, 'accessToken');
-				// 	router.push('/');
+				// 	Cookies.remove('accessToken');
+				// 	router.push('/login');
 				// }
 			}
 		};
-		fetchUserData()
+		fetchUserData();
 	}, []);
 
 	return (

@@ -57,6 +57,7 @@ import LogoutModal from '@/components/modals/LogoutModal/LogoutModal';
 import ChangeUserPassword from '../../../UserCabinet/ChangeUserPassword/ChangeUserPassword';
 import { UsersAdmin } from '../../../../components/screens/Cabinet/CabinetOwner/Display/UsersAdmin';
 import { UsersRole } from '../../../../components/screens/Cabinet/CabinetOwner/Display/UsersRole';
+import { ModalSentForm } from './Display/AddProduct/ModalSentForm';
 
 // export const heidthcal = 9;
 
@@ -80,6 +81,9 @@ interface CabinetOwnerProps {
 	modalAddColor: boolean;
 	setModalAddColor: (n: boolean) => void;
 	role: 'OWNER' | 'ADMIN' | 'USER';
+	setFiles: (a: any) => void;
+	setPngImageShow: (a: any) => void;
+	setJpgImagesShow: (a: any) => void;
 }
 
 export const CabinetOwner = ({
@@ -91,6 +95,9 @@ export const CabinetOwner = ({
 	setImages,
 	modalAddPhoto,
 	role,
+	setFiles,
+	setPngImageShow,
+	setJpgImagesShow,
 }: CabinetOwnerProps) => {
 	const buttonsObj: ButtonType[] =
 		role === 'OWNER'
@@ -195,7 +202,12 @@ export const CabinetOwner = ({
 	const modalEditProductTurn = useSelector(
 		(state: RootState) => state.modaleSlice.modalAddEditProduct
 	);
+	const sentProductForm = useSelector(
+		(state: RootState) => state.modaleSlice.sentProductForm
+	);
 	const [displayActive, setDisplayActive] = React.useState<number>(1);
+	const [netFile, setNetFile] = React.useState<null | any>(null);
+	const [netFileShow, setNetFileShow] = React.useState<null | string>(null);
 
 	// const [backroundModuleMore, setBackroundModuleMore] = React.useState<boolean>(false)
 	// console.log('ChangeUserPassword', ChangeUserPassword)
@@ -329,9 +341,18 @@ export const CabinetOwner = ({
 			{/* { modalAddColorTurn &&
                 <div className={s.backround_for_modal}></div>
             } */}
+			{sentProductForm.turn && <div className={s.backround_for_modal}></div>}
 			{modalAddCAtegoryTurn && <div className={s.backround_for_modal}></div>}
 			{modalEditProductTurn && <div className={s.backround_for_modal}></div>}
 			{modalAddPhotoTurn && <div className={s.backround_for_modal}></div>}
+			{modalAddPhotoTurn && <div className={s.backround_for_modal}></div>}
+			{sentProductForm.turn && (
+				<ModalSentForm
+					title={sentProductForm.title}
+					subtitle={sentProductForm.subtitle}
+					btntitle={sentProductForm.btntitle}
+				/>
+			)}
 
 			<div className={s.nav_dekstop}>
 				{buttonsObj.map((obj, ind) => {
@@ -344,6 +365,12 @@ export const CabinetOwner = ({
 							img_white={obj.img_white}
 							img_grey={obj.img_grey}
 							text={obj.text}
+							setNetFile={setNetFile}
+							setNetFileShow={setNetFileShow}
+							setImages={setImages}
+							setFiles={setFiles}
+							setPngImageShow={setPngImageShow}
+							setJpgImagesShow={setJpgImagesShow}
 						/>
 					);
 				})}
@@ -361,6 +388,12 @@ export const CabinetOwner = ({
 								img_white={obj.img_white}
 								img_grey={obj.img_grey}
 								text={obj.text}
+								setNetFile={setNetFile}
+								setNetFileShow={setNetFileShow}
+								setImages={setImages}
+								setFiles={setFiles}
+								setPngImageShow={setPngImageShow}
+								setJpgImagesShow={setJpgImagesShow}
 							/>
 						</Link>
 					);
@@ -412,6 +445,10 @@ export const CabinetOwner = ({
 						modalAddColor={modalAddColor}
 						setModalAddColor={setModalAddColor}
 						modalAddPhoto={modalAddPhoto}
+						netFile={netFile}
+						setNetFile={setNetFile}
+						netFileShow={netFileShow}
+						setNetFileShow={setNetFileShow}
 					/>
 				) : (
 					''

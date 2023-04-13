@@ -15,6 +15,7 @@ import ChangeUserPassword from '@/components/UserCabinet/ChangeUserPassword/Chan
 import CabinetTabs from '@/components/screens/Cabinet/CabinetTabs';
 import { CabinetOwner } from './CabinetOwner/CabinetOwner';
 import { CabinetAdmin } from './CabinetAdmin';
+
 //modal
 import {
 	setModalAddPhoto,
@@ -25,6 +26,7 @@ import { ModalAddColor } from './../Cabinet/CabinetOwner/Display/AddProduct/Moda
 import { ModuleWindiw } from './CabinetOwner/Display/AddProduct/ModuleWindow';
 import { ModalEditProduct } from '../../../components/screens/Cabinet/CabinetOwner/Display/AddProduct/ModalEditProduct/index';
 import { divide } from 'lodash';
+import { ModalSentForm } from './CabinetOwner/Display/AddProduct/ModalSentForm';
 
 const Cabinet: FC = () => {
 	const dispatch = useAppDispatch();
@@ -38,6 +40,9 @@ const Cabinet: FC = () => {
 	const modalAddPhoto = useSelector(
 		(state: RootState) => state.modaleSlice.modalAddPhoto
 	);
+	const sentProductForm = useSelector(
+		(state: RootState) => state.modaleSlice.sentProductForm
+	);
 	const [choiceColor, setChoiceColor] = React.useState<boolean>(false);
 	const modalAddCAtegory = useSelector(
 		(state: RootState) => state.modaleSlice.modalAddCAtegory
@@ -50,6 +55,9 @@ const Cabinet: FC = () => {
 	);
 	//imagesData
 	const [images, setImages] = React.useState<File[]>([]);
+	const [files, setFiles] = React.useState<File[]>([]);
+	const [pngImageShow, setPngImageShow] = React.useState<File | null>(null);
+	const [jpgImagesShow, setJpgImagesShow] = React.useState<File[]>([]);
 
 	console.log('modalAddColorTurn', modalAddColorTurn);
 	React.useEffect(() => {
@@ -96,7 +104,7 @@ const Cabinet: FC = () => {
 					<div className="page_coordinator">
 						<Link href="/">Главная</Link> | <span>Личный кабинет</span>
 					</div>
-					
+
 					{user?.user?.type === 'USER' && <CabinetTabs />}
 					{user?.user?.type === 'OWNER' ||
 						(user?.user?.type === 'ADMIN' && (
@@ -109,6 +117,9 @@ const Cabinet: FC = () => {
 								modalAddPhoto={modalAddPhoto}
 								modalAddColor={modalAddColorTurn}
 								setModalAddColor={setModalAddColor}
+								setFiles={setFiles}
+								setPngImageShow={setPngImageShow}
+								setJpgImagesShow={setJpgImagesShow}
 							/>
 						))}
 
@@ -124,6 +135,9 @@ const Cabinet: FC = () => {
 						modalAddPhoto={modalAddPhoto}
 						modalAddColor={modalAddColorTurn}
 						setModalAddColor={setModalAddColor}
+						setFiles={setFiles}
+						setPngImageShow={setPngImageShow}
+						setJpgImagesShow={setJpgImagesShow}
 					/>
 
 					{/* <CabinetAdmin /> */}
@@ -161,6 +175,12 @@ const Cabinet: FC = () => {
 							setModalAddPhoto={setModalAddPhoto}
 							modalAddColor={modalAddColorTurn}
 							setModalAddColor={setModalAddColor}
+							files={files}
+							setFiles={setFiles}
+							pngImageShow={pngImageShow}
+							setPngImageShow={setPngImageShow}
+							jpgImagesShow={jpgImagesShow}
+							setJpgImagesShow={setJpgImagesShow}
 						/>
 					) : (
 						''
@@ -182,16 +202,14 @@ const Cabinet: FC = () => {
 							setModalAddPhoto={setModalAddPhoto}
 							modalAddColor={modalAddColorTurn}
 							setModalAddColor={setModalAddColor}
+							// files={files}
+							// setFiles={setFiles}
+							// pngImageShow={pngImageShow}
+							// setPngImageShow={setPngImageShow}
+							// jpgImagesShow={jpgImagesShow}
+							// setJpgImagesShow={setJpgImagesShow}
 						/>
 					)}
-					{/* {modalEditProductTurn ? (
-					<div
-						// style={{ height: '1450px' }}
-						className={s.backround_module}
-					></div>
-				) : (
-					''
-				)} */}
 
 					{/* {modalAddPhoto ? <ModuleWindiw  imagesData={images} setImages={setImages} setChoiceColor={setChoiceColor} choiceColor={choiceColor} modalAddPhoto={modalAddPhoto} setModalAddPhoto={setModalAddPhoto}  modalAddColor={modalAddColor} setModalAddColor={setModalAddColor} /> : ''}  */}
 				</div>
