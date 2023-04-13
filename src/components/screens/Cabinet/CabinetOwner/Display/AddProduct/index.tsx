@@ -117,6 +117,29 @@ export const AddProduct = ({
 	const selectedImages = useSelector(
 		(state: RootState) => state.formData.arrObjMod
 	);
+	const fetchColoursArr = useSelector(
+		(state: RootState) => state.goods.fetchedColours
+	);
+	// const colorsStyle = useSelector(
+	// 	(state: RootState) => state.admin.colorsStyle
+	// );
+
+	const arrObjMods = useSelector(
+		(state: RootState) => state.formData.arrObjMod
+	);
+
+	// let colorsStyle: string[];
+
+	let colorsStyle = fetchColoursArr
+		.filter((el) => {
+			return selectedImages.some((obj) => el.id === obj.colourId);
+		})
+		.map((elem) => {
+			return elem.hex;
+		});
+	console.log('colorsStyleeee', colorsStyle);
+	console.log('arrObjMods', arrObjMods);
+
 	const price = useSelector((state: RootState) => state.formData.price);
 	const quantity = useSelector((state: RootState) => state.formData.quantity);
 	const netImage = useSelector((state: RootState) => state.formData.netData);
@@ -125,11 +148,8 @@ export const AddProduct = ({
 	const formData = useSelector((state: RootState) => state.formData);
 	const inputRef = React.useRef(null);
 
-	const arrObjMods = useSelector(
-		(state: RootState) => state.formData.arrObjMod
-	);
-	console.log('imageUrlArr', imageUrlArr);
-	console.log(' imageUrlArr[ind]', imageUrlArr[0]);
+	// console.log('imageUrlArr', imageUrlArr);
+	// console.log(' imageUrlArr[ind]', imageUrlArr[0]);
 	// imageUrlArr[ind]
 
 	let objDataSend = {
@@ -215,13 +235,51 @@ export const AddProduct = ({
 			})
 			.then((response) => {
 				if (response && response.status === 200) {
-					console.log('Success!', response.data);
+					dispatch(
+						setProductForm({
+							turn: true,
+							title: 'Товар успешно добавлен',
+							subtitle: ' Нажмите “Готово” для того. чтобы продолжить',
+							btntitle: 'готово',
+						})
+					);
+
+					dispatch(clearForm());
+					dispatch(removeimageUrlArr({ from: 0, size: imageUrlArr.length }));
+					setImages([]);
+					setCountPhoto(0);
+					dispatch(removearrObjMod({ from: 0, size: arrObjMods.length }));
+
+					console.log('inputRefsmdmmdmdmdmdmdmdmdmd', inputRefs);
+
+					let inputsSizeChart = inputRefs.current.filter((el) => {
+						return el !== undefined;
+					});
+					for (let i = 0; i < inputs.length; i++) {
+						inputsSizeChart[i].value = '';
+					}
+					setNetFileShow(null);
+					setNetFile(null);
 				} else {
-					console.error('Response status was not 200!');
+					dispatch(
+						setProductForm({
+							turn: true,
+							title: 'Error',
+							subtitle: ' Response status was not 200!',
+							btntitle: 'Ok',
+						})
+					);
 				}
 			})
 			.catch((error) => {
-				console.error('There was an error!', error);
+				dispatch(
+					setProductForm({
+						turn: true,
+						title: 'Error',
+						subtitle: `Error: ${error}`,
+						btntitle: 'Ok',
+					})
+				);
 			});
 
 		dispatch(
@@ -1048,8 +1106,8 @@ export const AddProduct = ({
 													e.stopPropagation();
 												}}
 												style={{
-													color: '#9D9D9D',
-													border: '#9D9D9D solid 1.5px',
+													color: `${colorsStyle[ind]}`,
+													border: `${colorsStyle[ind]} solid 1.5px`,
 												}}
 												className={s.text}
 											>
@@ -1214,6 +1272,7 @@ export const AddProduct = ({
 							if (checkObjectValues(objDataSend)) {
 								setCheckForm(false);
 								sendFormData(objDataSend);
+
 								// imagesPaths
 							} else {
 								setCheckForm(true);

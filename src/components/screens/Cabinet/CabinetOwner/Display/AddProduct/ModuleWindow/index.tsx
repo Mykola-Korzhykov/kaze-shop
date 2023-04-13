@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useAppDispatch } from '@/redux/hooks';
-// import { setColors} from '../../../../../../../redux/slices/admin'
 
 import {
 	setSizes,
@@ -88,10 +87,7 @@ export const ModuleWindiw = ({
 		(state: RootState) => state.goods.fetchedCategories
 	);
 	const colourId = useSelector((state: RootState) => state.formData.colourId);
-	const arrObjMods = useSelector(
-		(state: RootState) => state.formData.arrObjMod
-	);
-	const images = useSelector((state: RootState) => state.formData.images);
+
 	const fetchColoursArr = useSelector(
 		(state: RootState) => state.goods.fetchedColours
 	);
@@ -111,9 +107,6 @@ export const ModuleWindiw = ({
 		colourId: false,
 		sizes: false,
 	});
-
-	// const [pngImageShow, setPngImageShow] = React.useState<File | null>(null);
-	// const [jpgImagesShow, setJpgImagesShow] = React.useState<File[]>([]);
 
 	const newColoursArr = fetchColoursArr
 		? [

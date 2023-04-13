@@ -143,6 +143,7 @@ export interface initialStateType {
 		colourId: number;
 		sizes: string[];
 	}[];
+
 	// colours: fetchedColour[]
 }
 
