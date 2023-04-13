@@ -14,7 +14,6 @@ import s from './screenStyle.module.scss';
 import ChangeUserPassword from '@/components/UserCabinet/ChangeUserPassword/ChangeUserPassword';
 import CabinetTabs from '@/components/screens/Cabinet/CabinetTabs';
 import { CabinetOwner } from './CabinetOwner/CabinetOwner';
-import { CabinetAdmin } from './CabinetAdmin';
 
 //modal
 import {

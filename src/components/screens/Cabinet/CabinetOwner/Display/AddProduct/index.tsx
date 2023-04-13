@@ -214,11 +214,16 @@ export const AddProduct = ({
 				},
 			})
 			.then((response) => {
-				console.log('response.data', response.data);
+				if (response && response.status === 200) {
+					console.log('Success!', response.data);
+				} else {
+					console.error('Response status was not 200!');
+				}
 			})
 			.catch((error) => {
 				console.error('There was an error!', error);
 			});
+
 		dispatch(
 			setProductForm({
 				turn: true,
