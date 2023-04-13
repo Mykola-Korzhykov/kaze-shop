@@ -7,6 +7,8 @@ import StepTitle from './StepTitle/OrderStep';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import StepTwo from './StepTwo/StepTwo';
 import { orderInit } from '@/redux/slices/order';
+import ErrorMessage from './ErrorMessage/ErrorMessage';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const mocCartItem = {
     id: 1,
@@ -26,6 +28,7 @@ const Order = (): JSX.Element => {
     const { stepOne, stepTwo } = useAppSelector(store => store.order);
     const dispatch = useAppDispatch();
 
+    // const ErrorAnimate = motion.data(ErrorMessage)
     useEffect(() => {
         dispatch(orderInit());
     }, [])
@@ -44,6 +47,14 @@ const Order = (): JSX.Element => {
                     <CartBlock className={s.cart} />
                 </div>
             </div>
+            <AnimatePresence>
+                {[stepOne, stepTwo].includes('error') && <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}>
+                    <ErrorMessage />
+                </motion.div>}
+            </AnimatePresence>
         </div>
     );
 };

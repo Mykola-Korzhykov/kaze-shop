@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import cn from 'classnames';
 import DateInput from '../DateInput/DateInput';
 import Button from '../../Main/Button/Button';
-import { backToStepOne, changeOrderNum, stepTwoLoaded, stepTwoSuccess } from '@/redux/slices/order';
+import { changeOrderNum, changeStatusStepOne, changeStatusStepTwo } from '@/redux/slices/order';
 import { OrderFormStepTwo, OrderFormStepTwoData } from '@/utils/validation';
 import FormSpinner from '../FormSpinner/FormSpinner';
 import { useRouter } from 'next/router';
@@ -30,12 +30,12 @@ const StepTwo = () => {
         resolver: yupResolver(OrderFormStepTwo),
     });
     const onSubmit: SubmitHandler<OrderFormStepTwoData> = (data) => {
-        dispatch(stepTwoLoaded())
+        dispatch(changeStatusStepTwo('loading'))
         const validDataToSend = { ...data, payByCard: !data.payInCash, postalDelivery: !data.сourierDelivery };
         delete validDataToSend.anotherDate;
 
         setTimeout(() => {
-            dispatch(stepTwoSuccess());
+            dispatch(changeStatusStepTwo('success'));
             dispatch(changeOrderNum(2421));
             router.push('/order_details');
         }, 2000);
@@ -43,7 +43,7 @@ const StepTwo = () => {
     };
 
     const goToStepOne = async () => {
-        dispatch(backToStepOne());
+        dispatch(changeStatusStepOne('idle'));
     };
 
     return (
@@ -124,12 +124,11 @@ const StepTwo = () => {
                             <Controller
                                 control={control}
                                 name="sendDate"
-                                render={({ field: { onChange, onBlur, value, ref } }) => (
+                                render={({ field: { onChange, onBlur, value } }) => (
                                     <DateInput
                                         onChange={onChange}
                                         onBlur={onBlur}
                                         value={value}
-                                        ref={ref}
                                         title={'Выберите дату отправки'}
                                         placeholder={'дд.мм.гг'}
                                         errorMessage={errors.sendDate?.message} />

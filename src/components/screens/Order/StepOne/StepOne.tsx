@@ -13,7 +13,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { OrderFormStepOne, OrderFormStepOneData } from '@/utils/validation';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { stepOneLoaded, stepOneSuccess } from '@/redux/slices/order';
+import { changeStatusStepOne } from '@/redux/slices/order';
 
 
 
@@ -32,16 +32,13 @@ const StepOne = ({ className, ...props }: StepOneProps): JSX.Element => {
 
 
     const onSubmit: SubmitHandler<OrderFormStepOneData> = data => {
-        dispatch(stepOneLoaded());
+        dispatch(changeStatusStepOne('loading'));
         console.log(data)
         setTimeout(() => {
-            goStepTwo();
+            dispatch(changeStatusStepOne('success'));
         }, 2000);
     };
 
-    const goStepTwo = async () => {
-        dispatch(stepOneSuccess());
-    }
 
     return (
 
@@ -152,7 +149,7 @@ const StepOne = ({ className, ...props }: StepOneProps): JSX.Element => {
                     </AnimatePresence>
                     <Button className={cn(s.submit, {
                         [s.formInvalid]: !isValid
-                    })} disabled={false} type='submit' arrow={false}>Продолжить</Button>
+                    })} type='submit' arrow={false}>Продолжить</Button>
                     {status === 'loading' && <FormSpinner />}
                 </motion.form>}
 

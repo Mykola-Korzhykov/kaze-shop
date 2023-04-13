@@ -5,7 +5,7 @@ import s from './DateInput.module.scss';
 import { DateInputProps } from './DateInput.interface';
 import cn from 'classnames';
 
-const DateInput = React.forwardRef<any, DateInputProps>(({ title, placeholder, errorMessage, value, onChange, onBlur, name, className, }: DateInputProps, ref) => {
+const DateInput = ({ title, placeholder, errorMessage, value, onChange, onBlur, name, className, }: DateInputProps) => {
 
     return (
 
@@ -23,7 +23,6 @@ const DateInput = React.forwardRef<any, DateInputProps>(({ title, placeholder, e
                     onBlur={onBlur}
                     popperPlacement='bottom'
                     placeholderText={placeholder}
-                    ref={ref}
                     className={cn(s.date_picker, {
                         [s.active]: value,
                         [s.error]: errorMessage
@@ -46,9 +45,8 @@ const DateInput = React.forwardRef<any, DateInputProps>(({ title, placeholder, e
         </div>
 
     );
-});
+};
 
-DateInput.displayName = 'DateInput';
 
 const subDays = (date: Date, num: number): Date => {
     return new Date(date.getTime() - num * 24 * 60 * 60 * 1000);
