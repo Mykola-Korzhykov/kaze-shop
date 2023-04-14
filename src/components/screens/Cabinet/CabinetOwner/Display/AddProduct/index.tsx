@@ -1112,8 +1112,8 @@ export const AddProduct = ({
 													e.stopPropagation();
 												}}
 												style={{
-													color: `${colorsStyle[ind]}`,
-													// border: `${colorsStyle[ind]} solid 1.5px`,
+													// color: `${colorsStyle[ind]}`,
+													border: `${colorsStyle[ind]} solid 1.5px`,
 												}}
 												className={s.text}
 											>

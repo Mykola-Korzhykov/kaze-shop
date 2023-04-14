@@ -81,6 +81,7 @@ export const ModuleWindiw = ({
 	const selectedSizes = useSelector((state: RootState) => state.formData.sizes);
 	// const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
 	const sizesItems = useSelector((state: RootState) => state.admin.sizesItems);
+
 	//getinput_choice_photo
 	const categories = useSelector(
 		(state: RootState) => state.goods.fetchedCategories
@@ -93,6 +94,10 @@ export const ModuleWindiw = ({
 	const fetchColoursArr = useSelector(
 		(state: RootState) => state.goods.fetchedColours
 	);
+	const selectedImages = useSelector(
+		(state: RootState) => state.formData.arrObjMod
+	);
+
 	const selectedColor = fetchColoursArr.find((el) => el.id === colourId);
 	const [checkForm, setCheckForm] = React.useState<boolean>(false);
 	//all valied forms
@@ -123,10 +128,21 @@ export const ModuleWindiw = ({
 				},
 		  ]
 		: null;
+
+	const renderColorsArr = newColoursArr.filter((colour) => {
+		// Фильтруем элементы массива newColoursArr
+		// проверяя, содержит ли массив arr2 элементы с таким же id
+		return !selectedImages.some((item) => item.colourId === colour.id);
+	});
+
+	const filteredSizesItems = sizesItems.filter((sizeItem) => {
+		return !selectedSizes.some((selectedImage) => {
+			return selectedImage.includes(sizeItem.size);
+		});
+	});
+
 	//modal backround
 	const [choiceSize, setChoiceSize] = React.useState<boolean>(false);
-	// console.log('fetchColoursArr', fetchColoursArr)
-	//   console.log('setModalAddColor', setModalAddColor)
 
 	function checkValiedForm(obj: any) {
 		for (const key in obj) {
@@ -154,7 +170,6 @@ export const ModuleWindiw = ({
 		dispatch(setAllcoloursId(colourId));
 		dispatch(setAllsizes(obj.sizes));
 		dispatch(setArrObjMod(obj));
-		console.log('generationObjModal', obj);
 
 		const payload = selectedColor.hex;
 		dispatch(setColorsStyle(payload));
@@ -529,7 +544,7 @@ export const ModuleWindiw = ({
 										: `${s.choice_photo_wrapper} ${s.choice_photo_off}`
 								}
 							>
-								{sizesItems.map((el, ind) => {
+								{filteredSizesItems.map((el, ind) => {
 									return (
 										<span
 											onClick={() => {
@@ -634,7 +649,7 @@ export const ModuleWindiw = ({
 							style={{}}
 						>
 							{choiceColor
-								? newColoursArr?.map((el, ind) => {
+								? renderColorsArr?.map((el, ind) => {
 										return el.id !== -48093899940393 ? (
 											<div
 												onClick={() => {
