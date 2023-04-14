@@ -8,20 +8,20 @@ import Image from 'next/image';
 import { UsersRole } from '@/components/screens/Cabinet/CabinetOwner/Display/UsersRole';
 
 const AdminSettings: NextPage = () => {
-  return (
-    <SpinnerLayout>
-      <main className="content">
-        <div className="container">
-          <div className="page_coordinator">
-            <Link href="/cabinet">.../Личный кабинет |</Link>{' '}
-            <span>Выдать роль</span>
-          </div>
+	return (
+		<SpinnerLayout>
+			<main className="content">
+				<div className="container">
+					<div className="page_coordinator">
+						<Link href="/cabinet">.../Личный кабинет |</Link>
+						<span>Выдать роль</span>
+					</div>
 
-          <UsersRole />
-        </div>
-      </main>
-    </SpinnerLayout>
-  );
+					<UsersRole />
+				</div>
+			</main>
+		</SpinnerLayout>
+	);
 };
 
 export default AdminSettings;

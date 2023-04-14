@@ -14,7 +14,6 @@ import s from './screenStyle.module.scss';
 import ChangeUserPassword from '@/components/UserCabinet/ChangeUserPassword/ChangeUserPassword';
 import CabinetTabs from '@/components/screens/Cabinet/CabinetTabs';
 import { CabinetOwner } from './CabinetOwner/CabinetOwner';
-import { CabinetAdmin } from './CabinetAdmin';
 
 //modal
 import {
@@ -165,6 +164,12 @@ const Cabinet: FC = () => {
 				)} */}
 					{/* {choiceColor ? <div style={{height: '1450px'}} className={s.backround_module}></div> : ''} */}
 
+					{modalAddColorTurn ? (
+						<ModalAddColor setChoiceColor={setChoiceColor} />
+					) : (
+						''
+					)}
+
 					{modalAddPhoto ? (
 						<ModuleWindiw
 							imagesData={images}
@@ -186,11 +191,6 @@ const Cabinet: FC = () => {
 						''
 					)}
 					{modalAddCAtegory ? <ModalAddCategory /> : ''}
-					{modalAddColorTurn ? (
-						<ModalAddColor setChoiceColor={setChoiceColor} />
-					) : (
-						''
-					)}
 
 					{modalEditProductTurn && (
 						<ModalEditProduct

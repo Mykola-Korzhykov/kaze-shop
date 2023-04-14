@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 //types
 import { ButtonType } from '../../../../../types/auth';
-import { clearFormData } from '@/utils/clearFormData';
 import { useAppDispatch } from '@/redux/hooks';
 import { clearForm } from '@/redux/slices/formData';
 import { removeimageUrlArr } from '@/redux/slices/modal';

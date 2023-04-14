@@ -38,9 +38,14 @@ const AdminSettings: NextPage = () => {
 		(state: RootState) => state.modaleSlice.modalAddEditProduct
 	);
 	//imagesData
-	const [images, setImages] = React.useState<File[]>([]);
 
 	const [modalAddColor, serModalAddColor] = React.useState<any>(true);
+	const [images, setImages] = React.useState<File[]>([]);
+	const [files, setFiles] = React.useState<File[]>([]);
+	const [pngImageShow, setPngImageShow] = React.useState<File | null>(null);
+	const [jpgImagesShow, setJpgImagesShow] = React.useState<File[]>([]);
+	const [netFile, setNetFile] = React.useState<null | any>(null);
+	const [netFileShow, setNetFileShow] = React.useState<null | string>(null);
 
 	React.useEffect(() => {
 		if (refRoot.current) {
@@ -83,6 +88,10 @@ const AdminSettings: NextPage = () => {
 							modalAddColor={modalAddColor}
 							setModalAddColor={setModalAddColor}
 							modalAddPhoto={modalAddPhoto}
+							netFile={netFile}
+							setNetFile={setNetFile}
+							netFileShow={netFileShow}
+							setNetFileShow={setNetFileShow}
 						/>
 					</div>
 
@@ -98,6 +107,12 @@ const AdminSettings: NextPage = () => {
 							setModalAddPhoto={setModalAddPhoto}
 							modalAddColor={modalAddColorTurn}
 							setModalAddColor={setModalAddColor}
+							files={files}
+							setFiles={setFiles}
+							pngImageShow={pngImageShow}
+							setPngImageShow={setPngImageShow}
+							jpgImagesShow={jpgImagesShow}
+							setJpgImagesShow={setJpgImagesShow}
 						/>
 					) : (
 						''
@@ -109,28 +124,7 @@ const AdminSettings: NextPage = () => {
 						''
 					)}
 
-					{/* {modalEditProductTurn && <ModalEditProduct 
-						imagesData={images}
-						setImages={setImages}
-						setChoiceColor={setChoiceColor}
-						choiceColor={choiceColor}
-						modalAddPhoto={modalAddPhoto}
-						setModalAddPhoto={setModalAddPhoto}
-						modalAddColor={modalAddColorTurn}
-						setModalAddColor={setModalAddColor}
-				/>} */}
-
 					{/* backround for modal */}
-
-					{/* { modalAddPhoto &&
-                    <div className={s.backround_for_modal}></div>
-                }
-                { modalAddCAtegory &&
-                    <div className={s.backround_for_modal}></div>
-                }
-                { modalAddColorTurn &&
-                    <div className={s.backround_for_modal}></div>
-                } */}
 				</div>
 			</main>
 		</SpinnerLayout>

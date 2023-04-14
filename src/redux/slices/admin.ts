@@ -143,11 +143,14 @@ export interface initialStateType {
 		colourId: number;
 		sizes: string[];
 	}[];
+	colorsStyle: string[];
+
 	// colours: fetchedColour[]
 }
 
 const initialState: initialStateType = {
 	arrObjModalSwow: [],
+	colorsStyle: [],
 
 	userEdit: {
 		id: 1,
@@ -839,12 +842,13 @@ export const admin: Slice<initialStateType> = createSlice({
 		},
 		//пушишь все обьекты , при добавлении товару пушишь number (для добавление еще одного айтома) , потом при добалении товара реплейсишь его под нужный индекс
 		addCountPhotos: (state) => {
-			console.log('вход в стейт');
 			state.userEdit.images.push(null);
 		},
 		setArrObjModalSwow: (state, action: PayloadAction<any>) => {
-			console.log('вход в стейт');
 			state.arrObjModalSwow.push(action.payload);
+		},
+		setColorsStyle: (state, action: PayloadAction<any>) => {
+			state.colorsStyle.push(action.payload);
 		},
 	},
 
@@ -928,6 +932,7 @@ export const {
 	setChangeCheckbox,
 	addCountPhotos,
 	setArrObjModalSwow,
+	setColorsStyle,
 } = admin.actions;
 
 export default admin.reducer;

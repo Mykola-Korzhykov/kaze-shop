@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useAppDispatch } from '@/redux/hooks';
-// import { setColors} from '../../../../../../../redux/slices/admin'
 
 import {
 	setSizes,
@@ -23,9 +22,11 @@ import {
 	setModalAddColor,
 } from '../../../../../../../redux/slices/modal';
 import { setImageUrl } from '../../../../../../../redux/slices/modal';
-import { fetchCategories } from '../../../../../../../redux/slices/goods';
-
-import { fetchColours } from '../../../../../../../redux/slices/goods';
+import {
+	fetchCategories,
+	fetchColours,
+} from '../../../../../../../redux/slices/goods';
+import { setColorsStyle } from '../../../../../../../redux/slices/admin';
 
 interface ModuleWindowImagesProps {
 	fileNames: string[];
@@ -80,6 +81,7 @@ export const ModuleWindiw = ({
 	const selectedSizes = useSelector((state: RootState) => state.formData.sizes);
 	// const colors =  useSelector((state: RootState)=> state.goods.fetchedColours)
 	const sizesItems = useSelector((state: RootState) => state.admin.sizesItems);
+
 	//getinput_choice_photo
 	const categories = useSelector(
 		(state: RootState) => state.goods.fetchedCategories
@@ -88,13 +90,14 @@ export const ModuleWindiw = ({
 		(state: RootState) => state.goods.fetchedCategories
 	);
 	const colourId = useSelector((state: RootState) => state.formData.colourId);
-	const arrObjMods = useSelector(
-		(state: RootState) => state.formData.arrObjMod
-	);
-	const images = useSelector((state: RootState) => state.formData.images);
+
 	const fetchColoursArr = useSelector(
 		(state: RootState) => state.goods.fetchedColours
 	);
+	const selectedImages = useSelector(
+		(state: RootState) => state.formData.arrObjMod
+	);
+
 	const selectedColor = fetchColoursArr.find((el) => el.id === colourId);
 	const [checkForm, setCheckForm] = React.useState<boolean>(false);
 	//all valied forms
@@ -112,9 +115,6 @@ export const ModuleWindiw = ({
 		sizes: false,
 	});
 
-	// const [pngImageShow, setPngImageShow] = React.useState<File | null>(null);
-	// const [jpgImagesShow, setJpgImagesShow] = React.useState<File[]>([]);
-
 	const newColoursArr = fetchColoursArr
 		? [
 				...fetchColoursArr,
@@ -128,10 +128,31 @@ export const ModuleWindiw = ({
 				},
 		  ]
 		: null;
+
+	const renderColorsArr = newColoursArr.filter((colour) => {
+		// Фильтруем элементы массива newColoursArr
+		// проверяя, содержит ли массив arr2 элементы с таким же id
+		// console.log('colour', colour);
+
+		// console.log(
+		// 	'!selectedImages.some((item) => item.colourId === colour.id);',
+		// 	!selectedImages.some((item) => item.colourId === colour.id)
+		// );
+		return !selectedImages.some((item) => {
+			// console.log('item', item);
+			return item.colourId === colour.id;
+		});
+	});
+
+	const filteredSizesItems = sizesItems.filter((sizeItem) => {
+		return !selectedSizes.some((selectedImage) => {
+			return selectedImage.includes(sizeItem.size);
+		});
+	});
+
+	// console.log('renderColorsArr', renderColorsArr);
 	//modal backround
 	const [choiceSize, setChoiceSize] = React.useState<boolean>(false);
-	// console.log('fetchColoursArr', fetchColoursArr)
-	//   console.log('setModalAddColor', setModalAddColor)
 
 	function checkValiedForm(obj: any) {
 		for (const key in obj) {
@@ -159,7 +180,9 @@ export const ModuleWindiw = ({
 		dispatch(setAllcoloursId(colourId));
 		dispatch(setAllsizes(obj.sizes));
 		dispatch(setArrObjMod(obj));
-		console.log('generationObjModal', obj);
+
+		const payload = selectedColor.hex;
+		dispatch(setColorsStyle(payload));
 
 		// console.log('obj', obj)
 		// setImages([...imagesData, ...files])
@@ -197,8 +220,6 @@ export const ModuleWindiw = ({
 			...prevArray,
 			event.target.files[0],
 		]);
-		// const url = URL.createObjectURL(event.target.files[0])
-		// setPngImageShowUrl((prevArray: string[]) => [...prevArray,  url])
 	};
 
 	const handleFileUploadPng = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -311,12 +332,10 @@ export const ModuleWindiw = ({
 							<div className={s.image_selecte_wrapper}>
 								<span
 									onClick={() => {
-										console.log('pngImageShow', pngImageShow);
 										setPngImageShow(null);
 										//убираем эту фотку с загального массива фоток
 										setImages((prevArray: File[]) => {
 											const newArray = [...prevArray];
-											console.log('');
 											const activeIndex = newArray.indexOf(pngImageShow);
 											newArray.splice(activeIndex, 1);
 											return newArray;
@@ -325,7 +344,6 @@ export const ModuleWindiw = ({
 										setFiles((prevArray: File[]) => {
 											const newArray = [...prevArray];
 											const activeIndex = newArray.indexOf(pngImageShow);
-											// console.log('activeIndex', activeIndex)
 											newArray.splice(activeIndex, 1);
 											return newArray;
 										});
@@ -401,8 +419,8 @@ export const ModuleWindiw = ({
 									return (
 										<span
 											onClick={() => {
-												console.log('Deletefiles', files);
-												console.log('DeleteImagesData', imagesData);
+												// console.log('Deletefiles', files);
+												// console.log('DeleteImagesData', imagesData);
 												//console.log('click')
 												//убираем рендеринг какой - фотки
 												setJpgImagesShow((prevArray: File[]) => {
@@ -536,7 +554,7 @@ export const ModuleWindiw = ({
 										: `${s.choice_photo_wrapper} ${s.choice_photo_off}`
 								}
 							>
-								{sizesItems.map((el, ind) => {
+								{filteredSizesItems.map((el, ind) => {
 									return (
 										<span
 											onClick={() => {
@@ -586,8 +604,7 @@ export const ModuleWindiw = ({
 										}}
 									></span>
 									<span className={s.text}>
-										{' '}
-										{selectedColor ? selectedColor.ru : ''}{' '}
+										{selectedColor ? selectedColor.ru : ''}
 									</span>
 								</span>
 							)}
@@ -642,7 +659,7 @@ export const ModuleWindiw = ({
 							style={{}}
 						>
 							{choiceColor
-								? newColoursArr?.map((el, ind) => {
+								? renderColorsArr?.map((el, ind) => {
 										return el.id !== -48093899940393 ? (
 											<div
 												onClick={() => {
@@ -744,6 +761,8 @@ export const ModuleWindiw = ({
 								if (checkValiedForm(allStateForm)) {
 									setCheckForm(false);
 									generationObjModal();
+									setPngImageShow(null);
+									setJpgImagesShow([]);
 								} else {
 									setCheckForm(true);
 								}

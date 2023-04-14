@@ -19,17 +19,18 @@ export const EditProduct: FC<{
 	const dispatch = useAppDispatch();
 	// const products = useSelector((state: RootState) => state.admin.editProducts);
 	const products = useSelector((state: RootState) => state.goods.goods);
+	const [paginationArr, setPaginationArr] = React.useState<number[]>([]);
+	const [activePagination, setActivePagination] = React.useState<number>(1);
 
 	const editProductItemId = useSelector(
 		(state: RootState) => state.admin.editProductItemId
 	);
+
 	const [activeId, setActiveId] = React.useState(0);
 
-	const array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
 	React.useEffect(() => {
-		dispatch(fetchGoods());
-	}, []);
+		dispatch(fetchGoods(activePagination));
+	}, [activePagination]);
 
 	React.useEffect(() => {
 		const fetchSingleProduct = async () => {
@@ -50,8 +51,17 @@ export const EditProduct: FC<{
 	}, [editProductItemId]);
 
 	React.useEffect(() => {
-		const countPages = products?.length / 10;
-	}, []);
+		if (products) {
+			let paginationArrLocation: any[] = [];
+			const countPages = Math.ceil(products.length / 10);
+			for (let i = 0; i < countPages; i++) {
+				paginationArrLocation.push(i);
+			}
+			setPaginationArr(paginationArrLocation);
+		}
+	}, [products]);
+	// console.log('paginationArrLocationArr2', paginationArrLocation);
+	console.log('products', products);
 	return (
 		<>
 			<div className={editProductItemId === -1 ? s.wrapper : s.wrapper_off}>
@@ -69,7 +79,26 @@ export const EditProduct: FC<{
 					);
 				})}
 
-				<div className={s.pagination}></div>
+				<div className={s.pagination_wrapper}>
+					{paginationArr.map((el, ind) => {
+						{
+							return (
+								<span
+									onClick={() => {
+										setActivePagination(ind + 1);
+									}}
+									className={
+										ind + 1 === activePagination
+											? `${s.pagination_item} ${s.pagination_item_active}`
+											: s.pagination_item
+									}
+								>
+									{ind + 1}
+								</span>
+							);
+						}
+					})}
+				</div>
 			</div>
 
 			{/* передача фото розмеров та цветов от activeProductEdit */}
