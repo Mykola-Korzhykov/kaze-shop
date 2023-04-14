@@ -120,25 +120,35 @@ export const AddProduct = ({
 	const fetchColoursArr = useSelector(
 		(state: RootState) => state.goods.fetchedColours
 	);
-	// const colorsStyle = useSelector(
-	// 	(state: RootState) => state.admin.colorsStyle
-	// );
 
 	const arrObjMods = useSelector(
 		(state: RootState) => state.formData.arrObjMod
 	);
 
-	// let colorsStyle: string[];
+	const colorsStyle = useSelector(
+		(state: RootState) => state.admin.colorsStyle
+	);
 
-	let colorsStyle = fetchColoursArr
-		.filter((el) => {
-			return selectedImages.some((obj) => el.id === obj.colourId);
-		})
-		.map((elem) => {
-			return elem.hex;
-		});
-	console.log('colorsStyleeee', colorsStyle);
-	console.log('arrObjMods', arrObjMods);
+	// let colorsStyle = fetchColoursArr
+	// 	.filter((el) => {
+	// 		return selectedImages.some((obj) => el.id === obj.colourId);
+	// 	})
+	// 	.map((elem) => {
+	// 		return elem.hex;
+	// 	});
+
+	// console.log(
+	// 	'hex: elem.hex, id: elem.id',
+	// 	fetchColoursArr
+	// 		.filter((el) => {
+	// 			return selectedImages.some((obj) => el.id === obj.colourId);
+	// 		})
+	// 		.map((elem) => {
+	// 			return { hex: elem.hex, id: elem.id };
+	// 		})
+	// );
+	// console.log('colorsStyleeee', colorsStyle);
+	// console.log('arrObjMods', arrObjMods);
 
 	const price = useSelector((state: RootState) => state.formData.price);
 	const quantity = useSelector((state: RootState) => state.formData.quantity);
@@ -147,10 +157,6 @@ export const AddProduct = ({
 	const [checkForm, setCheckForm] = React.useState<boolean>(false);
 	const formData = useSelector((state: RootState) => state.formData);
 	const inputRef = React.useRef(null);
-
-	// console.log('imageUrlArr', imageUrlArr);
-	// console.log(' imageUrlArr[ind]', imageUrlArr[0]);
-	// imageUrlArr[ind]
 
 	let objDataSend = {
 		images: imagesData,
@@ -1107,7 +1113,7 @@ export const AddProduct = ({
 												}}
 												style={{
 													color: `${colorsStyle[ind]}`,
-													border: `${colorsStyle[ind]} solid 1.5px`,
+													// border: `${colorsStyle[ind]} solid 1.5px`,
 												}}
 												className={s.text}
 											>
@@ -1147,7 +1153,6 @@ export const AddProduct = ({
 						})}
 					</div>
 				</div>
-
 				<div className={s.net_wrapper}>
 					{SizeChartArr.map((obj) => {
 						return (
@@ -1166,7 +1171,6 @@ export const AddProduct = ({
 							/>
 						);
 					})}
-
 					<span className={s.item_wrapper_2}>
 						Загрузите размерную сетку
 						<label

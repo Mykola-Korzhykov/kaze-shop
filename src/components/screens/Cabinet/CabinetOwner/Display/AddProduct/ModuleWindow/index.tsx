@@ -22,9 +22,11 @@ import {
 	setModalAddColor,
 } from '../../../../../../../redux/slices/modal';
 import { setImageUrl } from '../../../../../../../redux/slices/modal';
-import { fetchCategories } from '../../../../../../../redux/slices/goods';
-
-import { fetchColours } from '../../../../../../../redux/slices/goods';
+import {
+	fetchCategories,
+	fetchColours,
+} from '../../../../../../../redux/slices/goods';
+import { setColorsStyle } from '../../../../../../../redux/slices/admin';
 
 interface ModuleWindowImagesProps {
 	fileNames: string[];
@@ -154,6 +156,9 @@ export const ModuleWindiw = ({
 		dispatch(setArrObjMod(obj));
 		console.log('generationObjModal', obj);
 
+		const payload = selectedColor.hex;
+		dispatch(setColorsStyle(payload));
+
 		// console.log('obj', obj)
 		// setImages([...imagesData, ...files])
 		// console.log('arrObjMods', arrObjMods)
@@ -190,8 +195,6 @@ export const ModuleWindiw = ({
 			...prevArray,
 			event.target.files[0],
 		]);
-		// const url = URL.createObjectURL(event.target.files[0])
-		// setPngImageShowUrl((prevArray: string[]) => [...prevArray,  url])
 	};
 
 	const handleFileUploadPng = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -304,12 +307,10 @@ export const ModuleWindiw = ({
 							<div className={s.image_selecte_wrapper}>
 								<span
 									onClick={() => {
-										console.log('pngImageShow', pngImageShow);
 										setPngImageShow(null);
 										//убираем эту фотку с загального массива фоток
 										setImages((prevArray: File[]) => {
 											const newArray = [...prevArray];
-											console.log('');
 											const activeIndex = newArray.indexOf(pngImageShow);
 											newArray.splice(activeIndex, 1);
 											return newArray;
@@ -318,7 +319,6 @@ export const ModuleWindiw = ({
 										setFiles((prevArray: File[]) => {
 											const newArray = [...prevArray];
 											const activeIndex = newArray.indexOf(pngImageShow);
-											// console.log('activeIndex', activeIndex)
 											newArray.splice(activeIndex, 1);
 											return newArray;
 										});
@@ -394,8 +394,8 @@ export const ModuleWindiw = ({
 									return (
 										<span
 											onClick={() => {
-												console.log('Deletefiles', files);
-												console.log('DeleteImagesData', imagesData);
+												// console.log('Deletefiles', files);
+												// console.log('DeleteImagesData', imagesData);
 												//console.log('click')
 												//убираем рендеринг какой - фотки
 												setJpgImagesShow((prevArray: File[]) => {
@@ -579,8 +579,7 @@ export const ModuleWindiw = ({
 										}}
 									></span>
 									<span className={s.text}>
-										{' '}
-										{selectedColor ? selectedColor.ru : ''}{' '}
+										{selectedColor ? selectedColor.ru : ''}
 									</span>
 								</span>
 							)}
@@ -737,6 +736,8 @@ export const ModuleWindiw = ({
 								if (checkValiedForm(allStateForm)) {
 									setCheckForm(false);
 									generationObjModal();
+									setPngImageShow(null);
+									setJpgImagesShow([]);
 								} else {
 									setCheckForm(true);
 								}
