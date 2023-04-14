@@ -185,12 +185,12 @@ const Cabinet: FC = () => {
 						''
 					)}
 					{modalAddCAtegory ? <ModalAddCategory /> : ''}
+
 					{modalAddColorTurn ? (
 						<ModalAddColor setChoiceColor={setChoiceColor} />
 					) : (
 						''
 					)}
-
 					{modalEditProductTurn && (
 						<ModalEditProduct
 							imagesData={images}

@@ -40,6 +40,27 @@ type GoodsSlice = {
 	fetchedCategories: fetchedCategory[] | null;
 };
 
+// interface FetchGoodsPayload {
+// 	page: number;
+// }
+
+// export const fetchGoods = createAsyncThunk<
+// 	{ products: Goods[]; totalProducts: number },
+// 	number | undefined,
+// 	{ rejectValue: string }
+// >('goods/fetchAllGoods', async (page = 1, { getState, rejectWithValue }) => {
+// 	const state = getState() as RootState;
+// 	const goodsState = state.goods;
+// 	try {
+// 		const data = await Api().goods.getGoods(page);
+// 		return data;
+// 	} catch (e) {
+// 		if ('rawErrors' in e.response.data) {
+// 			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+// 		}
+// 	}
+// });
+
 export const fetchGoods = createAsyncThunk<
 	{ products: Goods[]; totalProducts: number },
 	null,
@@ -77,6 +98,7 @@ export const fetchGoodsByCategory = createAsyncThunk<
 		}
 	}
 );
+
 export const fetchCompareOfferProducts = createAsyncThunk<
 	{ products: Goods[] },
 	number,

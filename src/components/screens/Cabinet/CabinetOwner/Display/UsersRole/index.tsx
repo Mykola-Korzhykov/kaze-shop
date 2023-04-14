@@ -30,7 +30,7 @@ export const UsersRole: React.FC = () => {
 			arrRolePagination.push(i);
 		}
 		setPaginationLendthRole(arrRolePagination);
-	}, [usersRoleUI]);
+	}, []);
 
 	const debouncedSearchRole = debounce((term) => {
 		dispatch(findUsersRole(term));
