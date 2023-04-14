@@ -15,7 +15,7 @@ const CatalogItems = () => {
 		});
 	};
 	const refetchAllGoods = () => {
-		dispatch(fetchGoods(1));
+		dispatch(fetchGoods());
 	};
 	return (
 		<>

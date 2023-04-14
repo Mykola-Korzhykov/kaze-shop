@@ -44,33 +44,15 @@ type GoodsSlice = {
 // 	page: number;
 // }
 
-export const fetchGoods = createAsyncThunk<
-	{ products: Goods[]; totalProducts: number },
-	number | undefined,
-	{ rejectValue: string }
->('goods/fetchAllGoods', async (page = 1, { getState, rejectWithValue }) => {
-	const state = getState() as RootState;
-	const goodsState = state.goods;
-	try {
-		const data = await Api().goods.getGoods(page);
-		return data;
-	} catch (e) {
-		if ('rawErrors' in e.response.data) {
-			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
-		}
-	}
-});
-
 // export const fetchGoods = createAsyncThunk<
 // 	{ products: Goods[]; totalProducts: number },
-// 	null,
+// 	number | undefined,
 // 	{ rejectValue: string }
-// >('goods/fetchAllGoods', async (_, { getState, rejectWithValue }) => {
+// >('goods/fetchAllGoods', async (page = 1, { getState, rejectWithValue }) => {
 // 	const state = getState() as RootState;
 // 	const goodsState = state.goods;
-// 	const pageNumber = goodsState.page;
 // 	try {
-// 		const data = await Api().goods.getGoods(pageNumber);
+// 		const data = await Api().goods.getGoods(page);
 // 		return data;
 // 	} catch (e) {
 // 		if ('rawErrors' in e.response.data) {
@@ -78,6 +60,24 @@ export const fetchGoods = createAsyncThunk<
 // 		}
 // 	}
 // });
+
+export const fetchGoods = createAsyncThunk<
+	{ products: Goods[]; totalProducts: number },
+	null,
+	{ rejectValue: string }
+>('goods/fetchAllGoods', async (_, { getState, rejectWithValue }) => {
+	const state = getState() as RootState;
+	const goodsState = state.goods;
+	const pageNumber = goodsState.page;
+	try {
+		const data = await Api().goods.getGoods(pageNumber);
+		return data;
+	} catch (e) {
+		if ('rawErrors' in e.response.data) {
+			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+		}
+	}
+});
 
 export const fetchGoodsByCategory = createAsyncThunk<
 	{ products: Goods[]; totalProducts: number },

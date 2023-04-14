@@ -32,12 +32,9 @@ const Catalog: FC = () => {
 	useEffect(() => {
 		dispatch(fetchCategories());
 		dispatch(fetchColours());
-		dispatch(fetchGoods(1));
+		dispatch(fetchGoods());
 	}, [dispatch]);
 
-	// useEffect(() => {
-	// 	dispatch(filterGoods())
-	// }, [page, dispatch])
 	return (
 		<CatalogContext.Provider value={{ filtersOpened, setFiltersOpened }}>
 			{loadingStatus === 'loading' || catalogLoadingStatus === 'loading' ? (

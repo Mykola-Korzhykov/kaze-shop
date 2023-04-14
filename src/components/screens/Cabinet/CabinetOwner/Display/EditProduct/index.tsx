@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import s from './EditProduct.module.scss';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/redux/hooks';
-import { fetchGoods } from '@/redux/slices/goods';
+import { fetchGoods, setPage } from '@/redux/slices/goods';
 import { RootState } from '@/redux/store';
 import { setActiveProduct } from '@/redux/slices/editProduct';
 //components
@@ -29,7 +29,8 @@ export const EditProduct: FC<{
 	const [activeId, setActiveId] = React.useState(0);
 
 	React.useEffect(() => {
-		dispatch(fetchGoods(activePagination));
+		dispatch(setPage(activePagination));
+		dispatch(fetchGoods());
 	}, [activePagination]);
 
 	React.useEffect(() => {
