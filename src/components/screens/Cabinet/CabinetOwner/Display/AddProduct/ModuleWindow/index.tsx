@@ -132,7 +132,16 @@ export const ModuleWindiw = ({
 	const renderColorsArr = newColoursArr.filter((colour) => {
 		// Фильтруем элементы массива newColoursArr
 		// проверяя, содержит ли массив arr2 элементы с таким же id
-		return !selectedImages.some((item) => item.colourId === colour.id);
+		// console.log('colour', colour);
+
+		// console.log(
+		// 	'!selectedImages.some((item) => item.colourId === colour.id);',
+		// 	!selectedImages.some((item) => item.colourId === colour.id)
+		// );
+		return !selectedImages.some((item) => {
+			// console.log('item', item);
+			return item.colourId === colour.id;
+		});
 	});
 
 	const filteredSizesItems = sizesItems.filter((sizeItem) => {
@@ -141,6 +150,7 @@ export const ModuleWindiw = ({
 		});
 	});
 
+	// console.log('renderColorsArr', renderColorsArr);
 	//modal backround
 	const [choiceSize, setChoiceSize] = React.useState<boolean>(false);
 
