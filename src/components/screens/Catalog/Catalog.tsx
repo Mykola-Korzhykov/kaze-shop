@@ -18,10 +18,13 @@ import CatalogFilters from './CatalogFilters';
 import CatalogPagination from './CatalogPagination';
 const Catalog: FC = () => {
 	const dispatch = useAppDispatch();
-	const goods = useAppSelector(selectGoods);
 	const { t } = useTranslation();
-	const sortType = useAppSelector((state) => state.goods.sortType);
-	const page = useAppSelector((state) => state.goods.page);
+	const fetchedCategories = useAppSelector(
+		(state) => state.goods.fetchedCategories
+	);
+	const fetchedColours = useAppSelector((state) => state.goods.fetchedColours);
+	const goods = useAppSelector((state) => state.goods.goods);
+
 	const loadingStatus = useAppSelector((state) => state.goods.loadingStatus);
 	const catalogLoadingStatus = useAppSelector(
 		(state) => state.goods.catalogLoadingStatus
@@ -30,9 +33,15 @@ const Catalog: FC = () => {
 	const [filtersOpened, setFiltersOpened] = useState<boolean>(false);
 
 	useEffect(() => {
-		dispatch(fetchCategories());
-		dispatch(fetchColours());
-		dispatch(fetchGoods());
+		if (!fetchedCategories?.length) {
+			dispatch(fetchCategories());
+		}
+		if (!fetchedColours?.length) {
+			dispatch(fetchColours());
+		}
+		if (!goods?.length) {
+			dispatch(fetchGoods());
+		}
 	}, [dispatch]);
 
 	// useEffect(() => {

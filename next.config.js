@@ -2,9 +2,9 @@
 const nextConfig = {
 	reactStrictMode: false,
 	i18n: {
-		locales: ['ua', 'en'],
+		locales: ['ua', 'en', 'ru', 'rs'],
 		defaultLocale: 'ua',
-		localeDetection: false,
+		// localeDetection: false,
 	},
 	devIndicators: {
 		buildActivity: false,

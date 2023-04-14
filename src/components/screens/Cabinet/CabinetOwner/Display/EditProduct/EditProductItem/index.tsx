@@ -812,12 +812,13 @@ export const EditProductItem = ({
 											onClick={() => deleteImageObj(el)}
 											className={s.button_product}
 											style={{
-												color: `${
-													el?.colour?.hex ??
-													fetchedColours.find(
-														(elem) => elem.id === el?.colourId
-													)?.hex + ''
-												}`,
+												// color: `${
+												// 	el?.colour?.hex ??
+												// 	fetchedColours.find(
+												// 		(elem) => elem.id === el?.colourId
+												// 	)?.hex + ''
+												// }`,
+												color: '#0b0b0b',
 												border: `${
 													el?.colour?.hex ??
 													fetchedColours.find(
