@@ -19,14 +19,13 @@ export const EditProduct: FC<{
 	const dispatch = useAppDispatch();
 	// const products = useSelector((state: RootState) => state.admin.editProducts);
 	const products = useSelector((state: RootState) => state.goods.goods);
-	const [paginationArr, setPaginationArr] = React.useState<number[]>([
-		1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-	]);
+	const [paginationArr, setPaginationArr] = React.useState<number[]>([]);
 	const [activePagination, setActivePagination] = React.useState<number>(1);
 
 	const editProductItemId = useSelector(
 		(state: RootState) => state.admin.editProductItemId
 	);
+
 	const [activeId, setActiveId] = React.useState(0);
 
 	React.useEffect(() => {
