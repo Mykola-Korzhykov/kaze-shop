@@ -1,0 +1,211 @@
+.cabinet {
+	&_contentWrapper {
+		position: relative;
+		display: flex;
+		gap: 30px;
+	}
+
+	&_tabs {
+		display: block;
+		border-top: 1.5px solid #9d9d9d;
+		flex: 1 1 40%;
+		max-width: 285px;
+	}
+
+	&_content {
+		display: block;
+		width: 100%;
+	}
+
+	&_tab {
+		position: relative;
+	}
+
+	&_tabcontent {
+		flex-wrap: wrap;
+		display: flex;
+		gap: 30px;
+	}
+
+	&_tablink {
+		position: relative;
+		color: #9d9d9d;
+		border: 1.5px solid #9d9d9d;
+		border-top: none;
+		outline: none;
+		display: block;
+		padding: 18px 34px 18px 23px;
+		text-align: center;
+		font-family: 'Georama', sans-serif;
+		font-style: normal;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 24px;
+		outline: none;
+		transition: 0.4s linear background-color;
+		cursor: pointer;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		@media (max-width: 900px) {
+			font-size: 20px;
+			line-height: 24px;
+			border: 1.5px solid #9d9d9d;
+			border-bottom: 1.5px solid #9d9d9d;
+		}
+
+		@media (max-width: 500px) {
+			font-size: 16px;
+			line-height: 22px;
+		}
+
+		&:hover {
+			background: #0b0b0b;
+			color: #fff;
+			transition: 0.4s linear background-color;
+		}
+	}
+
+	&_tablink_active {
+		display: block;
+		padding: 18px 54px;
+		text-align: center;
+		font-family: 'Georama', sans-serif;
+		font-style: normal;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 24px;
+		border: none;
+		outline: none;
+		cursor: pointer;
+		background: #0b0b0b;
+		color: #fff;
+	}
+
+	&_btn {
+		display: inline-block;
+		background: #0b0b0b;
+		max-width: 390px;
+		width: 100%;
+		font-family: 'Georama', sans-serif;
+		font-style: normal;
+		font-weight: 500;
+		font-size: 20px;
+		line-height: 24px;
+		color: #ffffff;
+		padding: 16px 0;
+		border: none;
+		margin-top: 24px;
+
+		@media (max-width: 900px) {
+			margin-bottom: 20px;
+			width: 100%;
+			max-width: 100%;
+		}
+	}
+
+	&_field {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		gap: 0px;
+		flex: 1 1 33.3%;
+
+		&:nth-child(5) {
+			flex: 1 1 100%;
+		}
+
+		@media (max-width: 900px) {
+			flex: 1 1 70%;
+
+			&:nth-child(5) {
+				flex: 1 1 70%;
+			}
+		}
+	}
+
+	&_icon {
+		margin-right: 8px;
+		display: inline-block;
+		width: 24px;
+		height: 24px;
+		background-size: cover;
+		// position: absolute;
+		// left: 7%;
+		// top: 50%;
+		// transform: translateY(-50%);
+
+		&_pencil {
+			background-image: url('../assets/icons/cabinetTabs/NotePencil.svg');
+		}
+
+		&_change {
+			background-image: url('../assets/icons/cabinetTabs/LockKey.svg');
+		}
+
+		&_history {
+			background-image: url('../assets/icons/cabinetTabs/Receipt.svg');
+		}
+
+		&_bookmarks {
+			background-image: url('../assets/icons/cabinetTabs/BookmarkSimple.svg');
+		}
+
+		&_baskets {
+			background-image: url('../assets/icons/cabinetTabs/ShoppingCart.svg');
+		}
+
+		&_eye {
+			background-image: url('../assets/icons/cabinetTabs/Eye.svg');
+		}
+
+		&_logout {
+			background-image: url('../assets/icons/cabinetTabs/UploadSimple.svg');
+		}
+
+		//@media (max-width: 900px) {
+		//left: 35%;
+		//}
+	}
+
+	// ICONS ON HOVER
+
+	&_tablink:hover &_icon_pencil {
+		background-image: url('../assets/icons/cabinetTabs/whiteIcons/NotePencil.svg');
+	}
+
+	&_tablink:hover &_icon_change {
+		background-image: url('../assets/icons/cabinetTabs/whiteIcons/LockKey.svg');
+	}
+
+	&_tablink:hover &_icon_history {
+		background-image: url('../assets/icons/cabinetTabs/whiteIcons/Receipt.svg');
+	}
+
+	&_tablink:hover &_icon_baskets {
+		background-image: url('../assets/icons/cabinetTabs/whiteIcons/ShoppingCart.svg');
+	}
+
+	&_tablink:hover &_icon_eye {
+		background-image: url('../assets/icons/cabinetTabs/whiteIcons/Eye.svg');
+	}
+
+	&_tablink:hover &_icon_logout {
+		background-image: url('../assets/icons/cabinetTabs/whiteIcons/UploadSimple.svg');
+	}
+
+	&_tablink:hover &_icon_bookmarks {
+		background-image: url('../assets/icons/cabinetTabs/whiteIcons/BookmarkSimple.svg');
+	}
+}
+
+.form {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+
+	@media (max-width: 1200px) {
+		grid-template-columns: repeat(1, 1fr);
+	}
+}

@@ -35,9 +35,11 @@ function App({ Component, pageProps }: AppProps) {
 		const setUserCartToken = async () => {
 			await Api().user.refreshCartToken();
 		};
+		console.log('cart token', cartCookie)
 		if (!cartCookie) {
 			setUserCartToken();
 		}
+
 		const fetchUserData = async () => {
 			try {
 				const data = await Api().user.getMe();

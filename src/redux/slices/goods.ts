@@ -128,7 +128,7 @@ export const fetchCategories = createAsyncThunk<
 >('goods/fetchCategories', async (_, { rejectWithValue }) => {
 	try {
 		const data = await Api().goods.getGategories();
-		return data.data;
+		return data?.data;
 	} catch (e) {
 		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
 	}
@@ -141,7 +141,7 @@ export const fetchColours = createAsyncThunk<
 >('goods/fetchColours', async (_, { rejectWithValue }) => {
 	try {
 		const data = await Api().goods.getColours();
-		return data.data;
+		return data?.data;
 	} catch (e) {
 		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
 	}

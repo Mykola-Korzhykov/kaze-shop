@@ -1,31 +1,84 @@
 import React, { FC } from 'react';
-import cl from '../../../styles/cabinet.module.scss';
+import cl from '../../../styles/cabinet2.module.scss';
 import ChangeUserInfo from '@/components/UserCabinet/ChangeUserInfo/ChangeUserInfo';
 import ChangeUserPassword from '@/components/UserCabinet/ChangeUserPassword/ChangeUserPassword';
 import SavedProducts from '@/components/UserCabinet/SavedProducts/SavedProducts';
 import LogoutModal from '@/components/modals/LogoutModal/LogoutModal';
 const CabinetTabs: FC = () => {
 	const [selectedTab, setSelectedTab] = React.useState<number | null>(1);
+	const toggleTab = (e: React.MouseEvent<HTMLButtonElement>) => {
+		const tabIndex = (e.target as HTMLButtonElement).getAttribute(
+			'data-tabindex'
+		);
 
-	const toggleTab = React.useCallback(
-		(e: React.MouseEvent<HTMLButtonElement>) => {
-			const tabIndex = (e.target as HTMLButtonElement).getAttribute(
-				'data-tabindex'
-			);
+		const tabNumber = tabIndex || 1;
+		setSelectedTab(+tabNumber);
+		const elX = e.clientX;
+		window.scrollTo({ top: elX / 10, behavior: 'smooth' });
+	};
 
-			const tabNumber = tabIndex || 1;
-			setSelectedTab(+tabNumber);
-			const elX = e.clientX;
-			window.scrollTo({ top: elX / 10, behavior: 'smooth' });
+	const TABS = [
+		{
+			label: 'Изменить данные',
+			id: 'vcxzzZZd22rfF@!',
+			tabIndex: 1,
+			iconCls: 'cl.cabinet_icon_eye',
 		},
-		[]
-	);
+		{
+			label: 'Изменить пароль',
+			id: 'r23r2fdsdfsdf',
+			tabIndex: 2,
+			iconCls: 'cl.cabinet_icon_eye',
+		},
+		{
+			label: 'История заказов',
+			id: 'rwerwerwe',
+			tabIndex: 3,
+			iconCls: 'cl.cabinet_icon_eye',
+		},
+		{
+			label: 'Закладки',
+			id: 'feewrwefwef',
+			tabIndex: 4,
+			iconCls: 'cl.cabinet_icon_eye',
+		},
+		{
+			label: 'Собранные корзины',
+			id: 'vfdwee323rwrwer',
+			tabIndex: 5,
+			iconCls: 'cl.cabinet_icon_eye',
+		},
+		{
+			label: 'Смотрели раньше',
+			id: ',bvmcvmbcm43534',
+			tabIndex: 6,
+			iconCls: 'cl.cabinet_icon_eye',
+		},
+		{
+			label: 'Выход',
+			id: 'cvbcvbe43t2grfddf',
+			tabIndex: 7,
+			iconCls: 'cl.cabinet_icon_eye',
+		},
+	];
 
-	// console.log('ChangeUserPassword', ChangeUserPassword)
-
+	const renderTabsContent = () => {
+		switch (selectedTab) {
+			case 1:
+				return <ChangeUserInfo />;
+			case 2:
+				return <ChangeUserPassword />;
+			case 4:
+				return <SavedProducts />;
+			case 7:
+				return <LogoutModal closeModal={setSelectedTab} />;
+			default:
+				return null;
+		}
+	};
 	return (
 		<>
-			{selectedTab === 7 && <LogoutModal closeModal={setSelectedTab} />}
+			{/* {selectedTab === 7 && <LogoutModal closeModal={setSelectedTab} />}
 			<div className={cl.cabinet_tabs}>
 				<div
 					className={selectedTab === 1 ? cl.cabinet_tab_active : cl.cabinet_tab}
@@ -121,6 +174,28 @@ const CabinetTabs: FC = () => {
 						Выход
 					</button>
 				</div>
+			</div> */}
+			<div className={cl.cabinet_contentWrapper}>
+				<div className={cl.cabinet_tabs}>
+					{TABS.map((el) => {
+						return (
+							<div key={el.id} className={cl.cabinet_tab}>
+								<button
+									data-tabindex={el.tabIndex}
+									className={cl.cabinet_tablink}
+									onClick={toggleTab}
+								>
+									<span
+										className={`${cl.cabinet_icon} ${cl.cabinet_icon_eye}`}
+									></span>
+									{el.label}
+								</button>
+							</div>
+						);
+					})}
+				</div>
+
+				<div className={cl.cabinet_content}>{renderTabsContent()}</div>
 			</div>
 		</>
 	);

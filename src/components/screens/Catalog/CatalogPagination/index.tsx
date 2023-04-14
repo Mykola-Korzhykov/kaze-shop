@@ -8,8 +8,8 @@ const CatalogPagination: FC = () => {
 	const dispatch = useAppDispatch();
 	const totalProducts = useAppSelector((state) => state.goods.totalProducts);
 	const paginationHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-		const button: HTMLButtonElement = e.currentTarget;
-		dispatch(setPage(+button.value));
+		const button: HTMLButtonElement = e?.currentTarget;
+		dispatch(setPage(+button?.value));
 		dispatch(filterGoods());
 	};
 	return (
@@ -19,7 +19,7 @@ const CatalogPagination: FC = () => {
 					<button
 						value={id + 1}
 						onClick={paginationHandler}
-						key={id}
+						key={id + Math.random()}
 						className={s.paginationItem}
 					>
 						{id + 1}

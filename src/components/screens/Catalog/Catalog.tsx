@@ -36,12 +36,17 @@ const Catalog: FC = () => {
 		if (!fetchedCategories?.length) {
 			dispatch(fetchCategories());
 		}
+		
 		if (!fetchedColours?.length) {
 			dispatch(fetchColours());
 		}
 		if (!goods?.length) {
 			dispatch(fetchGoods());
 		}
+
+		// dispatch(fetchCategories());
+		// dispatch(fetchColours());
+		// dispatch(fetchGoods());
 	}, [dispatch]);
 
 	return (

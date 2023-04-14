@@ -64,21 +64,21 @@ const HeaderMenu: FC<{
 				{HeadersCategories.map((el) => {
 					return (
 						<li
-							key={el.id}
-							onClick={() => headerLinkHandler(el.link, el.id)}
+							key={el?.id + el?.label}
+							onClick={() => headerLinkHandler(el?.link, el?.id)}
 							className={
-								el.link === '/cabinet' ? `${cl.header__list_account}` : ''
+								el?.link === '/cabinet' ? `${cl.header__list_account}` : ''
 							}
 						>
 							<Link
-								href={el.link}
+								href={el?.link}
 								className={
-									el.link === '/cabinet'
+									el?.link === '/cabinet'
 										? `${cl.header__list_link}`
 										: `${cl.header__link}`
 								}
 							>
-								{el.label}
+								{el?.label}
 							</Link>
 						</li>
 					);
