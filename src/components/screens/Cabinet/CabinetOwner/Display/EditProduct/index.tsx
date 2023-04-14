@@ -89,7 +89,7 @@ export const EditProduct: FC<{
 									}}
 									className={
 										ind + 1 === activePagination
-											? s.pagination_item_active
+											? `${s.pagination_item} ${s.pagination_item_active}`
 											: s.pagination_item
 									}
 								>

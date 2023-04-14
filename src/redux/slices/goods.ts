@@ -98,6 +98,7 @@ export const fetchGoodsByCategory = createAsyncThunk<
 		}
 	}
 );
+
 export const fetchCompareOfferProducts = createAsyncThunk<
 	{ products: Goods[] },
 	number,

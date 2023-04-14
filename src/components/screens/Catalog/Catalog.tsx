@@ -32,7 +32,7 @@ const Catalog: FC = () => {
 	useEffect(() => {
 		dispatch(fetchCategories());
 		dispatch(fetchColours());
-		dispatch(fetchGoods());
+		dispatch(fetchGoods(1));
 	}, [dispatch]);
 
 	// useEffect(() => {

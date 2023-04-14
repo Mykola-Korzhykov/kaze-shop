@@ -164,6 +164,12 @@ const Cabinet: FC = () => {
 				)} */}
 					{/* {choiceColor ? <div style={{height: '1450px'}} className={s.backround_module}></div> : ''} */}
 
+					{modalAddColorTurn ? (
+						<ModalAddColor setChoiceColor={setChoiceColor} />
+					) : (
+						''
+					)}
+
 					{modalAddPhoto ? (
 						<ModuleWindiw
 							imagesData={images}
@@ -185,11 +191,6 @@ const Cabinet: FC = () => {
 						''
 					)}
 					{modalAddCAtegory ? <ModalAddCategory /> : ''}
-					{modalAddColorTurn ? (
-						<ModalAddColor setChoiceColor={setChoiceColor} />
-					) : (
-						''
-					)}
 
 					{modalEditProductTurn && (
 						<ModalEditProduct
