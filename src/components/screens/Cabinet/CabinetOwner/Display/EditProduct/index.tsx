@@ -6,7 +6,7 @@ import {  setPage } from '@/redux/slices/goods';
 import { fetchEditGoods } from '@/redux/slices/editProduct';
 import { RootState } from '@/redux/store';
 import { setActiveProduct } from '@/redux/slices/editProduct';
-
+import { setProductForm } from '@/redux/slices/modal';
 //components
 import { Item } from './Item';
 import { EditProductItem } from './EditProductItem';
@@ -53,6 +53,14 @@ export const EditProduct: FC<{
 				}
 			} catch (e) {
 				dispatch(setLoadingStatus('error'));
+				dispatch(
+					setProductForm({
+						turn: true,
+						title: 'Ошибка получения товара',
+						subtitle: '',
+						btntitle: 'Закрити',
+					})
+				);
 			}
 		};
 		fetchSingleProduct();

@@ -467,7 +467,14 @@ export const EditProductItem = ({
 				}
 			})
 			.catch((error) => {
-				console.error('There was an error!', error);
+				dispatch(
+					setProductForm({
+						turn: true,
+						title: 'Ошибка редактирования товара',
+						subtitle: '',
+						btntitle: 'Закрити',
+					})
+				);
 			});
 	};
 
