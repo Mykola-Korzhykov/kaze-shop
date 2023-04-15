@@ -240,7 +240,7 @@ export const AddProduct = ({
 				},
 			})
 			.then((response) => {
-				if (response && response.status === 200) {
+				if (response && response.status === 201) {
 					dispatch(
 						setProductForm({
 							turn: true,
@@ -271,7 +271,7 @@ export const AddProduct = ({
 						setProductForm({
 							turn: true,
 							title: 'Error',
-							subtitle: ' Response status was not 200!',
+							subtitle: ' Response status was not 201!',
 							btntitle: 'Ok',
 						})
 					);
