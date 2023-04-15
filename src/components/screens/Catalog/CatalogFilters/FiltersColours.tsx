@@ -1,10 +1,10 @@
-import React from 'react'
-import { useAppSelector } from '@/redux/hooks'
-import { selectFetchedColours } from '@/redux/slices/goods'
-import s from './CatalogFilters.module.scss'
-import FiltersCheckbox from './FiltersCheckbox'
+import React from 'react';
+import { useAppSelector } from '@/redux/hooks';
+import { selectFetchedColours } from '@/redux/slices/goods';
+import s from './CatalogFilters.module.scss';
+import FiltersCheckbox from './FiltersCheckbox';
 const FiltersColours = () => {
-	const fetchedColours = useAppSelector(selectFetchedColours)
+	const fetchedColours = useAppSelector(selectFetchedColours);
 	const COLORS = [
 		{ label: 'Бежевый', hex: '#FFE4C4', id: 1 },
 		{ label: 'Капучинный', hex: '#9F8E84', id: 2 },
@@ -20,25 +20,25 @@ const FiltersColours = () => {
 		{ label: 'Серый', hex: '#808080', id: 13413413413 },
 		{ label: 'Графитовый', hex: '#525A5B', id: 57567 },
 		{ label: 'Пудровый', hex: '#F2E2D8', id: 75756756 },
-	]
+	];
 	return (
 		<div className={s.colors_wrapper}>
 			<p className={s.filters_title}>Цвет:</p>
 			<div className={s.filters_body}>
-				{fetchedColours?.map(el => {
+				{fetchedColours?.map((el) => {
 					return (
 						<FiltersCheckbox
-							label={el.ua}
-							color={el.hex}
-							key={el.id}
-							type='colour'
-							itemId={el.id}
+							label={el?.ua}
+							color={el?.hex}
+							key={el?.id + el?.createdAt + el?.hex}
+							type="colour"
+							itemId={el?.id}
 						/>
-					)
+					);
 				})}
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default FiltersColours
+export default FiltersColours;

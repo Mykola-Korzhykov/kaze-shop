@@ -82,26 +82,38 @@ const Signup: NextPage = () => {
 					maxAge: 30 * 24 * 60 * 60,
 					path: '/',
 				});
-				if (data.user) {
+				if (data?.user) {
 					dispatch(addUserInfo(data.user));
 					localStorage.setItem(
 						'expireDate',
 						new Date(new Date().setDate(new Date().getDate() + 7)) + ''
 					);
+					setCookie(null, 'accessToken', data.accessToken, {
+						maxAge: new Date(new Date().setDate(new Date().getDate() + 7)),
+						path: '/',
+					});
 				}
-				if (data.owner) {
+				if (data?.owner) {
 					dispatch(addUserInfo(data.owner));
 					localStorage.setItem(
 						'expireDate',
 						new Date(new Date().setDate(new Date().getDate() + 1)) + ''
 					);
+					setCookie(null, 'accessToken', data.accessToken, {
+						maxAge: new Date(new Date().setDate(new Date().getDate() + 1)),
+						path: '/',
+					});
 				}
-				if (data.admin) {
+				if (data?.admin) {
 					dispatch(addUserInfo(data.admin));
 					localStorage.setItem(
 						'expireDate',
 						new Date(new Date().setDate(new Date().getDate() + 2)) + ''
 					);
+					setCookie(null, 'accessToken', data.accessToken, {
+						maxAge: new Date(new Date().setDate(new Date().getDate() + 2)),
+						path: '/',
+					});
 				}
 				router.push('/cabinet');
 			}

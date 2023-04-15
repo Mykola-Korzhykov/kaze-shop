@@ -128,7 +128,7 @@ export const fetchCategories = createAsyncThunk<
 >('goods/fetchCategories', async (_, { rejectWithValue }) => {
 	try {
 		const data = await Api().goods.getGategories();
-		return data.data;
+		return data?.data;
 	} catch (e) {
 		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
 	}
@@ -141,7 +141,7 @@ export const fetchColours = createAsyncThunk<
 >('goods/fetchColours', async (_, { rejectWithValue }) => {
 	try {
 		const data = await Api().goods.getColours();
-		return data.data;
+		return data?.data;
 	} catch (e) {
 		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
 	}
@@ -312,56 +312,56 @@ const initialState: GoodsSlice = {
 		// },
 	],
 	fetchedCategories: [
-		{
-			id: 1,
-			ua: 'Категорія 1',
-			en: 'Категория 1',
-			rs: 'Категорія 1 rs',
-			ru: 'Категорія 1 ru',
-			type: 'category',
-			createdAt: 'any',
-			updatedAt: 'any',
-		},
-		{
-			id: 2,
-			ua: 'Категорія 2',
-			en: 'Категория 3',
-			rs: 'Категорія 2 rs',
-			ru: 'Категорія 2 ru',
-			type: 'category',
-			createdAt: 'any',
-			updatedAt: 'any',
-		},
-		{
-			id: 3,
-			ua: 'Категорія 3',
-			en: 'Категория 3',
-			rs: 'Категорія 2 rs',
-			ru: 'Категорія 3 ru',
-			type: 'category',
-			createdAt: 'any',
-			updatedAt: 'any',
-		},
-		{
-			id: 4,
-			ua: 'Категорія 4',
-			en: 'Категория 4',
-			rs: 'Категорія 4 rs',
-			ru: 'Категорія 4 ru',
-			type: 'category',
-			createdAt: 'any',
-			updatedAt: 'any',
-		},
-		{
-			id: 2,
-			ua: 'Категорія 4',
-			en: 'Категория 4',
-			rs: 'Категорія 4 rs',
-			ru: 'Категорія 4 ru',
-			type: 'category',
-			createdAt: 'any',
-			updatedAt: 'any',
-		},
+		// {
+		// 	id: 1,
+		// 	ua: 'Категорія 1',
+		// 	en: 'Категория 1',
+		// 	rs: 'Категорія 1 rs',
+		// 	ru: 'Категорія 1 ru',
+		// 	type: 'category',
+		// 	createdAt: 'any',
+		// 	updatedAt: 'any',
+		// },
+		// {
+		// 	id: 2,
+		// 	ua: 'Категорія 2',
+		// 	en: 'Категория 3',
+		// 	rs: 'Категорія 2 rs',
+		// 	ru: 'Категорія 2 ru',
+		// 	type: 'category',
+		// 	createdAt: 'any',
+		// 	updatedAt: 'any',
+		// },
+		// {
+		// 	id: 3,
+		// 	ua: 'Категорія 3',
+		// 	en: 'Категория 3',
+		// 	rs: 'Категорія 2 rs',
+		// 	ru: 'Категорія 3 ru',
+		// 	type: 'category',
+		// 	createdAt: 'any',
+		// 	updatedAt: 'any',
+		// },
+		// {
+		// 	id: 4,
+		// 	ua: 'Категорія 4',
+		// 	en: 'Категория 4',
+		// 	rs: 'Категорія 4 rs',
+		// 	ru: 'Категорія 4 ru',
+		// 	type: 'category',
+		// 	createdAt: 'any',
+		// 	updatedAt: 'any',
+		// },
+		// {
+		// 	id: 2,
+		// 	ua: 'Категорія 4',
+		// 	en: 'Категория 4',
+		// 	rs: 'Категорія 4 rs',
+		// 	ru: 'Категорія 4 ru',
+		// 	type: 'category',
+		// 	createdAt: 'any',
+		// 	updatedAt: 'any',
+		// },
 	],
 	language: 'ua',
 };

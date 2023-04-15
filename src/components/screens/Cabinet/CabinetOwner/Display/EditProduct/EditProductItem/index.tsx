@@ -10,6 +10,7 @@ import {
 	setEditProductItemId,
 	setArrObjModalSwow,
 } from '../../../../../../../redux/slices/admin';
+import { setProductForm } from '../../../../../../../redux/slices/modal';
 import { removearrObjMod } from '@/redux/slices/formData';
 import { Api } from '@/services';
 import { fetchedColour } from '../../../../../../../types/goods';
@@ -368,11 +369,26 @@ export const EditProductItem = ({
 			)
 			.then((response) => {
 				if (response?.status === 202) {
-					setSuccessSend(true);
+					dispatch(
+						setProductForm({
+							turn: true,
+							title: 'Товар успешно отредактирован',
+							subtitle: '',
+							btntitle: 'Готово',
+						})
+					);
 					setTimeout(() => {
 						dispatch(setActiveProduct(null));
 						dispatch(setEditProductItemId(-1));
-					}, 2500);
+						dispatch(
+							setProductForm({
+								turn: false,
+								title: 'Товар успешно отредактирован',
+								subtitle: '',
+								btntitle: 'Готово',
+							})
+						);
+					}, 2000);
 				}
 			})
 			.catch((error) => {
@@ -812,12 +828,13 @@ export const EditProductItem = ({
 											onClick={() => deleteImageObj(el)}
 											className={s.button_product}
 											style={{
-												color: `${
-													el?.colour?.hex ??
-													fetchedColours.find(
-														(elem) => elem.id === el?.colourId
-													)?.hex + ''
-												}`,
+												// color: `${
+												// 	el?.colour?.hex ??
+												// 	fetchedColours.find(
+												// 		(elem) => elem.id === el?.colourId
+												// 	)?.hex + ''
+												// }`,
+												color: '#0b0b0b',
 												border: `${
 													el?.colour?.hex ??
 													fetchedColours.find(

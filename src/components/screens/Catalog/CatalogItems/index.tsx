@@ -11,7 +11,7 @@ const CatalogItems = () => {
 	const goods = useAppSelector(selectGoods);
 	const renderGoods = (arr: Goods[] | null) => {
 		return arr?.map((product) => {
-			return <CatalogItem product={product} key={product.id} />;
+			return <CatalogItem product={product} key={product?.id} />;
 		});
 	};
 	const refetchAllGoods = () => {

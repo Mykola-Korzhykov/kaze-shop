@@ -1,5 +1,5 @@
 import React from 'react';
-import cl from '../../../styles/cabinet.module.scss';
+import cl from '../../../styles/cabinet2.module.scss';
 import CatalogItem from '@/components/screens/Catalog/CatalogItems/CatalogItem';
 const SavedProducts = () => {
 	return (
