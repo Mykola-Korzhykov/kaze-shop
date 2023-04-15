@@ -13,14 +13,14 @@ import { API_URL } from './index';
 export const UserApi = (instance: AxiosInstance) => ({
 	async login(dto: LoginDto) {
 		const { data } = await instance.post<LoginDto, { data: AuthResponse }>(
-			API_URL + '/auth/login',
+			API_URL + '/auth/login?locale=ua',
 			dto
 		);
 		return data;
 	},
 	async registration(dto: CreateUserDto) {
 		const { data } = await instance.post<CreateUserDto, { data: AuthResponse }>(
-			API_URL + '/auth/signup',
+			API_URL + '/auth/signup?locale=ua',
 			dto
 		);
 		return data;
@@ -62,7 +62,7 @@ export const UserApi = (instance: AxiosInstance) => ({
 	},
 	async getMe() {
 		const { data } = await instance.patch<GetCodeDto, { data: AuthResponse }>(
-			'/auth/refresh'
+			'/auth/refresh?locale=ua'
 		);
 		return data;
 	},

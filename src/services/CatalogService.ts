@@ -7,6 +7,12 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		const { data } = await instance.get(`/product?page=${page}&pageSize=10`);
 		return data;
 	},
+	async getEditGoods(page: number) {
+		const { data } = await instance.get(
+			`product/update_products?page=${page}&pageSize=1`
+		);
+		return data;
+	},
 	async getGategories() {
 		const { data } = await instance.get('/categories/get_categoties');
 		return data;
@@ -67,10 +73,7 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		);
 		return data;
 	},
-	async updateEditProduct(
-		productId: number,
-		product: EditProduct
-	) {
+	async updateEditProduct(productId: number, product: EditProduct) {
 		const { data } = await instance.patch(
 			`product/update_product?productId=${productId}`,
 			product
@@ -103,9 +106,15 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		const { data } = await instance.get(`product/${productId}`);
 		return data;
 	},
-	async deleteSingleProduct(productId: number) {
-		const { data } = await instance.delete(`product/delete_product?productId=${productId}`);
+	async getSingleEditProduct(productId: number | string) {
+		const { data } = await instance.get(`product/edit/${productId}`);
 		return data;
+	},
+	async deleteSingleProduct(productId: number) {
+		const res = await instance.delete(
+			`product/delete_product?productId=${productId}`
+		);
+		return res;
 	},
 	async sendFeedback(
 		feedback: {
@@ -116,8 +125,10 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		},
 		productId: number
 	) {
-		const { data } = await instance.put(`reviews/create_review?productId=${productId}`, feedback);
+		const { data } = await instance.put(
+			`reviews/create_review?productId=${productId}`,
+			feedback
+		);
 		return data;
 	},
 });
-

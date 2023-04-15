@@ -79,7 +79,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 							src={product?.images[0]?.imagesPaths[0] ?? catalogImg}
 							width={285}
 							height={360}
-							alt={product?.title?.en}
+							alt={product?.title?.en ?? 'catalog image'}
 							quality={95}
 						/>
 					) : (

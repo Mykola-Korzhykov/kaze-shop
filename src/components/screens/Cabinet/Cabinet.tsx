@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Spinner from '@/components/Spinner/Spinner';
 import { useAppDispatch } from '@/redux/hooks';
 import { RootState } from '@/redux/store';
-import { fetchColours } from '@/redux/slices/goods';
+import { fetchColours, setPage } from '@/redux/slices/goods';
 import { useRouter } from 'next/router';
 import { addUserInfo } from '@/redux/slices/user';
 import Link from 'next/link';
@@ -61,39 +61,9 @@ const Cabinet: FC = () => {
 	console.log('modalAddColorTurn', modalAddColorTurn);
 	React.useEffect(() => {
 		dispatch(fetchColours());
+		// dispatch(setPage(1))
 	}, [dispatch]);
 	console.log('user', user);
-	React.useEffect(() => {
-		const fetchUserData = async () => {
-			try {
-				const data = await Api().user.getMe();
-				const expireDate = new Date(localStorage.getItem('expireDate'));
-				setCookie(null, 'accessToken', data.accessToken, {
-					maxAge: Number(new Date(expireDate)) - Number(new Date()),
-					path: '/',
-				});
-				if (data.user) {
-					dispatch(addUserInfo(data.user));
-				}
-				if (data.admin) {
-					dispatch(addUserInfo(data.admin));
-				}
-				if (data.owner) {
-					dispatch(addUserInfo(data.owner));
-				}
-			} catch (e) {
-				//router.push('/404')
-				// if (e?.response?.status === 400) {
-				// 	destroyCookie(undefined, 'accessToken');
-				// 	router.push('/');
-				// }
-			}
-		};
-
-		// if (!user?.user) {
-		// 	fetchUserData();
-		// }
-	}, [dispatch]);
 
 	return (
 		<>
@@ -124,8 +94,8 @@ const Cabinet: FC = () => {
 
 					{/* {user?.user?.type === 'ADMIN' && <CabinetAdmin />} */}
 
-					{/* <CabinetTabs />  */}
-					<CabinetOwner
+					<CabinetTabs /> 
+					{/* <CabinetOwner
 						role={'OWNER'}
 						modalAddCAtegory={modalAddCAtegory}
 						imagesData={images}
@@ -137,7 +107,7 @@ const Cabinet: FC = () => {
 						setFiles={setFiles}
 						setPngImageShow={setPngImageShow}
 						setJpgImagesShow={setJpgImagesShow}
-					/>
+					/> */}
 
 					{/* <CabinetAdmin /> */}
 

@@ -6,6 +6,7 @@ import SavedProducts from '@/components/UserCabinet/SavedProducts/SavedProducts'
 import LogoutModal from '@/components/modals/LogoutModal/LogoutModal';
 const CabinetTabs: FC = () => {
 	const [selectedTab, setSelectedTab] = React.useState<number | null>(1);
+
 	const toggleTab = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const tabIndex = (e.target as HTMLButtonElement).getAttribute(
 			'data-tabindex'
@@ -190,6 +191,9 @@ const CabinetTabs: FC = () => {
 									></span>
 									{el.label}
 								</button>
+								<div className={cl.cabinet_navContent}>
+									{el.tabIndex === selectedTab && renderTabsContent()}
+								</div>
 							</div>
 						);
 					})}

@@ -58,6 +58,7 @@ export const EditProductItem = ({
 	setImages,
 }: EditProductItemType) => {
 	const dispatch = useAppDispatch();
+	const [checkForm, setCheckForm] = React.useState<boolean>(false);
 	const fetchedColours = useAppSelector((state) => state.goods.fetchedColours);
 	const imagesFromModal = useAppSelector(
 		(state) => state.editProduct.imagesFromModal
@@ -193,10 +194,9 @@ export const EditProductItem = ({
 
 		//price
 
-		const payloadP: string = activeProduct?.price + ''; //
-		const payloadPstr: number = +payloadP.slice(0, -1);
+		
 
-		dispatch(setPrice(Number(payloadPstr)));
+		dispatch(setPrice(Number(activeProduct?.price)));
 
 		//sizeChartDescr
 
@@ -312,6 +312,75 @@ export const EditProductItem = ({
 			colours: coloursArr,
 			deletedImages: deletedImagesIndexes,
 		};
+
+		function validateProduct() {
+			// Validate title
+			if (
+				!title ||
+				title?.ua?.trim().length < 1 ||
+				title?.en?.trim().length < 1 ||
+				title?.rs?.trim().length < 1 ||
+				title?.ru?.trim().length < 1
+			) {
+				return false;
+			}
+
+			// Validate description
+			if (
+				!descr ||
+				descr?.ua?.trim().length < 1 ||
+				descr?.en?.trim().length < 1 ||
+				descr?.rs?.trim().length < 1 ||
+				descr?.ru?.trim().length < 1
+			) {
+				return false;
+			}
+
+			// Validate price
+			if (price === null || !price) {
+				return false;
+			}
+
+			// Validate sizes
+			if (selectedSizes?.length === 0) {
+				return false;
+			}
+
+			// Validate colours
+			if (coloursArr?.length === 0) {
+				return false;
+			}
+
+			// Validate quantity
+			if (quantity === null || !quantity) {
+				return false;
+			}
+
+			// Validate categories
+			if (!categories?.length) {
+				return false;
+			}
+
+			// Validate sizeChartImageDescription
+			if (
+				!sizeChartDescr ||
+				sizeChartDescr?.ua?.trim().length < 1 ||
+				sizeChartDescr?.en?.trim().length < 1 ||
+				sizeChartDescr?.rs?.trim().length < 1 ||
+				sizeChartDescr?.ru?.trim().length < 1
+			) {
+				return false;
+			}
+
+			// Validate sizeChartImage
+			if (!netFile) {
+				return false;
+			}
+			return true;
+		}
+
+		const validationControl: boolean = validateProduct();
+
 		if (typeof netFile === 'string') {
 			delete sendObj['sizeChartImage'];
 		}
@@ -347,13 +416,19 @@ export const EditProductItem = ({
 		);
 		//sizeChartImage
 		if (typeof netFile !== 'string') {
-			formData.append('sizeChartImage', JSON.stringify(netFile));
+			formData.append('sizeChartImage', netFile);
 		}
 		//selectedImages
 		if (arrObjModal?.length > 0) {
 			formData.append('selectedImages', JSON.stringify(arrObjModal));
 		}
 		console.log('SEND_OBJ', sendObj);
+		console.log('VALIDATION GOOD?', validationControl);
+
+		if (validationControl) {
+		} else {
+			setCheckForm(true);
+		}
 		axios
 			.patch(
 				`/product/update_product?productId=${activeProduct?.id}`,
@@ -435,8 +510,8 @@ export const EditProductItem = ({
 
 	// const [arrPhotos, setArrPhotos] = React.useState<any>([...userEdit.images])
 	// console.log('arrPhotos', arrPhotos)
-	const payloadP: string = activeProduct?.price + '';
-	const payloadPstr: string = payloadP.slice(0, -1);
+	
+	
 	const inputs = [
 		{
 			id: 0,
@@ -516,7 +591,7 @@ export const EditProductItem = ({
 			text: 'Цена в долларах',
 			placeholder: 'Введите цену',
 			name: 'price',
-			value: activeProduct?.price?.slice(0, -1),
+			value: activeProduct?.price,
 		},
 		{
 			id: 10,
@@ -1155,7 +1230,11 @@ export const EditProductItem = ({
 						return <ColorItem key={ind} hex={el.hex} label={el.ua} />;
 					})}
 				</div> */}
-
+				{checkForm && (
+					<div className={s.check_form}>
+						Чтобы изменить товар, полностью заполните форму
+					</div>
+				)}
 				{/* тоже самое с цветами , сатею в отдельную переменную, локальную переменную после чего с ней работаю и отправляю при отправке ее уже  */}
 				<div className={s.send_wrapper}>
 					<span onClick={cancelEditingProduct} className={s.send_cancel}>

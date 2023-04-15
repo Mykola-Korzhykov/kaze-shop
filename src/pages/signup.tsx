@@ -78,43 +78,20 @@ const Signup: NextPage = () => {
 				setSignUpLoading(true);
 				const data = await Api().user.registration(registrationData);
 
-				setCookie(null, 'accessToken', data.accessToken, {
-					maxAge: 30 * 24 * 60 * 60,
+				setCookie(null, 'accessToken', data?.accessToken, {
+					maxAge: data?.maxAge,
 					path: '/',
 				});
 				if (data?.user) {
-					dispatch(addUserInfo(data.user));
-					localStorage.setItem(
-						'expireDate',
-						new Date(new Date().setDate(new Date().getDate() + 7)) + ''
-					);
-					setCookie(null, 'accessToken', data.accessToken, {
-						maxAge: new Date(new Date().setDate(new Date().getDate() + 7)),
-						path: '/',
-					});
+					dispatch(addUserInfo(data?.user));
 				}
 				if (data?.owner) {
-					dispatch(addUserInfo(data.owner));
-					localStorage.setItem(
-						'expireDate',
-						new Date(new Date().setDate(new Date().getDate() + 1)) + ''
-					);
-					setCookie(null, 'accessToken', data.accessToken, {
-						maxAge: new Date(new Date().setDate(new Date().getDate() + 1)),
-						path: '/',
-					});
+					dispatch(addUserInfo(data?.owner));
 				}
 				if (data?.admin) {
-					dispatch(addUserInfo(data.admin));
-					localStorage.setItem(
-						'expireDate',
-						new Date(new Date().setDate(new Date().getDate() + 2)) + ''
-					);
-					setCookie(null, 'accessToken', data.accessToken, {
-						maxAge: new Date(new Date().setDate(new Date().getDate() + 2)),
-						path: '/',
-					});
+					dispatch(addUserInfo(data?.admin));
 				}
+
 				router.push('/cabinet');
 			}
 		} catch (err) {

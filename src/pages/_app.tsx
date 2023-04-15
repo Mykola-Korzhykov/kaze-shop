@@ -2,6 +2,7 @@ import '@/styles/reset.scss';
 import '@/styles/common.scss';
 import type { AppProps } from 'next/app';
 import CookiePolicy from '@/components/modals/CookiePolicy/CookiePolicy';
+import { parseCookies } from 'nookies';
 import Cookies from 'js-cookie';
 import Layout from '@/layouts/DefaultLayout';
 import { wrapper } from '../redux/store';
@@ -17,7 +18,7 @@ import { useRouter } from 'next/router';
 
 function App({ Component, pageProps }: AppProps) {
 	const dispatch = useAppDispatch();
-	const router = useRouter()
+	const router = useRouter();
 	const [chowUseCookieModal, setChowUseCookieModal] =
 		React.useState<boolean>(true);
 	React.useEffect(() => {
@@ -31,11 +32,13 @@ function App({ Component, pageProps }: AppProps) {
 		}
 		setChowUseCookieModal(initialValue);
 		//cart id logic
-		const cartCookie = Cookies.get('_id');
+		const cookies = parseCookies();
+		const cartCookie = cookies._id;
+		// const cartCookie = parseCookies(undefined, '_id');
 		const setUserCartToken = async () => {
 			await Api().user.refreshCartToken();
 		};
-		console.log('cart token', cartCookie)
+		console.log('cart token', cartCookie);
 		if (!cartCookie) {
 			setUserCartToken();
 		}
@@ -43,19 +46,19 @@ function App({ Component, pageProps }: AppProps) {
 		const fetchUserData = async () => {
 			try {
 				const data = await Api().user.getMe();
-				const expireDate = new Date(localStorage.getItem('expireDate'));
-				setCookie(null, 'accessToken', data.accessToken, {
-					maxAge: Number(new Date(expireDate)) - Number(new Date()),
+
+				setCookie(null, 'accessToken', data?.accessToken, {
+					maxAge: data?.maxAge,
 					path: '/',
 				});
-				if (data.user) {
-					dispatch(addUserInfo(data.user));
+				if (data?.user) {
+					dispatch(addUserInfo(data?.user));
 				}
-				if (data.admin) {
-					dispatch(addUserInfo(data.admin));
+				if (data?.admin) {
+					dispatch(addUserInfo(data?.admin));
 				}
-				if (data.owner) {
-					dispatch(addUserInfo(data.owner));
+				if (data?.owner) {
+					dispatch(addUserInfo(data?.owner));
 				}
 			} catch (e) {
 				//router.push('/404')

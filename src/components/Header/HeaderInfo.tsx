@@ -16,7 +16,6 @@ const HeaderInfo: FC<Props> = ({ toggleBurgerFunc, showBurgerMenu }) => {
 	const [languageDropdown, setLanguageDropdown] = useState<boolean>(false);
 
 	const languageHandler = () => {
-		console.log(1)
 		setLanguageDropdown((prev) => !prev);
 	};
 	return (
@@ -35,7 +34,13 @@ const HeaderInfo: FC<Props> = ({ toggleBurgerFunc, showBurgerMenu }) => {
 					height={18}
 				/>
 				{languageDropdown && (
-					<div className={cl.header_dropdown} onClick={languageHandler}>
+					<div
+						className={cl.header_dropdown}
+						onClick={(e) => {
+							e.stopPropagation();
+							languageHandler();
+						}}
+					>
 						<button>RU</button>
 						<button>SRP</button>
 						<button>ENG</button>
