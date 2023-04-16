@@ -8,7 +8,7 @@ import Layout from '@/layouts/DefaultLayout';
 import { wrapper } from '../redux/store';
 import { Api } from '@/services';
 import React, { Suspense } from 'react';
-import { addUserInfo } from '@/redux/slices/user';
+import { addUserInfo, setAuthState } from '@/redux/slices/user';
 import Spinner from '@/components/Spinner/Spinner';
 import { setCookie } from 'nookies';
 import { useAppDispatch } from '@/redux/hooks';
@@ -22,6 +22,8 @@ function App({ Component, pageProps }: AppProps) {
 	const [chowUseCookieModal, setChowUseCookieModal] =
 		React.useState<boolean>(true);
 	React.useEffect(() => {
+		const cookies = parseCookies();
+		 dispatch(setAuthState(!!cookies.accessToken));
 		//get cookie initial state from LS
 		let initialValue = false;
 		if (typeof window !== 'undefined') {
@@ -32,13 +34,13 @@ function App({ Component, pageProps }: AppProps) {
 		}
 		setChowUseCookieModal(initialValue);
 		//cart id logic
-		const cookies = parseCookies();
-		const cartCookie = cookies._id;
-		// const cartCookie = parseCookies(undefined, '_id');
+		
+		const cartCookie = cookies['_id'];
 		const setUserCartToken = async () => {
 			await Api().user.refreshCartToken();
 		};
 		console.log('cart token', cartCookie);
+		console.log('all cookies', cookies);
 		if (!cartCookie) {
 			setUserCartToken();
 		}

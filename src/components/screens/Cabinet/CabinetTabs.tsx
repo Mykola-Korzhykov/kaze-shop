@@ -3,7 +3,10 @@ import cl from '../../../styles/cabinet2.module.scss';
 import ChangeUserInfo from '@/components/UserCabinet/ChangeUserInfo/ChangeUserInfo';
 import ChangeUserPassword from '@/components/UserCabinet/ChangeUserPassword/ChangeUserPassword';
 import SavedProducts from '@/components/UserCabinet/SavedProducts/SavedProducts';
+import OrderHisrtory from '@/components/UserCabinet/OrderHistory/OrderHistory';
 import LogoutModal from '@/components/modals/LogoutModal/LogoutModal';
+import ForgottenBaskets from '@/components/UserCabinet/ForgottenBaskets/ForgottenBaskets';
+import RecentlyWatchedProducts from '@/components/UserCabinet/RecentlyWatchedProducts/RecentlyWatchedProducts';
 const CabinetTabs: FC = () => {
 	const [selectedTab, setSelectedTab] = React.useState<number | null>(1);
 
@@ -23,43 +26,43 @@ const CabinetTabs: FC = () => {
 			label: 'Изменить данные',
 			id: 'vcxzzZZd22rfF@!',
 			tabIndex: 1,
-			iconCls: 'cl.cabinet_icon_eye',
+			iconCls: 'pencil',
 		},
 		{
 			label: 'Изменить пароль',
 			id: 'r23r2fdsdfsdf',
 			tabIndex: 2,
-			iconCls: 'cl.cabinet_icon_eye',
+			iconCls: 'change',
 		},
 		{
 			label: 'История заказов',
 			id: 'rwerwerwe',
 			tabIndex: 3,
-			iconCls: 'cl.cabinet_icon_eye',
+			iconCls: 'history',
 		},
 		{
 			label: 'Закладки',
 			id: 'feewrwefwef',
 			tabIndex: 4,
-			iconCls: 'cl.cabinet_icon_eye',
+			iconCls: 'bookmarks',
 		},
 		{
 			label: 'Собранные корзины',
 			id: 'vfdwee323rwrwer',
 			tabIndex: 5,
-			iconCls: 'cl.cabinet_icon_eye',
+			iconCls: 'baskets',
 		},
 		{
 			label: 'Смотрели раньше',
 			id: ',bvmcvmbcm43534',
 			tabIndex: 6,
-			iconCls: 'cl.cabinet_icon_eye',
+			iconCls: 'eye',
 		},
 		{
 			label: 'Выход',
 			id: 'cvbcvbe43t2grfddf',
 			tabIndex: 7,
-			iconCls: 'cl.cabinet_icon_eye',
+			iconCls: 'logout',
 		},
 	];
 
@@ -69,8 +72,14 @@ const CabinetTabs: FC = () => {
 				return <ChangeUserInfo />;
 			case 2:
 				return <ChangeUserPassword />;
+			case 3:
+				return <OrderHisrtory />;
 			case 4:
 				return <SavedProducts />;
+			case 5:
+				return <ForgottenBaskets />;
+			case 6:
+				return <RecentlyWatchedProducts />;
 			case 7:
 				return <LogoutModal closeModal={setSelectedTab} />;
 			default:
@@ -183,11 +192,17 @@ const CabinetTabs: FC = () => {
 							<div key={el.id} className={cl.cabinet_tab}>
 								<button
 									data-tabindex={el.tabIndex}
-									className={cl.cabinet_tablink}
+									className={
+										el.tabIndex === selectedTab
+											? `${cl.cabinet_tablink_active} ${cl.cabinet_tablink}`
+											: cl.cabinet_tablink
+									}
 									onClick={toggleTab}
 								>
 									<span
-										className={`${cl.cabinet_icon} ${cl.cabinet_icon_eye}`}
+										className={`${cl.cabinet_icon} ${
+											cl[`cabinet_icon_${el.iconCls}`]
+										}`}
 									></span>
 									{el.label}
 								</button>

@@ -1,7 +1,7 @@
 import React from 'react';
 import cl from '../../../styles/cabinet2.module.scss';
 import CatalogItem from '@/components/screens/Catalog/CatalogItems/CatalogItem';
-const SavedProducts = () => {
+const RecentlyWatchedProducts = () => {
 	return (
 		<div className={cl.cabinet_catalogContent}>
 			<CatalogItem />
@@ -13,4 +13,4 @@ const SavedProducts = () => {
 	);
 };
 
-export default SavedProducts;
+export default RecentlyWatchedProducts;

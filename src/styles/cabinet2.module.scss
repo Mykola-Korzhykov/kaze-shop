@@ -3,6 +3,9 @@
 		position: relative;
 		display: flex;
 		gap: 30px;
+		@media (max-width: 950px) {
+			gap: 15px;
+		}
 	}
 
 	&_tabs {
@@ -10,7 +13,10 @@
 		border-top: 1.5px solid #9d9d9d;
 		flex: 1 1 45%;
 		max-width: 285px;
-		@media (max-width: 900px) {
+		@media (max-width: 950px) {
+			flex: 1 1 50%;
+		}
+		@media (max-width: 860px) {
 			flex: 1 1 100%;
 			max-width: 100%;
 		}
@@ -19,7 +25,7 @@
 	&_content {
 		display: block;
 		width: 100%;
-		@media (max-width: 900px) {
+		@media (max-width: 860px) {
 			display: none;
 		}
 	}
@@ -27,15 +33,26 @@
 	&_tab {
 		position: relative;
 	}
-
+	&_catalogContent {
+		flex-wrap: wrap;
+		display: flex;
+		gap: 30px;
+		@media (max-width: 860px) {
+			justify-content: center;
+		}
+	}
 	&_tabcontent {
 		flex-wrap: wrap;
 		display: flex;
 		gap: 30px;
+		@media (max-width: 860px) {
+			gap: 15px;
+		}
 	}
 
 	&_navContent {
-		@media (min-width: 901px) {
+		margin: 20px 0;
+		@media (min-width: 861px) {
 			display: none;
 		}
 	}
@@ -62,7 +79,7 @@
 		align-items: center;
 		justify-content: center;
 
-		@media (max-width: 900px) {
+		@media (max-width: 860p) {
 			font-size: 20px;
 			line-height: 24px;
 		}
@@ -80,17 +97,6 @@
 	}
 
 	&_tablink_active {
-		display: block;
-		padding: 18px 54px;
-		text-align: center;
-		font-family: 'Georama', sans-serif;
-		font-style: normal;
-		font-weight: 500;
-		font-size: 20px;
-		line-height: 24px;
-		border: none;
-		outline: none;
-		cursor: pointer;
 		background: #0b0b0b;
 		color: #fff;
 	}
@@ -110,8 +116,8 @@
 		border: none;
 		margin-top: 24px;
 
-		@media (max-width: 900px) {
-			margin-bottom: 20px;
+		@media (max-width: 860px) {
+			margin: 0;
 			width: 100%;
 			max-width: 100%;
 		}
@@ -128,7 +134,7 @@
 			flex: 1 1 100%;
 		}
 
-		@media (max-width: 900px) {
+		@media (max-width: 860px) {
 			flex: 1 1 70%;
 
 			&:nth-child(5) {
@@ -218,5 +224,52 @@
 
 	@media (max-width: 1200px) {
 		grid-template-columns: repeat(1, 1fr);
+	}
+}
+
+// orderHistory
+
+.cart {
+	padding: 10px 0;
+	border-top: 1.5px solid #9d9d9d;
+	display: flex;
+	&:last-child {
+		border-bottom: 1.5px solid #9d9d9d;
+	}
+
+	&_imgWrapper {
+		margin-right: 30px;
+		max-width: 94px;
+		min-width: 77px;
+		@media (max-width: 428px) {
+			width: 77px;
+		}
+	}
+	&_img {
+		width: 100%;
+		height: 100%;
+		display: block;
+		object-fit: cover;
+	}
+	&_content {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+	&_title {
+		font-family: 'Russo One';
+		font-style: normal;
+		font-weight: 400;
+		font-size: 22px;
+		line-height: 27px;
+		color: #0b0b0b;
+	}
+	&_descr {
+		font-family: 'Georama';
+		font-style: normal;
+		font-weight: 500;
+		font-size: 16px;
+		line-height: 19px;
+		color: #9d9d9d;
 	}
 }

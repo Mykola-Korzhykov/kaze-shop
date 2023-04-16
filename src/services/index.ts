@@ -44,7 +44,7 @@ export const Api = (
 							withCredentials: true,
 						}
 					)
-					setCookie(null, 'accessToken', response.data.accessToken, {
+					setCookie(null, 'accessToken', response?.data?.accessToken, {
 						maxAge: 30 * 24 * 60 * 60,
 						path: '/',
 					})
