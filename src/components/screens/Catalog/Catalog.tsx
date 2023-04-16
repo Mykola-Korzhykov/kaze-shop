@@ -19,11 +19,11 @@ import CatalogPagination from './CatalogPagination';
 const Catalog: FC = () => {
 	const dispatch = useAppDispatch();
 	const { t } = useTranslation();
-	const fetchedCategories = useAppSelector(
-		(state) => state.goods.fetchedCategories
-	);
-	const fetchedColours = useAppSelector((state) => state.goods.fetchedColours);
-	const goods = useAppSelector((state) => state.goods.goods);
+	// const fetchedCategories = useAppSelector(
+	// 	(state) => state.goods.fetchedCategories
+	// );
+	// const fetchedColours = useAppSelector((state) => state.goods.fetchedColours);
+	// const goods = useAppSelector((state) => state.goods.goods);
 
 	const loadingStatus = useAppSelector((state) => state.goods.loadingStatus);
 	const catalogLoadingStatus = useAppSelector(
@@ -33,20 +33,19 @@ const Catalog: FC = () => {
 	const [filtersOpened, setFiltersOpened] = useState<boolean>(false);
 
 	useEffect(() => {
-		if (!fetchedCategories?.length) {
-			dispatch(fetchCategories());
-		}
-		
-		if (!fetchedColours?.length) {
-			dispatch(fetchColours());
-		}
-		if (!goods?.length) {
-			dispatch(fetchGoods());
-		}
+		// if (!fetchedCategories?.length) {
+		// 	dispatch(fetchCategories());
+		// }
 
-		// dispatch(fetchCategories());
-		// dispatch(fetchColours());
-		// dispatch(fetchGoods());
+		// if (!fetchedColours?.length) {
+		// 	dispatch(fetchColours());
+		// }
+		// if (!goods?.length) {
+		// 	dispatch(fetchGoods());
+		// }
+		dispatch(fetchGoods());
+		dispatch(fetchCategories());
+		dispatch(fetchColours());
 	}, [dispatch]);
 
 	return (
