@@ -71,6 +71,7 @@ export const fetchGoods = createAsyncThunk<
 	const pageNumber = goodsState.page;
 	try {
 		const data = await Api().goods.getGoods(pageNumber);
+		console.log('Fetch goods data,', data)
 		return data;
 	} catch (e) {
 		if ('rawErrors' in e.response.data) {
@@ -128,6 +129,7 @@ export const fetchCategories = createAsyncThunk<
 >('goods/fetchCategories', async (_, { rejectWithValue }) => {
 	try {
 		const data = await Api().goods.getGategories();
+		console.log('Fetch goods data,', data);
 		return data?.data;
 	} catch (e) {
 		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
@@ -141,6 +143,7 @@ export const fetchColours = createAsyncThunk<
 >('goods/fetchColours', async (_, { rejectWithValue }) => {
 	try {
 		const data = await Api().goods.getColours();
+		console.log('Fetch goods data,', data)
 		return data?.data;
 	} catch (e) {
 		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);

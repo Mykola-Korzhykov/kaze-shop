@@ -42,9 +42,9 @@ const Catalog: FC = () => {
 		// if (!goods?.length) {
 		// 	dispatch(fetchGoods());
 		// }
-		// dispatch(fetchGoods());
-		// dispatch(fetchCategories());
-		// dispatch(fetchColours());
+		dispatch(fetchGoods());
+		dispatch(fetchCategories());
+		dispatch(fetchColours());
 	}, [dispatch]);
 
 	return (
