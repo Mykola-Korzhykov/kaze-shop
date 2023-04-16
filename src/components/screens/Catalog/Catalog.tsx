@@ -1,7 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import Spinner from '@/components/Spinner/Spinner';
 import ErrorModal from '@/components/UI/ErrorModal';
-import { useTranslation } from 'react-i18next';
 import {
 	filterGoods,
 	fetchGoods,
@@ -18,7 +17,7 @@ import CatalogFilters from './CatalogFilters';
 import CatalogPagination from './CatalogPagination';
 const Catalog: FC = () => {
 	const dispatch = useAppDispatch();
-	const { t } = useTranslation();
+	
 	// const fetchedCategories = useAppSelector(
 	// 	(state) => state.goods.fetchedCategories
 	// );
@@ -43,9 +42,9 @@ const Catalog: FC = () => {
 		// if (!goods?.length) {
 		// 	dispatch(fetchGoods());
 		// }
-		dispatch(fetchGoods());
-		dispatch(fetchCategories());
-		dispatch(fetchColours());
+		// dispatch(fetchGoods());
+		// dispatch(fetchCategories());
+		// dispatch(fetchColours());
 	}, [dispatch]);
 
 	return (
