@@ -19,7 +19,9 @@ const OrderHisrtoryItem = () => {
 			<div className={s.cart_content}>
 				<div className={s.cart_text}>
 					<p className={s.cart_title}>Заказ №2400</p>
-					<p className={s.cart_descr}>Статус заказа: в обработке</p>
+					<p className={s.cart_descr}>
+						Статус заказа: <span>в обработке</span>
+					</p>
 					<p className={s.cart_price}>256$</p>
 				</div>
 			</div>

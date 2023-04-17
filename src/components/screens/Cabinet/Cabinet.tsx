@@ -32,6 +32,9 @@ const Cabinet: FC = () => {
 	const loadingStatus = useSelector(
 		(state: RootState) => state.goods.loadingStatus
 	);
+	const userCabinetloadingStatus = useSelector(
+		(state: RootState) => state.user.loadingStatus
+	);
 	const router = useRouter();
 	const user: RootState['user'] = useSelector((state: RootState) => state.user);
 	//states
@@ -67,7 +70,9 @@ const Cabinet: FC = () => {
 
 	return (
 		<>
-			{loadingStatus === 'loading' && <Spinner />}
+			{loadingStatus === 'loading' || userCabinetloadingStatus === 'loading' ? (
+				<Spinner />
+			) : null}
 			<main className="content">
 				<div className={s.container}>
 					<div className="page_coordinator">
@@ -94,7 +99,7 @@ const Cabinet: FC = () => {
 
 					{/* {user?.user?.type === 'ADMIN' && <CabinetAdmin />} */}
 
-					{/* <CabinetTabs />  */}
+					{/* <CabinetTabs /> */}
 					<CabinetOwner
 						role={'OWNER'}
 						modalAddCAtegory={modalAddCAtegory}
