@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import { setCookie } from 'nookies';
 import FormField from '../UI/FormField';
 import CheckBox from '../UI/CheckBox';
+import { setAuthState } from '@/redux/slices/user';
 const LoginForm = () => {
 	const loginForm = useForm({
 		mode: 'onChange',
@@ -31,6 +32,7 @@ const LoginForm = () => {
 				maxAge: data?.maxAge,
 				path: '/',
 			});
+			dispatch(setAuthState(!!data?.accessToken));
 			if (data?.user) {
 				dispatch(addUserInfo(data?.user));
 			}

@@ -81,7 +81,7 @@ const Cabinet: FC = () => {
 
 					{user?.user?.type === 'USER' && <CabinetTabs />}
 					{user?.user?.type === 'OWNER' ||
-						(user?.user?.type === 'ADMIN' && (
+						(user?.user?.type === 'ADMIN' ? (
 							<CabinetOwner
 								role={user?.user?.type}
 								modalAddCAtegory={modalAddCAtegory}
@@ -95,7 +95,7 @@ const Cabinet: FC = () => {
 								setPngImageShow={setPngImageShow}
 								setJpgImagesShow={setJpgImagesShow}
 							/>
-						))}
+						) : null)}
 
 					{/* {user?.user?.type === 'ADMIN' && <CabinetAdmin />} */}
 

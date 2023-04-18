@@ -20,7 +20,7 @@ import SpinnerLayout from '@/layouts/SpinnerLayout';
 import { NextPage } from 'next';
 import CheckBox from '@/components/UI/CheckBox';
 import MetaHead from '@/components/MetaHead';
-
+import { setAuthState } from '@/redux/slices/user';
 const Signup: NextPage = () => {
 	const router = useRouter();
 	const dispatch = useAppDispatch();
@@ -82,6 +82,7 @@ const Signup: NextPage = () => {
 					maxAge: data?.maxAge,
 					path: '/',
 				});
+				dispatch(setAuthState(!!data?.accessToken));
 				if (data?.user) {
 					dispatch(addUserInfo(data?.user));
 				}
