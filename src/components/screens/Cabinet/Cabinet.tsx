@@ -80,22 +80,21 @@ const Cabinet: FC = () => {
 					</div>
 
 					{user?.user?.type === 'USER' && <CabinetTabs />}
-					{user?.user?.type === 'OWNER' ||
-						(user?.user?.type === 'ADMIN' ? (
-							<CabinetOwner
-								role={user?.user?.type}
-								modalAddCAtegory={modalAddCAtegory}
-								imagesData={images}
-								setImages={setImages}
-								setCountPhoto={setCountPhoto}
-								modalAddPhoto={modalAddPhoto}
-								modalAddColor={modalAddColorTurn}
-								setModalAddColor={setModalAddColor}
-								setFiles={setFiles}
-								setPngImageShow={setPngImageShow}
-								setJpgImagesShow={setJpgImagesShow}
-							/>
-						) : null)}
+					{user?.user?.type === 'OWNER' || user?.user?.type === 'ADMIN' ? (
+						<CabinetOwner
+							role={user?.user?.type}
+							modalAddCAtegory={modalAddCAtegory}
+							imagesData={images}
+							setImages={setImages}
+							setCountPhoto={setCountPhoto}
+							modalAddPhoto={modalAddPhoto}
+							modalAddColor={modalAddColorTurn}
+							setModalAddColor={setModalAddColor}
+							setFiles={setFiles}
+							setPngImageShow={setPngImageShow}
+							setJpgImagesShow={setJpgImagesShow}
+						/>
+					) : null}
 
 					{/* {user?.user?.type === 'ADMIN' && <CabinetAdmin />} */}
 

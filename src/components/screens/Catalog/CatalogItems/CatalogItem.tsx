@@ -45,7 +45,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 	};
 
 	const addToLastViews = () => {
-		dispatch(setLoadingStatus('loading'))
+		dispatch(setLoadingStatus('loading'));
 		if (isAuth && user?.type === 'USER') {
 			try {
 				Api().goods.addToRecentlyViews(product?.id);
@@ -55,8 +55,8 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 			'recentlyViewedProducts'
 		);
 		const recentlyViewedProducts = JSON.parse(recentlyViewedProductsJSON) || [];
-		if (!recentlyViewedProducts?.includes(product?.id)) {
-			recentlyViewedProducts.push(product?.id);
+		if (product && recentlyViewedProducts?.indexOf(product?.id) === -1) {
+			recentlyViewedProducts?.push(product?.id);
 			localStorage.setItem(
 				'recentlyViewedProducts',
 				JSON.stringify(recentlyViewedProducts)

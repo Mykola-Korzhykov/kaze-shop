@@ -11,6 +11,7 @@ import hidenIcon from '../../../assets/icons/closeIcone.svg';
 import showIcon from '../../../assets/icons/show_eye.svg';
 import FormField from '../../UI/FormField';
 import { Api } from '@/services';
+import Spinner from '@/components/Spinner/Spinner';
 
 const ChangeUserPassword = () => {
 	const router = useRouter();
@@ -33,12 +34,8 @@ const ChangeUserPassword = () => {
 		} catch (err) {
 			setRequestLoading(false);
 			console.warn('Register error', err);
-			if (err.response) {
-				console.warn(
-					'Register error after response',
-					err.response.data.message
-				);
-				setErrorMessage(err.response.data.message);
+			if (err?.response) {
+				setErrorMessage(err?.response?.data?.message);
 			} else {
 				router.push('/404');
 			}
@@ -54,60 +51,63 @@ const ChangeUserPassword = () => {
 	};
 
 	return (
-		<FormProvider {...changeUserPasswordForm}>
-			<form
-				onSubmit={changeUserPasswordForm.handleSubmit(onSubmit)}
-				className={cl.cabinet_tabcontent + ' ' + cl.form}
-			>
-				<FormField
-					type="password"
-					name="password"
-					label="Введите пароль"
-					placeholder="Введите пароль"
-					isPassword={true}
-					className="margin-10"
-				/>
-				<div className={`${cl.cabinet_field} ${cl.cabinet_field_two}`}>
-					<label className="auth_label" htmlFor="email">
-						Повторите пароль
-					</label>
-					<div className="auth_input">
-						<input
-							placeholder="Повторите пароль"
-							type={confirmPasswordShown ? 'text' : 'password'}
-							{...changeUserPasswordForm.register('confirmPassword')}
-						/>
-						<div
-							onClick={toggleConfirmPasswordShown}
-							className="auth_hidden-icon"
-						>
-							<Image
-								src={confirmPasswordShown ? showIcon : hidenIcon}
-								alt="show password icon"
-								width={24}
-								height={24}
-							/>
-						</div>
-					</div>
-					<span className="auth_error">
-						{changeUserPasswordForm.formState.errors.confirmPassword &&
-							changeUserPasswordForm.formState.errors.confirmPassword.message}
-					</span>
-				</div>
-				<button
-					disabled={requestLoading}
-					className={cl.cabinet_btn}
-					type="submit"
+		<>
+			{requestLoading && <Spinner />}
+			<FormProvider {...changeUserPasswordForm}>
+				<form
+					onSubmit={changeUserPasswordForm.handleSubmit(onSubmit)}
+					className={cl.cabinet_tabcontent + ' ' + cl.form}
 				>
-					Cохранить
-				</button>
-				{errorMessage && (
-					<div>
-						<p className="auth_error">{errorMessage}</p>
+					<FormField
+						type="password"
+						name="password"
+						label="Введите пароль"
+						placeholder="Введите пароль"
+						isPassword={true}
+						className="margin-10"
+					/>
+					<div className={`${cl.cabinet_field} ${cl.cabinet_field_two}`}>
+						<label className="auth_label" htmlFor="email">
+							Повторите пароль
+						</label>
+						<div className="auth_input">
+							<input
+								placeholder="Повторите пароль"
+								type={confirmPasswordShown ? 'text' : 'password'}
+								{...changeUserPasswordForm.register('confirmPassword')}
+							/>
+							<div
+								onClick={toggleConfirmPasswordShown}
+								className="auth_hidden-icon"
+							>
+								<Image
+									src={confirmPasswordShown ? showIcon : hidenIcon}
+									alt="show password icon"
+									width={24}
+									height={24}
+								/>
+							</div>
+						</div>
+						<span className="auth_error">
+							{changeUserPasswordForm.formState.errors.confirmPassword &&
+								changeUserPasswordForm.formState.errors.confirmPassword.message}
+						</span>
 					</div>
-				)}
-			</form>
-		</FormProvider>
+					<button
+						disabled={requestLoading}
+						className={cl.cabinet_btn}
+						type="submit"
+					>
+						Cохранить
+					</button>
+					{errorMessage && (
+						<div>
+							<p className="auth_error">{errorMessage}</p>
+						</div>
+					)}
+				</form>
+			</FormProvider>
+		</>
 	);
 };
 

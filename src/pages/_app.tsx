@@ -23,7 +23,7 @@ function App({ Component, pageProps }: AppProps) {
 		React.useState<boolean>(true);
 	React.useEffect(() => {
 		const cookies = parseCookies();
-		 dispatch(setAuthState(!!cookies.accessToken));
+		dispatch(setAuthState(!!cookies?.accessToken));
 		//get cookie initial state from LS
 		let initialValue = false;
 		if (typeof window !== 'undefined') {
@@ -34,7 +34,7 @@ function App({ Component, pageProps }: AppProps) {
 		}
 		setChowUseCookieModal(initialValue);
 		//cart id logic
-		
+
 		const cartCookie = cookies['_id'];
 		const setUserCartToken = async () => {
 			await Api().user.refreshCartToken();
@@ -70,7 +70,9 @@ function App({ Component, pageProps }: AppProps) {
 				// }
 			}
 		};
-		fetchUserData();
+		if (cookies?.accessToken) {
+			fetchUserData();
+		}
 	}, []);
 
 	return (

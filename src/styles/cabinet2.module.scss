@@ -12,6 +12,9 @@
 		display: block;
 		flex: 1 1 45%;
 		max-width: 285px;
+		@media (min-width: 861px) {
+			border-top: 1.5px solid #9d9d9d;
+		}
 		@media (max-width: 950px) {
 			flex: 1 1 50%;
 		}

@@ -10,6 +10,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { selectUserInfo } from '@/redux/slices/user';
 import { useRouter } from 'next/router';
 import { addUserInfo } from '@/redux/slices/user';
+import Spinner from '@/components/Spinner/Spinner';
 const ChangeUserInfo = () => {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
@@ -32,7 +33,7 @@ const ChangeUserInfo = () => {
 		try {
 			setRequestLoading(true);
 			const data = await Api().user.changeInfo(dto);
-			setCookie(null, 'accessToken', data.accessToken, {
+			setCookie(null, 'accessToken', data?.accessToken, {
 				maxAge: 30 * 24 * 60 * 60,
 				path: '/',
 			});
@@ -41,15 +42,11 @@ const ChangeUserInfo = () => {
 			} else if (data?.admin) {
 				dispatch(addUserInfo(data?.admin));
 			}
+			setErrorMessage('Успішно змінено профіль');
 			setRequestLoading(false);
 		} catch (err) {
-			console.warn('Register error', err);
 			setRequestLoading(false);
 			if (err.response) {
-				console.warn(
-					'Register error after response',
-					err?.response?.data?.message
-				);
 				setErrorMessage(err?.response?.data?.message);
 			} else {
 				router.push('/404');
@@ -59,6 +56,7 @@ const ChangeUserInfo = () => {
 
 	return (
 		<>
+			{requestLoading && <Spinner />}
 			<form
 				onSubmit={changeUserInfoForm.handleSubmit(onSubmit)}
 				className={cl.cabinet_tabcontent}
