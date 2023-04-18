@@ -3,6 +3,8 @@ $gray-color: #9D9D9D;
 .cart_block {
     border: 1px solid $gray-color;
     padding: 20px;
+    min-height: 200px;
+    position: relative;
 
     .item {
         padding: 10px 0;

@@ -5,14 +5,8 @@ import OpenIcon from '../../../../../assets/images/main/FAQ/open_item.svg';
 import Image from 'next/image';
 import cn from 'classnames';
 
-const start = {
-    maxHeight: '0px'
-}
-const end = {
-    maxHeight: '400px'
-}
-const FAQItem = ({ text, title, isOpen, onClick, className, ...props }: FAQItemInterface): JSX.Element => {
 
+const FAQItem = ({ text, title, isOpen, onClick, className, ...props }: FAQItemInterface): JSX.Element => {
     return (
         <div className={cn(s.item, className)} {...props}>
             <div className={cn(s.item_title, { [s.active]: isOpen })} onClick={onClick}>
@@ -21,8 +15,8 @@ const FAQItem = ({ text, title, isOpen, onClick, className, ...props }: FAQItemI
             </div>
             <div className={cn(s.item_text, { [s.active]: isOpen })}>
                 {text.map((item, i) => (
-                    <p key={i}>
-                        {item}
+                    <p key={item.id}>
+                        {item.text}
                     </p>
                 ))}
             </div>

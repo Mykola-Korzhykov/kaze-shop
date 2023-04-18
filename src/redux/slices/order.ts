@@ -1,4 +1,4 @@
-import { FormLoadStatusType, FormLoadStatus } from '@/types/singleProduct';
+import { FormLoadStatusType, LoadStatus } from '@/types/singleProduct';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: FormLoadStatusType = {
@@ -15,36 +15,15 @@ const order = createSlice({
 			store.stepOne = 'idle';
 			store.stepTwo = 'idle';
 		},
-		// stepOneSuccess: (state) => {
-		// 	state.stepOne = 'success';
-		// },
-		// stepOneLoaded: (state) => {
-		// 	state.stepOne = 'loading';
-		// },
-		// backToStepOne: (state) => {
-		// 	state.stepOne = 'idle';
-		// },
-		// stepTwoLoaded: (state) => {
-		// 	state.stepTwo = 'loading';
-		// },
-		// stepTwoSuccess: (state) => {
-		// 	state.stepTwo = 'success';
-		// },
-		// stepOneError: (state) => {
-		// 	state.stepOne = 'error';
-		// },
-		// stepTwoError: (state) => {
-		// 	state.stepOne = 'error';
-		// },
 		changeStatusStepOne: (
 			state,
-			{ payload }: PayloadAction<keyof typeof FormLoadStatus>
+			{ payload }: PayloadAction<keyof typeof LoadStatus>
 		) => {
 			state.stepOne = payload;
 		},
 		changeStatusStepTwo: (
 			state,
-			{ payload }: PayloadAction<keyof typeof FormLoadStatus>
+			{ payload }: PayloadAction<keyof typeof LoadStatus>
 		) => {
 			state.stepTwo = payload;
 		},
@@ -55,11 +34,6 @@ const order = createSlice({
 });
 
 export const {
-	// stepOneSuccess,
-	// stepOneLoaded,
-	// backToStepOne,
-	// stepTwoLoaded,
-	// stepTwoSuccess,
 	changeStatusStepTwo,
 	changeStatusStepOne,
 	changeOrderNum,

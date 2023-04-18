@@ -10,6 +10,7 @@ import { orderInit } from '@/redux/slices/order';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import { AnimatePresence, motion } from 'framer-motion';
 
+
 const mocCartItem = {
     id: 1,
     title: 'Топик через плече',
@@ -28,7 +29,7 @@ const Order = (): JSX.Element => {
     const { stepOne, stepTwo } = useAppSelector(store => store.order);
     const dispatch = useAppDispatch();
 
-    // const ErrorAnimate = motion.data(ErrorMessage)
+
     useEffect(() => {
         dispatch(orderInit());
     }, [])
@@ -52,7 +53,7 @@ const Order = (): JSX.Element => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}>
-                    <ErrorMessage />
+                    <ErrorMessage closeError={() => dispatch(orderInit())} />
                 </motion.div>}
             </AnimatePresence>
         </div>

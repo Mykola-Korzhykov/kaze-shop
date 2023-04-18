@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import s from './CartItem.module.scss';
 import CartItem from '../CartItem/CartItem';
 import { CartBlockProps } from './CartBlock.interface';
 import cn from 'classnames';
+import { Api } from '@/services';
+import { CartType, CartLoadType, ProductPlusType } from '@/types/cartItem';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import FormSpinner from '../FormSpinner/FormSpinner';
+import ErrorModal from '@/components/UI/ErrorModal';
 
 const mocCartItem = [{
     id: 1,
@@ -27,19 +32,95 @@ const mocCartItem = [{
 
 }];
 const CartBlock = ({ className, ...props }: CartBlockProps): JSX.Element => {
+    const [cartLoad, setCartLoad] = useState<CartLoadType>('loading');
+    const [cartItem, setCartItem] = useState<null | CartType>();
+
+    const getCart = async () => {
+        try {
+            const result: CartType = await Api().goods.getCartProducts();
+            setCartItem(result);
+            setCartLoad('success');
+        } catch (e) {
+            setCartLoad('error');
+        }
+    }
+    const closeError = () => {
+        setCartLoad('loading');
+        getCart();
+    };
+
+
+    useEffect(() => {
+        getCart();
+    }, []);
+    console.log(cartItem)
+    if (cartItem && !cartItem.cart.cartProducts.length) {
+        return (
+            <ErrorModal
+                title="Ваша корзина пуста"
+                buttonText="Перейти в каталог"
+                buttonHref="/catalog"
+                description="Перейдите в каталог, чтобы купить какой то продукт"
+                smallModal={true}
+            />
+        )
+    }
+
+    const productPlus = async (productId: number, product: ProductPlusType) => {
+        setCartLoad('loading');
+        try {
+            await Api().goods.addToCart(productId, product);
+            getCart();
+        } catch (e) {
+            console.log(e);
+            setCartLoad('error');
+        }
+    }
+
+    const productMinus = async (productId: number) => {
+        setCartLoad('loading');
+
+        try {
+            await Api().goods.deleteProduct(productId);
+            getCart();
+        } catch (e) {
+            console.log(e);
+            setCartLoad('error');
+        }
+    };
+
+    // if (emptyCart && ) {
+    //     return (
+    //         <ErrorModal
+    //             title="Ваша корзина пуста"
+    //             buttonText="Перейти в каталог"
+    //             buttonHref="/catalog"
+    //             description="Перейдите в каталог, чтобы купить какой то продукт"
+    //             smallModal={true}
+    //         />
+    //     )
+    // }
+    // console.log(cartItem?.cart.cartProducts.length === 0);
+
     return (
-        <div className={cn(s.cart_block, className)} {...props}>
-            <h2>Ваш заказ</h2>
+        <>
+            <div className={cn(s.cart_block, className)} {...props}>
+                <h2>Ваш заказ</h2>
 
-            <div>
-                {mocCartItem.map((item) => <CartItem className={s.item} key={item.id} {...item} />)}
-            </div>
+                {cartLoad === 'success' && <>
+                    <div>
+                        {cartItem.cart.cartProducts.map((item) => <CartItem className={s.item} productPlus={productPlus} productMinus={productMinus} key={item.id} {...item} />)}
+                    </div>
 
-            <div className={s.total}>
-                <span>Вместе</span>
-                <span>147$</span>
+                    <div className={s.total}>
+                        <span>Вместе</span>
+                        <span>{cartItem.cart.totalPrice}</span>
+                    </div>
+                </>}
+                {[cartLoad].includes('loading') && <FormSpinner />}
             </div>
-        </div>
+            {[cartLoad].includes('error') && <ErrorMessage closeError={closeError} />}
+        </>
     );
 };
 

@@ -6,10 +6,13 @@ import { GoodsApi } from './CatalogService'
 import { AuthResponse } from '@/types/auth'
 import { setCookie } from 'nookies'
 export type ApiReturnType = {
-	user: ReturnType<typeof UserApi>
-	goods: ReturnType<typeof GoodsApi>
-}
-export const API_URL = 'https://api.kaze-shop.online';
+	sendFormStepOne(): unknown;
+	user: ReturnType<typeof UserApi>;
+	goods: ReturnType<typeof GoodsApi>;
+};
+// export const API_URL = 'https://api.kaze-shop.online';
+export const API_URL = 'http://localhost:7457';
+
 
 export const Api = (
 	ctx?: NextPageContext | GetServerSidePropsContext

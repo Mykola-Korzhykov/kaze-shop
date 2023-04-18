@@ -76,7 +76,7 @@ export interface Category {
 	updatedAt: string;
 }
 
-export const FormLoadStatus = {
+export const LoadStatus = {
 	idle: 'idle',
 	loading: 'loading',
 	error: 'error',
@@ -84,8 +84,8 @@ export const FormLoadStatus = {
 } as const;
 
 export interface FormLoadStatusType {
-	stepOne: typeof FormLoadStatus[keyof typeof FormLoadStatus];
-	stepTwo: typeof FormLoadStatus[keyof typeof FormLoadStatus];
+	stepOne: typeof LoadStatus[keyof typeof LoadStatus];
+	stepTwo: typeof LoadStatus[keyof typeof LoadStatus];
 	orderNum: null | number;
 };
 

@@ -8,6 +8,7 @@ import { useKeenSlider } from "keen-slider/react";
 import Button from "../Button/Button";
 import cn from "classnames";
 import GirlPhoto992 from '../../../../assets/images/main/main_girl_bg_992.png'; 
+import { useAppSelector } from "@/redux/hooks";
 
 const BuyProducts = (): JSX.Element => {
     const [sliderRef, instanceRef] = useKeenSlider({
@@ -26,6 +27,8 @@ const BuyProducts = (): JSX.Element => {
         loop: true,
     });
 
+    const { button, vertical_text_one, vertical_text_two } = useAppSelector(store => store.main.mainPage)
+
     return (
         <div className={s.wrapper}>
             <div className={s.wrapper__box}>
@@ -33,11 +36,11 @@ const BuyProducts = (): JSX.Element => {
                     <div className={s.offer__bg}>
                         <Image src={GirlPhoto992} quality={100} alt='girl photo' className={s.offer__bg_girl} />
                         <div className={s.offer__bg_vertical}>
-                            <Link href="/catalog">
-                                <span>Велосипедки</span>
+                            <Link href={vertical_text_one.link}>
+                                <span>{vertical_text_one.text}</span>
                             </Link>
-                            <Link href="/catalog">
-                                <span>Повседневное белье</span>
+                            <Link href={vertical_text_two.link}>
+                                <span>{vertical_text_two.text}</span>
                             </Link>
                         </div>
                         <div className={s.offer__title}>
@@ -47,8 +50,8 @@ const BuyProducts = (): JSX.Element => {
                     </div>
                     <div className={s.btn_slider_block}>
                         <div className={s.wrapper__box_bottom}>
-                            <Link href={"/catalog"} className={s.button_link}>
-                                <Button>Купить</Button>
+                            <Link href={button.link} className={s.button_link}>
+                                <Button>{button.text}</Button>
                             </Link>
                             <div
                                 ref={sliderRef}

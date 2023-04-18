@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FormLoadStatus } from '@/types/singleProduct';
+import { LoadStatus } from '@/types/singleProduct';
 import s from './StepOne.module.scss';
 import Input from '../Input/Input';
 import InputPhone from '../InputPhone/InputPhone';
@@ -14,6 +14,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { OrderFormStepOne, OrderFormStepOneData } from '@/utils/validation';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { changeStatusStepOne } from '@/redux/slices/order';
+import { Api } from '@/services';
 
 
 
@@ -31,12 +32,21 @@ const StepOne = ({ className, ...props }: StepOneProps): JSX.Element => {
     });
 
 
-    const onSubmit: SubmitHandler<OrderFormStepOneData> = data => {
+    const onSubmit: SubmitHandler<OrderFormStepOneData> = async data => {
         dispatch(changeStatusStepOne('loading'));
         console.log(data)
-        setTimeout(() => {
+        data.userPhoneNumber = '+380976721121'
+        // setTimeout(() => {
+        //     dispatch(changeStatusStepOne('success'));
+        // }, 2000);
+        try {
+            await Api().goods.sendFormStepOne(3, data);
             dispatch(changeStatusStepOne('success'));
-        }, 2000);
+        } catch (e) {
+            console.log(e);
+            dispatch(changeStatusStepOne('error'));
+
+        }
     };
 
 

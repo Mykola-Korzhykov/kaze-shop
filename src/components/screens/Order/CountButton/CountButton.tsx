@@ -5,9 +5,9 @@ import MinusSVG from '../../../../assets/icons/cart/priceMinus.svg';
 import s from './CountButton.module.scss';
 import Image from 'next/image';
 
-const CountButton = ({ countType }: CountButtonProps): JSX.Element => {
+const CountButton = ({ countType, onClick }: CountButtonProps): JSX.Element => {
     return (
-        <button className={s.countBtn}>
+        <button className={s.countBtn} onClick={onClick}>
             {countType === 'plus' && <Image src={PlusSVG} alt='icon' />}
             {countType === 'minus' && <Image src={MinusSVG} alt='icon' />}
         </button>

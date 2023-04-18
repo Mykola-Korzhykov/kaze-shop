@@ -1,11 +1,7 @@
-export interface CartItemProps {
-	title: string;
-	description: string;
-	color: string;
-	size: string;
-	price: string;
-	count: number;
-	img: string;
-	id?: number;
+import { CartProduct, ProductPlusType } from '@/types/cartItem';
+
+export interface CartItemProps extends CartProduct {
 	className?: string;
+	productPlus: (productId: number, product: ProductPlusType) => void;
+	productMinus: (productId: number) => void;
 }

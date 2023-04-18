@@ -1,11 +1,8 @@
 import { fetchGoodsByCategory } from '@/redux/slices/goods';
-import { Goods } from '@/types/goods';
-import { useAppDispatch } from '@/redux/hooks';
-import { AsyncThunkAction, Dispatch, AnyAction } from '@reduxjs/toolkit';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import Link from 'next/link';
 import { HeaderLogo } from '../Header';
 import s from './Footer.module.scss';
-
 const mokLinkData = [
   [
     {
@@ -58,26 +55,17 @@ const mokLinkData = [
       id: 9,
     },
   ],
-  [
-    {
-      name: 'Instagram',
-      link: 'https://instagram.com',
-      id: 9,
-    },
-    {
-      name: 'Facebook',
-      link: 'https://facebook.com',
-      id: 10,
-    },
-    {
-      name: 'TikTok',
-      link: 'https://tiktok.com',
-      id: 11,
-    },
-  ],
 ];
 const Footer = (): JSX.Element => {
   const dispatch = useAppDispatch();
+  const footer = useAppSelector(store => store.main.footer);
+  const strapiSocial = footer.field.map(el => {
+    const { id, link, text } = el
+    return { id, link, name: text }
+  });
+
+  const linkArray = [...mokLinkData, strapiSocial];
+
   return (
     <footer className={s.footer}>
       <div className="container">
@@ -86,7 +74,7 @@ const Footer = (): JSX.Element => {
             <HeaderLogo />
           </div>
           <nav>
-            {mokLinkData.map((item, i) => {
+            {linkArray.map((item, i) => {
               return (
                 <div key={i}>
                   {item.map(({ name, link, id }, i) => {
