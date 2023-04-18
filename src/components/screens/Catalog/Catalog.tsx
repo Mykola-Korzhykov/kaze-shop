@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import Spinner from '@/components/Spinner/Spinner';
 import ErrorModal from '@/components/UI/ErrorModal';
+import { useTranslation } from 'next-i18next';
 import {
 	filterGoods,
 	fetchGoods,
@@ -15,15 +16,11 @@ import CatalogHeader from './CatalogHeader';
 import CatalogItems from './CatalogItems';
 import CatalogFilters from './CatalogFilters';
 import CatalogPagination from './CatalogPagination';
+import { useRouter } from 'next/router';
 const Catalog: FC = () => {
 	const dispatch = useAppDispatch();
-	
-	// const fetchedCategories = useAppSelector(
-	// 	(state) => state.goods.fetchedCategories
-	// );
-	// const fetchedColours = useAppSelector((state) => state.goods.fetchedColours);
-	// const goods = useAppSelector((state) => state.goods.goods);
-
+	const { t } = useTranslation('common');
+	const { t: t2 } = useTranslation('catalog');
 	const loadingStatus = useAppSelector((state) => state.goods.loadingStatus);
 	const catalogLoadingStatus = useAppSelector(
 		(state) => state.goods.catalogLoadingStatus
@@ -32,16 +29,6 @@ const Catalog: FC = () => {
 	const [filtersOpened, setFiltersOpened] = useState<boolean>(false);
 
 	useEffect(() => {
-		// if (!fetchedCategories?.length) {
-		// 	dispatch(fetchCategories());
-		// }
-
-		// if (!fetchedColours?.length) {
-		// 	dispatch(fetchColours());
-		// }
-		// if (!goods?.length) {
-		// 	dispatch(fetchGoods());
-		// }
 		dispatch(fetchGoods());
 		dispatch(fetchCategories());
 		dispatch(fetchColours());
@@ -55,12 +42,13 @@ const Catalog: FC = () => {
 			<main className="content">
 				<div className="container">
 					<div className="page_coordinator">
-						<Link href="/">Главная</Link> | <span>Каталог</span>
+						<Link href="/">{t('Main')}</Link> | <span>Каталог</span>
 					</div>
+
 					{loadingStatus === 'error' ? (
 						<ErrorModal
 							title="505"
-							buttonText="Вернуться на главную"
+							buttonText={"Вернуться на главную"}
 							buttonHref="/"
 							description={error}
 						/>
@@ -72,6 +60,10 @@ const Catalog: FC = () => {
 							<CatalogPagination />
 						</>
 					)}
+					{/* <CatalogHeader />
+							{filtersOpened && <CatalogFilters />}
+							<CatalogItems />
+							<CatalogPagination /> */}
 				</div>
 			</main>
 		</CatalogContext.Provider>

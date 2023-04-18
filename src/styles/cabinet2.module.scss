@@ -252,11 +252,25 @@
 // orderHistory
 
 .cart {
+	position: relative;
 	padding: 10px 0;
 	border-top: 1.5px solid #9d9d9d;
 	display: flex;
 	&:last-child {
 		border-bottom: 1.5px solid #9d9d9d;
+	}
+	&_icon {
+		cursor: pointer;
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		right: 30px;
+		@media (max-width: 834px) {
+			right: 24px;
+		}
+		@media(max-width: 600px) {
+			right: 0;
+		}
 	}
 
 	&_imgWrapper {
@@ -285,6 +299,20 @@
 		font-size: 22px;
 		line-height: 27px;
 		color: #0b0b0b;
+	}
+	&_status {
+		position: relative;
+		&::before {
+			content: '1';
+			position: absolute;
+			left: 0%;
+			top: 50%;
+			transform: translateY(-50%);
+			background-image: url('../assets/icons/cabinetTabs/cabinetCartStatusSend.svg');
+			background-repeat: no-repeat;
+			width: 24px;
+			height: 24px;
+		}
 	}
 	&_descr {
 		font-family: 'Georama';
@@ -387,4 +415,11 @@
 			right: 24px;
 		}
 	}
+}
+
+
+// modal orders
+
+.orderModal {
+	
 }

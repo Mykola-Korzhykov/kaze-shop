@@ -21,6 +21,7 @@ export interface fetchedColour {
 	type: 'colour' | null;
 	createdAt: any | null;
 	updatedAt: any | null;
+	[key: string]: any;
 }
 
 export interface ImageData {
