@@ -3,7 +3,9 @@ import { useAppSelector } from '@/redux/hooks';
 import { selectFetchedCategories } from '@/redux/slices/goods';
 import s from './CatalogFilters.module.scss';
 import FiltersCheckbox from './FiltersCheckbox';
+import { useRouter } from 'next/router';
 const FiltersCategories = () => {
+	const { locale } = useRouter();
 	const fetchedCategories = useAppSelector(selectFetchedCategories);
 	const CATEGORIES = [
 		{ label: 'Лосины', id: 1 },
@@ -21,7 +23,7 @@ const FiltersCategories = () => {
 					return (
 						<FiltersCheckbox
 							key={el?.id + el?.createdAt + el?.rs}
-							label={el?.ua}
+							label={el?.[locale]}
 							color={'white'}
 							type="category"
 							itemId={el?.id}

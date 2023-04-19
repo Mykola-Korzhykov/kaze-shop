@@ -80,40 +80,32 @@ export const fetchGoods = createAsyncThunk<
 	}
 });
 
-// export const fetchAllData = createAsyncThunk<
-// 	{
-// 		goods: { products: Goods[]; totalProducts: number };
-// 		categories: fetchedCategory[];
-// 		colours: fetchedColour[];
-// 	},
-// 	null,
-// 	{ rejectValue: string }
-// >('goods/fetchAllData', async (_, { dispatch, rejectWithValue }) => {
-// 	try {
-// 		const [goods, categories, colours] = await Promise.allSettled([
-// 			dispatch(fetchGoods()),
-// 			dispatch(fetchCategories()),
-// 			dispatch(fetchColours()),
-// 		]);
 
-// 		const rejected = [goods, categories, colours].filter(
-// 			(result) => result.status === 'rejected'
-// 		);
+interface GoodsData {
+	colors: fetchedColour[];
+	categories: fetchedCategory[];
+	goods: {products: Goods[], totalProducts: number};
+}
 
-// 		if (rejected.length > 0) {
-// 			return rejectWithValue(rejected[0].status);
-// 		}
-
-// 		return {
-// 			goods: goods.status === 'fulfilled' && goods?.value,
-// 			categories: categories.status === 'fulfilled' && categories.value,
-// 			colours: colours.status === 'fulfilled' && colours.value,
-// 		};
-// 	} catch (e) {
-// 		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
-// 	}
-// });
-
+export const fetchGoodsData = createAsyncThunk<
+	GoodsData,
+	null,
+	{ rejectValue: string }
+>('goods/fetchGoodsData', async (_, { rejectWithValue,getState }) => {
+	const state = getState() as RootState;
+	const goodsState = state.goods;
+	const pageNumber = goodsState.page;
+	try {
+		const [colors, categories, goods] = await Promise.all([
+			Api().goods.getColours(),
+			Api().goods.getGategories(),
+			Api().goods.getGoods(pageNumber),
+		]);
+		return { colors: colors?.data, categories: categories?.data, goods };
+	} catch (error) {
+		return rejectWithValue('error');
+	}
+});
 export const fetchCategories = createAsyncThunk<
 	fetchedCategory[],
 	null,
@@ -521,12 +513,27 @@ const goodsSlice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		builder.addCase(fetchGoods.fulfilled, (state, action) => {
+		builder.addCase(fetchGoodsData.fulfilled, (state, action) => {
 			state.loadingStatus = 'idle';
 			state.catalogLoadingStatus = 'idle';
-			state.goods = action.payload.products;
-			state.totalProducts = action.payload.totalProducts;
+			state.goods = action.payload.goods.products;
+			state.totalProducts = action.payload.goods.totalProducts;
+			state.fetchedCategories = action.payload.categories
+			state.fetchedColours = action.payload.colors
 		}),
+			builder.addCase(fetchGoodsData.pending, (state) => {
+				state.loadingStatus = 'loading';
+			}),
+			builder.addCase(fetchGoodsData.rejected, (state, action) => {
+				state.loadingStatus = 'error';
+				state.errors = action.payload;
+			}),
+			builder.addCase(fetchGoods.fulfilled, (state, action) => {
+				state.loadingStatus = 'idle';
+				state.catalogLoadingStatus = 'idle';
+				state.goods = action.payload.products;
+				state.totalProducts = action.payload.totalProducts;
+			}),
 			builder.addCase(fetchGoods.pending, (state) => {
 				state.loadingStatus = 'loading';
 				state.catalogLoadingStatus = 'loading';

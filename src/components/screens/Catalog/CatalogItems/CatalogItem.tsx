@@ -22,7 +22,16 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 	const isAuth = useAppSelector(selectAuthState);
 	const user = useAppSelector(selectUserInfo);
 	const router = useRouter();
+
 	const saveButtonHandler = () => {
+		if (router.pathname === '/cabinet') {
+			deleteSavedProduct();
+		} else {
+			addSavedProduct();
+		}
+	};
+
+	const addSavedProduct = () => {
 		if (isAuth && user?.type === 'USER') {
 			try {
 				Api().goods.addToFavorites(product?.id);
@@ -31,6 +40,12 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 			router.push('/login');
 		}
 	};
+
+	const deleteSavedProduct = () => {
+		//dispath(filterSavedEl)
+		//requests
+	};
+
 	const basketButtonHandler = () => {
 		dispatch(
 			addProductToCart({
@@ -102,7 +117,12 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 				<button onClick={basketButtonHandler} className={s.footer_button}>
 					В корзину
 				</button>
-				<button onClick={saveButtonHandler} className={s.footer_icon}></button>
+				<button
+					onClick={saveButtonHandler}
+					className={
+						router.pathname === '/cabinet' ? s.footer_iconActive : s.footer_icon
+					}
+				></button>
 			</div>
 		</div>
 	);

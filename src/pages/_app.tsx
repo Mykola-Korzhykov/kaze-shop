@@ -35,22 +35,20 @@ function App({ Component, pageProps }: AppProps) {
 			}
 		}
 		setChowUseCookieModal(initialValue);
-		//cart id logic
 
+		//cart id logic
 		const cartCookie = cookies['_id'];
 		const setUserCartToken = async () => {
 			await Api().user.refreshCartToken();
 		};
-		console.log('cart token', cartCookie);
-		console.log('all cookies', cookies);
+
 		if (!cartCookie) {
 			setUserCartToken();
 		}
 
 		const fetchUserData = async () => {
 			try {
-				const data = await Api().user.getMe();
-
+				const data = await Api().user.getMe(router?.locale);
 				setCookie(null, 'accessToken', data?.accessToken, {
 					maxAge: data?.maxAge,
 					path: '/',

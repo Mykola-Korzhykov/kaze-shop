@@ -14,7 +14,7 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		return data;
 	},
 	async getGategories() {
-		const { data } = await instance.get('/categories/get_categories');
+		const { data } = await instance.get('/categories/get_categoties');
 		return data;
 	},
 	async getColours() {

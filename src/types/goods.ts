@@ -9,6 +9,7 @@ export interface fetchedCategory {
 	type: 'category';
 	createdAt: any;
 	updatedAt: any;
+	[key: string]: any;
 }
 
 export interface fetchedColour {

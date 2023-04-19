@@ -60,9 +60,9 @@ export const UserApi = (instance: AxiosInstance) => ({
 		);
 		return data;
 	},
-	async getMe() {
+	async getMe(locale: string) {
 		const { data } = await instance.patch<GetCodeDto, { data: AuthResponse }>(
-			'/auth/refresh?locale=ua'
+			`/auth/refresh?locale=${locale}`
 		);
 		return data;
 	},

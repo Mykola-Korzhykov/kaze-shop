@@ -7,7 +7,7 @@ import FiltersCheckbox from './FiltersCheckbox';
 const FiltersColours = () => {
 	const { locale } = useRouter();
 	const fetchedColours = useAppSelector(selectFetchedColours);
-	console.log(locale);
+	
 	return (
 		<div className={s.colors_wrapper}>
 			<p className={s.filters_title}>Цвет:</p>

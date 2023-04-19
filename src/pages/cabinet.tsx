@@ -4,12 +4,13 @@ import { useAppSelector } from '@/redux/hooks';
 import { NextPage } from 'next';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-
+import { parseCookies } from 'nookies';
 const CabinetPage: NextPage = () => {
+	const cookies = parseCookies();
 	const router = useRouter();
 	const isAuth = useAppSelector((state) => state.user.isAuth);
 	useEffect(() => {
-		if (!isAuth) {
+		if (!cookies?.accessToken) {
 			router.push('/login');
 		}
 	}, []);

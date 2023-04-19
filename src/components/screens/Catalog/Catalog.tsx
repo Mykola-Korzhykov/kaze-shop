@@ -8,6 +8,7 @@ import {
 	fetchCategories,
 	fetchColours,
 	selectGoods,
+	fetchGoodsData,
 } from '@/redux/slices/goods';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import Link from 'next/link';
@@ -19,8 +20,8 @@ import CatalogPagination from './CatalogPagination';
 import { useRouter } from 'next/router';
 const Catalog: FC = () => {
 	const dispatch = useAppDispatch();
-	const { t } = useTranslation('common');
-	const { t: t2 } = useTranslation('catalog');
+	const { t: t2 } = useTranslation('common');
+	const { t } = useTranslation('catalog');
 	const loadingStatus = useAppSelector((state) => state.goods.loadingStatus);
 	const catalogLoadingStatus = useAppSelector(
 		(state) => state.goods.catalogLoadingStatus
@@ -29,26 +30,25 @@ const Catalog: FC = () => {
 	const [filtersOpened, setFiltersOpened] = useState<boolean>(false);
 
 	useEffect(() => {
-		dispatch(fetchGoods());
-		dispatch(fetchCategories());
-		dispatch(fetchColours());
+		// dispatch(fetchGoods());
+		// dispatch(fetchCategories());
+		// dispatch(fetchColours());
+		dispatch(fetchGoodsData());
 	}, [dispatch]);
 
 	return (
 		<CatalogContext.Provider value={{ filtersOpened, setFiltersOpened }}>
-			{loadingStatus === 'loading' || catalogLoadingStatus === 'loading' ? (
-				<Spinner />
-			) : null}
+			{loadingStatus === 'loading' ? <Spinner /> : null}
 			<main className="content">
 				<div className="container">
 					<div className="page_coordinator">
-						<Link href="/">{t('Main')}</Link> | <span>Каталог</span>
+						<Link href="/">{t2('Main')}</Link> | <span>{t('Catalog')}</span>
 					</div>
 
 					{loadingStatus === 'error' ? (
 						<ErrorModal
 							title="505"
-							buttonText={"Вернуться на главную"}
+							buttonText={'Вернуться на главную'}
 							buttonHref="/"
 							description={error}
 						/>

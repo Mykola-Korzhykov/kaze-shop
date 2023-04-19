@@ -6,7 +6,7 @@ import accountSVG from '../../assets/icons/User.svg';
 import arrowSVG from '../../assets/icons/Arrow.svg';
 import openLangSvg from '../../assets/icons/catalog/sortIconOpen.svg';
 import { FC, useState } from 'react';
-
+import { useRouter } from 'next/router';
 type Props = {
 	toggleBurgerFunc: () => void;
 	showBurgerMenu: boolean;
@@ -14,6 +14,27 @@ type Props = {
 
 const HeaderInfo: FC<Props> = ({ toggleBurgerFunc, showBurgerMenu }) => {
 	const [languageDropdown, setLanguageDropdown] = useState<boolean>(false);
+	const router = useRouter();
+	const currentRoute = router.pathname;
+
+	const Languages = [
+		{
+			label: 'UA',
+			locale: 'ua',
+		},
+		{
+			label: 'RU',
+			locale: 'ru',
+		},
+		{
+			label: 'SRB',
+			locale: 'rs',
+		},
+		{
+			label: 'ENG',
+			locale: 'en',
+		},
+	];
 
 	const languageHandler = () => {
 		setLanguageDropdown((prev) => !prev);
@@ -26,7 +47,9 @@ const HeaderInfo: FC<Props> = ({ toggleBurgerFunc, showBurgerMenu }) => {
 					languageDropdown ? `${cl.header_language_open}` : ''
 				}`}
 			>
-				<button className={cl.header_language_lang}>УКР</button>
+				<button className={cl.header_language_lang}>
+					{router.locale.toUpperCase()}
+				</button>
 				<Image
 					src={languageDropdown ? openLangSvg : arrowSVG}
 					alt="link to user basket"
@@ -41,9 +64,13 @@ const HeaderInfo: FC<Props> = ({ toggleBurgerFunc, showBurgerMenu }) => {
 							languageHandler();
 						}}
 					>
-						<button>RU</button>
-						<button>SRP</button>
-						<button>ENG</button>
+						{Languages.filter((el) => el.locale !== router.locale).map((el) => {
+							return (
+								<Link key={el.locale} href={router.pathname} locale={el.locale}>
+									{el.label}
+								</Link>
+							);
+						})}
 					</div>
 				)}
 			</div>
