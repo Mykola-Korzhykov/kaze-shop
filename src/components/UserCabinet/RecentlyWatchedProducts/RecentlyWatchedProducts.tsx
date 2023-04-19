@@ -7,20 +7,21 @@ import CatalogItem from '@/components/screens/Catalog/CatalogItems/CatalogItem';
 const RecentlyWatchedProducts = () => {
 	const watchedProducts = useAppSelector((state) => state.user.watchedProducts);
 	const renderGoods = (products: Goods[]) => {
-		if (!products?.length) {
-			return (
-				<CabinetEmptyModal
-					title="Вы ничего не смотрели до этого("
-					description="Перейдите в каталог, чтобы посмотреть на наши товары"
-					btnText="Перейти в каталог"
-					btnHref="/catalog"
-				/>
-			);
-		}
 		return products?.map((product) => {
 			return <CatalogItem product={product} key={product.id} />;
 		});
 	};
+
+	if (!watchedProducts?.length) {
+		return (
+			<CabinetEmptyModal
+				title="Вы ничего не смотрели до этого("
+				description="Перейдите в каталог, чтобы посмотреть на наши товары"
+				btnText="Перейти в каталог"
+				btnHref="/catalog"
+			/>
+		);
+	}
 	return (
 		<div className={cl.cabinet_catalogContent}>
 			{/* <CatalogItem />

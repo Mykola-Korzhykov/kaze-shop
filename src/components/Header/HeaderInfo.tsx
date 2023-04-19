@@ -15,7 +15,6 @@ type Props = {
 const HeaderInfo: FC<Props> = ({ toggleBurgerFunc, showBurgerMenu }) => {
 	const [languageDropdown, setLanguageDropdown] = useState<boolean>(false);
 	const router = useRouter();
-	const currentRoute = router.pathname;
 
 	const Languages = [
 		{
