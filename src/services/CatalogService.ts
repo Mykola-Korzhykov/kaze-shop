@@ -9,8 +9,14 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		const { data } = await instance.get(`/product?page=${page}&pageSize=10`);
 		return data;
 	},
+	async getEditGoods(page: number) {
+		const { data } = await instance.get(
+			`product/update_products?page=${page}&pageSize=1`
+		);
+		return data;
+	},
 	async getGategories() {
-		const { data } = await instance.get('/categories/get_categoties');
+		const { data } = await instance.get('/categories/get_categories');
 		return data;
 	},
 	async getColours() {
@@ -102,11 +108,22 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		const { data } = await instance.get(`product/${productId}`);
 		return data;
 	},
+<<<<<<< HEAD
 	async deleteSingleProduct(productId: number) {
 		const { data } = await instance.delete(
 			`product/delete_product?productId=${productId}`
 		);
+=======
+	async getSingleEditProduct(productId: number | string) {
+		const { data } = await instance.get(`product/edit/${productId}`);
+>>>>>>> 78b06e53de459df09be81f8d3f6ff75753a2a8b3
 		return data;
+	},
+	async deleteSingleProduct(productId: number) {
+		const res = await instance.delete(
+			`product/delete_product?productId=${productId}`
+		);
+		return res;
 	},
 	async sendFeedback(
 		feedback: {
@@ -121,6 +138,7 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 			`reviews/create_review?productId=${productId}`,
 			feedback
 		);
+<<<<<<< HEAD
 		return data;
 	},
 	async sendFormStepOne(cartId: number, formData: OrderFormStepOneData) {
@@ -131,7 +149,8 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 	},
 	async sendFormStepTwo(formData: FormStepTwoData) {
 		const { data } = await instance.put('orders/continue_order', formData);
+=======
+>>>>>>> 78b06e53de459df09be81f8d3f6ff75753a2a8b3
 		return data;
 	},
 });
-

@@ -1,9 +1,10 @@
 import { Goods } from '@/types/goods';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-
+import { Api } from '@/services';
 interface EditProductState {
 	activeProduct: Goods | null;
+	editProducts: Goods[];
 	sizesFromServer: string[];
 	imagesFromModal: {
 		fileNames: string[];
@@ -13,10 +14,29 @@ interface EditProductState {
 }
 
 const initialState: EditProductState = {
+	editProducts: [],
 	sizesFromServer: [],
 	imagesFromModal: [],
 	activeProduct: null,
 };
+
+export const fetchEditGoods = createAsyncThunk<
+	{ products: Goods[]; totalProducts: number },
+	null,
+	{ rejectValue: string }
+>('editProducts/fetchEditGoods', async (_, { getState, rejectWithValue }) => {
+	const state = getState() as RootState;
+	const goodsState = state.goods;
+	const pageNumber = goodsState.page;
+	try {
+		const data = await Api().goods.getEditGoods(pageNumber);
+		return data;
+	} catch (e) {
+		if ('rawErrors' in e.response.data) {
+			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+		}
+	}
+});
 
 const editProductSlice = createSlice({
 	name: 'editProduct',
@@ -47,6 +67,11 @@ const editProductSlice = createSlice({
 		setActiveProduct: (state, action: PayloadAction<Goods | null>) => {
 			state.activeProduct = action.payload;
 		},
+	},
+	extraReducers: (builder) => {
+		builder.addCase(fetchEditGoods.fulfilled, (state, action) => {
+			state.editProducts = action.payload.products
+		});
 	},
 });
 

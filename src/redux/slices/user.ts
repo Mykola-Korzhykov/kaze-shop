@@ -20,13 +20,24 @@ const initialState: UserSLice = {
 	watchedProducts: [],
 };
 
+const getSavedProducts = (state: RootState) => state.user.savedProducts;
+
 export const getUserSavedProducts = createAsyncThunk<
 	{ products: Goods[]; totalProducts: number },
 	null,
 	{ rejectValue: string }
->('user/getUserSavedProducts', async (_, { rejectWithValue }) => {
+>('user/getUserSavedProducts', async (_, { rejectWithValue, getState }) => {
 	try {
+		const state = getState() as RootState;
+		const products = getSavedProducts(state);
+
+		// let data;
+		// if (!products.length) {
+
+		// }
+
 		const data = await Api().user.getSavedProducts(1);
+
 		return data;
 	} catch (e) {
 		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
@@ -60,10 +71,23 @@ const userSLice = createSlice({
 	extraReducers: (builder) => {
 		builder.addCase(getUserSavedProducts.fulfilled, (state, action) => {
 			state.loadingStatus = 'idle';
-			state.savedProducts = action.payload.products;
+			state.savedProducts = action.payload?.products;
 		});
 		builder.addCase(getUserSavedProducts.pending, (state, action) => {
 			state.loadingStatus = 'loading';
+		});
+		builder.addCase(getUserSavedProducts.rejected, (state, action) => {
+			state.loadingStatus = 'error';
+		});
+		builder.addCase(getUserWatchedProducts.pending, (state, action) => {
+			state.loadingStatus = 'loading';
+		});
+		builder.addCase(getUserWatchedProducts.fulfilled, (state, action) => {
+			state.watchedProducts = action.payload.products;
+			state.loadingStatus = 'idle';
+		});
+		builder.addCase(getUserWatchedProducts.rejected, (state, action) => {
+			state.loadingStatus = 'error';
 		});
 	},
 });

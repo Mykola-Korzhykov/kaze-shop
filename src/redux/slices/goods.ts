@@ -44,15 +44,34 @@ type GoodsSlice = {
 // 	page: number;
 // }
 
+// export const fetchGoods = createAsyncThunk<
+// 	{ products: Goods[]; totalProducts: number },
+// 	number | undefined,
+// 	{ rejectValue: string }
+// >('goods/fetchAllGoods', async (page = 1, { getState, rejectWithValue }) => {
+// 	const state = getState() as RootState;
+// 	const goodsState = state.goods;
+// 	try {
+// 		const data = await Api().goods.getGoods(page);
+// 		return data;
+// 	} catch (e) {
+// 		if ('rawErrors' in e.response.data) {
+// 			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+// 		}
+// 	}
+// });
+
 export const fetchGoods = createAsyncThunk<
 	{ products: Goods[]; totalProducts: number },
-	number | undefined,
+	null,
 	{ rejectValue: string }
->('goods/fetchAllGoods', async (page = 1, { getState, rejectWithValue }) => {
+>('goods/fetchAllGoods', async (_, { getState, rejectWithValue }) => {
 	const state = getState() as RootState;
 	const goodsState = state.goods;
+	const pageNumber = goodsState.page;
 	try {
-		const data = await Api().goods.getGoods(page);
+		const data = await Api().goods.getGoods(pageNumber);
+		console.log('Fetch goods data,', data);
 		return data;
 	} catch (e) {
 		if ('rawErrors' in e.response.data) {
@@ -61,21 +80,95 @@ export const fetchGoods = createAsyncThunk<
 	}
 });
 
-// export const fetchGoods = createAsyncThunk<
-// 	{ products: Goods[]; totalProducts: number },
+
+interface GoodsData {
+	colors: fetchedColour[];
+	categories: fetchedCategory[];
+	goods: {products: Goods[], totalProducts: number};
+}
+
+export const fetchGoodsData = createAsyncThunk<
+	GoodsData,
+	null,
+	{ rejectValue: string }
+>('goods/fetchGoodsData', async (_, { rejectWithValue,getState }) => {
+	const state = getState() as RootState;
+	const goodsState = state.goods;
+	const pageNumber = goodsState.page;
+	try {
+		const [colors, categories, goods] = await Promise.all([
+			Api().goods.getColours(),
+			Api().goods.getGategories(),
+			Api().goods.getGoods(pageNumber),
+		]);
+		return { colors: colors?.data, categories: categories?.data, goods };
+	} catch (error) {
+		return rejectWithValue('error');
+	}
+});
+export const fetchCategories = createAsyncThunk<
+	fetchedCategory[],
+	null,
+	{ rejectValue: string }
+>('goods/fetchCategories', async (_, { rejectWithValue }) => {
+	try {
+		const data = await Api().goods.getGategories();
+		console.log('Fetch categories data,', data);
+		return data?.data;
+	} catch (e) {
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+	}
+});
+
+export const fetchColours = createAsyncThunk<
+	fetchedColour[],
+	null,
+	{ rejectValue: string }
+>('goods/fetchColours', async (_, { rejectWithValue }) => {
+	try {
+		const data = await Api().goods.getColours();
+		console.log('Fetch colours data,', data);
+		return data?.data;
+	} catch (e) {
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+	}
+});
+
+// export const fetchAllData = createAsyncThunk<
+// 	{
+// 		goods: { products: Goods[]; totalProducts: number };
+// 		categories: fetchedCategory[];
+// 		colours: fetchedColour[];
+// 	},
 // 	null,
 // 	{ rejectValue: string }
-// >('goods/fetchAllGoods', async (_, { getState, rejectWithValue }) => {
-// 	const state = getState() as RootState;
-// 	const goodsState = state.goods;
-// 	const pageNumber = goodsState.page;
+// >('goods/fetchAllData', async (_, { dispatch, rejectWithValue }) => {
 // 	try {
-// 		const data = await Api().goods.getGoods(pageNumber);
-// 		return data;
-// 	} catch (e) {
-// 		if ('rawErrors' in e.response.data) {
-// 			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+// 		const [goods, categories, colours] = await Promise.allSettled([
+// 			dispatch(fetchGoods()),
+// 			dispatch(fetchCategories()),
+// 			dispatch(fetchColours()),
+// 		]);
+
+// 		if (goods.status === 'rejected') {
+// 			return rejectWithValue(goods.reason?.message);
 // 		}
+
+// 		if (categories.status === 'rejected') {
+// 			return rejectWithValue(categories.reason?.message);
+// 		}
+
+// 		if (colours.status === 'rejected') {
+// 			return rejectWithValue(colours.reason?.message);
+// 		}
+
+// 		return {
+// 			goods: goods.value,
+// 			categories: categories.value,
+// 			colours: colours.value,
+// 		};
+// 	} catch (e) {
+// 		return rejectWithValue(e?.message);
 // 	}
 // });
 
@@ -120,32 +213,6 @@ export const fetchCompareOfferProducts = createAsyncThunk<
 		}
 	}
 );
-
-export const fetchCategories = createAsyncThunk<
-	fetchedCategory[],
-	null,
-	{ rejectValue: string }
->('goods/fetchCategories', async (_, { rejectWithValue }) => {
-	try {
-		const data = await Api().goods.getGategories();
-		return data.data;
-	} catch (e) {
-		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
-	}
-});
-
-export const fetchColours = createAsyncThunk<
-	fetchedColour[],
-	null,
-	{ rejectValue: string }
->('goods/fetchColours', async (_, { rejectWithValue }) => {
-	try {
-		const data = await Api().goods.getColours();
-		return data.data;
-	} catch (e) {
-		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
-	}
-});
 
 export const filterGoods = createAsyncThunk<
 	{ products: Goods[]; totalProducts: number },
@@ -312,56 +379,56 @@ const initialState: GoodsSlice = {
 		// },
 	],
 	fetchedCategories: [
-		{
-			id: 1,
-			ua: 'Категорія 1',
-			en: 'Категория 1',
-			rs: 'Категорія 1 rs',
-			ru: 'Категорія 1 ru',
-			type: 'category',
-			createdAt: 'any',
-			updatedAt: 'any',
-		},
-		{
-			id: 2,
-			ua: 'Категорія 2',
-			en: 'Категория 3',
-			rs: 'Категорія 2 rs',
-			ru: 'Категорія 2 ru',
-			type: 'category',
-			createdAt: 'any',
-			updatedAt: 'any',
-		},
-		{
-			id: 3,
-			ua: 'Категорія 3',
-			en: 'Категория 3',
-			rs: 'Категорія 2 rs',
-			ru: 'Категорія 3 ru',
-			type: 'category',
-			createdAt: 'any',
-			updatedAt: 'any',
-		},
-		{
-			id: 4,
-			ua: 'Категорія 4',
-			en: 'Категория 4',
-			rs: 'Категорія 4 rs',
-			ru: 'Категорія 4 ru',
-			type: 'category',
-			createdAt: 'any',
-			updatedAt: 'any',
-		},
-		{
-			id: 2,
-			ua: 'Категорія 4',
-			en: 'Категория 4',
-			rs: 'Категорія 4 rs',
-			ru: 'Категорія 4 ru',
-			type: 'category',
-			createdAt: 'any',
-			updatedAt: 'any',
-		},
+		// {
+		// 	id: 1,
+		// 	ua: 'Категорія 1',
+		// 	en: 'Категория 1',
+		// 	rs: 'Категорія 1 rs',
+		// 	ru: 'Категорія 1 ru',
+		// 	type: 'category',
+		// 	createdAt: 'any',
+		// 	updatedAt: 'any',
+		// },
+		// {
+		// 	id: 2,
+		// 	ua: 'Категорія 2',
+		// 	en: 'Категория 3',
+		// 	rs: 'Категорія 2 rs',
+		// 	ru: 'Категорія 2 ru',
+		// 	type: 'category',
+		// 	createdAt: 'any',
+		// 	updatedAt: 'any',
+		// },
+		// {
+		// 	id: 3,
+		// 	ua: 'Категорія 3',
+		// 	en: 'Категория 3',
+		// 	rs: 'Категорія 2 rs',
+		// 	ru: 'Категорія 3 ru',
+		// 	type: 'category',
+		// 	createdAt: 'any',
+		// 	updatedAt: 'any',
+		// },
+		// {
+		// 	id: 4,
+		// 	ua: 'Категорія 4',
+		// 	en: 'Категория 4',
+		// 	rs: 'Категорія 4 rs',
+		// 	ru: 'Категорія 4 ru',
+		// 	type: 'category',
+		// 	createdAt: 'any',
+		// 	updatedAt: 'any',
+		// },
+		// {
+		// 	id: 2,
+		// 	ua: 'Категорія 4',
+		// 	en: 'Категория 4',
+		// 	rs: 'Категорія 4 rs',
+		// 	ru: 'Категорія 4 ru',
+		// 	type: 'category',
+		// 	createdAt: 'any',
+		// 	updatedAt: 'any',
+		// },
 	],
 	language: 'ua',
 };
@@ -446,12 +513,27 @@ const goodsSlice = createSlice({
 		},
 	},
 	extraReducers: (builder) => {
-		builder.addCase(fetchGoods.fulfilled, (state, action) => {
+		builder.addCase(fetchGoodsData.fulfilled, (state, action) => {
 			state.loadingStatus = 'idle';
 			state.catalogLoadingStatus = 'idle';
-			state.goods = action.payload.products;
-			state.totalProducts = action.payload.totalProducts;
+			state.goods = action.payload.goods.products;
+			state.totalProducts = action.payload.goods.totalProducts;
+			state.fetchedCategories = action.payload.categories
+			state.fetchedColours = action.payload.colors
 		}),
+			builder.addCase(fetchGoodsData.pending, (state) => {
+				state.loadingStatus = 'loading';
+			}),
+			builder.addCase(fetchGoodsData.rejected, (state, action) => {
+				state.loadingStatus = 'error';
+				state.errors = action.payload;
+			}),
+			builder.addCase(fetchGoods.fulfilled, (state, action) => {
+				state.loadingStatus = 'idle';
+				state.catalogLoadingStatus = 'idle';
+				state.goods = action.payload.products;
+				state.totalProducts = action.payload.totalProducts;
+			}),
 			builder.addCase(fetchGoods.pending, (state) => {
 				state.loadingStatus = 'loading';
 				state.catalogLoadingStatus = 'loading';

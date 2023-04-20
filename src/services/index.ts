@@ -32,12 +32,12 @@ export const Api = (
 			return config
 		},
 		async error => {
-			const originalRequest = error.config
+			const originalRequest = error?.config
 			if (
-				error.config &&
-				error.response &&
-				error.response.status === 401 &&
-				!error.config._isRetry
+				error?.config &&
+				error?.response &&
+				error?.response?.status === 401 &&
+				!error?.config?._isRetry
 			) {
 				originalRequest._isRetry = true
 				try {
@@ -47,7 +47,7 @@ export const Api = (
 							withCredentials: true,
 						}
 					)
-					setCookie(null, 'accessToken', response.data.accessToken, {
+					setCookie(null, 'accessToken', response?.data?.accessToken, {
 						maxAge: 30 * 24 * 60 * 60,
 						path: '/',
 					})

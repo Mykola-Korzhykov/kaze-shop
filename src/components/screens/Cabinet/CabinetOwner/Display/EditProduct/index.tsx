@@ -2,9 +2,11 @@ import React, { FC } from 'react';
 import s from './EditProduct.module.scss';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/redux/hooks';
-import { fetchGoods } from '@/redux/slices/goods';
+import {  setPage } from '@/redux/slices/goods';
+import { fetchEditGoods } from '@/redux/slices/editProduct';
 import { RootState } from '@/redux/store';
 import { setActiveProduct } from '@/redux/slices/editProduct';
+import { setProductForm } from '@/redux/slices/modal';
 //components
 import { Item } from './Item';
 import { EditProductItem } from './EditProductItem';
@@ -18,7 +20,9 @@ export const EditProduct: FC<{
 }> = ({ imagesData, setImages }) => {
 	const dispatch = useAppDispatch();
 	// const products = useSelector((state: RootState) => state.admin.editProducts);
-	const products = useSelector((state: RootState) => state.goods.goods);
+	const products = useSelector(
+		(state: RootState) => state.editProduct.editProducts
+	);
 	const [paginationArr, setPaginationArr] = React.useState<number[]>([]);
 	const [activePagination, setActivePagination] = React.useState<number>(1);
 
@@ -29,7 +33,10 @@ export const EditProduct: FC<{
 	const [activeId, setActiveId] = React.useState(0);
 
 	React.useEffect(() => {
-		dispatch(fetchGoods(activePagination));
+		dispatch(setLoadingStatus('loading'));
+		dispatch(setPage(activePagination));
+		dispatch(fetchEditGoods());
+		dispatch(setLoadingStatus('idle'));
 	}, [activePagination]);
 
 	React.useEffect(() => {
@@ -37,14 +44,23 @@ export const EditProduct: FC<{
 			try {
 				if (editProductItemId !== -1) {
 					dispatch(setLoadingStatus('loading'));
-					const data = await Api().goods.getSingleProduct(editProductItemId);
-					console.log('edit product item from server', data);
+					const data = await Api().goods.getSingleEditProduct(
+						editProductItemId
+					);
 					dispatch(setActiveProduct(data));
 					// console.log('edit product item from redux', activeProduct)
 					dispatch(setLoadingStatus('idle'));
 				}
 			} catch (e) {
 				dispatch(setLoadingStatus('error'));
+				dispatch(
+					setProductForm({
+						turn: true,
+						title: 'Ошибка получения товара',
+						subtitle: '',
+						btntitle: 'Закрити',
+					})
+				);
 			}
 		};
 		fetchSingleProduct();
@@ -53,7 +69,7 @@ export const EditProduct: FC<{
 	React.useEffect(() => {
 		if (products) {
 			let paginationArrLocation: any[] = [];
-			const countPages = Math.ceil(products.length / 10);
+			const countPages = Math.ceil(products?.length / 10);
 			for (let i = 0; i < countPages; i++) {
 				paginationArrLocation.push(i);
 			}
@@ -61,7 +77,10 @@ export const EditProduct: FC<{
 		}
 	}, [products]);
 	// console.log('paginationArrLocationArr2', paginationArrLocation);
-	console.log('products', products);
+
+
+
+
 	return (
 		<>
 			<div className={editProductItemId === -1 ? s.wrapper : s.wrapper_off}>
@@ -69,12 +88,12 @@ export const EditProduct: FC<{
 					return (
 						<Item
 							product={obj}
-							photo={obj.images[0].imagesPaths[0]}
-							price={obj.price}
-							id={obj.id}
+							photo={obj?.images[0]?.imagesPaths[0]}
+							price={obj?.price}
+							id={obj?.id}
 							setActiveId={setActiveId}
-							title={obj.title.ua}
-							key={ind}
+							title={obj?.title?.ua}
+							key={obj?.id}
 						/>
 					);
 				})}
@@ -84,6 +103,7 @@ export const EditProduct: FC<{
 						{
 							return (
 								<span
+									key={ind + Math.random()}
 									onClick={() => {
 										setActivePagination(ind + 1);
 									}}

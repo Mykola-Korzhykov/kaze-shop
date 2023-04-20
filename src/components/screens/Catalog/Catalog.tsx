@@ -1,13 +1,14 @@
 import React, { FC, useState, useEffect } from 'react';
 import Spinner from '@/components/Spinner/Spinner';
 import ErrorModal from '@/components/UI/ErrorModal';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 import {
 	filterGoods,
 	fetchGoods,
 	fetchCategories,
 	fetchColours,
 	selectGoods,
+	fetchGoodsData,
 } from '@/redux/slices/goods';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import Link from 'next/link';
@@ -16,12 +17,11 @@ import CatalogHeader from './CatalogHeader';
 import CatalogItems from './CatalogItems';
 import CatalogFilters from './CatalogFilters';
 import CatalogPagination from './CatalogPagination';
+import { useRouter } from 'next/router';
 const Catalog: FC = () => {
 	const dispatch = useAppDispatch();
-	const goods = useAppSelector(selectGoods);
-	const { t } = useTranslation();
-	const sortType = useAppSelector((state) => state.goods.sortType);
-	const page = useAppSelector((state) => state.goods.page);
+	const { t: t2 } = useTranslation('common');
+	const { t } = useTranslation('catalog');
 	const loadingStatus = useAppSelector((state) => state.goods.loadingStatus);
 	const catalogLoadingStatus = useAppSelector(
 		(state) => state.goods.catalogLoadingStatus
@@ -30,28 +30,25 @@ const Catalog: FC = () => {
 	const [filtersOpened, setFiltersOpened] = useState<boolean>(false);
 
 	useEffect(() => {
-		dispatch(fetchCategories());
-		dispatch(fetchColours());
-		dispatch(fetchGoods(1));
+		// dispatch(fetchGoods());
+		// dispatch(fetchCategories());
+		// dispatch(fetchColours());
+		dispatch(fetchGoodsData());
 	}, [dispatch]);
 
-	// useEffect(() => {
-	// 	dispatch(filterGoods())
-	// }, [page, dispatch])
 	return (
 		<CatalogContext.Provider value={{ filtersOpened, setFiltersOpened }}>
-			{loadingStatus === 'loading' || catalogLoadingStatus === 'loading' ? (
-				<Spinner />
-			) : null}
+			{loadingStatus === 'loading' ? <Spinner /> : null}
 			<main className="content">
 				<div className="container">
 					<div className="page_coordinator">
-						<Link href="/">Главная</Link> | <span>Каталог</span>
+						<Link href="/">{t2('Main')}</Link> | <span>{t('Catalog')}</span>
 					</div>
+
 					{loadingStatus === 'error' ? (
 						<ErrorModal
 							title="505"
-							buttonText="Вернуться на главную"
+							buttonText={'Вернуться на главную'}
 							buttonHref="/"
 							description={error}
 						/>
@@ -63,6 +60,10 @@ const Catalog: FC = () => {
 							<CatalogPagination />
 						</>
 					)}
+					{/* <CatalogHeader />
+							{filtersOpened && <CatalogFilters />}
+							<CatalogItems />
+							<CatalogPagination /> */}
 				</div>
 			</main>
 		</CatalogContext.Provider>

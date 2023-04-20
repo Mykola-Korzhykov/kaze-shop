@@ -22,7 +22,16 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 	const isAuth = useAppSelector(selectAuthState);
 	const user = useAppSelector(selectUserInfo);
 	const router = useRouter();
+
 	const saveButtonHandler = () => {
+		if (router.pathname === '/cabinet') {
+			deleteSavedProduct();
+		} else {
+			addSavedProduct();
+		}
+	};
+
+	const addSavedProduct = () => {
 		if (isAuth && user?.type === 'USER') {
 			try {
 				Api().goods.addToFavorites(product?.id);
@@ -31,6 +40,12 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 			router.push('/login');
 		}
 	};
+
+	const deleteSavedProduct = () => {
+		//dispath(filterSavedEl)
+		//requests
+	};
+
 	const basketButtonHandler = () => {
 		dispatch(
 			addProductToCart({
@@ -45,7 +60,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 	};
 
 	const addToLastViews = () => {
-		dispatch(setLoadingStatus('loading'))
+		dispatch(setLoadingStatus('loading'));
 		if (isAuth && user?.type === 'USER') {
 			try {
 				Api().goods.addToRecentlyViews(product?.id);
@@ -55,8 +70,8 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 			'recentlyViewedProducts'
 		);
 		const recentlyViewedProducts = JSON.parse(recentlyViewedProductsJSON) || [];
-		if (!recentlyViewedProducts?.includes(product?.id)) {
-			recentlyViewedProducts.push(product?.id);
+		if (product && recentlyViewedProducts?.indexOf(product?.id) === -1) {
+			recentlyViewedProducts?.push(product?.id);
 			localStorage.setItem(
 				'recentlyViewedProducts',
 				JSON.stringify(recentlyViewedProducts)
@@ -76,19 +91,19 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 					{isHovering ? (
 						<Image
 							className={s.img}
-							src={product?.images[0]?.imagesPaths[0] ?? catalogImg}
+							src={product?.images?.[0]?.imagesPaths?.[0] ?? catalogImg}
 							width={285}
 							height={360}
-							alt={product?.title?.en}
+							alt={product?.title?.en ?? 'catalog image'}
 							quality={95}
 						/>
 					) : (
 						<Image
 							className={s.img}
-							src={product?.images[0]?.imagesPaths[1] ?? catalogImg2}
+							src={product?.images?.[0]?.imagesPaths?.[1] ?? catalogImg2}
 							width={285}
 							height={360}
-							alt={product?.title?.en}
+							alt={product?.title?.en ?? 'catalog img'}
 							quality={95}
 						/>
 					)}
@@ -102,7 +117,12 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 				<button onClick={basketButtonHandler} className={s.footer_button}>
 					В корзину
 				</button>
-				<button onClick={saveButtonHandler} className={s.footer_icon}></button>
+				<button
+					onClick={saveButtonHandler}
+					className={
+						router.pathname === '/cabinet' ? s.footer_iconActive : s.footer_icon
+					}
+				></button>
 			</div>
 		</div>
 	);

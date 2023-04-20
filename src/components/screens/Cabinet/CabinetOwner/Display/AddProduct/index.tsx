@@ -240,7 +240,7 @@ export const AddProduct = ({
 				},
 			})
 			.then((response) => {
-				if (response && response.status === 200) {
+				if (response && response.status === 201) {
 					dispatch(
 						setProductForm({
 							turn: true,
@@ -271,7 +271,7 @@ export const AddProduct = ({
 						setProductForm({
 							turn: true,
 							title: 'Error',
-							subtitle: ' Response status was not 200!',
+							subtitle: ' Response status was not 201!',
 							btntitle: 'Ok',
 						})
 					);
@@ -287,31 +287,6 @@ export const AddProduct = ({
 					})
 				);
 			});
-
-		dispatch(
-			setProductForm({
-				turn: true,
-				title: 'Товар успешно добавлен',
-				subtitle: ' Нажмите “Готово” для того. чтобы продолжить',
-				btntitle: 'готово',
-			})
-		);
-		dispatch(clearForm());
-		dispatch(removeimageUrlArr({ from: 0, size: imageUrlArr.length }));
-		setImages([]);
-		setCountPhoto(0);
-		dispatch(removearrObjMod({ from: 0, size: arrObjMods.length }));
-
-		console.log('inputRefsmdmmdmdmdmdmdmdmdmd', inputRefs);
-
-		let inputsSizeChart = inputRefs.current.filter((el) => {
-			return el !== undefined;
-		});
-		for (let i = 0; i < inputs.length; i++) {
-			inputsSizeChart[i].value = '';
-		}
-		setNetFileShow(null);
-		setNetFile(null);
 	}
 
 	const SizeChartArr = [

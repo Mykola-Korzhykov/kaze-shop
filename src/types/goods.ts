@@ -9,6 +9,7 @@ export interface fetchedCategory {
 	type: 'category';
 	createdAt: any;
 	updatedAt: any;
+	[key: string]: any;
 }
 
 export interface fetchedColour {
@@ -21,6 +22,7 @@ export interface fetchedColour {
 	type: 'colour' | null;
 	createdAt: any | null;
 	updatedAt: any | null;
+	[key: string]: any;
 }
 
 export interface ImageData {

@@ -1,6 +1,6 @@
-import React, { FC } from 'react'
-import s from './CatalogFilters.module.scss'
-import FiltersCheckbox from './FiltersCheckbox'
+import React, { FC } from 'react';
+import s from './CatalogFilters.module.scss';
+import FiltersCheckbox from './FiltersCheckbox';
 const FiltersSizes: FC = () => {
 	const SIZES = [
 		{ label: 'XS', id: 1 },
@@ -15,25 +15,25 @@ const FiltersSizes: FC = () => {
 		{ label: '3XL', id: 10 },
 		{ label: '3XL', id: 11 },
 		{ label: '4XL', id: 12 },
-	]
+	];
 	return (
 		<>
 			<p className={s.filters_title}>Размеры:</p>
 			<div className={s.filters_body}>
-				{SIZES.map((el, id) => {
+				{SIZES.map((el) => {
 					return (
 						<FiltersCheckbox
-							key={el.id}
-							label={el.label}
+							key={el?.id + el?.label}
+							label={el?.label}
 							color={'white'}
-							type='size'
-							itemId={el.id}
+							type="size"
+							itemId={el?.id}
 						/>
-					)
+					);
 				})}
 			</div>
 		</>
-	)
-}
+	);
+};
 
-export default FiltersSizes
+export default FiltersSizes;

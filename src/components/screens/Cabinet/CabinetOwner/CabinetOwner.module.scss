@@ -1,130 +1,130 @@
 .wrapper {
-  position: relative;
-  display: flex;
-  gap: 30px;
-  // height: 900px;
-  @media (max-width: 900px) {
-    display: block;
-  }
+	position: relative;
+	display: flex;
+	gap: 30px;
+	// height: 900px;
+	@media (max-width: 900px) {
+		display: block;
+	}
 }
 
 .nav_dekstop {
-  display: block;
-  @media (max-width: 900px) {
-    display: none;
-  }
+	display: block;
+	@media (max-width: 900px) {
+		display: none;
+	}
 }
 
 .nav_mobile {
-  display: none;
-  @media (max-width: 900px) {
-    display: block;
-  }
+	display: none;
+	@media (max-width: 900px) {
+		display: block;
+	}
 }
 
 .display {
-  display: block;
-  width: 100%;
-  min-width: 0px;
-  @media (max-width: 900px) {
-    display: none;
-  }
+	display: block;
+	width: 100%;
+	min-width: 0px;
+	@media (max-width: 900px) {
+		display: none;
+	}
 }
 
 .link {
-  text-transform: none;
+	text-transform: none;
 }
 
 .input_wrapper_on {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 18px;
-  align-items: center;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 18px;
+	align-items: center;
 
-  font-family: 'Georama', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-  max-width: 804px;
+	font-family: 'Georama', sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 20px;
+	line-height: 24px;
+	display: flex;
+	align-items: center;
+	max-width: 804px;
 
-  color: #000000;
-  .input_wrapper {
-    display: flex;
-    justify-content: flex-end;
+	color: #000000;
+	.input_wrapper {
+		display: flex;
+		justify-content: flex-end;
 
-    .input {
-      padding-left: 10px;
-      background: none;
-      width: 100%;
-      border: none;
-      // border-radius: 8px;
-      // margin-right: 5px;
-      border: #000000 solid 1px;
-      border-right: none;
+		.input {
+			padding-left: 10px;
+			background: none;
+			width: 100%;
+			border: none;
+			// border-radius: 8px;
+			// margin-right: 5px;
+			border: #000000 solid 1px;
+			border-right: none;
 
-      // padding-left: 15px;
-    }
+			// padding-left: 15px;
+		}
 
-    .input::placeholder {
-      font-family: 'Georama', sans-serif;
-      font-style: normal;
-      font-weight: 400;
-      font-size: 20px;
-      line-height: 24px;
-      color: #000000;
-    }
+		.input::placeholder {
+			font-family: 'Georama', sans-serif;
+			font-style: normal;
+			font-weight: 400;
+			font-size: 20px;
+			line-height: 24px;
+			color: #000000;
+		}
 
-    .input:focus {
-      outline: none;
-      // border: none;
-      // box-shadow: 0 0 5px #999;
-    }
-  }
+		.input:focus {
+			outline: none;
+			// border: none;
+			// box-shadow: 0 0 5px #999;
+		}
+	}
 }
 
 .input_wrapper_off {
-  display: none;
+	display: none;
 }
 
 //module window
 
 .backround_for_modal {
-  width: calc(150vw + 1100px);
-  top: -200px;
-  height: 120%;
-  left: -1100px;
-  background-color: black;
-  opacity: 0.25;
-  position: absolute;
-  z-index: 100;
+	width: calc(150vw + 1100px);
+	top: -200px;
+	height: 120%;
+	left: -1100px;
+	background-color: black;
+	opacity: 0.25;
+	position: absolute;
+	z-index: 501;
 }
 
 .backround_module {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  // margin-left: -105px;
-  // height: 180vh;
-  width: 100vw;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	// margin-left: -105px;
+	// height: 180vh;
+	width: 100vw;
 
-  background: #0b0b0b;
-  opacity: 0.25;
+	background: #0b0b0b;
+	opacity: 0.25;
 }
 
 .backroundModuleMore {
-  position: absolute;
-  top: 0;
-  margin-left: -105px;
-  height: 230vh;
-  width: 100vw;
+	position: absolute;
+	top: 0;
+	margin-left: -105px;
+	height: 230vh;
+	width: 100vw;
 
-  background: #0b0b0b;
-  opacity: 0.25;
+	background: #0b0b0b;
+	opacity: 0.25;
 }
 
 // .module_wrapper{
@@ -279,19 +279,19 @@
 // }
 
 .pagination_wrapper {
-  display: flex;
-  gap: 10px;
-  height: 20px;
-  justify-content: center;
-  max-width: 803px;
+	display: flex;
+	gap: 10px;
+	height: 20px;
+	justify-content: center;
+	max-width: 803px;
 
-  .item {
-    cursor: pointer;
-    color: #9d9d9d;
-  }
+	.item {
+		cursor: pointer;
+		color: #9d9d9d;
+	}
 
-  .item_active {
-    cursor: pointer;
-    color: #0b0b0b;
-  }
+	.item_active {
+		cursor: pointer;
+		color: #0b0b0b;
+	}
 }

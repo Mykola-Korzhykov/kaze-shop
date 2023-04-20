@@ -34,6 +34,7 @@ export default function Home({ about, faq, footer, lastAddedProduct, logo, mainP
 	dispatch(initialMain({ lastAddedProduct, productSliderOne, productSliderTwo }));
 
 
+
 	return (
 		<SpinnerLayout>
 			<Main />

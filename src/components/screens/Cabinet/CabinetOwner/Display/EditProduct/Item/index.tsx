@@ -8,14 +8,14 @@ import { useAppDispatch } from '@/redux/hooks';
 import { Api } from '@/services';
 import { setActiveProduct } from '@/redux/slices/editProduct';
 import { Goods } from '@/types/goods';
-
+import { setProductForm } from '@/redux/slices/modal';
 interface ItemPropsType {
 	photo?: any;
 	price?: string;
 	title?: string;
 	setActiveId: (n: number) => void;
 	id: number;
-	product: Goods
+	product: Goods;
 }
 
 export const Item = ({
@@ -31,14 +31,30 @@ export const Item = ({
 
 	const dispatch = useAppDispatch();
 
-
 	const deleteProduct = async () => {
 		try {
-			await Api().goods.deleteSingleProduct(id)
-		}catch(e) {
-			alert(e?.response?.data?.message || 'error')
+			const res = await Api().goods.deleteSingleProduct(id);
+			if (res?.status === 202) {
+				dispatch(
+					setProductForm({
+						turn: true,
+						title: 'Товар успешно удален',
+						subtitle: '',
+						btntitle: 'Готово',
+					})
+				);
+			}
+		} catch (e) {
+			dispatch(
+				setProductForm({
+					turn: true,
+					title: 'Ошибка при удалении товара',
+					subtitle: 'e?.response?.data?.message',
+					btntitle: 'Ок',
+				})
+			);
 		}
-	}
+	};
 	// let photoiside;
 	// const [photoDone, sePhotoDone] = React.useState<any>()
 
@@ -64,13 +80,19 @@ export const Item = ({
 
 	return (
 		<div className={s.wrapper}>
-			<Image width={285} height={360} className={s.img} src={photo} alt="photo" />
+			<Image
+				width={285}
+				height={360}
+				className={s.img}
+				src={photo}
+				alt="photo"
+			/>
 			<div className={s.title}> {title} </div>
 			<div className={s.price}> {`${price}$`}</div>
 			<div className={s.btn_wrapper}>
 				<button
 					onClick={() => {
-						dispatch(setActiveProduct(product))
+						dispatch(setActiveProduct(product));
 						dispatch(setEditProductItemId(id));
 						setActiveId(id);
 					}}

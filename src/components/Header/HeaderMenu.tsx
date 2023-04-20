@@ -4,13 +4,31 @@ import { fetchGoodsByCategory, setHeaderCategory } from '@/redux/slices/goods';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import cl from './Header.module.scss';
-import { Router } from 'next/router';
+
 const HeaderMenu: FC<{
 	classNameToggle: boolean;
 	toggleBurgerFunc: () => void;
 }> = ({ classNameToggle, toggleBurgerFunc }) => {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
+	const Languages = [
+		{
+			label: 'Український',
+			locale: 'ua',
+		},
+		{
+			label: 'Русский',
+			locale: 'ru',
+		},
+		{
+			label: 'Serbskiy',
+			locale: 'rs',
+		},
+		{
+			label: 'English',
+			locale: 'en',
+		},
+	];
 	const HeadersCategories = [
 		{
 			label: 'Личный кабинет',
@@ -55,7 +73,7 @@ const HeaderMenu: FC<{
 			dispatch(fetchGoodsByCategory(elId));
 			router.push('/catalog');
 		}
-        toggleBurgerFunc()
+		toggleBurgerFunc();
 	};
 
 	return (
@@ -64,66 +82,46 @@ const HeaderMenu: FC<{
 				{HeadersCategories.map((el) => {
 					return (
 						<li
-							key={el.id}
-							onClick={() => headerLinkHandler(el.link, el.id)}
+							key={el?.id + el?.label}
+							onClick={() => headerLinkHandler(el?.link, el?.id)}
 							className={
-								el.link === '/cabinet' ? `${cl.header__list_account}` : ''
+								el?.link === '/cabinet' ? `${cl.header__list_account}` : ''
 							}
 						>
 							<Link
-								href={el.link}
+								href={el?.link}
 								className={
-									el.link === '/cabinet'
+									el?.link === '/cabinet'
 										? `${cl.header__list_link}`
 										: `${cl.header__link}`
 								}
 							>
-								{el.label}
+								{el?.label}
 							</Link>
 						</li>
 					);
 				})}
-				{/* <li className={cl.header__list_account}>
-					<Link href='/cabinet' className={cl.header__list_link}>
-						Личный кабинет
-					</Link>
-				</li>
-				<li>
-					<Link href='#' className={cl.header__link}>
-						Лосины
-					</Link>
-				</li>
-				<li>
-					<Link href='#' className={cl.header__link}>
-						Костюмы
-					</Link>
-				</li>
-				<li>
-					<Link href='#' className={cl.header__link}>
-						Велосипедки
-					</Link>
-				</li>
-				<li>
-					<Link href='#' className={cl.header__link}>
-						Повседневное белье
-					</Link>
-				</li>
-				<li>
-					<Link href='#' className={cl.header__link}>
-						Сумки
-					</Link>
-				</li>
-				<li>
-					<Link href='#' className={cl.header__link}>
-						Топы
-					</Link>
-				</li> */}
 			</ul>
 			<ul className={cl.header__menu_languages}>
-				<li>Український</li>
-				<li>Русский</li>
-				<li>Serbskiy</li>
-				<li>English</li>
+				{Languages.map((el) => {
+					return (
+						<Link
+							key={el.locale}
+							style={{
+								backgroundColor:
+									el.locale === router.locale ? '#0b0b0b' : undefined,
+								color: el.locale === router.locale ? '#fff' : undefined,
+								transition: 'all 0.2s ease',
+								borderColor:
+									el.locale === router.locale ? '#0b0b0b' : undefined,
+							}}
+							href={router.pathname}
+							locale={el.locale}
+						>
+							{el.label}
+						</Link>
+					);
+				})}
 			</ul>
 		</nav>
 	);
