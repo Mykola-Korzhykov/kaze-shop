@@ -5,6 +5,8 @@ import SlideItem from "../../Slider/SliderItem/SlideItem";
 import Product from '../../../../../assets/images/main/products/product1.png';
 
 import cn from 'classnames';
+import { useAppSelector } from "@/redux/hooks";
+import { useRouter } from "next/router";
 
 
 const mockSliderProps = [
@@ -41,11 +43,12 @@ const mockSliderProps = [
 ]
 
 const ProductSlider = (): JSX.Element => {
+  const product = useAppSelector(store => store.main.lastAddedProduct);
 
   return (
     <>
       {
-        mockSliderProps.map((item, i) => <SlideItem {...item}
+        product.map((item, i) => <SlideItem {...item}
           className={cn(`keen-slider__slide number-slide${i + 1}`)}
           key={i}
         />)

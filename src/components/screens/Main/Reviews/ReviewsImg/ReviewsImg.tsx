@@ -1,11 +1,11 @@
-import s from './reviewsImg.module.scss';
-import WomanImg from '../../../../../assets/images/main/Reviews/photo.png';
-import Image from 'next/image';
 import { useAppSelector } from '@/redux/hooks';
+import s from './reviewsImg.module.scss';
+import Image from 'next/image';
 
 
 const ReviewsImg = (): JSX.Element => {
-    const { image, title } = useAppSelector(store => store.main.reviews)
+    const { image, title } = useAppSelector(store => store.strapiValues.reviews);
+
     return (
 
         <div className={s.review_img}>

@@ -2,7 +2,6 @@ import ReviewImg from './ReviewsImg/ReviewsImg';
 import s from './Reviews.module.scss';
 import ReviewsSlider from './ReviewsSlider/ReviewsSlider';
 
-
 const Reviews = (): JSX.Element => {
 
     return (

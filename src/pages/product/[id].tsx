@@ -1,24 +1,40 @@
-import React, { Suspense, useEffect } from 'react';
+import React from 'react';
 import Footer from '@/components/Footer/Footer';
 import OneProduct from '@/components/screens/Product/Product';
 import axios from 'axios';
-import { SingleProductData } from '@/types/singleProduct';
+import { SingleProductData, SingleProductRes } from '@/types/singleProduct';
 import { API_URL } from '../../services/index';
 
 import { GetStaticPaths, GetStaticProps } from 'next/types';
 import { AllCategory } from '@/types/allCategoryWithProducts';
 import SpinnerLayout from '@/layouts/SpinnerLayout';
 import ErrorPage from '../404';
+import { StrapiAxios } from '@/services/strapiAxios';
+import { ReviewsResT } from '@/types/mainPageRequest/reviews';
+import { footersResT } from '@/types/mainPageRequest/footer';
+import { useAppDispatch } from '@/redux/hooks';
+import { initial } from '@/redux/slices/strapiValues';
+import { LogoResT } from '@/types/mainPageRequest/logo';
 
-const Product = ({ data }: OneProductProps): JSX.Element => {
+const Product = (data: SingleProductData): JSX.Element => {
+    const dispatch = useAppDispatch();
 
-    if (!data) {
+    if (!data.product) {
         return (
             <SpinnerLayout>
                 <ErrorPage />
             </SpinnerLayout>
         )
     }
+    dispatch(initial({
+        about: null,
+        faq: null,
+        footer: data.footer,
+        logo: data.logo,
+        mainPage: null,
+        reviews: data.reviewsStrapi
+    }))
+
 
     return (
         <SpinnerLayout>
@@ -46,7 +62,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
     }
 }
 
-export const getStaticProps: GetStaticProps<OneProductProps> = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
+
+    const validLocale = locale === 'ua' ? 'uk' : locale;
 
     if (!params) {
         return {
@@ -54,24 +72,50 @@ export const getStaticProps: GetStaticProps<OneProductProps> = async ({ params }
         }
     }
     try {
-        const { data } = await axios.get<SingleProductData>(API_URL + `/product/${params.id}`);
+        const allRequest = await Promise.all([
+            axios.get<SingleProductRes>(API_URL + `/product/${params.id}`),
+            StrapiAxios.get<ReviewsResT>('/api/reviews?populate=deep&locale=' + validLocale),
+            StrapiAxios.get<footersResT>('/api/footers?populate=deep&locale=' + validLocale),
+            StrapiAxios.get<LogoResT>('/api/logos?populate=deep&locale=' + validLocale)
+
+        ]);
+
+
+
+        const product = allRequest[0].data;
+        const reviewsStrapi = {
+            title: allRequest[1].data.data[0].attributes.title,
+            image: allRequest[1].data.data[0].attributes.image
+        };
+        const footer = {
+            field: [
+                allRequest[2].data.data[0].attributes.field_1,
+                allRequest[2].data.data[0].attributes.field_2,
+                allRequest[2].data.data[0].attributes.field_3
+            ]
+        };
+        const logo = allRequest[3].data.data[0].attributes.logo;
+
         return {
             props: {
-                data
+                product,
+                reviewsStrapi,
+                footer,
+                logo
+
             }
         }
 
     } catch (e) {
         return {
-            notFound: true,
+            redirect: {
+                permanent: false,
+                destination: '/500'
+            }
         }
     }
 }
 
-
-interface OneProductProps {
-    data: SingleProductData | null;
-}
 
 
 export default Product;

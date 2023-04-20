@@ -7,7 +7,7 @@ import { useAppSelector } from '@/redux/hooks';
 
 const FAQ = (): JSX.Element => {
     const [activeItem, setActiveItem] = useState<number | null>(0);
-    const { fields, image, title } = useAppSelector(store => store.main.faq);
+    const { fields, image, title } = useAppSelector(store => store.strapiValues.faq);
     const fieldArr = fields.map(field => {
         const obj = {
             id: field.id.toString(),

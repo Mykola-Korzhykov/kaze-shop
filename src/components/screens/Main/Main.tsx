@@ -7,6 +7,7 @@ import About from "./About/About";
 import Reviews from "./Reviews/Reviews";
 import FAQ from "./FAQ/FAQ";
 import Footer from "@/components/Footer/Footer";
+import { useAppSelector } from '@/redux/hooks';
 
 
 const mockSliderProps = [
@@ -75,13 +76,15 @@ const mockSliderProps1 = [
     }
 ]
 
-const Main = () => {
+const Main = (): JSX.Element => {
+    const productPackOne = useAppSelector(store => store.main.productSliderOne);
+    const productPackTwo = useAppSelector(store => store.main.productSliderTwo);
     return (
         <div>
             <BuyProducts />
-            <Slider items={mockSliderProps} title='Фитнес одежда' />
+            {productPackTwo.length && <Slider items={productPackTwo} title={productPackTwo[0].categories[0].ua} />}
             <About />
-            <Slider items={mockSliderProps1} title='Аксессуары' />
+            {productPackOne.length && <Slider items={productPackOne} title={productPackOne[0].categories[0].ua} />}
             <Reviews />
             <FAQ />
             <Footer/>

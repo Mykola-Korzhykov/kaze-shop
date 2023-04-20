@@ -8,7 +8,6 @@ import ProductBottomButton from '../ProductBottomButton/ProductBottomButton';
 import { SliderInterface } from './Slider.interface';
 
 const Slider = ({ title, items, className }: SliderInterface): JSX.Element => {
-
     const [sliderRef, instanceRef] = useKeenSlider({
         slides: {
             perView: 4,
@@ -23,7 +22,7 @@ const Slider = ({ title, items, className }: SliderInterface): JSX.Element => {
             }
         },
         loop: true,
-    })
+    });
     return (
         <div className={cn(s.slider_box, 'container', className)}>
             <div className={s.title_box}>

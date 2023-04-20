@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useAppSelector } from "@/redux/hooks";
 
 const About = (): JSX.Element => {
-    const { button, image, text, title } = useAppSelector(store => store.main.about);
+    const { button, image, text, title } = useAppSelector(store => store.strapiValues.about);
 
     return (
         <div className="container">

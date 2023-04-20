@@ -1,16 +1,9 @@
-import { Field1 } from './mainPageRequest/footer';
-import { Image as StrapiImageData } from './mainPageRequest/reviews';
-
-export interface SingleProductData {
-	product: SingleProductRes;
-	reviewsStrapi: ReviewsStrapi;
-	footer: {
-		field: Field1[];
-	};
-	logo: string;
+export interface CategorySlider {
+	products: Product[];
+	totalProducts: number;
 }
 
-export interface SingleProductRes {
+export interface Product {
 	id: number;
 	title: Title;
 	description: Description;
@@ -18,20 +11,13 @@ export interface SingleProductRes {
 	price: string;
 	quantity: number;
 	images: Image[];
+	hexes: string[];
 	sizeChartImage: string;
 	sizes: string[];
-	hexes: string[];
-	colours: Colour2[];
+	colours: any[];
 	categories: Category[];
 	reviews: any[];
 }
-
-interface ReviewsStrapi {
-	title: string;
-	image: StrapiImage;
-}
-
-export interface StrapiImage extends StrapiImageData {}
 
 export interface Title {
 	ua: string;
@@ -72,18 +58,6 @@ export interface Colour {
 	updatedAt: string;
 }
 
-export interface Colour2 {
-	id: number;
-	ua: string;
-	en: string;
-	rs: string;
-	ru: string;
-	hex: string;
-	type: string;
-	createdAt: string;
-	updatedAt: string;
-}
-
 export interface Category {
 	id: number;
 	ua: string;
@@ -93,17 +67,4 @@ export interface Category {
 	type: string;
 	createdAt: string;
 	updatedAt: string;
-}
-
-export const LoadStatus = {
-	idle: 'idle',
-	loading: 'loading',
-	error: 'error',
-	success: 'success',
-} as const;
-
-export interface FormLoadStatusType {
-	stepOne: typeof LoadStatus[keyof typeof LoadStatus];
-	stepTwo: typeof LoadStatus[keyof typeof LoadStatus];
-	orderNum: null | number;
 }

@@ -56,9 +56,10 @@ const mokLinkData = [
     },
   ],
 ];
+
 const Footer = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const footer = useAppSelector(store => store.main.footer);
+  const footer = useAppSelector(store => store.strapiValues.footer)
   const strapiSocial = footer.field.map(el => {
     const { id, link, text } = el
     return { id, link, name: text }

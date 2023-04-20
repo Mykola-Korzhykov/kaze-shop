@@ -1,10 +1,17 @@
-import { StaticImageData } from "next/image";
-import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
+import {
+	Category,
+	Product,
+	SizeChartImageDescription,
+} from '@/types/mainPageRequest/categorySlider';
+import {
+	Description,
+	Image,
+	Title,
+} from '@/types/mainPageRequest/lastAddedProduct';
+import { StaticImageData } from 'next/image';
+import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
-export interface SlideItemInterfaces
-    extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-    img: string | StaticImageData;
-    title: string;
-    price: string;
-    children?: JSX.Element;
+export interface SlideItemInterfaces extends Product {
+	children?: JSX.Element;
+	className?: string;
 }

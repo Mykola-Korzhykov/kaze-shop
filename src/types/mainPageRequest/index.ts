@@ -1,9 +1,10 @@
 import { Button, Image } from './about';
 import { Field } from './faq';
 import { Field1 } from './footer';
+import { Product } from './lastAddedProduct';
 import { MainField } from './mainPage';
 
-export type HomeProps = {
+export type strapiValuesTypes = {
 	about: null | {
 		button: Button;
 		image: Image;
@@ -29,3 +30,11 @@ export type HomeProps = {
 		button: Button;
 	};
 };
+
+export interface IndexPageProps extends strapiValuesTypes, MainProps {}
+
+export interface MainProps {
+	productSliderOne: Product[];
+	productSliderTwo: Product[];
+	lastAddedProduct: Product[];
+}

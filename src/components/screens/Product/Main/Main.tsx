@@ -3,13 +3,12 @@ import RoutesPath from "../RoutesPath/RoutesPath";
 import s from "./main.module.scss";
 import Button from "../../Main/Button/Button";
 import cn from "classnames";
-import productPhoto from "../../../../assets/images/product/product1.png";
 import SizeItems from "./SizeItems/SizeItems";
 import ColorItems from "./ColorItems/ColorItems";
 import Slider from "./SliderProduct/SliderProduct";
 import Link from "next/link";
 import SlideItem from '../../../../assets/images/product/slider/photo.png';
-import { SingleProductData } from "@/types/singleProduct";
+import { SingleProductRes } from "@/types/singleProduct";
 import { useState } from "react";
 
 const mockSIze = ["XXS", "XS", "S", "M", "L", "XL", "M", "L", "XL"];
@@ -25,7 +24,7 @@ const mockColor = [
     "#901",
 ];
 const mockSlideImg = [SlideItem, SlideItem, SlideItem, SlideItem, SlideItem, SlideItem]
-const Main = ({ id, title, description, price, images, sizes, quantity, categories }: SingleProductData) => {
+const Main = ({ id, title, description, price, images, sizes, quantity, categories }: SingleProductRes) => {
 
     const [activeColor, setActiveColor] = useState<number>(0);
     const [activeSize, setActiveSize] = useState<number>(0);

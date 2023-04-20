@@ -27,7 +27,7 @@ const BuyProducts = (): JSX.Element => {
         loop: true,
     });
 
-    const { button, vertical_text_one, vertical_text_two } = useAppSelector(store => store.main.mainPage)
+    const { button, vertical_text_one, vertical_text_two } = useAppSelector(store => store.strapiValues.mainPage)
 
     return (
         <div className={s.wrapper}>

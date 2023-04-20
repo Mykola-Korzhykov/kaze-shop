@@ -5,7 +5,6 @@ import Product1 from '../../../assets/images/main/ProductsAccessories/product2.p
 import Reviews from '../Main/Reviews/Reviews';
 import Feedback from './Feedback/Feedback';
 import { SingleProductData } from '@/types/singleProduct';
-import { Console } from 'console';
 
 const mockSliderProps1 = [
     {
@@ -41,13 +40,14 @@ const mockSliderProps1 = [
 ]
 
 
-const OneProduct = (data: SingleProductData): JSX.Element => {
+const OneProduct = ({ product }: SingleProductData): JSX.Element => {
+
     return (
         <div>
-            <Main {...data} />
+            <Main {...product} />
             <Slider title='Вы недавно смотрели' items={mockSliderProps1} />
             <Reviews />
-            <Feedback id={data.id} />
+            <Feedback id={product.id} />
         </div>
 
     );

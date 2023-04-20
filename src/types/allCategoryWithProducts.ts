@@ -1,4 +1,4 @@
-import { SingleProductData } from './singleProduct';
+import { SingleProductRes } from './singleProduct';
 
 export interface AllCategoryData {
 	data: AllCategory[];
@@ -13,5 +13,5 @@ export interface AllCategory {
 	type: string;
 	createdAt: string;
 	updatedAt: string;
-	products: SingleProductData[];
+	products: SingleProductRes[];
 }
