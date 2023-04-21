@@ -1,10 +1,5 @@
 import Main from '@/components/screens/Main/Main';
 import SpinnerLayout from '@/layouts/SpinnerLayout';
-<<<<<<< HEAD
-
-// import '../i18next/18n';
-=======
->>>>>>> 928cd721fb76780f1f35df9a323679c93e7ed247
 import { GetStaticProps } from 'next';
 import { ReviewsResT } from '@/types/mainPageRequest/reviews';
 import { AboutResT } from '@/types/mainPageRequest/about';
