@@ -12,6 +12,7 @@ type UserSLice = {
 	watchedProducts: Goods[];
 	orders: CartProduct[];
 	leftCarts: CartProduct[];
+	isSavedProductsTab: boolean;
 };
 
 const initialState: UserSLice = {
@@ -22,6 +23,7 @@ const initialState: UserSLice = {
 	watchedProducts: [],
 	orders: [],
 	leftCarts: [],
+	isSavedProductsTab: false,
 };
 
 const getSavedProducts = (state: RootState) => state.user.savedProducts;
@@ -97,6 +99,14 @@ const userSLice = createSlice({
 		setAuthState(state, action: PayloadAction<boolean>) {
 			state.isAuth = action.payload;
 		},
+		setIsSavedProductsTab(state, action: PayloadAction<boolean>) {
+			state.isSavedProductsTab = action.payload;
+		},
+		deleteSavedProduct(state, action: PayloadAction<number>) {
+			state.savedProducts = state.savedProducts.filter(
+				(el) => el.id !== action.payload
+			);
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(getUserSavedProducts.fulfilled, (state, action) => {
@@ -145,6 +155,11 @@ const userSLice = createSlice({
 export const selectUserInfo = (state: RootState) => state.user.user;
 export const selectAuthState = (state: RootState) => state.user.isAuth;
 
-export const { addUserInfo, setAuthState } = userSLice.actions;
+export const {
+	addUserInfo,
+	setAuthState,
+	setIsSavedProductsTab,
+	deleteSavedProduct,
+} = userSLice.actions;
 
 export default userSLice.reducer;

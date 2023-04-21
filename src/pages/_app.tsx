@@ -37,16 +37,14 @@ function App({ Component, pageProps }: AppProps) {
 		setChowUseCookieModal(initialValue);
 
 		//cart id logic
-		const cartCookie = cookies['_id'];
+
 		const setUserCartToken = async () => {
 			try {
 				await Api().user.refreshCartToken();
 			} catch (e) {}
 		};
 
-		if (!cartCookie) {
-			setUserCartToken();
-		}
+		setUserCartToken();
 
 		const fetchUserData = async () => {
 			try {

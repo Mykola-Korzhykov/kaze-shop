@@ -70,7 +70,9 @@ const HeaderMenu: FC<{
 	const headerLinkHandler = (elLink: string, elId: number) => {
 		if (elLink === '/catalog') {
 			dispatch(setHeaderCategory(elId));
-			dispatch(fetchGoodsByCategory(elId));
+			if (router.pathname === '/catalog') {
+				dispatch(fetchGoodsByCategory(elId));
+			}
 			router.push('/catalog');
 		}
 		toggleBurgerFunc();

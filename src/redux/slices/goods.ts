@@ -69,9 +69,9 @@ export const fetchGoods = createAsyncThunk<
 	const state = getState() as RootState;
 	const goodsState = state.goods;
 	const pageNumber = goodsState.page;
+	const categoryId = goodsState.headerCategory;
 	try {
-		const data = await Api().goods.getGoods(pageNumber);
-		console.log('Fetch goods data,', data);
+		const data = await Api().goods.getGoods(pageNumber, categoryId);
 		return data;
 	} catch (e) {
 		if ('rawErrors' in e.response.data) {
@@ -80,26 +80,26 @@ export const fetchGoods = createAsyncThunk<
 	}
 });
 
-
 interface GoodsData {
 	colors: fetchedColour[];
 	categories: fetchedCategory[];
-	goods: {products: Goods[], totalProducts: number};
+	goods: { products: Goods[]; totalProducts: number };
 }
 
 export const fetchGoodsData = createAsyncThunk<
 	GoodsData,
 	null,
 	{ rejectValue: string }
->('goods/fetchGoodsData', async (_, { rejectWithValue,getState }) => {
+>('goods/fetchGoodsData', async (_, { rejectWithValue, getState }) => {
 	const state = getState() as RootState;
 	const goodsState = state.goods;
 	const pageNumber = goodsState.page;
+	const categoryId = goodsState.headerCategory;
 	try {
 		const [colors, categories, goods] = await Promise.all([
 			Api().goods.getColours(),
 			Api().goods.getGategories(),
-			Api().goods.getGoods(pageNumber),
+			Api().goods.getGoods(pageNumber, categoryId),
 		]);
 		return { colors: colors?.data, categories: categories?.data, goods };
 	} catch (error) {
@@ -133,44 +133,6 @@ export const fetchColours = createAsyncThunk<
 		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
 	}
 });
-
-// export const fetchAllData = createAsyncThunk<
-// 	{
-// 		goods: { products: Goods[]; totalProducts: number };
-// 		categories: fetchedCategory[];
-// 		colours: fetchedColour[];
-// 	},
-// 	null,
-// 	{ rejectValue: string }
-// >('goods/fetchAllData', async (_, { dispatch, rejectWithValue }) => {
-// 	try {
-// 		const [goods, categories, colours] = await Promise.allSettled([
-// 			dispatch(fetchGoods()),
-// 			dispatch(fetchCategories()),
-// 			dispatch(fetchColours()),
-// 		]);
-
-// 		if (goods.status === 'rejected') {
-// 			return rejectWithValue(goods.reason?.message);
-// 		}
-
-// 		if (categories.status === 'rejected') {
-// 			return rejectWithValue(categories.reason?.message);
-// 		}
-
-// 		if (colours.status === 'rejected') {
-// 			return rejectWithValue(colours.reason?.message);
-// 		}
-
-// 		return {
-// 			goods: goods.value,
-// 			categories: categories.value,
-// 			colours: colours.value,
-// 		};
-// 	} catch (e) {
-// 		return rejectWithValue(e?.message);
-// 	}
-// });
 
 export const fetchGoodsByCategory = createAsyncThunk<
 	{ products: Goods[]; totalProducts: number },
@@ -518,8 +480,8 @@ const goodsSlice = createSlice({
 			state.catalogLoadingStatus = 'idle';
 			state.goods = action.payload.goods.products;
 			state.totalProducts = action.payload.goods.totalProducts;
-			state.fetchedCategories = action.payload.categories
-			state.fetchedColours = action.payload.colors
+			state.fetchedCategories = action.payload.categories;
+			state.fetchedColours = action.payload.colors;
 		}),
 			builder.addCase(fetchGoodsData.pending, (state) => {
 				state.loadingStatus = 'loading';

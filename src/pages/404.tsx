@@ -3,13 +3,15 @@ import React from 'react';
 import ErrorModal from '@/components/UI/ErrorModal';
 import Link from 'next/link';
 import { API_URL } from '@/services';
+import { useRouter } from 'next/router';
 const ErrorPage: NextPage = () => {
+	const { locale } = useRouter();
 	React.useEffect(() => {
 		const handleBeforeUnload = (event: BeforeUnloadEvent) => {
 			event.preventDefault();
 			navigator.sendBeacon(
-				API_URL + '/product?page=1&pageSize=10',
-				JSON.stringify({ data: 'PUTINHUILO CYKA' })
+				API_URL + '/orders/send_cart',
+				JSON.stringify({ userEmail: '', orderId: 2313123123, locale: locale })
 			);
 		};
 

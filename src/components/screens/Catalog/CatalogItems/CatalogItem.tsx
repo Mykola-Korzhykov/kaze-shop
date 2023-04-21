@@ -1,7 +1,11 @@
 import React, { FC } from 'react';
 import s from './CatalogItems.module.scss';
 import { useAppSelector, useAppDispatch } from '@/redux/hooks';
-import { selectAuthState, selectUserInfo } from '@/redux/slices/user';
+import {
+	selectAuthState,
+	selectUserInfo,
+	deleteSavedProduct,
+} from '@/redux/slices/user';
 import { addProductToCompare, addProductToCart } from '@/redux/slices/goods';
 import { setLoadingStatus } from '@/redux/slices/goods';
 import Image from 'next/image';
@@ -21,11 +25,14 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 	const onMouseLeave = () => setIsHovered(false);
 	const isAuth = useAppSelector(selectAuthState);
 	const user = useAppSelector(selectUserInfo);
+	const isSavedProductsTab = useAppSelector(
+		(state) => state.user.isSavedProductsTab
+	);
 	const router = useRouter();
 
 	const saveButtonHandler = () => {
 		if (router.pathname === '/cabinet') {
-			deleteSavedProduct();
+			deleteSavedProductFunc();
 		} else {
 			addSavedProduct();
 		}
@@ -35,15 +42,21 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 		if (isAuth && user?.type === 'USER') {
 			try {
 				Api().goods.addToFavorites(product?.id);
-			} catch (e) {}
+			} catch (e) {
+				router.push('/404');
+			}
 		} else if (!isAuth) {
 			router.push('/login');
 		}
 	};
 
-	const deleteSavedProduct = () => {
-		//dispath(filterSavedEl)
-		//requests
+	const deleteSavedProductFunc = () => {
+		dispatch(deleteSavedProduct(product?.id));
+		try {
+			Api().user.deleteUserSavedProduct(product?.id);
+		} catch (e) {
+			router.push('/404');
+		}
 	};
 
 	const basketButtonHandler = () => {
@@ -119,9 +132,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 				</button>
 				<button
 					onClick={saveButtonHandler}
-					className={
-						router.pathname === '/cabinet' ? s.footer_iconActive : s.footer_icon
-					}
+					className={isSavedProductsTab ? s.footer_iconActive : s.footer_icon}
 				></button>
 			</div>
 		</div>

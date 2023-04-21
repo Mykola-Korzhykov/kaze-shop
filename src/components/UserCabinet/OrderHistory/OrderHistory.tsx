@@ -13,23 +13,23 @@ const OrderHisrtory = () => {
 		});
 	};
 
-	if (!userOrders) {
-		return (
-			<CabinetEmptyModal
-				title="У Вас нет заказов"
-				description="Но вы можете это исправить! Перейдите в каталог и сделайте заказ"
-				btnText="Перейти в каталог"
-				btnHref="/catalog"
-			/>
-		);
-	}
+	// if (!userOrders?.length) {
+	// 	return (
+	// 		<CabinetEmptyModal
+	// 			title="У Вас нет заказов"
+	// 			description="Но вы можете это исправить! Перейдите в каталог и сделайте заказ"
+	// 			btnText="Перейти в каталог"
+	// 			btnHref="/catalog"
+	// 		/>
+	// 	);
+	// }
 	return (
 		<div className={cl.cart_carts}>
-			{/* <OrderHisrtoryItem />
 			<OrderHisrtoryItem />
 			<OrderHisrtoryItem />
-			<OrderHisrtoryItem /> */}
-			{renderOrders(userOrders)}
+			<OrderHisrtoryItem />
+			<OrderHisrtoryItem />
+			{/* {renderOrders(userOrders)} */}
 		</div>
 	);
 };

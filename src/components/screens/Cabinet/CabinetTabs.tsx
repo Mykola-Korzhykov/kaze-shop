@@ -13,6 +13,7 @@ import {
 	getUserOrders,
 	getUserSavedProducts,
 	getUserWatchedProducts,
+	setIsSavedProductsTab,
 } from '@/redux/slices/user';
 
 const CabinetTabs: FC = () => {
@@ -26,12 +27,14 @@ const CabinetTabs: FC = () => {
 			dispatch(getUserOrders());
 		}
 		if (tabIndex === '4') {
+			dispatch(setIsSavedProductsTab(true));
 			dispatch(getUserSavedProducts());
 		}
 		if (tabIndex === '5') {
 			dispatch(getUserLeftCarts());
 		}
 		if (tabIndex === '6') {
+			dispatch(setIsSavedProductsTab(false));
 			dispatch(getUserWatchedProducts());
 		}
 

@@ -75,6 +75,12 @@ export const UserApi = (instance: AxiosInstance) => ({
 		);
 		return data;
 	},
+	async deleteUserSavedProduct(productId: number) {
+		const { data } = await instance.get(
+			`product/deleteBookmarkProduct?productId=${productId}`
+		);
+		return data;
+	},
 	async getWatchedProducts(page: number) {
 		const { data } = await instance.get(
 			`user/watchedProducts?page=${page}&pageSize=1`

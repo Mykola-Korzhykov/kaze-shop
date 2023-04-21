@@ -5,8 +5,20 @@ import { API_URL } from './index';
 import { OrderFormStepOneData } from '@/utils/validation';
 import { FormStepTwoData } from '@/types/cartItem';
 export const GoodsApi = (instance: AxiosInstance) => ({
-	async getGoods(page: number) {
-		const { data } = await instance.get(`/product?page=${page}&pageSize=10`);
+	async getGoods(page: number, categoryId: number) {
+		let url;
+		if (categoryId) {
+			url = `/product/categories?page=${page}&pageSize=10&categories=${categoryId}`;
+		} else {
+			`/product?page=${page}&pageSize=10`;
+		}
+		const { data } = await instance.get(url);
+		return data;
+	},
+	async getGoodsByCategory(page: number, categoryId: number) {
+		const { data } = await instance.get(
+			`/product/categories?page=${page}&pageSize=10&categories=${categoryId}`
+		);
 		return data;
 	},
 	async getEditGoods(page: number) {
@@ -23,12 +35,7 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		const { data } = await instance.get('colours/get_colours');
 		return data;
 	},
-	async getGoodsByCategory(page: number, categoryId: number) {
-		const { data } = await instance.get(
-			`/product/categories?page=${page}&pageSize=10&categories=${categoryId}`
-		);
-		return data;
-	},
+
 	async filterGoods(
 		page: number,
 		sizes: string,

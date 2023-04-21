@@ -130,7 +130,9 @@ export interface CartProductItem {
 }
 export interface CartProduct {
 	id: number;
-	cartStatus: string;
+	cartStatus: 'Canceled' | 'Submitted' | 'Completed' | 'Processing' | 'Paid';
+	createdAt: string;
+	statusDate: string;
 	totalPrice: string;
 	cartProducts: CartProductItem[];
 }

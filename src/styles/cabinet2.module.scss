@@ -270,7 +270,11 @@
 			right: 24px;
 		}
 		@media (max-width: 600px) {
-			right: 0;
+			right: 4px;
+		}
+		@media(max-width: 380px) {
+			width: 28px;
+			height: 28px;
 		}
 	}
 
@@ -300,22 +304,19 @@
 		font-size: 22px;
 		line-height: 27px;
 		color: #0b0b0b;
+		@media (max-width: 730px) {
+			font-size: 18px;
+			line-height: 22px;
+		}
+		@media (max-width: 380px) {
+			font-size: 16px;
+			line-height: 19px;
+		}
 	}
 	&_status {
 		display: flex;
 		gap: 8px;
 		align-items: stretch;
-		// &::before {
-		// 	content: '';
-		// 	position: absolute;
-		// 	left: 0%;
-		// 	top: 50%;
-		// 	transform: translateY(-50%);
-		// 	background-image: url('../assets/icons/cabinetTabs/cabinetCartStatusSend.svg');
-		// 	background-repeat: no-repeat;
-		// 	width: 24px;
-		// 	height: 24px;
-		// }
 		img {
 			margin-top: 4px;
 		}
@@ -333,8 +334,10 @@
 			color: #0b0b0b;
 			font-family: 'Georama', sans-serif;
 		}
-		@media(max-width: 345px) {
-			max-width: 100px;
+		@media (max-width: 345px) {
+			// max-width: 100px;
+			font-size: 12px;
+			line-height: 14px;
 		}
 	}
 	&_price {
@@ -344,6 +347,10 @@
 		font-size: 18px;
 		line-height: 22px;
 		color: rgba(0, 0, 0, 0.6);
+		@media (max-width: 730px) {
+			font-size: 16px;
+			line-height: 19px;
+		}
 	}
 }
 
