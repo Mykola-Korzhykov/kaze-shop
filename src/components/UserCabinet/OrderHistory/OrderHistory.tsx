@@ -2,18 +2,18 @@ import React from 'react';
 import cl from '../../../styles/cabinet2.module.scss';
 import { useAppSelector } from '@/redux/hooks';
 import OrderHisrtoryItem from './OrderHistoryItem';
-import { CartProductItem } from '@/types/goods';
+import { CartProduct } from '@/types/goods';
 import CabinetEmptyModal from '../CabinetEmptyModal';
 const OrderHisrtory = () => {
 	const userOrders = useAppSelector((state) => state.user.orders);
 
-	const renderOrders = (arr: CartProductItem[] | []) => {
+	const renderOrders = (arr: CartProduct[] | []) => {
 		return arr?.map((product) => {
-			return <OrderHisrtoryItem key={product?.id}/>;
+			return <OrderHisrtoryItem key={product?.id} />;
 		});
 	};
 
-	if (!userOrders?.cartProducts?.length) {
+	if (!userOrders) {
 		return (
 			<CabinetEmptyModal
 				title="У Вас нет заказов"
@@ -29,7 +29,7 @@ const OrderHisrtory = () => {
 			<OrderHisrtoryItem />
 			<OrderHisrtoryItem />
 			<OrderHisrtoryItem /> */}
-			{renderOrders(userOrders?.cartProducts)}
+			{renderOrders(userOrders)}
 		</div>
 	);
 };

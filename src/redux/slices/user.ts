@@ -10,8 +10,8 @@ type UserSLice = {
 	loadingStatus: 'loading' | 'error' | 'idle';
 	savedProducts: Goods[];
 	watchedProducts: Goods[];
-	orders: CartProduct | null;
-	leftCarts: CartProduct | null;
+	orders: CartProduct[];
+	leftCarts: CartProduct[];
 };
 
 const initialState: UserSLice = {
@@ -20,8 +20,8 @@ const initialState: UserSLice = {
 	loadingStatus: 'idle',
 	savedProducts: [],
 	watchedProducts: [],
-	orders: null,
-	leftCarts: null,
+	orders: [],
+	leftCarts: [],
 };
 
 const getSavedProducts = (state: RootState) => state.user.savedProducts;
@@ -62,7 +62,7 @@ export const getUserWatchedProducts = createAsyncThunk<
 });
 
 export const getUserOrders = createAsyncThunk<
-	{ cart: CartProduct },
+	{ cart: CartProduct[] },
 	null,
 	{ rejectValue: string }
 >('user/getUserOrders', async (_, { rejectWithValue }) => {
@@ -75,7 +75,7 @@ export const getUserOrders = createAsyncThunk<
 });
 
 export const getUserLeftCarts = createAsyncThunk<
-	{ cart: CartProduct },
+	{ cart: CartProduct[] },
 	null,
 	{ rejectValue: string }
 >('user/getUserLeftCarts', async (_, { rejectWithValue }) => {
