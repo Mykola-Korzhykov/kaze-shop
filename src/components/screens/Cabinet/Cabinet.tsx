@@ -98,7 +98,7 @@ const Cabinet: FC = () => {
 
 					{/* {user?.user?.type === 'ADMIN' && <CabinetAdmin />} */}
 
-					{/* <CabinetTabs /> */}
+					<CabinetTabs />
 					{/* <CabinetOwner
 						role={'OWNER'}
 						modalAddCAtegory={modalAddCAtegory}

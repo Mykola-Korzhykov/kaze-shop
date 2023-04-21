@@ -1,7 +1,5 @@
 import Main from '@/components/screens/Main/Main';
 import SpinnerLayout from '@/layouts/SpinnerLayout';
-
-import '../i18next/18n';
 import { GetStaticProps } from 'next';
 import { ReviewsResT } from '@/types/mainPageRequest/reviews';
 import { AboutResT } from '@/types/mainPageRequest/about';

@@ -346,3 +346,9 @@
 		opacity: 0.7;
 	}
 }
+
+.icon_account {
+	@media (max-width: 400px) {
+		display: none;
+	}
+}

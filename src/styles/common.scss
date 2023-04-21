@@ -67,10 +67,10 @@
 	color: #0b0b0b;
 	text-align: center;
 	margin-bottom: 25px;
-	@media(max-width: 834px) {
+	@media (max-width: 834px) {
 		font-size: 35px;
 	}
-	@media(max-width: 534px) {
+	@media (max-width: 534px) {
 		font-size: 28px;
 	}
 }
@@ -85,7 +85,6 @@
 	padding: 16px 24px;
 	background: #0b0b0b;
 	border: none;
-	
 }
 .error_input {
 	border-color: #e73232;
@@ -654,8 +653,7 @@
 
 	@media (max-width: 350px) {
 		width: 28px;
-		height: 22px;
-		// heigth: 28px це фіксить
+		height: 28px;
 	}
 
 	@media (hover: none) {
