@@ -1,7 +1,7 @@
 import { User } from '@/types/auth';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { Api } from '@/services';
-import { Goods } from '@/types/goods';
+import { Goods, CartProduct } from '@/types/goods';
 import { RootState } from '../store';
 
 type UserSLice = {
@@ -10,6 +10,8 @@ type UserSLice = {
 	loadingStatus: 'loading' | 'error' | 'idle';
 	savedProducts: Goods[];
 	watchedProducts: Goods[];
+	orders: CartProduct | null;
+	leftCarts: CartProduct | null;
 };
 
 const initialState: UserSLice = {
@@ -18,6 +20,8 @@ const initialState: UserSLice = {
 	loadingStatus: 'idle',
 	savedProducts: [],
 	watchedProducts: [],
+	orders: null,
+	leftCarts: null,
 };
 
 const getSavedProducts = (state: RootState) => state.user.savedProducts;
@@ -57,6 +61,32 @@ export const getUserWatchedProducts = createAsyncThunk<
 	}
 });
 
+export const getUserOrders = createAsyncThunk<
+	{ cart: CartProduct },
+	null,
+	{ rejectValue: string }
+>('user/getUserOrders', async (_, { rejectWithValue }) => {
+	try {
+		const data = await Api().user.getOrders();
+		return data;
+	} catch (e) {
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+	}
+});
+
+export const getUserLeftCarts = createAsyncThunk<
+	{ cart: CartProduct },
+	null,
+	{ rejectValue: string }
+>('user/getUserLeftCarts', async (_, { rejectWithValue }) => {
+	try {
+		const data = await Api().user.getLeftCarts();
+		return data;
+	} catch (e) {
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+	}
+});
+
 const userSLice = createSlice({
 	name: 'user',
 	initialState: initialState,
@@ -87,6 +117,26 @@ const userSLice = createSlice({
 			state.loadingStatus = 'idle';
 		});
 		builder.addCase(getUserWatchedProducts.rejected, (state, action) => {
+			state.loadingStatus = 'error';
+		});
+		builder.addCase(getUserOrders.pending, (state, action) => {
+			state.loadingStatus = 'loading';
+		});
+		builder.addCase(getUserOrders.fulfilled, (state, action) => {
+			state.orders = action.payload.cart;
+			state.loadingStatus = 'idle';
+		});
+		builder.addCase(getUserOrders.rejected, (state, action) => {
+			state.loadingStatus = 'error';
+		});
+		builder.addCase(getUserLeftCarts.pending, (state, action) => {
+			state.loadingStatus = 'loading';
+		});
+		builder.addCase(getUserLeftCarts.fulfilled, (state, action) => {
+			state.leftCarts = action.payload.cart;
+			state.loadingStatus = 'idle';
+		});
+		builder.addCase(getUserLeftCarts.rejected, (state, action) => {
 			state.loadingStatus = 'error';
 		});
 	},

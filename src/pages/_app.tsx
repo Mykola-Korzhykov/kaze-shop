@@ -39,7 +39,9 @@ function App({ Component, pageProps }: AppProps) {
 		//cart id logic
 		const cartCookie = cookies['_id'];
 		const setUserCartToken = async () => {
-			await Api().user.refreshCartToken();
+			try {
+				await Api().user.refreshCartToken();
+			} catch (e) {}
 		};
 
 		if (!cartCookie) {

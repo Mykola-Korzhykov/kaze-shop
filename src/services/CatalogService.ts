@@ -75,7 +75,7 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 	},
 	async updateEditProduct(productId: number, product: EditProduct) {
 		const { data } = await instance.patch(
-			`product/update_product?productId=${productId}`,
+			`admin/update_product?productId=${productId}`,
 			product
 		);
 		return data;
@@ -106,8 +106,15 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		const { data } = await instance.get(`product/${productId}`);
 		return data;
 	},
+<<<<<<< HEAD
 	async getSingleEditProduct(productId: number | string) {
 		const { data } = await instance.get(`product/edit/${productId}`);
+=======
+
+	async getSingleEditProduct(productId: number | string) {
+		const { data } = await instance.get(`product/edit/${productId}`);
+
+>>>>>>> 928cd721fb76780f1f35df9a323679c93e7ed247
 		return data;
 	},
 	async deleteSingleProduct(productId: number) {
@@ -129,6 +136,19 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 			`reviews/create_review?productId=${productId}`,
 			feedback
 		);
+<<<<<<< HEAD
+=======
+		return data;
+	},
+	async sendFormStepOne(cartId: number, formData: OrderFormStepOneData) {
+		const { data } = await instance.post('orders/create_order', formData, {
+			params: { cartId },
+		});
+		return data;
+	},
+	async sendFormStepTwo(formData: FormStepTwoData) {
+		const { data } = await instance.put('orders/continue_order', formData);
+>>>>>>> 928cd721fb76780f1f35df9a323679c93e7ed247
 		return data;
 	},
 });

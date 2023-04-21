@@ -9,6 +9,8 @@ import ForgottenBaskets from '@/components/UserCabinet/ForgottenBaskets/Forgotte
 import RecentlyWatchedProducts from '@/components/UserCabinet/RecentlyWatchedProducts/RecentlyWatchedProducts';
 import { useAppDispatch } from '@/redux/hooks';
 import {
+	getUserLeftCarts,
+	getUserOrders,
 	getUserSavedProducts,
 	getUserWatchedProducts,
 } from '@/redux/slices/user';
@@ -20,9 +22,14 @@ const CabinetTabs: FC = () => {
 		const tabIndex = (e.target as HTMLButtonElement).getAttribute(
 			'data-tabindex'
 		);
-
+		if (tabIndex === '3') {
+			dispatch(getUserOrders());
+		}
 		if (tabIndex === '4') {
 			dispatch(getUserSavedProducts());
+		}
+		if (tabIndex === '5') {
+			dispatch(getUserLeftCarts());
 		}
 		if (tabIndex === '6') {
 			dispatch(getUserWatchedProducts());
