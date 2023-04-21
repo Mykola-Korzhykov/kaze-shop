@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import FAQItem from './FAQItem/FAQItem';
 import { useAppSelector } from '@/redux/hooks';
+import { STRAPI_API_URL } from '@/services';
 
 
 const FAQ = (): JSX.Element => {
@@ -31,7 +32,7 @@ const FAQ = (): JSX.Element => {
                     {title}
                 </h3>
                 <div className={s.faq_img}>
-                    <Image src={process.env.NEXT_STRAPI_URL + image.data?.attributes.url}
+                    <Image src={STRAPI_API_URL + image.data?.attributes.url}
                         width={image.data?.attributes.width}
                         height={image.data?.attributes.height}
                         alt='girl photo' quality={100} />
