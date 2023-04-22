@@ -1,16 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import s from '../../../styles/cabinet2.module.scss';
 import Image from 'next/image';
 import cartImage from '../../../assets/images/cartItem.png';
 import showMoreIcon from '../../../assets/icons/cabinetTabs/catabinetCartShowMore.svg';
+import { CartProduct } from '@/types/goods';
 
+const ForgottenBasketsItem: FC<{
+	product: CartProduct;
+	setShowModal: (state: boolean) => void;
+}> = ({ product, setShowModal }) => {
+	const [dateBasketCreated, setDateBasketCreated] = useState<string>('-');
 
-const ForgottenBasketsItem = () => {
+	useEffect(() => {
+		function printDateStatus() {
+			const today = new Date();
+			const dateToCompare = new Date(product?.createdAt);
+
+			if (dateToCompare.toDateString() === today.toDateString()) {
+				setDateBasketCreated('сегодня');
+			} else if (
+				dateToCompare.toDateString() ===
+				new Date(today.setDate(today.getDate() - 1)).toDateString()
+			) {
+				setDateBasketCreated('вчера');
+			} else {
+				const dateCreated = product?.createdAt
+					.toLocaleDateString('en-GB')
+					.split('/')
+					.join('.');
+				setDateBasketCreated(dateCreated);
+			}
+		}
+		printDateStatus();
+	}, []);
 	return (
 		<div className={s.cart}>
 			<div className={s.cart_imgWrapper}>
 				<Image
-					src={cartImage}
+					src={product?.cartProducts?.[0].imageUrl ?? cartImage}
 					width={94}
 					height={153}
 					alt="Cart image"
@@ -21,13 +48,14 @@ const ForgottenBasketsItem = () => {
 			</div>
 			<div className={s.cart_content}>
 				<div className={s.cart_text}>
-					<p className={s.cart_title}>Корзина №3</p>
+					<p className={s.cart_title}>Корзина {product?.id}</p>
 					<p className={s.cart_descr}>
-						Собрана: <span>вчера</span>
+						Собрана: <span>{dateBasketCreated}</span>
 					</p>
-					<p className={s.cart_price}>256$</p>
+					<p className={s.cart_price}>{product?.cartProducts?.[0]?.price}</p>
 				</div>
 				<Image
+					onClick={() => setShowModal(true)}
 					src={showMoreIcon}
 					width={32}
 					height={32}

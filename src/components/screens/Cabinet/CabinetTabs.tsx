@@ -15,9 +15,10 @@ import {
 	getUserWatchedProducts,
 	setIsSavedProductsTab,
 } from '@/redux/slices/user';
-
+import CabinetOrdersModal from '@/components/UserCabinet/CabinetOrdersModal';
 const CabinetTabs: FC = () => {
 	const [selectedTab, setSelectedTab] = React.useState<number | null>(1);
+	const [showModal, setShowModal] = React.useState<boolean>(false);
 	const dispatch = useAppDispatch();
 	const toggleTab = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const tabIndex = (e.target as HTMLButtonElement).getAttribute(
@@ -98,11 +99,11 @@ const CabinetTabs: FC = () => {
 			case 2:
 				return <ChangeUserPassword />;
 			case 3:
-				return <OrderHisrtory />;
+				return <OrderHisrtory setShowModal={setShowModal} />;
 			case 4:
 				return <SavedProducts />;
 			case 5:
-				return <ForgottenBaskets />;
+				return <ForgottenBaskets setShowModal={setShowModal} />;
 			case 6:
 				return <RecentlyWatchedProducts />;
 			case 7:
@@ -113,6 +114,13 @@ const CabinetTabs: FC = () => {
 	};
 	return (
 		<>
+			{showModal && (
+				<CabinetOrdersModal
+					setShowModal={setShowModal}
+					title="Заказ №2358"
+					description="Статус заказа: доставлено 23.08.2022"
+				/>
+			)}
 			<div className={cl.cabinet_contentWrapper}>
 				<div className={cl.cabinet_tabs}>
 					{TABS.map((el) => {

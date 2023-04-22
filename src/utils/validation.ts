@@ -44,7 +44,14 @@ export const RegisterFormSchema = yup
 	.concat(LoginFormSchema);
 
 export const ChangeUserInfoShema = yup.object().shape({
-	name: yup.string().required('Name required').min(2, 'Minimum 2 symbols'),
+	name: yup
+		.string()
+		.required('Name required')
+		.min(2, 'Minimum 2 symbols')
+		.matches(
+			/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/,
+			'Используйте только слова'
+		),
 	surname: yup
 		.string()
 		.required('Surname required')

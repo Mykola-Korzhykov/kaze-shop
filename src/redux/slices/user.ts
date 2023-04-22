@@ -1,7 +1,7 @@
 import { User } from '@/types/auth';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { Api } from '@/services';
-import { Goods, CartProduct } from '@/types/goods';
+import { Goods, CartProduct, UserOrders } from '@/types/goods';
 import { RootState } from '../store';
 
 type UserSLice = {
@@ -10,7 +10,7 @@ type UserSLice = {
 	loadingStatus: 'loading' | 'error' | 'idle';
 	savedProducts: Goods[];
 	watchedProducts: Goods[];
-	orders: CartProduct[];
+	orders: UserOrders | null;
 	leftCarts: CartProduct[];
 	isSavedProductsTab: boolean;
 };
@@ -21,7 +21,7 @@ const initialState: UserSLice = {
 	loadingStatus: 'idle',
 	savedProducts: [],
 	watchedProducts: [],
-	orders: [],
+	orders: null,
 	leftCarts: [],
 	isSavedProductsTab: false,
 };
@@ -64,7 +64,7 @@ export const getUserWatchedProducts = createAsyncThunk<
 });
 
 export const getUserOrders = createAsyncThunk<
-	{ cart: CartProduct[] },
+	{ cart: UserOrders },
 	null,
 	{ rejectValue: string }
 >('user/getUserOrders', async (_, { rejectWithValue }) => {

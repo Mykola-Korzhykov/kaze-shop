@@ -61,7 +61,7 @@ const Cabinet: FC = () => {
 	const [pngImageShow, setPngImageShow] = React.useState<File | null>(null);
 	const [jpgImagesShow, setJpgImagesShow] = React.useState<File[]>([]);
 
-	console.log('modalAddColorTurn', modalAddColorTurn);
+	// console.log('modalAddColorTurn', modalAddColorTurn);
 	React.useEffect(() => {
 		dispatch(fetchColours());
 		// dispatch(setPage(1))
