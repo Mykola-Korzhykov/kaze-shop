@@ -5,7 +5,8 @@ import Link from 'next/link';
 import SpinnerLayout from '@/layouts/SpinnerLayout';
 import Image from 'next/image';
 //components
-import { UsersRole } from '@/components/screens/Cabinet/CabinetOwner/Display/UsersRole';
+
+import { UsersAdmin } from '@/components/screens/Cabinet/CabinetOwner/Display/UsersAdmin';
 
 const AdminSettings: NextPage = () => {
 	return (
@@ -17,7 +18,7 @@ const AdminSettings: NextPage = () => {
 						<span>Выдать роль</span>
 					</div>
 
-					<UsersRole />
+					<UsersAdmin />
 				</div>
 			</main>
 		</SpinnerLayout>
