@@ -88,7 +88,7 @@ export const UserApi = (instance: AxiosInstance) => ({
 		return data;
 	},
 	async getOrders() {
-		const { data } = await instance.get(`orders/?page=1&pageSize=10`);
+		const { data } = await instance.get(`orders?page=1&pageSize=10`);
 		return data;
 	},
 	async getLeftCarts() {

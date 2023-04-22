@@ -69,9 +69,9 @@ export const fetchGoods = createAsyncThunk<
 	const state = getState() as RootState;
 	const goodsState = state.goods;
 	const pageNumber = goodsState.page;
-	const categoryId = goodsState.headerCategory;
+
 	try {
-		const data = await Api().goods.getGoods(pageNumber, categoryId);
+		const data = await Api().goods.getGoods(pageNumber);
 		return data;
 	} catch (e) {
 		if ('rawErrors' in e.response.data) {

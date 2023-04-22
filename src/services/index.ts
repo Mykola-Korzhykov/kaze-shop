@@ -27,39 +27,39 @@ export const Api = (
 			Authorization: 'Bearer ' + (token || ''),
 		},
 	})
-	instance.interceptors.response.use(
-		config => {
-			return config
-		},
-		async error => {
-			const originalRequest = error?.config
-			if (
-				error?.config &&
-				error?.response &&
-				error?.response?.status === 401 &&
-				!error?.config?._isRetry
-			) {
-				originalRequest._isRetry = true
-				try {
-					const response = await axios.patch<AuthResponse>(
-						`${API_URL}/auth/refresh`,
-						{
-							withCredentials: true,
-						}
-					)
-					setCookie(null, 'accessToken', response?.data?.accessToken, {
-						maxAge: 30 * 24 * 60 * 60,
-						path: '/',
-					})
-					// localStorage.setItem('token', response.data.accessToken)
-					return instance.request(originalRequest)
-				} catch (e) {
-					console.log('NOT AUTH')
-				}
-			}
-			throw error
-		}
-	)
+	// instance.interceptors.response.use(
+	// 	config => {
+	// 		return config
+	// 	},
+	// 	async error => {
+	// 		const originalRequest = error?.config
+	// 		if (
+	// 			error?.config &&
+	// 			error?.response &&
+	// 			error?.response?.status === 401 &&
+	// 			!error?.config?._isRetry
+	// 		) {
+	// 			originalRequest._isRetry = true
+	// 			try {
+	// 				const response = await axios.patch<AuthResponse>(
+	// 					`${API_URL}/auth/refresh`,
+	// 					{
+	// 						withCredentials: true,
+	// 					}
+	// 				)
+	// 				setCookie(null, 'accessToken', response?.data?.accessToken, {
+	// 					maxAge: 30 * 24 * 60 * 60,
+	// 					path: '/',
+	// 				})
+	// 				// localStorage.setItem('token', response.data.accessToken)
+	// 				return instance.request(originalRequest)
+	// 			} catch (e) {
+	// 				console.log('NOT AUTH')
+	// 			}
+	// 		}
+	// 		throw error
+	// 	}
+	// )
 
 	const apis = {
 		user: UserApi,

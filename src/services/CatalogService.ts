@@ -5,12 +5,12 @@ import { API_URL } from './index';
 import { OrderFormStepOneData } from '@/utils/validation';
 import { FormStepTwoData } from '@/types/cartItem';
 export const GoodsApi = (instance: AxiosInstance) => ({
-	async getGoods(page: number, categoryId: number) {
+	async getGoods(page: number, categoryId?: number) {
 		let url;
 		if (categoryId) {
 			url = `/product/categories?page=${page}&pageSize=10&categories=${categoryId}`;
 		} else {
-			`/product?page=${page}&pageSize=10`;
+			url = `/product?page=${page}&pageSize=10`;
 		}
 		const { data } = await instance.get(url);
 		return data;
