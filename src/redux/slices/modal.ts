@@ -31,7 +31,7 @@ const initialState: ModalType = {
 	imageUrlArr: [],
 	modalAddEditProduct: false,
 	sentProductForm: {
-		turn: true,
+		turn: false,
 		title: '',
 		subtitle: '',
 		btntitle: '',
