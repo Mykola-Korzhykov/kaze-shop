@@ -157,6 +157,11 @@ export const AddProduct = ({
 	const [checkForm, setCheckForm] = React.useState<boolean>(false);
 	const formData = useSelector((state: RootState) => state.formData);
 	const inputRef = React.useRef(null);
+	const [sizeWindow, setSizeWindow] = React.useState<number>(0);
+
+	React.useEffect(() => {
+		setSizeWindow(window.innerWidth);
+	}, []);
 
 	let objDataSend = {
 		images: imagesData,
@@ -247,6 +252,8 @@ export const AddProduct = ({
 							title: 'Товар успешно добавлен',
 							subtitle: ' Нажмите “Готово” для того. чтобы продолжить',
 							btntitle: 'готово',
+							spiner: false,
+							bottom: 22,
 						})
 					);
 
@@ -273,6 +280,19 @@ export const AddProduct = ({
 							title: 'Error',
 							subtitle: ' Response status was not 201!',
 							btntitle: 'Ok',
+							spiner: false,
+							bottom:
+								sizeWindow < 500
+									? -1350
+									: sizeWindow < 900
+									? -1550
+									: sizeWindow > 1079
+									? 0
+									: sizeWindow > 1049
+									? 20
+									: sizeWindow > 899
+									? 950
+									: 1,
 						})
 					);
 				}
@@ -284,9 +304,44 @@ export const AddProduct = ({
 						title: 'Error',
 						subtitle: `Error: ${error}`,
 						btntitle: 'Ok',
+						spiner: false,
+						bottom:
+							sizeWindow < 500
+								? -1350
+								: sizeWindow < 900
+								? -1550
+								: sizeWindow > 1079
+								? 0
+								: sizeWindow > 1049
+								? 20
+								: sizeWindow > 899
+								? 950
+								: 1,
 					})
 				);
 			});
+
+		dispatch(
+			setProductForm({
+				turn: true,
+				title: 'Загрузка...',
+				subtitle: `Товар создается`,
+				btntitle: 'Ok',
+				spiner: true,
+				bottom:
+					sizeWindow < 500
+						? -1350
+						: sizeWindow < 900
+						? -1550
+						: sizeWindow > 1079
+						? 0
+						: sizeWindow > 1049
+						? 20
+						: sizeWindow > 899
+						? 950
+						: 1,
+			})
+		);
 	}
 
 	const SizeChartArr = [
@@ -1024,12 +1079,6 @@ export const AddProduct = ({
 							})}
 						</div>
 					</div>
-
-					{/* <div className={s.second_wrapper}>
-                    {inputsSecondWrapper?.map((obj) => {
-                        return <InputTextItem key={obj.id} id={obj.id} type={obj.type} text={obj.text} placeholder={obj.placeholder} />
-                    })}
-                </div> */}
 				</div>
 				<div className={s.addphoto_wrapper}>
 					<div className={s.descriprion}>

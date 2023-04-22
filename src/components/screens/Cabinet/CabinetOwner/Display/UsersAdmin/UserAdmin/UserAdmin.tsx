@@ -19,6 +19,7 @@ import {
 	getUsersRole,
 } from '../../../../../../../redux/slices/admin';
 import { setChangeCheckbox } from '../../../../../../../redux/slices/admin';
+import { setProductForm } from '@/redux/slices/modal';
 
 interface UserProps {
 	idUserOpen?: number;
@@ -95,6 +96,11 @@ export const UserAdmin: React.FC<UserProps> = ({
 	}
 
 	const dispatch = useAppDispatch();
+	const [sizeWindow, setSizeWindow] = React.useState<number>(0);
+
+	React.useEffect(() => {
+		setSizeWindow(window.innerWidth);
+	}, []);
 
 	function sendUserAdmin() {
 		// console.log('clickfnnfnfnfnnfnfnffnfnnfnfnfnfnnfnfnfnfnnfnfnnfnfnfnnfnnfnfnfnfnfnfnfn')
@@ -112,23 +118,33 @@ export const UserAdmin: React.FC<UserProps> = ({
 			.patch('/admin/update_admin', {
 				...UserAdmin,
 			})
-			.then(() => {
-				// dispatch(getUsersRole(activePaginatoinAdmin))
-				// setUserAdmin((prevState) => ({
-				//   ...prevState,
-				//   [role]: bool,
-				// }))
-			})
+			.then(() => {})
 			.catch((error) => {
 				console.error('Error while updating user role:', error);
 			});
 
-		//   setUserAdmin(prevState => ({ ...prevState, [role]: bool, }))
+		dispatch(
+			setProductForm({
+				turn: true,
+				title: 'Загрузка...',
+				subtitle: 'Цвет создается',
+				btntitle: 'Ok',
+				spiner: true,
+				bottom:
+					sizeWindow < 500
+						? -750
+						: sizeWindow < 900
+						? -800
+						: sizeWindow > 1079
+						? 450
+						: sizeWindow > 1049
+						? 550
+						: sizeWindow > 899
+						? 550
+						: 1,
+			})
+		);
 	}
-
-	//   React.useEffect(()=>{
-	//     dispatch(getUsersAdmin(activePaginatoinAdmin))
-	//   }, [])
 
 	return (
 		<div

@@ -26,10 +26,10 @@ export const UsersAdmin: React.FC = () => {
 	const dispatch = useAppDispatch();
 
 	// get users
-	React.useEffect(() => {
-		// console.log('пошел запрос1111')
-		dispatch(getUsersAdmin(activePaginatoinAdmin));
-	}, [activePaginatoinAdmin]);
+	// React.useEffect(() => {
+	// 	// console.log('пошел запрос1111')
+	// 	dispatch(getUsersAdmin(activePaginatoinAdmin));
+	// }, [activePaginatoinAdmin]);
 
 	React.useEffect(() => {
 		let countAdminPagination = Math.ceil(usersAdminUI.length / 10);
@@ -69,8 +69,7 @@ export const UsersAdmin: React.FC = () => {
 				</div>
 			</label>
 
-			{usersAdminStatus === 'success' &&
-				usersAdminUI.length > 0 &&
+			{usersAdminUI.length > 0 &&
 				usersAdminUI.map((el, ind) => (
 					<UserAdmin
 						name={el.name}
@@ -88,16 +87,16 @@ export const UsersAdmin: React.FC = () => {
 					/>
 				))}
 
-			{usersAdminStatus === 'success' && usersAdminUI.length < 1 && (
+			{/* {usersAdminStatus === 'success' && usersAdminUI.length < 1 && (
 				<div className={s.title_wrapper}>
 					<div className={s.title}> Пользователей не найдено </div>
 					<p className={s.description}>
 						В Вашем интернет магазине пока не зарегистрированных пользователей
 					</p>
 				</div>
-			)}
+			)} */}
 
-			{usersAdminStatus === 'error403' && (
+			{/* {usersAdminStatus === 'error403' && (
 				<div className={s.title_wrapper}>
 					<div className={s.title}>Администратор не подтвердил права </div>
 					<p className={s.description}>
@@ -105,16 +104,13 @@ export const UsersAdmin: React.FC = () => {
 						подтвердить права на почте
 					</p>
 				</div>
-			)}
+			)} */}
 
-			{usersAdminStatus === 'error' && (
+			{/* {usersAdminStatus === 'error' && (
 				<div className={s.title_wrapper}>
 					<div className={s.title}> Ошибка </div>
-					{/* <p className={s.description}>
-                            В Вашем интернет магазине пока не зарегистрированных пользователей
-                        </p> */}
 				</div>
-			)}
+			)} */}
 
 			{usersAdminStatus === 'success' && usersAdminUI.length > 0 && (
 				<div className={s.pagination_wrapper}>
