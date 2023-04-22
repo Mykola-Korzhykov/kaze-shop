@@ -23,7 +23,7 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 	},
 	async getEditGoods(page: number) {
 		const { data } = await instance.get(
-			`product/update_products?page=${page}&pageSize=1`
+			`admin/update_products?page=${page}&pageSize=1`
 		);
 		return data;
 	},
@@ -84,7 +84,7 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 	},
 	async updateEditProduct(productId: number, product: EditProduct) {
 		const { data } = await instance.patch(
-			`admin/update_product?productId=${productId}`,
+			`product/update_product?productId=${productId}`,
 			product
 		);
 		return data;
