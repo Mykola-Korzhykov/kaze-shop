@@ -71,7 +71,7 @@ export const UserApi = (instance: AxiosInstance) => ({
 	},
 	async getSavedProducts(page: number) {
 		const { data } = await instance.get(
-			`user/bookmarkProducts?page=${page}&pageSize=1`
+			`user/bookmarkProducts?page=${page}&pageSize=10`
 		);
 		return data;
 	},
@@ -83,12 +83,12 @@ export const UserApi = (instance: AxiosInstance) => ({
 	},
 	async getWatchedProducts(page: number) {
 		const { data } = await instance.get(
-			`user/watchedProducts?page=${page}&pageSize=1`
+			`user/watchedProducts?page=${page}&pageSize=10`
 		);
 		return data;
 	},
 	async getOrders() {
-		const { data } = await instance.get(`orders/`);
+		const { data } = await instance.get(`orders/?page=1&pageSize=10`);
 		return data;
 	},
 	async getLeftCarts() {

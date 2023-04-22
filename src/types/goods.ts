@@ -131,10 +131,48 @@ export interface CartProductItem {
 export interface CartProduct {
 	id: number;
 	cartStatus: 'Canceled' | 'Submitted' | 'Completed' | 'Processing' | 'Paid';
-	createdAt: string;
+	createdAt: Date;
 	statusDate: string;
 	totalPrice: string;
 	cartProducts: CartProductItem[];
+}
+export type OrderItem = {
+	id: number;
+	totalPrice: string;
+	orderStatus: 'Canceled' | 'Submitted' | 'Completed' | 'Processing' | 'Paid';
+	imageUrl: string;
+};
+
+export interface UserOrders {
+	totalOrders: number;
+	orders: OrderItem[];
+}
+export interface UserOrderItems {
+	id: number;
+	totalPrice: string;
+	orderStatus: 'Canceled' | 'Submitted' | 'Completed' | 'Processing' | 'Paid';
+	orderProducts: {
+		id: number;
+		title: string;
+		description: string;
+		size: string;
+		price: string;
+		imageUrl: string;
+		colourId: number;
+		colour: {
+			id: number;
+			ua: string;
+			en: string;
+			rs: string;
+			ru: string;
+			hex: string;
+			type: string;
+			createdAt: Date;
+			updatedAt: Date;
+		};
+		productId: number;
+		quantity: number;
+	}[];
 }
 
 export interface sendProductToCart {

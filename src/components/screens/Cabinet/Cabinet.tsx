@@ -61,7 +61,7 @@ const Cabinet: FC = () => {
 	const [pngImageShow, setPngImageShow] = React.useState<File | null>(null);
 	const [jpgImagesShow, setJpgImagesShow] = React.useState<File[]>([]);
 
-	console.log('modalAddColorTurn', modalAddColorTurn);
+	// console.log('modalAddColorTurn', modalAddColorTurn);
 	React.useEffect(() => {
 		dispatch(fetchColours());
 		// dispatch(setPage(1))
@@ -99,7 +99,7 @@ const Cabinet: FC = () => {
 					{/* {user?.user?.type === 'ADMIN' && <CabinetAdmin />} */}
 
 					{/* <CabinetTabs />  */}
-					<CabinetOwner
+					{/* <CabinetOwner
 						role={'OWNER'}
 						modalAddCAtegory={modalAddCAtegory}
 						imagesData={images}
@@ -111,7 +111,7 @@ const Cabinet: FC = () => {
 						setFiles={setFiles}
 						setPngImageShow={setPngImageShow}
 						setJpgImagesShow={setJpgImagesShow}
-					/>
+					/> */}
 
 					{/* <CabinetAdmin /> */}
 
