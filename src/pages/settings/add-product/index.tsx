@@ -17,6 +17,7 @@ import { RootState } from '@/redux/store';
 import { ModalEditProduct } from '@/components/screens/Cabinet/CabinetOwner/Display/AddProduct/ModalEditProduct';
 import { ModalAddCategory } from '@/components/screens/Cabinet/CabinetOwner/Display/AddProduct/ModalAddCategory';
 import { ModuleWindiw } from '@/components/screens/Cabinet/CabinetOwner/Display/AddProduct/ModuleWindow';
+import { ModalSentForm } from '@/components/screens/Cabinet/CabinetOwner/Display/AddProduct/ModalSentForm';
 
 const AdminSettings: NextPage = () => {
 	const user: RootState['user'] = useSelector((state: RootState) => state.user);
@@ -36,6 +37,9 @@ const AdminSettings: NextPage = () => {
 	);
 	const modalEditProductTurn = useSelector(
 		(state: RootState) => state.modaleSlice.modalAddEditProduct
+	);
+	const sentProductForm = useSelector(
+		(state: RootState) => state.modaleSlice.sentProductForm
 	);
 	//imagesData
 
@@ -63,6 +67,13 @@ const AdminSettings: NextPage = () => {
 					></div>
 				)}
 				{modalAddCAtegory && (
+					<div
+						className={s.backround_for_modal}
+						style={{ height: `${innerHidth + 350}px` }}
+					></div>
+				)}
+
+				{sentProductForm.turn && (
 					<div
 						className={s.backround_for_modal}
 						style={{ height: `${innerHidth + 350}px` }}
@@ -122,6 +133,16 @@ const AdminSettings: NextPage = () => {
 						<ModalAddColor setChoiceColor={setChoiceColor} />
 					) : (
 						''
+					)}
+					{/* {sentProductForm.turn && (
+						<div className={s.backround_for_modal}></div>
+					)} */}
+					{sentProductForm.turn && (
+						<ModalSentForm
+							title={sentProductForm.title}
+							subtitle={sentProductForm.subtitle}
+							btntitle={sentProductForm.btntitle}
+						/>
 					)}
 
 					{/* backround for modal */}

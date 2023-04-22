@@ -341,11 +341,11 @@ export const CabinetOwner = ({
 			{/* { modalAddColorTurn &&
                 <div className={s.backround_for_modal}></div>
             } */}
-			{sentProductForm.turn && <div className={s.backround_for_modal}></div>}
 			{modalAddCAtegoryTurn && <div className={s.backround_for_modal}></div>}
 			{modalEditProductTurn && <div className={s.backround_for_modal}></div>}
 			{modalAddPhotoTurn && <div className={s.backround_for_modal}></div>}
 			{modalAddPhotoTurn && <div className={s.backround_for_modal}></div>}
+			{sentProductForm.turn && <div className={s.backround_for_modal}></div>}
 			{sentProductForm.turn && (
 				<ModalSentForm
 					title={sentProductForm.title}
