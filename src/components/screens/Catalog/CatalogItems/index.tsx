@@ -19,7 +19,7 @@ const CatalogItems = () => {
 	};
 	return (
 		<>
-			{/* {!goods?.length ? (
+			{!goods?.length ? (
 				<div className="catalog_noProducts">
 					<h1 className="catalog_title">
 						Товарів за таким запитом не знайдено
@@ -30,13 +30,13 @@ const CatalogItems = () => {
 				</div>
 			) : (
 				<div className={s.wrapper}>{renderGoods(goods)}</div>
-			)} */}
-			<div className={s.wrapper}>
+			)}
+			{/* <div className={s.wrapper}>
 				<CatalogItem />
 				<CatalogItem />
 				<CatalogItem />
 				<CatalogItem />
-			</div>
+			</div> */}
 		</>
 	);
 };
