@@ -67,6 +67,19 @@ export interface Goods {
 	// reviews: ReturnedReview[] | [];
 }
 
+// id: number;
+// 	title: Title;
+// 	description: Description;
+// 	price: string;
+// 	quantity: number;
+// 	images: Image[];
+// 	sizeChartImage: string;
+// 	sizeChartImageDescription: SizeChartImageDescription;
+// 	sizes: string[];
+// 	hexes: string[];
+// 	colours: any[];
+// 	categories: Category[];
+// 	reviews: any[];
 export interface GoodsEditTest {
 	id: number;
 	title: {
@@ -95,6 +108,7 @@ export interface GoodsEditTest {
 	colours: fetchedColour[];
 	categories: fetchedCategory[];
 	// reviews: ReturnedReview[] | [];
+	reviews: any[];
 }
 
 export interface CartProductItem {

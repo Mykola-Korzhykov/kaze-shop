@@ -15,12 +15,14 @@ import { OrderFormStepOne, OrderFormStepOneData } from '@/utils/validation';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { changeStatusStepOne } from '@/redux/slices/order';
 import { Api } from '@/services';
+import { trimPhoneNumber } from '@/utils/trimPhoneNumber';
 
 
 
 const StepOne = ({ className, ...props }: StepOneProps): JSX.Element => {
     const [otherPerson, setOtherPerson] = useState<boolean>(false);
     const status = useAppSelector(store => store.order.stepOne);
+    const cardId = useAppSelector(store => store.order.cardId)
     const dispatch = useAppDispatch();
     const { register, handleSubmit, control, formState: { errors, isValid } } = useForm<OrderFormStepOneData>({
         mode: 'onBlur',
@@ -34,24 +36,31 @@ const StepOne = ({ className, ...props }: StepOneProps): JSX.Element => {
 
     const onSubmit: SubmitHandler<OrderFormStepOneData> = async data => {
         dispatch(changeStatusStepOne('loading'));
-        console.log(data)
-        data.userPhoneNumber = '+380976721121'
-        // setTimeout(() => {
-        //     dispatch(changeStatusStepOne('success'));
-        // }, 2000);
+        const sanitatedDataToSend = {
+            ...data, userPhoneNumber: trimPhoneNumber(data.userPhoneNumber),
+            otherPersonPhoneNumber: trimPhoneNumber(data.otherPersonPhoneNumber)
+        };
+        if (!sanitatedDataToSend.otherPerson) {
+            delete sanitatedDataToSend.otherPersonPhoneNumber;
+            delete sanitatedDataToSend.otherPersonSurname;
+            delete sanitatedDataToSend.otherPersonName
+
+        }
+        console.log(sanitatedDataToSend);
+        window.sessionStorage.setItem('userEmail', data.userEmail);
+        window.sessionStorage.setItem('orderId', cardId.toString());
+
         try {
-            await Api().goods.sendFormStepOne(3, data);
+            await Api().goods.sendFormStepOne(cardId, sanitatedDataToSend);
             dispatch(changeStatusStepOne('success'));
         } catch (e) {
             console.log(e);
             dispatch(changeStatusStepOne('error'));
-
         }
     };
 
 
     return (
-
 
         <div
             className={cn(s.step_one, className)}
@@ -153,7 +162,6 @@ const StepOne = ({ className, ...props }: StepOneProps): JSX.Element => {
                                     />
                                 )}
                             />
-
 
                         </motion.div>}
                     </AnimatePresence>

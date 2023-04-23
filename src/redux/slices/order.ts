@@ -5,6 +5,7 @@ const initialState: FormLoadStatusType = {
 	stepOne: 'idle',
 	stepTwo: 'idle',
 	orderNum: null,
+	cardId: null,
 };
 
 const order = createSlice({
@@ -30,6 +31,9 @@ const order = createSlice({
 		changeOrderNum: (state, { payload }: PayloadAction<null | number>) => {
 			state.orderNum = payload;
 		},
+		setCardId: (state, { payload }: PayloadAction<number>) => {
+			state.cardId = payload;
+		},
 	},
 });
 
@@ -38,5 +42,6 @@ export const {
 	changeStatusStepOne,
 	changeOrderNum,
 	orderInit,
+	setCardId,
 } = order.actions;
 export default order.reducer;

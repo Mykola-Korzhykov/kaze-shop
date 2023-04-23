@@ -5,9 +5,12 @@ import Image from 'next/image';
 import ColorItems from '../../Product/Main/ColorItems/ColorItems';
 import CountButton from '../CountButton/CountButton';
 import cn from 'classnames';
+import { useRouter } from 'next/router';
 
 
 const CartItem = ({ title, description, size, imageUrl, quantity, id, colour, price, colourId, productId, productPlus, productMinus, className }: CartItemProps): JSX.Element => {
+    const router = useRouter();
+    const myLocale = router.locale as 'ua' | 'ru' | 'rs' | 'en'
     const plus = () => {
         productPlus(productId, { colourId, imageUrl, size });
     }
@@ -20,8 +23,8 @@ const CartItem = ({ title, description, size, imageUrl, quantity, id, colour, pr
         <div className={cn(s.item, className)}>
             <Image src={imageUrl} width={95} height={150} alt={title.ua} quality={100} />
             <div className={s.item_info}>
-                <h2>{title.ua}</h2>
-                <p>{description.ua}</p>
+                <h2>{title[myLocale]}</h2>
+                <p>{description[myLocale]}</p>
                 <div className={s.item_info_product}>
                     <ColorItems colors={[colour.hex]} activeColor={0} size='30' />
                     <div>

@@ -33,8 +33,7 @@ const StepTwo = () => {
     const onSubmit: SubmitHandler<OrderFormStepTwoData> = async data => {
         dispatch(changeStatusStepTwo('loading'));
 
-        const validDataToSend = { ...data, payByCard: !data.payInCash, postalDelivery: !data.сourierDelivery };
-        delete validDataToSend.anotherDate;
+        const validDataToSend = { ...data, payByCard: !data.payInCash, postalDelivery: !data.сourierDelivery, };
 
         // setTimeout(() => {
         //     dispatch(changeStatusStepTwo('success'));
@@ -62,7 +61,7 @@ const StepTwo = () => {
     return (
         <AnimatePresence>
             {/* stepOne === 'success' && */}
-            {true && <motion.div
+            {stepOne === 'success' && <motion.div
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1, transition: { duration: 0.5 } }}
                 exit={{ height: 0, opacity: 0, transition: { duration: 0.5 } }}
