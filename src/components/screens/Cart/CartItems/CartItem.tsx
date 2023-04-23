@@ -9,7 +9,7 @@ import {
 	deleteCartProduct,
 	getCartProducts,
 } from '@/redux/slices/goods'
-const CartItem: FC<{ product: CartProductItem }> = ({ product }) => {
+const CartItem: FC<{ product?: CartProductItem }> = ({ product }) => {
 	const dispatch = useAppDispatch()
 	const addProductHandler = () => {
 		dispatch(
@@ -20,11 +20,11 @@ const CartItem: FC<{ product: CartProductItem }> = ({ product }) => {
 				size: product?.size,
 			})
 		)
-		dispatch(getCartProducts())
+		// dispatch(getCartProducts())
 	}
 	const minusProductHandler = () => {
 		dispatch(deleteCartProduct(product?.id))
-		dispatch(getCartProducts())
+		// dispatch(getCartProducts())
 	}
 	return (
 		<div className={s.block}>

@@ -16,6 +16,8 @@ interface ModalType {
 		title: string;
 		subtitle: string;
 		btntitle: string;
+		spiner: boolean;
+		bottom: number;
 	};
 }
 
@@ -33,10 +35,11 @@ const initialState: ModalType = {
 		title: '',
 		subtitle: '',
 		btntitle: '',
+		spiner: false,
+		bottom: 0,
 	},
 };
 
-// const [countPhoto, setCountPhoto] = React.useState<number>(1)
 const modaleSlice = createSlice({
 	name: 'user',
 	initialState: initialState,
@@ -75,12 +78,16 @@ const modaleSlice = createSlice({
 				title: string;
 				subtitle: string;
 				btntitle: string;
+				spiner: boolean;
+				bottom: number;
 			}>
 		) => {
 			state.sentProductForm.turn = action.payload.turn;
 			state.sentProductForm.title = action.payload.title;
 			state.sentProductForm.subtitle = action.payload.subtitle;
 			state.sentProductForm.btntitle = action.payload.btntitle;
+			state.sentProductForm.spiner = action.payload.spiner;
+			state.sentProductForm.bottom = action.payload.bottom;
 		},
 	},
 });

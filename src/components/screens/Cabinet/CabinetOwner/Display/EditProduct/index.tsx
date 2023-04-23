@@ -59,6 +59,8 @@ export const EditProduct: FC<{
 						title: 'Ошибка получения товара',
 						subtitle: '',
 						btntitle: 'Закрити',
+						bottom: 200,
+						spiner: false
 					})
 				);
 			}

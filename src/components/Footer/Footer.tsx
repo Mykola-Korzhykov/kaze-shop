@@ -77,7 +77,7 @@ const Footer = (): JSX.Element => {
   const linkArray = [...mokLinkData, footerData];
 
   useEffect(() => {
-    StrapiAxios.get<footersResT>('/apsi/footers?populate=deep&locale=' + myLocale)
+    StrapiAxios.get<footersResT>('/api/footers?populate=deep&locale=' + myLocale)
       .then(res => {
         const sanitatedData = [
           res.data.data[0].attributes.field_1,

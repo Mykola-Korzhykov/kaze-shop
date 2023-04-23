@@ -30,6 +30,9 @@ export default function Home({ about, faq, lastAddedProduct, mainPage, productSl
 	dispatch(initialMain({ lastAddedProduct, productSliderOne, productSliderTwo }));
 
 
+	dispatch(
+		initialMain({ lastAddedProduct, productSliderOne, productSliderTwo })
+	);
 
 	return (
 		<SpinnerLayout>
@@ -38,15 +41,10 @@ export default function Home({ about, faq, lastAddedProduct, mainPage, productSl
 	);
 }
 
-
-
-
-
 export const getStaticProps: GetStaticProps = async (context) => {
 	const locale = context.locale === 'ua' ? 'uk' : context.locale;
 
 	try {
-
 		const allRequest = await Promise.all([
 			StrapiAxios.get<AboutResT>('/api/abouts?populate=deep&locale=' + locale),
 			StrapiAxios.get<FaqResT>('/api/faqs?populate=deep&locale=' + locale),
@@ -56,23 +54,20 @@ export const getStaticProps: GetStaticProps = async (context) => {
 			axios.get<CategorySlider>(process.env.NEXT_BASE_URL + '/product/categories?page=1&pageSize=1&categories=2'),
 			axios.get<LastAddedProduct>(process.env.NEXT_BASE_URL + '/product?page=1&pageSize=1'),
 			axios.get(process.env.NEXT_BASE_URL + '/reviews?page=1&pageSize=1'),
-
 		]);
-
-
 
 		const about = {
 			button: allRequest[0].data.data[0].attributes.button,
 			image: allRequest[0].data.data[0].attributes.image,
 			text: allRequest[0].data.data[0].attributes.text,
-			title: allRequest[0].data.data[0].attributes.title
-		}
+			title: allRequest[0].data.data[0].attributes.title,
+		};
 		const faq = {
 			fields: [
 				allRequest[1].data.data[0].attributes.field_1,
 				allRequest[1].data.data[0].attributes.field_2,
 				allRequest[1].data.data[0].attributes.field_3,
-				allRequest[1].data.data[0].attributes.field_4
+				allRequest[1].data.data[0].attributes.field_4,
 			],
 			image: allRequest[1].data.data[0].attributes.image,
 			title: allRequest[1].data.data[0].attributes.title
@@ -111,11 +106,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 			redirect: {
 				destination: '/500',
 				permanent: false,
-			}
-		}
+			},
+		};
 	}
-}
-
-
-
-
+};

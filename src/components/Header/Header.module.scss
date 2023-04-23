@@ -299,9 +299,11 @@
 		align-items: center;
 		justify-content: center;
 		top: 100%;
-		left: -1%;
-		width: 102%;
+		left: -2%;
+		width: 103%;
 		border-bottom: 1.5px solid #9d9d9d;
+		border-right: 1.5px solid #9d9d9d;
+		border-left: 1.5px solid #9d9d9d;
 		a {
 			cursor: pointer;
 			font-family: 'Georama';
@@ -312,17 +314,18 @@
 			// padding: 14px 54px 14px 20px;
 			padding: 14px 20px 14px 0;
 			width: 100%;
+
 			color: #9d9d9d;
-			border: 1.5px solid #9d9d9d;
+			border-top: 1.5px solid #9d9d9d;
 			border-bottom: none;
 			text-decoration: none;
 			text-align: center;
 			background: #f2f2f0;
 		}
-		@media(min-width: 1900px) {
-			width: 102%;
-			left: -1%;
-		}
+		// @media(min-width: 1900px) {
+		// 	width: 102%;
+		// 	left: -1%;
+		// }
 	}
 }
 
@@ -345,5 +348,11 @@
 	&:hover {
 		transition: all 0.2s ease;
 		opacity: 0.7;
+	}
+}
+
+.icon_account {
+	@media (max-width: 400px) {
+		display: none;
 	}
 }

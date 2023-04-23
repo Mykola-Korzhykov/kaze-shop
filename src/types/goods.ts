@@ -61,6 +61,7 @@ export interface Goods {
 	};
 	sizes: string[];
 	hexes: string[];
+	isSaved: boolean;
 	colours: fetchedColour[];
 	categories: fetchedCategory[];
 	// reviews: ReturnedReview[] | [];
@@ -130,9 +131,59 @@ export interface CartProductItem {
 }
 export interface CartProduct {
 	id: number;
-	cartStatus: string;
+	cartStatus: 'Canceled' | 'Submitted' | 'Completed' | 'Processing' | 'Paid';
+	createdAt: Date;
+	statusDate: string;
 	totalPrice: string;
 	cartProducts: CartProductItem[];
+}
+export type OrderItem = {
+	id: number;
+	totalPrice: string;
+	orderStatus: 'Canceled' | 'Submitted' | 'Completed' | 'Processing' | 'Paid';
+	imageUrl: string;
+};
+
+export interface UserOrders {
+	totalOrders: number;
+	orders: OrderItem[];
+}
+export interface UserOrderItems {
+	id: number;
+	totalPrice: string;
+	orderStatus: 'Canceled' | 'Submitted' | 'Completed' | 'Processing' | 'Paid';
+	orderProducts: {
+		id: number;
+		title: {
+			ua: string;
+			ru: string;
+			rs: string;
+			en: string;
+		};
+		description: {
+			ua: string;
+			ru: string;
+			rs: string;
+			en: string;
+		};
+		size: string;
+		price: string;
+		imageUrl: string;
+		colourId: number;
+		colour: {
+			id: number;
+			ua: string;
+			en: string;
+			rs: string;
+			ru: string;
+			hex: string;
+			type: string;
+			createdAt: Date;
+			updatedAt: Date;
+		};
+		productId: number;
+		quantity: number;
+	}[];
 }
 
 export interface sendProductToCart {

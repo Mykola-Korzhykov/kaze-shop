@@ -9,22 +9,33 @@ import ForgottenBaskets from '@/components/UserCabinet/ForgottenBaskets/Forgotte
 import RecentlyWatchedProducts from '@/components/UserCabinet/RecentlyWatchedProducts/RecentlyWatchedProducts';
 import { useAppDispatch } from '@/redux/hooks';
 import {
+	getUserLeftCarts,
+	getUserOrders,
 	getUserSavedProducts,
 	getUserWatchedProducts,
+	setIsSavedProductsTab,
 } from '@/redux/slices/user';
-
+import CabinetOrdersModal from '@/components/UserCabinet/CabinetOrdersModal/CabinetOrdersModal';
 const CabinetTabs: FC = () => {
 	const [selectedTab, setSelectedTab] = React.useState<number | null>(1);
+	const [showModal, setShowModal] = React.useState<boolean>(false);
 	const dispatch = useAppDispatch();
 	const toggleTab = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const tabIndex = (e.target as HTMLButtonElement).getAttribute(
 			'data-tabindex'
 		);
-
+		if (tabIndex === '3') {
+			dispatch(getUserOrders());
+		}
 		if (tabIndex === '4') {
+			dispatch(setIsSavedProductsTab(true));
 			dispatch(getUserSavedProducts());
 		}
+		if (tabIndex === '5') {
+			dispatch(getUserLeftCarts());
+		}
 		if (tabIndex === '6') {
+			dispatch(setIsSavedProductsTab(false));
 			dispatch(getUserWatchedProducts());
 		}
 
@@ -88,11 +99,11 @@ const CabinetTabs: FC = () => {
 			case 2:
 				return <ChangeUserPassword />;
 			case 3:
-				return <OrderHisrtory />;
+				return <OrderHisrtory setShowModal={setShowModal} />;
 			case 4:
 				return <SavedProducts />;
 			case 5:
-				return <ForgottenBaskets />;
+				return <ForgottenBaskets setShowModal={setShowModal} />;
 			case 6:
 				return <RecentlyWatchedProducts />;
 			case 7:
@@ -103,6 +114,12 @@ const CabinetTabs: FC = () => {
 	};
 	return (
 		<>
+			{showModal && (
+				<CabinetOrdersModal
+					ordersTabActive={selectedTab === 3 ? true : false}
+					setShowModal={setShowModal}
+				/>
+			)}
 			<div className={cl.cabinet_contentWrapper}>
 				<div className={cl.cabinet_tabs}>
 					{TABS.map((el) => {

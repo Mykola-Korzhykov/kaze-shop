@@ -33,27 +33,27 @@ const HeaderMenu: FC<{
 		{
 			label: 'Личный кабинет',
 			link: '/cabinet',
-			id: 1,
+			id: 14234234234,
 		},
 		{
 			label: 'Лосины',
 			link: '/catalog',
-			id: 2,
+			id: 1,
 		},
 		{
 			label: 'Костюмы',
 			link: '/catalog',
-			id: 7,
+			id: 12,
 		},
 		{
 			label: 'Велосипедки',
 			link: '/catalog',
-			id: 3,
+			id: 4,
 		},
 		{
 			label: 'Повседневное белье',
 			link: '/catalog',
-			id: 4,
+			id: 8,
 		},
 		{
 			label: 'Сумки',
@@ -63,14 +63,16 @@ const HeaderMenu: FC<{
 		{
 			label: 'Топы',
 			link: '/catalog',
-			id: 6,
+			id: 10,
 		},
 	];
 
 	const headerLinkHandler = (elLink: string, elId: number) => {
 		if (elLink === '/catalog') {
 			dispatch(setHeaderCategory(elId));
-			dispatch(fetchGoodsByCategory(elId));
+			if (router.pathname === '/catalog') {
+				dispatch(fetchGoodsByCategory(elId));
+			}
 			router.push('/catalog');
 		}
 		toggleBurgerFunc();

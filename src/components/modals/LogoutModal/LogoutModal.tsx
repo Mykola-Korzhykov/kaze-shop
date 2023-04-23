@@ -20,8 +20,8 @@ const LogoutModal: FC<{ closeModal: (tab: number) => void }> = ({
 			Cookies.remove('accessToken');
 			router.push('/login');
 		} catch (e) {
-			setRequestLoading(false);
-			router.push('/404');
+			Cookies.remove('accessToken');
+			router.push('/login');
 		}
 	};
 

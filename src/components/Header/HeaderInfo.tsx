@@ -84,7 +84,10 @@ const HeaderInfo: FC<Props> = ({ toggleBurgerFunc, showBurgerMenu }) => {
 				</a>
 			</Link>
 			<Link href={'/cabinet'} legacyBehavior>
-				<a className={cl.icon}>
+				<a
+					
+					className={`${cl.icon} ${cl.icon_account}`}
+				>
 					<Image
 						src={accountSVG}
 						alt="link to user cabiner"

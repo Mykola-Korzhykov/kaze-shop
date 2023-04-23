@@ -1,7 +1,11 @@
 import React, { FC } from 'react';
 import s from './CatalogItems.module.scss';
 import { useAppSelector, useAppDispatch } from '@/redux/hooks';
-import { selectAuthState, selectUserInfo } from '@/redux/slices/user';
+import {
+	selectAuthState,
+	selectUserInfo,
+	deleteSavedProduct,
+} from '@/redux/slices/user';
 import { addProductToCompare, addProductToCart } from '@/redux/slices/goods';
 import { setLoadingStatus } from '@/redux/slices/goods';
 import Image from 'next/image';
@@ -10,6 +14,7 @@ import { Goods, sendProductToCart } from '@/types/goods';
 import { useRouter } from 'next/router';
 import catalogImg from '../../../../assets/images/catalogItem.png';
 import catalogImg2 from '../../../../assets/images/catalogImg2.png';
+
 import { Api } from '@/services';
 interface ICatalogItemProps {
 	product?: Goods;
@@ -21,11 +26,14 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 	const onMouseLeave = () => setIsHovered(false);
 	const isAuth = useAppSelector(selectAuthState);
 	const user = useAppSelector(selectUserInfo);
+	const isSavedProductsTab = useAppSelector(
+		(state) => state.user.isSavedProductsTab
+	);
 	const router = useRouter();
 
 	const saveButtonHandler = () => {
 		if (router.pathname === '/cabinet') {
-			deleteSavedProduct();
+			deleteSavedProductFunc();
 		} else {
 			addSavedProduct();
 		}
@@ -35,15 +43,21 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 		if (isAuth && user?.type === 'USER') {
 			try {
 				Api().goods.addToFavorites(product?.id);
-			} catch (e) {}
+			} catch (e) {
+				router.push('/404');
+			}
 		} else if (!isAuth) {
 			router.push('/login');
 		}
 	};
 
-	const deleteSavedProduct = () => {
-		//dispath(filterSavedEl)
-		//requests
+	const deleteSavedProductFunc = () => {
+		dispatch(deleteSavedProduct(product?.id));
+		try {
+			Api().user.deleteUserSavedProduct(product?.id);
+		} catch (e) {
+			router.push('/404');
+		}
 	};
 
 	const basketButtonHandler = () => {
@@ -110,7 +124,9 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 				</div>
 			</Link>
 			<div>
-				<p className={s.title}>{product?.title?.ua ?? 'Title'}</p>
+				<p className={s.title}>
+					{product?.title?.ua.substring(0, 22) ?? 'Title'}
+				</p>
 				<span className={s.price}>{product?.price ?? '0$'}</span>
 			</div>
 			<div className={s.footer}>
@@ -120,7 +136,9 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 				<button
 					onClick={saveButtonHandler}
 					className={
-						router.pathname === '/cabinet' ? s.footer_iconActive : s.footer_icon
+						isSavedProductsTab || product?.isSaved
+							? s.footer_iconActive
+							: s.footer_icon
 					}
 				></button>
 			</div>

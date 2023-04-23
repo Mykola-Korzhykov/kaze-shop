@@ -25,12 +25,6 @@ export const UsersAdmin: React.FC = () => {
 
 	const dispatch = useAppDispatch();
 
-	// get users
-	React.useEffect(() => {
-		// console.log('пошел запрос1111')
-		dispatch(getUsersAdmin(activePaginatoinAdmin));
-	}, [activePaginatoinAdmin]);
-
 	React.useEffect(() => {
 		let countAdminPagination = Math.ceil(usersAdminUI.length / 10);
 		let arrAdminPagination: number[] = [];
@@ -40,6 +34,11 @@ export const UsersAdmin: React.FC = () => {
 
 		setPaginationLendthAdmin(arrAdminPagination);
 	}, [usersAdminUI]);
+
+	React.useEffect(() => {
+		// console.log('запыт getUsersAdmin')
+		dispatch(getUsersAdmin(activePaginatoinAdmin));
+	}, [activePaginatoinAdmin]);
 
 	const debouncedSearchAdmin = debounce((term) => {
 		dispatch(findUsersAdmin(term));
@@ -58,7 +57,6 @@ export const UsersAdmin: React.FC = () => {
 								debouncedSearchAdmin(
 									e.target.value.toLowerCase().split(' ').join(',')
 								);
-								//console.log('debouncedSearchAdmin', e.target.value.toLowerCase().split(' ').join(','))
 							}
 						}}
 						className={s.input}
@@ -69,8 +67,7 @@ export const UsersAdmin: React.FC = () => {
 				</div>
 			</label>
 
-			{usersAdminStatus === 'success' &&
-				usersAdminUI.length > 0 &&
+			{usersAdminUI.length > 0 &&
 				usersAdminUI.map((el, ind) => (
 					<UserAdmin
 						name={el.name}
@@ -110,9 +107,6 @@ export const UsersAdmin: React.FC = () => {
 			{usersAdminStatus === 'error' && (
 				<div className={s.title_wrapper}>
 					<div className={s.title}> Ошибка </div>
-					{/* <p className={s.description}>
-                            В Вашем интернет магазине пока не зарегистрированных пользователей
-                        </p> */}
 				</div>
 			)}
 
