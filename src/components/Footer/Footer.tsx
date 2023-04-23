@@ -8,6 +8,8 @@ import { StrapiAxios } from '@/services/strapiAxios';
 import { footersResT } from '@/types/mainPageRequest/footer';
 import { useRouter } from 'next/router';
 import { FooterFetchData } from './Footer.interface';
+import { setHeaderCategory } from '@/redux/slices/goods';
+
 import FormSpinner from '../screens/Order/FormSpinner/FormSpinner';
 
 const mokLinkData = [
@@ -68,7 +70,8 @@ const Footer = (): JSX.Element => {
 	const dispatch = useAppDispatch();
 
 	const [footerData, setFooterData] = useState<null | FooterFetchData[]>(null);
-	const { locale } = useRouter();
+	const { locale, pathname, push } = useRouter();
+
 	const myLocale = locale === 'ua' ? 'uk' : locale;
 
 	const linkArray = [...mokLinkData, footerData];
@@ -91,6 +94,16 @@ const Footer = (): JSX.Element => {
 			});
 	}, []);
 
+	const catalogHandler = (elLink: string, elId: number) => {
+		if (elLink === '/catalog') {
+			dispatch(setHeaderCategory(elId));
+			if (pathname === '/catalog') {
+				dispatch(fetchGoodsByCategory(elId));
+			}
+			push('/catalog');
+		}
+	};
+
 	return (
 		<footer className={s.footer}>
 			<div className="container">
@@ -109,7 +122,7 @@ const Footer = (): JSX.Element => {
 												return (
 													<Link
 														href={link}
-														onClick={() => dispatch(fetchGoodsByCategory(id))}
+														onClick={() => catalogHandler(link, id)}
 														key={i}
 													>
 														{text}
