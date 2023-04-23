@@ -32,6 +32,14 @@ export const ModalSentForm = ({
 					<h2 className={s.title}>{title}</h2>
 					<p className={s.text}>{subtitle}</p>
 				</div>
+				{sentProductForm.spiner && (
+					<div className={s.spinner}>
+						<div className={s.bounce1}></div>
+						<div className={s.bounce2}></div>
+						<div className={s.bounce3}></div>
+					</div>
+				)}
+
 				<div
 					onClick={() =>
 						dispatch(

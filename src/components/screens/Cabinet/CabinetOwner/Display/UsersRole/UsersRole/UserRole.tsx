@@ -111,7 +111,7 @@ export const UserRole: React.FC<UserProps> = ({
 							title: 'Пользователь успешно изменен',
 							subtitle: `Нажмите 'готово' чтобы продолжить`,
 							btntitle: 'готово',
-							spiner: true,
+							spiner: false,
 							bottom:
 								sizeWindow < 500
 									? -10
@@ -134,23 +134,23 @@ export const UserRole: React.FC<UserProps> = ({
 						title: 'Error',
 						subtitle: `Error: ${error}`,
 						btntitle: 'ok',
-						spiner: true,
+						spiner: false,
 						bottom:
 							sizeWindow < 500
 								? -10
 								: sizeWindow < 900
-								? 0
+								? -55
 								: sizeWindow > 1079
-								? 350
+								? 150
 								: sizeWindow > 1045
-								? 350
+								? 150
 								: sizeWindow > 899
-								? 550
+								? 350
 								: 1,
 					})
 				);
 			});
-
+		console.log('sizeWindow', sizeWindow);
 		dispatch(
 			setProductForm({
 				turn: true,
@@ -162,13 +162,13 @@ export const UserRole: React.FC<UserProps> = ({
 					sizeWindow < 500
 						? -10
 						: sizeWindow < 900
-						? 0
+						? -55
 						: sizeWindow > 1079
-						? 350
+						? 150
 						: sizeWindow > 1045
-						? 350
+						? 150
 						: sizeWindow > 899
-						? 550
+						? 350
 						: 1,
 			})
 		);
