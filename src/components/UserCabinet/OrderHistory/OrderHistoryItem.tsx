@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import s from '../../../styles/cabinet2.module.scss';
 import Image from 'next/image';
-import cartImage from '../../../assets/images/cartItem.png';
+import cartImage from '../../../assets/images/cartItem.png'
 import showMoreIcon from '../../../assets/icons/cabinetTabs/catabinetCartShowMore.svg';
 import statusSubmitted from '../../../assets/icons/cabinetTabs/cabinetCartStatusSubmitted.svg';
 import statusCanceled from '../../../assets/icons/cabinetTabs/cabinetCartStatusCanceled.svg';

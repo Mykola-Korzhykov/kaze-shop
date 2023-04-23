@@ -12,28 +12,30 @@ import showIcon from '../../../assets/icons/show_eye.svg';
 import FormField from '../../UI/FormField';
 import { Api } from '@/services';
 import Spinner from '@/components/Spinner/Spinner';
-
+import { useAppDispatch } from '@/redux/hooks';
+import { setLoadingStatus } from '@/redux/slices/goods';
 const ChangeUserPassword = () => {
+	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const [passwordShown, setPasswordShown] = useState(false);
 	const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
 	const [errorMessage, setErrorMessage] = useState<string>('');
-	const [requestLoading, setRequestLoading] = useState<boolean>(false);
+	const [requestLoading, setRequestLoading] = useState(false);
 	const changeUserPasswordForm = useForm<ChangeUserPasswordDto>({
 		mode: 'onChange',
 		resolver: yupResolver(ChangeUserPasswordShema),
 	});
 	const onSubmit = async (dto: ChangeUserPasswordDto) => {
 		try {
+			dispatch(setLoadingStatus('loading'));
 			setRequestLoading(true);
-			console.log(dto);
 			await Api().user.changePassword(dto);
 			destroyCookie(null, 'accessToken');
 			// dispatch(addUserInfo(data.user))
 			router.push('/login');
 		} catch (err) {
+			dispatch(setLoadingStatus('error'));
 			setRequestLoading(false);
-			console.warn('Register error', err);
 			if (err?.response) {
 				setErrorMessage(err?.response?.data?.message);
 			} else {
@@ -52,7 +54,6 @@ const ChangeUserPassword = () => {
 
 	return (
 		<>
-			{requestLoading && <Spinner />}
 			<FormProvider {...changeUserPasswordForm}>
 				<form
 					onSubmit={changeUserPasswordForm.handleSubmit(onSubmit)}
@@ -93,18 +94,21 @@ const ChangeUserPassword = () => {
 								changeUserPasswordForm.formState.errors.confirmPassword.message}
 						</span>
 					</div>
-					<button
-						disabled={requestLoading}
-						className={cl.cabinet_btn}
-						type="submit"
-					>
-						Cохранить
-					</button>
-					{errorMessage && (
-						<div>
-							<p className="auth_error">{errorMessage}</p>
-						</div>
-					)}
+
+					<div>
+						{errorMessage && (
+							<div>
+								<p className="auth_error">{errorMessage}</p>
+							</div>
+						)}
+						<button
+							disabled={requestLoading}
+							className={cl.cabinet_btn}
+							type="submit"
+						>
+							Cохранить
+						</button>
+					</div>
 				</form>
 			</FormProvider>
 		</>

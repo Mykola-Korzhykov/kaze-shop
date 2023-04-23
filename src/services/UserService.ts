@@ -76,8 +76,8 @@ export const UserApi = (instance: AxiosInstance) => ({
 		return data;
 	},
 	async deleteUserSavedProduct(productId: number) {
-		const { data } = await instance.get(
-			`product/deleteBookmarkProduct?productId=${productId}`
+		const { data } = await instance.delete(
+			`user/deleteBookmarkProduct?productId=${productId}`
 		);
 		return data;
 	},
@@ -88,11 +88,11 @@ export const UserApi = (instance: AxiosInstance) => ({
 		return data;
 	},
 	async getOrders() {
-		const { data } = await instance.get(`orders?page=1&pageSize=10`);
+		const { data } = await instance.get(`orders/get?page=1&pageSize=10`);
 		return data;
 	},
 	async getLeftCarts() {
-		const { data } = await instance.get(`cart/leftCarts/`);
+		const { data } = await instance.get(`cart/leftCarts?page=1&pageSize=10`);
 		return data;
 	},
 });

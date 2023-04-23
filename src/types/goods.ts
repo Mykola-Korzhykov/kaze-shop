@@ -61,6 +61,7 @@ export interface Goods {
 	};
 	sizes: string[];
 	hexes: string[];
+	isSaved: boolean;
 	colours: fetchedColour[];
 	categories: fetchedCategory[];
 	// reviews: ReturnedReview[] | [];
