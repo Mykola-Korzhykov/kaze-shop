@@ -114,7 +114,12 @@ const CabinetTabs: FC = () => {
 	};
 	return (
 		<>
-			{showModal && <CabinetOrdersModal setShowModal={setShowModal} />}
+			{showModal && (
+				<CabinetOrdersModal
+					ordersTabActive={selectedTab === 3 ? true : false}
+					setShowModal={setShowModal}
+				/>
+			)}
 			<div className={cl.cabinet_contentWrapper}>
 				<div className={cl.cabinet_tabs}>
 					{TABS.map((el) => {

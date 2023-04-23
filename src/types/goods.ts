@@ -154,8 +154,18 @@ export interface UserOrderItems {
 	orderStatus: 'Canceled' | 'Submitted' | 'Completed' | 'Processing' | 'Paid';
 	orderProducts: {
 		id: number;
-		title: string;
-		description: string;
+		title: {
+			ua: string;
+			ru: string;
+			rs: string;
+			en: string;
+		};
+		description: {
+			ua: string;
+			ru: string;
+			rs: string;
+			en: string;
+		};
 		size: string;
 		price: string;
 		imageUrl: string;

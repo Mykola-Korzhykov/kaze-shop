@@ -1,7 +1,13 @@
 import { User } from '@/types/auth';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { Api } from '@/services';
-import { Goods, CartProduct, UserOrders, CartProductItem } from '@/types/goods';
+import {
+	Goods,
+	CartProduct,
+	UserOrders,
+	CartProductItem,
+	UserOrderItems,
+} from '@/types/goods';
 import { RootState } from '../store';
 
 type UserSLice = {
@@ -17,7 +23,8 @@ type UserSLice = {
 		cartProducts: CartProductItem[];
 		totalPrice: string;
 		id: number;
-		createdAt: string
+		createdAt?: string;
+		cartStatus?: 'Canceled' | 'Submitted' | 'Completed' | 'Processing' | 'Paid';
 	} | null;
 };
 
@@ -83,6 +90,19 @@ export const getUserOrders = createAsyncThunk<
 	}
 });
 
+export const getUserOrderBasket = createAsyncThunk<
+	UserOrderItems,
+	number,
+	{ rejectValue: string }
+>('user/getUserOrderBasket', async (orderId: number, { rejectWithValue }) => {
+	try {
+		const data = await Api().user.getOrderBasket(orderId);
+		return data;
+	} catch (e) {
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+	}
+});
+
 export const getUserLeftCarts = createAsyncThunk<
 	{ cart: CartProduct[] },
 	null,
@@ -120,7 +140,7 @@ const userSLice = createSlice({
 				cartProducts: CartProductItem[];
 				totalPrice: string;
 				id: number;
-				createdAt: string
+				createdAt: string;
 			}>
 		) {
 			state.cartItemsModal = action.payload;
@@ -155,6 +175,22 @@ const userSLice = createSlice({
 			state.loadingStatus = 'idle';
 		});
 		builder.addCase(getUserOrders.rejected, (state, action) => {
+			state.loadingStatus = 'error';
+		});
+		builder.addCase(getUserOrderBasket.pending, (state, action) => {
+			state.loadingStatus = 'loading';
+		});
+		builder.addCase(getUserOrderBasket.fulfilled, (state, action) => {
+			const productBasket = action.payload;
+			state.cartItemsModal = {
+				cartProducts: productBasket?.orderProducts,
+				cartStatus: productBasket?.orderStatus,
+				id: productBasket?.id,
+				totalPrice: productBasket?.totalPrice,
+			};
+			state.loadingStatus = 'idle';
+		});
+		builder.addCase(getUserOrderBasket.rejected, (state, action) => {
 			state.loadingStatus = 'error';
 		});
 		builder.addCase(getUserLeftCarts.pending, (state, action) => {
