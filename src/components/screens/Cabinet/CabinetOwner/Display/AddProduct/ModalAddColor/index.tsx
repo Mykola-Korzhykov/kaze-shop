@@ -94,7 +94,7 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({
 							title: 'Цвет успешно создан',
 							subtitle: `Нажмите “Готово” для того. чтобы продолжить`,
 							btntitle: 'Готово',
-							spiner: true,
+							spiner: false,
 							bottom:
 								sizeWindow < 500
 									? -750
@@ -118,7 +118,7 @@ export const ModalAddColor: React.FC<ModalAddColorProps> = ({
 						title: 'Error',
 						subtitle: `Error ${error}`,
 						btntitle: 'Ok',
-						spiner: true,
+						spiner: false,
 						bottom:
 							sizeWindow < 500
 								? -750

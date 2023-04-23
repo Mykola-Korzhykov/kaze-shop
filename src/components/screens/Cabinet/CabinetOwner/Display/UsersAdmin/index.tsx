@@ -35,6 +35,11 @@ export const UsersAdmin: React.FC = () => {
 		setPaginationLendthAdmin(arrAdminPagination);
 	}, [usersAdminUI]);
 
+	React.useEffect(() => {
+		// console.log('запыт getUsersAdmin')
+		dispatch(getUsersAdmin(activePaginatoinAdmin));
+	}, [activePaginatoinAdmin]);
+
 	const debouncedSearchAdmin = debounce((term) => {
 		dispatch(findUsersAdmin(term));
 	}, 500);
@@ -80,16 +85,16 @@ export const UsersAdmin: React.FC = () => {
 					/>
 				))}
 
-			{/* {usersAdminStatus === 'success' && usersAdminUI.length < 1 && (
+			{usersAdminStatus === 'success' && usersAdminUI.length < 1 && (
 				<div className={s.title_wrapper}>
 					<div className={s.title}> Пользователей не найдено </div>
 					<p className={s.description}>
 						В Вашем интернет магазине пока не зарегистрированных пользователей
 					</p>
 				</div>
-			)} */}
+			)}
 
-			{/* {usersAdminStatus === 'error403' && (
+			{usersAdminStatus === 'error403' && (
 				<div className={s.title_wrapper}>
 					<div className={s.title}>Администратор не подтвердил права </div>
 					<p className={s.description}>
@@ -97,13 +102,13 @@ export const UsersAdmin: React.FC = () => {
 						подтвердить права на почте
 					</p>
 				</div>
-			)} */}
+			)}
 
-			{/* {usersAdminStatus === 'error' && (
+			{usersAdminStatus === 'error' && (
 				<div className={s.title_wrapper}>
 					<div className={s.title}> Ошибка </div>
 				</div>
-			)} */}
+			)}
 
 			{usersAdminStatus === 'success' && usersAdminUI.length > 0 && (
 				<div className={s.pagination_wrapper}>
