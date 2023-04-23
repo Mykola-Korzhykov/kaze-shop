@@ -29,8 +29,6 @@ const Product = (data: SingleProductData): JSX.Element => {
     dispatch(initial({
         about: null,
         faq: null,
-        footer: data.footer,
-        logo: data.logo,
         mainPage: null,
         reviews: data.reviewsStrapi
     }))
@@ -46,7 +44,7 @@ const Product = (data: SingleProductData): JSX.Element => {
 
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const { data: category } = await axios.get<AllCategory[]>(API_URL + `/categories/get_categoties&products`);
+    const { data: category } = await axios.get<AllCategory[]>(API_URL + `/categories/get_categories&products`);
 
     const productId = category.flatMap((item) => {
         if (item.products.length) {

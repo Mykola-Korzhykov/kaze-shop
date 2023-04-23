@@ -1,84 +1,95 @@
 import { fetchGoodsByCategory } from '@/redux/slices/goods';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 import Link from 'next/link';
 import { HeaderLogo } from '../Header';
 import s from './Footer.module.scss';
-import { setHeaderCategory } from '@/redux/slices/goods';
+import { useEffect, useState } from 'react';
+import { StrapiAxios } from '@/services/strapiAxios';
+import { footersResT } from '@/types/mainPageRequest/footer';
 import { useRouter } from 'next/router';
+import { FooterFetchData } from './Footer.interface';
+import FormSpinner from '../screens/Order/FormSpinner/FormSpinner';
+
 const mokLinkData = [
 	[
 		{
-			name: 'Лосины',
+			text: 'Лосины',
 			link: '/catalog',
 			id: 1,
 		},
 		{
-			name: 'Сумки',
+			text: 'Сумки',
 			link: '/catalog',
-			id: 5,
+			id: 2,
 		},
 		{
-			name: 'Топы',
+			text: 'Топы',
 			link: '/catalog',
-			id: 10,
+			id: 3,
 		},
 	],
 	[
 		{
-			name: 'Повсегдневное белье',
-			link: '/catalog',
-			id: 8,
-		},
-		{
-			name: 'Велосипедки',
+			text: 'Повсегдневное белье',
 			link: '/catalog',
 			id: 4,
 		},
 		{
-			name: 'Костюмы',
+			text: 'Велосипедки',
 			link: '/catalog',
-			id: 12,
+			id: 5,
+		},
+		{
+			text: 'Костюмы',
+			link: '/catalog',
+			id: 6,
 		},
 	],
 	[
 		{
-			name: 'Доставка и возврат',
+			text: 'Доставка и возврат',
 			link: '/delivery',
-			id: 7312,
+			id: 7,
 		},
 		{
-			name: 'Про бренд',
+			text: 'Про бренд',
 			link: '/about',
-			id: 3123128,
+			id: 8,
 		},
 		{
-			name: 'FAQ',
+			text: 'FAQ',
 			link: '/faq',
-			id: 31239,
+			id: 9,
 		},
 	],
 ];
 
 const Footer = (): JSX.Element => {
-	const router = useRouter();
 	const dispatch = useAppDispatch();
-	const footer = useAppSelector((store) => store.strapiValues.footer);
-	const strapiSocial = footer.field.map((el) => {
-		const { id, link, text } = el;
-		return { id, link, name: text };
-	});
 
-	const linkArray = [...mokLinkData, strapiSocial];
+	const [footerData, setFooterData] = useState<null | FooterFetchData[]>(null);
+	const { locale } = useRouter();
+	const myLocale = locale === 'ua' ? 'uk' : locale;
 
-	const categoryHandler = (id: number, link: string) => {
-		if (link === '/catalog') {
-			dispatch(setHeaderCategory(id));
-			if (router.pathname === '/catalog') {
-				dispatch(fetchGoodsByCategory(id));
-			}
-			router.push('/catalog');
-		}
-	};
+	const linkArray = [...mokLinkData, footerData];
+
+	useEffect(() => {
+		StrapiAxios.get<footersResT>(
+			'/api/footers?populate=deep&locale=' + myLocale
+		)
+			.then((res) => {
+				const sanitatedData = [
+					res.data.data[0].attributes.field_1,
+					res.data.data[0].attributes.field_2,
+					res.data.data[0].attributes.field_3,
+				];
+				setFooterData(sanitatedData);
+			})
+			.catch((err) => {
+				setFooterData([]);
+				console.log(err);
+			});
+	}, []);
 
 	return (
 		<footer className={s.footer}>
@@ -88,37 +99,39 @@ const Footer = (): JSX.Element => {
 						<HeaderLogo />
 					</div>
 					<nav>
-						{linkArray.map((item, i) => {
-							return (
-								<div key={i}>
-									{item.map(({ name, link, id }, i) => {
-										if (name === '/catalog') {
+						{!footerData && <FormSpinner />}
+						{footerData &&
+							linkArray.map((item, i) => {
+								return (
+									<div key={i}>
+										{item.map(({ text, link, id }, i) => {
+											if (text === '/catalog') {
+												return (
+													<Link
+														href={link}
+														onClick={() => dispatch(fetchGoodsByCategory(id))}
+														key={i}
+													>
+														{text}
+													</Link>
+												);
+											}
+											if (['Instagram', 'Facebook', 'TikTok'].includes(text)) {
+												return (
+													<Link href={link} target="_blank" key={i}>
+														{text}
+													</Link>
+												);
+											}
 											return (
-												<Link
-													href={link}
-													onClick={() => categoryHandler(id, link)}
-													key={i}
-												>
-													{name}
+												<Link href={link} key={i}>
+													{text}
 												</Link>
 											);
-										}
-										if (['Instagram', 'Facebook', 'TikTok'].includes(name)) {
-											return (
-												<Link href={link} target="_blank" key={i}>
-													{name}
-												</Link>
-											);
-										}
-										return (
-											<Link href={link} key={i}>
-												{name}
-											</Link>
-										);
-									})}
-								</div>
-							);
-						})}
+										})}
+									</div>
+								);
+							})}
 					</nav>
 					<div className={s.footer_about}>
 						<div>© 2023 kazesport. Все права защищены</div>

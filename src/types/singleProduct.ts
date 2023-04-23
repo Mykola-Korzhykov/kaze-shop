@@ -1,11 +1,11 @@
-import { Field1 } from './mainPageRequest/footer';
+import { Field } from './mainPageRequest/footer';
 import { Image as StrapiImageData } from './mainPageRequest/reviews';
 
 export interface SingleProductData {
 	product: SingleProductRes;
 	reviewsStrapi: ReviewsStrapi;
 	footer: {
-		field: Field1[];
+		field: Field[];
 	};
 	logo: string;
 }
@@ -103,7 +103,7 @@ export const LoadStatus = {
 } as const;
 
 export interface FormLoadStatusType {
-	stepOne: typeof LoadStatus[keyof typeof LoadStatus];
-	stepTwo: typeof LoadStatus[keyof typeof LoadStatus];
+	stepOne: (typeof LoadStatus)[keyof typeof LoadStatus];
+	stepTwo: (typeof LoadStatus)[keyof typeof LoadStatus];
 	orderNum: null | number;
 }
