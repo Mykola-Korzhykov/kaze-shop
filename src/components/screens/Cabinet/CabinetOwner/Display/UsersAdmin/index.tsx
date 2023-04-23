@@ -110,6 +110,17 @@ export const UsersAdmin: React.FC = () => {
 				</div>
 			)}
 
+			{usersAdminStatus === 'pending' && (
+				<div className={s.spinner_wrapper}>
+					<div className={s.spinner_title}>Загрузка пользователей</div>
+					<div className={s.spinner}>
+						<div className={s.bounce1}></div>
+						<div className={s.bounce2}></div>
+						<div className={s.bounce3}></div>
+					</div>
+				</div>
+			)}
+
 			{usersAdminStatus === 'success' && usersAdminUI.length > 0 && (
 				<div className={s.pagination_wrapper}>
 					{paginationLendthAdmin.map((el) => {
