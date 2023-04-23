@@ -1,12 +1,24 @@
-import { useAppSelector } from '@/redux/hooks'
 import cl from './Header.module.scss'
 import Link from 'next/link'
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
+import { StrapiAxios } from '@/services/strapiAxios'
+import { LogoResT } from '@/types/mainPageRequest/logo'
+import { useRouter } from 'next/router'
+import FormSpinner from '../screens/Order/FormSpinner/FormSpinner'
 const HeaderLogo: FC = () => {
-	const logo = useAppSelector(store => store.strapiValues.logo);
+	const [logo, setLogo] = useState<null | string>(null);
+	const { locale } = useRouter();
+	const myLocale = locale === 'ua' ? 'uk' : locale
+
+	useEffect(() => {
+		StrapiAxios.get<LogoResT>('/api/logos?populate=deep&locale=' + myLocale)
+			.then(res => setLogo(res.data.data[0].attributes.logo))
+			.catch(err => setLogo('Kaze Shop'));
+	}, []);
+
 	return (
 		<Link href={'/'} className={cl.header__logo}>
-			{logo}
+			{logo ? logo : <FormSpinner />}
 		</Link>
 	)
 }

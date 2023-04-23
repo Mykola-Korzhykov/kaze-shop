@@ -1,7 +1,13 @@
 import { User } from '@/types/auth';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { Api } from '@/services';
-import { Goods, CartProduct, UserOrders } from '@/types/goods';
+import {
+	Goods,
+	CartProduct,
+	UserOrders,
+	CartProductItem,
+	UserOrderItems,
+} from '@/types/goods';
 import { RootState } from '../store';
 
 type UserSLice = {
@@ -13,6 +19,13 @@ type UserSLice = {
 	orders: UserOrders | null;
 	leftCarts: CartProduct[];
 	isSavedProductsTab: boolean;
+	cartItemsModal: {
+		cartProducts: CartProductItem[];
+		totalPrice: string;
+		id: number;
+		createdAt?: string;
+		cartStatus?: 'Canceled' | 'Submitted' | 'Completed' | 'Processing' | 'Paid';
+	} | null;
 };
 
 const initialState: UserSLice = {
@@ -24,6 +37,7 @@ const initialState: UserSLice = {
 	orders: null,
 	leftCarts: [],
 	isSavedProductsTab: false,
+	cartItemsModal: null,
 };
 
 const getSavedProducts = (state: RootState) => state.user.savedProducts;
@@ -64,12 +78,25 @@ export const getUserWatchedProducts = createAsyncThunk<
 });
 
 export const getUserOrders = createAsyncThunk<
-	{ cart: UserOrders },
+	UserOrders,
 	null,
 	{ rejectValue: string }
 >('user/getUserOrders', async (_, { rejectWithValue }) => {
 	try {
 		const data = await Api().user.getOrders();
+		return data;
+	} catch (e) {
+		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+	}
+});
+
+export const getUserOrderBasket = createAsyncThunk<
+	UserOrderItems,
+	number,
+	{ rejectValue: string }
+>('user/getUserOrderBasket', async (orderId: number, { rejectWithValue }) => {
+	try {
+		const data = await Api().user.getOrderBasket(orderId);
 		return data;
 	} catch (e) {
 		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
@@ -107,6 +134,17 @@ const userSLice = createSlice({
 				(el) => el.id !== action.payload
 			);
 		},
+		setCartItemsModal(
+			state,
+			action: PayloadAction<{
+				cartProducts: CartProductItem[];
+				totalPrice: string;
+				id: number;
+				createdAt: string;
+			}>
+		) {
+			state.cartItemsModal = action.payload;
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(getUserSavedProducts.fulfilled, (state, action) => {
@@ -133,10 +171,26 @@ const userSLice = createSlice({
 			state.loadingStatus = 'loading';
 		});
 		builder.addCase(getUserOrders.fulfilled, (state, action) => {
-			state.orders = action.payload.cart;
+			state.orders = action.payload;
 			state.loadingStatus = 'idle';
 		});
 		builder.addCase(getUserOrders.rejected, (state, action) => {
+			state.loadingStatus = 'error';
+		});
+		builder.addCase(getUserOrderBasket.pending, (state, action) => {
+			state.loadingStatus = 'loading';
+		});
+		builder.addCase(getUserOrderBasket.fulfilled, (state, action) => {
+			const productBasket = action.payload;
+			state.cartItemsModal = {
+				cartProducts: productBasket?.orderProducts,
+				cartStatus: productBasket?.orderStatus,
+				id: productBasket?.id,
+				totalPrice: productBasket?.totalPrice,
+			};
+			state.loadingStatus = 'idle';
+		});
+		builder.addCase(getUserOrderBasket.rejected, (state, action) => {
 			state.loadingStatus = 'error';
 		});
 		builder.addCase(getUserLeftCarts.pending, (state, action) => {
@@ -160,6 +214,7 @@ export const {
 	setAuthState,
 	setIsSavedProductsTab,
 	deleteSavedProduct,
+	setCartItemsModal,
 } = userSLice.actions;
 
 export default userSLice.reducer;

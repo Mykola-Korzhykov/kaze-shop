@@ -31,6 +31,12 @@ const CatalogItems = () => {
 			) : (
 				<div className={s.wrapper}>{renderGoods(goods)}</div>
 			)}
+			{/* <div className={s.wrapper}>
+				<CatalogItem />
+				<CatalogItem />
+				<CatalogItem />
+				<CatalogItem />
+			</div> */}
 		</>
 	);
 };

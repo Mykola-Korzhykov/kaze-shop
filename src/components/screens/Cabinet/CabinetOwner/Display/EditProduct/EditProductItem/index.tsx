@@ -84,6 +84,11 @@ export const EditProductItem = ({
 				colourId?: number;
 		  }[]
 	>(null);
+	const [sizeWindow, setSizeWindow] = React.useState<number>(0);
+
+	React.useEffect(() => {
+		setSizeWindow(window.innerWidth);
+	}, []);
 	const deleteImageObj = (elObj: any) => {
 		// console.log('allElements', allEditsImages);
 		// console.log('el that delete', elObj);
@@ -193,8 +198,6 @@ export const EditProductItem = ({
 		dispatch(setQuantity(Number(payloadQ)));
 
 		//price
-
-		
 
 		dispatch(setPrice(Number(activeProduct?.price)));
 
@@ -450,19 +453,24 @@ export const EditProductItem = ({
 							title: 'Товар успешно отредактирован',
 							subtitle: '',
 							btntitle: 'Готово',
+							spiner: false,
+							bottom:
+								sizeWindow < 500
+									? -1350
+									: sizeWindow < 900
+									? -1550
+									: sizeWindow > 1079
+									? 0
+									: sizeWindow > 1049
+									? 20
+									: sizeWindow > 899
+									? 950
+									: 1,
 						})
 					);
 					setTimeout(() => {
 						dispatch(setActiveProduct(null));
 						dispatch(setEditProductItemId(-1));
-						dispatch(
-							setProductForm({
-								turn: false,
-								title: 'Товар успешно отредактирован',
-								subtitle: '',
-								btntitle: 'Готово',
-							})
-						);
 					}, 2000);
 				}
 			})
@@ -473,6 +481,19 @@ export const EditProductItem = ({
 						title: 'Ошибка редактирования товара',
 						subtitle: '',
 						btntitle: 'Закрити',
+						spiner: false,
+						bottom:
+							sizeWindow < 500
+								? -1350
+								: sizeWindow < 900
+								? -1550
+								: sizeWindow > 1079
+								? 0
+								: sizeWindow > 1049
+								? 20
+								: sizeWindow > 899
+								? 950
+								: 1,
 					})
 				);
 			});
@@ -517,8 +538,7 @@ export const EditProductItem = ({
 
 	// const [arrPhotos, setArrPhotos] = React.useState<any>([...userEdit.images])
 	// console.log('arrPhotos', arrPhotos)
-	
-	
+
 	const inputs = [
 		{
 			id: 0,

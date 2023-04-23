@@ -10,13 +10,14 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { selectUserInfo } from '@/redux/slices/user';
 import { useRouter } from 'next/router';
 import { addUserInfo } from '@/redux/slices/user';
-import Spinner from '@/components/Spinner/Spinner';
+import { setLoadingStatus } from '@/redux/slices/goods';
 const ChangeUserInfo = () => {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const userInfo = useAppSelector(selectUserInfo);
 	const [errorMessage, setErrorMessage] = useState<string>('');
 	const [requestLoading, setRequestLoading] = useState<boolean>(false);
+
 	const changeUserInfoForm = useForm<ChangeUserInfoDto>({
 		mode: 'onChange',
 		resolver: yupResolver(ChangeUserInfoShema),
@@ -32,6 +33,7 @@ const ChangeUserInfo = () => {
 	const onSubmit = async (dto: ChangeUserInfoDto) => {
 		try {
 			setRequestLoading(true);
+
 			const data = await Api().user.changeInfo(dto);
 			setCookie(null, 'accessToken', data?.accessToken, {
 				maxAge: 30 * 24 * 60 * 60,
@@ -44,9 +46,11 @@ const ChangeUserInfo = () => {
 			}
 			setErrorMessage('Успішно змінено профіль');
 			setRequestLoading(false);
+			dispatch(setLoadingStatus('idle'));
 		} catch (err) {
 			setRequestLoading(false);
-			if (err.response) {
+			dispatch(setLoadingStatus('error'));
+			if (err?.response) {
 				setErrorMessage(err?.response?.data?.message);
 			} else {
 				router.push('/404');
@@ -56,7 +60,6 @@ const ChangeUserInfo = () => {
 
 	return (
 		<>
-			{requestLoading && <Spinner />}
 			<form
 				onSubmit={changeUserInfoForm.handleSubmit(onSubmit)}
 				className={cl.cabinet_tabcontent}
@@ -140,20 +143,22 @@ const ChangeUserInfo = () => {
 						{changeUserInfoForm.formState.errors.postOffice &&
 							changeUserInfoForm.formState.errors.postOffice.message}
 					</span>
-				</div>
-
-				<button
-					disabled={requestLoading}
-					className={cl.cabinet_btn}
-					type="submit"
-				>
-					{requestLoading ? 'Loading..' : 'Cохранить'}
-				</button>
-				{errorMessage && (
 					<div>
-						<p className="auth_error">{errorMessage}</p>
+						{errorMessage && (
+							<div>
+								<p className="auth_error">{errorMessage}</p>
+							</div>
+						)}
+
+						<button
+							disabled={requestLoading}
+							className={cl.cabinet_btn}
+							type="submit"
+						>
+							{requestLoading ? 'Loading..' : 'Cохранить'}
+						</button>
 					</div>
-				)}
+				</div>
 			</form>
 		</>
 	);

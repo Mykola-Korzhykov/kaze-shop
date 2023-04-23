@@ -11,7 +11,11 @@ const ErrorPage: NextPage = () => {
 			event.preventDefault();
 			navigator.sendBeacon(
 				API_URL + '/orders/send_cart',
-				JSON.stringify({ userEmail: '', orderId: 2313123123, locale: locale })
+				JSON.stringify({
+					userEmail: JSON.parse(sessionStorage.getItem('userEmail')),
+					orderId: JSON.parse(sessionStorage.getItem('orderId')),
+					locale: locale,
+				})
 			);
 		};
 

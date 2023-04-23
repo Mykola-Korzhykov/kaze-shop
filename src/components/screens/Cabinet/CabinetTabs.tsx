@@ -15,7 +15,7 @@ import {
 	getUserWatchedProducts,
 	setIsSavedProductsTab,
 } from '@/redux/slices/user';
-import CabinetOrdersModal from '@/components/UserCabinet/CabinetOrdersModal';
+import CabinetOrdersModal from '@/components/UserCabinet/CabinetOrdersModal/CabinetOrdersModal';
 const CabinetTabs: FC = () => {
 	const [selectedTab, setSelectedTab] = React.useState<number | null>(1);
 	const [showModal, setShowModal] = React.useState<boolean>(false);
@@ -116,9 +116,8 @@ const CabinetTabs: FC = () => {
 		<>
 			{showModal && (
 				<CabinetOrdersModal
+					ordersTabActive={selectedTab === 3 ? true : false}
 					setShowModal={setShowModal}
-					title="Заказ №2358"
-					description="Статус заказа: доставлено 23.08.2022"
 				/>
 			)}
 			<div className={cl.cabinet_contentWrapper}>

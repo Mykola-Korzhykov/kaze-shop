@@ -61,9 +61,9 @@ const Catalog: FC = () => {
 						</>
 					)}
 					{/* <CatalogHeader />
-							{filtersOpened && <CatalogFilters />}
-							<CatalogItems />
-							<CatalogPagination /> */}
+					{filtersOpened && <CatalogFilters />}
+					<CatalogItems />
+					<CatalogPagination /> */}
 				</div>
 			</main>
 		</CatalogContext.Provider>

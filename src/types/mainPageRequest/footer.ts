@@ -13,25 +13,13 @@ export interface Attributes {
 	updatedAt: string;
 	publishedAt: string;
 	locale: string;
-	field_1: Field1;
-	field_2: Field2;
-	field_3: Field3;
+	field_1: Field;
+	field_2: Field;
+	field_3: Field;
 	localizations: Localizations;
 }
 
-export interface Field1 {
-	id: number;
-	text: string;
-	link: string;
-}
-
-export interface Field2 {
-	id: number;
-	text: string;
-	link: string;
-}
-
-export interface Field3 {
+export interface Field {
 	id: number;
 	text: string;
 	link: string;

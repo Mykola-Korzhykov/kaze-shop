@@ -82,9 +82,9 @@ const Main = (): JSX.Element => {
     return (
         <div>
             <BuyProducts />
-            {productPackTwo.length && <Slider items={productPackTwo} title={productPackTwo[0].categories[0].ua} />}
+            {productPackOne.length > 0 && productPackOne.length && <Slider items={productPackOne} title={productPackOne[0].categories[0].ua} />}
             <About />
-            {productPackOne.length && <Slider items={productPackOne} title={productPackOne[0].categories[0].ua} />}
+            {productPackTwo.length > 0 && productPackTwo.length && <Slider items={productPackTwo} title={productPackTwo[0].categories[0].ua} />}
             <Reviews />
             <FAQ />
             <Footer/>

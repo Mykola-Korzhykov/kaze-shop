@@ -14,6 +14,7 @@ import { Goods, sendProductToCart } from '@/types/goods';
 import { useRouter } from 'next/router';
 import catalogImg from '../../../../assets/images/catalogItem.png';
 import catalogImg2 from '../../../../assets/images/catalogImg2.png';
+
 import { Api } from '@/services';
 interface ICatalogItemProps {
 	product?: Goods;
@@ -123,7 +124,9 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 				</div>
 			</Link>
 			<div>
-				<p className={s.title}>{product?.title?.ua ?? 'Title'}</p>
+				<p className={s.title}>
+					{product?.title?.ua.substring(0, 22) ?? 'Title'}
+				</p>
 				<span className={s.price}>{product?.price ?? '0$'}</span>
 			</div>
 			<div className={s.footer}>
@@ -132,7 +135,11 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 				</button>
 				<button
 					onClick={saveButtonHandler}
-					className={isSavedProductsTab ? s.footer_iconActive : s.footer_icon}
+					className={
+						isSavedProductsTab || product?.isSaved
+							? s.footer_iconActive
+							: s.footer_icon
+					}
 				></button>
 			</div>
 		</div>

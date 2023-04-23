@@ -7,11 +7,14 @@ import statusSubmitted from '../../../assets/icons/cabinetTabs/cabinetCartStatus
 import statusCanceled from '../../../assets/icons/cabinetTabs/cabinetCartStatusCanceled.svg';
 import statusCompleted from '../../../assets/icons/cabinetTabs/cabinetCartStatusCompleted.svg';
 import statusProcessing from '../../../assets/icons/cabinetTabs/cabinetCartStatusInProcess.svg';
+import { useAppDispatch } from '@/redux/hooks';
 import { OrderItem } from '@/types/goods';
+import { getUserOrderBasket } from '@/redux/slices/user';
 const OrderHisrtoryItem: FC<{
 	product: OrderItem;
 	setShowModal: (state: boolean) => void;
 }> = ({ product, setShowModal }) => {
+	const dispatch = useAppDispatch();
 	const [imageStatusSrc, setImageStatucSrc] = useState<string | null>(null);
 	const [statusText, setStatusText] = useState<string>('в обработке');
 
@@ -35,6 +38,11 @@ const OrderHisrtoryItem: FC<{
 
 		renderImageSrc();
 	}, []);
+
+	const modalHandler = () => {
+		dispatch(getUserOrderBasket(product?.id));
+		setShowModal(true);
+	};
 	return (
 		<div className={s.cart}>
 			<div className={s.cart_imgWrapper}>
@@ -62,7 +70,7 @@ const OrderHisrtoryItem: FC<{
 					<p className={s.cart_price}>{product?.totalPrice}</p>
 				</div>
 				<Image
-					onClick={() => setShowModal(true)}
+					onClick={modalHandler}
 					src={showMoreIcon}
 					width={32}
 					height={32}

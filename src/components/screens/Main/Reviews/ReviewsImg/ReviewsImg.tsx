@@ -1,6 +1,7 @@
 import { useAppSelector } from '@/redux/hooks';
 import s from './reviewsImg.module.scss';
 import Image from 'next/image';
+import { STRAPI_API_URL } from '@/services';
 
 
 const ReviewsImg = (): JSX.Element => {
@@ -9,7 +10,7 @@ const ReviewsImg = (): JSX.Element => {
     return (
 
         <div className={s.review_img}>
-            <Image src={process.env.NEXT_STRAPI_URL + image.data?.attributes.url}
+            <Image src={STRAPI_API_URL + image.data.attributes.url}
                 width={image.data?.attributes.width}
                 height={image.data?.attributes.height}
                 alt="woman photo" quality={100} />

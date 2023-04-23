@@ -1,6 +1,6 @@
 import { Button, Image } from './about';
 import { Field } from './faq';
-import { Field1 } from './footer';
+import { Field as footerField } from './footer';
 import { Product } from './lastAddedProduct';
 import { MainField } from './mainPage';
 
@@ -16,10 +16,6 @@ export type strapiValuesTypes = {
 		image: Image;
 		title: string;
 	};
-	footer: null | {
-		field: Field1[];
-	};
-	logo: null | string;
 	reviews: null | {
 		image: Image;
 		title: string;

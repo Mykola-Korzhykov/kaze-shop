@@ -10,8 +10,9 @@ export type ApiReturnType = {
 	user: ReturnType<typeof UserApi>;
 	goods: ReturnType<typeof GoodsApi>;
 };
-export const API_URL = 'https://api.kaze-shop.online';
-// export const API_URL = 'http://localhost:7457';
+// export const API_URL = 'https://api.kaze-shop.online';
+export const STRAPI_API_URL = 'http://localhost:1337';
+export const API_URL = 'http://localhost:7457';
 
 
 export const Api = (

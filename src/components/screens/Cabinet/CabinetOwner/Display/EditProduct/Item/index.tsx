@@ -28,7 +28,11 @@ export const Item = ({
 }: ItemPropsType) => {
 	console.log('photo', photo);
 	// const photoString = URL.createObjectURL(photo)
+	const [sizeWindow, setSizeWindow] = React.useState<number>(0);
 
+	React.useEffect(() => {
+		setSizeWindow(window.innerWidth);
+	}, []);
 	const dispatch = useAppDispatch();
 
 	const deleteProduct = async () => {
@@ -41,6 +45,19 @@ export const Item = ({
 						title: 'Товар успешно удален',
 						subtitle: '',
 						btntitle: 'Готово',
+						spiner: false,
+						bottom:
+							sizeWindow < 500
+								? -1350
+								: sizeWindow < 900
+								? -1550
+								: sizeWindow > 1079
+								? 0
+								: sizeWindow > 1049
+								? 20
+								: sizeWindow > 899
+								? 950
+								: 1,
 					})
 				);
 			}
@@ -51,6 +68,19 @@ export const Item = ({
 					title: 'Ошибка при удалении товара',
 					subtitle: 'e?.response?.data?.message',
 					btntitle: 'Ок',
+					spiner: false,
+					bottom:
+						sizeWindow < 500
+							? -1350
+							: sizeWindow < 900
+							? -1550
+							: sizeWindow > 1079
+							? 0
+							: sizeWindow > 1049
+							? 20
+							: sizeWindow > 899
+							? 950
+							: 1,
 				})
 			);
 		}

@@ -4,13 +4,14 @@ import Image from 'next/image';
 import cartImage from '../../../assets/images/cartItem.png';
 import showMoreIcon from '../../../assets/icons/cabinetTabs/catabinetCartShowMore.svg';
 import { CartProduct } from '@/types/goods';
-
+import { useAppDispatch } from '@/redux/hooks';
+import { setCartItemsModal } from '@/redux/slices/user';
 const ForgottenBasketsItem: FC<{
 	product: CartProduct;
 	setShowModal: (state: boolean) => void;
 }> = ({ product, setShowModal }) => {
 	const [dateBasketCreated, setDateBasketCreated] = useState<string>('-');
-
+	const dispatch = useAppDispatch();
 	useEffect(() => {
 		function printDateStatus() {
 			const today = new Date();
@@ -33,6 +34,18 @@ const ForgottenBasketsItem: FC<{
 		}
 		printDateStatus();
 	}, []);
+
+	const modalHandler = () => {
+		dispatch(
+			setCartItemsModal({
+				cartProducts: product?.cartProducts,
+				totalPrice: product?.totalPrice,
+				id: product?.id,
+				createdAt: dateBasketCreated
+			})
+		);
+		setShowModal(true)
+	};
 	return (
 		<div className={s.cart}>
 			<div className={s.cart_imgWrapper}>
@@ -55,7 +68,7 @@ const ForgottenBasketsItem: FC<{
 					<p className={s.cart_price}>{product?.cartProducts?.[0]?.price}</p>
 				</div>
 				<Image
-					onClick={() => setShowModal(true)}
+					onClick={modalHandler}
 					src={showMoreIcon}
 					width={32}
 					height={32}
