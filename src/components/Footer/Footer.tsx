@@ -1,5 +1,5 @@
 import { fetchGoodsByCategory } from '@/redux/slices/goods';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 import Link from 'next/link';
 import { HeaderLogo } from '../Header';
 import s from './Footer.module.scss';
@@ -66,7 +66,6 @@ const mokLinkData = [
 
 const Footer = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  // const footer = useAppSelector(store => store.strapiValues.footer)
 
 
   const [footerData, setFooterData] = useState<null | FooterFetchData[]>(null);
@@ -78,7 +77,7 @@ const Footer = (): JSX.Element => {
   const linkArray = [...mokLinkData, footerData];
 
   useEffect(() => {
-    StrapiAxios.get<footersResT>('/api/footers?populate=deep&locale=' + myLocale)
+    StrapiAxios.get<footersResT>('/apsi/footers?populate=deep&locale=' + myLocale)
       .then(res => {
         const sanitatedData = [
           res.data.data[0].attributes.field_1,
@@ -87,7 +86,10 @@ const Footer = (): JSX.Element => {
         ];
         setFooterData(sanitatedData)
       })
-      .catch(err => { }); //setFooterData('Kaze Shop')
+      .catch(err => {
+        setFooterData([]);
+        console.log(err);
+      });
   }, []);
 
 

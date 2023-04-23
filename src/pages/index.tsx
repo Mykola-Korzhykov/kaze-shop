@@ -6,7 +6,6 @@ import { GetStaticProps } from 'next';
 import { ReviewsResT } from '@/types/mainPageRequest/reviews';
 import { AboutResT } from '@/types/mainPageRequest/about';
 import { FaqResT } from '@/types/mainPageRequest/faq';
-import { footersResT } from '@/types/mainPageRequest/footer';
 import { MainPageResT } from '@/types/mainPageRequest/mainPage';
 import { useAppDispatch } from '@/redux/hooks';
 import { StrapiAxios } from '@/services/strapiAxios';

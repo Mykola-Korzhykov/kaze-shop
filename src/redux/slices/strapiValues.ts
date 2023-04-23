@@ -1,6 +1,4 @@
-import { StrapiAxios } from '@/services/strapiAxios';
 import { strapiValuesTypes } from '@/types/mainPageRequest';
-import { LogoResT } from '@/types/mainPageRequest/logo';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: strapiValuesTypes = {
