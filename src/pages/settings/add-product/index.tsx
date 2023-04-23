@@ -80,10 +80,6 @@ const AdminSettings: NextPage = () => {
 					></div>
 				)}
 
-				{/* { modalAddColorTurn &&
-                    <div className={s.backround_for_modal}> r</div>
-                } */}
-
 				<div className={s.container}>
 					<div className="page_coordinator">
 						<Link href="/cabinet">.../Личный кабинет |</Link>{' '}

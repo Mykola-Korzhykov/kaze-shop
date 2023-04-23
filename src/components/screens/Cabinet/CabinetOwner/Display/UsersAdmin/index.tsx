@@ -25,12 +25,6 @@ export const UsersAdmin: React.FC = () => {
 
 	const dispatch = useAppDispatch();
 
-	// get users
-	// React.useEffect(() => {
-	// 	// console.log('пошел запрос1111')
-	// 	dispatch(getUsersAdmin(activePaginatoinAdmin));
-	// }, [activePaginatoinAdmin]);
-
 	React.useEffect(() => {
 		let countAdminPagination = Math.ceil(usersAdminUI.length / 10);
 		let arrAdminPagination: number[] = [];
@@ -58,7 +52,6 @@ export const UsersAdmin: React.FC = () => {
 								debouncedSearchAdmin(
 									e.target.value.toLowerCase().split(' ').join(',')
 								);
-								//console.log('debouncedSearchAdmin', e.target.value.toLowerCase().split(' ').join(','))
 							}
 						}}
 						className={s.input}
