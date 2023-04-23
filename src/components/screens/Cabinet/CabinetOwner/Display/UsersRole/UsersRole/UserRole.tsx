@@ -15,6 +15,7 @@ import {
 	getUsersAdmin,
 	getUsersRole,
 } from '../../../../../../../redux/slices/admin';
+import { setProductForm } from '@/redux/slices/modal';
 // import { useWhyDidYouUpdate } from 'ahooks';
 
 interface UserProps {
@@ -50,6 +51,11 @@ export const UserRole: React.FC<UserProps> = ({
 	const [activeCheckbox, setSctiveCheckbox] = React.useState<number | null>(
 		null
 	);
+	const [sizeWindow, setSizeWindow] = React.useState<number>(0);
+
+	React.useEffect(() => {
+		setSizeWindow(window.innerWidth);
+	}, []);
 
 	const [UserRole, setUserRole] = React.useState<{
 		addContent: boolean;
@@ -97,10 +103,75 @@ export const UserRole: React.FC<UserProps> = ({
 				[role]: bool,
 			})
 
-			.then((response) => {})
+			.then((response) => {
+				if (response && response.status === 201)
+					dispatch(
+						setProductForm({
+							turn: true,
+							title: 'Пользователь успешно изменен',
+							subtitle: `Нажмите 'готово' чтобы продолжить`,
+							btntitle: 'готово',
+							spiner: false,
+							bottom:
+								sizeWindow < 500
+									? -10
+									: sizeWindow < 900
+									? -55
+									: sizeWindow > 1079
+									? 150
+									: sizeWindow > 1045
+									? 150
+									: sizeWindow > 899
+									? 350
+									: 1,
+						})
+					);
+			})
 			.catch((error) => {
-				console.error('Error updating user admin:', error);
+				dispatch(
+					setProductForm({
+						turn: true,
+						title: 'Error',
+						subtitle: `Error: ${error}`,
+						btntitle: 'ok',
+						spiner: false,
+						bottom:
+							sizeWindow < 500
+								? -10
+								: sizeWindow < 900
+								? -55
+								: sizeWindow > 1079
+								? 150
+								: sizeWindow > 1045
+								? 150
+								: sizeWindow > 899
+								? 350
+								: 1,
+					})
+				);
 			});
+		console.log('sizeWindow', sizeWindow);
+		dispatch(
+			setProductForm({
+				turn: true,
+				title: 'Загрузка...',
+				subtitle: 'Изменения пользователя',
+				btntitle: 'ok',
+				spiner: true,
+				bottom:
+					sizeWindow < 500
+						? -10
+						: sizeWindow < 900
+						? -55
+						: sizeWindow > 1079
+						? 150
+						: sizeWindow > 1045
+						? 150
+						: sizeWindow > 899
+						? 350
+						: 1,
+			})
+		);
 	}
 
 	return (

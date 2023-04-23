@@ -3,7 +3,6 @@ import Image from 'next/image';
 import ArrowUser from '../../../../../../../assets/icons/ArrowUser.svg';
 import s from './UserAdmin.module.scss';
 //icons
-// import userIcone from '../../../../../../../../../';
 import userIcone from '../../../../../../../assets/icons/User/user_icon.svg';
 import phoneIcone from '../../../../../../../assets/icons/User/phone_icon.svg';
 import emailIcone from '../../../../../../../assets/icons/User/email_icon.svg';
@@ -50,14 +49,11 @@ export const UserAdmin: React.FC<UserProps> = ({
 	surname,
 	name,
 }) => {
-	// const [openUserMy, setOpenUserMy] = React.useState<boolean>(false)
 	const openUser = id === idUserOpen ? true : false;
 
-	// console.log(`check user editContent${id}`, addContent )
 	const localUser = useSelector(
 		(state: RootState) => state.admin.usersRole[id - 1]
 	);
-	// console.log('UserAdminfekfekflkwefnwklenrflwerfnwlenfklnelfnlkenklfnklenrfnwelnflkernfnweklnklenflknwkfnwkfr')
 
 	const [activeCheckbox, setSctiveCheckbox] = React.useState<number | null>(
 		null
@@ -86,8 +82,6 @@ export const UserAdmin: React.FC<UserProps> = ({
 		editWebsite: editWebsite,
 	});
 
-	//  console.log('UserAdmin', UserAdmin)
-
 	function changeUserAdmin(role: string, bool: boolean) {
 		setUserAdmin({
 			...UserAdmin,
@@ -103,7 +97,6 @@ export const UserAdmin: React.FC<UserProps> = ({
 	}, []);
 
 	function sendUserAdmin() {
-		// console.log('clickfnnfnfnfnnfnfnffnfnnfnfnfnfnnfnfnfnfnnfnfnnfnfnfnnfnnfnfnfnfnfnfnfn')
 		const cookies = parseCookies();
 		const token = cookies.accessToken;
 
@@ -118,27 +111,71 @@ export const UserAdmin: React.FC<UserProps> = ({
 			.patch('/admin/update_admin', {
 				...UserAdmin,
 			})
-			.then(() => {})
+			.then((res) => {
+				if (res && res.status == 201) {
+					dispatch(
+						setProductForm({
+							turn: true,
+							title: 'Пользователь успешно изменен',
+							subtitle: `Нажмите 'готово' чтобы продолжить`,
+							btntitle: 'Готово',
+							spiner: false,
+							bottom:
+								sizeWindow < 500
+									? -10
+									: sizeWindow < 900
+									? 0
+									: sizeWindow > 1079
+									? 170
+									: sizeWindow > 1045
+									? 170
+									: sizeWindow > 899
+									? 380
+									: 1,
+						})
+					);
+				}
+			})
 			.catch((error) => {
-				console.error('Error while updating user role:', error);
+				dispatch(
+					setProductForm({
+						turn: true,
+						title: 'Error',
+						subtitle: `Error: ${error}`,
+						btntitle: 'Ok',
+						spiner: false,
+						bottom:
+							sizeWindow < 500
+								? -10
+								: sizeWindow < 900
+								? 0
+								: sizeWindow > 1079
+								? 350
+								: sizeWindow > 1045
+								? 350
+								: sizeWindow > 899
+								? 550
+								: 1,
+					})
+				);
 			});
 
 		dispatch(
 			setProductForm({
 				turn: true,
 				title: 'Загрузка...',
-				subtitle: 'Цвет создается',
-				btntitle: 'Ok',
+				subtitle: 'Изменения пользователя',
+				btntitle: 'ok',
 				spiner: true,
 				bottom:
 					sizeWindow < 500
-						? -750
+						? -10
 						: sizeWindow < 900
-						? -800
+						? 0
 						: sizeWindow > 1079
-						? 450
-						: sizeWindow > 1049
-						? 550
+						? 350
+						: sizeWindow > 1045
+						? 350
 						: sizeWindow > 899
 						? 550
 						: 1,
@@ -191,21 +228,11 @@ export const UserAdmin: React.FC<UserProps> = ({
 				}
 			>
 				<div className={s.checkbox_wrapper_first}>
-					{/* <label htmlFor={`makeAdmin${id}`} className={s.checkbox_wrapper}>
-                        <input onClick={() => setSctiveCheckbox(1)} id={`makeAdmin${id}`} className={s.checkbox} type="checkbox" />
-                        <span className={s.checkbox_label}>
-                            <Image className={s.checkbox_icon} src={checkbox_icon} alt='checkbox_icon' />
-                        </span>
-                        <span className={s.checkbox_text}> Сделать администратором</span>
-                    </label> */}
-
 					<label htmlFor={`editContent${id}`} className={s.checkbox_wrapper}>
 						<input
 							checked={UserAdmin.editContent ? true : false}
 							onChange={() => {
 								changeUserAdmin('editContent', !UserAdmin.editContent);
-								// setSctiveCheckbox(2)
-								// dispatch(setChangeCheckbox({id: id, branch: 'editContent', bool: !UserAdmin.editContent }))
 							}}
 							id={`editContent${id}`}
 							className={s.checkbox}
@@ -228,9 +255,6 @@ export const UserAdmin: React.FC<UserProps> = ({
 							checked={UserAdmin.addContent ? true : false}
 							onChange={() => {
 								changeUserAdmin('addContent', !UserAdmin.addContent);
-								// setUserAdmin(prevState => ({ ...prevState, ['addContent']: !prevState.addContent }))
-								// dispatch(setChangeCheckbox({id: id, branch: 'addContent', bool: !UserAdmin.addContent }))
-								// setSctiveCheckbox(3)
 							}}
 							id={`addContent${id}`}
 							className={s.checkbox}
@@ -251,9 +275,6 @@ export const UserAdmin: React.FC<UserProps> = ({
 							checked={UserAdmin.editWebsite ? true : false}
 							onChange={() => {
 								changeUserAdmin('editWebsite', !UserAdmin.editWebsite);
-								//setUserAdmin(prevState => ({ ...prevState, ['editWebSite']: !prevState.editWebSite }))
-								// dispatch(setChangeCheckbox({id: id, branch: 'editWebSite', bool: !UserAdmin.editWebSite }))
-								// setSctiveCheckbox(4)
 							}}
 							id={`editWebsite${id}`}
 							className={s.checkbox}
@@ -274,8 +295,6 @@ export const UserAdmin: React.FC<UserProps> = ({
 							checked={UserAdmin.isAdmin ? true : false}
 							onChange={() => {
 								changeUserAdmin('isAdmin', !UserAdmin.isAdmin);
-								//    console.log(`user ${id}`, !UserAdmin.isAdmin)
-								//    dispatch(setChangeCheckbox({id: id, branch: 'isAdmin', bool: !UserAdmin.isAdmin }))
 							}}
 							onClick={() => setSctiveCheckbox(1)}
 							id={`isAdmin${id}`}
@@ -291,19 +310,10 @@ export const UserAdmin: React.FC<UserProps> = ({
 						</span>
 						<span className={s.checkbox_text}> Сделать администратором</span>
 					</label>
-
-					{/* <label htmlFor={`editSite${id}`} className={s.checkbox_wrapper}>
-                        <input onClick={() => setSctiveCheckbox(4)} id={`editSite${id}`} className={s.checkbox} type="checkbox" />
-                        <span className={s.checkbox_label}>
-                            <Image className={s.checkbox_icon} src={checkbox_icon} alt='checkbox_icon' />
-                        </span>
-                        <span className={s.checkbox_text}> Редактирование сайта</span>
-                    </label> */}
 				</div>
 
 				<div
 					onClick={(e) => {
-						//  console.log('UserAdmin', UserAdmin)
 						e.preventDefault();
 						e.stopPropagation();
 						setUserOpenOK(id);
