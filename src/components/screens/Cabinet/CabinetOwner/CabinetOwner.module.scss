@@ -91,16 +91,17 @@
 
 //module window
 
-.backround_for_modal {
-	width: calc(150vw + 1100px);
-	top: -200px;
-	height: 120%;
-	left: -1100px;
-	background-color: black;
-	opacity: 0.25;
-	position: absolute;
-	z-index: 501;
-}
+// .backround_for_modal {
+// 	width: calc(150vw + 1100px);
+// 	top: -200px;
+// 	// height: 100vh;
+// 	height: 130%;
+// 	left: -1100px;
+// 	background-color: black;
+// 	opacity: 0.25;
+// 	position: absolute;
+// 	z-index: 501;
+// }
 
 .backround_module {
 	position: absolute;
@@ -112,6 +113,14 @@
 	// height: 180vh;
 	width: 100vw;
 
+	background: #0b0b0b;
+	opacity: 0.25;
+}
+
+.backround_for_modal {
+	position: absolute;
+	width: 100%;
+	height: 100%;
 	background: #0b0b0b;
 	opacity: 0.25;
 }

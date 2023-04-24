@@ -100,6 +100,7 @@ export const ModuleWindiw = ({
 
 	const selectedColor = fetchColoursArr.find((el) => el.id === colourId);
 	const [checkForm, setCheckForm] = React.useState<boolean>(false);
+	const [isProductAdded, setIsProductAdded] = React.useState<number>(0);
 	//all valied forms
 	interface FormState {
 		pngImageShow: boolean;
@@ -203,27 +204,36 @@ export const ModuleWindiw = ({
 			urls.push(url);
 		}
 
-		// const innetFiles: File[] = files.shift()
-		//     const urlsPng = innetFiles.map((el)=>{
-		//         return URL.createObjectURL(el)
-		// })
-		// setPngImageShow(urlsPng)
-
 		// setImageUrl(url)
 		dispatch(setImageUrl(urls));
 	}
 
 	const handleFileUploadJpg = (event: React.ChangeEvent<HTMLInputElement>) => {
+		// setAllValiedForm((prevState)=> {...prevState} )
+
+		setIsProductAdded(isProductAdded + 1);
 		setFiles((prevArray: File[]) => [...prevArray, event.target.files[0]]);
 		setImages((prevArray: File[]) => [...prevArray, event.target.files[0]]);
 		setJpgImagesShow((prevArray: File[]) => [
 			...prevArray,
 			event.target.files[0],
 		]);
+		// setAllValiedForm((prevState) => ({
+		// 	...prevState,
+		// 	jpgImagesShow: false,
+		// }));
+
+		// const label = event.target.parentElement as HTMLLabelElement;
+		// if (checkForm && allValiedForm['pngImageShow']) {
+		// 	label.classList.remove(s.input_invalid);
+		// } else {
+		// 	label.classList.toggle(s.input_invalid);
+		// }
 	};
 
 	const handleFileUploadPng = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setPngImageShow(event.target.files[0]);
+		setIsProductAdded(isProductAdded + 1);
 		// set photo setFiles
 		const hasPngFiles = files.some((image) => {
 			return image.name.endsWith('.png');
@@ -560,6 +570,11 @@ export const ModuleWindiw = ({
 											onClick={() => {
 												if (!selectedSizes.includes(el.size)) {
 													dispatch(setSizes(el.size));
+													setAllValiedForm((prevState) => ({
+														...prevState,
+														sizes: false,
+													}));
+													// setAllValiedForm((prevState) => {...prevState, })
 												}
 											}}
 											key={ind}
@@ -663,6 +678,10 @@ export const ModuleWindiw = ({
 										return el.id !== -48093899940393 ? (
 											<div
 												onClick={() => {
+													setAllValiedForm((prevState) => ({
+														...prevState,
+														colourId: false,
+													}));
 													dispatch(setColors(el.id));
 													setChoiceColor(!choiceColor);
 												}}
@@ -734,9 +753,9 @@ export const ModuleWindiw = ({
 						<button
 							onClick={() => {
 								const allStateForm = {
-									pngImageShow: pngImageShow,
-									jpgImagesShow: jpgImagesShow,
-									colourId: colourId,
+									pngImageShow,
+									jpgImagesShow,
+									colourId,
 									sizes: selectedSizes,
 								};
 

@@ -35,10 +35,10 @@ export const UsersAdmin: React.FC = () => {
 		setPaginationLendthAdmin(arrAdminPagination);
 	}, [usersAdminUI]);
 
-	React.useEffect(() => {
-		// console.log('запыт getUsersAdmin')
-		dispatch(getUsersAdmin(activePaginatoinAdmin));
-	}, [activePaginatoinAdmin]);
+	// React.useEffect(() => {
+	// 	// console.log('запыт getUsersAdmin')
+	// 	dispatch(getUsersAdmin(activePaginatoinAdmin));
+	// }, [activePaginatoinAdmin]);
 
 	const debouncedSearchAdmin = debounce((term) => {
 		dispatch(findUsersAdmin(term));

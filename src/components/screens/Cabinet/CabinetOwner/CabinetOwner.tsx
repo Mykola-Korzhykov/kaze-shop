@@ -187,18 +187,17 @@ export const CabinetOwner = ({
 
 	return (
 		<div className={s.wrapper}>
-			{modalAddCAtegoryTurn && <div className={s.backround_for_modal}></div>}
+			{/* {modalAddCAtegoryTurn && <div className={s.backround_for_modal}></div>}
 			{modalEditProductTurn && <div className={s.backround_for_modal}></div>}
-			{modalAddPhotoTurn && <div className={s.backround_for_modal}></div>}
-			{modalAddPhotoTurn && <div className={s.backround_for_modal}></div>}
-			{sentProductForm.turn && <div className={s.backround_for_modal}></div>}
+			{modalAddPhotoTurn && <div className={s.backround_for_modal}></div>} */}
+			{/* {sentProductForm.turn && <div className={s.backround_for_modal}></div>}
 			{sentProductForm.turn && (
 				<ModalSentForm
 					title={sentProductForm.title}
 					subtitle={sentProductForm.subtitle}
 					btntitle={sentProductForm.btntitle}
 				/>
-			)}
+			)} */}
 
 			<div className={s.nav_dekstop}>
 				{buttonsObj.map((obj, ind) => {
