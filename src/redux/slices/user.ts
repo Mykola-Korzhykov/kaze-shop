@@ -106,7 +106,7 @@ export const getUserOrderBasket = createAsyncThunk<
 });
 
 export const getUserLeftCarts = createAsyncThunk<
-	{ cart: CartProduct[] },
+	{ leftCarts: CartProduct[] },
 	null,
 	{ rejectValue: string }
 >('user/getUserLeftCarts', async (_, { rejectWithValue }) => {
@@ -202,7 +202,7 @@ const userSLice = createSlice({
 			state.loadingStatus = 'loading';
 		});
 		builder.addCase(getUserLeftCarts.fulfilled, (state, action) => {
-			state.leftCarts = action.payload.cart;
+			state.leftCarts = action.payload.leftCarts;
 			state.loadingStatus = 'idle';
 		});
 		builder.addCase(getUserLeftCarts.rejected, (state, action) => {

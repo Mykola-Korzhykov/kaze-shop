@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import ForgottenBasketsItem from './ForgottenBasketsItem';
 import cl from '../../../styles/cabinet2.module.scss';
 import { useAppSelector } from '@/redux/hooks';
-import { CartProduct } from '@/types/goods';
+import { CartProduct} from '@/types/goods';
 import CabinetEmptyModal from '../CabinetEmptyModal';
 const ForgottenBaskets: FC<{ setShowModal: (state: boolean) => void }> = ({setShowModal}) => {
 	const leftCarts = useAppSelector((state) => state.user.leftCarts);

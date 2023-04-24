@@ -66,7 +66,7 @@ function App({ Component, pageProps }: AppProps) {
 				}
 			} catch (e) {
 				//router.push('/404')
-				// if (e?.response?.status === 400) {
+				// if (e?.response?.status === 400 || e?.response?.status === 404) {
 				// 	Cookies.remove('accessToken');
 				// 	router.push('/login');
 				// }
