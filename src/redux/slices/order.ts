@@ -31,7 +31,7 @@ const order = createSlice({
 		changeOrderNum: (state, { payload }: PayloadAction<null | number>) => {
 			state.orderNum = payload;
 		},
-		setCardId: (state, { payload }: PayloadAction<number>) => {
+		setCardId: (state, { payload }: PayloadAction<number | null>) => {
 			state.cardId = payload;
 		},
 	},

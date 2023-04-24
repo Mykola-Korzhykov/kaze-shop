@@ -134,8 +134,12 @@ export const OrderFormStepOne = yup.object({
 		.string()
 		.email('invalid email')
 		.min(6, 'min 6 charset')
-		.max(30, 'max 30 charset'),
-	userPhoneNumber: yup.string().min(18, 'invalid phone'),
+		.max(30, 'max 30 charset')
+		.matches(
+			/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+			'invalid email'
+		),
+	userPhoneNumber: yup.string().min(12, 'invalid phone'),
 	otherPerson: yup.boolean(),
 	otherPersonName: yup.string().when('otherPerson', {
 		is: true,
@@ -147,7 +151,7 @@ export const OrderFormStepOne = yup.object({
 	}),
 	otherPersonPhoneNumber: yup.string().when('otherPerson', {
 		is: true,
-		then: yup.string().min(18, 'invalid phone'),
+		then: yup.string().min(12, 'invalid phone'),
 	}),
 });
 

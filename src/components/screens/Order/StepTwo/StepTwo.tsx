@@ -10,11 +10,12 @@ import { AnimatePresence, motion } from 'framer-motion';
 import cn from 'classnames';
 import DateInput from '../DateInput/DateInput';
 import Button from '../../Main/Button/Button';
-import { changeOrderNum, changeStatusStepOne, changeStatusStepTwo } from '@/redux/slices/order';
+import { changeStatusStepOne, changeStatusStepTwo } from '@/redux/slices/order';
 import { OrderFormStepTwo, OrderFormStepTwoData } from '@/utils/validation';
 import FormSpinner from '../FormSpinner/FormSpinner';
 import { useRouter } from 'next/router';
 import { Api } from '@/services';
+import { ResponseData } from '@/types/stepTwoResData';
 
 
 const StepTwo = () => {
@@ -26,7 +27,7 @@ const StepTwo = () => {
     const router = useRouter();
 
 
-    const { register, handleSubmit, control, formState: { errors, isValid } } = useForm<OrderFormStepTwoData>({
+    const { register, handleSubmit, watch, control, formState: { errors, isValid } } = useForm<OrderFormStepTwoData>({
         mode: 'onBlur',
         resolver: yupResolver(OrderFormStepTwo),
     });
@@ -36,23 +37,42 @@ const StepTwo = () => {
 
         const sanitatedDataToSend = { ...data, payByCard: !data.payInCash, postalDelivery: !data.сourierDelivery, };
 
-        if (!data.comment) {
+        delete sanitatedDataToSend.anotherDate;
+
+        if (sanitatedDataToSend.postalDelivery) {
+            delete sanitatedDataToSend.street;
+            delete sanitatedDataToSend.house;
+            delete sanitatedDataToSend.apartment;
+        }
+
+        if (sanitatedDataToSend.сourierDelivery) {
+            delete sanitatedDataToSend.postOffice;
+        }
+
+        if (!sanitatedDataToSend.anotherDate) {
+            delete sanitatedDataToSend.anotherDate;
+            delete sanitatedDataToSend.sendDate;
+        }
+
+        if (!sanitatedDataToSend.comment) {
             delete sanitatedDataToSend.comment;
         }
 
 
         try {
-            const test = await Api().goods.sendFormStepTwo(sanitatedDataToSend);
-            console.log(test)
-            dispatch(changeStatusStepTwo('success'));
-            dispatch(changeOrderNum(2421));
-            router.push('/order_details');
+            const payByCash = watch('payInCash');
+            const response: ResponseData<typeof payByCash> = await Api().goods.sendFormStepTwo(sanitatedDataToSend);
+
+            if (payByCash) {
+                router.push('/order_details/' + response.orderId);
+            }
+            if (!payByCash) {
+                router.push(response.paymentLink);
+            }
         } catch (e) {
             console.log(e)
             dispatch(changeStatusStepTwo('error'));
         };
-
-        console.log(sanitatedDataToSend);
     };
 
     const goToStepOne = async () => {
@@ -61,7 +81,6 @@ const StepTwo = () => {
 
     return (
         <AnimatePresence>
-            {/* stepOne === 'success' && */}
             {stepOne === 'success' && <motion.div
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1, transition: { duration: 0.5 } }}
