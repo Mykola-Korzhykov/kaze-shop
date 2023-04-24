@@ -32,14 +32,14 @@ export const UsersRole: React.FC = () => {
 		setPaginationLendthRole(arrRolePagination);
 	}, []);
 
-	const debouncedSearchRole = debounce((term) => {
-		dispatch(findUsersRole(term));
-	}, 500);
-
 	React.useEffect(() => {
 		// console.log('запыт getUsersRole')
 		dispatch(getUsersRole(activePaginatoinRole));
 	}, [activePaginatoinRole]);
+
+	const debouncedSearchRole = debounce((term) => {
+		dispatch(findUsersRole(term));
+	}, 500);
 
 	return (
 		<>
@@ -129,7 +129,7 @@ export const UsersRole: React.FC = () => {
 				</div>
 			)}
 
-			{usersRoleStatus === 'success' && usersRoleUI.length > 1 && (
+			{usersRoleStatus === 'success' && usersRoleUI.length > 0 && (
 				<div className={s.pagination_wrapper}>
 					{paginationLendthRole.map((el) => {
 						return (
