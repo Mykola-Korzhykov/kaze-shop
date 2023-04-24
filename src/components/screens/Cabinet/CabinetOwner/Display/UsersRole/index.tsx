@@ -36,10 +36,10 @@ export const UsersRole: React.FC = () => {
 		dispatch(findUsersRole(term));
 	}, 500);
 
-	// React.useEffect(() => {
-	// 	// console.log('запыт getUsersRole')
-	// 	dispatch(getUsersRole(activePaginatoinRole));
-	// }, [activePaginatoinRole]);
+	React.useEffect(() => {
+		// console.log('запыт getUsersRole')
+		dispatch(getUsersRole(activePaginatoinRole));
+	}, [activePaginatoinRole]);
 
 	return (
 		<>
