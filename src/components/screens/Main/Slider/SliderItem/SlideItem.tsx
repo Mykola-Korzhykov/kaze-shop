@@ -13,7 +13,7 @@ const SlideItem = ({ images, title, price, className, children, }: SlideItemInte
         <>
             <div className={cn(s.slide_item, className)}>
                 <Image src={images[0].imagesPaths[0]} width={100} height={100} alt={title[localeType]} quality={100} />
-                <h3>{title['ua']}</h3>
+                <h3>{title[localeType]}</h3>
                 <span>{price}</span>
             </div>
             {children}
