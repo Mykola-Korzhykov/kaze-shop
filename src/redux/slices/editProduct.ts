@@ -5,6 +5,7 @@ import { Api } from '@/services';
 interface EditProductState {
 	activeProduct: Goods | null;
 	editProducts: Goods[];
+	totalProducts: number
 	sizesFromServer: string[];
 	imagesFromModal: {
 		fileNames: string[];
@@ -18,6 +19,7 @@ const initialState: EditProductState = {
 	sizesFromServer: [],
 	imagesFromModal: [],
 	activeProduct: null,
+	totalProducts: 0
 };
 
 export const fetchEditGoods = createAsyncThunk<
@@ -71,6 +73,7 @@ const editProductSlice = createSlice({
 	extraReducers: (builder) => {
 		builder.addCase(fetchEditGoods.fulfilled, (state, action) => {
 			state.editProducts = action.payload.products
+			state.totalProducts = action.payload.totalProducts
 		});
 	},
 });

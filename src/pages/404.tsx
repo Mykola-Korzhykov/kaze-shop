@@ -2,30 +2,8 @@ import { NextPage } from 'next';
 import React from 'react';
 import ErrorModal from '@/components/UI/ErrorModal';
 import Link from 'next/link';
-import { API_URL } from '@/services';
-import { useRouter } from 'next/router';
+
 const ErrorPage: NextPage = () => {
-	const { locale } = useRouter();
-	React.useEffect(() => {
-		const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-			event.preventDefault();
-			navigator.sendBeacon(
-				API_URL + '/orders/send_cart',
-				JSON.stringify({
-					userEmail: JSON.parse(sessionStorage.getItem('userEmail')),
-					orderId: JSON.parse(sessionStorage.getItem('orderId')),
-					locale: locale,
-				})
-			);
-		};
-
-		window.addEventListener('beforeunload', handleBeforeUnload);
-
-		return () => {
-			window.removeEventListener('beforeunload', handleBeforeUnload);
-		};
-	}, []);
-
 	return (
 		<main className="content">
 			<div className="container">

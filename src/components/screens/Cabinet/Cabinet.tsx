@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Api } from '@/services';
 import { useSelector } from 'react-redux';
 import Spinner from '@/components/Spinner/Spinner';
@@ -10,6 +10,7 @@ import { addUserInfo } from '@/redux/slices/user';
 import Link from 'next/link';
 import { setCookie, destroyCookie } from 'nookies';
 import s from './screenStyle.module.scss';
+// import myStyle from './Cabinet.module.scss';
 //components
 import ChangeUserPassword from '@/components/UserCabinet/ChangeUserPassword/ChangeUserPassword';
 import CabinetTabs from '@/components/screens/Cabinet/CabinetTabs';
@@ -55,6 +56,20 @@ const Cabinet: FC = () => {
 	const modalEditProductTurn = useSelector(
 		(state: RootState) => state.modaleSlice.modalAddEditProduct
 	);
+	const modalAddCAtegoryTurn = useSelector(
+		(state: RootState) => state.modaleSlice.modalAddCAtegory
+	);
+	const modalAddPhotoTurn = useSelector(
+		(state: RootState) => state.modaleSlice.modalAddPhoto
+	);
+
+	// useEffect(() => {
+	// 	if (contentMain?.current) {
+	// 		//@ts-ignore
+	// 		setWindowHidth(contentMain.current.clientHeight);
+	// 	}
+	// }, []);
+
 	//imagesData
 	const [images, setImages] = React.useState<File[]>([]);
 	const [files, setFiles] = React.useState<File[]>([]);
@@ -74,6 +89,13 @@ const Cabinet: FC = () => {
 				<Spinner />
 			) : null}
 			<main className="content">
+				{sentProductForm.turn && (
+					<ModalSentForm
+						title={sentProductForm.title}
+						subtitle={sentProductForm.subtitle}
+						btntitle={sentProductForm.btntitle}
+					/>
+				)}
 				<div className={s.container}>
 					<div className="page_coordinator">
 						<Link href="/">Главная</Link> | <span>Личный кабинет</span>
@@ -97,8 +119,13 @@ const Cabinet: FC = () => {
 					) : null}
 
 					{/* {user?.user?.type === 'ADMIN' && <CabinetAdmin />} */}
-					<CabinetTabs /> 
+<<<<<<< HEAD
+					{/* <CabinetTabs /> */}
+					<CabinetOwner
+=======
+					{/* <CabinetTabs />  */}
 					{/* <CabinetOwner
+>>>>>>> 3bffcd0013811ed7644bc70690044bce1bd1c998
 						role={'OWNER'}
 						modalAddCAtegory={modalAddCAtegory}
 						imagesData={images}
@@ -110,7 +137,7 @@ const Cabinet: FC = () => {
 						setFiles={setFiles}
 						setPngImageShow={setPngImageShow}
 						setJpgImagesShow={setJpgImagesShow}
-					/>  */}
+					/>
 
 					{/* <CabinetAdmin /> */}
 

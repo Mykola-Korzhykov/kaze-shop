@@ -23,6 +23,9 @@ export const EditProduct: FC<{
 	const products = useSelector(
 		(state: RootState) => state.editProduct.editProducts
 	);
+	const totalProducts = useSelector(
+		(state: RootState) => state.editProduct.totalProducts
+	);
 	const [paginationArr, setPaginationArr] = React.useState<number[]>([]);
 	const [activePagination, setActivePagination] = React.useState<number>(1);
 
@@ -69,9 +72,9 @@ export const EditProduct: FC<{
 	}, [editProductItemId]);
 
 	React.useEffect(() => {
-		if (products) {
+		if (totalProducts) {
 			let paginationArrLocation: any[] = [];
-			const countPages = Math.ceil(products?.length / 10);
+			const countPages = Math.ceil(totalProducts / 10);
 			for (let i = 0; i < countPages; i++) {
 				paginationArrLocation.push(i);
 			}

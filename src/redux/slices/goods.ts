@@ -29,7 +29,6 @@ type GoodsSlice = {
 	catalogLoadingStatus: 'loading' | 'error' | 'idle';
 	page: number;
 	totalProducts: number;
-	language: 'ua' | 'rs' | 'en' | 'ru';
 	errors: string | null;
 	sortType: string;
 	headerCategory: number;
@@ -38,6 +37,7 @@ type GoodsSlice = {
 	filterColours: number[] | null;
 	fetchedColours: fetchedColour[] | null;
 	fetchedCategories: fetchedCategory[] | null;
+	catalogSavedProducts: number[];
 };
 
 // interface FetchGoodsPayload {
@@ -293,106 +293,10 @@ const initialState: GoodsSlice = {
 	headerCategory: 0,
 	filterCategories: [],
 	filterSizes: [],
+	catalogSavedProducts: [],
 	filterColours: [],
-	fetchedColours: [
-		// {
-		// 	hex: '#FFE4C4',
-		// 	id: 1,
-		// 	ru: 'ru',
-		// 	rs: 'rs',
-		// 	en: 'en',
-		// 	ua: 'ua',
-		// 	type: 'colour',
-		// 	createdAt: 'test',
-		// 	updatedAt: 'test',
-		// },
-		// {
-		// 	hex: '#9F8E84',
-		// 	id: 2,
-		// 	ru: 'ru',
-		// 	rs: 'rs',
-		// 	en: 'en',
-		// 	ua: 'ua',
-		// 	type: 'colour',
-		// 	createdAt: 'test',
-		// 	updatedAt: 'test',
-		// },
-		// {
-		// 	hex: '#000080',
-		// 	id: 3,
-		// 	ru: 'ru',
-		// 	rs: 'rs',
-		// 	en: 'en',
-		// 	ua: 'ua',
-		// 	type: 'colour',
-		// 	createdAt: 'test',
-		// 	updatedAt: 'test',
-		// },
-		// {
-		// 	hex: '#A6BEE5',
-		// 	id: 4,
-		// 	ru: 'ru',
-		// 	rs: 'rs',
-		// 	en: 'en',
-		// 	ua: 'ua',
-		// 	type: 'colour',
-		// 	createdAt: 'test',
-		// 	updatedAt: 'test',
-		// },
-	],
-	fetchedCategories: [
-		// {
-		// 	id: 1,
-		// 	ua: 'Категорія 1',
-		// 	en: 'Категория 1',
-		// 	rs: 'Категорія 1 rs',
-		// 	ru: 'Категорія 1 ru',
-		// 	type: 'category',
-		// 	createdAt: 'any',
-		// 	updatedAt: 'any',
-		// },
-		// {
-		// 	id: 2,
-		// 	ua: 'Категорія 2',
-		// 	en: 'Категория 3',
-		// 	rs: 'Категорія 2 rs',
-		// 	ru: 'Категорія 2 ru',
-		// 	type: 'category',
-		// 	createdAt: 'any',
-		// 	updatedAt: 'any',
-		// },
-		// {
-		// 	id: 3,
-		// 	ua: 'Категорія 3',
-		// 	en: 'Категория 3',
-		// 	rs: 'Категорія 2 rs',
-		// 	ru: 'Категорія 3 ru',
-		// 	type: 'category',
-		// 	createdAt: 'any',
-		// 	updatedAt: 'any',
-		// },
-		// {
-		// 	id: 4,
-		// 	ua: 'Категорія 4',
-		// 	en: 'Категория 4',
-		// 	rs: 'Категорія 4 rs',
-		// 	ru: 'Категорія 4 ru',
-		// 	type: 'category',
-		// 	createdAt: 'any',
-		// 	updatedAt: 'any',
-		// },
-		// {
-		// 	id: 2,
-		// 	ua: 'Категорія 4',
-		// 	en: 'Категория 4',
-		// 	rs: 'Категорія 4 rs',
-		// 	ru: 'Категорія 4 ru',
-		// 	type: 'category',
-		// 	createdAt: 'any',
-		// 	updatedAt: 'any',
-		// },
-	],
-	language: 'ua',
+	fetchedColours: [],
+	fetchedCategories: [],
 };
 
 const goodsSlice = createSlice({
@@ -472,6 +376,14 @@ const goodsSlice = createSlice({
 			action: PayloadAction<'loading' | 'error' | 'idle'>
 		) {
 			state.loadingStatus = action.payload;
+		},
+		addToSavedProducts(state, action: PayloadAction<number>) {
+			state.catalogSavedProducts.push(action.payload);
+		},
+		deleteCatalogSavedProduct(state, action: PayloadAction<number>) {
+			state.catalogSavedProducts = state.catalogSavedProducts.filter(
+				(el) => el !== action.payload
+			);
 		},
 	},
 	extraReducers: (builder) => {
@@ -626,6 +538,8 @@ export const {
 	addCompareProductToModal,
 	deleteCompareOfferProduct,
 	setFeedbackProduct,
+	deleteCatalogSavedProduct,
+	addToSavedProducts,
 } = goodsSlice.actions;
 
 export default goodsSlice.reducer;

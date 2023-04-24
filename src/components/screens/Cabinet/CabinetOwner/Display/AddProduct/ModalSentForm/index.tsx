@@ -22,9 +22,9 @@ export const ModalSentForm = ({
 	);
 	return (
 		<div
-			style={{
-				bottom: `${sentProductForm.bottom}px`,
-			}}
+			// style={{
+			// 	bottom: `${sentProductForm.bottom}px`,
+			// }}
 			className={s.wrapper}
 		>
 			<div className={s.content}>

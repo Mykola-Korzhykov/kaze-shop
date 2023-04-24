@@ -979,6 +979,7 @@ export const AddProduct = ({
 											</label>
 										) : (
 											<input
+												min="0"
 												ref={(ref) => (inputRefs.current[obj.id] = ref)}
 												id={`${obj.id}`}
 												onChange={(e) => {
@@ -1033,6 +1034,7 @@ export const AddProduct = ({
 									<div key={obj.id} className={s.wrapper_inner_input}>
 										<div className={s.title}>{obj.text}</div>
 										<input
+											min="0"
 											ref={(ref) => (inputRefs.current[obj.id] = ref)}
 											id={`${obj.id}`}
 											onChange={(e) => {

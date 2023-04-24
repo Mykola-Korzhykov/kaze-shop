@@ -59,11 +59,6 @@ const Signup: NextPage = () => {
 	}, []);
 
 	const handlePhoneNumberValue = (value: string) => {
-		/* if (!phoneNumberValue.startsWith('38') || phoneNumberValue.length < 9) {
-			setPhoneNumberError('Incorrect number')
-		} else {
-			setPhoneNumberError('')
-		} */
 		setPhoneNumberValue(value);
 	};
 
@@ -102,7 +97,7 @@ const Signup: NextPage = () => {
 				// index it is language
 				setErrorMessage(
 					err?.response?.data?.rawErrors?.length > 0
-						? err?.response?.data?.rawErrors[0]?.error
+						? err?.response?.data?.rawErrors[router?.locale]?.error
 						: err?.response?.data?.message
 				);
 			} else {
@@ -226,6 +221,29 @@ const Signup: NextPage = () => {
 											inputProps={{
 												name: 'phoneNumber',
 												required: true,
+											}}
+											isValid={(value: string, country: any) => {
+												const ukrainianRegex = /^380\d{9}$/;
+												const serbianRegex = /^381\d{10,12}$/;
+												if (
+													country.name === 'Ukraine' &&
+													!value.match(ukrainianRegex)
+												) {
+													setPhoneNumberError(
+														'Invalid phone number format for Ukraine'
+													);
+												} else if (
+													country.name === 'Serbia' &&
+													!value.match(serbianRegex)
+												) {
+													setPhoneNumberError(
+														'Invalid phone number format for Serbia'
+													);
+													return false;
+												} else {
+													setPhoneNumberError('');
+													return true;
+												}
 											}}
 										/>
 										<span className="auth_error">
