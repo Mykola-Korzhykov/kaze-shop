@@ -118,6 +118,17 @@ export const UsersRole: React.FC = () => {
 				</div>
 			)}
 
+			{usersRoleStatus === 'pending' && (
+				<div className={s.spinner_wrapper}>
+					<div className={s.spinner_title}>Загрузка пользователей</div>
+					<div className={s.spinner}>
+						<div className={s.bounce1}></div>
+						<div className={s.bounce2}></div>
+						<div className={s.bounce3}></div>
+					</div>
+				</div>
+			)}
+
 			{usersRoleStatus === 'success' && usersRoleUI.length > 1 && (
 				<div className={s.pagination_wrapper}>
 					{paginationLendthRole.map((el) => {

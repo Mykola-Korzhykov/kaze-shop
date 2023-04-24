@@ -105,8 +105,8 @@ export interface initialStateType {
 	userEdit: GoodsEditTest;
 	usersRole: User[];
 	usersAdmin: User[];
-	usersRoleStatus: 'loading' | 'success' | 'error403' | 'error';
-	usersAdminStatus: 'loading' | 'success' | 'error403' | 'error';
+	usersRoleStatus: 'loading' | 'success' | 'error403' | 'error' | 'pending';
+	usersAdminStatus: 'loading' | 'success' | 'error403' | 'error' | 'pending';
 
 	inputs: {
 		id: number;
@@ -861,6 +861,7 @@ export const admin: Slice<initialStateType> = createSlice({
 			})
 			.addCase(findUsersRole.pending, (state) => {
 				state.loading = true;
+				state.usersRoleStatus = 'pending';
 			})
 			.addCase(findUsersRole.rejected, (state, action) => {
 				state.usersRole = [];
@@ -878,6 +879,7 @@ export const admin: Slice<initialStateType> = createSlice({
 			})
 			.addCase(getUsersRole.pending, (state) => {
 				state.loading = true;
+				state.usersRoleStatus = 'pending';
 			})
 			.addCase(getUsersRole.rejected, (state, action) => {
 				state.usersRole = [];
@@ -894,6 +896,7 @@ export const admin: Slice<initialStateType> = createSlice({
 			})
 			.addCase(getUsersAdmin.pending, (state) => {
 				state.loading = true;
+				state.usersAdminStatus = 'pending';
 			})
 			.addCase(getUsersAdmin.rejected, (state, action) => {
 				state.usersAdmin = [];
@@ -910,6 +913,7 @@ export const admin: Slice<initialStateType> = createSlice({
 			})
 			.addCase(findUsersAdmin.pending, (state) => {
 				state.loading = true;
+				state.usersAdminStatus = 'pending';
 			})
 			.addCase(findUsersAdmin.rejected, (state, action) => {
 				state.usersAdmin = [];
