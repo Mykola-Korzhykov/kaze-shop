@@ -40,7 +40,11 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 	const router = useRouter();
 
 	const saveButtonHandler = () => {
-		if (isSavedProductsTab || savedProducts.includes(product?.id)) {
+		if (
+			isSavedProductsTab ||
+			savedProducts.includes(product?.id) ||
+			product?.isSaved
+		) {
 			deleteSavedProductFunc();
 		} else {
 			addSavedProduct();
@@ -61,12 +65,16 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 	};
 
 	const deleteSavedProductFunc = () => {
-		dispatch(deleteSavedProduct(product?.id));
-		dispatch(deleteCatalogSavedProduct(product?.id));
-		try {
-			Api().user.deleteUserSavedProduct(product?.id);
-		} catch (e) {
-			router.push('/404');
+		if (isAuth && user?.type === 'USER') {
+			dispatch(deleteSavedProduct(product?.id));
+			dispatch(deleteCatalogSavedProduct(product?.id));
+			try {
+				Api().user.deleteUserSavedProduct(product?.id);
+			} catch (e) {
+				router.push('/404');
+			}
+		} else if (!isAuth) {
+			router.push('/login');
 		}
 	};
 
