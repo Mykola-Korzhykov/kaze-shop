@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import cl from '../../../styles/cabinet2.module.scss';
 import ChangeUserInfo from '@/components/UserCabinet/ChangeUserInfo/ChangeUserInfo';
 import ChangeUserPassword from '@/components/UserCabinet/ChangeUserPassword/ChangeUserPassword';
@@ -7,7 +7,8 @@ import OrderHisrtory from '@/components/UserCabinet/OrderHistory/OrderHistory';
 import LogoutModal from '@/components/modals/LogoutModal/LogoutModal';
 import ForgottenBaskets from '@/components/UserCabinet/ForgottenBaskets/ForgottenBaskets';
 import RecentlyWatchedProducts from '@/components/UserCabinet/RecentlyWatchedProducts/RecentlyWatchedProducts';
-import { useAppDispatch } from '@/redux/hooks';
+import ProductsPagination from '@/components/UserCabinet/ProductsPagination';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
 	getUserLeftCarts,
 	getUserOrders,
@@ -16,10 +17,76 @@ import {
 	setIsSavedProductsTab,
 } from '@/redux/slices/user';
 import CabinetOrdersModal from '@/components/UserCabinet/CabinetOrdersModal/CabinetOrdersModal';
+
+const TABS = [
+	{
+		label: 'Изменить данные',
+		id: 'vcxzzZZd22rfF@!',
+		tabIndex: 1,
+		iconCls: 'pencil',
+	},
+	{
+		label: 'Изменить пароль',
+		id: 'r23r2fdsdfsdf',
+		tabIndex: 2,
+		iconCls: 'change',
+	},
+	{
+		label: 'История заказов',
+		id: 'rwerwerwe',
+		tabIndex: 3,
+		iconCls: 'history',
+	},
+	{
+		label: 'Закладки',
+		id: 'feewrwefwef',
+		tabIndex: 4,
+		iconCls: 'bookmarks',
+	},
+	{
+		label: 'Собранные корзины',
+		id: 'vfdwee323rwrwer',
+		tabIndex: 5,
+		iconCls: 'baskets',
+	},
+	{
+		label: 'Смотрели раньше',
+		id: ',bvmcvmbcm43534',
+		tabIndex: 6,
+		iconCls: 'eye',
+	},
+	{
+		label: 'Выход',
+		id: 'cvbcvbe43t2grfddf',
+		tabIndex: 7,
+		iconCls: 'logout',
+	},
+];
+
 const CabinetTabs: FC = () => {
 	const [selectedTab, setSelectedTab] = React.useState<number | null>(1);
-	const [showModal, setShowModal] = React.useState<boolean>(false);
+	const [showModal, setShowModal] = React.useState<boolean>(true);
+	const page = useAppSelector((state) => state.user.page);
 	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		if (selectedTab === 3) {
+			dispatch(getUserOrders());
+		}
+		if (selectedTab === 4) {
+			dispatch(setIsSavedProductsTab(true));
+			dispatch(getUserSavedProducts());
+		}
+		selectedTab;
+		if (selectedTab === 5) {
+			dispatch(getUserLeftCarts());
+		}
+		if (selectedTab === 6) {
+			dispatch(setIsSavedProductsTab(false));
+			dispatch(getUserWatchedProducts());
+		}
+	}, [page]);
+
 	const toggleTab = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const tabIndex = (e.target as HTMLButtonElement).getAttribute(
 			'data-tabindex'
@@ -46,51 +113,6 @@ const CabinetTabs: FC = () => {
 		//e.currentTarget.offsetTop + e.currentTarget.offsetHeight;
 		window.scrollTo({ top: elX / 10, behavior: 'smooth' });
 	};
-
-	const TABS = [
-		{
-			label: 'Изменить данные',
-			id: 'vcxzzZZd22rfF@!',
-			tabIndex: 1,
-			iconCls: 'pencil',
-		},
-		{
-			label: 'Изменить пароль',
-			id: 'r23r2fdsdfsdf',
-			tabIndex: 2,
-			iconCls: 'change',
-		},
-		{
-			label: 'История заказов',
-			id: 'rwerwerwe',
-			tabIndex: 3,
-			iconCls: 'history',
-		},
-		{
-			label: 'Закладки',
-			id: 'feewrwefwef',
-			tabIndex: 4,
-			iconCls: 'bookmarks',
-		},
-		{
-			label: 'Собранные корзины',
-			id: 'vfdwee323rwrwer',
-			tabIndex: 5,
-			iconCls: 'baskets',
-		},
-		{
-			label: 'Смотрели раньше',
-			id: ',bvmcvmbcm43534',
-			tabIndex: 6,
-			iconCls: 'eye',
-		},
-		{
-			label: 'Выход',
-			id: 'cvbcvbe43t2grfddf',
-			tabIndex: 7,
-			iconCls: 'logout',
-		},
-	];
 
 	const renderTabsContent = () => {
 		switch (selectedTab) {
@@ -149,7 +171,14 @@ const CabinetTabs: FC = () => {
 					})}
 				</div>
 
-				<div className={cl.cabinet_content}>{renderTabsContent()}</div>
+				<div className={cl.cabinet_content}>
+					<>
+						{renderTabsContent()}
+						{selectedTab !== 1 && selectedTab !== 2 ? (
+							<ProductsPagination />
+						) : null}
+					</>
+				</div>
 			</div>
 		</>
 	);

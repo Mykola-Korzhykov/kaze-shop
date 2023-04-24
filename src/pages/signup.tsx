@@ -59,11 +59,6 @@ const Signup: NextPage = () => {
 	}, []);
 
 	const handlePhoneNumberValue = (value: string) => {
-		/* if (!phoneNumberValue.startsWith('38') || phoneNumberValue.length < 9) {
-			setPhoneNumberError('Incorrect number')
-		} else {
-			setPhoneNumberError('')
-		} */
 		setPhoneNumberValue(value);
 	};
 
@@ -244,10 +239,10 @@ const Signup: NextPage = () => {
 													setPhoneNumberError(
 														'Invalid phone number format for Serbia'
 													);
-													return false
+													return false;
 												} else {
 													setPhoneNumberError('');
-													return true
+													return true;
 												}
 											}}
 										/>

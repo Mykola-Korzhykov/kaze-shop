@@ -14,6 +14,8 @@ type UserSLice = {
 	user: User | null;
 	isAuth: boolean;
 	loadingStatus: 'loading' | 'error' | 'idle';
+	page: number;
+	totalProducts: number;
 	savedProducts: Goods[];
 	watchedProducts: Goods[];
 	orders: UserOrders | null;
@@ -32,6 +34,8 @@ type UserSLice = {
 const initialState: UserSLice = {
 	user: null,
 	language: 'ua',
+	page: 1,
+	totalProducts: 0,
 	isAuth: false,
 	loadingStatus: 'idle',
 	savedProducts: [],
@@ -51,14 +55,16 @@ export const getUserSavedProducts = createAsyncThunk<
 >('user/getUserSavedProducts', async (_, { rejectWithValue, getState }) => {
 	try {
 		const state = getState() as RootState;
-		const products = getSavedProducts(state);
+		const userState = state.user;
+		const pageNumber = userState.page;
 
+		// const products = getSavedProducts(state);
 		// let data;
 		// if (!products.length) {
-
+		// i want wont do request if i have smth in redux
 		// }
 
-		const data = await Api().user.getSavedProducts(1);
+		const data = await Api().user.getSavedProducts(pageNumber);
 
 		return data;
 	} catch (e) {
@@ -70,9 +76,12 @@ export const getUserWatchedProducts = createAsyncThunk<
 	{ products: Goods[]; totalProducts: number },
 	null,
 	{ rejectValue: string }
->('user/getUserWatchedProducts', async (_, { rejectWithValue }) => {
+>('user/getUserWatchedProducts', async (_, { rejectWithValue, getState }) => {
+	const state = getState() as RootState;
+	const userState = state.user;
+	const pageNumber = userState.page;
 	try {
-		const data = await Api().user.getWatchedProducts(1);
+		const data = await Api().user.getWatchedProducts(pageNumber);
 		return data;
 	} catch (e) {
 		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
@@ -83,9 +92,12 @@ export const getUserOrders = createAsyncThunk<
 	UserOrders,
 	null,
 	{ rejectValue: string }
->('user/getUserOrders', async (_, { rejectWithValue }) => {
+>('user/getUserOrders', async (_, { rejectWithValue, getState }) => {
+	const state = getState() as RootState;
+	const userState = state.user;
+	const pageNumber = userState.page;
 	try {
-		const data = await Api().user.getOrders();
+		const data = await Api().user.getOrders(pageNumber);
 		return data;
 	} catch (e) {
 		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
@@ -106,12 +118,16 @@ export const getUserOrderBasket = createAsyncThunk<
 });
 
 export const getUserLeftCarts = createAsyncThunk<
-	{ leftCarts: CartProduct[] },
+	{ leftCarts: CartProduct[], totalCarts: number},
 	null,
 	{ rejectValue: string }
->('user/getUserLeftCarts', async (_, { rejectWithValue }) => {
+>('user/getUserLeftCarts', async (_, { rejectWithValue, getState }) => {
+	const state = getState() as RootState;
+	const userState = state.user;
+	const pageNumber = userState.page;
+
 	try {
-		const data = await Api().user.getLeftCarts();
+		const data = await Api().user.getLeftCarts(pageNumber);
 		return data;
 	} catch (e) {
 		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
@@ -150,11 +166,19 @@ const userSLice = createSlice({
 		) {
 			state.cartItemsModal = action.payload;
 		},
+		setPage(state, action: PayloadAction<number>) {
+			if (action.payload >= 1) {
+				state.page = action.payload;
+			} else {
+				state.page = 1;
+			}
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(getUserSavedProducts.fulfilled, (state, action) => {
 			state.loadingStatus = 'idle';
 			state.savedProducts = action.payload?.products;
+			state.totalProducts = action.payload.totalProducts;
 		});
 		builder.addCase(getUserSavedProducts.pending, (state, action) => {
 			state.loadingStatus = 'loading';
@@ -168,6 +192,7 @@ const userSLice = createSlice({
 		builder.addCase(getUserWatchedProducts.fulfilled, (state, action) => {
 			state.watchedProducts = action.payload.products;
 			state.loadingStatus = 'idle';
+			state.totalProducts = action.payload.totalProducts;
 		});
 		builder.addCase(getUserWatchedProducts.rejected, (state, action) => {
 			state.loadingStatus = 'error';
@@ -177,6 +202,7 @@ const userSLice = createSlice({
 		});
 		builder.addCase(getUserOrders.fulfilled, (state, action) => {
 			state.orders = action.payload;
+			state.totalProducts = action.payload.totalOrders;
 			state.loadingStatus = 'idle';
 		});
 		builder.addCase(getUserOrders.rejected, (state, action) => {
@@ -203,6 +229,7 @@ const userSLice = createSlice({
 		});
 		builder.addCase(getUserLeftCarts.fulfilled, (state, action) => {
 			state.leftCarts = action.payload.leftCarts;
+			state.totalProducts = action.payload.totalCarts
 			state.loadingStatus = 'idle';
 		});
 		builder.addCase(getUserLeftCarts.rejected, (state, action) => {
@@ -221,6 +248,7 @@ export const {
 	setIsSavedProductsTab,
 	deleteSavedProduct,
 	setCartItemsModal,
+	setPage,
 } = userSLice.actions;
 
 export default userSLice.reducer;

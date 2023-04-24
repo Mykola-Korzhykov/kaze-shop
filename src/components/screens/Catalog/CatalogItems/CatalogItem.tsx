@@ -6,7 +6,12 @@ import {
 	selectUserInfo,
 	deleteSavedProduct,
 } from '@/redux/slices/user';
-import { addProductToCompare, addProductToCart } from '@/redux/slices/goods';
+import {
+	addProductToCompare,
+	addProductToCart,
+	addToSavedProducts,
+	deleteCatalogSavedProduct,
+} from '@/redux/slices/goods';
 import { setLoadingStatus } from '@/redux/slices/goods';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -26,13 +31,16 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 	const onMouseLeave = () => setIsHovered(false);
 	const isAuth = useAppSelector(selectAuthState);
 	const user = useAppSelector(selectUserInfo);
+	const savedProducts = useAppSelector(
+		(state) => state.goods.catalogSavedProducts
+	);
 	const isSavedProductsTab = useAppSelector(
 		(state) => state.user.isSavedProductsTab
 	);
 	const router = useRouter();
 
 	const saveButtonHandler = () => {
-		if (router.pathname === '/cabinet') {
+		if (isSavedProductsTab || savedProducts.includes(product?.id)) {
 			deleteSavedProductFunc();
 		} else {
 			addSavedProduct();
@@ -43,6 +51,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 		if (isAuth && user?.type === 'USER') {
 			try {
 				Api().goods.addToFavorites(product?.id);
+				dispatch(addToSavedProducts(product?.id));
 			} catch (e) {
 				router.push('/404');
 			}
@@ -53,6 +62,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 
 	const deleteSavedProductFunc = () => {
 		dispatch(deleteSavedProduct(product?.id));
+		dispatch(deleteCatalogSavedProduct(product?.id));
 		try {
 			Api().user.deleteUserSavedProduct(product?.id);
 		} catch (e) {
@@ -105,7 +115,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 					{isHovering ? (
 						<Image
 							className={s.img}
-							src={product?.images?.[0]?.imagesPaths?.[0] ?? catalogImg}
+							src={product?.images?.[0]?.imagesPaths?.[1] ?? catalogImg}
 							width={285}
 							height={360}
 							alt={product?.title?.en ?? 'catalog image'}
@@ -114,7 +124,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 					) : (
 						<Image
 							className={s.img}
-							src={product?.images?.[0]?.imagesPaths?.[1] ?? catalogImg2}
+							src={product?.images?.[0]?.imagesPaths?.[0] ?? catalogImg2}
 							width={285}
 							height={360}
 							alt={product?.title?.en ?? 'catalog img'}
@@ -136,7 +146,9 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 				<button
 					onClick={saveButtonHandler}
 					className={
-						isSavedProductsTab || product?.isSaved
+						isSavedProductsTab ||
+						product?.isSaved ||
+						savedProducts.includes(product?.id)
 							? s.footer_iconActive
 							: s.footer_icon
 					}
