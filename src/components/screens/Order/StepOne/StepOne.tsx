@@ -46,12 +46,13 @@ const StepOne = ({ className, ...props }: StepOneProps): JSX.Element => {
             delete sanitatedDataToSend.otherPersonName
 
         }
-        console.log(sanitatedDataToSend);
-        window.sessionStorage.setItem('userEmail', data.userEmail);
-        window.sessionStorage.setItem('orderId', cardId.toString());
 
         try {
-            await Api().goods.sendFormStepOne(cardId, sanitatedDataToSend);
+            const res: { orderId: number } = await Api().goods.sendFormStepOne(cardId, sanitatedDataToSend);
+
+            window.sessionStorage.setItem('userEmail', data.userEmail);
+            window.sessionStorage.setItem('orderId', res.orderId.toString());
+
             dispatch(changeStatusStepOne('success'));
         } catch (e) {
             console.log(e);

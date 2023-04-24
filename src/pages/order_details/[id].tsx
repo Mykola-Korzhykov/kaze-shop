@@ -1,9 +1,7 @@
 import OrderDetails from '@/components/screens/OrderDetails/OrderDetails';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import React, { useEffect } from 'react';
+import React from 'react';
 import ErrorPage from '../404';
-import { changeOrderNum } from '@/redux/slices/order';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { GetServerSidePropsContext } from 'next';
 import { Api } from '@/services';
 
 const Order_details = ({ orderNum }: Order_detailsProps) => {

@@ -69,6 +69,8 @@ const StepTwo = () => {
             if (!payByCash) {
                 router.push(response.paymentLink);
             }
+            window.sessionStorage.clear();
+
         } catch (e) {
             console.log(e)
             dispatch(changeStatusStepTwo('error'));

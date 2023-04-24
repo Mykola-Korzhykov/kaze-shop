@@ -163,7 +163,11 @@ export const OrderFormStepTwo = yup.object({
 	сourierDelivery: yup.boolean(),
 	postOffice: yup.string().when('сourierDelivery', {
 		is: false,
-		then: yup.string().min(1, 'min 1 charset').max(15, 'max 15 charset'),
+		then: yup
+			.string()
+			.min(1, 'min 1 charset')
+			.max(15, 'max 15 charset')
+			.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,50}/, 'invalid value'),
 	}),
 	street: yup.string().when('сourierDelivery', {
 		is: true,
