@@ -47,15 +47,16 @@ export interface Image {
 }
 
 export interface Colour {
-	id: number;
-	ua: string;
-	en: string;
-	rs: string;
-	ru: string;
-	hex: string;
-	type: string;
-	createdAt: string;
-	updatedAt: string;
+	id: number | null;
+	ua: string | null;
+	en: string | null;
+	rs: string | null;
+	ru: string | null;
+	hex: string | null;
+	type: 'colour' | null;
+	createdAt: any | null;
+	updatedAt: any | null;
+	[key: string]: any;
 }
 
 export interface Category {
@@ -64,7 +65,8 @@ export interface Category {
 	en: string;
 	rs: string;
 	ru: string;
-	type: string;
-	createdAt: string;
-	updatedAt: string;
+	type: 'category';
+	createdAt: any;
+	updatedAt: any;
+	[key: string]: any;
 }

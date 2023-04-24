@@ -151,7 +151,7 @@ export interface initialStateType {
 const initialState: initialStateType = {
 	arrObjModalSwow: [],
 	colorsStyle: [],
-
+	//@ts-ignore
 	userEdit: {
 		id: 1,
 		title: {

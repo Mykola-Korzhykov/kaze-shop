@@ -9,7 +9,7 @@ import Cookies from 'js-cookie';
 import Layout from '@/layouts/DefaultLayout';
 import { wrapper } from '../redux/store';
 import { Api } from '@/services';
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { addUserInfo, setAuthState } from '@/redux/slices/user';
 import Spinner from '@/components/Spinner/Spinner';
 import { setCookie } from 'nookies';
@@ -25,7 +25,9 @@ function App({ Component, pageProps }: AppProps) {
 		React.useState<boolean>(true);
 	React.useEffect(() => {
 		const cookies = parseCookies();
+		// set auth state to redux
 		dispatch(setAuthState(!!cookies?.accessToken));
+
 		//get cookie initial state from LS
 		let initialValue = false;
 		if (typeof window !== 'undefined') {
@@ -64,7 +66,7 @@ function App({ Component, pageProps }: AppProps) {
 				}
 			} catch (e) {
 				//router.push('/404')
-				// if (e?.response?.status === 400) {
+				// if (e?.response?.status === 400 || e?.response?.status === 404) {
 				// 	Cookies.remove('accessToken');
 				// 	router.push('/login');
 				// }
@@ -74,6 +76,10 @@ function App({ Component, pageProps }: AppProps) {
 			fetchUserData();
 		}
 	}, []);
+
+	useEffect(() => {
+		localStorage.setItem('defaultLocale', JSON.stringify(router?.locale));
+	}, [router?.locale]);
 
 	return (
 		<Suspense fallback={<Spinner />}>

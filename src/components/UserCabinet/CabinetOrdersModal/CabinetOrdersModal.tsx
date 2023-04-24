@@ -4,6 +4,7 @@ import closeIcon from '../../../assets/icons/cabinetTabs/cabinetCartStatusCancel
 import CabinetOrdersModalItem from './CabinetOrdersModalItem';
 import { useAppSelector } from '@/redux/hooks';
 import s from '../../../styles/cabinet2.module.scss';
+import FormSpinner from '@/components/screens/Order/FormSpinner/FormSpinner';
 
 type IProps = {
 	setShowModal: (state: boolean) => void;
@@ -17,7 +18,7 @@ const CabinetOrdersModal: FC<IProps> = ({ setShowModal, ordersTabActive }) => {
 		return (
 			<div className={s.orderModal}>
 				<div className={s.orderModal_body}>
-					<h1>Loading.....</h1>
+					<FormSpinner />
 				</div>
 			</div>
 		);
@@ -51,10 +52,12 @@ const CabinetOrdersModal: FC<IProps> = ({ setShowModal, ordersTabActive }) => {
 					height={32}
 					alt="close modal"
 				/>
-				{ordersModalItems.cartProducts.map((el) => {
+				{ordersModalItems?.cartProducts.map((el) => {
 					return <CabinetOrdersModalItem product={el} />;
 				})}
-				<div>Вместе {ordersModalItems?.totalPrice}</div>
+				<div className={s.orderModal_footer}>
+					<span>Вместе</span> <span>{ordersModalItems?.totalPrice}</span>
+				</div>
 			</div>
 		</div>
 	);

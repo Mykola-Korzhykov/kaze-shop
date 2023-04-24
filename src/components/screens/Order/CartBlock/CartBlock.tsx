@@ -8,6 +8,8 @@ import { CartType, CartLoadType, ProductPlusType } from '@/types/cartItem';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import FormSpinner from '../FormSpinner/FormSpinner';
 import ErrorModal from '@/components/UI/ErrorModal';
+import { useAppDispatch } from '@/redux/hooks';
+import { setCardId } from '@/redux/slices/order';
 
 const mocCartItem = [{
     id: 1,
@@ -34,12 +36,14 @@ const mocCartItem = [{
 const CartBlock = ({ className, ...props }: CartBlockProps): JSX.Element => {
     const [cartLoad, setCartLoad] = useState<CartLoadType>('loading');
     const [cartItem, setCartItem] = useState<null | CartType>();
+    const dispatch = useAppDispatch();
 
     const getCart = async () => {
         try {
             const result: CartType = await Api().goods.getCartProducts();
             setCartItem(result);
             setCartLoad('success');
+            dispatch(setCardId(result.cart.id));
         } catch (e) {
             setCartLoad('error');
         }
@@ -88,19 +92,6 @@ const CartBlock = ({ className, ...props }: CartBlockProps): JSX.Element => {
             setCartLoad('error');
         }
     };
-
-    // if (emptyCart && ) {
-    //     return (
-    //         <ErrorModal
-    //             title="Ваша корзина пуста"
-    //             buttonText="Перейти в каталог"
-    //             buttonHref="/catalog"
-    //             description="Перейдите в каталог, чтобы купить какой то продукт"
-    //             smallModal={true}
-    //         />
-    //     )
-    // }
-    // console.log(cartItem?.cart.cartProducts.length === 0);
 
     return (
         <>

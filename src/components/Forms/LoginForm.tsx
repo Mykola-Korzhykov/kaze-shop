@@ -49,7 +49,7 @@ const LoginForm = () => {
 			if (err.response) {
 				setErrorMessage(
 					err?.response?.data?.rawErrors?.length > 0
-						? err?.response?.data?.rawErrors[0]?.error
+						? err?.response?.data?.rawErrors[router?.locale]?.error
 						: err?.response?.data?.message
 				);
 			} else {

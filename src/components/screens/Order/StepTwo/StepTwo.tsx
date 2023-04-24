@@ -33,16 +33,16 @@ const StepTwo = () => {
     const onSubmit: SubmitHandler<OrderFormStepTwoData> = async data => {
         dispatch(changeStatusStepTwo('loading'));
 
-        const validDataToSend = { ...data, payByCard: !data.payInCash, postalDelivery: !data.сourierDelivery };
-        delete validDataToSend.anotherDate;
 
-        // setTimeout(() => {
-        //     dispatch(changeStatusStepTwo('success'));
-        //     dispatch(changeOrderNum(2421));
-        //     router.push('/order_details');
-        // }, 2000);
+        const sanitatedDataToSend = { ...data, payByCard: !data.payInCash, postalDelivery: !data.сourierDelivery, };
+
+        if (!data.comment) {
+            delete sanitatedDataToSend.comment;
+        }
+
+
         try {
-            const test = await Api().goods.sendFormStepTwo(validDataToSend);
+            const test = await Api().goods.sendFormStepTwo(sanitatedDataToSend);
             console.log(test)
             dispatch(changeStatusStepTwo('success'));
             dispatch(changeOrderNum(2421));
@@ -52,7 +52,7 @@ const StepTwo = () => {
             dispatch(changeStatusStepTwo('error'));
         };
 
-        console.log(validDataToSend);
+        console.log(sanitatedDataToSend);
     };
 
     const goToStepOne = async () => {
@@ -62,7 +62,7 @@ const StepTwo = () => {
     return (
         <AnimatePresence>
             {/* stepOne === 'success' && */}
-            {true && <motion.div
+            {stepOne === 'success' && <motion.div
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1, transition: { duration: 0.5 } }}
                 exit={{ height: 0, opacity: 0, transition: { duration: 0.5 } }}

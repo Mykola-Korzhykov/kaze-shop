@@ -87,16 +87,16 @@ export const UserApi = (instance: AxiosInstance) => ({
 		);
 		return data;
 	},
-	async getOrders() {
-		const { data } = await instance.get(`orders/get?page=1&pageSize=10`);
+	async getOrders(page: number) {
+		const { data } = await instance.get(`orders/get?page=${page}&pageSize=10`);
 		return data;
 	},
 	async getOrderBasket(orderId: number) {
 		const { data } = await instance.get(`orders/${orderId}`);
 		return data;
 	},
-	async getLeftCarts() {
-		const { data } = await instance.get(`cart/leftCarts?page=1&pageSize=10`);
+	async getLeftCarts(page: number) {
+		const { data } = await instance.get(`cart/leftCarts?page=${page}&pageSize=10`);
 		return data;
 	},
 });

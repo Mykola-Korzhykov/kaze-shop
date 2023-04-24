@@ -6,6 +6,13 @@ import { InputPhoneProps } from './InputPhone.interface';
 import cn from 'classnames';
 
 const InputPhone = React.forwardRef<HTMLInputElement, InputPhoneProps>(({ placeholder, country, masks, value, label, onBlur, onChange, name, errorMessage, className }, ref): JSX.Element => {
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (value.length >= 19) {
+            return
+        }
+        onChange(e);
+        masks
+    };
 
     return (
         <div className={cn(s.wrapper, className)}>
@@ -23,8 +30,8 @@ const InputPhone = React.forwardRef<HTMLInputElement, InputPhoneProps>(({ placeh
                     inputProps={{
                         name,
                         onBlur,
-                        ref: ref ? ref : '',
-                        onChange: onChange
+                        ref: ref,
+                        onChange: handleOnChange,
                     }}
                     onlyCountries={country}
                     country={country[0]}
