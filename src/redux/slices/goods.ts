@@ -29,7 +29,7 @@ type GoodsSlice = {
 	catalogLoadingStatus: 'loading' | 'error' | 'idle';
 	page: number;
 	totalProducts: number;
-	language: 'ua' | 'rs' | 'en' | 'ru';
+	
 	errors: string | null;
 	sortType: string;
 	headerCategory: number;
@@ -392,7 +392,7 @@ const initialState: GoodsSlice = {
 		// 	updatedAt: 'any',
 		// },
 	],
-	language: 'ua',
+	
 };
 
 const goodsSlice = createSlice({

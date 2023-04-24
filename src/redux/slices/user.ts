@@ -19,6 +19,7 @@ type UserSLice = {
 	orders: UserOrders | null;
 	leftCarts: CartProduct[];
 	isSavedProductsTab: boolean;
+	language: 'ua' | 'rs' | 'en' | 'ru';
 	cartItemsModal: {
 		cartProducts: CartProductItem[];
 		totalPrice: string;
@@ -30,6 +31,7 @@ type UserSLice = {
 
 const initialState: UserSLice = {
 	user: null,
+	language: 'ua',
 	isAuth: false,
 	loadingStatus: 'idle',
 	savedProducts: [],
@@ -123,6 +125,9 @@ const userSLice = createSlice({
 		addUserInfo(state, action: PayloadAction<User>) {
 			state.user = action.payload;
 		},
+		setLanguage(state, action: PayloadAction<'ua' | 'rs' | 'en' | 'ru'>) {
+			state.language = action.payload;
+		},
 		setAuthState(state, action: PayloadAction<boolean>) {
 			state.isAuth = action.payload;
 		},
@@ -211,6 +216,7 @@ export const selectAuthState = (state: RootState) => state.user.isAuth;
 
 export const {
 	addUserInfo,
+	setLanguage,
 	setAuthState,
 	setIsSavedProductsTab,
 	deleteSavedProduct,
