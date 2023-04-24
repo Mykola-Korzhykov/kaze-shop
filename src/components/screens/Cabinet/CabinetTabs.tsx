@@ -65,7 +65,7 @@ const TABS = [
 
 const CabinetTabs: FC = () => {
 	const [selectedTab, setSelectedTab] = React.useState<number | null>(1);
-	const [showModal, setShowModal] = React.useState<boolean>(true);
+	const [showModal, setShowModal] = React.useState<boolean>(false);
 	const page = useAppSelector((state) => state.user.page);
 	const dispatch = useAppDispatch();
 
