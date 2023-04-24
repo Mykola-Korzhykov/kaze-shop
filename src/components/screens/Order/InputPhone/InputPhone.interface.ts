@@ -8,7 +8,7 @@ export interface InputPhoneProps {
 	label: string;
 	name?: string;
 	className?: string;
-	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+	onChange?: (v: string) => void;
 	onBlur?: () => void;
 	ref?: React.Ref<any>;
 	value?: string;

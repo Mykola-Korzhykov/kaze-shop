@@ -11,28 +11,7 @@ import ErrorModal from '@/components/UI/ErrorModal';
 import { useAppDispatch } from '@/redux/hooks';
 import { setCardId } from '@/redux/slices/order';
 
-const mocCartItem = [{
-    id: 1,
-    title: 'Топик через плече',
-    description: 'Lorem ipsum dolor sit amet consectetur. Convallis ',
-    color: '#000',
-    size: 'S',
-    count: 2,
-    price: '44$',
-    img: 'https://mari-m.com.ua/i/upload/b/mi512shlzholosinizhn.jpg',
 
-},
-{
-    id: 2,
-    title: 'Топик через плече',
-    description: 'Lorem ipsum dolor sit amet consectetur. Convallis ',
-    color: '#000',
-    size: 'S',
-    count: 2,
-    price: '44$',
-    img: 'https://mari-m.com.ua/i/upload/b/mi512shlzholosinizhn.jpg',
-
-}];
 const CartBlock = ({ className, ...props }: CartBlockProps): JSX.Element => {
     const [cartLoad, setCartLoad] = useState<CartLoadType>('loading');
     const [cartItem, setCartItem] = useState<null | CartType>();
@@ -57,7 +36,8 @@ const CartBlock = ({ className, ...props }: CartBlockProps): JSX.Element => {
     useEffect(() => {
         getCart();
     }, []);
-    console.log(cartItem)
+
+
     if (cartItem && !cartItem.cart.cartProducts.length) {
         return (
             <ErrorModal

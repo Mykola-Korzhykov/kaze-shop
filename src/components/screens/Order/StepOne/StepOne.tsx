@@ -107,6 +107,7 @@ const StepOne = ({ className, ...props }: StepOneProps): JSX.Element => {
                                     errorMessage={errors.userPhoneNumber?.message} />
                             )}
                         />
+
                         <Input
                             placeholder='kazesport@gmail.com'
                             label='E-mail'

@@ -152,4 +152,9 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		const { data } = await instance.put('orders/continue_order', formData);
 		return data;
 	},
+
+	async checkOrderSuccess<T>(orderNum: string) {
+		const { data } = await instance.get<T>('orders/status?orderId=' + orderNum);
+		return data;
+	},
 });
