@@ -106,6 +106,5 @@ export const LoadStatus = {
 export interface FormLoadStatusType {
 	stepOne: (typeof LoadStatus)[keyof typeof LoadStatus];
 	stepTwo: (typeof LoadStatus)[keyof typeof LoadStatus];
-	orderNum: null | number;
 	cardId: null | number;
 }

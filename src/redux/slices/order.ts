@@ -4,7 +4,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 const initialState: FormLoadStatusType = {
 	stepOne: 'idle',
 	stepTwo: 'idle',
-	orderNum: null,
 	cardId: null,
 };
 
@@ -28,9 +27,6 @@ const order = createSlice({
 		) => {
 			state.stepTwo = payload;
 		},
-		changeOrderNum: (state, { payload }: PayloadAction<null | number>) => {
-			state.orderNum = payload;
-		},
 		setCardId: (state, { payload }: PayloadAction<number | null>) => {
 			state.cardId = payload;
 		},
@@ -40,7 +36,6 @@ const order = createSlice({
 export const {
 	changeStatusStepTwo,
 	changeStatusStepOne,
-	changeOrderNum,
 	orderInit,
 	setCardId,
 } = order.actions;
