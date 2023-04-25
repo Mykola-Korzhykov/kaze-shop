@@ -1,0 +1,21 @@
+$text-color: #9d9d9d;
+
+.empty {
+    align-self: center;
+    width: 100%;
+    text-align: center;
+
+    h2 {
+        font-family: sans-serif;
+        font-size: 45px;
+        color: $text-color;
+
+        @media(max-width:576px) {
+            font-size: 30px;
+        }
+
+        @media(max-width:430px) {
+            font-size: 26px;
+        }
+    }
+}
