@@ -80,37 +80,16 @@ const mockSliderProps1 = [
 const Main = (): JSX.Element => {
 	const productPackOne = useAppSelector((store) => store.main.productSliderOne);
 	const productPackTwo = useAppSelector((store) => store.main.productSliderTwo);
-	const secondSection = React.useRef<HTMLDivElement | null>(null);
-	const [reachedSecondSection, setReachedSecondSection] = React.useState(false);
-	const dispatch = useAppDispatch();
-
-	React.useEffect(() => {
-		function handleScroll() {
-			if (window.pageYOffset >= secondSection.current.offsetTop) {
-				dispatch(setHeaderIsSticky(true));
-				setReachedSecondSection(true);
-			} else {
-				dispatch(setHeaderIsSticky(false));
-				setReachedSecondSection(false);
-			}
-		}
-
-		window.addEventListener('scroll', handleScroll);
-
-		return () => window.removeEventListener('scroll', handleScroll);
-	}, []);
 
 	return (
 		<div>
 			<BuyProducts />
 
 			{productPackOne.length > 0 && productPackOne.length && (
-				<div ref={secondSection}>
-					<Slider
-						//items={productPackOne}
-						title={productPackOne[0].categories[0].ua}
-					/>
-				</div>
+				<Slider
+					//items={productPackOne}
+					title={productPackOne[0].categories[0].ua}
+				/>
 			)}
 			<About />
 

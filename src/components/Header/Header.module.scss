@@ -1,8 +1,8 @@
 .header {
 	position: absolute;
-	// @media (max-width: 1200px) {
-	// 	position: fixed;
-	// }
+	@media (max-width: 1200px) {
+		position: fixed;
+	}
 
 	width: 100%;
 	top: 0;
@@ -375,7 +375,6 @@
 
 //
 .sticky {
-	// background-color: red;
 	position: fixed;
-	background-color: #f2f2f0;
+	background-color: transparent;
 }

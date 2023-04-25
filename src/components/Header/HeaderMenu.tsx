@@ -29,7 +29,7 @@ const HeaderMenu: FC<{
 			locale: 'en',
 		},
 	];
-	const HeadersCategories = [
+	let HeadersCategories = [
 		{
 			label: 'Личный кабинет',
 			link: '/cabinet',
@@ -66,6 +66,122 @@ const HeaderMenu: FC<{
 			id: 10,
 		},
 	];
+
+	React.useEffect(() => {
+		router.asPath !== '/'
+			? (HeadersCategories = [
+					{
+						label: 'Личный кабинет',
+						link: '/cabinet',
+						id: 14234234234,
+					},
+					{
+						label: 'Лосины',
+						link: '/catalog',
+						id: 1,
+					},
+					{
+						label: 'Костюмы',
+						link: '/catalog',
+						id: 12,
+					},
+					{
+						label: 'Велосипедки',
+						link: '/catalog',
+						id: 4,
+					},
+					{
+						label: 'Повседневное белье',
+						link: '/catalog',
+						id: 8,
+					},
+					{
+						label: 'Сумки',
+						link: '/catalog',
+						id: 5,
+					},
+					{
+						label: 'Топы',
+						link: '/catalog',
+						id: 10,
+					},
+			  ])
+			: window.scrollY < 2
+			? [
+					{
+						label: 'Личный кабинет',
+						link: '/cabinet',
+						id: 14234234234,
+					},
+					{
+						label: 'Лосины',
+						link: '/catalog',
+						id: 1,
+					},
+					{
+						label: 'Костюмы',
+						link: '/catalog',
+						id: 12,
+					},
+					{
+						label: 'Велосипедки',
+						link: '/catalog',
+						id: 4,
+					},
+					// {
+					// 	label: 'Повседневное белье',
+					// 	link: '/catalog',
+					// 	id: 8,
+					// },
+					// {
+					// 	label: 'Сумки',
+					// 	link: '/catalog',
+					// 	id: 5,
+					// },
+					{
+						label: 'Топы',
+						link: '/catalog',
+						id: 10,
+					},
+			  ]
+			: [
+					{
+						label: 'Личный кабинет',
+						link: '/cabinet',
+						id: 14234234234,
+					},
+					{
+						label: 'Лосины',
+						link: '/catalog',
+						id: 1,
+					},
+					{
+						label: 'Костюмы',
+						link: '/catalog',
+						id: 12,
+					},
+					{
+						label: 'Велосипедки',
+						link: '/catalog',
+						id: 4,
+					},
+					{
+						label: 'Повседневное белье',
+						link: '/catalog',
+						id: 8,
+					},
+					{
+						label: 'Сумки',
+						link: '/catalog',
+						id: 5,
+					},
+					{
+						label: 'Топы',
+						link: '/catalog',
+						id: 10,
+					},
+			  ];
+	});
 
 	const headerLinkHandler = (elLink: string, elId: number) => {
 		if (elLink === '/catalog') {

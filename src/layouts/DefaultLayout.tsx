@@ -30,7 +30,7 @@ const DefaultLayout: FC<{
 		window.addEventListener('scroll', () => {
 			setHeaderHeight(headerRef.current?.offsetHeight);
 			// && router.asPath === '/500'
-			if (window.scrollY > 0 && router.asPath !== '/') {
+			if (window.scrollY > 1 && router.asPath !== '/') {
 				// setIsSticky(true);
 				dispatch(setHeaderIsSticky(true));
 				// dispatch(setHeaderIsSticky(true));
