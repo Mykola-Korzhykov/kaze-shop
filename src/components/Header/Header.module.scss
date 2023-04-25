@@ -1,8 +1,9 @@
 .header {
 	position: absolute;
-	@media (max-width: 1200px) {
-		position: fixed;
-	}
+	// @media (max-width: 1200px) {
+	// 	position: fixed;
+	// }
+
 	width: 100%;
 	top: 0;
 	left: 0;
@@ -20,6 +21,8 @@
 		@media (max-width: 834px) {
 			background-color: #f2f2f0;
 		}
+		background-color: transparent;
+		display: block;
 	}
 	&__body {
 		position: relative;
@@ -368,4 +371,11 @@
 	@media (max-width: 400px) {
 		display: none;
 	}
+}
+
+//
+.sticky {
+	// background-color: red;
+	position: fixed;
+	background-color: #f2f2f0;
 }

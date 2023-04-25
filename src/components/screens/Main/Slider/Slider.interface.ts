@@ -3,6 +3,6 @@ import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 export interface SliderInterface
 	extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-	items: Product[];
+	items?: Product[];
 	title: string;
 }
