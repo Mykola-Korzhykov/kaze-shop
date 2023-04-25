@@ -65,7 +65,7 @@ const HeaderInfo: FC<Props> = ({ toggleBurgerFunc, showBurgerMenu }) => {
 					>
 						{Languages.filter((el) => el.locale !== router.locale).map((el) => {
 							return (
-								<Link key={el.locale} href={router.pathname} locale={el.locale}>
+								<Link key={el.locale} href={router.asPath} locale={el.locale}>
 									{el.label}
 								</Link>
 							);

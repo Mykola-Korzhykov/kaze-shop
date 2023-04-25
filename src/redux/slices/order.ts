@@ -1,4 +1,4 @@
-import { FormLoadStatusType, LoadStatus } from '@/types/singleProduct';
+import { FormLoadStatusType, LoadStatus } from '@/types/product';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: FormLoadStatusType = {

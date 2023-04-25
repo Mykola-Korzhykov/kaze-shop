@@ -3,11 +3,12 @@ import s from './Reviews.module.scss';
 import ReviewsSlider from './ReviewsSlider/ReviewsSlider';
 import { ReviewsProps } from './Reviews.interface';
 import EmptyReviewSlideMessage from './EmptyReviewSlideMessage/EmptyReviewSlideMessage';
+import cn from 'classnames';
 
-const Reviews = ({ clientReviews }: ReviewsProps): JSX.Element => {
+const Reviews = ({ clientReviews, className }: ReviewsProps): JSX.Element => {
     return (
         <div className="container">
-            <div className={s.reviews}>
+            <div className={cn(s.reviews, className)}>
                 <ReviewImg />
                 {clientReviews.length >= 1 && <ReviewsSlider clientReviews={clientReviews} />}
                 {clientReviews.length === 0 && <EmptyReviewSlideMessage>Еще нет ни одного отзыва</EmptyReviewSlideMessage>}

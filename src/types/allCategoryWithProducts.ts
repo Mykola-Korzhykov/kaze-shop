@@ -1,4 +1,4 @@
-import { SingleProductRes } from './singleProduct';
+import { SingleProductRes } from './product';
 
 export interface AllCategoryData {
 	data: AllCategory[];

@@ -2,7 +2,7 @@ import React from 'react';
 import Footer from '@/components/Footer/Footer';
 import OneProduct from '@/components/screens/Product/Product';
 import axios from 'axios';
-import { SingleProductData, SingleProductRes } from '@/types/singleProduct';
+import { SingleProductData, SingleProductRes } from '@/types/product';
 import { API_URL } from '../../services/index';
 
 import { GetStaticPaths, GetStaticProps } from 'next/types';
@@ -11,10 +11,8 @@ import SpinnerLayout from '@/layouts/SpinnerLayout';
 import ErrorPage from '../404';
 import { StrapiAxios } from '@/services/strapiAxios';
 import { ReviewsResT } from '@/types/mainPageRequest/reviews';
-import { footersResT } from '@/types/mainPageRequest/footer';
 import { useAppDispatch } from '@/redux/hooks';
 import { initial } from '@/redux/slices/strapiValues';
-import { LogoResT } from '@/types/mainPageRequest/logo';
 
 const Product = (data: SingleProductData): JSX.Element => {
     const dispatch = useAppDispatch();
@@ -30,7 +28,11 @@ const Product = (data: SingleProductData): JSX.Element => {
         about: null,
         faq: null,
         mainPage: null,
-        reviews: data.reviewsStrapi
+        reviews: {
+            ...data.reviewsStrapi,
+            clientReviews: data.product.reviews,
+
+        }
     }))
 
 
@@ -43,7 +45,7 @@ const Product = (data: SingleProductData): JSX.Element => {
 };
 
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
     const { data: category } = await axios.get<AllCategory[]>(API_URL + `/categories/get_categories&products`);
 
     const productId = category.flatMap((item) => {
@@ -52,9 +54,21 @@ export const getStaticPaths: GetStaticPaths = async () => {
         }
     });
 
+    const pathArray = productId.flatMap(id => {
+        return locales.map(locale => {
+            return {
+                params: {
+                    slug: '/product/',
+                    id: `${id}`,
+                },
+                locale
+
+            }
+        })
+    });
 
     return {
-        paths: productId.map(id => (`/product/${id}`)),
+        paths: pathArray,
         fallback: true,
 
     }
@@ -73,8 +87,6 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
         const allRequest = await Promise.all([
             axios.get<SingleProductRes>(API_URL + `/product/${params.id}`),
             StrapiAxios.get<ReviewsResT>('/api/reviews?populate=deep&locale=' + validLocale),
-            StrapiAxios.get<footersResT>('/api/footers?populate=deep&locale=' + validLocale),
-            StrapiAxios.get<LogoResT>('/api/logos?populate=deep&locale=' + validLocale)
 
         ]);
 
@@ -85,23 +97,13 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
             title: allRequest[1].data.data[0].attributes.title,
             image: allRequest[1].data.data[0].attributes.image
         };
-        const footer = {
-            field: [
-                allRequest[2].data.data[0].attributes.field_1,
-                allRequest[2].data.data[0].attributes.field_2,
-                allRequest[2].data.data[0].attributes.field_3
-            ]
-        };
-        const logo = allRequest[3].data.data[0].attributes.logo;
 
         return {
             props: {
                 product,
                 reviewsStrapi,
-                footer,
-                logo
 
-            }
+            },
         }
 
     } catch (e) {

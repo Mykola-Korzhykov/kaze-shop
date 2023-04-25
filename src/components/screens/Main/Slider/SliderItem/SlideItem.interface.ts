@@ -1,17 +1,6 @@
-import {
-	Category,
-	Product,
-	SizeChartImageDescription,
-} from '@/types/mainPageRequest/categorySlider';
-import {
-	Description,
-	Image,
-	Title,
-} from '@/types/mainPageRequest/lastAddedProduct';
-import { StaticImageData } from 'next/image';
-import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { SingleProductRes } from '@/types/product';
 
-export interface SlideItemInterfaces extends Product {
+export interface SlideItemInterfaces extends SingleProductRes {
 	children?: JSX.Element;
 	className?: string;
 }

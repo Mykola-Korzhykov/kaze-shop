@@ -1,6 +1,6 @@
 import { OrderFormStepTwoData } from '@/utils/validation';
 import { sendProductToCart } from './goods';
-import { LoadStatus } from './singleProduct';
+import { LoadStatus } from './product';
 
 export interface CartType {
 	cart: CartData;

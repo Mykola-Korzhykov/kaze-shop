@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LoadStatus } from '@/types/singleProduct';
+import { LoadStatus } from '@/types/product';
 import s from './StepOne.module.scss';
 import Input from '../Input/Input';
 import InputPhone from '../InputPhone/InputPhone';

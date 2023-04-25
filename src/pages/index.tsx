@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 			axios.get<CategorySlider>(process.env.NEXT_BASE_URL + '/product/categories?page=1&pageSize=1&categories=1'),
 			axios.get<CategorySlider>(process.env.NEXT_BASE_URL + '/product/categories?page=1&pageSize=1&categories=2'),
 			axios.get<LastAddedProduct>(process.env.NEXT_BASE_URL + '/product?page=1&pageSize=1'),
-			axios.get<AxiosResponse<ClientReviewsRes>>(process.env.NEXT_BASE_URL + '/reviews/get?page=1&pageSize=1'),
+			axios.get<AxiosResponse<ClientReviewsRes>>(process.env.NEXT_BASE_URL + '/reviews/get?page=1&pageSize=15'),
 		]);
 
 		const about = {

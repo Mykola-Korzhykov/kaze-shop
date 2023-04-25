@@ -157,4 +157,11 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		const { data } = await instance.get<T>('orders/status?orderId=' + orderNum);
 		return data;
 	},
+	async getManyProduct<T>(productId: Array<number>) {
+		const id = productId.join(',');
+		const { data } = await instance.get<T>(
+			'product/get?page=1&pageSize=1&productIds=' + id
+		);
+		return data;
+	},
 });

@@ -1,16 +1,17 @@
-import { Field } from './mainPageRequest/footer';
 import { Image as StrapiImageData } from './mainPageRequest/reviews';
 
 export interface SingleProductData {
 	product: SingleProductRes;
 	reviewsStrapi: ReviewsStrapi;
-	footer: {
-		field: Field[];
-	};
-	logo: string;
+}
+
+export interface ManyProductRes {
+	products: SingleProductRes[];
+	totalProducts: number;
 }
 
 export interface SingleProductRes {
+	isSaved: boolean;
 	id: number;
 	title: Title;
 	description: Description;
@@ -18,12 +19,12 @@ export interface SingleProductRes {
 	price: string;
 	quantity: number;
 	images: Image[];
+	hexes: string[];
 	sizeChartImage: string;
 	sizes: string[];
-	hexes: string[];
-	colours: Colour2[];
+	colours: any[];
 	categories: Category[];
-	reviews: any[];
+	reviews: Reviews[];
 }
 
 interface ReviewsStrapi {
@@ -61,27 +62,16 @@ export interface Image {
 }
 
 export interface Colour {
-	id: number;
-	ua: string;
-	en: string;
-	rs: string;
-	ru: string;
-	hex: string;
-	type: string;
-	createdAt: string;
-	updatedAt: string;
-}
-
-export interface Colour2 {
-	id: number;
-	ua: string;
-	en: string;
-	rs: string;
-	ru: string;
-	hex: string;
-	type: string;
-	createdAt: string;
-	updatedAt: string;
+	id: number | null;
+	ua: string | null;
+	en: string | null;
+	rs: string | null;
+	ru: string | null;
+	hex: string | null;
+	type: 'colour' | null;
+	createdAt: any | null;
+	updatedAt: any | null;
+	[key: string]: any;
 }
 
 export interface Category {
@@ -94,6 +84,17 @@ export interface Category {
 	createdAt: any;
 	updatedAt: any;
 	[key: string]: any;
+}
+
+export interface Reviews {
+	id: number;
+	name: string;
+	surname: string;
+	review: string;
+	rating: number;
+	imageUrl: string;
+	createdAt: string;
+	updatedAt: string;
 }
 
 export const LoadStatus = {

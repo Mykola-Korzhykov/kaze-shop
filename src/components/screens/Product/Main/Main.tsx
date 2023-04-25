@@ -7,25 +7,18 @@ import SizeItems from "./SizeItems/SizeItems";
 import ColorItems from "./ColorItems/ColorItems";
 import Slider from "./SliderProduct/SliderProduct";
 import Link from "next/link";
-import SlideItem from '../../../../assets/images/product/slider/photo.png';
-import { SingleProductRes } from "@/types/singleProduct";
+import { SingleProductRes } from "@/types/product";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import { useAppDispatch } from "@/redux/hooks";
+import { addProductToCart, addProductToCompare } from "@/redux/slices/goods";
 
-const mockSIze = ["XXS", "XS", "S", "M", "L", "XL", "M", "L", "XL"];
-const mockColor = [
-    "#123",
-    "#234",
-    "#345",
-    "#456",
-    "#567",
-    "#678",
-    "#789",
-    "#890",
-    "#901",
-];
-const mockSlideImg = [SlideItem, SlideItem, SlideItem, SlideItem, SlideItem, SlideItem]
-const Main = ({ id, title, description, price, images, sizes, quantity, categories }: SingleProductRes) => {
 
+const Main = (product: SingleProductRes) => {
+    const { id, title, description, price, images, sizes, quantity, categories } = product;
+    const router = useRouter();
+    const myLocale = router.locale as 'ua' | 'ru' | 'rs' | 'en';
+    const dispatch = useAppDispatch();
     const [activeColor, setActiveColor] = useState<number>(0);
     const [activeSize, setActiveSize] = useState<number>(0);
 
@@ -34,7 +27,8 @@ const Main = ({ id, title, description, price, images, sizes, quantity, categori
         return result;
     });
 
-    const path = [{ path: 'Главная', href: '/' }, { path: 'Каталог', href: '/catalog' }, { path: categories[0].ua, href: '/test' }];
+
+    const path = [{ path: 'Главная', href: '/' }, { path: 'Каталог', href: '/catalog' }, { path: categories[0][myLocale], href: '/test' }];
 
     const renderSlider = availableColors.map((el, i) => {
         if (activeColor === i) {
@@ -48,7 +42,40 @@ const Main = ({ id, title, description, price, images, sizes, quantity, categori
         setActiveSize(i);
     }
 
-    const mainImg = images[activeColor].imagesPaths[0]
+    const basketButtonHandler = () => {
+        dispatch(
+            addProductToCart({
+                id,
+                imageUrl: images[activeColor].imagesPaths[0],
+                colourId: images[activeColor].colour.id,
+                size: sizes[activeSize],
+            })
+        );
+        dispatch(addProductToCompare({
+            ...product,
+            isSaved: false
+        }));
+        router.push('/compare');
+    };
+
+    const fastBuy = () => {
+        dispatch(
+            addProductToCart({
+                id,
+                imageUrl: images[activeColor].imagesPaths[0],
+                colourId: images[activeColor].colour.id,
+                size: sizes[activeSize],
+            })
+        );
+        dispatch(addProductToCompare({
+            ...product,
+            isSaved: false
+        }));
+        router.push('/cart');
+    }
+
+    const mainImg = images[activeColor].imagesPaths[0];
+
     return (
         <div className={s.main}>
             <div className={s.main_box}>
@@ -57,7 +84,7 @@ const Main = ({ id, title, description, price, images, sizes, quantity, categori
 
                     <div className={s.main_wrapper}>
                         <div className={s.title}>
-                            <h1>{title.ua}</h1>
+                            <h1>{title[myLocale]}</h1>
                             <div>
                                 <b>{price}</b>
                                 {fewProduct && <span>Осталось мало</span>}
@@ -74,8 +101,8 @@ const Main = ({ id, title, description, price, images, sizes, quantity, categori
                                 setColor={setActiveColor} />
                         </div>
                         <div className={s.buttons}>
-                            <Button arrow={false}>В корзину</Button>
-                            <Button color="transparent">В один клик</Button>
+                            <Button onClick={basketButtonHandler} arrow={false}>В корзину</Button>
+                            <Button onClick={fastBuy} color="transparent">В один клик</Button>
                         </div>
                         <div className={s.main_photo}>
                             <Image src={mainImg} width={100} height={100} alt={"Лосины Тай Дай"} priority={true} quality={100} />
@@ -84,7 +111,7 @@ const Main = ({ id, title, description, price, images, sizes, quantity, categori
                         {renderSlider}
                         <div className={s.text}>
                             <p>
-                                {description.ua}
+                                {description[myLocale]}
                             </p>
                             <Link href={`/sizeChart/${id}`}>
                                 <span>Размерная сетка</span>

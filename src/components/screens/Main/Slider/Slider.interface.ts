@@ -1,8 +1,8 @@
-import { Product } from '@/types/mainPageRequest/categorySlider';
+import { SingleProductRes } from '@/types/product';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 
 export interface SliderInterface
 	extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-	items: Product[];
+	items: SingleProductRes[];
 	title: string;
 }

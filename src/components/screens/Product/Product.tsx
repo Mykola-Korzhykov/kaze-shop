@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import s from './Product.module.scss';
 import Slider from '../Main/Slider/Slider';
 import Main from './Main/Main';
 import Product1 from '../../../assets/images/main/ProductsAccessories/product2.png';
 import Reviews from '../Main/Reviews/Reviews';
 import Feedback from './Feedback/Feedback';
-import { SingleProductData } from '@/types/singleProduct';
+import { ManyProductRes, SingleProductData, SingleProductRes } from '@/types/product';
+import cn from 'classnames';
+import { Api } from '@/services';
 
 const mockSliderProps1 = [
     {
@@ -41,12 +44,34 @@ const mockSliderProps1 = [
 
 
 const OneProduct = ({ product }: SingleProductData): JSX.Element => {
+    const [recentlyViewed, setRecentlyViewed] = useState<SingleProductRes[]>([]);
+
+    useEffect(() => {
+        const getViewsProduct = async () => {
+            const itemId: Array<number> | null = JSON.parse(window.localStorage.getItem('recentlyViewedProducts'));
+
+            if (!itemId) {
+                return;
+            }
+            try {
+                const response = await Api().goods.getManyProduct<ManyProductRes>(itemId);
+                setRecentlyViewed(response.products);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        getViewsProduct();
+
+    }, []);
+
 
     return (
         <div>
             <Main {...product} />
-            {/* <Slider title='Вы недавно смотрели' items={mockSliderProps1} /> */}
-            <Reviews />
+            {recentlyViewed.length > 0 && <Slider title='Вы недавно смотрели' items={recentlyViewed} />}
+            <Reviews clientReviews={product.reviews} className={cn({
+                [s.reviews]: recentlyViewed.length === 0
+            })} />
             <Feedback id={product.id} />
         </div>
 

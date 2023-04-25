@@ -1,6 +1,6 @@
 import { Button, Image } from './about';
 import { Field } from './faq';
-import { Product } from './lastAddedProduct';
+import { SingleProductRes } from '../product';
 import { MainField } from './mainPage';
 import { Reviews } from './reviews';
 
@@ -52,9 +52,9 @@ export type SlicesInitType = {
 };
 
 export interface IndexPageProps {
-	productSliderOne: Product[];
-	productSliderTwo: Product[];
-	lastAddedProduct: Product[];
+	productSliderOne: SingleProductRes[];
+	productSliderTwo: SingleProductRes[];
+	lastAddedProduct: SingleProductRes[];
 	about: null | {
 		button: Button;
 		image: Image;
@@ -79,7 +79,7 @@ export interface IndexPageProps {
 }
 
 export interface MainProps {
-	productSliderOne: Product[];
-	productSliderTwo: Product[];
-	lastAddedProduct: Product[];
+	productSliderOne: SingleProductRes[];
+	productSliderTwo: SingleProductRes[];
+	lastAddedProduct: SingleProductRes[];
 }

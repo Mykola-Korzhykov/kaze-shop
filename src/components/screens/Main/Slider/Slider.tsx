@@ -1,6 +1,6 @@
 import ArrowButton from './ArrowButton/ArrowButton';
 import s from './slider.module.scss';
-import { Product } from '@/types/mainPageRequest/categorySlider';
+import { SingleProductRes } from '@/types/product';
 import SlideItem from './SliderItem/SlideItem';
 import cn from 'classnames';
 import { useKeenSlider } from 'keen-slider/react';
@@ -9,7 +9,6 @@ import { SliderInterface } from './Slider.interface';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { addProductToCart, addProductToCompare } from '@/redux/slices/goods';
 import { useRouter } from 'next/router';
-import { fetchedCategory } from '@/types/goods';
 import { deleteSavedProduct } from '@/redux/slices/user';
 import { Api } from '@/services';
 
@@ -34,7 +33,7 @@ const Slider = ({ title, items, className }: SliderInterface): JSX.Element => {
     const { isAuth, user } = useAppSelector(store => store.user);
     const router = useRouter();
 
-    const basketButtonHandler = (product: Product) => {
+    const basketButtonHandler = (product: SingleProductRes) => {
         dispatch(
             addProductToCart({
                 id: product.id,
@@ -50,7 +49,7 @@ const Slider = ({ title, items, className }: SliderInterface): JSX.Element => {
         router.push('/compare');
     };
 
-    const addSavedProduct = (product: Product) => {
+    const addSavedProduct = (product: SingleProductRes) => {
         if (isAuth && user?.type === 'USER') {
             try {
                 Api().goods.addToFavorites(product?.id);
@@ -62,7 +61,7 @@ const Slider = ({ title, items, className }: SliderInterface): JSX.Element => {
         }
     };
 
-    const deleteSavedProductFunc = (product: Product) => {
+    const deleteSavedProductFunc = (product: SingleProductRes) => {
         dispatch(deleteSavedProduct(product?.id));
         try {
             Api().user.deleteUserSavedProduct(product?.id);
