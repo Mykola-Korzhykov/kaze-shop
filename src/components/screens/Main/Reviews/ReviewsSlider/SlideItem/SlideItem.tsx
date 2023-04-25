@@ -5,20 +5,20 @@ import { SlideItemInterface } from './SlideItem.interface';
 import cn from 'classnames';
 import { useAppSelector } from '@/redux/hooks';
 
-const SlideItem = ({ img, reviewsText, name, className, grade, ...props }: SlideItemInterface): JSX.Element => {
+const SlideItem = ({ imageUrl, rating, surname, review, name, className, }: SlideItemInterface): JSX.Element => {
     const userType = useAppSelector(store => store.user.user?.type);
 
     return (
-        <div className={cn(s.item, className)} {...props}>
+        <div className={cn(s.item, className)} >
             <div className={s.item_img}>
-                <Image src={img} alt="product photo" quality={100} />
+                <Image src={imageUrl} alt="product photo" quality={100} width={200} height={242} />
             </div>
             <div className={s.item_description}>
                 <div className={s.item_description_title}>
-                    <h5>{name}</h5> 
+                    <h5>{name} {surname}</h5> 
                 </div>
-                <p>{reviewsText}</p>
-                <Stars grade={grade} />
+                <p>{review}</p>
+                <Stars grade={rating} />
 
                 {['OWNER', 'ADMIN'].includes(userType) &&
                     <svg className={s.delete} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">

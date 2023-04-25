@@ -3,7 +3,7 @@ import SpinnerLayout from '@/layouts/SpinnerLayout';
 
 
 import { GetStaticProps } from 'next';
-import { ReviewsResT } from '@/types/mainPageRequest/reviews';
+import { ClientReviewsRes, ReviewsResT } from '@/types/mainPageRequest/reviews';
 import { AboutResT } from '@/types/mainPageRequest/about';
 import { FaqResT } from '@/types/mainPageRequest/faq';
 import { MainPageResT } from '@/types/mainPageRequest/mainPage';
@@ -11,7 +11,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { StrapiAxios } from '@/services/strapiAxios';
 import { IndexPageProps } from '@/types/mainPageRequest';
 import { initial } from '@/redux/slices/strapiValues';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { CategorySlider } from '@/types/mainPageRequest/categorySlider';
 import { LastAddedProduct } from '@/types/mainPageRequest/lastAddedProduct';
 import { initialMain } from '@/redux/slices/main';
@@ -30,9 +30,6 @@ export default function Home({ about, faq, lastAddedProduct, mainPage, productSl
 	dispatch(initialMain({ lastAddedProduct, productSliderOne, productSliderTwo }));
 
 
-	dispatch(
-		initialMain({ lastAddedProduct, productSliderOne, productSliderTwo })
-	);
 
 	return (
 		<SpinnerLayout>
@@ -53,7 +50,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 			axios.get<CategorySlider>(process.env.NEXT_BASE_URL + '/product/categories?page=1&pageSize=1&categories=1'),
 			axios.get<CategorySlider>(process.env.NEXT_BASE_URL + '/product/categories?page=1&pageSize=1&categories=2'),
 			axios.get<LastAddedProduct>(process.env.NEXT_BASE_URL + '/product?page=1&pageSize=1'),
-			axios.get(process.env.NEXT_BASE_URL + '/reviews/get?page=1&pageSize=1'),
+			axios.get<AxiosResponse<ClientReviewsRes>>(process.env.NEXT_BASE_URL + '/reviews/get?page=1&pageSize=1'),
 		]);
 
 		const about = {
@@ -75,7 +72,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 		const reviews = {
 			image: allRequest[2].data.data[0].attributes.image,
-			title: allRequest[2].data.data[0].attributes.title
+			title: allRequest[2].data.data[0].attributes.title,
+			clientReviews: allRequest[7].data.data
 
 		}
 		const mainPage = {

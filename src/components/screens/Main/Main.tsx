@@ -10,82 +10,19 @@ import Footer from "@/components/Footer/Footer";
 import { useAppSelector } from '@/redux/hooks';
 
 
-const mockSliderProps = [
-    {
-        img: Product,
-        title: 'Лосины ТайДай',
-        price: '78$',
-    },
-    {
-        img: Product,
-        title: 'Лосины ТайДай',
-        price: '78$',
-    },
-    {
-        img: Product,
-        title: 'Лосины ТайДай',
-        price: '78$',
-    },
-    {
-        img: Product,
-        title: 'Лосины ТайДай',
-        price: '78$',
-    },
-    {
-        img: Product,
-        title: 'Лосины ТайДай',
-        price: '78$',
-    },
-    {
-        img: Product,
-        title: 'Лосины ТайДай',
-        price: '78$',
-    }
-];
 
-const mockSliderProps1 = [
-    {
-        img: Product1,
-        title: 'Хай тек серая',
-        price: '48$',
-    },
-    {
-        img: Product1,
-        title: 'Хай тек серая',
-        price: '78$',
-    },
-    {
-        img: Product1,
-        title: 'Хай тек серая',
-        price: '88$',
-    },
-    {
-        img: Product1,
-        title: 'Хай тек серая',
-        price: '28$',
-    },
-    {
-        img: Product1,
-        title: 'Хай тек серая',
-        price: '38$',
-    },
-    {
-        img: Product1,
-        title: 'Хай тек серая',
-        price: '48$',
-    }
-]
 
 const Main = (): JSX.Element => {
     const productPackOne = useAppSelector(store => store.main.productSliderOne);
     const productPackTwo = useAppSelector(store => store.main.productSliderTwo);
+    const clientReviews = useAppSelector(store => store.strapiValues.reviews.clientReviews);
     return (
         <div>
             <BuyProducts />
             {productPackOne.length > 0 && productPackOne.length && <Slider items={productPackOne} title={productPackOne[0].categories[0].ua} />}
             <About />
             {productPackTwo.length > 0 && productPackTwo.length && <Slider items={productPackTwo} title={productPackTwo[0].categories[0].ua} />}
-            <Reviews />
+            <Reviews clientReviews={clientReviews} />
             <FAQ />
             <Footer/>
         </div>

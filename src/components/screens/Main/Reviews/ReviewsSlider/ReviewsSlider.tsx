@@ -7,51 +7,64 @@ import s from './reviewsSlider.module.scss';
 import slideItemStyle from './SlideItem/slideItem.module.scss';
 import ArrowButton from "../../Slider/ArrowButton/ArrowButton";
 import { useEffect, useState } from "react";
+import { ReviewsSliderProps } from "./ReviewsSlider.interface";
+import React from "react";
 
 
 const mockSliderData = [
     {
-        img: Product,
-        name: 'Ксения Внедорожная',
-        reviewsText: 'Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо!',
-        grade: 4,
+        id: 1,
+        imageUrl: Product,
+        name: 'Ксения',
+        surname: ' Внедорожная',
+        review: 'Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо!',
+        rating: 4,
     },
     {
-        img: Product,
-        name: 'Ксения Внедорожная',
-        reviewsText: 'Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо!',
-        grade: 1,
+        id: 2,
+        imageUrl: Product,
+        name: 'Ксения',
+        surname: ' Внедорожная',
+        review: 'Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо!',
+        rating: 1,
     },
     {
-        img: Product,
-        name: 'Ксения Внедорожная',
-        reviewsText: 'Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо!',
-        grade: 2,
+        id: 3,
+        imageUrl: Product,
+        name: 'Ксения',
+        surname: ' Внедорожная',
+        review: 'Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо!',
+        rating: 2,
     },
     {
-        img: Product,
-        name: 'Ксения Внедорожная',
-        reviewsText: 'Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо! Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо! Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо! Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо!',
-        grade: 5,
+        id: 4,
+        imageUrl: Product,
+        name: 'Ксения',
+        surname: 'Внедорожная',
+        review: 'Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо!',
+        rating: 5,
     },
     {
-        img: Product,
-        name: 'Ксения Внедорожная',
-        reviewsText: 'Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо!',
-        grade: 4,
-    }
+        id: 5,
+        imageUrl: Product,
+        name: 'Ксения',
+        surname: ' Внедорожная',
+        review: 'Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо!',
+        rating: 4,
+    },
 ]
 
 
 
 
-const ReviewsSlider = () => {
+const ReviewsSlider = ({ clientReviews }: ReviewsSliderProps) => {
     const [isMobile, setIsMobile] = useState<boolean>(false);
+    const slideViewCount = clientReviews.length >= 3 ? 3 : clientReviews.length;
     const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
         {
             slides: {
-                spacing: 30, 
-                perView: 3,
+                spacing: 20,
+                perView: slideViewCount,
             },
             loop: true,
             rubberband: false,
@@ -60,20 +73,22 @@ const ReviewsSlider = () => {
             breakpoints: {
                 '(max-width:1200px)': {
                     slides: {
-                        perView: 3,
+                        perView: slideViewCount,
                         spacing: 10,
                     },
 
                 },
                 '(max-width:992px)': {
                     slides: {
-                        perView: 2,
+                        perView: slideViewCount >= 2 ? 2 : slideViewCount,
                         spacing: 10,
                     },
                 }
             },
         },
     );
+
+
     useEffect(() => {
         const slider = instanceRef.current;
         function rotate() {
@@ -134,8 +149,11 @@ const ReviewsSlider = () => {
 
     return (
         <div className={s.wrapper}>
-            <div ref={sliderRef} className={cn(s.slider, 'keen-slider')}>
-                {mockSliderData.map((item, i) => <SlideItem key={i} {...item} className={cn(`keen-slider__slide number-slide${i + 1}`)} />)}
+            <div ref={sliderRef} className={cn(s.slider, 'keen-slider', {
+                [s.oneSlide]: slideViewCount === 1,
+                [s.twoSlide]: slideViewCount === 2
+            })}>
+                {clientReviews.map((item, i) => <SlideItem key={item.id} {...item} className={cn(`keen-slider__slide number-slide${i + 1}`)} />)}
             </div>
             <div className={s.slider_btn}>
                 <ArrowButton position="up" onClick={() => instanceRef.current?.next()}

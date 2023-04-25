@@ -102,3 +102,18 @@ export interface Pagination {
 	pageCount: number;
 	total: number;
 }
+
+
+export interface ClientReviewsRes {
+	data: Reviews[];
+}
+export interface Reviews {
+	id: number;
+	name: string;
+	surname: string;
+	review: string;
+	rating: number;
+	imageUrl: string;
+	createdAt: string;
+	updatedAt: string;
+}

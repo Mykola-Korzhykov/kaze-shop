@@ -1,7 +1,7 @@
-import { strapiValuesTypes } from '@/types/mainPageRequest';
+import { SlicesInitType } from '@/types/mainPageRequest';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState: strapiValuesTypes = {
+const initialState: SlicesInitType = {
 	about: null,
 	faq: null,
 	mainPage: null,
@@ -12,7 +12,7 @@ export const strapiValues = createSlice({
 	name: 'StrapiValues',
 	initialState,
 	reducers: {
-		initial(state, { payload }: PayloadAction<strapiValuesTypes>) {
+		initial(state, { payload }: PayloadAction<SlicesInitType>) {
 			state.about = payload.about;
 			state.faq = payload.faq;
 			state.mainPage = payload.mainPage;
