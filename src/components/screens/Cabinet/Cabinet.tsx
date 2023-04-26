@@ -118,7 +118,7 @@ const Cabinet: FC = () => {
 						/>
 					) : null}
 
-					<CabinetOwner
+					{/* <CabinetOwner
 						role={'OWNER'}
 						modalAddCAtegory={modalAddCAtegory}
 						imagesData={images}
@@ -130,7 +130,7 @@ const Cabinet: FC = () => {
 						setFiles={setFiles}
 						setPngImageShow={setPngImageShow}
 						setJpgImagesShow={setJpgImagesShow}
-					/>
+					/> */}
 					{/* <CabinetAdmin /> */}
 
 					{/* <div className={s.backround_module}></div>  */}

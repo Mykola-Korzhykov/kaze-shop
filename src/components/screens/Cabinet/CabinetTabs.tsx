@@ -7,6 +7,7 @@ import OrderHisrtory from '@/components/UserCabinet/OrderHistory/OrderHistory';
 import LogoutModal from '@/components/modals/LogoutModal/LogoutModal';
 import ForgottenBaskets from '@/components/UserCabinet/ForgottenBaskets/ForgottenBaskets';
 import RecentlyWatchedProducts from '@/components/UserCabinet/RecentlyWatchedProducts/RecentlyWatchedProducts';
+import ErrorMessage from '../Order/ErrorMessage/ErrorMessage';
 import ProductsPagination from '@/components/UserCabinet/ProductsPagination';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import {
@@ -66,7 +67,9 @@ const TABS = [
 const CabinetTabs: FC = () => {
 	const [selectedTab, setSelectedTab] = React.useState<number | null>(1);
 	const [showModal, setShowModal] = React.useState<boolean>(false);
+	const [showErrorModal, setErrorShowModal] = React.useState<boolean>(false);
 	const page = useAppSelector((state) => state.user.page);
+	const loadingStatus = useAppSelector((state) => state.user.loadingStatus);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
@@ -77,7 +80,7 @@ const CabinetTabs: FC = () => {
 			dispatch(setIsSavedProductsTab(true));
 			dispatch(getUserSavedProducts());
 		}
-		selectedTab;
+
 		if (selectedTab === 5) {
 			dispatch(getUserLeftCarts());
 		}
@@ -134,8 +137,14 @@ const CabinetTabs: FC = () => {
 				return null;
 		}
 	};
+	const closeErrorModal = () => {
+		setErrorShowModal(false);
+	};
 	return (
 		<>
+			{loadingStatus === 'error' || showErrorModal ? (
+				<ErrorMessage closeError={closeErrorModal} />
+			) : null}
 			{showModal && (
 				<CabinetOrdersModal
 					ordersTabActive={selectedTab === 3 ? true : false}

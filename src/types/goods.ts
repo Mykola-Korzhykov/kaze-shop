@@ -38,6 +38,7 @@ export interface Goods {
 		ru: string;
 		rs: string;
 		en: string;
+		[key: string]: string
 	};
 	description: {
 		ua: string;

@@ -50,7 +50,7 @@ const ForgottenBasketsItem: FC<{
 		<div className={s.cart}>
 			<div className={s.cart_imgWrapper}>
 				<Image
-					src={product?.cartProducts?.[0].imageUrl ?? cartImage}
+					src={product?.cartProducts?.[0]?.imageUrl ?? cartImage}
 					width={94}
 					height={153}
 					alt="Cart image"
