@@ -4,6 +4,8 @@ import { AxiosInstance, AxiosResponse } from 'axios';
 import { API_URL } from './index';
 import { OrderFormStepOneData } from '@/utils/validation';
 import { FormStepTwoData } from '@/types/cartItem';
+
+
 export const GoodsApi = (instance: AxiosInstance) => ({
 	async getGoods(page: number, categoryId?: number) {
 		let url;
@@ -15,8 +17,8 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		const { data } = await instance.get(url);
 		return data;
 	},
-	async getGoodsByCategory(page: number, categoryId: number) {
-		const { data } = await instance.get(
+	async getGoodsByCategory<T>(page: number, categoryId: number) {
+		const { data } = await instance.get<T>(
 			`/product/categories?page=${page}&pageSize=10&categories=${categoryId}`
 		);
 		return data;

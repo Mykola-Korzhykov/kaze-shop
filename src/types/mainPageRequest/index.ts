@@ -52,8 +52,6 @@ export type SlicesInitType = {
 };
 
 export interface IndexPageProps {
-	productSliderOne: SingleProductRes[];
-	productSliderTwo: SingleProductRes[];
 	lastAddedProduct: SingleProductRes[];
 	about: null | {
 		button: Button;

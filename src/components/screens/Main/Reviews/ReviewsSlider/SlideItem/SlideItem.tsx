@@ -21,7 +21,7 @@ const SlideItem = ({ id, imageUrl, rating, surname, review, name, className, }: 
         try {
             const newReviewsStack = allReviews.filter(rev => id !== rev.id);
             dispatch(changeClientReviews(newReviewsStack))
-            const res = await Api().goods.deleteReviews(id);
+            await Api().goods.deleteReviews(id);
         } catch {
             dispatch(changeClientReviews(cloneReviews))
         }

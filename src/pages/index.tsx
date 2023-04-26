@@ -14,17 +14,20 @@ import axios, { AxiosResponse } from 'axios';
 import { CategorySlider } from '@/types/mainPageRequest/categorySlider';
 import { LastAddedProduct } from '@/types/mainPageRequest/lastAddedProduct';
 import { initialMain } from '@/redux/slices/main';
+import { useEffect, useState } from 'react';
+import { Api } from '@/services';
+import { useRouter } from 'next/router';
 
 export default function Home({
 	about,
 	faq,
 	lastAddedProduct,
 	mainPage,
-	productSliderOne,
-	productSliderTwo,
 	reviews,
 }: IndexPageProps) {
 	const dispatch = useAppDispatch();
+	const router = useRouter();
+
 	dispatch(
 		initial({
 			about: about,
@@ -34,9 +37,28 @@ export default function Home({
 		})
 	);
 
-	dispatch(
-		initialMain({ lastAddedProduct, productSliderOne, productSliderTwo })
-	);
+
+	useEffect(() => {
+		const getSliderValue = async () => {
+
+			try {
+				const res = await Promise.all([
+					Api().goods.getGoodsByCategory<CategorySlider>(1, 1),
+					Api().goods.getGoodsByCategory<CategorySlider>(1, 2),
+				]);
+				const productSliderOne = res[0].products;
+				const productSliderTwo = res[1].products;
+				dispatch(
+					initialMain({ lastAddedProduct, productSliderOne, productSliderTwo })
+				);
+
+			} catch (e) {
+				console.log(e);
+				router.push('/500')
+			}
+		}
+		getSliderValue();
+	}, []);
 
 
 	return (
@@ -57,8 +79,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 			StrapiAxios.get<FaqResT>('/api/faqs?populate=deep&locale=' + locale),
 			StrapiAxios.get<ReviewsResT>('/api/reviews?populate=deep&locale=' + locale),
 			StrapiAxios.get<MainPageResT>('/api/main-pages?populate=deep&locale=' + locale),
-			axios.get<CategorySlider>(process.env.NEXT_BASE_URL + '/product/categories?page=1&pageSize=10&categories=1'),
-			axios.get<CategorySlider>(process.env.NEXT_BASE_URL + '/product/categories?page=1&pageSize=10&categories=2'),
 			axios.get<LastAddedProduct>(process.env.NEXT_BASE_URL + '/product?page=1&pageSize=10'),
 			axios.get<AxiosResponse<ClientReviewsRes>>(process.env.NEXT_BASE_URL + '/reviews/get?page=1&pageSize=15'),
 		]);
@@ -83,7 +103,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 		const reviews = {
 			image: allRequest[2].data.data[0].attributes.image,
 			title: allRequest[2].data.data[0].attributes.title,
-			clientReviews: allRequest[7].data.data
+			clientReviews: allRequest[5].data.data
 
 		}
 		const mainPage = {
@@ -94,9 +114,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 			button: allRequest[3].data.data[0].attributes.button,
 		};
 
-		const productSliderOne = allRequest[4].data.products;
-		const productSliderTwo = allRequest[5].data.products;
-		const lastAddedProduct = allRequest[6].data.products;
+
+		const lastAddedProduct = allRequest[4].data.products;
 
 		return {
 			props: {
@@ -104,8 +123,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 				faq,
 				reviews,
 				mainPage,
-				productSliderOne,
-				productSliderTwo,
 				lastAddedProduct,
 			},
 		};
