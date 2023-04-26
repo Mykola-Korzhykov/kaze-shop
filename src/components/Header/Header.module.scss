@@ -16,10 +16,10 @@
 		left: 0;
 		width: 100%;
 		height: 100%;
-		// background-color: #f2f2f0;
+		background-color: #f2f2f0;
 
 		@media (max-width: 834px) {
-			// background-color: #f2f2f0;
+			background-color: #f2f2f0;
 		}
 		background-color: transparent;
 		display: block;
@@ -376,5 +376,5 @@
 //
 .sticky {
 	position: fixed;
-	background-color: #f2f2f0;
+	background-color: transparent;
 }
