@@ -7,12 +7,12 @@ import { useKeenSlider } from 'keen-slider/react';
 import ProductBottomButton from '../ProductBottomButton/ProductBottomButton';
 import { SliderInterface } from './Slider.interface';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { addProductToCart, addProductToCompare } from '@/redux/slices/goods';
+import { addProductToCart, addProductToCompare, addToSavedProducts, deleteCatalogSavedProduct } from '@/redux/slices/goods';
 import { useRouter } from 'next/router';
 import { deleteSavedProduct } from '@/redux/slices/user';
 import { Api } from '@/services';
 
-const Slider = ({ title, items, className }: SliderInterface): JSX.Element => {
+const Slider = ({ title, items, className, slideHeight }: SliderInterface): JSX.Element => {
     const [sliderRef, instanceRef] = useKeenSlider({
         slides: {
             perView: 4,
@@ -43,8 +43,7 @@ const Slider = ({ title, items, className }: SliderInterface): JSX.Element => {
             })
         );
         dispatch(addProductToCompare({
-            ...product,
-            isSaved: false
+            ...product
         }));
         router.push('/compare');
     };
@@ -53,6 +52,7 @@ const Slider = ({ title, items, className }: SliderInterface): JSX.Element => {
         if (isAuth && user?.type === 'USER') {
             try {
                 Api().goods.addToFavorites(product?.id);
+                dispatch(addToSavedProducts(product?.id));
             } catch (e) {
                 router.push('/404');
             }
@@ -62,11 +62,16 @@ const Slider = ({ title, items, className }: SliderInterface): JSX.Element => {
     };
 
     const deleteSavedProductFunc = (product: SingleProductRes) => {
-        dispatch(deleteSavedProduct(product?.id));
-        try {
-            Api().user.deleteUserSavedProduct(product?.id);
-        } catch (e) {
-            router.push('/404');
+        if (isAuth && user?.type === 'USER') {
+            dispatch(deleteSavedProduct(product?.id));
+            dispatch(deleteCatalogSavedProduct(product?.id));
+            try {
+                Api().user.deleteUserSavedProduct(product?.id);
+            } catch (e) {
+                router.push('/404');
+            }
+        } else if (!isAuth) {
+            router.push('/login');
         }
     };
 
@@ -84,11 +89,12 @@ const Slider = ({ title, items, className }: SliderInterface): JSX.Element => {
                     return (
                         <div key={i} className={
                             cn(s.slide_item, `keen-slider__slide number-slide${i + 1}`)} >
-                            <SlideItem {...item}>
+                            <SlideItem {...item} slideHeight={360}>
                                 <ProductBottomButton
                                     addToCart={() => basketButtonHandler(item)}
                                     addToFavorites={() => addSavedProduct(item)}
                                     deleteToFavorites={() => deleteSavedProductFunc(item)}
+                                    isSaved={item.isSaved}
                                 />
                             </SlideItem>
                         </div>

@@ -2,13 +2,23 @@ import FavoritesButton from './FavoritesButton/FavoritesButton';
 import { ProductBottomButtonProps } from './ProductBottomButton.interface';
 import s from './productBottomButton.module.scss';
 import ToCartButton from './ToCardButton/ToCartButton';
+import cn from 'classnames';
 
-const ProductBottomButton = ({ addToCart, addToFavorites, deleteToFavorites }: ProductBottomButtonProps): JSX.Element => {
-
+const ProductBottomButton = ({ addToCart, addToFavorites, deleteToFavorites, isSaved }: ProductBottomButtonProps): JSX.Element => {
+    const toggleFavorite = () => {
+        if (isSaved) {
+            deleteToFavorites();
+            return
+        }
+        addToFavorites();
+    }
+    console.log('SAVEDDDDDDDDDDDD', isSaved)
     return (
         <div className={s.button_box}>
             <ToCartButton className={s.cart_btn} onClick={addToCart}>В корзину</ToCartButton>
-            <FavoritesButton onClick={addToFavorites} />
+            <FavoritesButton className={cn({
+                [s.added]: isSaved,
+            })} onClick={toggleFavorite} />
         </div>
     )
 }

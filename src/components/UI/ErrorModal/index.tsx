@@ -28,7 +28,13 @@ const ErrorModal: FC<IErrorModalProps> = ({
 					{description}
 				</p>
 				<Link href={buttonHref}>
-					<button className={smallModal ? `${cl.smmodal_confirm}` : `${cl.modal_confirm}`}>{buttonText}</button>
+					<button
+						className={
+							smallModal ? `${cl.smmodal_confirm}` : `${cl.modal_confirm}`
+						}
+					>
+						{buttonText}
+					</button>
 				</Link>
 			</div>
 		</div>

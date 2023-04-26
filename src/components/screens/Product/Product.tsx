@@ -68,7 +68,7 @@ const OneProduct = ({ product }: SingleProductData): JSX.Element => {
     return (
         <div>
             <Main {...product} />
-            {recentlyViewed.length > 0 && <Slider title='Вы недавно смотрели' items={recentlyViewed} />}
+            {recentlyViewed.length > 0 && <Slider slideHeight={360} title='Вы недавно смотрели' items={recentlyViewed} />}
             <Reviews clientReviews={product.reviews} className={cn({
                 [s.reviews]: recentlyViewed.length === 0
             })} />

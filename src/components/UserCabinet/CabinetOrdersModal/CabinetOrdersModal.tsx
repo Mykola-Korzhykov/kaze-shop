@@ -52,8 +52,8 @@ const CabinetOrdersModal: FC<IProps> = ({ setShowModal, ordersTabActive }) => {
 					height={32}
 					alt="close modal"
 				/>
-				{ordersModalItems?.cartProducts.map((el) => {
-					return <CabinetOrdersModalItem product={el} />;
+				{ordersModalItems?.cartProducts.map((el, i) => {
+					return <CabinetOrdersModalItem product={el} key={i} />;
 				})}
 				<div className={s.orderModal_footer}>
 					<span>Вместе</span> <span>{ordersModalItems?.totalPrice}</span>

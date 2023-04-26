@@ -11,6 +11,7 @@ import GirlPhoto992 from '../../../../assets/images/main/main_girl_bg_992.png';
 import { useAppSelector } from "@/redux/hooks";
 
 const BuyProducts = (): JSX.Element => {
+
     const [sliderRef, instanceRef] = useKeenSlider({
         slides: {
             perView: 3,
@@ -28,7 +29,7 @@ const BuyProducts = (): JSX.Element => {
     });
 
     const { button, vertical_text_one, vertical_text_two } = useAppSelector(store => store.strapiValues.mainPage)
-
+    const product = useAppSelector(store => store.main.lastAddedProduct);
     return (
         <div className={s.wrapper}>
             <div className={s.wrapper__box}>
@@ -48,6 +49,7 @@ const BuyProducts = (): JSX.Element => {
                             <span>СОБОЙ</span>
                         </div>
                     </div>
+
                     <div className={s.btn_slider_block}>
                         <div className={s.wrapper__box_bottom}>
                             <Link href={button.link} className={s.button_link}>
@@ -61,6 +63,7 @@ const BuyProducts = (): JSX.Element => {
                             </div>
                         </div>
                     </div>
+
                 </div>
                 <div
                     className={s.next__slide}

@@ -5,4 +5,5 @@ export interface SliderInterface
 	extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
 	items: SingleProductRes[];
 	title: string;
+	slideHeight: number;
 }

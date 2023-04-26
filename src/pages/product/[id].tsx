@@ -54,21 +54,26 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
         }
     });
 
-    const pathArray = productId.flatMap(id => {
-        return locales.map(locale => {
-            return {
+    const paths: pathType[] = [];
+
+    productId.forEach(id => {
+        locales.forEach(locale => {
+            if (!id) {
+                return
+            }
+            paths.push({
                 params: {
                     slug: '/product/',
                     id: `${id}`,
                 },
                 locale
-
-            }
+            })
         })
     });
 
+
     return {
-        paths: pathArray,
+        paths,
         fallback: true,
 
     }
@@ -76,13 +81,15 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 
 export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 
-    const validLocale = locale === 'ua' ? 'uk' : locale;
+    let validLocale = locale === 'ua' ? 'uk' : locale;
+    validLocale = validLocale === 'rs' ? 'sr' : validLocale;
 
     if (!params) {
         return {
             notFound: true
         }
     }
+
     try {
         const allRequest = await Promise.all([
             axios.get<SingleProductRes>(API_URL + `/product/${params.id}`),
@@ -108,14 +115,18 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 
     } catch (e) {
         return {
-            redirect: {
-                permanent: false,
-                destination: '/500'
-            }
+            notFound: true
         }
     }
 }
 
+interface pathType {
+    params: {
+        slug: string,
+        id: string
+    },
+    locale: string
+}
 
 
 export default Product;

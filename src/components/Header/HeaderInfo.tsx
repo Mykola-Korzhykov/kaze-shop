@@ -7,6 +7,7 @@ import arrowSVG from '../../assets/icons/Arrow.svg';
 import openLangSvg from '../../assets/icons/catalog/sortIconOpen.svg';
 import { FC, useState } from 'react';
 import { useRouter } from 'next/router';
+import React from 'react';
 type Props = {
 	toggleBurgerFunc: () => void;
 	showBurgerMenu: boolean;
@@ -15,7 +16,19 @@ type Props = {
 const HeaderInfo: FC<Props> = ({ toggleBurgerFunc, showBurgerMenu }) => {
 	const [languageDropdown, setLanguageDropdown] = useState<boolean>(false);
 	const router = useRouter();
+	const [startMain, setStartMain] = React.useState(false);
 
+	React.useEffect(() => {
+		function handleScroll() {
+			if (window.scrollY > 2 && router.asPath === '/') {
+				setStartMain(true);
+			}
+		}
+
+		window.addEventListener('scroll', handleScroll);
+
+		return () => window.removeEventListener('scroll', handleScroll);
+	}, []);
 	const Languages = [
 		{
 			label: 'UA',
@@ -41,12 +54,20 @@ const HeaderInfo: FC<Props> = ({ toggleBurgerFunc, showBurgerMenu }) => {
 	return (
 		<div className={cl.header__info}>
 			<div
+				style={{
+					border: startMain ? 'none' : '',
+				}}
 				onClick={languageHandler}
 				className={`${cl.header_language} ${
 					languageDropdown ? `${cl.header_language_open}` : ''
 				}`}
 			>
-				<button className={cl.header_language_lang}>
+				<button
+					style={{
+						background: startMain ? 'transparent' : '',
+					}}
+					className={cl.header_language_lang}
+				>
 					{router.locale.toUpperCase()}
 				</button>
 				<Image
@@ -84,10 +105,7 @@ const HeaderInfo: FC<Props> = ({ toggleBurgerFunc, showBurgerMenu }) => {
 				</a>
 			</Link>
 			<Link href={'/cabinet'} legacyBehavior>
-				<a
-					
-					className={`${cl.icon} ${cl.icon_account}`}
-				>
+				<a className={`${cl.icon} ${cl.icon_account}`}>
 					<Image
 						src={accountSVG}
 						alt="link to user cabiner"
