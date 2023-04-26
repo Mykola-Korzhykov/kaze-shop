@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ChangeUserPasswordDto } from '@/types/auth';
-import { destroyCookie } from 'nookies';
+import Cookies from 'js-cookie';
 import { ChangeUserPasswordShema } from '@/utils/validation';
 import cl from '../../../styles/cabinet2.module.scss';
 import { useRouter } from 'next/router';
@@ -30,7 +30,7 @@ const ChangeUserPassword = () => {
 			dispatch(setLoadingStatus('loading'));
 			setRequestLoading(true);
 			await Api().user.changePassword(dto);
-			destroyCookie(null, 'accessToken');
+			Cookies.remove('accessToken');
 			// dispatch(addUserInfo(data.user))
 			router.push('/login');
 		} catch (err) {
