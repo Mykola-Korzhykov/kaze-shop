@@ -102,7 +102,7 @@ export interface User {
 }
 
 export interface initialStateType {
-	headerIsSticky: boolean;
+	startMain: boolean;
 	userEdit: GoodsEditTest;
 	usersRole: User[];
 	usersAdmin: User[];
@@ -150,7 +150,7 @@ export interface initialStateType {
 }
 
 const initialState: initialStateType = {
-	headerIsSticky: false,
+	startMain: false,
 	arrObjModalSwow: [],
 	colorsStyle: [],
 	//@ts-ignore
@@ -852,8 +852,8 @@ export const admin: Slice<initialStateType> = createSlice({
 		setColorsStyle: (state, action: PayloadAction<any>) => {
 			state.colorsStyle.push(action.payload);
 		},
-		setHeaderIsSticky: (state, action: PayloadAction<boolean>) => {
-			state.headerIsSticky = action.payload;
+		setStartMain: (state, action: PayloadAction<boolean>) => {
+			state.startMain = action.payload;
 		},
 	},
 
@@ -942,7 +942,7 @@ export const {
 	addCountPhotos,
 	setArrObjModalSwow,
 	setColorsStyle,
-	setHeaderIsSticky,
+	setStartMain,
 } = admin.actions;
 
 export default admin.reducer;
