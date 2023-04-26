@@ -32,6 +32,7 @@ const Slider = ({ title, items, className, slideHeight }: SliderInterface): JSX.
     const dispatch = useAppDispatch();
     const { isAuth, user } = useAppSelector(store => store.user);
     const router = useRouter();
+    console.log(items)
 
     const basketButtonHandler = (product: SingleProductRes) => {
         dispatch(
@@ -89,7 +90,7 @@ const Slider = ({ title, items, className, slideHeight }: SliderInterface): JSX.
                     return (
                         <div key={i} className={
                             cn(s.slide_item, `keen-slider__slide number-slide${i + 1}`)} >
-                            <SlideItem {...item} slideHeight={360}>
+                            <SlideItem {...item} slideHeight={slideHeight}>
                                 <ProductBottomButton
                                     addToCart={() => basketButtonHandler(item)}
                                     addToFavorites={() => addSavedProduct(item)}

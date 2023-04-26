@@ -6,6 +6,7 @@ import EmptyReviewSlideMessage from './EmptyReviewSlideMessage/EmptyReviewSlideM
 import cn from 'classnames';
 
 const Reviews = ({ clientReviews, className }: ReviewsProps): JSX.Element => {
+
     return (
         <div className="container">
             <div className={cn(s.reviews, className)}>

@@ -8,6 +8,7 @@ import Feedback from './Feedback/Feedback';
 import { ManyProductRes, SingleProductData, SingleProductRes } from '@/types/product';
 import cn from 'classnames';
 import { Api } from '@/services';
+import { useAppSelector } from '@/redux/hooks';
 
 const mockSliderProps1 = [
     {
@@ -45,6 +46,8 @@ const mockSliderProps1 = [
 
 const OneProduct = ({ product }: SingleProductData): JSX.Element => {
     const [recentlyViewed, setRecentlyViewed] = useState<SingleProductRes[]>([]);
+    const reviews = useAppSelector(store => store.strapiValues.reviews.clientReviews);
+
 
     useEffect(() => {
         const getViewsProduct = async () => {
@@ -69,7 +72,7 @@ const OneProduct = ({ product }: SingleProductData): JSX.Element => {
         <div>
             <Main {...product} />
             {recentlyViewed.length > 0 && <Slider slideHeight={360} title='Вы недавно смотрели' items={recentlyViewed} />}
-            <Reviews clientReviews={product.reviews} className={cn({
+            <Reviews clientReviews={reviews} className={cn({
                 [s.reviews]: recentlyViewed.length === 0
             })} />
             <Feedback id={product.id} />

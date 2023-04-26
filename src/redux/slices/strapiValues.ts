@@ -1,4 +1,5 @@
 import { SlicesInitType } from '@/types/mainPageRequest';
+import { Reviews } from '@/types/product';
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: SlicesInitType = {
@@ -18,9 +19,12 @@ export const strapiValues = createSlice({
 			state.mainPage = payload.mainPage;
 			state.reviews = payload.reviews;
 		},
+		changeClientReviews(state, { payload }: PayloadAction<Reviews[]>) {
+			state.reviews.clientReviews = payload;
+		},
 	},
 });
 
-export const { initial } = strapiValues.actions;
+export const { initial, changeClientReviews } = strapiValues.actions;
 
 export default strapiValues.reducer;

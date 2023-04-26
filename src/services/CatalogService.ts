@@ -164,4 +164,11 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		);
 		return data;
 	},
+
+	async deleteReviews(id: number) {
+		const { data } = await instance.delete(
+			'reviews/delete_review?reviewId=' + id
+		);
+		return data;
+	},
 });

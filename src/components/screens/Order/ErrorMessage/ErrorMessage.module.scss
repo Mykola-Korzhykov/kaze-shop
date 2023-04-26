@@ -10,6 +10,7 @@ $layout-bg: #0000003a;
     width: 100%;
     height: 100%;
     background: $layout-bg;
+    z-index: 100;
 
     .error {
         font-family: sans-serif;

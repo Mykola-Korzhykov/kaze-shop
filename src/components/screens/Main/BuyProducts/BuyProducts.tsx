@@ -28,8 +28,8 @@ const BuyProducts = (): JSX.Element => {
         loop: true,
     });
 
-    const { button, vertical_text_one, vertical_text_two } = useAppSelector(store => store.strapiValues.mainPage)
-    const product = useAppSelector(store => store.main.lastAddedProduct);
+    const { button, vertical_text_one, vertical_text_two } = useAppSelector(store => store.strapiValues.mainPage);
+
     return (
         <div className={s.wrapper}>
             <div className={s.wrapper__box}>
