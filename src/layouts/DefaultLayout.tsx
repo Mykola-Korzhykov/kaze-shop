@@ -3,7 +3,7 @@ import { Russo_One } from '@next/font/google';
 import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import Head from 'next/head';
-import { setHeaderIsSticky } from '@/redux/slices/admin';
+// import { setHeaderIsSticky } from '@/redux/slices/admin';
 import { useAppDispatch } from '@/redux/hooks';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
@@ -17,29 +17,29 @@ const DefaultLayout: FC<{
 	showFooter?: boolean;
 }> = ({ children, showFooter }) => {
 	// const [isSticky, setIsSticky] = useState<boolean>(false);
-	const isSticky = useSelector(
-		(state: RootState) => state.admin.headerIsSticky
-	);
+	// const isSticky = useSelector(
+	// 	(state: RootState) => state.admin.headerIsSticky
+	// );
 	const router = useRouter();
 	const [headerHeight, setHeaderHeight] = useState<number | undefined>(0);
 	const dispatch = useAppDispatch();
 
 	const headerRef = useRef<HTMLElement | null>(null);
 
-	useEffect(() => {
-		window.addEventListener('scroll', () => {
-			setHeaderHeight(headerRef.current?.offsetHeight);
-			// && router.asPath === '/500'
-			if (window.scrollY > 1 && router.asPath !== '/') {
-				// setIsSticky(true);
-				dispatch(setHeaderIsSticky(true));
-				// dispatch(setHeaderIsSticky(true));
-			} else {
-				// setIsSticky(false);
-				dispatch(setHeaderIsSticky(true));
-			}
-		});
-	}, []);
+	// useEffect(() => {
+	// 	window.addEventListener('scroll', () => {
+	// 		setHeaderHeight(headerRef.current?.offsetHeight);
+	// 		// && router.asPath === '/500'
+	// 		if (window.scrollY > 1 && router.asPath !== '/') {
+	// 			// setIsSticky(true);
+	// 			dispatch(setHeaderIsSticky(true));
+	// 			// dispatch(setHeaderIsSticky(true));
+	// 		} else {
+	// 			// setIsSticky(false);
+	// 			dispatch(setHeaderIsSticky(true));
+	// 		}
+	// 	});
+	// }, []);
 
 	return (
 		<>
@@ -62,7 +62,7 @@ const DefaultLayout: FC<{
 			</Head>
 
 			<div className="wrapper">
-				<Header isSticky={isSticky} headerRef={headerRef} />
+				<Header headerRef={headerRef} />
 				{children}
 				{showFooter && <Footer />}
 			</div>
