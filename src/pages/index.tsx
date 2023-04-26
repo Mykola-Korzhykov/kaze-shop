@@ -14,7 +14,7 @@ import axios, { AxiosResponse } from 'axios';
 import { CategorySlider } from '@/types/mainPageRequest/categorySlider';
 import { LastAddedProduct } from '@/types/mainPageRequest/lastAddedProduct';
 import { initialMain } from '@/redux/slices/main';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Api } from '@/services';
 import { useRouter } from 'next/router';
 
@@ -40,7 +40,6 @@ export default function Home({
 
 	useEffect(() => {
 		const getSliderValue = async () => {
-
 			try {
 				const res = await Promise.all([
 					Api().goods.getGoodsByCategory<CategorySlider>(1, 1),

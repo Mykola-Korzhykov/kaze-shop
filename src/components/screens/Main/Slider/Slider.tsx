@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { addProductToCart, addProductToCompare } from '@/redux/slices/goods';
 import { useRouter } from 'next/router';
 import { Api } from '@/services';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const Slider = ({ title, items, className, slideHeight }: SliderInterface): JSX.Element => {
     const [sliderRef, instanceRef] = useKeenSlider({
@@ -49,11 +49,11 @@ const Slider = ({ title, items, className, slideHeight }: SliderInterface): JSX.
         router.push('/compare');
     };
 
-    const addSavedProduct = (product: SingleProductRes) => {
+    const addSavedProduct = async (product: SingleProductRes) => {
         if (isAuth && user?.type === 'USER') {
             try {
                 setSavedProduct(prevState => [...prevState, product.id])
-                Api().goods.addToFavorites(product?.id);
+                await Api().goods.addToFavorites(product?.id);
             } catch (e) {
                 router.push('/404');
             }
@@ -62,12 +62,12 @@ const Slider = ({ title, items, className, slideHeight }: SliderInterface): JSX.
         }
     };
 
-    const deleteSavedProductFunc = (product: SingleProductRes) => {
+    const deleteSavedProductFunc = async (product: SingleProductRes) => {
         if (isAuth && user?.type === 'USER') {
             try {
                 const deleteProduct = savedProduct.filter(id => id !== product.id);
                 setSavedProduct(deleteProduct);
-                Api().user.deleteUserSavedProduct(product?.id);
+                await Api().user.deleteUserSavedProduct(product?.id);
             } catch (e) {
                 router.push('/404');
             }
@@ -83,6 +83,13 @@ const Slider = ({ title, items, className, slideHeight }: SliderInterface): JSX.
         return false
     }
 
+    useEffect(() => {
+        items.forEach(elem => {
+            if (elem.isSaved) {
+                setSavedProduct(prev => [...prev, elem.id]);
+            }
+        });
+    }, [])
     return (
         <div className={cn(s.slider_box, 'container', className)}>
             <div className={s.title_box}>

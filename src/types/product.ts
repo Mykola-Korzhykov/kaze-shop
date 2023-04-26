@@ -39,6 +39,7 @@ export interface Title {
 	ru: string;
 	rs: string;
 	en: string;
+	[key: string]: string;
 }
 
 export interface Description {
