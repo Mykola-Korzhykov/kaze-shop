@@ -4,6 +4,8 @@ import { HeaderMenu, HeaderInfo, HeaderLogo } from './index';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { useRouter } from 'next/router';
+import { useAppDispatch } from '@/redux/hooks';
+import { setStartMain } from '@/redux/slices/admin';
 
 type Props = {
 	isSticky?: boolean;
@@ -17,16 +19,14 @@ const Header: FC<Props> = ({ headerRef }) => {
 	}, []);
 
 	const router = useRouter();
+	const dispatch = useAppDispatch();
 
-	// const isSticky = useSelector(
-	// 	(state: RootState) => state.admin.headerIsSticky
-	// );
-	const [startMain, setStartMain] = React.useState(false);
+	const startMain = useSelector((state: RootState) => state.admin.startMain);
 
 	React.useEffect(() => {
 		function handleScroll() {
 			if (window.scrollY > 2 && router.asPath === '/') {
-				setStartMain(true);
+				dispatch(setStartMain(true));
 			}
 		}
 

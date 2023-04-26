@@ -4,6 +4,8 @@ import { fetchGoodsByCategory, setHeaderCategory } from '@/redux/slices/goods';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import cl from './Header.module.scss';
+import { RootState } from '@/redux/store';
+import { useSelector } from 'react-redux';
 
 const HeaderMenu: FC<{
 	classNameToggle: boolean;
@@ -11,6 +13,8 @@ const HeaderMenu: FC<{
 }> = ({ classNameToggle, toggleBurgerFunc }) => {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
+	const startMain = useSelector((state: RootState) => state.admin.startMain);
+
 	const Languages = [
 		{
 			label: 'Український',
@@ -29,159 +33,82 @@ const HeaderMenu: FC<{
 			locale: 'en',
 		},
 	];
-	let HeadersCategories = [
-		{
-			label: 'Личный кабинет',
-			link: '/cabinet',
-			id: 14234234234,
-		},
-		{
-			label: 'Лосины',
-			link: '/catalog',
-			id: 1,
-		},
-		{
-			label: 'Костюмы',
-			link: '/catalog',
-			id: 12,
-		},
-		{
-			label: 'Велосипедки',
-			link: '/catalog',
-			id: 4,
-		},
-		{
-			label: 'Повседневное белье',
-			link: '/catalog',
-			id: 8,
-		},
-		{
-			label: 'Сумки',
-			link: '/catalog',
-			id: 5,
-		},
-		{
-			label: 'Топы',
-			link: '/catalog',
-			id: 10,
-		},
-	];
 
-	React.useEffect(() => {
-		router.asPath !== '/'
-			? (HeadersCategories = [
-					{
-						label: 'Личный кабинет',
-						link: '/cabinet',
-						id: 14234234234,
-					},
-					{
-						label: 'Лосины',
-						link: '/catalog',
-						id: 1,
-					},
-					{
-						label: 'Костюмы',
-						link: '/catalog',
-						id: 12,
-					},
-					{
-						label: 'Велосипедки',
-						link: '/catalog',
-						id: 4,
-					},
-					{
-						label: 'Повседневное белье',
-						link: '/catalog',
-						id: 8,
-					},
-					{
-						label: 'Сумки',
-						link: '/catalog',
-						id: 5,
-					},
-					{
-						label: 'Топы',
-						link: '/catalog',
-						id: 10,
-					},
-			  ])
-			: window.scrollY < 2
-			? [
-					{
-						label: 'Личный кабинет',
-						link: '/cabinet',
-						id: 14234234234,
-					},
-					{
-						label: 'Лосины',
-						link: '/catalog',
-						id: 1,
-					},
-					{
-						label: 'Костюмы',
-						link: '/catalog',
-						id: 12,
-					},
-					{
-						label: 'Велосипедки',
-						link: '/catalog',
-						id: 4,
-					},
-					// {
-					// 	label: 'Повседневное белье',
-					// 	link: '/catalog',
-					// 	id: 8,
-					// },
-					// {
-					// 	label: 'Сумки',
-					// 	link: '/catalog',
-					// 	id: 5,
-					// },
-					{
-						label: 'Топы',
-						link: '/catalog',
-						id: 10,
-					},
-			  ]
-			: [
-					{
-						label: 'Личный кабинет',
-						link: '/cabinet',
-						id: 14234234234,
-					},
-					{
-						label: 'Лосины',
-						link: '/catalog',
-						id: 1,
-					},
-					{
-						label: 'Костюмы',
-						link: '/catalog',
-						id: 12,
-					},
-					{
-						label: 'Велосипедки',
-						link: '/catalog',
-						id: 4,
-					},
-					{
-						label: 'Повседневное белье',
-						link: '/catalog',
-						id: 8,
-					},
-					{
-						label: 'Сумки',
-						link: '/catalog',
-						id: 5,
-					},
-					{
-						label: 'Топы',
-						link: '/catalog',
-						id: 10,
-					},
-			  ];
-	});
+	let HeadersCategories = startMain
+		? [
+				{
+					label: 'Личный кабинет',
+					link: '/cabinet',
+					id: 14234234234,
+				},
+				{
+					label: 'Лосины',
+					link: '/catalog',
+					id: 1,
+				},
+				{
+					label: 'Костюмы',
+					link: '/catalog',
+					id: 12,
+				},
+				{
+					label: 'Велосипедки',
+					link: '/catalog',
+					id: 4,
+				},
+				// {
+				// 	label: 'Повседневное белье',
+				// 	link: '/catalog',
+				// 	id: 8,
+				// },
+				// {
+				// 	label: 'Сумки',
+				// 	link: '/catalog',
+				// 	id: 5,
+				// },
+				{
+					label: 'Топы',
+					link: '/catalog',
+					id: 10,
+				},
+		  ]
+		: [
+				{
+					label: 'Личный кабинет',
+					link: '/cabinet',
+					id: 14234234234,
+				},
+				{
+					label: 'Лосины',
+					link: '/catalog',
+					id: 1,
+				},
+				{
+					label: 'Костюмы',
+					link: '/catalog',
+					id: 12,
+				},
+				{
+					label: 'Велосипедки',
+					link: '/catalog',
+					id: 4,
+				},
+				{
+					label: 'Повседневное белье',
+					link: '/catalog',
+					id: 8,
+				},
+				{
+					label: 'Сумки',
+					link: '/catalog',
+					id: 5,
+				},
+				{
+					label: 'Топы',
+					link: '/catalog',
+					id: 10,
+				},
+		  ];
 
 	const headerLinkHandler = (elLink: string, elId: number) => {
 		if (elLink === '/catalog') {

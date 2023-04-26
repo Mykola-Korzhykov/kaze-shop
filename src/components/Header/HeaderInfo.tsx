@@ -8,6 +8,8 @@ import openLangSvg from '../../assets/icons/catalog/sortIconOpen.svg';
 import { FC, useState } from 'react';
 import { useRouter } from 'next/router';
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 type Props = {
 	toggleBurgerFunc: () => void;
 	showBurgerMenu: boolean;
@@ -16,19 +18,21 @@ type Props = {
 const HeaderInfo: FC<Props> = ({ toggleBurgerFunc, showBurgerMenu }) => {
 	const [languageDropdown, setLanguageDropdown] = useState<boolean>(false);
 	const router = useRouter();
-	const [startMain, setStartMain] = React.useState(false);
+	const startMain = useSelector((state: RootState) => state.admin.startMain);
 
-	React.useEffect(() => {
-		function handleScroll() {
-			if (window.scrollY > 2 && router.asPath === '/') {
-				setStartMain(true);
-			}
-		}
+	// const [startMain, setStartMain] = React.useState(false);
 
-		window.addEventListener('scroll', handleScroll);
+	// React.useEffect(() => {
+	// 	function handleScroll() {
+	// 		if (window.scrollY > 2 && router.asPath === '/') {
+	// 			setStartMain(true);
+	// 		}
+	// 	}
 
-		return () => window.removeEventListener('scroll', handleScroll);
-	}, []);
+	// 	window.addEventListener('scroll', handleScroll);
+
+	// 	return () => window.removeEventListener('scroll', handleScroll);
+	// }, []);
 	const Languages = [
 		{
 			label: 'UA',
