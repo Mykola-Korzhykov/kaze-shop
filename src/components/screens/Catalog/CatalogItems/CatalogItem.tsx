@@ -143,7 +143,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 			</Link>
 			<div>
 				<p className={s.title}>
-					{product?.title?.ua.substring(0, 22) ?? 'Title'}
+					{product?.title?.[router.locale].substring(0, 22) ?? 'Title'}
 				</p>
 				<span className={s.price}>{product?.price ?? '0$'}</span>
 			</div>

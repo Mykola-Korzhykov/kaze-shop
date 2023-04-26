@@ -14,7 +14,7 @@ import { setFeedbackProduct } from '@/redux/slices/goods';
 import { Goods } from '@/types/goods';
 const FeedBack = () => {
 	const dispatch = useAppDispatch()
-	const [selectedOption, setSelectedOption] = React.useState<number>(4);
+	const [selectedOption, setSelectedOption] = React.useState<number>(5);
 	const [requestLoading, setRequestLoading] = React.useState<boolean>(false);
 	const toogleOption = (id: number) => {
 		setSelectedOption(id);
@@ -39,7 +39,7 @@ const FeedBack = () => {
 				setRequestLoading(false);
 			} catch (e) {
 				setRequestLoading(false);
-				router.push('/catalog');
+				router.push('/');
 			}
 		};
 		fetchProductData();
