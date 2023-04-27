@@ -47,7 +47,7 @@ const LoginForm = () => {
 		} catch (err) {
 			setLoginLoading(false);
 			if (err.response) {
-				const text = err?.response?.data?.rawErrors.find(
+				const text = err?.response?.data?.rawErrors?.find(
 					(error: { locale: string; error: string }) =>
 						error.locale === router?.locale
 				).text;

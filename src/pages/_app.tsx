@@ -10,11 +10,7 @@ import Layout from '@/layouts/DefaultLayout';
 import { wrapper } from '../redux/store';
 import { Api } from '@/services';
 import React, { Suspense, useEffect } from 'react';
-import {
-	addUserInfo,
-	setAuthorizeState,
-	setAuthState,
-} from '@/redux/slices/user';
+import { addUserInfo, setAuthState } from '@/redux/slices/user';
 import Spinner from '@/components/Spinner/Spinner';
 import { setCookie } from 'nookies';
 import { useAppDispatch } from '@/redux/hooks';
@@ -54,11 +50,7 @@ function App({ Component, pageProps }: AppProps) {
 
 		const fetchUserData = async () => {
 			try {
-				const res = await Api().user.getMe(router?.locale);
-				if (res.status === 403) {
-					dispatch(setAuthorizeState(false));
-				}
-				const data = res.data.data;
+				const data = await Api().user.getMe(router?.locale);
 				setCookie(null, 'accessToken', data?.accessToken, {
 					maxAge: data?.maxAge,
 					path: '/',
