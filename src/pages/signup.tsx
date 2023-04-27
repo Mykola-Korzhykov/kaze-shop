@@ -71,7 +71,10 @@ const Signup: NextPage = () => {
 			if (!phoneNumberError) {
 				setPhoneNumberError('');
 				setSignUpLoading(true);
-				const data = await Api().user.registration(registrationData);
+				const data = await Api().user.registration(
+					registrationData,
+					router.locale
+				);
 
 				setCookie(null, 'accessToken', data?.accessToken, {
 					maxAge: data?.maxAge,
@@ -94,10 +97,13 @@ const Signup: NextPage = () => {
 			setSignUpLoading(false);
 			console.warn('Register error', err);
 			if (err.response) {
-				// index it is language
+				const text = err?.response?.data?.rawErrors.find(
+					(error: { locale: string; error: string }) =>
+						error?.locale === router?.locale
+				).text;
 				setErrorMessage(
 					err?.response?.data?.rawErrors?.length > 0
-						? err?.response?.data?.rawErrors[router?.locale]?.error
+						? text
 						: err?.response?.data?.message
 				);
 			} else {

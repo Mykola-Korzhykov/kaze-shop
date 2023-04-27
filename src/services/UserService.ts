@@ -11,16 +11,16 @@ import { AxiosInstance, AxiosResponse } from 'axios';
 import axios from 'axios';
 import { API_URL } from './index';
 export const UserApi = (instance: AxiosInstance) => ({
-	async login(dto: LoginDto) {
+	async login(dto: LoginDto, locale: string) {
 		const { data } = await instance.post<LoginDto, { data: AuthResponse }>(
-			API_URL + '/auth/login?locale=ua',
+			API_URL + `/auth/login?locale=${locale}`,
 			dto
 		);
 		return data;
 	},
-	async registration(dto: CreateUserDto) {
+	async registration(dto: CreateUserDto, locale: string) {
 		const { data } = await instance.post<CreateUserDto, { data: AuthResponse }>(
-			API_URL + '/auth/signup?locale=ua',
+			API_URL + `/auth/signup?locale=${locale}`,
 			dto
 		);
 		return data;
@@ -53,9 +53,9 @@ export const UserApi = (instance: AxiosInstance) => ({
 		>('/auth/reset', dto);
 		return data;
 	},
-	async getForgotPasswordCode(dto: GetCodeDto) {
+	async getForgotPasswordCode(dto: GetCodeDto, locale: string) {
 		const { data } = await instance.post<GetCodeDto, { data: AuthResponse }>(
-			'/auth/code?locale=ua',
+			`/auth/code?locale=${locale}`,
 			dto
 		);
 		return data;
@@ -96,7 +96,9 @@ export const UserApi = (instance: AxiosInstance) => ({
 		return data;
 	},
 	async getLeftCarts(page: number) {
-		const { data } = await instance.get(`cart/leftCarts?page=${page}&pageSize=10`);
+		const { data } = await instance.get(
+			`cart/leftCarts?page=${page}&pageSize=10`
+		);
 		return data;
 	},
 });

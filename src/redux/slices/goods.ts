@@ -146,7 +146,10 @@ export const fetchGoodsByCategory = createAsyncThunk<
 		// const category = goodsState.headerCategory
 		const pageNumber = goodsState.page;
 		try {
-			const data = await Api().goods.getGoodsByCategory(pageNumber, categoryId);
+			const data = await Api().goods.getGoodsByCategory<{
+				products: Goods[];
+				totalProducts: number;
+			}>(pageNumber, categoryId);
 			return data;
 		} catch (e) {
 			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
