@@ -19,6 +19,7 @@ import user, {
 } from '@/redux/slices/user';
 import CabinetOrdersModal from '@/components/UserCabinet/CabinetOrdersModal/CabinetOrdersModal';
 import { useRouter } from 'next/router';
+import ErrorModal from '@/components/UI/ErrorModal';
 
 const TABS = [
 	{
@@ -72,6 +73,7 @@ const CabinetTabs: FC = () => {
 	const [showErrorModal, setErrorShowModal] = React.useState<boolean>(false);
 	const page = useAppSelector((state) => state.user.page);
 	const loadingStatus = useAppSelector((state) => state.user.loadingStatus);
+	const isAuthorized = useAppSelector((state) => state.user.isAuthorized);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
@@ -145,6 +147,14 @@ const CabinetTabs: FC = () => {
 	};
 	return (
 		<>
+			{!isAuthorized && (
+				<ErrorModal
+					title="Ви не підтвердили свій аккаунт"
+					description="Зайдіть на пошту і підтвердіть свій аккаунт"
+					buttonText="На головну"
+					buttonHref="/"
+				/>
+			)}
 			{loadingStatus === 'error' || showErrorModal ? (
 				<ErrorMessage closeError={closeErrorModal} />
 			) : null}

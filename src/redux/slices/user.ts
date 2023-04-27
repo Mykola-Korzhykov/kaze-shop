@@ -13,6 +13,7 @@ import { RootState } from '../store';
 type UserSLice = {
 	user: User | null;
 	isAuth: boolean;
+	isAuthorized: boolean;
 	loadingStatus: 'loading' | 'error' | 'idle';
 	page: number;
 	totalProducts: number;
@@ -37,6 +38,7 @@ const initialState: UserSLice = {
 	page: 1,
 	totalProducts: 0,
 	isAuth: false,
+	isAuthorized: true,
 	loadingStatus: 'idle',
 	savedProducts: [],
 	watchedProducts: [],
@@ -118,7 +120,7 @@ export const getUserOrderBasket = createAsyncThunk<
 });
 
 export const getUserLeftCarts = createAsyncThunk<
-	{ leftCarts: CartProduct[], totalCarts: number},
+	{ leftCarts: CartProduct[]; totalCarts: number },
 	null,
 	{ rejectValue: string }
 >('user/getUserLeftCarts', async (_, { rejectWithValue, getState }) => {
@@ -146,6 +148,9 @@ const userSLice = createSlice({
 		},
 		setAuthState(state, action: PayloadAction<boolean>) {
 			state.isAuth = action.payload;
+		},
+		setAuthorizeState(state, action: PayloadAction<boolean>) {
+			state.isAuthorized = action.payload;
 		},
 		setIsSavedProductsTab(state, action: PayloadAction<boolean>) {
 			state.isSavedProductsTab = action.payload;
@@ -229,7 +234,7 @@ const userSLice = createSlice({
 		});
 		builder.addCase(getUserLeftCarts.fulfilled, (state, action) => {
 			state.leftCarts = action.payload.leftCarts;
-			state.totalProducts = action.payload.totalCarts
+			state.totalProducts = action.payload.totalCarts;
 			state.loadingStatus = 'idle';
 		});
 		builder.addCase(getUserLeftCarts.rejected, (state, action) => {
@@ -248,6 +253,7 @@ export const {
 	setIsSavedProductsTab,
 	deleteSavedProduct,
 	setCartItemsModal,
+	setAuthorizeState,
 	setPage,
 } = userSLice.actions;
 
