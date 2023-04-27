@@ -10,7 +10,7 @@ import RecentlyWatchedProducts from '@/components/UserCabinet/RecentlyWatchedPro
 import ErrorMessage from '../Order/ErrorMessage/ErrorMessage';
 import ProductsPagination from '@/components/UserCabinet/ProductsPagination';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import {
+import user, {
 	getUserLeftCarts,
 	getUserOrders,
 	getUserSavedProducts,
@@ -18,6 +18,7 @@ import {
 	setIsSavedProductsTab,
 } from '@/redux/slices/user';
 import CabinetOrdersModal from '@/components/UserCabinet/CabinetOrdersModal/CabinetOrdersModal';
+import { useRouter } from 'next/router';
 
 const TABS = [
 	{
@@ -65,6 +66,7 @@ const TABS = [
 ];
 
 const CabinetTabs: FC = () => {
+	const { push } = useRouter();
 	const [selectedTab, setSelectedTab] = React.useState<number | null>(1);
 	const [showModal, setShowModal] = React.useState<boolean>(false);
 	const [showErrorModal, setErrorShowModal] = React.useState<boolean>(false);
@@ -139,6 +141,7 @@ const CabinetTabs: FC = () => {
 	};
 	const closeErrorModal = () => {
 		setErrorShowModal(false);
+		push('/catalog');
 	};
 	return (
 		<>
