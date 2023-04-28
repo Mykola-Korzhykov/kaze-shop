@@ -22,46 +22,46 @@ const mokLinkData = [
 		{
 			text: 'Сумки',
 			link: '/catalog',
-			id: 2,
+			id: 5,
 		},
 		{
 			text: 'Топы',
 			link: '/catalog',
-			id: 3,
+			id: 10,
 		},
 	],
 	[
 		{
 			text: 'Повсегдневное белье',
 			link: '/catalog',
-			id: 4,
+			id: 8,
 		},
 		{
 			text: 'Велосипедки',
 			link: '/catalog',
-			id: 5,
+			id: 4,
 		},
 		{
 			text: 'Костюмы',
 			link: '/catalog',
-			id: 6,
+			id: 12,
 		},
 	],
 	[
 		{
 			text: 'Доставка и возврат',
 			link: '/delivery',
-			id: 7,
+			id: 645645647,
 		},
 		{
 			text: 'Про бренд',
 			link: '/about',
-			id: 8,
+			id: 86456456,
 		},
 		{
 			text: 'FAQ',
 			link: '/faq',
-			id: 9,
+			id: 645645649,
 		},
 	],
 ];

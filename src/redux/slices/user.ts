@@ -9,6 +9,7 @@ import {
 	UserOrderItems,
 } from '@/types/goods';
 import { RootState } from '../store';
+import { AxiosError } from 'axios';
 
 type UserSLice = {
 	user: User | null;
@@ -54,47 +55,59 @@ export const getUserSavedProducts = createAsyncThunk<
 	{ products: Goods[]; totalProducts: number },
 	null,
 	{ rejectValue: string }
->('user/getUserSavedProducts', async (_, { rejectWithValue, getState }) => {
-	try {
-		const state = getState() as RootState;
-		const userState = state.user;
-		const pageNumber = userState.page;
+>(
+	'user/getUserSavedProducts',
+	async (_, { rejectWithValue, getState, dispatch }) => {
+		try {
+			const state = getState() as RootState;
+			const userState = state.user;
+			const pageNumber = userState.page;
 
-		// const products = getSavedProducts(state);
-		// let data;
-		// if (!products.length) {
-		// i want wont do request if i have smth in redux
-		// }
+			// const products = getSavedProducts(state);
+			// let data;
+			// if (!products.length) {
+			// i want wont do request if i have smth in redux
+			// }
 
-		const data = await Api().user.getSavedProducts(pageNumber);
+			const data = await Api().user.getSavedProducts(pageNumber);
 
-		return data;
-	} catch (e) {
-		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+			return data;
+		} catch (e) {
+			if (e?.response?.status === 403) {
+				dispatch(setAuthorizeState(false));
+			}
+			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+		}
 	}
-});
+);
 
 export const getUserWatchedProducts = createAsyncThunk<
 	{ products: Goods[]; totalProducts: number },
 	null,
 	{ rejectValue: string }
->('user/getUserWatchedProducts', async (_, { rejectWithValue, getState }) => {
-	const state = getState() as RootState;
-	const userState = state.user;
-	const pageNumber = userState.page;
-	try {
-		const data = await Api().user.getWatchedProducts(pageNumber);
-		return data;
-	} catch (e) {
-		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+>(
+	'user/getUserWatchedProducts',
+	async (_, { rejectWithValue, getState, dispatch }) => {
+		const state = getState() as RootState;
+		const userState = state.user;
+		const pageNumber = userState.page;
+		try {
+			const data = await Api().user.getWatchedProducts(pageNumber);
+			return data;
+		} catch (e) {
+			if (e?.response?.status === 403) {
+				dispatch(setAuthorizeState(false));
+			}
+			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+		}
 	}
-});
+);
 
 export const getUserOrders = createAsyncThunk<
 	UserOrders,
 	null,
 	{ rejectValue: string }
->('user/getUserOrders', async (_, { rejectWithValue, getState }) => {
+>('user/getUserOrders', async (_, { rejectWithValue, getState, dispatch }) => {
 	const state = getState() as RootState;
 	const userState = state.user;
 	const pageNumber = userState.page;
@@ -102,6 +115,9 @@ export const getUserOrders = createAsyncThunk<
 		const data = await Api().user.getOrders(pageNumber);
 		return data;
 	} catch (e) {
+		if (e?.response?.status === 403) {
+			dispatch(setAuthorizeState(false));
+		}
 		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
 	}
 });
@@ -123,18 +139,24 @@ export const getUserLeftCarts = createAsyncThunk<
 	{ leftCarts: CartProduct[]; totalCarts: number },
 	null,
 	{ rejectValue: string }
->('user/getUserLeftCarts', async (_, { rejectWithValue, getState }) => {
-	const state = getState() as RootState;
-	const userState = state.user;
-	const pageNumber = userState.page;
+>(
+	'user/getUserLeftCarts',
+	async (_, { rejectWithValue, getState, dispatch }) => {
+		const state = getState() as RootState;
+		const userState = state.user;
+		const pageNumber = userState.page;
 
-	try {
-		const data = await Api().user.getLeftCarts(pageNumber);
-		return data;
-	} catch (e) {
-		return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+		try {
+			const data = await Api().user.getLeftCarts(pageNumber);
+			return data;
+		} catch (e) {
+			if (e?.response?.status === 403) {
+				dispatch(setAuthorizeState(false));
+			}
+			return rejectWithValue(e?.response?.data?.rawErrors[0]?.ua);
+		}
 	}
-});
+);
 
 const userSLice = createSlice({
 	name: 'user',
