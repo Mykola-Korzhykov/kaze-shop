@@ -55,12 +55,12 @@ const mokLinkData = [
 		},
 		{
 			text: 'Про бренд',
-			link: '/about',
+			link: '#about',
 			id: 86456456,
 		},
 		{
 			text: 'FAQ',
-			link: '/faq',
+			link: '/#faq',
 			id: 645645649,
 		},
 	],
@@ -118,7 +118,7 @@ const Footer = (): JSX.Element => {
 								return (
 									<div key={i}>
 										{item.map(({ text, link, id }, i) => {
-											if (text === '/catalog') {
+											if (link === '/catalog') {
 												return (
 													<Link
 														href={link}
@@ -129,7 +129,11 @@ const Footer = (): JSX.Element => {
 													</Link>
 												);
 											}
-											if (['Instagram', 'Facebook', 'TikTok'].includes(text)) {
+											if (
+												['instagram', 'facebook', 'tiktok'].includes(
+													text.toLocaleLowerCase()
+												)
+											) {
 												return (
 													<Link href={link} target="_blank" key={i}>
 														{text}
@@ -137,7 +141,7 @@ const Footer = (): JSX.Element => {
 												);
 											}
 											return (
-												<Link href={link} key={i}>
+												<Link href={link} key={i} scroll={false}>
 													{text}
 												</Link>
 											);

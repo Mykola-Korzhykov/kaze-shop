@@ -11,27 +11,27 @@ const About = ({ className }: AboutProps): JSX.Element => {
     const { button, image, text, title } = useAppSelector(store => store.strapiValues.about);
 
     return (
-        <div className="container">
-            <div className={cn(s.about, className)}>
-                <div className={s.about_img}>
-                    <Image src={STRAPI_API_URL + image.data?.attributes.url}
-                        width={image.data?.attributes.width}
-                        height={image.data?.attributes.height}
-                        alt="woman" quality={100} />
-                </div>
-                <div className={s.about_description}>
-                    <h2>{title}</h2>
-                    <p>
-                        {text}
-                    </p>
-                    <Link href={button.link} target="_blank">
-                        <Button className={s.instagram_btn}>{button.text}</Button>
-                    </Link>
-                    
-                </div>
-            </div>
-        </div>
-    );
+			<div className="container">
+				<div className={cn(s.about, className)} id="about">
+					<div className={s.about_img}>
+						<Image
+							src={STRAPI_API_URL + image.data?.attributes.url}
+							width={image.data?.attributes.width}
+							height={image.data?.attributes.height}
+							alt="woman"
+							quality={100}
+						/>
+					</div>
+					<div className={s.about_description}>
+						<h2>{title}</h2>
+						<p>{text}</p>
+						<Link href={button.link} target="_blank">
+							<Button className={s.instagram_btn}>{button.text}</Button>
+						</Link>
+					</div>
+				</div>
+			</div>
+		);
 };
 
 export default About;

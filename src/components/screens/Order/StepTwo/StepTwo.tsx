@@ -65,7 +65,7 @@ const StepTwo = () => {
 				const payByCash = watch('payInCash');
 				const response: ResponseData<typeof payByCash> =
 					await Api().goods.sendFormStepTwo(sanitatedDataToSend, router.locale);
-				console.log(response);
+
 				if (payByCash) {
 					router.push(
 						`/order_details/${response.orderId}?token=${response.orderToken}`

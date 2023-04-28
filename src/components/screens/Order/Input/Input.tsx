@@ -31,7 +31,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 						id={name}
 						type={type}
 						name={name}
-						value={value}
 						placeholder={placeholder}
 						onChange={onChange}
 						onBlur={onBlur}

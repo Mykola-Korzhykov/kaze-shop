@@ -63,33 +63,36 @@ const Slider = ({ title, items, className, slideHeight }: SliderInterface): JSX.
     };
 
     const deleteSavedProductFunc = async (product: SingleProductRes) => {
-        if (isAuth && user?.type === 'USER') {
-            try {
-                const deleteProduct = savedProduct.filter(id => id !== product.id);
-                setSavedProduct(deleteProduct);
-                await Api().user.deleteUserSavedProduct(product?.id);
-            } catch (e) {
-                router.push('/404');
-            }
-        } else if (!isAuth) {
-            router.push('/login');
-        }
-    };
-    const checkedSaveProduct = (id: number): boolean => {
-        const product = savedProduct.find(productId => productId === id);
-        if (product) {
-            return true;
-        }
-        return false
-    }
+			if (isAuth && user?.type === 'USER') {
+				try {
+					const deleteProduct = savedProduct.filter((id) => id !== product.id);
+					setSavedProduct(deleteProduct);
+					await Api().user.deleteUserSavedProduct(product?.id);
+				} catch (e) {
+					router.push('/404');
+				}
+			} else if (!isAuth) {
+				router.push('/login');
+			}
+		};
+		const checkedSaveProduct = (id: number): boolean => {
+			const product = savedProduct.find((productId) => productId === id);
+			if (product) {
+				return true;
+			}
+			return false;
+		};
 
-    useEffect(() => {
-        items.forEach(elem => {
-            if (elem.isSaved) {
-                setSavedProduct(prev => [...prev, elem.id]);
-            }
-        });
-    }, [])
+		useEffect(() => {
+			const savedId: Array<number> = [];
+			items.forEach((elem) => {
+				if (elem.isSaved) {
+					savedId.push(elem.id);
+				}
+			});
+			setSavedProduct(savedId);
+		}, []);
+		
     return (
         <div className={cn(s.slider_box, 'container', className)}>
             <div className={s.title_box}>

@@ -26,28 +26,33 @@ const FAQ = (): JSX.Element => {
     }
 
     return (
-        <div className="container">
-            <div className={s.faq}>
-                <h3 className={s.faq_title}>
-                    {title}
-                </h3>
-                <div className={s.faq_img}>
-                    <Image src={STRAPI_API_URL + image.data?.attributes.url}
-                        width={image.data?.attributes.width}
-                        height={image.data?.attributes.height}
-                        alt='girl photo' quality={100} />
-                </div>
-                <div className={s.faq_items}>
-                    {fieldArr.map((item, i) => {
-                        return (
-                            <FAQItem key={item.id} {...item} isOpen={activeItem === i} onClick={() => handleActive(i)} />
-                        )
-                    })}
-                </div>
-            </div>
-
-        </div>
-    )
+			<div className="container" id="faq">
+				<div className={s.faq}>
+					<h3 className={s.faq_title}>{title}</h3>
+					<div className={s.faq_img}>
+						<Image
+							src={STRAPI_API_URL + image.data?.attributes.url}
+							width={image.data?.attributes.width}
+							height={image.data?.attributes.height}
+							alt="girl photo"
+							quality={100}
+						/>
+					</div>
+					<div className={s.faq_items}>
+						{fieldArr.map((item, i) => {
+							return (
+								<FAQItem
+									key={item.id}
+									{...item}
+									isOpen={activeItem === i}
+									onClick={() => handleActive(i)}
+								/>
+							);
+						})}
+					</div>
+				</div>
+			</div>
+		);
 }
 
 export default FAQ;

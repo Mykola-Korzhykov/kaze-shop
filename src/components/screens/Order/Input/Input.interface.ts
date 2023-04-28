@@ -11,9 +11,6 @@ export interface InputProps
 	placeholder: string;
 	type?: string;
 	errorMessage?: string;
-	onChange?: ChangeHandler;
-	onBlur?: ChangeHandler;
-	ref?: React.Ref<any>;
 }
 
 
