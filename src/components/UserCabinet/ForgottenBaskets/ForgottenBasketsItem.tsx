@@ -15,7 +15,7 @@ const ForgottenBasketsItem: FC<{
 	useEffect(() => {
 		function printDateStatus() {
 			const today = new Date();
-			const dateToCompare = new Date(product?.createdAt);
+			const dateToCompare = new Date(product?.updateAt);
 
 			if (dateToCompare.toDateString() === today.toDateString()) {
 				setDateBasketCreated('сегодня');
@@ -25,7 +25,7 @@ const ForgottenBasketsItem: FC<{
 			) {
 				setDateBasketCreated('вчера');
 			} else {
-				const dateCreated = product?.createdAt
+				const dateCreated = product?.updateAt
 					.toLocaleDateString('en-GB')
 					.split('/')
 					.join('.');
@@ -41,10 +41,10 @@ const ForgottenBasketsItem: FC<{
 				cartProducts: product?.cartProducts,
 				totalPrice: product?.totalPrice,
 				id: product?.id,
-				createdAt: dateBasketCreated
+				createdAt: dateBasketCreated,
 			})
 		);
-		setShowModal(true)
+		setShowModal(true);
 	};
 	return (
 		<div className={s.cart}>

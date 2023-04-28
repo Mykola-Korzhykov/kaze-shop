@@ -154,6 +154,7 @@ const CabinetTabs: FC = () => {
 					description="Зайдіть на пошту і підтвердіть свій аккаунт"
 					buttonText="На головну"
 					buttonHref="/"
+					smallModal={true}
 				/>
 			)}
 			{loadingStatus === 'error' || showErrorModal ? (

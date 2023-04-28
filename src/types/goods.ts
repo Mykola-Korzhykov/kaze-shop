@@ -148,6 +148,7 @@ export interface CartProduct {
 	id: number;
 	cartStatus: 'Canceled' | 'Submitted' | 'Completed' | 'Processing' | 'Paid';
 	createdAt: Date;
+	updateAt: Date;
 	statusDate: string;
 	totalPrice: string;
 	cartProducts: CartProductItem[];

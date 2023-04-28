@@ -105,9 +105,6 @@ const Cabinet: FC = () => {
 					Cookies.remove('accessToken');
 					router.push('/login');
 				}
-				if (e?.response?.status === 403) {
-					console.log('USER IS NOT AUTHORIZED');
-				}
 			}
 		};
 		// if (cookies?.accessToken) {
@@ -125,7 +122,9 @@ const Cabinet: FC = () => {
 
 	return (
 		<>
-			{loadingStatus === 'loading' || userCabinetloadingStatus === 'loading' ? (
+			{loadingStatus === 'loading' ||
+			userCabinetloadingStatus === 'loading' ||
+			!user?.user ? (
 				<Spinner />
 			) : null}
 			<main className="content">
