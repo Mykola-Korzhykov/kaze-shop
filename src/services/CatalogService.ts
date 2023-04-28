@@ -152,14 +152,16 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 	},
 	async sendFormStepTwo(formData: FormStepTwoData, locale: string) {
 		const { data } = await instance.put(
-			`orders/continue_order?${locale}`,
+			`orders/continue_order?locale=${locale}`,
 			formData
 		);
 		return data;
 	},
 
-	async checkOrderSuccess<T>(orderNum: string) {
-		const { data } = await instance.get<T>('orders/status?orderId=' + orderNum);
+	async checkOrderSuccess<T>(orderNum: string, orderToken: string) {
+		const { data } = await instance.get<T>(
+			`orders/status?orderId=${orderNum}&orderToken=${orderToken}`
+		);
 		return data;
 	},
 	async getManyProduct<T>(productId: Array<number>) {

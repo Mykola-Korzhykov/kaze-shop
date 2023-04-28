@@ -19,25 +19,31 @@ export default Order_details;
 
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
 
-    const query = context.params;
-    try {
-        const { data } = await Api().goods.checkOrderSuccess<ResponseFetch>(query.id.toString());
-        if (data.orderStatus === 'Completed')
-            return {
-                props: {
-                    orderNum: data.orderId
-                }
-            }
-        if (data.orderStatus === 'Processing') {
-            return {
-                notFound: true,
-            }
-        }
-    } catch (e) {
-        return {
-            notFound: true
-        }
-    }
+    const { token, id } = context.query;
+
+		try {
+			const { data } = await Api().goods.checkOrderSuccess<ResponseFetch>(
+				id.toString(),
+				token.toString()
+			);
+
+			if (data.orderStatus === 'Completed')
+				return {
+					props: {
+						orderNum: data.orderId,
+					},
+				};
+			if (data.orderStatus === 'Processing') {
+				return {
+					notFound: true,
+				};
+			}
+		} catch (e) {
+			console.log(e);
+			return {
+				notFound: true,
+			};
+		}
 }
 
 interface Order_detailsProps {
