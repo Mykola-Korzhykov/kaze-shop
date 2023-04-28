@@ -178,6 +178,12 @@ const userSLice = createSlice({
 				state.page = 1;
 			}
 		},
+		setLoadingStatus(
+			state,
+			action: PayloadAction<'loading' | 'error' | 'idle'>
+		) {
+			state.loadingStatus = action.payload;
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(getUserSavedProducts.fulfilled, (state, action) => {
@@ -249,6 +255,7 @@ export const selectAuthState = (state: RootState) => state.user.isAuth;
 export const {
 	addUserInfo,
 	setLanguage,
+	setLoadingStatus,
 	setAuthState,
 	setIsSavedProductsTab,
 	deleteSavedProduct,

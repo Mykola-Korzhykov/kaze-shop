@@ -48,33 +48,35 @@ function App({ Component, pageProps }: AppProps) {
 
 		setUserCartToken();
 
-		const fetchUserData = async () => {
-			try {
-				const data = await Api().user.getMe(router?.locale);
-				setCookie(null, 'accessToken', data?.accessToken, {
-					maxAge: data?.maxAge,
-					path: '/',
-				});
-				if (data?.user) {
-					dispatch(addUserInfo(data?.user));
-				}
-				if (data?.admin) {
-					dispatch(addUserInfo(data?.admin));
-				}
-				if (data?.owner) {
-					dispatch(addUserInfo(data?.owner));
-				}
-			} catch (e) {
-				//router.push('/404')
-				// if (e?.response?.status === 400 || e?.response?.status === 404) {
-				// 	Cookies.remove('accessToken');
-				// 	router.push('/login');
-				// }
-			}
-		};
-		if (cookies?.accessToken) {
-			fetchUserData();
-		}
+		// const fetchUserData = async () => {
+		// 	try {
+		// 		const res = await Api().user.getMe(router?.locale);
+				
+		// 		const { data } = res;
+		// 		setCookie(null, 'accessToken', data?.accessToken, {
+		// 			maxAge: data?.maxAge,
+		// 			path: '/',
+		// 		});
+		// 		if (data?.user) {
+		// 			dispatch(addUserInfo(data?.user));
+		// 		}
+		// 		if (data?.admin) {
+		// 			dispatch(addUserInfo(data?.admin));
+		// 		}
+		// 		if (data?.owner) {
+		// 			dispatch(addUserInfo(data?.owner));
+		// 		}
+		// 	} catch (e) {
+		// 		//router.push('/404')
+		// 		// if (e?.response?.status === 400 || e?.response?.status === 404) {
+		// 		// 	Cookies.remove('accessToken');
+		// 		// 	router.push('/login');
+		// 		// }
+		// 	}
+		// };
+		// if (cookies?.accessToken) {
+		// 	fetchUserData();
+		// }
 	}, []);
 
 	useEffect(() => {

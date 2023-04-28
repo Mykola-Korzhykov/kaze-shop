@@ -20,6 +20,7 @@ import user, {
 import CabinetOrdersModal from '@/components/UserCabinet/CabinetOrdersModal/CabinetOrdersModal';
 import { useRouter } from 'next/router';
 import ErrorModal from '@/components/UI/ErrorModal';
+import { setLoadingStatus } from '@/redux/slices/user';
 
 const TABS = [
 	{
@@ -142,8 +143,8 @@ const CabinetTabs: FC = () => {
 		}
 	};
 	const closeErrorModal = () => {
+		dispatch(setLoadingStatus('idle'));
 		setErrorShowModal(false);
-		push('/catalog');
 	};
 	return (
 		<>
