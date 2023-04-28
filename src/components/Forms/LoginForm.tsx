@@ -26,7 +26,7 @@ const LoginForm = () => {
 	const onSubmit: SubmitHandler<any> = async (dto: LoginDto) => {
 		try {
 			setLoginLoading(true);
-			const data = await Api().user.login(dto);
+			const data = await Api().user.login(dto, router.locale);
 
 			setCookie(null, 'accessToken', data?.accessToken, {
 				maxAge: data?.maxAge,
@@ -47,9 +47,13 @@ const LoginForm = () => {
 		} catch (err) {
 			setLoginLoading(false);
 			if (err.response) {
+				const text = err?.response?.data?.rawErrors?.find(
+					(error: { locale: string; error: string }) =>
+						error.locale === router?.locale
+				).text;
 				setErrorMessage(
 					err?.response?.data?.rawErrors?.length > 0
-						? err?.response?.data?.rawErrors[router?.locale]?.error
+						? text
 						: err?.response?.data?.message
 				);
 			} else {

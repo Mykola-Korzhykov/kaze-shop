@@ -10,7 +10,7 @@ import RecentlyWatchedProducts from '@/components/UserCabinet/RecentlyWatchedPro
 import ErrorMessage from '../Order/ErrorMessage/ErrorMessage';
 import ProductsPagination from '@/components/UserCabinet/ProductsPagination';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import {
+import user, {
 	getUserLeftCarts,
 	getUserOrders,
 	getUserSavedProducts,
@@ -18,6 +18,9 @@ import {
 	setIsSavedProductsTab,
 } from '@/redux/slices/user';
 import CabinetOrdersModal from '@/components/UserCabinet/CabinetOrdersModal/CabinetOrdersModal';
+import { useRouter } from 'next/router';
+import ErrorModal from '@/components/UI/ErrorModal';
+import { setLoadingStatus } from '@/redux/slices/user';
 
 const TABS = [
 	{
@@ -65,11 +68,13 @@ const TABS = [
 ];
 
 const CabinetTabs: FC = () => {
+	const { push } = useRouter();
 	const [selectedTab, setSelectedTab] = React.useState<number | null>(1);
 	const [showModal, setShowModal] = React.useState<boolean>(false);
 	const [showErrorModal, setErrorShowModal] = React.useState<boolean>(false);
 	const page = useAppSelector((state) => state.user.page);
 	const loadingStatus = useAppSelector((state) => state.user.loadingStatus);
+	const isAuthorized = useAppSelector((state) => state.user.isAuthorized);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
@@ -138,10 +143,19 @@ const CabinetTabs: FC = () => {
 		}
 	};
 	const closeErrorModal = () => {
+		dispatch(setLoadingStatus('idle'));
 		setErrorShowModal(false);
 	};
 	return (
 		<>
+			{!isAuthorized && (
+				<ErrorModal
+					title="Ви не підтвердили свій аккаунт"
+					description="Зайдіть на пошту і підтвердіть свій аккаунт"
+					buttonText="На головну"
+					buttonHref="/"
+				/>
+			)}
 			{loadingStatus === 'error' || showErrorModal ? (
 				<ErrorMessage closeError={closeErrorModal} />
 			) : null}

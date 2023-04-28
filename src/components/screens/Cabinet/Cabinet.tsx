@@ -9,6 +9,9 @@ import { useRouter } from 'next/router';
 import { addUserInfo } from '@/redux/slices/user';
 import Link from 'next/link';
 import { setCookie, destroyCookie } from 'nookies';
+import { parseCookies } from 'nookies';
+import Cookies from 'js-cookie';
+
 import s from './screenStyle.module.scss';
 // import myStyle from './Cabinet.module.scss';
 //components
@@ -76,6 +79,43 @@ const Cabinet: FC = () => {
 	const [pngImageShow, setPngImageShow] = React.useState<File | null>(null);
 	const [jpgImagesShow, setJpgImagesShow] = React.useState<File[]>([]);
 
+	React.useEffect(() => {
+		const cookies = parseCookies();
+		const fetchUserData = async () => {
+			try {
+				const res = await Api().user.getMe(router?.locale);
+
+				const { data } = res;
+				setCookie(null, 'accessToken', data?.accessToken, {
+					maxAge: data?.maxAge,
+					path: '/',
+				});
+				if (data?.user) {
+					dispatch(addUserInfo(data?.user));
+				}
+				if (data?.admin) {
+					dispatch(addUserInfo(data?.admin));
+				}
+				if (data?.owner) {
+					dispatch(addUserInfo(data?.owner));
+				}
+			} catch (e) {
+				//router.push('/404')
+				if (e?.response?.status === 400 || e?.response?.status === 404) {
+					Cookies.remove('accessToken');
+					router.push('/login');
+				}
+				if (e?.response?.status === 403) {
+					console.log('USER IS NOT AUTHORIZED');
+				}
+			}
+		};
+		// if (cookies?.accessToken) {
+		// 	fetchUserData();
+		// }
+
+		fetchUserData();
+	}, []);
 	// console.log('modalAddColorTurn', modalAddColorTurn);
 	React.useEffect(() => {
 		dispatch(fetchColours());

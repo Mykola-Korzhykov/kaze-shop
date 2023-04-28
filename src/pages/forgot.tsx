@@ -20,6 +20,7 @@ const ForgotPassword: NextPage = () => {
 	const [errorMessage, setErrorMessage] = useState<string>('');
 	const [loginLoading, setLoginLoading] = useState<boolean>(false);
 	const [getCodeform, setGetFormCode] = useState<boolean>(false);
+	const [sendCodeAgain, setSendCodeAgain] = useState<boolean>(false);
 	const getForgotPasswordCodeForm = useForm<GetCodeDto>({
 		mode: 'onChange',
 		resolver: yupResolver(GetForgotPasswordCodeSchema),
@@ -34,12 +35,16 @@ const ForgotPassword: NextPage = () => {
 	});
 	const getPasswordCodeAgain = async () => {
 		const emailValue = getForgotPasswordCodeForm.getValues('email');
-		await Api().user.getForgotPasswordCode({ email: emailValue });
+		await Api().user.getForgotPasswordCode(
+			{ email: emailValue },
+			router.locale
+		);
+		setSendCodeAgain(true);
 	};
 	const onSubmitGetCode = async (dto: GetCodeDto) => {
 		try {
 			setLoginLoading(true);
-			await Api().user.getForgotPasswordCode(dto);
+			await Api().user.getForgotPasswordCode(dto, router.locale);
 			setLoginLoading(false);
 			setGetFormCode(true);
 		} catch (err) {
@@ -190,7 +195,9 @@ const ForgotPassword: NextPage = () => {
 															forgotPasswordForm.formState.errors.code.message}
 													</span>
 													<span onClick={getPasswordCodeAgain}>
-														Не получили код? Отправить еще раз
+														{sendCodeAgain
+															? 'Отправлено, проверьте пошту'
+															: 'Не получили код? Отправить еще раз'}
 													</span>
 												</div>
 												<div className="auth_field">
