@@ -150,8 +150,11 @@ export const GoodsApi = (instance: AxiosInstance) => ({
 		});
 		return data;
 	},
-	async sendFormStepTwo(formData: FormStepTwoData) {
-		const { data } = await instance.put('orders/continue_order', formData);
+	async sendFormStepTwo(formData: FormStepTwoData, locale: string) {
+		const { data } = await instance.put(
+			`orders/continue_order?${locale}`,
+			formData
+		);
 		return data;
 	},
 

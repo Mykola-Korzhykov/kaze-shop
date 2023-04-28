@@ -8,91 +8,99 @@ import { CartType, CartLoadType, ProductPlusType } from '@/types/cartItem';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import FormSpinner from '../FormSpinner/FormSpinner';
 import ErrorModal from '@/components/UI/ErrorModal';
-import { useAppDispatch } from '@/redux/hooks';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setCardId } from '@/redux/slices/order';
 
-
 const CartBlock = ({ className, ...props }: CartBlockProps): JSX.Element => {
-    const [cartLoad, setCartLoad] = useState<CartLoadType>('loading');
-    const [cartItem, setCartItem] = useState<null | CartType>();
-    const dispatch = useAppDispatch();
+	const [cartLoad, setCartLoad] = useState<CartLoadType>('loading');
+	const [cartItem, setCartItem] = useState<null | CartType>();
+	const { stepOne, stepTwo } = useAppSelector((store) => store.order);
+	const dispatch = useAppDispatch();
 
-    const getCart = async () => {
-        try {
-            const result: CartType = await Api().goods.getCartProducts();
-            setCartItem(result);
-            setCartLoad('success');
-            dispatch(setCardId(result.cart.id));
-        } catch (e) {
-            setCartLoad('error');
-        }
-    }
-    const closeError = () => {
-        setCartLoad('loading');
-        getCart();
-    };
+	const getCart = async () => {
+		try {
+			const result: CartType = await Api().goods.getCartProducts();
+			setCartItem(result);
+			setCartLoad('success');
+			dispatch(setCardId(result.cart.id));
+		} catch (e) {
+			setCartLoad('error');
+		}
+	};
+	const closeError = () => {
+		setCartLoad('loading');
+		getCart();
+	};
 
+	useEffect(() => {
+		getCart();
+	}, []);
 
-    useEffect(() => {
-        getCart();
-    }, []);
+	if (cartItem && !cartItem.cart.cartProducts.length) {
+		return (
+			<ErrorModal
+				title="Ваша корзина пуста"
+				buttonText="Перейти в каталог"
+				buttonHref="/catalog"
+				description="Перейдите в каталог, чтобы купить какой то продукт"
+				smallModal={true}
+			/>
+		);
+	}
 
+	const productPlus = async (productId: number, product: ProductPlusType) => {
+		setCartLoad('loading');
+		try {
+			await Api().goods.addToCart(productId, product);
+			getCart();
+		} catch (e) {
+			console.log(e);
+			setCartLoad('error');
+		}
+	};
 
-    if (cartItem && !cartItem.cart.cartProducts.length) {
-        return (
-            <ErrorModal
-                title="Ваша корзина пуста"
-                buttonText="Перейти в каталог"
-                buttonHref="/catalog"
-                description="Перейдите в каталог, чтобы купить какой то продукт"
-                smallModal={true}
-            />
-        )
-    }
+	const productMinus = async (productId: number) => {
+		setCartLoad('loading');
 
-    const productPlus = async (productId: number, product: ProductPlusType) => {
-        setCartLoad('loading');
-        try {
-            await Api().goods.addToCart(productId, product);
-            getCart();
-        } catch (e) {
-            console.log(e);
-            setCartLoad('error');
-        }
-    }
+		try {
+			await Api().goods.deleteProduct(productId);
+			getCart();
+		} catch (e) {
+			console.log(e);
+			setCartLoad('error');
+		}
+	};
 
-    const productMinus = async (productId: number) => {
-        setCartLoad('loading');
+	return (
+		<>
+			<div className={cn(s.cart_block, className)} {...props}>
+				<h2>Ваш заказ</h2>
 
-        try {
-            await Api().goods.deleteProduct(productId);
-            getCart();
-        } catch (e) {
-            console.log(e);
-            setCartLoad('error');
-        }
-    };
+				{cartLoad === 'success' && (
+					<>
+						<div>
+							{cartItem.cart.cartProducts.map((item) => (
+								<CartItem
+									className={s.item}
+									productPlus={productPlus}
+									productMinus={productMinus}
+									key={item.id}
+									{...item}
+								/>
+							))}
+						</div>
 
-    return (
-        <>
-            <div className={cn(s.cart_block, className)} {...props}>
-                <h2>Ваш заказ</h2>
-
-                {cartLoad === 'success' && <>
-                    <div>
-                        {cartItem.cart.cartProducts.map((item) => <CartItem className={s.item} productPlus={productPlus} productMinus={productMinus} key={item.id} {...item} />)}
-                    </div>
-
-                    <div className={s.total}>
-                        <span>Вместе</span>
-                        <span>{cartItem.cart.totalPrice}</span>
-                    </div>
-                </>}
-                {[cartLoad].includes('loading') && <FormSpinner />}
-            </div>
-            {[cartLoad].includes('error') && <ErrorMessage closeError={closeError} />}
-        </>
-    );
+						<div className={s.total}>
+							<span>Вместе</span>
+							<span>{cartItem.cart.totalPrice}</span>
+						</div>
+					</>
+				)}
+				{[cartLoad, stepOne, stepTwo].includes('loading') && <FormSpinner />}
+			</div>
+			{[cartLoad].includes('error') && <ErrorMessage closeError={closeError} />}
+		</>
+	);
 };
 
 export default CartBlock;
