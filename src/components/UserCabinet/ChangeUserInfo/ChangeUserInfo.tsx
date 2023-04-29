@@ -36,7 +36,7 @@ const ChangeUserInfo = () => {
 
 			const data = await Api().user.changeInfo(dto);
 			setCookie(null, 'accessToken', data?.accessToken, {
-				maxAge: 30 * 24 * 60 * 60,
+				expires: data?.maxAge,
 				path: '/',
 			});
 			if (data?.user) {

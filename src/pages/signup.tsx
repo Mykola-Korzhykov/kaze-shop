@@ -20,9 +20,13 @@ import SpinnerLayout from '@/layouts/SpinnerLayout';
 import { NextPage } from 'next';
 import CheckBox from '@/components/UI/CheckBox';
 import MetaHead from '@/components/MetaHead';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { setAuthState } from '@/redux/slices/user';
+import { useTranslation } from 'next-i18next';
 const Signup: NextPage = () => {
 	const router = useRouter();
+	const { t } = useTranslation('signup');
+	const { t: commonT } = useTranslation('common');
 	const dispatch = useAppDispatch();
 	const [errorMessage, setErrorMessage] = useState<string>('');
 	const [signUpLoading, setSignUpLoading] = useState<boolean>(false);
@@ -77,7 +81,7 @@ const Signup: NextPage = () => {
 				);
 
 				setCookie(null, 'accessToken', data?.accessToken, {
-					maxAge: data?.maxAge,
+					expires: data?.maxAge,
 					path: '/',
 				});
 				dispatch(setAuthState(!!data?.accessToken));
@@ -95,7 +99,7 @@ const Signup: NextPage = () => {
 			}
 		} catch (err) {
 			setSignUpLoading(false);
-			console.warn('Register error', err);
+			
 			if (err.response) {
 				const text = err?.response?.data?.rawErrors?.find(
 					(error: { locale: string; error: string }) =>
@@ -130,7 +134,8 @@ const Signup: NextPage = () => {
 			<main className="content">
 				<div className="container">
 					<div className="page_coordinator" ref={coordRef}>
-						<Link href={'/'}> Главная</Link> | <span>Регистрация</span>
+						<Link href={'/'}>{commonT('Main')}</Link> |{' '}
+						<span>{t('registration')}</span>
 					</div>
 					<div className="auth_block reg_block">
 						<div className="auth_image none">
@@ -157,39 +162,39 @@ const Signup: NextPage = () => {
 								isStickyImage ? 'sticky_form' : ''
 							}`}
 						>
-							<h3 className="auth_title">Регистрация</h3>
+							<h3 className="auth_title">{t('registration')}</h3>
 							<form onSubmit={signupForm.handleSubmit(onSubmit)}>
 								<div className="register_form">
 									<div className="auth_field">
 										<label className="auth_label" htmlFor="name">
-											Имя
+											{t('name')}
 										</label>
 										<div className="auth_input">
 											<input
-												placeholder="Введите имя"
+												placeholder={t('enter_name')}
 												type="text"
 												{...signupForm.register('name')}
 											/>
 										</div>
 										<span className="auth_error">
 											{signupForm.formState.errors.name &&
-												signupForm.formState.errors.name.message}
+												t(signupForm.formState.errors.name.message)}
 										</span>
 									</div>
 									<div className="auth_field">
 										<label className="auth_label" htmlFor="surname">
-											Фамилия
+											{t('surname')}
 										</label>
 										<div className="auth_input">
 											<input
-												placeholder="Введите фамилию"
+												placeholder={t('enter_surname')}
 												type="text"
 												{...signupForm.register('surname')}
 											/>
 										</div>
 										<span className="auth_error">
 											{signupForm.formState.errors.surname &&
-												signupForm.formState.errors.surname.message}
+												t(signupForm.formState.errors.surname.message)}
 										</span>
 									</div>
 
@@ -199,19 +204,19 @@ const Signup: NextPage = () => {
 										</label>
 										<div className="auth_input">
 											<input
-												placeholder="Введите e-mail"
+												placeholder={t('enter_email')}
 												type="text"
 												{...signupForm.register('email')}
 											/>
 										</div>
 										<span className="auth_error">
 											{signupForm.formState.errors.email &&
-												signupForm.formState.errors.email.message}
+												t(signupForm.formState.errors.email.message)}
 										</span>
 									</div>
 									<div className="auth_field">
 										<label className="auth_label" htmlFor="phoneNumber">
-											Номер телефона
+											{t('phone')}
 										</label>
 
 										<PhoneInput
@@ -235,16 +240,12 @@ const Signup: NextPage = () => {
 													country.name === 'Ukraine' &&
 													!value.match(ukrainianRegex)
 												) {
-													setPhoneNumberError(
-														'Invalid phone number format for Ukraine'
-													);
+													setPhoneNumberError(t('invalid_phone'));
 												} else if (
 													country.name === 'Serbia' &&
 													!value.match(serbianRegex)
 												) {
-													setPhoneNumberError(
-														'Invalid phone number format for Serbia'
-													);
+													setPhoneNumberError(t('invalid_phone'));
 													return false;
 												} else {
 													setPhoneNumberError('');
@@ -258,11 +259,11 @@ const Signup: NextPage = () => {
 									</div>
 									<div className="auth_field">
 										<label className="auth_label" htmlFor="password">
-											Пароль
+											{t('password')}
 										</label>
 										<div className="auth_input">
 											<input
-												placeholder="Введите пароль"
+												placeholder={t('enter_password')}
 												type={passwordShown ? 'text' : 'password'}
 												{...signupForm.register('password')}
 											/>
@@ -280,16 +281,16 @@ const Signup: NextPage = () => {
 										</div>
 										<span className="auth_error">
 											{signupForm.formState.errors.password &&
-												signupForm.formState.errors.password.message}
+												t(signupForm.formState.errors.password.message)}
 										</span>
 									</div>
 									<div className="auth_field">
 										<label className="auth_label" htmlFor="confirmPassword">
-											Повторите пароль
+											{t('repeat_pass')}
 										</label>
 										<div className="auth_input">
 											<input
-												placeholder="Повторите пароль"
+												placeholder={t('repeat_pass')}
 												type={confirmPasswordShown ? 'text' : 'password'}
 												{...signupForm.register('confirmPassword')}
 											/>
@@ -307,15 +308,15 @@ const Signup: NextPage = () => {
 										</div>
 										<span className="auth_error">
 											{signupForm.formState.errors.confirmPassword &&
-												signupForm.formState.errors.confirmPassword.message}
+												t(signupForm.formState.errors.confirmPassword.message)}
 										</span>
 									</div>
 								</div>
 								<CheckBox
 									isChecked={privacyPolicyState}
 									setIsChecked={setPrivacyPolicyState}
-									text="Я согласен с условиями"
-									linkText="Политики конфиденциальности"
+									text={t('privacy_policy')}
+									linkText={t('privacy_link')}
 									linkUrl="https://docs.google.com/document/d/1tHo2_05AP3DrhMG3_jjheWCNUKqCD8tMv7EKd_AYTFg/edit"
 									customClass="privacy_checkbox"
 								/>
@@ -327,11 +328,12 @@ const Signup: NextPage = () => {
 									className="auth_btn w-93"
 									type="submit"
 								>
-									{signUpLoading ? 'Loading...' : 'Зарегистрироваться'}
+									{signUpLoading ? t('loading') : t('sign_up')}
 								</button>
 								<p className="auth_more">
 									<Link className="auth_link" href="/login">
-										Уже есть аккаунт? <span>Войти</span>
+										{t('haveAcc')}
+										<span>{t('sign_in')}</span>
 									</Link>
 								</p>
 							</form>
@@ -343,6 +345,10 @@ const Signup: NextPage = () => {
 	);
 };
 export const getServerSideProps = NotAuthorized(async (context) => {
-	return { props: {} };
+	return {
+		props: {
+			...(await serverSideTranslations(context.locale, ['common', 'signup'])),
+		},
+	};
 });
 export default Signup;

@@ -1,1 +1,15 @@
-{ "Catalog": "Каталог" }
+{
+	"Catalog": "Katalog",
+	"products_found": "pronađeni proizvodi",
+	"sortBy": "Sortiraj po",
+	"highToLow": "od najeftinijeg proizvoda",
+	"lowToHigh": "od najskupleg proizvod",
+	"filter": "Filter",
+	"color": "Boja:",
+	"categories": "Kategorije:",
+	"sizes": "Veličine:",
+	"applyFilter": "Primeni filter",
+	"addToCart": "Dodaj u korpu",
+	"noFound": "Za ovaj upit nisu pronađeni proizvodi",
+	"getAll": "Преузмите све производе"
+}

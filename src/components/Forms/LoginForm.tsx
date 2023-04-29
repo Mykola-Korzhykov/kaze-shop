@@ -12,7 +12,9 @@ import { setCookie } from 'nookies';
 import FormField from '../UI/FormField';
 import CheckBox from '../UI/CheckBox';
 import { setAuthState } from '@/redux/slices/user';
+import { useTranslation } from 'next-i18next';
 const LoginForm = () => {
+	const { t } = useTranslation('login');
 	const loginForm = useForm({
 		mode: 'onChange',
 		resolver: yupResolver(LoginFormSchema),
@@ -29,7 +31,7 @@ const LoginForm = () => {
 			const data = await Api().user.login(dto, router.locale);
 
 			setCookie(null, 'accessToken', data?.accessToken, {
-				maxAge: data?.maxAge,
+				expires: data?.maxAge,
 				path: '/',
 			});
 			dispatch(setAuthState(!!data?.accessToken));
@@ -69,23 +71,23 @@ const LoginForm = () => {
 					type="text"
 					name="email"
 					label="E-mail"
-					placeholder="Введите e-mail"
+					placeholder={t('enter_email')}
 				/>
 				<FormField
 					type="password"
 					name="password"
-					label="Пароль"
-					placeholder="Введите пароль"
+					label={t('password')}
+					placeholder={t('enter_password')}
 					isPassword={true}
 				/>
 				<div className="auth_detail">
 					<CheckBox
 						isChecked={isRemember}
 						setIsChecked={setIsRemember}
-						text="Запомнить меня"
+						text={t('remember_me')}
 					/>
 					<Link href={'/forgot'} className="auth_detail_link">
-						Забыл пароль
+						{t('forgot_pass')}
 					</Link>
 				</div>
 				{errorMessage && <span className="auth_error">{errorMessage}</span>}
@@ -94,12 +96,12 @@ const LoginForm = () => {
 					type="submit"
 					disabled={loginForm.formState.isSubmitting}
 				>
-					{loginLoading ? 'Loading...' : 'Войти'}
+					{loginLoading ? t('loading') : t('sign_in')}
 				</button>
 
 				<p className="auth_more">
 					<Link className="auth_link" href="/signup">
-						Все еще нет аккаунта? <span>Зарегистрироваться</span>
+						{t('no_acc')} <span>{t('sign_up')}</span>
 					</Link>
 				</p>
 			</form>

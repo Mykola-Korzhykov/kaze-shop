@@ -1,1 +1,15 @@
-{ "Catalog": "Catalog" }
+{
+	"Catalog": "Catalog",
+	"products_found": "products found",
+	"sortBy": "Sort by",
+	"highToLow": "high to low",
+	"lowToHigh": "low to high",
+	"filter": "Filter:",
+	"color": "Color:",
+	"categories": "Categories:",
+	"sizes": "Sizes:",
+	"applyFilter": "Apply filter",
+	"addToCart": "Add to cart",
+	"noFound": "No products found for the selected filter,",
+	"getAll": "Download all products"
+}

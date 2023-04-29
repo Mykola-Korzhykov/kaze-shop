@@ -1,0 +1,16 @@
+{
+	"login": "Вход",
+	"sign_in": "Войти",
+	"enter_email": "Введите e-mail",
+	"password": "Пароль",
+	"enter_password": "Введите пароль",
+	"remember_me": "Запомнить меня",
+	"forgot_pass": "Забыл пароль",
+	"no_acc": "Все еще нет аккаунта?",
+	"sign_up": "Зарегистрироваться",
+	"email_required": "Почта обязательная",
+	"email_validation": "Неверный email",
+	"pass_required": "Пароль обязательный",
+	"pass_validation": "Пароль должен содержать не менее 8 символов и хотя бы одну цыфру",
+	"loading": "Загрузка..."
+}

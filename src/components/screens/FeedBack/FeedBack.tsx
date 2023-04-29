@@ -12,10 +12,15 @@ import { useRouter } from 'next/router';
 import FeedbackOption from './FeedbackOption';
 import { setFeedbackProduct } from '@/redux/slices/goods';
 import { Goods } from '@/types/goods';
+import { useTranslation } from 'next-i18next';
 const FeedBack = () => {
-	const dispatch = useAppDispatch()
+	const { t } = useTranslation('feedback');
+	const { t: commonT } = useTranslation('common');
+	const { t: validationT } = useTranslation('signup');
+	const dispatch = useAppDispatch();
 	const [selectedOption, setSelectedOption] = React.useState<number>(5);
 	const [requestLoading, setRequestLoading] = React.useState<boolean>(false);
+
 	const toogleOption = (id: number) => {
 		setSelectedOption(id);
 	};
@@ -29,13 +34,15 @@ const FeedBack = () => {
 			try {
 				setRequestLoading(true);
 				const product: Goods = await Api().goods.getSingleProduct(id + '');
-				console.log(product)
-				dispatch(setFeedbackProduct({
-					imageUrl: product?.images[0]?.imagesPaths[0],
-					productId: product?.id,
-					productName: product?.title,
-				}));
-				
+
+				dispatch(
+					setFeedbackProduct({
+						imageUrl: product?.images[0]?.imagesPaths[0],
+						productId: product?.id,
+						productName: product?.title,
+					})
+				);
+
 				setRequestLoading(false);
 			} catch (e) {
 				setRequestLoading(false);
@@ -75,15 +82,14 @@ const FeedBack = () => {
 	};
 
 	const FeedBacks = [
-		{ id: 1, optionText: 'Оцениваю на одну звездочку, все плохо!' },
-		{ id: 2, optionText: 'Недоволен работой(' },
+		{ id: 1, optionText: t('1star') },
+		{ id: 2, optionText: t('2star') },
 		{
 			id: 3,
-			optionText:
-				'Оцениваю все на троечку, и не очень классно, и не очень плохо',
+			optionText: t('3star'),
 		},
-		{ id: 4, optionText: 'Просто доволен покупкой)' },
-		{ id: 5, optionText: 'Очень доволен! Все понравилось! Все идеально!' },
+		{ id: 4, optionText: t('4star') },
+		{ id: 5, optionText: t('5star') },
 	];
 	return (
 		<>
@@ -91,9 +97,16 @@ const FeedBack = () => {
 			<main className="content">
 				<div className="container">
 					<div className="page_coordinator">
-						<Link href="/">Главная</Link> | <Link href="/сatalog">Каталог</Link>{' '}
-						| <span>{feedbackProduct?.productName?.ua}</span> |{' '}
-						<span>Оставить отзыв</span>
+						<Link href="/">{commonT('Main')}</Link> |{' '}
+						<Link href="/сatalog">{commonT('catalog')}</Link> |{' '}
+						<span>
+							{
+								feedbackProduct?.productName?.[
+									router.locale as 'ua' | 'en' | 'rs' | 'ru'
+								]
+							}
+						</span>
+						| <span>{t('feedback')}</span>
 					</div>
 					<div className={s.feedback_content}>
 						<div className={s.feedback_imgWrapper}>
@@ -115,11 +128,11 @@ const FeedBack = () => {
 							<div className={s.feedback_inputs}>
 								<div className={s.feedback_field}>
 									<label className={s.feedback_label} htmlFor="email">
-										Имя
+										{validationT('name')}
 									</label>
 									<div className={s.feedback_input}>
 										<input
-											placeholder="Введите Имя"
+											placeholder={validationT('enter_name')}
 											type="text"
 											className=""
 											name="email"
@@ -128,16 +141,18 @@ const FeedBack = () => {
 									</div>
 									<span className="auth_error">
 										{feedBackInfoForm.formState.errors.name &&
-											feedBackInfoForm.formState.errors.name.message}
+											validationT(
+												feedBackInfoForm.formState.errors.name.message
+											)}
 									</span>
 								</div>
 								<div className={s.feedback_field}>
 									<label className={s.feedback_label} htmlFor="email">
-										Фамилия
+										{validationT('surname')}
 									</label>
 									<div className={s.feedback_input}>
 										<input
-											placeholder="Введите Фамилию"
+											placeholder={validationT('enter_surname')}
 											type="text"
 											className=""
 											name="email"
@@ -146,16 +161,18 @@ const FeedBack = () => {
 									</div>
 									<span className="auth_error">
 										{feedBackInfoForm.formState.errors.surname &&
-											feedBackInfoForm.formState.errors.surname.message}
+											validationT(
+												feedBackInfoForm.formState.errors.surname.message
+											)}
 									</span>
 								</div>
 								<div className={s.feedback_field}>
 									<label className={s.feedback_label} htmlFor="email">
-										Напишите отзыв
+										{t('write_feedback')}
 									</label>
 									<div className={s.feedback_input}>
 										<textarea
-											placeholder="Что вы думаете о нашем магазине?"
+											placeholder={t('aboutStore')}
 											className=""
 											name="email"
 											{...feedBackInfoForm.register('review')}
@@ -163,14 +180,14 @@ const FeedBack = () => {
 									</div>
 									<span className="auth_error">
 										{feedBackInfoForm.formState.errors.review &&
-											feedBackInfoForm.formState.errors.review.message}
+											validationT(
+												feedBackInfoForm.formState.errors.review.message
+											)}
 									</span>
 								</div>
 							</div>
 							<div className={s.feedback_options}>
-								<p className={s.feedback_descr}>
-									На сколько вы довольны нашим интернет магазином?
-								</p>
+								<p className={s.feedback_descr}>{t('aboutStorePlaceholder')}</p>
 								{FeedBacks.map((el) => {
 									return (
 										<FeedbackOption
@@ -186,16 +203,16 @@ const FeedBack = () => {
 							<div className={s.feedback_btns}>
 								<button
 									onClick={() => {
-										setRequestLoading(true)
-										router.push(`/product/${id}`)
+										setRequestLoading(true);
+										router.push(`/product/${id}`);
 									}}
 									className={s.feedback_skip}
 									type="submit"
 								>
-									Отмена
+									{commonT('cancel')}
 								</button>
 								<button className={s.feedback_submit} type="submit">
-									Отправить отзыв
+									{t('send_feedback')}
 								</button>
 							</div>
 						</form>

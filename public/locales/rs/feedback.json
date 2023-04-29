@@ -1,0 +1,13 @@
+{
+	"reviews": "Utisci",
+	"feedback": "Ostaviti ocenu",
+	"write_feedback": "Napišite recenziju",
+	"aboutStore": "Šta mislite o našoj prodavnici?",
+	"aboutStorePlaceholder": "Koliko ste zadovoljni našom internet prodavnicom?",
+	"1star": "Dajem jednu zvezdicu, sve je loše!",
+	"2star": "Nezadovoljan radom(",
+	"3star": "TDajem ocenu 3, nije sjajno, nije loše, samo sam zadovoljan kupovinom)",
+	"4star": "Само задовољан куповином",
+	"5star": "Veoma sam zadovoljan! Sve mi se svidelo! Sve je idealno!",
+	"send_feedback": "Podeliti utisak"
+}

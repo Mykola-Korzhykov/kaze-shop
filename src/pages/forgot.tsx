@@ -15,7 +15,12 @@ import { Api } from '@/services';
 import { useRouter } from 'next/router';
 import AuthImg from '../assets/images/auth_photo.png';
 import MetaHead from '@/components/MetaHead';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
 const ForgotPassword: NextPage = () => {
+	const { t } = useTranslation('forgot');
+	const { t: commonT } = useTranslation('common');
+	const { t: validationT } = useTranslation('signup');
 	const router = useRouter();
 	const [errorMessage, setErrorMessage] = useState<string>('');
 	const [loginLoading, setLoginLoading] = useState<boolean>(false);
@@ -72,13 +77,17 @@ const ForgotPassword: NextPage = () => {
 			setLoginLoading(false);
 		} catch (err) {
 			setLoginLoading(false);
-			console.warn('Register error', err);
+
 			if (err.response) {
-				console.warn(
-					'Register error after response',
-					err.response.data.message
+				const text = err?.response?.data?.rawErrors?.find(
+					(error: { locale: string; error: string }) =>
+						error?.locale === router?.locale
+				).text;
+				setErrorMessage(
+					err?.response?.data?.rawErrors?.length > 0
+						? text
+						: err?.response?.data?.message
 				);
-				setErrorMessage(err.response.data.message);
 			} else {
 				router.push('/404');
 			}
@@ -95,7 +104,8 @@ const ForgotPassword: NextPage = () => {
 			<main className="content">
 				<div className="container">
 					<div className="page_coordinator">
-						<Link href={'/'}> Главная</Link> | <span>Забыли пароль</span>
+						<Link href={'/'}> {commonT('Main')}</Link> |{' '}
+						<span>{t('forgot')}</span>
 					</div>
 					<div className="auth_block forgot_block">
 						<div className="auth_image">
@@ -117,7 +127,7 @@ const ForgotPassword: NextPage = () => {
 										)}
 									>
 										<div>
-											<h3 className="auth_title">Забыли пароль</h3>
+											<h3 className="auth_title">{t('forgot')}</h3>
 											<div className="register_form">
 												<div className="auth_field">
 													<label className="auth_label" htmlFor="email">
@@ -126,15 +136,17 @@ const ForgotPassword: NextPage = () => {
 													<div className="auth_input">
 														<input
 															className="input_forgot"
-															placeholder="Введите e-mail"
+															placeholder={validationT('enter_email')}
 															type="text"
 															{...getForgotPasswordCodeForm.register('email')}
 														/>
 													</div>
 													<span className="auth_error">
 														{getForgotPasswordCodeForm.formState.errors.email &&
-															getForgotPasswordCodeForm.formState.errors.email
-																.message}
+															validationT(
+																getForgotPasswordCodeForm.formState.errors.email
+																	.message
+															)}
 													</span>
 												</div>
 											</div>
@@ -147,7 +159,7 @@ const ForgotPassword: NextPage = () => {
 											type="submit"
 											disabled={loginLoading}
 										>
-											{loginLoading ? 'Loading...' : 'Восстановить пароль'}
+											{loginLoading ? t('loading') : t('reset_pass')}
 										</button>
 									</form>
 								</>
@@ -159,7 +171,7 @@ const ForgotPassword: NextPage = () => {
 										)}
 									>
 										<div>
-											<h3 className="auth_title">Забыли пароль</h3>
+											<h3 className="auth_title">{t('forgot')}</h3>
 											<div className="register_form  w-100">
 												<div className="auth_field">
 													<label className="auth_label" htmlFor="email">
@@ -168,62 +180,71 @@ const ForgotPassword: NextPage = () => {
 													<div className="auth_input">
 														<input
 															disabled={true}
-															placeholder="Введите e-mail"
+															placeholder={validationT('enter_email')}
 															type="text"
 															{...getForgotPasswordCodeForm.register('email')}
 														/>
 													</div>
 													<span className="auth_error">
 														{getForgotPasswordCodeForm.formState.errors.email &&
-															getForgotPasswordCodeForm.formState.errors.email
-																.message}
+															validationT(
+																getForgotPasswordCodeForm.formState.errors.email
+																	.message
+															)}
 													</span>
 												</div>
 												<div className="auth_field">
 													<label className="auth_label" htmlFor="email">
-														8-ти значный код
+														{t('code')}
 													</label>
 													<div className="auth_input">
 														<input
-															placeholder="Введите 8-ти значный код"
+															placeholder={t('enter_code')}
 															type="text"
 															{...forgotPasswordForm.register('code')}
 														/>
 													</div>
 													<span className="auth_error">
 														{forgotPasswordForm.formState.errors.code &&
-															forgotPasswordForm.formState.errors.code.message}
+															t(
+																forgotPasswordForm.formState.errors.code.message
+															)}
 													</span>
-													<span onClick={getPasswordCodeAgain}>
+													<span
+														style={{ cursor: 'pointer' }}
+														onClick={getPasswordCodeAgain}
+													>
 														{sendCodeAgain
-															? 'Отправлено, проверьте пошту'
-															: 'Не получили код? Отправить еще раз'}
+															? t('sendCheckEmail')
+															: t('sendAgain')}
 													</span>
 												</div>
 												<div className="auth_field">
 													<label className="auth_label" htmlFor="email">
-														Придумайте пароль
+														{t('new_pass')}
 													</label>
 													<div className="auth_input">
 														<input
-															placeholder="Введите пароль"
+															placeholder={validationT('enter_password')}
 															type="text"
 															{...forgotPasswordForm.register('password')}
 														/>
 													</div>
 													<span className="auth_error">
 														{forgotPasswordForm.formState.errors.password &&
-															forgotPasswordForm.formState.errors.password
-																.message}
+															validationT(
+																forgotPasswordForm.formState.errors.password
+																	.message
+															)}
 													</span>
 												</div>
 												<div className="auth_field">
 													<label className="auth_label" htmlFor="email">
-														Повторите пароль
+														{validationT('repeat_pass')}
 													</label>
 													<div className="auth_input">
 														<input
-															placeholder="Повторите пароль"
+															placeholder={validationT('repeat_pass')}
 															type="text"
 															{...forgotPasswordForm.register(
 																'confirmPassword'
@@ -233,8 +254,10 @@ const ForgotPassword: NextPage = () => {
 													<span className="auth_error">
 														{forgotPasswordForm.formState.errors
 															.confirmPassword &&
-															forgotPasswordForm.formState.errors
-																.confirmPassword.message}
+															validationT(
+																forgotPasswordForm.formState.errors
+																	.confirmPassword.message
+															)}
 													</span>
 												</div>
 											</div>
@@ -247,7 +270,7 @@ const ForgotPassword: NextPage = () => {
 											type="submit"
 											disabled={loginLoading}
 										>
-											{loginLoading ? 'Loading...' : 'Восстановить пароль'}
+											{loginLoading ? t('loading') : t('reset_pass')}
 										</button>
 									</form>
 								</>
@@ -260,7 +283,15 @@ const ForgotPassword: NextPage = () => {
 	);
 };
 export const getServerSideProps = NotAuthorized(async (context) => {
-	return { props: {} };
+	return {
+		props: {
+			...(await serverSideTranslations(context.locale, [
+				'common',
+				'forgot',
+				'signup',
+			])),
+		},
+	};
 });
 
 export default ForgotPassword;

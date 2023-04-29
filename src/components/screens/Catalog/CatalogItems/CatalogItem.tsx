@@ -6,6 +6,7 @@ import {
 	selectUserInfo,
 	deleteSavedProduct,
 } from '@/redux/slices/user';
+import { useTranslation } from 'next-i18next';
 import {
 	addProductToCompare,
 	addProductToCart,
@@ -26,6 +27,7 @@ interface ICatalogItemProps {
 }
 const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 	const dispatch = useAppDispatch();
+	const { t } = useTranslation('catalog');
 	const [isHovering, setIsHovered] = React.useState(false);
 	const onMouseEnter = () => setIsHovered(true);
 	const onMouseLeave = () => setIsHovered(false);
@@ -149,7 +151,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 			</div>
 			<div className={s.footer}>
 				<button onClick={basketButtonHandler} className={s.footer_button}>
-					В корзину
+					{t('addToCart')}
 				</button>
 				<button
 					onClick={saveButtonHandler}
