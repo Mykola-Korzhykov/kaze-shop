@@ -11,52 +11,6 @@ import { ReviewsSliderProps } from "./ReviewsSlider.interface";
 import React from "react";
 
 
-const mockSliderData = [
-    {
-        id: 1,
-        imageUrl: Product,
-        name: 'Ксения',
-        surname: ' Внедорожная',
-        review: 'Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо!',
-        rating: 4,
-    },
-    {
-        id: 2,
-        imageUrl: Product,
-        name: 'Ксения',
-        surname: ' Внедорожная',
-        review: 'Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо!',
-        rating: 1,
-    },
-    {
-        id: 3,
-        imageUrl: Product,
-        name: 'Ксения',
-        surname: ' Внедорожная',
-        review: 'Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо!',
-        rating: 2,
-    },
-    {
-        id: 4,
-        imageUrl: Product,
-        name: 'Ксения',
-        surname: 'Внедорожная',
-        review: 'Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо!',
-        rating: 5,
-    },
-    {
-        id: 5,
-        imageUrl: Product,
-        name: 'Ксения',
-        surname: ' Внедорожная',
-        review: 'Очень понравились ТайДай лосины. Заказывала вчера, пришли сегодня. Все на высшем уровне, от упаковки, до общения с клиентом, спасибо!',
-        rating: 4,
-    },
-]
-
-
-
-
 const ReviewsSlider = ({ clientReviews }: ReviewsSliderProps) => {
     const [isMobile, setIsMobile] = useState<boolean>(false);
     const slideViewCount = clientReviews.length >= 3 ? 3 : clientReviews.length;

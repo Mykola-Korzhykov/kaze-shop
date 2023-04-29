@@ -3,25 +3,28 @@ import Order from '../components/screens/Order/Order';
 import { useRouter } from 'next/router';
 import { API_URL } from '@/services';
 import axios from 'axios';
+
+
 const OrderPage = () => {
 	const { locale } = useRouter();
+
 	React.useEffect(() => {
 		const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-			event.preventDefault();
+			const userEmail = sessionStorage.getItem('userEmail');
+			const orderId = sessionStorage.getItem('orderId');
 
-			axios.post(API_URL + '/orders/send_cart', {
-				locale: locale,
-				userEmail: sessionStorage.getItem('userEmail'),
-				orderId: sessionStorage.getItem('orderId'),
-			});
-			// navigator.sendBeacon(
-			// 	API_URL + '/orders/send_cart',
-			// 	JSON.stringify({
-			// 		userEmail: sessionStorage.getItem('userEmail'),
-			// 		orderId: sessionStorage.getItem('orderId'),
-			// 		locale: locale,
-			// 	})
-			// );
+			try {
+				if (userEmail && orderId) {
+				event.preventDefault();
+				axios.post(API_URL + '/orders/send_cart', {
+					locale,
+					userEmail: userEmail,
+					orderId: orderId,
+				});
+				}
+			} catch (e) {
+				console.log(e);
+			}
 		};
 
 		window.addEventListener('beforeunload', handleBeforeUnload);

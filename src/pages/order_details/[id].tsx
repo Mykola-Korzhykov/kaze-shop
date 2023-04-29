@@ -21,29 +21,23 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 
     const { token, id } = context.query;
 
-		try {
-			const { data } = await Api().goods.checkOrderSuccess<ResponseFetch>(
-				id.toString(),
-				token.toString()
-			);
+	try {
+		const { data } = await Api().goods.checkOrderSuccess<ResponseFetch>(
+			id.toString(),
+			token.toString()
+		);
 
-			if (data.orderStatus === 'Completed')
-				return {
-					props: {
-						orderNum: data.orderId,
-					},
-				};
-			if (data.orderStatus === 'Processing') {
-				return {
-					notFound: true,
-				};
-			}
-		} catch (e) {
-			console.log(e);
-			return {
-				notFound: true,
-			};
-		}
+		return {
+			props: {
+				orderNum: data.orderId,
+			},
+		};
+	} catch (e) {
+		console.log(e);
+		return {
+			notFound: true,
+		};
+	}
 }
 
 interface Order_detailsProps {

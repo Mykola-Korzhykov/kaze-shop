@@ -11,17 +11,6 @@ import ErrorMessage from './ErrorMessage/ErrorMessage';
 import { AnimatePresence, motion } from 'framer-motion';
 
 
-const mocCartItem = {
-    id: 1,
-    title: 'Топик через плече',
-    description: 'Lorem ipsum dolor sit amet consectetur. Convallis ',
-    color: '#000',
-    size: 'S',
-    count: 2,
-    price: '44$',
-    img: 'https://mari-m.com.ua/i/upload/b/mi512shlzholosinizhn.jpg',
-
-}
 
 const path = [{ path: 'Главная', href: '/' }, { path: 'Корзина', href: '/cart' }, { path: 'Оформление заказа', href: '/test' }];
 
