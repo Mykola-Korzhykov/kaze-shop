@@ -5,7 +5,6 @@ import s from '../screens/Catalog/CatalogPagination/CatalogPagination.module.scs
 const ProductsPagination: FC = () => {
 	const dispatch = useAppDispatch();
 	const totalProducts = useAppSelector((state) => state.user.totalProducts);
-	console.log(totalProducts)
 	const paginationHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
 		const button: HTMLButtonElement = e?.currentTarget;
 		dispatch(setPage(+button?.value));

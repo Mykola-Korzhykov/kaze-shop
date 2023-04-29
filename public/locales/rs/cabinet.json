@@ -23,5 +23,7 @@
 	"saveFirstProducts": "Ali to možete popraviti! Перейдіть в каталог та збережіть свої перші товари.",
 	"noCollectedCarts": "Nemate sakupljene korpe.Go to the catalog and build your first cart.",
 	"nothingViewed": "Pre toga niste videli ništa.",
-	"viewOurProducts": "Idite na katalog da biste videli naše proizvode."
+	"viewOurProducts": "Idite na katalog da biste videli naše proizvode.",
+	"unAuthorized": "Нисте верификовали свој налог",
+	"goToEmail": "Идите на пошту и потврдите свој налог"
 }

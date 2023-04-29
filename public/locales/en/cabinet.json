@@ -24,5 +24,7 @@
 	"saveFirstProducts": "But you can fix it! Go to the catalog and save your first products.",
 	"noCollectedCarts": "You have no collected carts.Go to the catalog and build your first cart.",
 	"nothingViewed": "You haven't viewed anything before.",
-	"viewOurProducts": "Go to the catalog to view our products."
+	"viewOurProducts": "Go to the catalog to view our products.",
+	"unAuthorized": "You have not verified your account",
+	"goToEmail": "Go to the mail and confirm your account"
 }

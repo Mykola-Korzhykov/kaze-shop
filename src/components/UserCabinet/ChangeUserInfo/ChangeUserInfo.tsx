@@ -11,7 +11,9 @@ import { selectUserInfo } from '@/redux/slices/user';
 import { useRouter } from 'next/router';
 import { addUserInfo } from '@/redux/slices/user';
 import { setLoadingStatus } from '@/redux/slices/goods';
+import { useTranslation } from 'next-i18next';
 const ChangeUserInfo = () => {
+	const {t} = useTranslation('')
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const userInfo = useAppSelector(selectUserInfo);

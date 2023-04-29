@@ -40,44 +40,29 @@ export const RegisterFormSchema = yup
 export const ChangeUserInfoShema = yup.object().shape({
 	name: yup
 		.string()
-		.required('Name required')
-		.min(2, 'Minimum 2 symbols')
-		.matches(
-			/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/,
-			'Используйте только слова'
-		),
+		.required('name_required')
+		.min(2, 'min2symb')
+		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'onlyLetters'),
 	surname: yup
 		.string()
-		.required('Surname required')
-		.min(2, 'Minimum 2 symbols')
-		.matches(
-			/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/,
-			'Используйте только слова'
-		),
+		.required('surname_required')
+		.min(2, 'min2symb')
+		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'onlyLetters'),
 	country: yup
 		.string()
-		.required('Country required')
-		.min(2, 'Minimum 2 symbols')
-		.matches(
-			/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/,
-			'Используйте только слова'
-		),
+		.required('country_required')
+		.min(2, 'min2symb')
+		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'onlyLetters'),
 	city: yup
 		.string()
-		.required('City required')
-		.min(2, 'Minimum 2 symbols')
-		.matches(
-			/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/,
-			'Используйте только слова'
-		),
+		.required('city_required')
+		.min(2, 'min2symb')
+		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'onlyLetters'),
 	postOffice: yup
 		.string()
-		.required('Post office required')
-		.min(2, 'Minimum 2 symbols')
-		.matches(
-			/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/,
-			'Используйте только слова'
-		),
+		.required('postOffice_required')
+		.min(2, 'min2symb')
+		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'onlyLetters'),
 });
 
 export const ChangeUserPasswordShema = yup.object().shape({

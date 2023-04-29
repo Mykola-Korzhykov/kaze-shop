@@ -95,7 +95,11 @@ const CabinetPage: NextPage = () => {
 export const getServerSideProps = withAuth(async (context) => {
 	return {
 		props: {
-			...(await serverSideTranslations(context.locale, ['common', 'cabinet'])),
+			...(await serverSideTranslations(context.locale, [
+				'common',
+				'cabinet',
+				'signup',
+			])),
 		},
 	};
 });
