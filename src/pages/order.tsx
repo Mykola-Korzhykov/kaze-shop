@@ -15,12 +15,12 @@ const OrderPage = () => {
 
 			try {
 				if (userEmail && orderId) {
-					event.preventDefault();
-					axios.post(API_URL + '/orders/send_cart', {
-						locale,
-						userEmail: JSON.parse(userEmail),
-						orderId: JSON.parse(orderId),
-					});
+				event.preventDefault();
+				axios.post(API_URL + '/orders/send_cart', {
+					locale,
+					userEmail: userEmail,
+					orderId: orderId,
+				});
 				}
 			} catch (e) {
 				console.log(e);
