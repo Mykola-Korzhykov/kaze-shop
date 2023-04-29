@@ -4,20 +4,15 @@ import { selectFetchedCategories } from '@/redux/slices/goods';
 import s from './CatalogFilters.module.scss';
 import FiltersCheckbox from './FiltersCheckbox';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 const FiltersCategories = () => {
+	const { t } = useTranslation('catalog');
 	const { locale } = useRouter();
 	const fetchedCategories = useAppSelector(selectFetchedCategories);
-	const CATEGORIES = [
-		{ label: 'Лосины', id: 1 },
-		{ label: 'Костюмы', id: 2 },
-		{ label: 'Велосипедки', id: 3 },
-		{ label: 'Повседневное  белье', id: 4 },
-		{ label: 'Сумки', id: 5 },
-		{ label: 'Топы', id: 6 },
-	];
+
 	return (
 		<div className={s.colors_wrapper}>
-			<p className={s.filters_title}>Категории:</p>
+			<p className={s.filters_title}>{t('categories')}</p>
 			<div className={s.filters_body}>
 				{fetchedCategories?.map((el) => {
 					return (

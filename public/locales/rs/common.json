@@ -1,1 +1,2 @@
-{ "Main": "Главни" }
+{ "Main": "Početna", "backToMain": "Povratak na početnu", "error": "Ups, nešto nije u redu", "cancel": "Otkaži", "catalog": "Katalog"
+ }

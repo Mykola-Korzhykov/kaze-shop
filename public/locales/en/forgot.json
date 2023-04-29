@@ -1,0 +1,12 @@
+{
+	"forgot": "Forgot password",
+	"reset_pass": "Reset password",
+	"code": "8 digit code",
+	"enter_code": "Enter 8-digit code",
+	"code_validation": "The code is incorrect",
+	"sendAgain": "Haven’t receive a code? Send again",
+	"sendCheckEmail": "Sent, check your mail",
+	"new_pass": "Create a password",
+	"code_validation2": "Must be 8 digits only",
+	"loading": "Loading..."
+}

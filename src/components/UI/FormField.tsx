@@ -1,15 +1,16 @@
-import React, { FC } from 'react'
-import { useFormContext } from 'react-hook-form'
-import Image from 'next/image'
-import hidenIcon from '../../assets/icons/closeIcone.svg'
-import showIcon from '../../assets/icons/show_eye.svg'
+import React, { FC } from 'react';
+import { useFormContext } from 'react-hook-form';
+import Image from 'next/image';
+import hidenIcon from '../../assets/icons/closeIcone.svg';
+import showIcon from '../../assets/icons/show_eye.svg';
+import { useTranslation } from 'next-i18next';
 interface FormFieldProps {
-	name: string
-	label: string
-	type: string
-	placeholder: string
-	className?: string
-	isPassword?: boolean
+	name: string;
+	label: string;
+	type: string;
+	placeholder: string;
+	className?: string;
+	isPassword?: boolean;
 }
 
 const FormField: FC<FormFieldProps> = ({
@@ -20,50 +21,57 @@ const FormField: FC<FormFieldProps> = ({
 	placeholder,
 	className,
 }) => {
-	const [passwordShown, setPasswordShown] = React.useState<boolean>(false)
+	const [passwordShown, setPasswordShown] = React.useState<boolean>(false);
 	const [inputType, setInputType] = React.useState<'text' | 'password'>(
 		'password'
-	)
-	const { register, formState } = useFormContext()
+	);
+	const { t } = useTranslation('login');
+	const { register, formState } = useFormContext();
 
 	const togglePasswordShown = () => {
-		setPasswordShown(prev => !prev)
+		setPasswordShown((prev) => !prev);
 		if (inputType === 'text') {
-			setInputType('password')
+			setInputType('password');
 		} else {
-			setInputType('text')
+			setInputType('text');
 		}
-	}
+	};
 	return (
 		<>
 			<div className={`auth_field ${className ? className : ''}`}>
-				<label className='auth_label' htmlFor={name}>
+				<label className="auth_label" htmlFor={name}>
 					{label}
 				</label>
 				<div className={`auth_input`}>
 					<input
 						placeholder={placeholder}
 						type={isPassword ? inputType : type}
-						className={`${formState.errors?.[name]?.message ? 'error_input' : ''}`}
+						className={`${
+							formState.errors?.[name]?.message ? 'error_input' : ''
+						}`}
 						{...register(name)}
 					/>
 					{isPassword && (
-						<div onClick={togglePasswordShown} className={`auth_hidden-icon ${!passwordShown ? 'hideIcon' : ''}`}>
+						<div
+							onClick={togglePasswordShown}
+							className={`auth_hidden-icon ${!passwordShown ? 'hideIcon' : ''}`}
+						>
 							<Image
 								src={passwordShown ? showIcon : hidenIcon}
-								alt='show password icon'
+								alt="show password icon"
 								width={24}
 								height={24}
 							/>
 						</div>
 					)}
 				</div>
-				<span className='auth_error'>
-					{formState.errors?.[name] && formState.errors?.[name]?.message + ''}
+				<span className="auth_error">
+					{formState.errors?.[name] &&
+						t(formState.errors?.[name]?.message + '')}
 				</span>
 			</div>
 		</>
-	)
-}
+	);
+};
 
-export default FormField
+export default FormField;

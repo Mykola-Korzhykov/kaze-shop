@@ -17,10 +17,11 @@ import CatalogHeader from './CatalogHeader';
 import CatalogItems from './CatalogItems';
 import CatalogFilters from './CatalogFilters';
 import CatalogPagination from './CatalogPagination';
+
 import { useRouter } from 'next/router';
 const Catalog: FC = () => {
 	const dispatch = useAppDispatch();
-	const { t: t2 } = useTranslation('common');
+	const { t: commonT } = useTranslation('common');
 	const { t } = useTranslation('catalog');
 	const loadingStatus = useAppSelector((state) => state.goods.loadingStatus);
 	const catalogLoadingStatus = useAppSelector(
@@ -42,15 +43,16 @@ const Catalog: FC = () => {
 			<main className="content">
 				<div className="container">
 					<div className="page_coordinator">
-						<Link href="/">{t2('Main')}</Link> | <span>{t('Catalog')}</span>
+						<Link href="/">{commonT('Main')}</Link> |{' '}
+						<span>{t('Catalog')}</span>
 					</div>
 
 					{loadingStatus === 'error' ? (
 						<ErrorModal
 							title="505"
-							buttonText={'Вернуться на главную'}
+							buttonText={commonT('backToMain')}
 							buttonHref="/"
-							description={error}
+							description={commonT('error')}
 						/>
 					) : (
 						<>
@@ -60,10 +62,6 @@ const Catalog: FC = () => {
 							<CatalogPagination />
 						</>
 					)}
-					{/* <CatalogHeader />
-					{filtersOpened && <CatalogFilters />}
-					<CatalogItems />
-					<CatalogPagination /> */}
 				</div>
 			</main>
 		</CatalogContext.Provider>

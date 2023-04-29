@@ -6,7 +6,9 @@ import s from './CatalogItems.module.scss';
 import { useAppDispatch } from '@/redux/hooks';
 import { fetchGoods } from '@/redux/slices/goods';
 import CatalogItem from './CatalogItem';
+import { useTranslation } from 'next-i18next';
 const CatalogItems = () => {
+	const { t } = useTranslation('catalog');
 	const dispatch = useAppDispatch();
 	const goods = useAppSelector(selectGoods);
 	const renderGoods = (arr: Goods[] | null) => {
@@ -22,10 +24,10 @@ const CatalogItems = () => {
 			{!goods?.length ? (
 				<div className="catalog_noProducts">
 					<h1 className="catalog_title">
-						Товарів за таким запитом не знайдено
+						{t('noFound')}
 					</h1>
 					<button className="catalog_refetchBtn" onClick={refetchAllGoods}>
-						Загрузить все товары
+						{t('getAll')}
 					</button>
 				</div>
 			) : (

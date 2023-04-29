@@ -38,13 +38,14 @@ export interface Goods {
 		ru: string;
 		rs: string;
 		en: string;
-		[key: string]: string
+		[key: string]: string;
 	};
 	description: {
 		ua: string;
 		ru: string;
 		rs: string;
 		en: string;
+		[key: string]: string;
 	};
 	price: string;
 	quantity: number;

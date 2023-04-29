@@ -15,8 +15,6 @@ const Compare = () => {
 	const loadingStatus = useAppSelector(state => state.goods.loadingStatus)
 	const [showModal, setShowModal] = React.useState<boolean>(false)
 
-	const SIZES = ['XS-S', 'S', 'XS']
-	const COLOURS = ['#ffc0cb', 'red', 'black']
 	React.useEffect(() => {
 		if (!compareProduct) {
 			router.push('/catalog')

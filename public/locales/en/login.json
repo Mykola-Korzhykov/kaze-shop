@@ -1,0 +1,16 @@
+{
+	"login": "Sign in",
+	"sign_in": "Sign in",
+	"enter_email": "Enter e-mail",
+	"password": "Password",
+	"enter_password": "Enter password",
+	"remember_me": "Remember me",
+	"forgot_pass": "Forgot password",
+	"no_acc": "No account yet?",
+	"sign_up": "Sign up",
+	"email_required": "e-mail required",
+	"email_validation": "Invalid email",
+	"pass_required": "Password required",
+	"pass_validation": "Password must contain at least 8 characters and at least one number",
+	"loading": "Loading..."
+}

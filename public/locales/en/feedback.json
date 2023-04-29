@@ -1,0 +1,13 @@
+{
+	"reviews": "Reviews",
+	"feedback": "Leave a review",
+	"write_feedback": "Write a review",
+	"aboutStore": ": What do you think about our store?",
+	"aboutStorePlaceholder": "How satisfied are you with our online store?",
+	"1star": "One star, everything is bad!",
+	"2star": "Unsatisfied with the work(",
+	"3star": "Three stars, not too good, not too bad, just satisfied with the purchase",
+	"4star": "Just happy with the purchase",
+	"5star": "Very satisfied! Loved everything! Everything is perfect!",
+	"send_feedback": "Share review"
+}

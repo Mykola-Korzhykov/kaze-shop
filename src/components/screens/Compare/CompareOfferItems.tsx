@@ -1,26 +1,28 @@
-import React, { FC } from 'react'
-import Image from 'next/image'
-import Link from 'next/link'
-import { Goods } from '@/types/goods'
-import CompareSkip from './CompareSkip'
-import { addCompareProductToModal } from '@/redux/slices/goods'
-import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import cartImage from '../../../assets/images/cartItem.png'
-import s from './Compare.module.scss'
+import React, { FC } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Goods } from '@/types/goods';
+import CompareSkip from './CompareSkip';
+import { addCompareProductToModal } from '@/redux/slices/goods';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import cartImage from '../../../assets/images/cartItem.png';
+import s from './Compare.module.scss';
+import { useRouter } from 'next/router';
 const CompareOfferItems: FC<{ setShowModal: (state: boolean) => void }> = ({
 	setShowModal,
 }) => {
-	const dispatch = useAppDispatch()
+	const { locale } = useRouter();
+	const dispatch = useAppDispatch();
 	const compareOfferProducts = useAppSelector(
-		state => state.goods.compareOfferProducts
-	)
+		(state) => state.goods.compareOfferProducts
+	);
 	const compareModalHandler = (product: Goods) => {
-		dispatch(addCompareProductToModal(product))
-		setShowModal(true)
-	}
+		dispatch(addCompareProductToModal(product));
+		setShowModal(true);
+	};
 	return (
 		<div className={s.items}>
-			{compareOfferProducts?.map(product => {
+			{compareOfferProducts?.map((product) => {
 				return (
 					<div className={s.item} key={product?.id}>
 						<div className={s.imgWrapper}>
@@ -28,7 +30,7 @@ const CompareOfferItems: FC<{ setShowModal: (state: boolean) => void }> = ({
 								src={product?.images[0]?.imagesPaths[1] ?? cartImage}
 								width={94}
 								height={153}
-								alt='Cart image'
+								alt="Cart image"
 								className={s.img}
 								priority={true}
 								quality={95}
@@ -36,8 +38,8 @@ const CompareOfferItems: FC<{ setShowModal: (state: boolean) => void }> = ({
 						</div>
 						<div className={s.content}>
 							<div className={s.text}>
-								<p className={s.title}>{product?.title.ua}</p>
-								<p className={s.descr}>{product?.description?.ua}</p>
+								<p className={s.title}>{product?.title?.[locale]}</p>
+								<p className={s.descr}>{product?.description?.[locale]}</p>
 								<p className={s.price}>{product?.price}</p>
 							</div>
 
@@ -47,12 +49,12 @@ const CompareOfferItems: FC<{ setShowModal: (state: boolean) => void }> = ({
 							></button>
 						</div>
 					</div>
-				)
+				);
 			})}
 
 			<CompareSkip />
 		</div>
-	)
-}
+	);
+};
 
-export default CompareOfferItems
+export default CompareOfferItems;

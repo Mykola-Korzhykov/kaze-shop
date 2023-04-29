@@ -1,32 +1,34 @@
-import React, { FC } from 'react'
-import s from './Compare.module.scss'
+import React, { FC } from 'react';
+import s from './Compare.module.scss';
 import {
 	addProductToCart,
 	deleteCompareOfferProduct,
-} from '@/redux/slices/goods'
-import { useAppSelector, useAppDispatch } from '@/redux/hooks'
-import Image from 'next/image'
-import compareModal from '../../../assets/images/compareModal.png'
+} from '@/redux/slices/goods';
+import { useAppSelector, useAppDispatch } from '@/redux/hooks';
+import Image from 'next/image';
+import compareModal from '../../../assets/images/compareModal.png';
+import { useRouter } from 'next/router';
 const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 	setShowModal,
 }) => {
 	const compareOfferProductModal = useAppSelector(
-		state => state.goods.compareOfferProductModal
-	)
-	const dispatch = useAppDispatch()
-	const [sizeActive, setSizeActive] = React.useState<boolean>(false)
-	const [colorActive, setColorActive] = React.useState<boolean>(false)
+		(state) => state.goods.compareOfferProductModal
+	);
+	const router = useRouter();
+	const dispatch = useAppDispatch();
+	const [sizeActive, setSizeActive] = React.useState<boolean>(false);
+	const [colorActive, setColorActive] = React.useState<boolean>(false);
 	const [selectedSizeEl, setSelectedSizeEl] = React.useState<string | null>(
 		null
-	)
+	);
 	const [selectedColorEl, setSelectedColorEl] = React.useState<{
-		colourId: number
-		hex: string
-	} | null>(null)
+		colourId: number;
+		hex: string;
+	} | null>(null);
 
 	const closeModal = () => {
-		setShowModal(false)
-	}
+		setShowModal(false);
+	};
 
 	const addToCart = () => {
 		// if it is an array of Goods[0] a way to find an object of image where colourId equal to need id and return 1 image (png)
@@ -35,9 +37,9 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 		// 	.images.find(img => img?.colour?.id === 12)
 		// const imagePath = neededImage.imagesPaths[0]
 
-		const matchingImageObj = compareOfferProductModal.images.find(image => {
-			return image.colour && image.colour.id === selectedColorEl?.colourId
-		})
+		const matchingImageObj = compareOfferProductModal.images.find((image) => {
+			return image.colour && image.colour.id === selectedColorEl?.colourId;
+		});
 
 		dispatch(
 			addProductToCart({
@@ -46,17 +48,17 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 				colourId: selectedColorEl?.colourId,
 				size: selectedSizeEl,
 			})
-		)
-		dispatch(deleteCompareOfferProduct(compareOfferProductModal?.id))
-		setShowModal(false)
-	}
+		);
+		dispatch(deleteCompareOfferProduct(compareOfferProductModal?.id));
+		setShowModal(false);
+	};
 	React.useEffect(() => {
-		setSelectedSizeEl(compareOfferProductModal?.sizes[0])
+		setSelectedSizeEl(compareOfferProductModal?.sizes[0]);
 		setSelectedColorEl({
 			colourId: compareOfferProductModal?.images[0].colour?.id,
 			hex: compareOfferProductModal?.images[0].colour?.hex,
-		})
-	}, [])
+		});
+	}, []);
 	return (
 		<div className={s.modal}>
 			<div className={s.modal_body}>
@@ -70,22 +72,22 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 							}
 							width={195}
 							height={189}
-							alt='compare modal img'
+							alt="compare modal img"
 						/>
 					</div>
 					<div className={s.modal_content}>
 						<div className={s.modal_text}>
 							<p className={s.modal_title}>
-								{compareOfferProductModal?.title?.ua}
+								{compareOfferProductModal?.title?.[router.locale]}
 							</p>
 							<p className={s.modal_descr}>
-								{compareOfferProductModal?.description?.ua}
+								{compareOfferProductModal?.description?.[router.locale]}
 							</p>
 						</div>
 						<div className={s.selects}>
 							<div className={s.select_size}>
 								<button
-									onClick={() => setSizeActive(prev => !prev)}
+									onClick={() => setSizeActive((prev) => !prev)}
 									className={`${s.size_btn} ${sizeActive ? `${s.open}` : ''}`}
 								>
 									{selectedSizeEl}
@@ -93,7 +95,7 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 								{sizeActive && (
 									<div className={s.size_droplist}>
 										{compareOfferProductModal?.sizes
-											.filter(el => el !== selectedSizeEl)
+											.filter((el) => el !== selectedSizeEl)
 											.map((el, idx) => {
 												return (
 													<button
@@ -103,14 +105,14 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 													>
 														{el}
 													</button>
-												)
+												);
 											})}
 									</div>
 								)}
 							</div>
 							<div className={s.select_color}>
 								<button
-									onClick={() => setColorActive(prev => !prev)}
+									onClick={() => setColorActive((prev) => !prev)}
 									className={`${s.color_btn} ${colorActive ? `${s.open}` : ''}`}
 								>
 									<p style={{ backgroundColor: selectedColorEl?.hex }}></p>
@@ -118,7 +120,7 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 								{colorActive && (
 									<div className={s.color_droplist}>
 										{compareOfferProductModal?.images
-											.filter(el => el.colour.id !== selectedColorEl.colourId)
+											.filter((el) => el.colour.id !== selectedColorEl.colourId)
 											.map((el, idx) => {
 												return (
 													<button
@@ -133,7 +135,7 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 													>
 														<p style={{ backgroundColor: el.colour.hex }}></p>
 													</button>
-												)
+												);
 											})}
 									</div>
 								)}
@@ -157,7 +159,7 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default CompareModal
+export default CompareModal;

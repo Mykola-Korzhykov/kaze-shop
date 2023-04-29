@@ -1,70 +1,68 @@
-import React from 'react'
-import Image from 'next/image'
-import { useAppDispatch, useAppSelector } from '@/redux/hooks'
-import { setUpdateCompareProduct } from '@/redux/slices/goods'
-import { useRouter } from 'next/router'
-import catalogItem from '../../../assets/images/compare.png'
+import React from 'react';
+import Image from 'next/image';
+import { useAppDispatch, useAppSelector } from '@/redux/hooks';
+import { setUpdateCompareProduct } from '@/redux/slices/goods';
+import { useRouter } from 'next/router';
+import catalogItem from '../../../assets/images/compare.png';
 
-import s from './Compare.module.scss'
+import s from './Compare.module.scss';
 const CompareMainItem = () => {
-	const dispatch = useAppDispatch()
-	const compareProduct = useAppSelector(state => state.goods.compareProduct)
+	const dispatch = useAppDispatch();
+	const compareProduct = useAppSelector((state) => state.goods.compareProduct);
 	const updateCompareProduct = useAppSelector(
-		state => state.goods.updateCompareProduct
-	)
-	const router = useRouter()
-	const [sizeActive, setSizeActive] = React.useState<boolean>(false)
-	const [colorActive, setColorActive] = React.useState<boolean>(false)
+		(state) => state.goods.updateCompareProduct
+	);
+	const router = useRouter();
+	const [sizeActive, setSizeActive] = React.useState<boolean>(false);
+	const [colorActive, setColorActive] = React.useState<boolean>(false);
 	const [selectedSizeEl, setSelectedSizeEl] = React.useState<string | null>(
 		null
-	)
-	console.log(compareProduct?.sizes)
-	console.log(selectedSizeEl)
+	);
 	const [selectedColorEl, setSelectedColorEl] = React.useState<{
-		colourId: number
-		hex: string
-	} | null>(null)
+		colourId: number;
+		hex: string;
+	} | null>(null);
 	const selectSizeHandler = (el: string) => {
-		dispatch(setUpdateCompareProduct({ ...updateCompareProduct, size: el }))
-		setSelectedSizeEl(el)
-	}
+		dispatch(setUpdateCompareProduct({ ...updateCompareProduct, size: el }));
+		setSelectedSizeEl(el);
+	};
 	const selectColorHandler = (el: { colourId: number; hex: string }) => {
-		const matchingImageObj = compareProduct.images.find(image => {
-			return image.colour && image.colour.id === el.colourId
-		})
+		const matchingImageObj = compareProduct.images.find((image) => {
+			return image.colour && image.colour.id === el.colourId;
+		});
 		dispatch(
 			setUpdateCompareProduct({
 				...updateCompareProduct,
 				colourId: el.colourId,
 				imageUrl: matchingImageObj.imagesPaths[0],
 			})
-		)
-		setSelectedColorEl(el)
-	}
+		);
+		setSelectedColorEl(el);
+	};
 	React.useEffect(() => {
 		if (!compareProduct) {
-			router.push('/catalog')
+			router.push('/catalog');
 		} else {
-			setSelectedSizeEl(compareProduct?.sizes[0])
+			setSelectedSizeEl(compareProduct?.sizes[0]);
 			setSelectedColorEl({
 				colourId: compareProduct?.images[0].colour?.id,
 				hex: compareProduct?.images[0].colour?.hex,
-			})
-			const matchingImageObj = compareProduct.images.find(image => {
+			});
+			const matchingImageObj = compareProduct.images.find((image) => {
 				return (
 					image.colour &&
 					image.colour.id === compareProduct?.images[0].colour?.id
-				)
-			})
+				);
+			});
 			const updateObj = {
-				id: compareProduct.id,
-				imageUrl: matchingImageObj.imagesPaths[0],
+				id: compareProduct?.id,
+				imageUrl: matchingImageObj?.imagesPaths[0],
 				colourId: compareProduct?.images[0].colour?.id,
 				size: compareProduct?.sizes[0],
-			}
-			dispatch(setUpdateCompareProduct(updateObj))
+			};
+			dispatch(setUpdateCompareProduct(updateObj));
 		}
-	}, [])
+	}, []);
 
 	return (
 		<div className={s.main_item}>
@@ -73,7 +71,7 @@ const CompareMainItem = () => {
 					src={compareProduct?.images[0]?.imagesPaths[1] ?? catalogItem}
 					width={316}
 					height={306}
-					alt='Cart image'
+					alt="Cart image"
 					className={s.main_img}
 					priority={true}
 					quality={95}
@@ -81,13 +79,15 @@ const CompareMainItem = () => {
 			</div>
 			<div className={s.main_content}>
 				<div className={s.main_text}>
-					<p className={s.main_title}>{compareProduct?.title?.ua}</p>
+					<p className={s.main_title}>
+						{compareProduct?.title?.[router.locale]}
+					</p>
 					<p className={s.main_price}>{compareProduct?.price}</p>
 				</div>
 				<div className={s.selects}>
 					<div className={s.select_size}>
 						<button
-							onClick={() => setSizeActive(prev => !prev)}
+							onClick={() => setSizeActive((prev) => !prev)}
 							className={`${s.size_btn} ${sizeActive ? `${s.open}` : ''}`}
 						>
 							{selectedSizeEl}
@@ -95,7 +95,7 @@ const CompareMainItem = () => {
 						{sizeActive && (
 							<div className={s.size_droplist}>
 								{compareProduct?.sizes
-									.filter(el => el !== selectedSizeEl)
+									.filter((el) => el !== selectedSizeEl)
 									.map((el, idx) => {
 										return (
 											<button
@@ -105,14 +105,14 @@ const CompareMainItem = () => {
 											>
 												{el}
 											</button>
-										)
+										);
 									})}
 							</div>
 						)}
 					</div>
 					<div className={s.select_color}>
 						<button
-							onClick={() => setColorActive(prev => !prev)}
+							onClick={() => setColorActive((prev) => !prev)}
 							className={`${s.color_btn} ${colorActive ? `${s.open}` : ''}`}
 						>
 							<p style={{ backgroundColor: selectedColorEl?.hex }}></p>
@@ -120,7 +120,7 @@ const CompareMainItem = () => {
 						{colorActive && (
 							<div className={s.color_droplist}>
 								{compareProduct?.images
-									.filter(el => el.colour.id !== selectedColorEl.colourId)
+									.filter((el) => el.colour.id !== selectedColorEl.colourId)
 									.map((el, idx) => {
 										return (
 											<button
@@ -135,7 +135,7 @@ const CompareMainItem = () => {
 											>
 												<p style={{ backgroundColor: el.colour.hex }}></p>
 											</button>
-										)
+										);
 									})}
 							</div>
 						)}
@@ -143,7 +143,7 @@ const CompareMainItem = () => {
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default CompareMainItem
+export default CompareMainItem;

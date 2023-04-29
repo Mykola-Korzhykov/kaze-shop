@@ -47,6 +47,7 @@ export interface Description {
 	ru: string;
 	rs: string;
 	en: string;
+	[key: string]: string;
 }
 
 export interface SizeChartImageDescription {

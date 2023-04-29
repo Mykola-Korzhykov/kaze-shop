@@ -1,0 +1,12 @@
+{
+	"forgot": "Zaboravili lozinku",
+	"reset_pass": "Resetovati lozinku",
+	"code": "8-cifreni kod",
+	"enter_code": "Unesite 8-cifreni kod",
+	"code_validation": "Kod je netačan",
+	"sendAgain": "Niste dobili kod? Pošalji ponovo",
+	"sendCheckEmail": "Послано, провери пошту",
+	"new_pass": "Smisli lozinku",
+	"code_validation2": "Mora da ima samo 8 cifara",
+	"loading": "Преузимање..."
+}

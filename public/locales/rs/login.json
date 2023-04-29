@@ -1,0 +1,16 @@
+{
+	"login": "Ulaz",
+	"sign_in": " Prijaviti se",
+	"enter_email": "Unesite e-mail",
+	"password": "Lozinka",
+	"enter_password": "Unesite lozinku",
+	"remember_me": "Zapamti me",
+	"forgot_pass": "Zaboravio sam lozinku",
+	"no_acc": "Još uvek nemate nalog?",
+	"sign_up": "Registrovati",
+	"email_required": "E-mail je obavezan",
+	"email_validation": "Netačan e-mail",
+	"pass_required": "Zahteva se šifra",
+	"pass_validation": "Lozinka mora da sadrzi najmanje 8 simbola i najmanje jedan broj",
+	"loading": "Преузимање..."
+}

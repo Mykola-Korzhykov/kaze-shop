@@ -87,7 +87,7 @@ const Cabinet: FC = () => {
 
 				const { data } = res;
 				setCookie(null, 'accessToken', data?.accessToken, {
-					maxAge: data?.maxAge,
+					expires: data?.maxAge,
 					path: '/',
 				});
 				if (data?.user) {
