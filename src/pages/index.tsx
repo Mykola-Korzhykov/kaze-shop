@@ -71,7 +71,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
 	let locale = context.locale === 'ua' ? 'uk' : context.locale;
 	locale = locale === 'rs' ? 'sr' : locale;
 
-
 	try {
 		const allRequest = await Promise.all([
 			StrapiAxios.get<AboutResT>('/api/abouts?populate=deep&locale=' + locale),
