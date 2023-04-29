@@ -72,9 +72,7 @@ const StepTwo = () => {
 					);
 				}
 				if (!payByCash) {
-					// router.push('/');
-					window.location.assign(response.paymentLink);
-					//response.paymentLink
+					router.push(response.paymentLink);
 				}
 				window.sessionStorage.clear();
 			} catch (e) {
