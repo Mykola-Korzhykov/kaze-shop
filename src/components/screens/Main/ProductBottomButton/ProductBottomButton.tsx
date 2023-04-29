@@ -3,8 +3,14 @@ import { ProductBottomButtonProps } from './ProductBottomButton.interface';
 import s from './productBottomButton.module.scss';
 import ToCartButton from './ToCardButton/ToCartButton';
 import cn from 'classnames';
-
-const ProductBottomButton = ({ addToCart, addToFavorites, deleteToFavorites, isSaved }: ProductBottomButtonProps): JSX.Element => {
+import { useTranslation } from 'next-i18next';
+const ProductBottomButton = ({
+	addToCart,
+	addToFavorites,
+	deleteToFavorites,
+	isSaved,
+}: ProductBottomButtonProps): JSX.Element => {
+	const { t } = useTranslation('product');
 	const toggleFavorite = () => {
 		if (isSaved) {
 			deleteToFavorites();
@@ -16,7 +22,7 @@ const ProductBottomButton = ({ addToCart, addToFavorites, deleteToFavorites, isS
 	return (
 		<div className={s.button_box}>
 			<ToCartButton className={s.cart_btn} onClick={addToCart}>
-				В корзину
+				{t('addToCart')}
 			</ToCartButton>
 			<FavoritesButton
 				className={cn({
@@ -26,6 +32,6 @@ const ProductBottomButton = ({ addToCart, addToFavorites, deleteToFavorites, isS
 			/>
 		</div>
 	);
-}
+};
 
 export default ProductBottomButton;

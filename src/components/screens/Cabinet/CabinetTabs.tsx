@@ -21,54 +21,56 @@ import CabinetOrdersModal from '@/components/UserCabinet/CabinetOrdersModal/Cabi
 import { useRouter } from 'next/router';
 import ErrorModal from '@/components/UI/ErrorModal';
 import { setLoadingStatus } from '@/redux/slices/user';
-
-const TABS = [
-	{
-		label: 'Изменить данные',
-		id: 'vcxzzZZd22rfF@!',
-		tabIndex: 1,
-		iconCls: 'pencil',
-	},
-	{
-		label: 'Изменить пароль',
-		id: 'r23r2fdsdfsdf',
-		tabIndex: 2,
-		iconCls: 'change',
-	},
-	{
-		label: 'История заказов',
-		id: 'rwerwerwe',
-		tabIndex: 3,
-		iconCls: 'history',
-	},
-	{
-		label: 'Закладки',
-		id: 'feewrwefwef',
-		tabIndex: 4,
-		iconCls: 'bookmarks',
-	},
-	{
-		label: 'Собранные корзины',
-		id: 'vfdwee323rwrwer',
-		tabIndex: 5,
-		iconCls: 'baskets',
-	},
-	{
-		label: 'Смотрели раньше',
-		id: ',bvmcvmbcm43534',
-		tabIndex: 6,
-		iconCls: 'eye',
-	},
-	{
-		label: 'Выход',
-		id: 'cvbcvbe43t2grfddf',
-		tabIndex: 7,
-		iconCls: 'logout',
-	},
-];
+import { useTranslation } from 'next-i18next';
 
 const CabinetTabs: FC = () => {
 	const { push } = useRouter();
+	const { t } = useTranslation('cabinet');
+	const { t: commonT } = useTranslation('common');
+	const TABS = [
+		{
+			label: t('edit_user'),
+			id: 'vcxzzZZd22rfF@!',
+			tabIndex: 1,
+			iconCls: 'pencil',
+		},
+		{
+			label: t('change_pass'),
+			id: 'r23r2fdsdfsdf',
+			tabIndex: 2,
+			iconCls: 'change',
+		},
+		{
+			label: t('order_history'),
+			id: 'rwerwerwe',
+			tabIndex: 3,
+			iconCls: 'history',
+		},
+		{
+			label: t('bookmarks'),
+			id: 'feewrwefwef',
+			tabIndex: 4,
+			iconCls: 'bookmarks',
+		},
+		{
+			label: t('saved_carts'),
+			id: 'vfdwee323rwrwer',
+			tabIndex: 5,
+			iconCls: 'baskets',
+		},
+		{
+			label: t('recently_viewed'),
+			id: ',bvmcvmbcm43534',
+			tabIndex: 6,
+			iconCls: 'eye',
+		},
+		{
+			label: t('logout'),
+			id: 'cvbcvbe43t2grfddf',
+			tabIndex: 7,
+			iconCls: 'logout',
+		},
+	];
 	const [selectedTab, setSelectedTab] = React.useState<number | null>(1);
 	const [showModal, setShowModal] = React.useState<boolean>(false);
 	const [showErrorModal, setErrorShowModal] = React.useState<boolean>(false);
@@ -150,9 +152,9 @@ const CabinetTabs: FC = () => {
 		<>
 			{!isAuthorized && (
 				<ErrorModal
-					title="Ви не підтвердили свій аккаунт"
-					description="Зайдіть на пошту і підтвердіть свій аккаунт"
-					buttonText="На головну"
+					title={t('unAuthorized')}
+					description={t('goToEmail')}
+					buttonText={commonT('goToMain')}
 					buttonHref="/"
 					smallModal={true}
 				/>

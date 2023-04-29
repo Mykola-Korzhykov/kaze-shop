@@ -16,6 +16,7 @@ import { useTranslation } from 'next-i18next';
 
 const Main = (product: SingleProductRes) => {
 	const { t } = useTranslation('product');
+	const { t: commonT } = useTranslation('common');
 	const { id, title, description, price, images, sizes, quantity, categories } =
 		product;
 	const router = useRouter();
@@ -33,8 +34,8 @@ const Main = (product: SingleProductRes) => {
 	});
 
 	const path = [
-		{ path: 'Главная', href: '/' },
-		{ path: 'Каталог', href: '/catalog' },
+		{ path: commonT('Main'), href: '/' },
+		{ path: commonT('catalog'), href: '/catalog' },
 		{ path: categories[0][myLocale], href: '/test' },
 	];
 
@@ -101,11 +102,11 @@ const Main = (product: SingleProductRes) => {
 							<h1>{title[myLocale]}</h1>
 							<div>
 								<b>{price}</b>
-								{fewProduct && <span>Осталось мало</span>}
+								{fewProduct && <span>{t('smallCount')}</span>}
 							</div>
 						</div>
 						<div className={s.sizes}>
-							<h3>Size</h3>
+							<h3>{t('size')}</h3>
 							<SizeItems
 								sizes={sizes}
 								setSize={setSize}
@@ -113,7 +114,7 @@ const Main = (product: SingleProductRes) => {
 							/>
 						</div>
 						<div className={s.colors}>
-							<h3>Color</h3>
+							<h3>{t('color')}</h3>
 							<ColorItems
 								colors={availableColors.map((el) => el.colour.hex)}
 								activeColor={activeColor}
@@ -122,10 +123,10 @@ const Main = (product: SingleProductRes) => {
 						</div>
 						<div className={s.buttons}>
 							<Button onClick={basketButtonHandler} arrow={false}>
-								В корзину
+								{t('addToCart')}
 							</Button>
 							<Button onClick={fastBuy} color="transparent">
-								В один клик
+								{t('1click')}
 							</Button>
 						</div>
 						<div className={s.main_photo}>
@@ -142,7 +143,7 @@ const Main = (product: SingleProductRes) => {
 						<div className={s.text}>
 							<p>{description[myLocale]}</p>
 							<Link href={`/sizeChart/${id}`}>
-								<span>Размерная сетка</span>
+								<span>{t('sizeChart')}</span>
 								<svg
 									width="24"
 									height="24"

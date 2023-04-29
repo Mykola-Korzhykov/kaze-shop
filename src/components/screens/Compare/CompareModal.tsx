@@ -8,6 +8,7 @@ import { useAppSelector, useAppDispatch } from '@/redux/hooks';
 import Image from 'next/image';
 import compareModal from '../../../assets/images/compareModal.png';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 	setShowModal,
 }) => {
@@ -15,6 +16,7 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 		(state) => state.goods.compareOfferProductModal
 	);
 	const router = useRouter();
+	const { t } = useTranslation('common');
 	const dispatch = useAppDispatch();
 	const [sizeActive, setSizeActive] = React.useState<boolean>(false);
 	const [colorActive, setColorActive] = React.useState<boolean>(false);
@@ -148,13 +150,13 @@ const CompareModal: FC<{ setShowModal: (state: boolean) => void }> = ({
 						onClick={closeModal}
 						className={`${s.modal_btn} ${s.modal_cancelBtn}`}
 					>
-						Отмена
+						{t('cancel')}
 					</button>
 					<button
 						onClick={addToCart}
 						className={`${s.modal_btn} ${s.modal_addBtn}`}
 					>
-						Добавить в корзину
+						{t('addToCart')}
 					</button>
 				</div>
 			</div>

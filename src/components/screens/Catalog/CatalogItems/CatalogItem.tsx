@@ -87,6 +87,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 				imageUrl: product?.images[0]?.imagesPaths[0],
 				colourId: product?.images[0]?.colour?.id,
 				size: product?.sizes[0],
+				fromCatalog: true,
 			})
 		);
 		dispatch(addProductToCompare(product));

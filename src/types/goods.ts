@@ -124,12 +124,14 @@ export interface CartProductItem {
 		ru: string;
 		rs: string;
 		en: string;
+		[key: string]: any;
 	};
 	description: {
 		ua: string;
 		ru: string;
 		rs: string;
 		en: string;
+		[key: string]: any;
 	};
 	colour: {
 		id: number;
@@ -149,7 +151,7 @@ export interface CartProduct {
 	id: number;
 	cartStatus: 'Canceled' | 'Submitted' | 'Completed' | 'Processing' | 'Paid';
 	createdAt: Date;
-	updateAt: Date;
+	updatedAt: Date;
 	statusDate: string;
 	totalPrice: string;
 	cartProducts: CartProductItem[];
@@ -208,6 +210,7 @@ export interface sendProductToCart {
 	imageUrl: string;
 	colourId: number;
 	size: string;
+	fromCatalog?: boolean;
 }
 
 export interface GoodsSend {

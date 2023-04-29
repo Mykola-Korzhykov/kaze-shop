@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { parseCookies } from 'nookies';
 import { withAuth } from '@/hoc/RequiredAuth';
 import s from './pagesStyles.module.scss';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { RootState } from '@/redux/store';
 import { useSelector } from 'react-redux';
 import React from 'react';
@@ -92,7 +93,11 @@ const CabinetPage: NextPage = () => {
 };
 
 export const getServerSideProps = withAuth(async (context) => {
-	return { props: {} };
+	return {
+		props: {
+			...(await serverSideTranslations(context.locale, ['common', 'cabinet'])),
+		},
+	};
 });
 
 export default CabinetPage;

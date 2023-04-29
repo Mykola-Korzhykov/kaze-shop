@@ -1,14 +1,18 @@
-import React from 'react'
-import s from './CartFooter.module.scss'
-import { useAppSelector } from '@/redux/hooks'
+import React from 'react';
+import s from './CartFooter.module.scss';
+import { useAppSelector } from '@/redux/hooks';
+import { useTranslation } from 'next-i18next';
 const CartTotalPrice = () => {
-	const basketOfProducts = useAppSelector(state => state.goods.basketOfProducts)
+	const { t } = useTranslation('cart');
+	const basketOfProducts = useAppSelector(
+		(state) => state.goods.basketOfProducts
+	);
 	return (
 		<div className={s.totalPriceWrapper}>
-			<p>Вместе</p>
+			<p>{t('together')}</p>
 			<p>{basketOfProducts?.totalPrice}</p>
 		</div>
-	)
-}
+	);
+};
 
-export default CartTotalPrice
+export default CartTotalPrice;

@@ -236,10 +236,13 @@ export const addProductToCart = createAsyncThunk<
 	{ rejectValue: string }
 >(
 	'goods/addProductToCart',
-	async (product: sendProductToCart, { rejectWithValue }) => {
+	async (product: sendProductToCart, { rejectWithValue, dispatch }) => {
 		try {
 			const productObj = Object.assign({}, product);
 			delete productObj.id;
+			if (product?.fromCatalog) {
+				dispatch(setCartProductId(null));
+			}
 			const data = await Api().goods.addToCart(product.id, productObj);
 			return data;
 		} catch (e) {
@@ -388,6 +391,9 @@ const goodsSlice = createSlice({
 				(el) => el !== action.payload
 			);
 		},
+		setCartProductId(state, action: PayloadAction<number | null>) {
+			state.cartProductId = action.payload;
+		},
 	},
 	extraReducers: (builder) => {
 		builder.addCase(fetchGoodsData.fulfilled, (state, action) => {
@@ -481,7 +487,9 @@ const goodsSlice = createSlice({
 			}),
 			builder.addCase(addProductToCart.fulfilled, (state, action) => {
 				state.cartLoadingStatus = 'idle';
-				state.cartProductId = action.payload.cartProductId;
+				if (!state.cartProductId) {
+					state.cartProductId = action.payload.cartProductId;
+				}
 			}),
 			builder.addCase(addProductToCart.pending, (state, action) => {
 				state.cartLoadingStatus = 'loading';
@@ -542,6 +550,7 @@ export const {
 	deleteCompareOfferProduct,
 	setFeedbackProduct,
 	deleteCatalogSavedProduct,
+	setCartProductId,
 	addToSavedProducts,
 } = goodsSlice.actions;
 

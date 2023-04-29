@@ -1,16 +1,20 @@
-import React, { FC } from 'react'
-import Image from 'next/image'
-import s from './CartItems.module.scss'
-import cartImage from '../../../../assets/images/cartItem.png'
-import { useAppDispatch } from '@/redux/hooks'
-import { CartProductItem } from '@/types/goods'
+import React, { FC } from 'react';
+import Image from 'next/image';
+import s from './CartItems.module.scss';
+import cartImage from '../../../../assets/images/cartItem.png';
+import { useAppDispatch } from '@/redux/hooks';
+import { CartProductItem } from '@/types/goods';
 import {
 	addProductToCart,
 	deleteCartProduct,
 	getCartProducts,
-} from '@/redux/slices/goods'
+} from '@/redux/slices/goods';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 const CartItem: FC<{ product?: CartProductItem }> = ({ product }) => {
-	const dispatch = useAppDispatch()
+	const { t } = useTranslation('cart');
+	const router = useRouter();
+	const dispatch = useAppDispatch();
 	const addProductHandler = () => {
 		dispatch(
 			addProductToCart({
@@ -19,13 +23,13 @@ const CartItem: FC<{ product?: CartProductItem }> = ({ product }) => {
 				colourId: product?.colourId,
 				size: product?.size,
 			})
-		)
+		);
 		// dispatch(getCartProducts())
-	}
+	};
 	const minusProductHandler = () => {
-		dispatch(deleteCartProduct(product?.id))
+		dispatch(deleteCartProduct(product?.id));
 		// dispatch(getCartProducts())
-	}
+	};
 	return (
 		<div className={s.block}>
 			<div className={s.imgWrapper}>
@@ -33,7 +37,7 @@ const CartItem: FC<{ product?: CartProductItem }> = ({ product }) => {
 					src={product?.imageUrl ?? cartImage}
 					width={94}
 					height={153}
-					alt='Cart image'
+					alt="Cart image"
 					className={s.img}
 					priority={true}
 					quality={95}
@@ -41,14 +45,14 @@ const CartItem: FC<{ product?: CartProductItem }> = ({ product }) => {
 			</div>
 			<div className={s.content}>
 				<div className={s.text}>
-					<p className={s.title}>{product?.title?.ua}</p>
-					<p className={s.descr}>{product?.description?.ua}</p>
+					<p className={s.title}>{product?.title?.[router.locale]}</p>
+					<p className={s.descr}>{product?.description?.[router.locale]}</p>
 					<div className={s.size}>
 						<div className={s.checkbox}>
 							<p style={{ backgroundColor: product?.colour?.hex }}></p>
 						</div>
 						<p className={s.format}>
-							Размер - <span>{product?.size}</span>
+							{t('size')} - <span>{product?.size}</span>
 						</p>
 					</div>
 				</div>
@@ -62,12 +66,15 @@ const CartItem: FC<{ product?: CartProductItem }> = ({ product }) => {
 						onClick={minusProductHandler}
 					></button>
 					<p className={s.count}>{product?.quantity}</p>
-					<button onClick={addProductHandler} className={`${s.btn} ${s.plus}`}></button>
+					<button
+						onClick={addProductHandler}
+						className={`${s.btn} ${s.plus}`}
+					></button>
 					<p className={s.price}>{product?.price}</p>
 				</div>
 			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default CartItem
+export default CartItem;

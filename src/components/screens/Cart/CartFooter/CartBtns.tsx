@@ -1,7 +1,10 @@
 import React from 'react';
 import s from './CartFooter.module.scss';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 const CartBtns = () => {
+	const { t } = useTranslation('cart');
+
 	const router = useRouter();
 	const goBack = (e: React.MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault();
@@ -10,10 +13,10 @@ const CartBtns = () => {
 	return (
 		<div className={s.btnsWrapper}>
 			<button onClick={goBack} className={s.btn_goBack}>
-				Назад
+				{t('back')}
 			</button>
 			<button onClick={() => router.push('/order')} className={s.btn_confirm}>
-				Оформить заказ
+				{t('place_order')}
 			</button>
 		</div>
 	);

@@ -1,1 +1,14 @@
-{ "Main": "Main", "backToMain": "Back to main", "error": "Oops, something went wrong", "cancel": "Cancel", "catalog": "Catalog" }
+{
+	"Main": "Main",
+	"backToMain": "Back to main",
+	"error": "Oops, something went wrong",
+	"cancel": "Cancel",
+	"catalog": "Catalog",
+	"skip": "Skip",
+	"addToCart": "Add to cart",
+	"goToCatalogLink": "Go to catalog",
+	"goToMain": "Back to main",
+	"country": "Country",
+	"city": "City",
+	"postal_office": "Postal Office"
+}

@@ -15,7 +15,7 @@ const ForgottenBasketsItem: FC<{
 	useEffect(() => {
 		function printDateStatus() {
 			const today = new Date();
-			const dateToCompare = new Date(product?.updateAt);
+			const dateToCompare = new Date(product?.updatedAt);
 
 			if (dateToCompare.toDateString() === today.toDateString()) {
 				setDateBasketCreated('сегодня');
@@ -25,7 +25,7 @@ const ForgottenBasketsItem: FC<{
 			) {
 				setDateBasketCreated('вчера');
 			} else {
-				const dateCreated = product?.updateAt
+				const dateCreated = product?.updatedAt
 					.toLocaleDateString('en-GB')
 					.split('/')
 					.join('.');

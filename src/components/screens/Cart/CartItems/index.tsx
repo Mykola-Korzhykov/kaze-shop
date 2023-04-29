@@ -3,8 +3,11 @@ import { useAppSelector } from '@/redux/hooks';
 import { CartProductItem } from '@/types/goods';
 import ErrorModal from '@/components/UI/ErrorModal';
 import s from './CartItems.module.scss';
+import { useTranslation } from 'next-i18next';
 import CartItem from './CartItem';
 const CartItems = () => {
+	const { t } = useTranslation('cart');
+	const { t: commonT } = useTranslation('common');
 	const basketOfProducts = useAppSelector(
 		(state) => state.goods.basketOfProducts
 	);
@@ -12,10 +15,10 @@ const CartItems = () => {
 		if (!arr?.length) {
 			return (
 				<ErrorModal
-					title="Ваша корзина пуста"
-					buttonText="Перейти в каталог"
+					title={t('empty_cart')}
+					buttonText={commonT('goToCatalogLink')}
 					buttonHref="/catalog"
-					description="Перейдите в каталог, чтобы купить какой то продукт"
+					description={t('goToCatalog')}
 					smallModal={true}
 				/>
 			);

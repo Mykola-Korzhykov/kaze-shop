@@ -1,2 +1,14 @@
-{ "Main": "Početna", "backToMain": "Povratak na početnu", "error": "Ups, nešto nije u redu", "cancel": "Otkaži", "catalog": "Katalog"
- }
+{
+	"Main": "Početna",
+	"backToMain": "Povratak na početnu",
+	"error": "Ups, nešto nije u redu",
+	"cancel": "Otkaži",
+	"catalog": "Katalog",
+	"skip": "Пропустити",
+	"addToCart": "Dodaj u korpu",
+	"goToCatalogLink": "Idi u katalog",
+	"goToMain": "Povratak na početnu",
+	"country": "Država",
+	"city": "Grad",
+	"postal_office": "Indeks"
+}

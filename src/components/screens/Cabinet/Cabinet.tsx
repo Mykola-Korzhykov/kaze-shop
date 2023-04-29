@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { setCookie, destroyCookie } from 'nookies';
 import { parseCookies } from 'nookies';
 import Cookies from 'js-cookie';
-
+import { useTranslation } from 'next-i18next';
 import s from './screenStyle.module.scss';
 // import myStyle from './Cabinet.module.scss';
 //components
@@ -32,6 +32,8 @@ import { divide } from 'lodash';
 import { ModalSentForm } from './CabinetOwner/Display/AddProduct/ModalSentForm';
 
 const Cabinet: FC = () => {
+	const { t } = useTranslation('cabinet');
+	const { t: commonT } = useTranslation('common');
 	const dispatch = useAppDispatch();
 	const loadingStatus = useSelector(
 		(state: RootState) => state.goods.loadingStatus
@@ -137,7 +139,8 @@ const Cabinet: FC = () => {
 				)}
 				<div className={s.container}>
 					<div className="page_coordinator">
-						<Link href="/">Главная</Link> | <span>Личный кабинет</span>
+						<Link href="/">{commonT('Main')}</Link> |{' '}
+						<span>{t('cabinet')}</span>
 					</div>
 
 					{user?.user?.type === 'USER' && <CabinetTabs />}
