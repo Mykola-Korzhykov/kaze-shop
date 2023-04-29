@@ -55,7 +55,7 @@ const mokLinkData = [
 		},
 		{
 			text: 'Про бренд',
-			link: '#about',
+			link: '/#about',
 			id: 86456456,
 		},
 		{
