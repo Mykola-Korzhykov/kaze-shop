@@ -81,7 +81,7 @@ const Signup: NextPage = () => {
 				);
 
 				setCookie(null, 'accessToken', data?.accessToken, {
-					expires: data?.maxAge,
+					maxAge: data?.maxAge,
 					path: '/',
 				});
 				dispatch(setAuthState(!!data?.accessToken));

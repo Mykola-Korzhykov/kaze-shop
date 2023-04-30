@@ -243,6 +243,7 @@ export const addProductToCart = createAsyncThunk<
 			if (product?.fromCatalog) {
 				dispatch(setCartProductId(null));
 			}
+			delete productObj.fromCatalog;
 			const data = await Api().goods.addToCart(product.id, productObj);
 			return data;
 		} catch (e) {

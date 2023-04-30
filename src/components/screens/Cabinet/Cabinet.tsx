@@ -86,9 +86,8 @@ const Cabinet: FC = () => {
 		const fetchUserData = async () => {
 			try {
 				const data = await Api().user.getMe(router?.locale);
-
 				setCookie(null, 'accessToken', data?.accessToken, {
-					expires: data?.maxAge,
+					maxAge: data?.maxAge,
 					path: '/',
 				});
 				if (data?.user) {
@@ -125,7 +124,7 @@ const Cabinet: FC = () => {
 		<>
 			{loadingStatus === 'loading' ||
 			userCabinetloadingStatus === 'loading' ||
-			!user?.user ? (
+			!user ? (
 				<Spinner />
 			) : null}
 			<main className="content">

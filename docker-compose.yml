@@ -3,6 +3,8 @@ services:
   client:
     image: node:19.2.0-alpine
     container_name: client
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
     build:
       context: .
       dockerfile: Client.Dockerfile
@@ -10,12 +12,7 @@ services:
     hostname: client 
     ports:
       - 3000:${CLIENT_PORT}
-    depends_on:
-      - panel
-      - nginx
     command: npm run start
-    networks:
-      - nesjs-network
     network_mode: bridge
     volumes:
       - .:/client
