@@ -18,8 +18,8 @@ const OrderPage = () => {
 				event.preventDefault();
 				axios.post(API_URL + '/orders/send_cart', {
 					locale,
-					userEmail: userEmail,
-					orderId: orderId,
+					userEmail,
+					orderId,
 				});
 				}
 			} catch (e) {

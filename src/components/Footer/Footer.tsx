@@ -66,13 +66,85 @@ const mokLinkData = [
 	],
 ];
 
+const test = [
+	[
+		{
+			label: {
+				ua: 'Лосини',
+				en: 'Long sleeves',
+				rs: 'Longslivovi',
+				ru: 'Лосины',
+			},
+
+			link: '/catalog',
+			id: 1,
+		},
+		{
+			label: {
+				ua: 'Костюми',
+				en: 'Sets',
+				rs: 'kompleti',
+				ru: 'Костюмы',
+			},
+			link: '/catalog',
+			id: 12,
+		},
+		{
+			label: {
+				ua: 'Велосипедки',
+				en: 'Bicycles',
+				rs: 'šorcevi',
+				ru: 'Велосипедки',
+			},
+
+			link: '/catalog',
+			id: 4,
+		},
+	],
+	[
+		{
+			label: {
+				ua: 'Худі/світшоти',
+				en: 'Hoodies/sweatshirts',
+				rs: 'Duksevi ',
+				ru: 'Xуди/свитшоты',
+			},
+
+			link: '/catalog',
+			id: 8,
+		},
+		{
+			label: {
+				ua: 'Сумки',
+				en: 'Bags',
+				rs: 'Torbe',
+				ru: 'Сумки',
+			},
+
+			link: '/catalog',
+			id: 5,
+		},
+		{
+			label: {
+				ua: 'Топи',
+				en: 'Tops',
+				rs: 'Topovi',
+				ru: 'Топы',
+			},
+			link: '/catalog',
+			id: 10,
+		},
+	],
+];
+
 const Footer = (): JSX.Element => {
 	const dispatch = useAppDispatch();
 
 	const [footerData, setFooterData] = useState<null | FooterFetchData[]>(null);
 	const { locale, pathname, push } = useRouter();
 
-	const myLocale = locale === 'ua' ? 'uk' : locale;
+	let myLocale = locale === 'ua' ? 'uk' : locale;
+	myLocale = myLocale === 'rs' ? 'sr' : myLocale;
 
 	const linkArray = [...mokLinkData, footerData];
 

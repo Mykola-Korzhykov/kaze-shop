@@ -8,7 +8,8 @@ import FormSpinner from '../screens/Order/FormSpinner/FormSpinner'
 const HeaderLogo: FC = () => {
 	const [logo, setLogo] = useState<null | string>(null);
 	const { locale } = useRouter();
-	const myLocale = locale === 'ua' ? 'uk' : locale
+	let myLocale = locale === 'ua' ? 'uk' : locale;
+	myLocale = myLocale === 'rs' ? 'sr' : myLocale;
 
 	useEffect(() => {
 		StrapiAxios.get<LogoResT>('/api/logos?populate=deep&locale=' + myLocale)
