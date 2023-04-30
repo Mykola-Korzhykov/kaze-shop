@@ -13,7 +13,9 @@ import { addUserInfo } from '@/redux/slices/user';
 import { setLoadingStatus } from '@/redux/slices/goods';
 import { useTranslation } from 'next-i18next';
 const ChangeUserInfo = () => {
-	const {t} = useTranslation('')
+	const { t: commonT } = useTranslation('common');
+	const { t } = useTranslation('cabinet');
+	const { t: signupT } = useTranslation('signup');
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const userInfo = useAppSelector(selectUserInfo);
@@ -46,14 +48,22 @@ const ChangeUserInfo = () => {
 			} else if (data?.admin) {
 				dispatch(addUserInfo(data?.admin));
 			}
-			setErrorMessage('Успішно змінено профіль');
+			setErrorMessage(t('successChangedInfo'));
 			setRequestLoading(false);
 			dispatch(setLoadingStatus('idle'));
 		} catch (err) {
 			setRequestLoading(false);
 			dispatch(setLoadingStatus('error'));
 			if (err?.response) {
-				setErrorMessage(err?.response?.data?.message);
+				const text = err?.response?.data?.rawErrors?.find(
+					(error: { locale: string; error: string }) =>
+						error.locale === router?.locale
+				).text;
+				setErrorMessage(
+					err?.response?.data?.rawErrors?.length > 0
+						? text
+						: err?.response?.data?.message
+				);
 			} else {
 				router.push('/404');
 			}
@@ -68,82 +78,82 @@ const ChangeUserInfo = () => {
 			>
 				<div className={cl.cabinet_field}>
 					<label className="auth_label" htmlFor="email">
-						Имя
+						{signupT('name')}
 					</label>
 					<div className="auth_input">
 						<input
-							placeholder="Введите имя"
+							placeholder={signupT('enter_name')}
 							type="text"
 							{...changeUserInfoForm.register('name')}
 						/>
 					</div>
 					<span className="auth_error">
 						{changeUserInfoForm.formState.errors.name &&
-							changeUserInfoForm.formState.errors.name.message}
+							signupT(changeUserInfoForm.formState.errors.name.message)}
 					</span>
 				</div>
 				<div className={cl.cabinet_field}>
 					<label className="auth_label" htmlFor="email">
-						Фамилия
+						{signupT('surname')}
 					</label>
 					<div className="auth_input">
 						<input
-							placeholder="Введите фамилию"
+							placeholder={signupT('enter_surname')}
 							type="text"
 							{...changeUserInfoForm.register('surname')}
 						/>
 					</div>
 					<span className="auth_error">
 						{changeUserInfoForm.formState.errors.surname &&
-							changeUserInfoForm.formState.errors.surname.message}
+							signupT(changeUserInfoForm.formState.errors.surname.message)}
 					</span>
 				</div>
 				<div className={cl.cabinet_field}>
 					<label className="auth_label" htmlFor="email">
-						Страна
+						{commonT('country')}
 					</label>
 					<div className="auth_input">
 						<input
-							placeholder="Введите страну"
+							placeholder={signupT('enter_country')}
 							type="text"
 							{...changeUserInfoForm.register('country')}
 						/>
 					</div>
 					<span className="auth_error">
 						{changeUserInfoForm.formState.errors.country &&
-							changeUserInfoForm.formState.errors.country.message}
+							signupT(changeUserInfoForm.formState.errors.country.message)}
 					</span>
 				</div>
 				<div className={cl.cabinet_field}>
 					<label className="auth_label" htmlFor="email">
-						Город
+						{commonT('city')}
 					</label>
 					<div className="auth_input">
 						<input
-							placeholder="Введите город"
+							placeholder={signupT('enter_city')}
 							type="text"
 							{...changeUserInfoForm.register('city')}
 						/>
 					</div>
 					<span className="auth_error">
 						{changeUserInfoForm.formState.errors.city &&
-							changeUserInfoForm.formState.errors.city.message}
+							signupT(changeUserInfoForm.formState.errors.city.message)}
 					</span>
 				</div>
 				<div className={cl.cabinet_field}>
 					<label className="auth_label" htmlFor="email">
-						Отделение
+						{commonT('postal_office')}
 					</label>
 					<div className="auth_input">
 						<input
-							placeholder="Введите отделение"
+							placeholder={signupT('enter_postOffice')}
 							type="text"
 							{...changeUserInfoForm.register('postOffice')}
 						/>
 					</div>
 					<span className="auth_error">
 						{changeUserInfoForm.formState.errors.postOffice &&
-							changeUserInfoForm.formState.errors.postOffice.message}
+							signupT(changeUserInfoForm.formState.errors.postOffice.message)}
 					</span>
 					<div>
 						{errorMessage && (
@@ -157,7 +167,7 @@ const ChangeUserInfo = () => {
 							className={cl.cabinet_btn}
 							type="submit"
 						>
-							{requestLoading ? 'Loading..' : 'Cохранить'}
+							{requestLoading ? signupT('loading') : t('save')}
 						</button>
 					</div>
 				</div>

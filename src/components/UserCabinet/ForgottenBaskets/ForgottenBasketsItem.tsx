@@ -6,10 +6,12 @@ import showMoreIcon from '../../../assets/icons/cabinetTabs/catabinetCartShowMor
 import { CartProduct } from '@/types/goods';
 import { useAppDispatch } from '@/redux/hooks';
 import { setCartItemsModal } from '@/redux/slices/user';
+import { useTranslation } from 'next-i18next';
 const ForgottenBasketsItem: FC<{
 	product: CartProduct;
 	setShowModal: (state: boolean) => void;
 }> = ({ product, setShowModal }) => {
+	const { t } = useTranslation('cabinet');
 	const [dateBasketCreated, setDateBasketCreated] = useState<string>('-');
 	const dispatch = useAppDispatch();
 	useEffect(() => {
@@ -18,12 +20,12 @@ const ForgottenBasketsItem: FC<{
 			const dateToCompare = new Date(product?.updatedAt);
 
 			if (dateToCompare.toDateString() === today.toDateString()) {
-				setDateBasketCreated('сегодня');
+				setDateBasketCreated(t('today'));
 			} else if (
 				dateToCompare.toDateString() ===
 				new Date(today.setDate(today.getDate() - 1)).toDateString()
 			) {
-				setDateBasketCreated('вчера');
+				setDateBasketCreated(t('yesterday'));
 			} else {
 				const dateCreated = product?.updatedAt
 					.toLocaleDateString('en-GB')
@@ -61,9 +63,11 @@ const ForgottenBasketsItem: FC<{
 			</div>
 			<div className={s.cart_content}>
 				<div className={s.cart_text}>
-					<p className={s.cart_title}>Корзина {product?.id}</p>
+					<p className={s.cart_title}>
+						{t('cart')} {product?.id}
+					</p>
 					<p className={s.cart_descr}>
-						Собрана: <span>{dateBasketCreated}</span>
+						{t('collected')}: <span>{dateBasketCreated}</span>
 					</p>
 					<p className={s.cart_price}>{product?.cartProducts?.[0]?.price}</p>
 				</div>

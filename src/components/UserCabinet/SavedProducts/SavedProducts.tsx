@@ -3,8 +3,11 @@ import { useAppSelector } from '@/redux/hooks';
 import cl from '../../../styles/cabinet2.module.scss';
 import CatalogItem from '@/components/screens/Catalog/CatalogItems/CatalogItem';
 import CabinetEmptyModal from '../CabinetEmptyModal';
+import { useTranslation } from 'next-i18next';
 import { Goods } from '@/types/goods';
 const SavedProducts = () => {
+	const { t } = useTranslation('cabinet');
+	const { t: commonT } = useTranslation('common');
 	const savedProducts = useAppSelector((state) => state.user.savedProducts);
 	const renderGoods = (products: Goods[]) => {
 		return products?.map((product) => {
@@ -15,9 +18,9 @@ const SavedProducts = () => {
 	if (!savedProducts?.length) {
 		return (
 			<CabinetEmptyModal
-				title="У Вас нет закладок"
-				description="Но вы можете это исправить! Перейдите в каталог и сохраните свои первые товары"
-				btnText="Перейти в каталог"
+				title={t('noBookmarks')}
+				description={t('saveFirstProducts')}
+				btnText={commonT('goToCatalogLink')}
 				btnHref="/catalog"
 			/>
 		);

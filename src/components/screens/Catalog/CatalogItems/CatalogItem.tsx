@@ -5,6 +5,7 @@ import {
 	selectAuthState,
 	selectUserInfo,
 	deleteSavedProduct,
+	addUserInfo,
 } from '@/redux/slices/user';
 import { useTranslation } from 'next-i18next';
 import {
@@ -20,7 +21,8 @@ import { Goods, sendProductToCart } from '@/types/goods';
 import { useRouter } from 'next/router';
 import catalogImg from '../../../../assets/images/catalogItem.png';
 import catalogImg2 from '../../../../assets/images/catalogImg2.png';
-
+import { setCookie } from 'nookies';
+import Cookies from 'js-cookie';
 import { Api } from '@/services';
 interface ICatalogItemProps {
 	product?: Goods;
@@ -41,6 +43,32 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 	);
 	const router = useRouter();
 
+	const fetchUserData = async () => {
+		try {
+			const data = await Api().user.getMe(router?.locale);
+
+			setCookie(null, 'accessToken', data?.accessToken, {
+				expires: data?.maxAge,
+				path: '/',
+			});
+			if (data?.user) {
+				dispatch(addUserInfo(data?.user));
+			}
+			if (data?.admin) {
+				dispatch(addUserInfo(data?.admin));
+			}
+			if (data?.owner) {
+				dispatch(addUserInfo(data?.owner));
+			}
+		} catch (e) {
+			//router.push('/404')
+			if (e?.response?.status === 400 || e?.response?.status === 404) {
+				Cookies.remove('accessToken');
+				router.push('/login');
+			}
+		}
+	};
+
 	const saveButtonHandler = () => {
 		if (
 			isSavedProductsTab ||
@@ -54,20 +82,48 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 	};
 
 	const addSavedProduct = () => {
-		if (isAuth && user?.type === 'USER') {
+		// if (isAuth && user?.type === 'USER') {
+		// 	try {
+		// 		Api().goods.addToFavorites(product?.id);
+		// 		dispatch(addToSavedProducts(product?.id));
+		// 	} catch (e) {
+		// 		router.push('/404');
+		// 	}
+		// } else if (!isAuth) {
+		// 	router.push('/login');
+		// }
+		if (isAuth) {
+			if (!user) {
+				fetchUserData();
+			}
 			try {
 				Api().goods.addToFavorites(product?.id);
 				dispatch(addToSavedProducts(product?.id));
 			} catch (e) {
 				router.push('/404');
 			}
-		} else if (!isAuth) {
+		} else {
 			router.push('/login');
 		}
 	};
 
 	const deleteSavedProductFunc = () => {
-		if (isAuth && user?.type === 'USER') {
+		// if (isAuth && user?.type === 'USER') {
+		// 	dispatch(deleteSavedProduct(product?.id));
+		// 	dispatch(deleteCatalogSavedProduct(product?.id));
+		// 	try {
+		// 		Api().user.deleteUserSavedProduct(product?.id);
+		// 	} catch (e) {
+		// 		router.push('/404');
+		// 	}
+		// } else if (!isAuth) {
+		// 	router.push('/login');
+		// }
+
+		if (isAuth) {
+			if (!user) {
+				fetchUserData();
+			}
 			dispatch(deleteSavedProduct(product?.id));
 			dispatch(deleteCatalogSavedProduct(product?.id));
 			try {
@@ -75,7 +131,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 			} catch (e) {
 				router.push('/404');
 			}
-		} else if (!isAuth) {
+		} else {
 			router.push('/login');
 		}
 	};

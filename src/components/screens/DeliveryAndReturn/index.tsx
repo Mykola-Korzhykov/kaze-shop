@@ -1,14 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
 import s from './DeliveryAndReturn.module.scss';
+import { useTranslation } from 'next-i18next';
 const DeliveryAndReturn = () => {
+	const { t } = useTranslation('common');
 	return (
 		<main className="content">
 			<div className="container">
 				<div className="page_coordinator">
-					<Link href="/">Главная</Link> | <span>Доставка и возврат</span>
+					<Link href="/">{t('Main')}</Link> |{' '}
+					<span>{t('deliveryAndReturn')}</span>
 				</div>
-				<h1 className={s.delivery_title}>Доставка и возврат</h1>
+				<h1 className={s.delivery_title}>{t('deliveryAndReturn')}</h1>
 				<p className={s.delivery_descr}>
 					Lorem ipsum dolor sit amet consectetur. Volutpat placerat elit magna
 					justo eu aliquam. Porttitor at purus urna aenean. Accumsan velit

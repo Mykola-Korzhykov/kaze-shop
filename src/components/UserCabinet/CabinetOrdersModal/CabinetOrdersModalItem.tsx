@@ -3,9 +3,13 @@ import s from '../../../components/screens/Cart/CartItems/CartItems.module.scss'
 import Image from 'next/image';
 import cartImage from '../../../assets/images/cartItem.png';
 import { CartProductItem } from '@/types/goods';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 const CabinetOrdersModalItem: FC<{ product: CartProductItem }> = ({
 	product,
 }) => {
+	const { locale } = useRouter();
+	const { t } = useTranslation('cabinet');
 	return (
 		<div className={s.block}>
 			<div className={s.imgWrapper}>
@@ -21,14 +25,14 @@ const CabinetOrdersModalItem: FC<{ product: CartProductItem }> = ({
 			</div>
 			<div className={s.content}>
 				<div className={s.text}>
-					<p className={s.title}>{product?.title?.ua}</p>
-					<p className={s.descr}>{product?.description?.ua}</p>
+					<p className={s.title}>{product?.title?.[locale]}</p>
+					<p className={s.descr}>{product?.description?.[locale]}</p>
 					<div className={s.size}>
 						<div className={s.checkbox}>
 							<p style={{ backgroundColor: product?.colour?.hex }}></p>
 						</div>
 						<p className={s.format}>
-							Размер - <span>{product?.size}</span>
+							{t('size')} - <span>{product?.size}</span>
 						</p>
 					</div>
 				</div>

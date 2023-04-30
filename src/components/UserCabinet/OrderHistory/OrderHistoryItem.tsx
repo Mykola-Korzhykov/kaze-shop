@@ -10,29 +10,31 @@ import statusProcessing from '../../../assets/icons/cabinetTabs/cabinetCartStatu
 import { useAppDispatch } from '@/redux/hooks';
 import { OrderItem } from '@/types/goods';
 import { getUserOrderBasket } from '@/redux/slices/user';
+import { useTranslation } from 'next-i18next';
 const OrderHisrtoryItem: FC<{
 	product: OrderItem;
 	setShowModal: (state: boolean) => void;
 }> = ({ product, setShowModal }) => {
+	const { t } = useTranslation('cabinet');
 	const dispatch = useAppDispatch();
 	const [imageStatusSrc, setImageStatucSrc] = useState<string | null>(null);
-	const [statusText, setStatusText] = useState<string>('в обработке');
+	const [statusText, setStatusText] = useState<string>(t('processing'));
 
 	useEffect(() => {
 		const renderImageSrc = () => {
 			let status = product?.orderStatus;
 			if (status === 'Canceled') {
 				setImageStatucSrc(statusCanceled);
-				setStatusText('отменен');
+				setStatusText(t('return'));
 			} else if (status === 'Processing' || status === 'Paid') {
 				setImageStatucSrc(statusProcessing);
-				setStatusText('в обработке');
+				setStatusText(t('processing'));
 			} else if (status === 'Completed') {
 				setImageStatucSrc(statusCompleted);
-				setStatusText('доставлено');
+				setStatusText(t('delivered'));
 			} else if (status === 'Submitted') {
 				setImageStatucSrc(statusSubmitted);
-				setStatusText('отправлено');
+				setStatusText(t('shipped'));
 			}
 		};
 
@@ -58,13 +60,15 @@ const OrderHisrtoryItem: FC<{
 			</div>
 			<div className={s.cart_content}>
 				<div className={s.cart_text}>
-					<p className={s.cart_title}>Заказ {product?.id}</p>
+					<p className={s.cart_title}>
+						{t('order')} {product?.id}
+					</p>
 					<div className={`${s.cart_status}`}>
 						{imageStatusSrc && (
 							<Image src={imageStatusSrc} width={24} height={24} alt="status" />
 						)}
 						<p className={s.cart_descr}>
-							Статус: <span>{statusText}</span>
+							{t('order_status')}: <span>{statusText}</span>
 						</p>
 					</div>
 					<p className={s.cart_price}>{product?.totalPrice}</p>

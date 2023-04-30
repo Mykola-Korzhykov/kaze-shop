@@ -23,6 +23,18 @@
 	"repeat_pass_validation": "Šifre moraju biti iste",
 	"haveAcc": "Već imate nalog?",
 	"min2symb": "Najmanje 2 znaka",
+	"min6symb": "Najmanje 6 znaka",
+	"min3symb": "Najmanje 3 znaka",
+	"min1symb": "Najmanje 1 znaka",
+	"min5symb": "Najmanje 5 znaka",
+	"max100symb": "Максимум 100 znaka",
+	"max25symb": "Максимум 25 znaka",
+	"max15symb": "Максимум 15 znaka",
+	"max10symb": "Максимум 10 znaka",
 	"onlyLetters": "Koristite samo slova",
+	"required": "Обавезно поље",
+	"enter_country": "Унесите земљу",
+	"enter_city": "Унесите место",
+	"enter_postOffice": "Уђите у поштанско одељење",
 	"loading": "Преузимање..."
 }

@@ -99,6 +99,7 @@ export const getServerSideProps = withAuth(async (context) => {
 				'common',
 				'cabinet',
 				'signup',
+				'login',
 			])),
 		},
 	};

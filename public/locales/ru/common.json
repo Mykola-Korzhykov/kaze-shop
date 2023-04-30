@@ -10,5 +10,7 @@
 	"goToMain": "Вернуться на главную",
 	"country": "Cтрана",
 	"city": "Город",
-	"postal_office": "Отделение"
+	"postal_office": "Отделение",
+	"sizeChart": "Размерная сетка",
+	"deliveryAndReturn": "Доставка и возврат"
 }

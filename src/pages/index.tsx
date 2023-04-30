@@ -16,6 +16,7 @@ import { LastAddedProduct } from '@/types/mainPageRequest/lastAddedProduct';
 import { initialMain } from '@/redux/slices/main';
 import { useEffect } from 'react';
 import { Api } from '@/services';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useRouter } from 'next/router';
 
 export default function Home({
@@ -116,7 +117,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
 		const lastAddedProduct = allRequest[4].data.products;
 
 		return {
-			props: {
+			props: {...(await serverSideTranslations(context.locale, [
+				'common',
+				'forgot',
+				'product',
+			])),
 				about,
 				faq,
 				reviews,
