@@ -1,6 +1,6 @@
 import React from 'react';
 import { GetServerSidePropsContext } from 'next';
-import SpinnerLayout from './src/layouts/SpinnerLayout';
+import SpinnerLayout from '../layouts/SpinnerLayout';
 import Catalog from '@/components/screens/Catalog/Catalog';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { NextPage } from 'next';
