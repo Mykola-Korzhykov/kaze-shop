@@ -80,10 +80,10 @@ export const getStaticProps: GetStaticProps = async (context) => {
 				'/api/main-pages?populate=deep&locale=' + locale
 			),
 			axios.get<LastAddedProduct>(
-				process.env.NEXT_BASE_URL + '/product?page=1&pageSize=10'
+				process.env.NEXT_PUBLIC_BASE_URL + '/product?page=1&pageSize=10'
 			),
 			axios.get<AxiosResponse<ClientReviewsRes>>(
-				process.env.NEXT_BASE_URL + '/reviews/get?page=1&pageSize=15'
+				process.env.NEXT_PUBLIC_BASE_URL + '/reviews/get?page=1&pageSize=15'
 			),
 		]);
 
