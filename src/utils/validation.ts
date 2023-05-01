@@ -50,17 +50,17 @@ export const ChangeUserInfoShema = yup.object().shape({
 		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'onlyLetters'),
 	country: yup
 		.string()
-		.required('country_required')
+		.required('required')
 		.min(2, 'min2symb')
 		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'onlyLetters'),
 	city: yup
 		.string()
-		.required('city_required')
+		.required('required')
 		.min(2, 'min2symb')
 		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'onlyLetters'),
 	postOffice: yup
 		.string()
-		.required('postOffice_required')
+		.required('required')
 		.min(2, 'min2symb')
 		.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,30}/, 'onlyLetters'),
 });
@@ -107,58 +107,58 @@ export const FeedbackFormSchema = yup.object().shape({
 });
 
 export const OrderFormStepOne = yup.object({
-	userName: yup.string().min(2, 'min 2 charset').max(25, 'max 25 charset'),
-	userSurname: yup.string().min(2, 'min 2 charset').max(25, 'max 25 charset'),
+	userName: yup.string().min(2, 'min2symb').max(25, 'max25symb'),
+	userSurname: yup.string().min(2, 'min2symb').max(25, 'max25symb'),
 	userEmail: yup
 		.string()
-		.email('invalid email')
-		.min(6, 'min 6 charset')
-		.max(30, 'max 30 charset')
+		.email('email_validation')
+		.min(6, 'min6symb')
+		.max(30, 'max30symb')
 		.matches(
 			/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-			'invalid email'
+			'email_validation'
 		),
-	userPhoneNumber: yup.string().min(12, 'invalid phone'),
+	userPhoneNumber: yup.string().min(12, 'invalid_phone'),
 	otherPerson: yup.boolean(),
 	otherPersonName: yup.string().when('otherPerson', {
 		is: true,
-		then: yup.string().min(2, 'min 2 charset').max(25, 'max 25 charset'),
+		then: yup.string().min(2, 'min2symb').max(25, 'max25symb'),
 	}),
 	otherPersonSurname: yup.string().when('otherPerson', {
 		is: true,
-		then: yup.string().min(2, 'min 2 charset').max(25, 'max 25 charset'),
+		then: yup.string().min(2, 'min2symb').max(25, 'max25symb'),
 	}),
 	otherPersonPhoneNumber: yup.string().when('otherPerson', {
 		is: true,
-		then: yup.string().min(12, 'invalid phone'),
+		then: yup.string().min(12, 'invalid_phone'),
 	}),
 });
 
 export type OrderFormStepOneData = yup.InferType<typeof OrderFormStepOne>;
 
 export const OrderFormStepTwo = yup.object({
-	country: yup.string().min(3, 'min 3 charset').max(25, 'max 25 charset'),
-	city: yup.string().min(3, 'min 3 charset').max(25, 'max 25 charset'),
+	country: yup.string().min(3, 'min3symb').max(25, 'max25symb'),
+	city: yup.string().min(3, 'min3symb').max(25, 'max25symb'),
 	сourierDelivery: yup.boolean(),
 	postOffice: yup.string().when('сourierDelivery', {
 		is: false,
 		then: yup
 			.string()
-			.min(1, 'min 1 charset')
-			.max(15, 'max 15 charset')
+			.min(2, 'min1symb')
+			.max(15, 'max15symb')
 			.matches(/[a-zA-Z0-9а-яієїґА_ЯЇЄЇЁёА-я_-]{2,50}/, 'invalid value'),
 	}),
 	street: yup.string().when('сourierDelivery', {
 		is: true,
-		then: yup.string().min(5, 'min 5 charset').max(25, 'max 25 charset'),
+		then: yup.string().min(5, 'min5symb').max(25, 'max25symb'),
 	}),
 	house: yup.string().when('сourierDelivery', {
 		is: true,
-		then: yup.string().min(1, 'min 1 charset').max(10, 'max 10 charset'),
+		then: yup.string().min(1, 'min1symb').max(10, 'max10symb'),
 	}),
 	apartment: yup.string().when('сourierDelivery', {
 		is: true,
-		then: yup.string().min(1, 'min 1 charset').max(10, 'max 10 charset'),
+		then: yup.string().min(1, 'min1symb').max(10, 'max10symb'),
 	}),
 	anotherDate: yup.boolean(),
 	sendDate: yup
@@ -168,13 +168,10 @@ export const OrderFormStepTwo = yup.object({
 		.default(null)
 		.when('anotherDate', {
 			is: true,
-			then: yup
-				.date()
-				.typeError('enter the date')
-				.required('is a required field'),
+			then: yup.date().typeError('enter the date').required('required'),
 		}),
 	payInCash: yup.boolean(),
-	comment: yup.string().max(100, 'max 100 charset'),
+	comment: yup.string().max(100, 'max100symb'),
 });
 
 export type OrderFormStepTwoData = yup.InferType<typeof OrderFormStepTwo>;

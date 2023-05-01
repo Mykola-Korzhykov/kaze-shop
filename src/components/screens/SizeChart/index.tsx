@@ -7,7 +7,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import sizeChartImage from '../../../assets/images/sizeChartImage.png';
+import { useTranslation } from 'next-i18next';
 const SizeChart = () => {
+	const { t } = useTranslation('common');
 	const router = useRouter();
 	const id = router.query.id + '';
 	const [requestLoading, setRequestLoading] = React.useState<boolean>(false);
@@ -17,12 +19,14 @@ const SizeChart = () => {
 			ru: string;
 			rs: string;
 			en: string;
+			[key: string]: string;
 		};
 		sizeChartImageDescription: {
 			ua: string;
 			ru: string;
 			rs: string;
 			en: string;
+			[key: string]: string;
 		};
 		sizeChartImage: string;
 	} | null>(null);
@@ -39,7 +43,7 @@ const SizeChart = () => {
 				setRequestLoading(false);
 			} catch (e) {
 				setRequestLoading(false);
-				router.push('/catalog');
+				router.push('/404');
 			}
 		};
 		fetchProductData();
@@ -50,13 +54,13 @@ const SizeChart = () => {
 			<main className="content">
 				<div className="container">
 					<div className="page_coordinator">
-						<Link href="/">Главная</Link> |
-						<span>{neededProduct?.productName?.ua}</span> |
-						<span> Размерная сетка</span>
+						<Link href="/">{t('Main')}</Link> |
+						<span>{neededProduct?.productName?.[router.locale]}</span> |
+						<span> {t('sizeChart')}</span>
 					</div>
-					<h1 className={s.sizeChart_title}>Размерная сетка</h1>
+					<h1 className={s.sizeChart_title}>{t('sizeChart')}</h1>
 					<p className={s.sizeChart_descr}>
-						{neededProduct?.sizeChartImageDescription.ua}
+						{neededProduct?.sizeChartImageDescription?.[router.locale]}
 					</p>
 					<div className={s.sizeChart_imgWrapper}>
 						<Image

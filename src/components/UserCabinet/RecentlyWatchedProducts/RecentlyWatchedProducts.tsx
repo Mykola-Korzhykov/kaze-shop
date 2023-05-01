@@ -4,7 +4,10 @@ import { useAppSelector } from '@/redux/hooks';
 import { Goods } from '@/types/goods';
 import CabinetEmptyModal from '../CabinetEmptyModal';
 import CatalogItem from '@/components/screens/Catalog/CatalogItems/CatalogItem';
+import { useTranslation } from 'next-i18next';
 const RecentlyWatchedProducts = () => {
+	const { t } = useTranslation('cabinet');
+	const { t: commonT } = useTranslation('common');
 	const watchedProducts = useAppSelector((state) => state.user.watchedProducts);
 	const renderGoods = (products: Goods[]) => {
 		return products?.map((product) => {
@@ -15,9 +18,9 @@ const RecentlyWatchedProducts = () => {
 	if (!watchedProducts?.length) {
 		return (
 			<CabinetEmptyModal
-				title="Вы ничего не смотрели до этого("
-				description="Перейдите в каталог, чтобы посмотреть на наши товары"
-				btnText="Перейти в каталог"
+				title={t('nothingViewed')}
+				description={t('viewOurProducts')}
+				btnText={commonT('goToCatalogLink')}
 				btnHref="/catalog"
 			/>
 		);

@@ -10,5 +10,7 @@
 	"goToMain": "Back to main",
 	"country": "Country",
 	"city": "City",
-	"postal_office": "Postal Office"
+	"postal_office": "Postal Office",
+	"sizeChart": "Size chart",
+	"deliveryAndReturn": "Delivery and return"
 }

@@ -14,8 +14,11 @@ import { Api } from '@/services';
 import Spinner from '@/components/Spinner/Spinner';
 import { useAppDispatch } from '@/redux/hooks';
 import { setLoadingStatus } from '@/redux/slices/goods';
+import { useTranslation } from 'next-i18next';
 const ChangeUserPassword = () => {
 	const dispatch = useAppDispatch();
+	const { t } = useTranslation('cabinet');
+	const { t: signupT } = useTranslation('signup');
 	const router = useRouter();
 	const [passwordShown, setPasswordShown] = useState(false);
 	const [confirmPasswordShown, setConfirmPasswordShown] = useState(false);
@@ -37,7 +40,15 @@ const ChangeUserPassword = () => {
 			dispatch(setLoadingStatus('error'));
 			setRequestLoading(false);
 			if (err?.response) {
-				setErrorMessage(err?.response?.data?.message);
+				const text = err?.response?.data?.rawErrors?.find(
+					(error: { locale: string; error: string }) =>
+						error.locale === router?.locale
+				).text;
+				setErrorMessage(
+					err?.response?.data?.rawErrors?.length > 0
+						? text
+						: err?.response?.data?.message
+				);
 			} else {
 				router.push('/404');
 			}
@@ -62,18 +73,18 @@ const ChangeUserPassword = () => {
 					<FormField
 						type="password"
 						name="password"
-						label="Введите пароль"
-						placeholder="Введите пароль"
+						label={signupT('enter_password')}
+						placeholder={signupT('enter_password')}
 						isPassword={true}
 						className="margin-10"
 					/>
 					<div className={`${cl.cabinet_field} ${cl.cabinet_field_two}`}>
 						<label className="auth_label" htmlFor="email">
-							Повторите пароль
+							{signupT('repeat_pass')}
 						</label>
 						<div className="auth_input">
 							<input
-								placeholder="Повторите пароль"
+								placeholder={t('repeat_pass')}
 								type={confirmPasswordShown ? 'text' : 'password'}
 								{...changeUserPasswordForm.register('confirmPassword')}
 							/>
@@ -91,7 +102,10 @@ const ChangeUserPassword = () => {
 						</div>
 						<span className="auth_error">
 							{changeUserPasswordForm.formState.errors.confirmPassword &&
-								changeUserPasswordForm.formState.errors.confirmPassword.message}
+								signupT(
+									changeUserPasswordForm.formState.errors.confirmPassword
+										.message
+								)}
 						</span>
 					</div>
 
@@ -106,7 +120,7 @@ const ChangeUserPassword = () => {
 							className={cl.cabinet_btn}
 							type="submit"
 						>
-							Cохранить
+							{t('save')}
 						</button>
 					</div>
 				</form>

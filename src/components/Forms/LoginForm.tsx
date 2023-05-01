@@ -48,7 +48,7 @@ const LoginForm = () => {
 			router.push('/cabinet');
 		} catch (err) {
 			setLoginLoading(false);
-			if (err.response) {
+			if (err?.response) {
 				const text = err?.response?.data?.rawErrors?.find(
 					(error: { locale: string; error: string }) =>
 						error.locale === router?.locale

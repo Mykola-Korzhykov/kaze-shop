@@ -61,10 +61,10 @@ export const UserApi = (instance: AxiosInstance) => ({
 		return data;
 	},
 	async getMe(locale: string) {
-		const res = await instance.patch<GetCodeDto, { data: AuthResponse }>(
+		const { data } = await instance.patch<GetCodeDto, { data: AuthResponse }>(
 			`/auth/refresh?locale=${locale}`
 		);
-		return res;
+		return data;
 	},
 	async refreshCartToken() {
 		await instance.get('/cart/set-cart');

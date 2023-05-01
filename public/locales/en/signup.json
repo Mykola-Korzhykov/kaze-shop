@@ -23,6 +23,18 @@
 	"repeat_pass_validation": "Passwords must match",
 	"haveAcc": "Already have an account?",
 	"min2symb": "Minimum 2 characters",
+	"min6symb": "Minimum 6 characters",
+	"min3symb": "Minimum 3 characters",
+	"min1symb": "Minimum 1 character",
+	"min5symb": "Minimum 5 characters",
+	"max100symb": "Maximum 100 characters",
+	"max25symb": "Maximum 25 characters",
+	"max15symb": "Maximum 15 characters",
+	"max10symb": "Maximum 10 characters",
 	"onlyLetters": "Use only letters",
+	"required": "Required field",
+	"enter_country": "Enter the country",
+	"enter_city": "Enter the city",
+	"enter_postOffice": "Enter the post office",
 	"loading": "Loading..."
 }

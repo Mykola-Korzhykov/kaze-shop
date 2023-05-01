@@ -9,46 +9,63 @@ import StepTwo from './StepTwo/StepTwo';
 import { orderInit } from '@/redux/slices/order';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
 import { AnimatePresence, motion } from 'framer-motion';
-
-
-
-const path = [{ path: 'Главная', href: '/' }, { path: 'Корзина', href: '/cart' }, { path: 'Оформление заказа', href: '/test' }];
+import { useTranslation } from 'next-i18next';
 
 const Order = (): JSX.Element => {
-    const { stepOne, stepTwo } = useAppSelector(store => store.order);
-    const dispatch = useAppDispatch();
+	const { t } = useTranslation('order');
+	const { t: commonT } = useTranslation('common');
+	const { t: cartT } = useTranslation('cart');
 
+	const path = [
+		{ path: commonT('Main'), href: '/' },
+		{ path: cartT('cart'), href: '/cart' },
+		{ path: t('orderPlacement'), href: '/test' },
+	];
 
-    useEffect(() => {
-        dispatch(orderInit());
-    }, [])
+	const { stepOne, stepTwo } = useAppSelector((store) => store.order);
+	const dispatch = useAppDispatch();
 
-    return (
-        <div className={s.order}>
-            <div className='container'>
-                <RoutesPath categories={path} className={s.path} />
-                <div className={s.form_block}>
-                    <div className={s.step}>
-                        <StepTitle step={1} title='Контактная информация' active={stepOne !== 'success'} className={s.step_one_title} />
-                        <StepOne />
-                        <StepTitle step={2} title='Доставка и оплата' active={stepOne === 'success'} className={s.step_two_title} />
-                        <StepTwo />
-                    </div>
-                    <CartBlock className={s.cart} />
-                </div>
-            </div>
-            <AnimatePresence>
-                {[stepOne, stepTwo].includes('error') && <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}>
-                    <ErrorMessage closeError={() => dispatch(orderInit())} />
-                </motion.div>}
-            </AnimatePresence>
-        </div>
-    );
+	useEffect(() => {
+		dispatch(orderInit());
+	}, []);
+
+	return (
+		<div className={s.order}>
+			<div className="container">
+				<RoutesPath categories={path} className={s.path} />
+				<div className={s.form_block}>
+					<div className={s.step}>
+						<StepTitle
+							step={1}
+							title={t('contactInformation')}
+							active={stepOne !== 'success'}
+							className={s.step_one_title}
+						/>
+						<StepOne />
+						<StepTitle
+							step={2}
+							title={t('deliveryAndPayment')}
+							active={stepOne === 'success'}
+							className={s.step_two_title}
+						/>
+						<StepTwo />
+					</div>
+					<CartBlock className={s.cart} />
+				</div>
+			</div>
+			<AnimatePresence>
+				{[stepOne, stepTwo].includes('error') && (
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+					>
+						<ErrorMessage closeError={() => dispatch(orderInit())} />
+					</motion.div>
+				)}
+			</AnimatePresence>
+		</div>
+	);
 };
 
 export default Order;
-
-

@@ -10,13 +10,16 @@ import FormSpinner from '../FormSpinner/FormSpinner';
 import ErrorModal from '@/components/UI/ErrorModal';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import { setCardId } from '@/redux/slices/order';
-
+import { useTranslation } from 'next-i18next';
+import { t } from 'i18next';
 const CartBlock = ({ className, ...props }: CartBlockProps): JSX.Element => {
 	const [cartLoad, setCartLoad] = useState<CartLoadType>('loading');
 	const [cartItem, setCartItem] = useState<null | CartType>();
 	const { stepOne, stepTwo } = useAppSelector((store) => store.order);
 	const dispatch = useAppDispatch();
-
+	const { t: cartT } = useTranslation('cart');
+	const { t } = useTranslation('order');
+	const { t: commonT } = useTranslation('common');
 	const getCart = async () => {
 		try {
 			const result: CartType = await Api().goods.getCartProducts();
@@ -39,10 +42,10 @@ const CartBlock = ({ className, ...props }: CartBlockProps): JSX.Element => {
 	if (cartItem && !cartItem.cart.cartProducts.length) {
 		return (
 			<ErrorModal
-				title="Ваша корзина пуста"
-				buttonText="Перейти в каталог"
+				title={cartT('empty_cart')}
+				buttonText={commonT('goToCatalogLink')}
 				buttonHref="/catalog"
-				description="Перейдите в каталог, чтобы купить какой то продукт"
+				description={cartT('goToCatalog')}
 				smallModal={true}
 			/>
 		);
@@ -74,7 +77,7 @@ const CartBlock = ({ className, ...props }: CartBlockProps): JSX.Element => {
 	return (
 		<>
 			<div className={cn(s.cart_block, className)} {...props}>
-				<h2>Ваш заказ</h2>
+				<h2>{t('yourOrder')}</h2>
 
 				{cartLoad === 'success' && (
 					<>
@@ -91,7 +94,7 @@ const CartBlock = ({ className, ...props }: CartBlockProps): JSX.Element => {
 						</div>
 
 						<div className={s.total}>
-							<span>Вместе</span>
+							<span>{cartT('together')}</span>
 							<span>{cartItem.cart.totalPrice}</span>
 						</div>
 					</>

@@ -85,9 +85,8 @@ const Cabinet: FC = () => {
 		const cookies = parseCookies();
 		const fetchUserData = async () => {
 			try {
-				const res = await Api().user.getMe(router?.locale);
+				const data = await Api().user.getMe(router?.locale);
 
-				const { data } = res;
 				setCookie(null, 'accessToken', data?.accessToken, {
 					expires: data?.maxAge,
 					path: '/',

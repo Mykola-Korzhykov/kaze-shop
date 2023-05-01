@@ -10,5 +10,7 @@
 	"goToMain": "Povratak na početnu",
 	"country": "Država",
 	"city": "Grad",
-	"postal_office": "Indeks"
+	"postal_office": "Indeks",
+	"sizeChart": "Tabela veličina",
+	"deliveryAndReturn": "Isporuke I povratak"
 }

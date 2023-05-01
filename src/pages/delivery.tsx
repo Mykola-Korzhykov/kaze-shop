@@ -1,7 +1,10 @@
 import React from 'react';
 import DeliveryAndReturn from '@/components/screens/DeliveryAndReturn';
 import SpinnerLayout from '@/layouts/SpinnerLayout';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+
 const DeliveAndReturnPage = () => {
+
 	return (
 		<SpinnerLayout>
 			<DeliveryAndReturn />;
@@ -9,4 +12,11 @@ const DeliveAndReturnPage = () => {
 	);
 };
 
+export async function getStaticProps({ locale }: any) {
+	return {
+		props: {
+			...(await serverSideTranslations(locale, ['common'])),
+		},
+	};
+}
 export default DeliveAndReturnPage;

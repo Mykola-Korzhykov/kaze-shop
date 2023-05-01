@@ -10,5 +10,7 @@
 	"goToMain": "Повернутись на головну",
 	"country": "Країна",
 	"city": "Місто",
-	"postal_office": "Відділення"
+	"postal_office": "Відділення",
+	"sizeChart": "Розмірна сітка",
+	"deliveryAndReturn": "Доставка та повернення"
 }

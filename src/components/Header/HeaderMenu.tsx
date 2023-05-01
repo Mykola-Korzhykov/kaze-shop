@@ -37,74 +37,152 @@ const HeaderMenu: FC<{
 	let HeadersCategories = startMain
 		? [
 				{
-					label: 'Личный кабинет',
+					label: {
+						ua: 'Особистий кабінет',
+						en: 'Personal cabinet',
+						rs: 'Лична канцеларија',
+						ru: 'Личный кабинет',
+					},
 					link: '/cabinet',
 					id: 14234234234,
 				},
 				{
-					label: 'Лосины',
+					label: {
+						ua: 'Лосини',
+						en: 'Long sleeves',
+						rs: 'Longslivovi',
+						ru: 'Лосины',
+					},
+
 					link: '/catalog',
 					id: 1,
 				},
 				{
-					label: 'Костюмы',
+					label: {
+						ua: 'Костюми',
+						en: 'Sets',
+						rs: 'kompleti',
+						ru: 'Костюмы',
+					},
 					link: '/catalog',
 					id: 12,
 				},
 				{
-					label: 'Велосипедки',
+					label: {
+						ua: 'Велосипедки',
+						en: 'Bicycles',
+						rs: 'šorcevi',
+						ru: 'Велосипедки',
+					},
+
 					link: '/catalog',
 					id: 4,
 				},
 				// {
-				// 	label: 'Повседневное белье',
+				// 	label: {
+				// 		ua: 'Худі/світшоти',
+				// 		en: 'Hoodies/sweatshirts',
+				// 		rs: 'Duksevi ',
+				// 		ru: 'Xуди/свитшоты',
+				// 	},
+
 				// 	link: '/catalog',
 				// 	id: 8,
 				// },
 				// {
-				// 	label: 'Сумки',
+				// 	label: {
+				// 		ua: 'Сумки',
+				// 		en: 'Bags',
+				// 		rs: 'Torbe',
+				// 		ru: 'Сумки',
+				// 	},
+
 				// 	link: '/catalog',
 				// 	id: 5,
 				// },
 				{
-					label: 'Топы',
+					label: {
+						ua: 'Топи',
+						en: 'Tops',
+						rs: 'Topovi',
+						ru: 'Топы',
+					},
 					link: '/catalog',
 					id: 10,
 				},
 		  ]
 		: [
 				{
-					label: 'Личный кабинет',
+					label: {
+						ua: 'Особистий кабінет',
+						en: 'Personal cabinet',
+						rs: 'Лична канцеларија',
+						ru: 'Личный кабинет',
+					},
 					link: '/cabinet',
 					id: 14234234234,
 				},
 				{
-					label: 'Лосины',
+					label: {
+						ua: 'Лосини',
+						en: 'Long sleeves',
+						rs: 'Longslivovi',
+						ru: 'Лосины',
+					},
+
 					link: '/catalog',
 					id: 1,
 				},
 				{
-					label: 'Костюмы',
+					label: {
+						ua: 'Костюми',
+						en: 'Sets',
+						rs: 'kompleti',
+						ru: 'Костюмы',
+					},
 					link: '/catalog',
 					id: 12,
 				},
 				{
-					label: 'Велосипедки',
+					label: {
+						ua: 'Велосипедки',
+						en: 'Bicycles',
+						rs: 'šorcevi',
+						ru: 'Велосипедки',
+					},
+
 					link: '/catalog',
 					id: 4,
 				},
 				{
-					label: 'Повседневное белье',
+					label: {
+						ua: 'Худі/світшоти',
+						en: 'Hoodies/sweatshirts',
+						rs: 'Duksevi ',
+						ru: 'Xуди/свитшоты',
+					},
+
 					link: '/catalog',
 					id: 8,
 				},
 				{
-					label: 'Сумки',
+					label: {
+						ua: 'Сумки',
+						en: 'Bags',
+						rs: 'Torbe',
+						ru: 'Сумки',
+					},
+
 					link: '/catalog',
 					id: 5,
 				},
 				{
-					label: 'Топы',
+					label: {
+						ua: 'Топи',
+						en: 'Tops',
+						rs: 'Topovi',
+						ru: 'Топы',
+					},
 					link: '/catalog',
 					id: 10,
 				},
@@ -127,7 +205,9 @@ const HeaderMenu: FC<{
 				{HeadersCategories.map((el) => {
 					return (
 						<li
-							key={el?.id + el?.label}
+							key={
+								el?.id + el?.label?.[router.locale as 'ua' | 'en' | 'rs' | 'ru']
+							}
 							onClick={() => headerLinkHandler(el?.link, el?.id)}
 							className={
 								el?.link === '/cabinet' ? `${cl.header__list_account}` : ''
@@ -141,7 +221,7 @@ const HeaderMenu: FC<{
 										: `${cl.header__link}`
 								}
 							>
-								{el?.label}
+								{el?.label?.[router.locale as 'ua' | 'en' | 'rs' | 'ru']}
 							</Link>
 						</li>
 					);

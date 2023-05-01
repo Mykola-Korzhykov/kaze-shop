@@ -4,10 +4,12 @@ import { useAppSelector } from '@/redux/hooks';
 import OrderHisrtoryItem from './OrderHistoryItem';
 import { OrderItem } from '@/types/goods';
 import CabinetEmptyModal from '../CabinetEmptyModal';
-
+import { useTranslation } from 'next-i18next';
 const OrderHisrtory: FC<{ setShowModal: (state: boolean) => void }> = ({
 	setShowModal,
 }) => {
+	const { t } = useTranslation('cabinet');
+	const { t: commonT } = useTranslation('common');
 	const userOrders = useAppSelector((state) => state.user.orders);
 
 	const renderOrders = (arr: OrderItem[]) => {
@@ -25,9 +27,9 @@ const OrderHisrtory: FC<{ setShowModal: (state: boolean) => void }> = ({
 	if (!userOrders?.orders?.length) {
 		return (
 			<CabinetEmptyModal
-				title="У Вас нет заказов"
-				description="Но вы можете это исправить! Перейдите в каталог и сделайте заказ"
-				btnText="Перейти в каталог"
+				title={t('noOrderHistory')}
+				description={t('buySomething')}
+				btnText={commonT('goToCatalogLink')}
 				btnHref="/catalog"
 			/>
 		);

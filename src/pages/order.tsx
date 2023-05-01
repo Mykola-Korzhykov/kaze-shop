@@ -3,7 +3,7 @@ import Order from '../components/screens/Order/Order';
 import { useRouter } from 'next/router';
 import { API_URL } from '@/services';
 import axios from 'axios';
-
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const OrderPage = () => {
 	const { locale } = useRouter();
@@ -36,5 +36,18 @@ const OrderPage = () => {
 
 	return <Order />;
 };
+
+export async function getStaticProps({ locale }: any) {
+	return {
+		props: {
+			...(await serverSideTranslations(locale, [
+				'common',
+				'order',
+				'signup',
+				'cart',
+			])),
+		},
+	};
+}
 
 export default OrderPage;
