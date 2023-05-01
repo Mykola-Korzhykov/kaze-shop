@@ -21,7 +21,7 @@ export interface Attributes {
 
 export interface Field {
 	id: number;
-	text: string;
+	label: string;
 	link: string;
 }
 

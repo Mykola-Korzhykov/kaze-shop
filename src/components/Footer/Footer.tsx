@@ -12,61 +12,8 @@ import { setHeaderCategory } from '@/redux/slices/goods';
 
 import FormSpinner from '../screens/Order/FormSpinner/FormSpinner';
 
-const mokLinkData = [
-	[
-		{
-			text: 'Лосины',
-			link: '/catalog',
-			id: 1,
-		},
-		{
-			text: 'Сумки',
-			link: '/catalog',
-			id: 5,
-		},
-		{
-			text: 'Топы',
-			link: '/catalog',
-			id: 10,
-		},
-	],
-	[
-		{
-			text: 'Повсегдневное белье',
-			link: '/catalog',
-			id: 8,
-		},
-		{
-			text: 'Велосипедки',
-			link: '/catalog',
-			id: 4,
-		},
-		{
-			text: 'Костюмы',
-			link: '/catalog',
-			id: 12,
-		},
-	],
-	[
-		{
-			text: 'Доставка и возврат',
-			link: '/delivery',
-			id: 645645647,
-		},
-		{
-			text: 'Про бренд',
-			link: '/#about',
-			id: 86456456,
-		},
-		{
-			text: 'FAQ',
-			link: '/#faq',
-			id: 645645649,
-		},
-	],
-];
 
-const test = [
+const mockData = [
 	[
 		{
 			label: {
@@ -135,6 +82,38 @@ const test = [
 			id: 10,
 		},
 	],
+	[
+		{
+			label: {
+				ua: 'Доставка та повернення',
+				ru: 'Доставка и возврат',
+				en: ' Delivery and return',
+				rs: 'Isporuke I povratak',
+			},
+			link: '/delivery',
+			id: 645645647,
+		},
+		{
+			label: {
+				ua: 'Про бренд',
+				ru: ' О бренде',
+				en: ' About the brand',
+				rs: 'O brendu',
+			},
+			link: '/#about',
+			id: 86456456,
+		},
+		{
+			label: {
+				ua: 'FAQ',
+				ru: 'FAQ',
+				en: 'FAQ',
+				rs: 'FAQ',
+			},
+			link: '/#faq',
+			id: 645645649,
+		},
+	],
 ];
 
 const Footer = (): JSX.Element => {
@@ -142,11 +121,13 @@ const Footer = (): JSX.Element => {
 
 	const [footerData, setFooterData] = useState<null | FooterFetchData[]>(null);
 	const { locale, pathname, push } = useRouter();
-
+	const localeType = locale as 'ru' | 'ua' | 'rs' | 'en';
 	let myLocale = locale === 'ua' ? 'uk' : locale;
 	myLocale = myLocale === 'rs' ? 'sr' : myLocale;
-
-	const linkArray = [...mokLinkData, footerData];
+	const footerItem = mockData.map((el) =>
+		el.map((item) => ({ ...item, label: item.label[localeType] }))
+	);
+	const linkArray = [...footerItem, footerData];
 
 	useEffect(() => {
 		StrapiAxios.get<footersResT>(
@@ -189,7 +170,7 @@ const Footer = (): JSX.Element => {
 							linkArray.map((item, i) => {
 								return (
 									<div key={i}>
-										{item.map(({ text, link, id }, i) => {
+										{item.map(({ label, link, id }, i) => {
 											if (link === '/catalog') {
 												return (
 													<Link
@@ -197,24 +178,24 @@ const Footer = (): JSX.Element => {
 														onClick={() => catalogHandler(link, id)}
 														key={i}
 													>
-														{text}
+														{label}
 													</Link>
 												);
 											}
 											if (
 												['instagram', 'facebook', 'tiktok'].includes(
-													text.toLocaleLowerCase()
+													label.toLocaleLowerCase()
 												)
 											) {
 												return (
 													<Link href={link} target="_blank" key={i}>
-														{text}
+														{label}
 													</Link>
 												);
 											}
 											return (
-												<Link href={link} key={i} scroll={false}>
-													{text}
+												<Link href={link} key={i}>
+													{label}
 												</Link>
 											);
 										})}

@@ -136,10 +136,11 @@ export const getStaticProps: GetStaticProps = async (context) => {
 	} catch (e) {
 		console.log(e);
 		return {
-			redirect: {
-				destination: '/500',
-				permanent: false,
-			},
+			// redirect: {
+			// 	destination: '/500',
+			// 	permanent: false,
+			// },
+			notFound: true,
 		};
 	}
 };

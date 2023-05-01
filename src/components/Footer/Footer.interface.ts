@@ -1,5 +1,5 @@
 export interface FooterFetchData {
-	text: string;
+	label: string;
 	link: string;
 	id: number;
 }
