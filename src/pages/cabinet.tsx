@@ -100,6 +100,7 @@ export const getServerSideProps = withAuth(async (context) => {
 				'cabinet',
 				'signup',
 				'login',
+				'order'
 			])),
 		},
 	};

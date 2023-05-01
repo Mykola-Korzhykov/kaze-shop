@@ -88,7 +88,7 @@ const ChangeUserPassword = () => {
 						</label>
 						<div className="auth_input">
 							<input
-								placeholder={t('repeat_pass')}
+								placeholder={signupT('repeat_pass')}
 								type={confirmPasswordShown ? 'text' : 'password'}
 								{...changeUserPasswordForm.register('confirmPassword')}
 							/>

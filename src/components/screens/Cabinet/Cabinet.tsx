@@ -123,8 +123,8 @@ const Cabinet: FC = () => {
 	return (
 		<>
 			{loadingStatus === 'loading' ||
-			userCabinetloadingStatus === 'loading' ||
-			!user?.user ? (
+			userCabinetloadingStatus === 'loading' 
+			 ? (
 				<Spinner />
 			) : null}
 			<main className="content">
@@ -139,7 +139,7 @@ const Cabinet: FC = () => {
 					<div className="page_coordinator">
 						<Link href="/">{commonT('Main')}</Link> |{' '}
 						<span>{t('cabinet')}</span>
-					</div>
+					</div><CabinetTabs />
 
 					{user?.user?.type === 'USER' && <CabinetTabs />}
 					{user?.user?.type === 'OWNER' || user?.user?.type === 'ADMIN' ? (
