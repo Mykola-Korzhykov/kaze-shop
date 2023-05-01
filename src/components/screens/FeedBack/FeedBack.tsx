@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
 import Link from 'next/link';
 import Spinner from '@/components/Spinner/Spinner';
@@ -13,7 +13,13 @@ import FeedbackOption from './FeedbackOption';
 import { setFeedbackProduct } from '@/redux/slices/goods';
 import { Goods } from '@/types/goods';
 import { useTranslation } from 'next-i18next';
-const FeedBack = () => {
+const FeedBack: FC<{
+	feedbackProduct: {
+		imageUrl: string;
+		productId: number;
+		productName: { ua: string; ru: string; rs: string; en: string };
+	} | null;
+}> = ({ feedbackProduct }) => {
 	const { t } = useTranslation('feedback');
 	const { t: commonT } = useTranslation('common');
 	const { t: validationT } = useTranslation('signup');
@@ -24,33 +30,32 @@ const FeedBack = () => {
 	const toogleOption = (id: number) => {
 		setSelectedOption(id);
 	};
-	const feedbackProduct = useAppSelector(
-		(state) => state.goods.feedbackProduct
-	);
+	// const feedbackProduct = useAppSelector(
+	// 	(state) => state.goods.feedbackProduct
+	// );
 	const router = useRouter();
 	const { id } = router.query;
-	React.useEffect(() => {
-		const fetchProductData = async () => {
-			try {
-				setRequestLoading(true);
-				const product: Goods = await Api().goods.getSingleProduct(id + '');
+	// React.useEffect(() => {
+	// 	const fetchProductData = async () => {
+	// 		try {
+	// 			setRequestLoading(true);
+	// 			const product: Goods = await Api().goods.getSingleProduct(id + '');
 
-				dispatch(
-					setFeedbackProduct({
-						imageUrl: product?.images[0]?.imagesPaths[0],
-						productId: product?.id,
-						productName: product?.title,
-					})
-				);
+	// 			dispatch(
+	// 				setFeedbackProduct({
+	// 					imageUrl: product?.images[0]?.imagesPaths[0],
+	// 					productId: product?.id,
+	// 					productName: product?.title,
+	// 				})
+	// 			);
 
-				setRequestLoading(false);
-			} catch (e) {
-				setRequestLoading(false);
-				router.push('/');
-			}
-		};
-		fetchProductData();
-	}, []);
+	// 			setRequestLoading(false);
+	// 		} catch (e) {
+	// 			setRequestLoading(false);
+	// 			router.push('/');
+	// 		}
+	// 	};
+	// }, []);
 
 	const feedBackInfoForm = useForm<{
 		name: string;
@@ -93,7 +98,7 @@ const FeedBack = () => {
 	];
 	return (
 		<>
-			{requestLoading && <Spinner />}
+			{requestLoading || !feedbackProduct ? <Spinner /> : null}
 			<main className="content">
 				<div className="container">
 					<div className="page_coordinator">

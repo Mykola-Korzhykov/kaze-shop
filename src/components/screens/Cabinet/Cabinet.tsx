@@ -124,7 +124,7 @@ const Cabinet: FC = () => {
 		<>
 			{loadingStatus === 'loading' ||
 			userCabinetloadingStatus === 'loading' ||
-			!user ? (
+			!user?.user ? (
 				<Spinner />
 			) : null}
 			<main className="content">

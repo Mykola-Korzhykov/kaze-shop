@@ -404,6 +404,9 @@ const goodsSlice = createSlice({
 			state.totalProducts = action.payload.goods.totalProducts;
 			state.fetchedCategories = action.payload.categories;
 			state.fetchedColours = action.payload.colors;
+			state.catalogSavedProducts = action.payload.goods.products
+				.filter((el) => el.isSaved === true)
+				.map((el) => el.id);
 		}),
 			builder.addCase(fetchGoodsData.pending, (state) => {
 				state.loadingStatus = 'loading';
