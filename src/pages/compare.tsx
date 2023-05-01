@@ -17,7 +17,7 @@ export async function getStaticProps({ locale }: any) {
 			...(await serverSideTranslations(
 				locale,
 				['common'],
-				require('../i18next.config')
+				require('../../i18next.config')
 			)),
 		},
 	};

@@ -98,7 +98,7 @@ export const getServerSideProps = withAuth(async (context) => {
 			...(await serverSideTranslations(
 				context.locale,
 				['common', 'cabinet', 'signup', 'login', 'order'],
-				require('../i18next.config')
+				require('../../i18next.config')
 			)),
 		},
 	};

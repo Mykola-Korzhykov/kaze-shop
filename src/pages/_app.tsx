@@ -1,7 +1,6 @@
 import '@/styles/reset.scss';
 import '@/styles/common.scss';
 import { appWithTranslation } from 'next-i18next';
-
 import type { AppProps } from 'next/app';
 import CookiePolicy from '@/components/modals/CookiePolicy/CookiePolicy';
 import { parseCookies } from 'nookies';
@@ -97,5 +96,5 @@ function App({ Component, pageProps }: AppProps) {
 }
 
 export default wrapper.withRedux(
-	appWithTranslation(App, require('../i18next.config'))
+	appWithTranslation(App, require('../../i18next.config'))
 );

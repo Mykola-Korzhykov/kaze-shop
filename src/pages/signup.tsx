@@ -350,7 +350,7 @@ export const getServerSideProps = NotAuthorized(async (context) => {
 			...(await serverSideTranslations(
 				context.locale,
 				['common', 'signup'],
-				require('../i18next.config')
+				require('../../i18next.config')
 			)),
 		},
 	};
