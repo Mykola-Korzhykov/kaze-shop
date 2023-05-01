@@ -4,7 +4,6 @@ import SpinnerLayout from '@/layouts/SpinnerLayout';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 const DeliveAndReturnPage = () => {
-
 	return (
 		<SpinnerLayout>
 			<DeliveryAndReturn />;
@@ -15,7 +14,11 @@ const DeliveAndReturnPage = () => {
 export async function getStaticProps({ locale }: any) {
 	return {
 		props: {
-			...(await serverSideTranslations(locale, ['common'])),
+			...(await serverSideTranslations(
+				locale,
+				['common'],
+				require('../i18next.config')
+			)),
 		},
 	};
 }

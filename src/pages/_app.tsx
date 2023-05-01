@@ -51,7 +51,7 @@ function App({ Component, pageProps }: AppProps) {
 		// const fetchUserData = async () => {
 		// 	try {
 		// 		const res = await Api().user.getMe(router?.locale);
-				
+
 		// 		const { data } = res;
 		// 		setCookie(null, 'accessToken', data?.accessToken, {
 		// 			maxAge: data?.maxAge,
@@ -96,4 +96,6 @@ function App({ Component, pageProps }: AppProps) {
 	);
 }
 
-export default wrapper.withRedux(appWithTranslation(App));
+export default wrapper.withRedux(
+	appWithTranslation(App, require('../i18next.config'))
+);

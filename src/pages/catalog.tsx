@@ -19,7 +19,11 @@ const CatalogPage: NextPage<{ data: AuthResponse }> = ({ data }) => {
 export async function getStaticProps({ locale }: any) {
 	return {
 		props: {
-			...(await serverSideTranslations(locale, ['common', 'catalog'])),
+			...(await serverSideTranslations(
+				locale,
+				['common', 'catalog'],
+				require('../i18next.config')
+			)),
 		},
 	};
 }

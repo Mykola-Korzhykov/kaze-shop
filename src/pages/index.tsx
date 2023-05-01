@@ -38,7 +38,6 @@ export default function Home({
 		})
 	);
 
-
 	useEffect(() => {
 		const getSliderValue = async () => {
 			try {
@@ -51,20 +50,18 @@ export default function Home({
 				dispatch(
 					initialMain({ lastAddedProduct, productSliderOne, productSliderTwo })
 				);
-
 			} catch (e) {
 				console.log(e);
-				router.push('/500')
+				router.push('/500');
 			}
-		}
+		};
 		getSliderValue();
 	}, []);
-
 
 	return (
 		<SpinnerLayout>
 			<Main />
-		  </SpinnerLayout>
+		</SpinnerLayout>
 	);
 }
 
@@ -76,10 +73,18 @@ export const getStaticProps: GetStaticProps = async (context) => {
 		const allRequest = await Promise.all([
 			StrapiAxios.get<AboutResT>('/api/abouts?populate=deep&locale=' + locale),
 			StrapiAxios.get<FaqResT>('/api/faqs?populate=deep&locale=' + locale),
-			StrapiAxios.get<ReviewsResT>('/api/reviews?populate=deep&locale=' + locale),
-			StrapiAxios.get<MainPageResT>('/api/main-pages?populate=deep&locale=' + locale),
-			axios.get<LastAddedProduct>(process.env.NEXT_BASE_URL + '/product?page=1&pageSize=10'),
-			axios.get<AxiosResponse<ClientReviewsRes>>(process.env.NEXT_BASE_URL + '/reviews/get?page=1&pageSize=15'),
+			StrapiAxios.get<ReviewsResT>(
+				'/api/reviews?populate=deep&locale=' + locale
+			),
+			StrapiAxios.get<MainPageResT>(
+				'/api/main-pages?populate=deep&locale=' + locale
+			),
+			axios.get<LastAddedProduct>(
+				process.env.NEXT_BASE_URL + '/product?page=1&pageSize=10'
+			),
+			axios.get<AxiosResponse<ClientReviewsRes>>(
+				process.env.NEXT_BASE_URL + '/reviews/get?page=1&pageSize=15'
+			),
 		]);
 
 		const about = {
@@ -102,9 +107,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
 		const reviews = {
 			image: allRequest[2].data.data[0].attributes.image,
 			title: allRequest[2].data.data[0].attributes.title,
-			clientReviews: allRequest[5].data.data
-
-		}
+			clientReviews: allRequest[5].data.data,
+		};
 		const mainPage = {
 			vertical_text_one:
 				allRequest[3].data.data[0].attributes.Vertical_text.field_1,
@@ -113,15 +117,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
 			button: allRequest[3].data.data[0].attributes.button,
 		};
 
-
 		const lastAddedProduct = allRequest[4].data.products;
 
 		return {
-			props: {...(await serverSideTranslations(context.locale, [
-				'common',
-				'forgot',
-				'product',
-			])),
+			props: {
+				...(await serverSideTranslations(
+					context.locale,
+					['common', 'forgot', 'product'],
+					require('../i18next.config')
+				)),
 				about,
 				faq,
 				reviews,

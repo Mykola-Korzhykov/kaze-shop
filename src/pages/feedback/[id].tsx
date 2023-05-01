@@ -35,11 +35,11 @@ export const getServerSideProps: GetServerSideProps<{ data: Goods }> = async (
 		return {
 			props: {
 				data,
-				...(await serverSideTranslations(locale, [
-					'common',
-					'feedback',
-					'signup',
-				])),
+				...(await serverSideTranslations(
+					locale,
+					['common', 'feedback', 'signup'],
+					require('../i18next.config')
+				)),
 			},
 		};
 	} catch (e) {

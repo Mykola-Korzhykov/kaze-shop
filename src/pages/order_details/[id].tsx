@@ -28,11 +28,11 @@ export const getServerSideProps = async (
 		return {
 			props: {
 				orderNum: data.orderId,
-				...(await serverSideTranslations(context.locale, [
-					'common',
-					'cart',
-					'order',
-				])),
+				...(await serverSideTranslations(
+					context.locale,
+					['common', 'cart', 'order'],
+					require('../i18next.config')
+				)),
 			},
 		};
 	} catch (e) {

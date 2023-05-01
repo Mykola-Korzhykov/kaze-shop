@@ -285,11 +285,11 @@ const ForgotPassword: NextPage = () => {
 export const getServerSideProps = NotAuthorized(async (context) => {
 	return {
 		props: {
-			...(await serverSideTranslations(context.locale, [
-				'common',
-				'forgot',
-				'signup',
-			])),
+			...(await serverSideTranslations(
+				context.locale,
+				['common', 'forgot', 'signup'],
+				require('../i18next.config')
+			)),
 		},
 	};
 });

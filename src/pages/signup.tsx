@@ -99,7 +99,7 @@ const Signup: NextPage = () => {
 			}
 		} catch (err) {
 			setSignUpLoading(false);
-			
+
 			if (err.response) {
 				const text = err?.response?.data?.rawErrors?.find(
 					(error: { locale: string; error: string }) =>
@@ -347,7 +347,11 @@ const Signup: NextPage = () => {
 export const getServerSideProps = NotAuthorized(async (context) => {
 	return {
 		props: {
-			...(await serverSideTranslations(context.locale, ['common', 'signup'])),
+			...(await serverSideTranslations(
+				context.locale,
+				['common', 'signup'],
+				require('../i18next.config')
+			)),
 		},
 	};
 });

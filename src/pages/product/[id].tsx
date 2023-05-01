@@ -106,7 +106,11 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 			props: {
 				product,
 				reviewsStrapi,
-				...(await serverSideTranslations(locale, ['common', 'product'])),
+				...(await serverSideTranslations(
+					locale,
+					['common', 'product'],
+					require('../i18next.config')
+				)),
 			},
 		};
 	} catch (e) {

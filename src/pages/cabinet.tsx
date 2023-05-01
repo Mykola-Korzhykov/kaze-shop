@@ -95,13 +95,11 @@ const CabinetPage: NextPage = () => {
 export const getServerSideProps = withAuth(async (context) => {
 	return {
 		props: {
-			...(await serverSideTranslations(context.locale, [
-				'common',
-				'cabinet',
-				'signup',
-				'login',
-				'order'
-			])),
+			...(await serverSideTranslations(
+				context.locale,
+				['common', 'cabinet', 'signup', 'login', 'order'],
+				require('../i18next.config')
+			)),
 		},
 	};
 });
