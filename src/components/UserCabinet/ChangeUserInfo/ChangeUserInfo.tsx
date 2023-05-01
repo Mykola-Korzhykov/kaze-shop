@@ -7,7 +7,7 @@ import cl from '../../../styles/cabinet2.module.scss';
 import { Api } from '@/services';
 import { setCookie } from 'nookies';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { selectUserInfo } from '@/redux/slices/user';
+import { selectUserInfo, setAuthorizeState } from '@/redux/slices/user';
 import { useRouter } from 'next/router';
 import { addUserInfo } from '@/redux/slices/user';
 import { setLoadingStatus } from '@/redux/slices/goods';
@@ -40,7 +40,7 @@ const ChangeUserInfo = () => {
 
 			const data = await Api().user.changeInfo(dto);
 			setCookie(null, 'accessToken', data?.accessToken, {
-				expires: data?.maxAge,
+				maxAge: data?.maxAge,
 				path: '/',
 			});
 			if (data?.user) {
@@ -51,10 +51,16 @@ const ChangeUserInfo = () => {
 			setErrorMessage(t('successChangedInfo'));
 			setRequestLoading(false);
 			dispatch(setLoadingStatus('idle'));
+			setTimeout(() => {
+				setErrorMessage('');
+			}, 2000);
 		} catch (err) {
 			setRequestLoading(false);
 			dispatch(setLoadingStatus('error'));
 			if (err?.response) {
+				if (err?.response?.status === 403) {
+					dispatch(setAuthorizeState(false));
+				}
 				const text = err?.response?.data?.rawErrors?.find(
 					(error: { locale: string; error: string }) =>
 						error.locale === router?.locale

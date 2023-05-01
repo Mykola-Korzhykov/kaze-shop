@@ -1,25 +1,23 @@
 import OrderDetails from '@/components/screens/OrderDetails/OrderDetails';
 import React from 'react';
 import ErrorPage from '../404';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { GetServerSidePropsContext } from 'next';
 import { Api } from '@/services';
 
 const Order_details = ({ orderNum }: Order_detailsProps) => {
-
-    if (!orderNum) {
-
-        return <ErrorPage />
-    }
-    return (
-        <OrderDetails orderNum={orderNum} />
-    );
+	if (!orderNum) {
+		return <ErrorPage />;
+	}
+	return <OrderDetails orderNum={orderNum} />;
 };
 
 export default Order_details;
 
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-
-    const { token, id } = context.query;
+export const getServerSideProps = async (
+	context: GetServerSidePropsContext
+) => {
+	const { token, id } = context.query;
 
 	try {
 		const { data } = await Api().goods.checkOrderSuccess<ResponseFetch>(
@@ -30,6 +28,11 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 		return {
 			props: {
 				orderNum: data.orderId,
+				...(await serverSideTranslations(
+					context.locale,
+					['common', 'cart', 'order'],
+					require('../../i18next.config')
+				)),
 			},
 		};
 	} catch (e) {
@@ -38,16 +41,15 @@ export const getServerSideProps = async (context: GetServerSidePropsContext) => 
 			notFound: true,
 		};
 	}
-}
+};
 
 interface Order_detailsProps {
-    orderNum: number;
+	orderNum: number;
 }
 
 interface ResponseFetch {
-    data: {
-        orderId: number;
-        orderStatus: 'Processing' | 'Completed'
-    }
-
+	data: {
+		orderId: number;
+		orderStatus: 'Processing' | 'Completed';
+	};
 }

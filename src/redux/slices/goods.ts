@@ -243,6 +243,7 @@ export const addProductToCart = createAsyncThunk<
 			if (product?.fromCatalog) {
 				dispatch(setCartProductId(null));
 			}
+			delete productObj.fromCatalog;
 			const data = await Api().goods.addToCart(product.id, productObj);
 			return data;
 		} catch (e) {
@@ -403,6 +404,9 @@ const goodsSlice = createSlice({
 			state.totalProducts = action.payload.goods.totalProducts;
 			state.fetchedCategories = action.payload.categories;
 			state.fetchedColours = action.payload.colors;
+			state.catalogSavedProducts = action.payload.goods.products
+				.filter((el) => el.isSaved === true)
+				.map((el) => el.id);
 		}),
 			builder.addCase(fetchGoodsData.pending, (state) => {
 				state.loadingStatus = 'loading';
@@ -416,6 +420,9 @@ const goodsSlice = createSlice({
 				state.catalogLoadingStatus = 'idle';
 				state.goods = action.payload.products;
 				state.totalProducts = action.payload.totalProducts;
+				state.catalogSavedProducts = action.payload.products
+				.filter((el) => el.isSaved === true)
+				.map((el) => el.id);
 			}),
 			builder.addCase(fetchGoods.pending, (state) => {
 				state.loadingStatus = 'loading';
@@ -431,6 +438,9 @@ const goodsSlice = createSlice({
 
 				state.goods = action.payload.products;
 				state.totalProducts = action.payload.totalProducts;
+				state.catalogSavedProducts = action.payload.products
+				.filter((el) => el.isSaved === true)
+				.map((el) => el.id);
 			}),
 			builder.addCase(filterGoods.pending, (state, action) => {
 				state.loadingStatus = 'loading';
@@ -465,6 +475,9 @@ const goodsSlice = createSlice({
 				state.loadingStatus = 'idle';
 				state.goods = action.payload.products;
 				state.totalProducts = action.payload.totalProducts;
+				state.catalogSavedProducts = action.payload.products
+				.filter((el) => el.isSaved === true)
+				.map((el) => el.id);
 				// state.goods = action.payload
 			}),
 			builder.addCase(fetchGoodsByCategory.pending, (state, action) => {

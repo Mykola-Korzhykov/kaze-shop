@@ -48,7 +48,7 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 			const data = await Api().user.getMe(router?.locale);
 
 			setCookie(null, 'accessToken', data?.accessToken, {
-				expires: data?.maxAge,
+				maxAge: data?.maxAge,
 				path: '/',
 			});
 			if (data?.user) {

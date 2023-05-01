@@ -137,7 +137,7 @@ const HeaderMenu: FC<{
 					label: {
 						ua: 'Костюми',
 						en: 'Sets',
-						rs: 'kompleti',
+						rs: 'Kompleti',
 						ru: 'Костюмы',
 					},
 					link: '/catalog',

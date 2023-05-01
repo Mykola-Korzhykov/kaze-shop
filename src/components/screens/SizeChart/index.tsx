@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Spinner from '@/components/Spinner/Spinner';
 import { Goods } from '@/types/goods';
 import { Api } from '@/services';
@@ -8,12 +8,8 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import sizeChartImage from '../../../assets/images/sizeChartImage.png';
 import { useTranslation } from 'next-i18next';
-const SizeChart = () => {
-	const { t } = useTranslation('common');
-	const router = useRouter();
-	const id = router.query.id + '';
-	const [requestLoading, setRequestLoading] = React.useState<boolean>(false);
-	const [neededProduct, setNeededProduct] = React.useState<{
+const SizeChart: FC<{
+	neededProduct: {
 		productName: {
 			ua: string;
 			ru: string;
@@ -29,28 +25,49 @@ const SizeChart = () => {
 			[key: string]: string;
 		};
 		sizeChartImage: string;
-	} | null>(null);
-	React.useEffect(() => {
-		const fetchProductData = async () => {
-			try {
-				setRequestLoading(true);
-				const product: Goods = await Api().goods.getSingleProduct(id);
-				setNeededProduct({
-					productName: product?.title,
-					sizeChartImage: product?.sizeChartImage,
-					sizeChartImageDescription: product?.sizeChartImageDescription,
-				});
-				setRequestLoading(false);
-			} catch (e) {
-				setRequestLoading(false);
-				router.push('/404');
-			}
-		};
-		fetchProductData();
-	}, []);
+	} | null;
+}> = ({ neededProduct }) => {
+	const { t } = useTranslation('common');
+	const router = useRouter();
+	const id = router.query.id + '';
+	const [requestLoading, setRequestLoading] = React.useState<boolean>(false);
+	// const [neededProduct, setNeededProduct] = React.useState<{
+	// 	productName: {
+	// 		ua: string;
+	// 		ru: string;
+	// 		rs: string;
+	// 		en: string;
+	// 		[key: string]: string;
+	// 	};
+	// 	sizeChartImageDescription: {
+	// 		ua: string;
+	// 		ru: string;
+	// 		rs: string;
+	// 		en: string;
+	// 		[key: string]: string;
+	// 	};
+	// 	sizeChartImage: string;
+	// } | null>(null);
+	// React.useEffect(() => {
+	// 	const fetchProductData = async () => {
+	// 		try {
+	// 			setRequestLoading(true);
+	// 			const product: Goods = await Api().goods.getSingleProduct(id);
+	// 			setNeededProduct({
+	// 				productName: product?.title,
+	// 				sizeChartImage: product?.sizeChartImage,
+	// 				sizeChartImageDescription: product?.sizeChartImageDescription,
+	// 			});
+	// 			setRequestLoading(false);
+	// 		} catch (e) {
+	// 			setRequestLoading(false);
+	// 			router.push('/404');
+	// 		}
+	// 	};
+	// }, []);
 	return (
 		<>
-			{requestLoading && <Spinner />}
+			{!neededProduct ? <Spinner /> : null}
 			<main className="content">
 				<div className="container">
 					<div className="page_coordinator">

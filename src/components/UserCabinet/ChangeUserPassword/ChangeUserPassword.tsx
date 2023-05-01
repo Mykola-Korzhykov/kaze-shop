@@ -14,6 +14,7 @@ import { Api } from '@/services';
 import Spinner from '@/components/Spinner/Spinner';
 import { useAppDispatch } from '@/redux/hooks';
 import { setLoadingStatus } from '@/redux/slices/goods';
+import { setAuthorizeState } from '@/redux/slices/user';
 import { useTranslation } from 'next-i18next';
 const ChangeUserPassword = () => {
 	const dispatch = useAppDispatch();
@@ -40,6 +41,9 @@ const ChangeUserPassword = () => {
 			dispatch(setLoadingStatus('error'));
 			setRequestLoading(false);
 			if (err?.response) {
+				if (err?.response?.status === 403) {
+					dispatch(setAuthorizeState(false));
+				}
 				const text = err?.response?.data?.rawErrors?.find(
 					(error: { locale: string; error: string }) =>
 						error.locale === router?.locale
@@ -84,7 +88,7 @@ const ChangeUserPassword = () => {
 						</label>
 						<div className="auth_input">
 							<input
-								placeholder={t('repeat_pass')}
+								placeholder={signupT('repeat_pass')}
 								type={confirmPasswordShown ? 'text' : 'password'}
 								{...changeUserPasswordForm.register('confirmPassword')}
 							/>

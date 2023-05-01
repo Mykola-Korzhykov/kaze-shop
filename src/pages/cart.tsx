@@ -14,7 +14,11 @@ const CartPage: NextPage = () => {
 export async function getStaticProps({ locale }: any) {
 	return {
 		props: {
-			...(await serverSideTranslations(locale, ['common', 'cart'])),
+			...(await serverSideTranslations(
+				locale,
+				['common', 'cart'],
+				require('../../i18next.config')
+			)),
 		},
 	};
 }

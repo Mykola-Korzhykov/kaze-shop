@@ -40,12 +40,11 @@ const OrderPage = () => {
 export async function getStaticProps({ locale }: any) {
 	return {
 		props: {
-			...(await serverSideTranslations(locale, [
-				'common',
-				'order',
-				'signup',
-				'cart',
-			])),
+			...(await serverSideTranslations(
+				locale,
+				['common', 'order', 'signup', 'cart'],
+				require('../../i18next.config')
+			)),
 		},
 	};
 }

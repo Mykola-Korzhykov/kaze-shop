@@ -51,7 +51,11 @@ const Login: NextPage = () => {
 export const getServerSideProps = NotAuthorized(async (context) => {
 	return {
 		props: {
-			...(await serverSideTranslations(context.locale, ['common', 'login'])),
+			...(await serverSideTranslations(
+				context.locale,
+				['common', 'login'],
+				require('../../i18next.config')
+			)),
 		},
 	};
 });

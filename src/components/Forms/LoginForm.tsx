@@ -31,7 +31,7 @@ const LoginForm = () => {
 			const data = await Api().user.login(dto, router.locale);
 
 			setCookie(null, 'accessToken', data?.accessToken, {
-				expires: data?.maxAge,
+				maxAge: data?.maxAge,
 				path: '/',
 			});
 			dispatch(setAuthState(!!data?.accessToken));
