@@ -21,18 +21,32 @@ const Main = (): JSX.Element => {
     const myLocale = router.locale as 'ua' | 'ru' | 'rs' | 'en';
 
     return (
-        <div>
-            <BuyProducts />
-            {productPackOne.length > 0 && productPackOne.length && <Slider slideHeight={360} items={productPackOne} title={productPackOne[0].categories[0][myLocale]} />}
-            <About className={cn({
-                [s.about]: productPackOne.length === 0
-            })} />
-            {productPackTwo.length > 0 && productPackTwo.length && <Slider slideHeight={360} items={productPackTwo} title={productPackTwo[0].categories[0][myLocale]} />}
-            <Reviews clientReviews={clientReviews} />
-            <FAQ />
-            <Footer/>
-        </div>
-    );
+			<div>
+				<BuyProducts />
+				{productPackOne.length > 0 && productPackOne.length && (
+					<Slider
+						slideHeight={360}
+						items={productPackOne}
+						title={productPackOne[0].categories[0][myLocale]}
+					/>
+				)}
+				<About
+					className={cn({
+						[s.about]: productPackOne.length === 0,
+					})}
+				/>
+				{productPackTwo.length > 0 && productPackTwo.length && (
+					<Slider
+						slideHeight={360}
+						items={productPackTwo}
+						title={productPackTwo[0].categories[0][myLocale]}
+					/>
+				)}
+				<Reviews clientReviews={clientReviews} />
+				<FAQ />
+				<Footer />
+			</div>
+		);
 };
 
 export default Main;
