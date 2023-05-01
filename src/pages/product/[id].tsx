@@ -109,7 +109,7 @@ export const getStaticProps: GetStaticProps = async ({ params, locale }) => {
 				...(await serverSideTranslations(
 					locale,
 					['common', 'product'],
-					require('../../i18next.config')
+					require('../../../i18next.config')
 				)),
 			},
 		};
