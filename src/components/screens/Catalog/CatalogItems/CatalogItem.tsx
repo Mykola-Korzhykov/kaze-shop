@@ -145,7 +145,12 @@ const CatalogItem: FC<ICatalogItemProps> = ({ product }) => {
 				size: product?.sizes[0],
 				fromCatalog: true,
 			})
-		);
+		)
+			.unwrap()
+			.catch((e) => {
+				console.log('add product to cart error', e);
+				router.push('/404');
+			});
 		dispatch(addProductToCompare(product));
 		router.push('/compare');
 	};
