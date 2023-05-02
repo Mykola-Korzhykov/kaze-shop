@@ -12,7 +12,6 @@ import { setHeaderCategory } from '@/redux/slices/goods';
 
 import FormSpinner from '../screens/Order/FormSpinner/FormSpinner';
 
-
 const mockData = [
 	[
 		{
@@ -204,8 +203,26 @@ const Footer = (): JSX.Element => {
 							})}
 					</nav>
 					<div className={s.footer_about}>
-						<div>© 2023 kazesport. Все права защищены</div>
-						<div>Сайт разработан AlphaDigital</div>
+						<div>
+							© 2023 kazesport.{' '}
+							{localeType === 'ru'
+								? 'Все права защищены'
+								: localeType === 'ua'
+								? 'Всі права захищені'
+								: localeType === 'en'
+								? 'All rights reserved'
+								: 'Сва права задржана'}
+						</div>
+						<div>
+							{localeType === 'ru'
+								? 'Сайт разработан'
+								: localeType === 'ua'
+								? 'Сайт розроблений'
+								: localeType === 'en'
+								? 'The site is developed by'
+								: 'Сајт је развијен'}{' '}
+							AlphaDigital
+						</div>
 					</div>
 				</div>
 			</div>
