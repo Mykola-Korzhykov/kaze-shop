@@ -14,38 +14,7 @@ import cn from 'classnames';
 import { Api } from '@/services';
 import { useAppSelector } from '@/redux/hooks';
 import { useTranslation } from 'next-i18next';
-const mockSliderProps1 = [
-	{
-		img: Product1,
-		title: 'Хай тек серая',
-		price: '48$',
-	},
-	{
-		img: Product1,
-		title: 'Хай тек серая',
-		price: '78$',
-	},
-	{
-		img: Product1,
-		title: 'Хай тек серая',
-		price: '88$',
-	},
-	{
-		img: Product1,
-		title: 'Хай тек серая',
-		price: '28$',
-	},
-	{
-		img: Product1,
-		title: 'Хай тек серая',
-		price: '38$',
-	},
-	{
-		img: Product1,
-		title: 'Хай тек серая',
-		price: '48$',
-	},
-];
+
 
 const OneProduct = ({ product }: SingleProductData): JSX.Element => {
 	const [recentlyViewed, setRecentlyViewed] = useState<SingleProductRes[]>([]);
